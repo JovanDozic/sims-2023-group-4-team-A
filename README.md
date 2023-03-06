@@ -1,4 +1,4 @@
-# SIMS 2023 Projekat
+# SIMS 2022/2023 Projekat
 
 Grupa 4 / Tim A:
 - RA 75/2020 Dožić Jovan
