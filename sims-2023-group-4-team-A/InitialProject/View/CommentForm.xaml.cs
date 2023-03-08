@@ -1,11 +1,11 @@
-﻿using InitialProject.Model;
-using InitialProject.Repository;
+﻿using SIMSProject.Model;
+using SIMSProject.Repository;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 
-namespace InitialProject.Forms
+namespace SIMSProject.Forms
 {
     /// <summary>
     /// Interaction logic for CommentForm.xaml

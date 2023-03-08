@@ -1,11 +1,11 @@
-﻿using InitialProject.Forms;
-using InitialProject.Model;
-using InitialProject.Repository;
+﻿using SIMSProject.Forms;
+using SIMSProject.Model;
+using SIMSProject.Repository;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 
-namespace InitialProject
+namespace SIMSProject
 {
     /// <summary>
     /// Interaction logic for SignInForm.xaml

@@ -1,9 +1,9 @@
-﻿using InitialProject.Model;
-using InitialProject.Serializer;
+﻿using SIMSProject.Model;
+using SIMSProject.Serializer;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace InitialProject.Repository
+namespace SIMSProject.Repository
 {
     public class UserRepository
     {

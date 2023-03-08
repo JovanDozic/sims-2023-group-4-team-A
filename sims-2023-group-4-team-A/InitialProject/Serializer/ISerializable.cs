@@ -1,4 +1,4 @@
-﻿namespace InitialProject.Serializer
+﻿namespace SIMSProject.Serializer
 {
     public interface ISerializable
     {

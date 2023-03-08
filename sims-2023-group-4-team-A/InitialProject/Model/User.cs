@@ -1,7 +1,7 @@
-﻿using InitialProject.Serializer;
+﻿using SIMSProject.Serializer;
 using System;
 
-namespace InitialProject.Model
+namespace SIMSProject.Model
 {
     public class User : ISerializable
     {
