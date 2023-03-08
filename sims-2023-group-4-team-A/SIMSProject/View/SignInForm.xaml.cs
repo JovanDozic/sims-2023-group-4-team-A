@@ -1,6 +1,7 @@
 ﻿using SIMSProject.Forms;
 using SIMSProject.Model;
 using SIMSProject.Repository;
+using SIMSProject.View;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -45,7 +46,11 @@ namespace SIMSProject
 
         private void SignIn(object sender, RoutedEventArgs e)
         {
-            User user = _repository.GetByUsername(Username);
+            
+            InitialWindow initialWindow = new InitialWindow();
+            initialWindow.Show();
+            
+            /*User user = _repository.GetByUsername(Username);
             if (user != null)
             {
                 if(user.Password == txtPassword.Password)
@@ -62,7 +67,7 @@ namespace SIMSProject
             else
             {
                 MessageBox.Show("Wrong username!");
-            }
+            }*/
             
         }
     }
