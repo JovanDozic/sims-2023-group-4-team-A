@@ -14,6 +14,12 @@ namespace SIMSProject.Model
         public string City { get; set; }
         public string Country { get; set; }
 
+
+        public TourLocation()
+        {
+            
+        }
+
         public TourLocation(int id, string city, string country)
         {
             Id = id;
