@@ -26,7 +26,8 @@ namespace SIMSProject.View
 
         private void Guest1_Click(object sender, RoutedEventArgs e)
         {
-
+            Guest1.AccommondationSearchAndShowForm accommondationSearchAndShowForm = new();
+            accommondationSearchAndShowForm.ShowDialog();
         }
 
         private void Guest2_Click(object sender, RoutedEventArgs e)
