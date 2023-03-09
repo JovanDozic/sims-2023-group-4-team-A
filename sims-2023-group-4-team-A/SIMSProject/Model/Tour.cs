@@ -15,7 +15,9 @@ namespace SIMSProject.Model
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
 
-        //public Location Location {get; set;}
+        public User Guide { get; set; }
+
+        public Address Location {get; set;}
         public string Description { get; set; } = string.Empty;
 
         public Language TourLanguage {get; set;}
@@ -24,27 +26,17 @@ namespace SIMSProject.Model
 
         public List<KeyPoint> KeyPoints { get; set; } = new List<KeyPoint>();
 
-        public DateTime  StartDateTime { get; set; }
-
+        public List<TourDate> Dates { get; set; } = new List<TourDate>();
         public int Duration { get; set; }
 
         public List<String> Images { get; set; } = new List<String>();
 
+        public List<User> Sightseers { get; set; } = new List<User>();
+
         public int LocationId { get; set; }
+        public int GuideId { get; set; }
 
         public Tour(){}
-
-        public Tour(int id, string name, string description, Language tourLanguage, int maxGuestNumber, DateTime startDateTime, int duration, int locationId)
-        {
-            Id = id;
-            Name = name;
-            Description = description;
-            TourLanguage = tourLanguage;
-            MaxGuestNumber = maxGuestNumber;
-            StartDateTime = startDateTime;
-            Duration = duration;
-            LocationId = locationId;
-        }
 
         public void FromCSV(string[] values)
         {
@@ -53,14 +45,14 @@ namespace SIMSProject.Model
             Description = values[2];
             Enum.TryParse(values[3], out Language TourLanguage);
             MaxGuestNumber = Convert.ToInt32(values[4]);
-            DateTime.TryParse(values[5], out DateTime StartDateTime);
-            Duration = Convert.ToInt32(values[6]);
-            LocationId = Convert.ToInt32(values[7]);
+            Duration = Convert.ToInt32(values[5]);
+            LocationId = Convert.ToInt32(values[6]);
+            GuideId = Convert.ToInt32(values[7]);
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = {Id.ToString(), Name, Description, TourLanguage.ToString(), MaxGuestNumber.ToString(), StartDateTime.ToString(), Duration.ToString(), LocationId.ToString() };
+            string[] csvValues = {Id.ToString(), Name, Description, TourLanguage.ToString(), MaxGuestNumber.ToString(), Duration.ToString(), LocationId.ToString(), GuideId.ToString() };
             return csvValues;
         }
     }
