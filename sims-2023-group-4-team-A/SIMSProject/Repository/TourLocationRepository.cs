@@ -10,7 +10,7 @@ namespace SIMSProject.Repository
 {
     public class TourLocationRepository
     {
-        /*private const string FilePath = "../../../Resources/Data/tourlocations.csv";
+        private const string FilePath = "../../../Resources/Data/tourlocations.csv";
         private readonly Serializer<TourLocation> serializer;
 
         public TourLocationRepository()
@@ -26,6 +26,6 @@ namespace SIMSProject.Repository
         public void Save(List<TourLocation> tourlocations)
         {
             serializer.ToCSV(FilePath, tourlocations);
-        }*/
+        }
     }
 }

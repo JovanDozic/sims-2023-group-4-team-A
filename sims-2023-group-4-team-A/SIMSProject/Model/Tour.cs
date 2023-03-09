@@ -17,7 +17,7 @@ namespace SIMSProject.Model
 
         public User Guide { get; set; }
 
-        public Address Location {get; set;}
+        public TourLocation Location {get; set;}
         public string Description { get; set; } = string.Empty;
 
         public Language TourLanguage {get; set;}
@@ -37,6 +37,20 @@ namespace SIMSProject.Model
         public int GuideId { get; set; }
 
         public Tour(){}
+
+        public Tour(int id, string name, User guide, TourLocation location, string description, Language tourLanguage, int maxGuestNumber, int duration, int locationId, int guideId)
+        {
+            Id = id;
+            Name = name;
+            Guide = guide;
+            Location = location;
+            Description = description;
+            TourLanguage = tourLanguage;
+            MaxGuestNumber = maxGuestNumber;
+            Duration = duration;
+            LocationId = locationId;
+            GuideId = guideId;
+        }
 
         public void FromCSV(string[] values)
         {
