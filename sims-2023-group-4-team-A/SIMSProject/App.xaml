@@ -5,6 +5,11 @@
              StartupUri="View/OwnerViews/OwnerInitialWindow.xaml" 
              ShutdownMode="OnMainWindowClose">
     <Application.Resources>
-         
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+            </StackPanel>
+        </ControlTemplate>
     </Application.Resources>
 </Application>

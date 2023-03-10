@@ -1,7 +1,6 @@
 ﻿using SIMSProject.Model.DAO;
 using SIMSProject.Model;
 using System.Collections.Generic;
-using System.Windows.Media.Animation;
 
 namespace SIMSProject.Controller
 {
@@ -34,13 +33,6 @@ namespace SIMSProject.Controller
         public Address GetById(int id)
         {
             return _addresses.Get(id);
-        }
-
-        public ACCOMMODATION_TYPE GetType(string type)
-        {
-            if (type == "Apartman") return ACCOMMODATION_TYPE.APARTMENT;
-            else if (type == "Kuća") return ACCOMMODATION_TYPE.HOUSE;
-            else return ACCOMMODATION_TYPE.HUT;
         }
 
     }

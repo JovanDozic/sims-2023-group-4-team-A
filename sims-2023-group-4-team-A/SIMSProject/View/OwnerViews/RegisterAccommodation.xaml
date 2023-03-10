@@ -3,8 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cstm="clr-namespace:SIMSProject.CustomControls"
         mc:Ignorable="d"
-        Title="Registracija Smeštaja" Height="600" Width="700">
+        Title="Registracija Smeštaja" Height="650" Width="700">
 
     <Grid Margin="20,5,20,20">
 
@@ -22,7 +23,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -34,7 +35,6 @@
                FontSize="16"/>
         <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"
                Content="Lokacija" Grid.ColumnSpan="2" FontSize="16"/>
-
         <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"
                Content="Tip" Grid.ColumnSpan="2" FontSize="16"/>
         <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"
@@ -42,12 +42,12 @@
         <Label Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"
                Content="Minimalan broj dana za rezervaciju" Grid.ColumnSpan="2" FontSize="16"/>
         <Label Grid.Row="7" Grid.Column="0" VerticalAlignment="Center"
-               Content="Granica za otkazivanje u danima" Grid.ColumnSpan="2" FontSize="16"/>
+               Content="Granica za otkazivanje" Grid.ColumnSpan="2" FontSize="16"/>
         <Label Grid.Row="8" Grid.Column="0" VerticalAlignment="Center"
                Content="Slike" Grid.ColumnSpan="2" FontSize="16"/>
 
-        <TextBox x:Name="TBName" 
-                 Grid.Row="1" Grid.Column="1" FontSize="16" 
+        <TextBox Text="{Binding Path=Accommodation.Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                 Grid.Row="1" Grid.Column="1" FontSize="16" Padding="5,0,0,0" 
                  VerticalContentAlignment="Center" Margin="5,9,5,9" Height="30"/>
 
         <Grid Grid.Row="2" Grid.Column="1">
@@ -55,18 +55,18 @@
                 <ColumnDefinition Width="3*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="TBStreet" 
+            <TextBox Text="{Binding Path=Accommodation.Location.Street, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                      Grid.Column="0"
                      FontSize="16" VerticalContentAlignment="Center" 
-                     Margin="5,9,5,9" Height="30"
-                     Text="Ulica" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"
+                     Margin="5,9,5,9" Height="30" Padding="5,0,0,0" 
+                     GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"
                      Foreground="#7F000000"
                      />
-            <TextBox x:Name="TBStreetNumber"
+            <TextBox Text="{Binding Path=Accommodation.Location.StreetNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                      Grid.Column="1"
                      FontSize="16" VerticalContentAlignment="Center" 
-                     Margin="5,9,5,9" Height="30" 
-                     Text="Broj" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"
+                     Margin="5,9,5,9" Height="30" Padding="5,0,0,0"
+                     GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"
                      Foreground="#7F000000"/>
         </Grid>
 
@@ -75,40 +75,55 @@
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="TBCity" 
-                     Grid.Column="0" FontSize="16"
-                     VerticalContentAlignment="Center" Margin="5,9,5,9" Height="30"
-                     Text="Grad" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"
+            <TextBox Text="{Binding Path=Accommodation.Location.City, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                     Grid.Column="0" 
+                     FontSize="16" VerticalContentAlignment="Center" 
+                     Margin="5,9,5,9" Height="30" Padding="5,0,0,0" 
+                     GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"
                      Foreground="#7F000000"/>
-            <TextBox x:Name="TBCountry"
-                     Grid.Column="1" FontSize="16" 
-                     VerticalContentAlignment="Center" Margin="5,9,5,9" Height="30" 
-                     Text="Država" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"
+            <TextBox Text="{Binding Path=Accommodation.Location.Country, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     Grid.Column="1" 
+                     FontSize="16" VerticalContentAlignment="Center" 
+                     Margin="5,9,5,9" Height="30" Padding="5,0,0,0" 
+                     GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"
                      Foreground="#7F000000"/>
         </Grid>
-        
+
         <ComboBox x:Name="CBType" 
                   Grid.Row="4" Grid.Column="1" FontSize="16" 
                   VerticalContentAlignment="Center" Margin="5,9,5,9" Height="30"
-                  ItemsSource="{Binding Path=AccommodationTypeSource}"/>
+                  ItemsSource="{Binding Path=AccommodationTypeSource}"/>  <cstm:NumericTextBox Grid.Row="5" Grid.Column="1"
+                             Value="{Binding Path=Accommodation.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-        <TextBox x:Name="TBMaxGuestNumber" 
-                 Grid.Row="5" Grid.Column="1" FontSize="16" 
-                 VerticalContentAlignment="Center" Margin="5,9,5,9" Height="30"/>
+        <cstm:NumericTextBox Grid.Row="6" Grid.Column="1"
+                             Value="{Binding Path=Accommodation.MinReservationDays, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-        <TextBox x:Name="TBMinReservationDays" 
-                 Grid.Row="6" Grid.Column="1" FontSize="16" 
-                 VerticalContentAlignment="Center" Margin="5,9,5,9" Height="30"/>
+        <Grid Grid.Row="7" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
-        <TextBox x:Name="TBCancellationThreshold" 
-                 Grid.Row="7" Grid.Column="1" FontSize="16" 
-                 VerticalContentAlignment="Center" Margin="5,9,5,10" Height="30"/>
-        
+            <cstm:NumericTextBox Value="{Binding Path=Accommodation.CancellationThreshold, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <!--<my:NumericTextBox Value="10" ValueChanged="NumericTextBox_ValueChanged" />-->
+            
+            <Label Content="dana pred rezervaciju"
+                   Grid.Column="1"
+                   FontSize="16" VerticalAlignment="Center"/>
+        </Grid>
+
+
+
+
         <TextBox x:Name="TBImageURLs" 
-                 Grid.Row="8" Grid.Column="1" FontSize="16" 
-                 VerticalContentAlignment="Center" Margin="5,9,5,9" Height="30"/>
+                 Grid.Row="8" Grid.Column="1" FontSize="16" Padding="5" 
+                 VerticalContentAlignment="top" Margin="5,9,5,9" Height="70"
+                 AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible"
+                 Text="primer1.jpg, primer2.png..." GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"
+                 Foreground="#7F000000"/>
 
-        
+
+
         <Button Grid.Row="9" Grid.ColumnSpan="2"
                 Content="Registruj" FontSize="16" Padding="15,3,15,3" Width="100" Height="35"
                 Margin="0,0,150,0" HorizontalAlignment="Center" VerticalAlignment="Center"
