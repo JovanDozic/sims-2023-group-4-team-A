@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public enum Language { ENGLISH, SERBIAN };
+public enum Language { ENGLISH = 0, SERBIAN, SPANISH, FRENCH };
 
 namespace SIMSProject.Model
 {
