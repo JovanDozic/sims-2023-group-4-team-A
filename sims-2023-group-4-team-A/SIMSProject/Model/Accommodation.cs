@@ -1,9 +1,11 @@
-﻿using SIMSProject.Controller;
+﻿using Accessibility;
+using SIMSProject.Controller;
 using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,7 +37,8 @@ namespace SIMSProject.Model
             MaxGuestNumber = maxGuestNumber;
             MinReservationDays = minReservationDays;
             CancellationThreshold = cancellationThreshold;
-            ImageURLs = imageURLs;
+            //TODO: ImageURLs = imageURLs;
+            ImageURLs = new() { "default_from_constructor.jpeg" };
         }
 
         private ACCOMMODATION_TYPE GetType(string type)
@@ -56,12 +59,18 @@ namespace SIMSProject.Model
             Id = int.Parse(values[0]);
             Name = values[1];
             AddressController addressController = new();
-            Location = addressController.GetById(int.Parse(values[3]));
-            Type = GetType(values[4]);
-            MaxGuestNumber = int.Parse(values[5]);
-            MinReservationDays = int.Parse(values[6]);
-            CancellationThreshold = int.Parse(values[7]);
+            Location = addressController.GetById(int.Parse(values[2]));
+            Type = GetType(values[3]);
+            MaxGuestNumber = int.Parse(values[4]);
+            MinReservationDays = int.Parse(values[5]);
+            CancellationThreshold = int.Parse(values[6]);
             // TODO: ImageURLs problem
         }
+
+        //public event PropertyChangedEventHandler? PropertyChanged;
+        //protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //}
     }
 }
