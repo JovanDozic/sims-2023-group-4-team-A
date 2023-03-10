@@ -23,5 +23,10 @@ namespace SIMSProject.View.Guest2
         {
             InitializeComponent();
         }
+
+        private void PretraziClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }
