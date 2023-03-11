@@ -2,6 +2,7 @@
 using SIMSProject.Model;
 using SIMSProject.Repository;
 using SIMSProject.View;
+using SIMSProject.View.OwnerViews;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -16,7 +17,7 @@ namespace SIMSProject
 
         private readonly UserRepository _repository;
 
-        private string _username;
+        private string _username = string.Empty;
         public string Username
         {
             get => _username;
@@ -30,7 +31,7 @@ namespace SIMSProject
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
