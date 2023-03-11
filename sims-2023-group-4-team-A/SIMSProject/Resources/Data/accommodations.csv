@@ -1,11 +1,14 @@
-1|Seaside House|1|HOUSE|6|2|7|image01.png,picture.jpg
-2|Cozy Apartment|2|APARTMENT|4|3|14|image042.jpeg
-3|Mountain Hut|3|HUT|10|7|30|
-4|Downtown Apartment|4|APARTMENT|2|2|1|image2.png
-5|Forest House|5|HOUSE|8|5|14|mainimage.jpeg
-6|Riverside Apartment|6|APARTMENT|4|2|7|gif.gif,gifara.gif
-7|Countryside House|7|HOUSE|12|7|30|picture1.png,picture2.png,picture3.png,picture4.png
-8|Beachfront Apartment|8|APARTMENT|6|3|14|img.png
-9|Lakeside House|9|HOUSE|10|5|14|image.jpeg
-10|Mountain View Hut|10|HUT|6|3|14|pic.jpg
-11|Jovanov smeštaj|11|APARTMENT|100|14|10|picture.png,image.jpg
+1|Seaside Kuća|1|Kuća|6|2|7|image01.png,picture.jpg
+2|Cozy Apartman|2|Apartman|4|3|14|image042.jpeg
+3|Mountain Koliba|3|Koliba|10|7|30|
+4|Downtown Apartman|4|Apartman|2|2|1|image2.png
+5|Forest Kuća|5|Kuća|8|5|14|mainimage.jpeg
+6|Riverside Apartman|6|Apartman|4|2|7|gif.gif,gifara.gif
+7|Countryside Kuća|7|Kuća|12|7|30|picture1.png,picture2.png,picture3.png,picture4.png
+8|Beachfront Apartman|8|Apartman|6|3|14|img.png
+9|Lakeside Kuća|9|Kuća|10|5|14|image.jpeg
+10|Mountain View Koliba|10|Koliba|6|3|14|pic.jpg
+11|Jovanov smeštaj|11|Apartman|100|14|10|picture.png,image.jpg
+12|markov smestaj|12|Apartman|5|5|5|
+14|anja|16|Apartman|10|10|10|anja.jpeg
+15|natalijin smeštaj|19|Apartman|4|4|4|natalija.png,vegeta.jpg
