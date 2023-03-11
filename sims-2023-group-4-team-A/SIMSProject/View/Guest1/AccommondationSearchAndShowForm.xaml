@@ -18,13 +18,14 @@
         </ToolBar>
 
         <DataGrid  Height="297" Margin="10,0,12,0"
+                   ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}"
                                SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv" Width="80" />
-                <DataGridTextColumn Header="Lokacija" Width="120" />
-                <DataGridTextColumn Header="Tip" Width="120" />
-                <DataGridTextColumn Header="Broj gostiju" Width="80" />
-                <DataGridTextColumn Header="Broj dana za rezervaciju" Width="140" />
+                <DataGridTextColumn Header="Naziv" Width="80" Binding="{Binding name}" />
+                <DataGridTextColumn Header="Lokacija" Width="120" Binding="{Binding location}" />
+                <DataGridTextColumn Header="Tip" Width="120" Binding="{Binding type}" />
+                <DataGridTextColumn Header="Broj gostiju" Width="80" Binding="{Binding maxGuestNumber}" />
+                <DataGridTextColumn Header="Broj dana za rezervaciju" Width="140" Binding="{Binding minReservationDays}" />
                 
             </DataGrid.Columns>
 

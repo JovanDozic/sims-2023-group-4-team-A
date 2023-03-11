@@ -40,5 +40,10 @@ namespace SIMSProject.Model
             City = values[3];
             Country = values[4];
         }
+
+        public override string? ToString()
+        {
+            return City + " " + Country;
+        }
     }
 }
