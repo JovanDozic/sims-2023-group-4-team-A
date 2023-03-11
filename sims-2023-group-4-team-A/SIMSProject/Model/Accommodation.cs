@@ -51,26 +51,26 @@ namespace SIMSProject.Model
                 }
             }
         }
-        private int _maxGuestNumber;
+        private int _maxGuestNumber = 1;
         public int MaxGuestNumber
         {
             get => _maxGuestNumber;
             set
             {
-                if (value != _maxGuestNumber)
+                if (value != _maxGuestNumber && value >= 1)
                 {
                     _maxGuestNumber = value;
                     OnPropertyChanged(nameof(MaxGuestNumber));
                 }
             }
         }
-        private int _minReservationDays;
+        private int _minReservationDays = 1;
         public int MinReservationDays
         {
             get => _minReservationDays;
             set
             {
-                if (value != _minReservationDays)
+                if (value != _minReservationDays && value >= 1)
                 {
                     _minReservationDays = value;
                     OnPropertyChanged(nameof(MinReservationDays));
