@@ -30,10 +30,21 @@ namespace SIMSProject.View
     public partial class TourCreationWindow : Window , INotifyPropertyChanged
     {
 
+        private static int keyPointCounter = 0;
         public TourController tourController { get; set; } = new();
         public KeyPointController keyPointController { get; set; } = new();
         public TourDateController tourDateController { get; set; } = new();
+        public TourLocationController tourLocationController { get; set; } = new();
 
+
+        
+
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
 
         public Tour New { get; set; }
@@ -46,7 +57,7 @@ namespace SIMSProject.View
         public User Guide {  get; set; }
 
         public List<KeyPoint> NewKeyPoints { get; set; } = new();
-        public List<DateTime> NewDates { get; set; } = new();
+        public List<TourDate> NewDates { get; set; } = new();
         public List<KeyPoint> KeyPoints { get; set; } = new();
 
         public TourCreationWindow()
@@ -89,12 +100,7 @@ namespace SIMSProject.View
         }
 
 
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+             
 
         private List<string> SeperateURLs()
         {
@@ -106,27 +112,39 @@ namespace SIMSProject.View
 
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
+            if(keyPointCounter >= 2)
+            {
+                
 
-            TourDate tourDate = new TourDate(-1,SelectedDate ,-1);
+                
+                New.KeyPoints = NewKeyPoints;
+                New.Dates = NewDates;
+                New.TourLanguage = FindCorespondive(NewTranslate);
+                New.Guide = Guide;
+                New.GuideId = Guide.Id;
+                //New.LocationId = tourLocationController.GetAll().Find(x => x.Country == New.Location.Country && x.City == New.Location.City).Id;
 
-            List<string> images = SeperateURLs();
-            New.KeyPoints = NewKeyPoints;
-            New.Location = NewAddress;
-            New.TourLanguage = FindCorespondive(NewTranslate);
-            New.Dates.Add(tourDate);
-            New.Guide = Guide;
-            New.GuideId = Guide.Id;
-            New.LocationId = NewAddress.Id;
-            New.Images = images;
+                List<string> images = SeperateURLs();
+                New.Images = images;
 
+                keyPointCounter = 0;
 
-            tourController.Create(New);
+                tourController.Create(New);
+                MessageBox.Show("Tura uspešno kreirana.");
+                Close();
+                
+            }
+            else
+            {
+                MessageBox.Show("Morate uneti najmanje 2 ključne tačke!");
+            }            
 
         }
 
         private void AddKeyPoint_Click(object sender, RoutedEventArgs e)
         {
             NewKeyPoints.Add(SelectedKeyPoint);
+            keyPointCounter++;
 
         }
 
@@ -138,7 +156,7 @@ namespace SIMSProject.View
             int seconds = 0;
 
             DateTime newDate = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, hours, minutes, seconds);
-            NewDates.Add(newDate);
+            NewDates.Add(new(-1, SelectedDate, -1));
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)

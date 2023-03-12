@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
+using SIMSProject.Controller;
+using SIMSProject.Repository;
 
 public enum Language { ENGLISH = 0, SERBIAN, SPANISH, FRENCH };
 
@@ -33,7 +35,7 @@ namespace SIMSProject.Model
 
         public User Guide { get; set; }
 
-        public TourLocation Location { get; set; }
+        public TourLocation Location { get; set; } = new TourLocation();
 
         private string? _description;
         public string Description
@@ -159,7 +161,6 @@ namespace SIMSProject.Model
             Duration = Convert.ToInt32(values[5]);
             LocationId = Convert.ToInt32(values[6]);
             GuideId = Convert.ToInt32(values[7]);
-
             string[] ImageURLs = values[8].Split(',');
             Images.AddRange(ImageURLs);
 

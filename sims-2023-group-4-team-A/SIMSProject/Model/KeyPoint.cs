@@ -1,11 +1,14 @@
-﻿using SIMSProject.Serializer;
+﻿using SIMSProject.Controller;
+using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using SIMSProject.Repository;
 
 namespace SIMSProject.Model
 {
@@ -77,7 +80,7 @@ namespace SIMSProject.Model
         {
             Id = Convert.ToInt32(values[0]);
             Description = values[1];
-            LocationId = Convert.ToInt32(values[2]);
+            LocationId = Convert.ToInt32(values[2]);         
         }
     }
 }

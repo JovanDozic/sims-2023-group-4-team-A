@@ -7,7 +7,7 @@
         xmlns:cstm="clr-namespace:SIMSProject.CustomControls"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="TourCreationWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen" >
+        Title="TourCreationWindow" Height="600" Width="820" WindowStartupLocation="CenterScreen" >
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -48,33 +48,34 @@
             <StackPanel Grid.Column="1" Grid.Row="1">
                 <TextBox x:Name="TBCity"  
                     Margin="5,5,5,0" 
-                          Text="{Binding Path=NewAddress.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                          Text="{Binding Path=New.Location.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
                           Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                           
                 />
                 <TextBox x:Name="TBCountry" 
                     Margin="5,25,5,0" 
-                    Text="{Binding Path=NewAddress.Country, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                    Text="{Binding Path=New.Location.Country, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                     
                     />
             </StackPanel>
 
             <ComboBox x:Name="LanguageCombo" Grid.Column="1" Grid.Row="2" Margin="5" Height="30" Text="{Binding Path=NewTranslate, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-            <cstm:NumericTextBox Grid.Column="1" Grid.Row="3" Margin="5"  Height="50" Value="{Binding Path=New.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></cstm:NumericTextBox>
-            <cstm:NumericTextBox Grid.Column="1" Grid.Row="4" Margin="5"  Height="50" Value="{Binding Path=New.Duration, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></cstm:NumericTextBox>
+            <cstm:NumericTextBox Grid.Column="1" Grid.Row="3" Margin="5"  Height="50" Value="{Binding Path=New.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True, Mode=TwoWay}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></cstm:NumericTextBox>
+            <cstm:NumericTextBox Grid.Column="1" Grid.Row="4" Margin="5"  Height="50" Value="{Binding Path=New.Duration, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></cstm:NumericTextBox>
         </Grid>
         <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
+                <Label Content="Unesite vreme u formatu: hh:mm"/>
                 <DatePicker x:Name="myDatePicker" SelectedDate="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged}" DisplayDateStart="{x:Static sys:DateTime.Now}"/>
                 <TextBox x:Name="TBTime" 
                          Width="55" 
-                         Margin="5,0,0,0" 
+                         Margin="2,0,0,0"                         
                          Text="{Binding SelectedTime, UpdateSourceTrigger=PropertyChanged}"
                          />
                 <Button x:Name="AddDate" Content="Dodaj" Margin="5,0,0,0" Click="AddDate_Click"></Button>
             </StackPanel>
-            <WrapPanel Margin="0,10,0,0">
+            <WrapPanel Margin="0,25,0,0">
                 <ComboBox x:Name="KeyPointCombo" Width="300" 
                           ItemsSource="{Binding KeyPoints, UpdateSourceTrigger=PropertyChanged}" 
                           SelectedItem="{Binding SelectedKeyPoint, UpdateSourceTrigger=PropertyChanged}"

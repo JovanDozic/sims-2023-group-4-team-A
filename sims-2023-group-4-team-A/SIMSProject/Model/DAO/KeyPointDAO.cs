@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SIMSProject.Model.DAO
 {
@@ -19,6 +20,33 @@ namespace SIMSProject.Model.DAO
             _repository = new();
             _keyPoints = _repository.Load();
             _observers = new();
+
+
+            TourLocationRepository tourLocationRepository = new();
+            TourRepository tourRepository = new();
+            TourKeyPointRepository tourKeyPointRepository = new();
+
+            List<TourLocation> toursLocations = tourLocationRepository.Load();
+            List<Tour> tours = tourRepository.Load();
+            List<TourKeyPoint> tourKeyPoints = tourKeyPointRepository.Load();
+
+            foreach(var keyPoint in _keyPoints)
+            {
+                keyPoint.Location = toursLocations.Find(x => x.Id == keyPoint.LocationId);
+
+                foreach(var tour in tours)
+                {
+                    foreach(var pair in tourKeyPoints)
+                    {
+                        if(pair.TourId == tour.Id)
+                        {
+                            keyPoint.Tours.Add(tour);
+                        }
+                    }
+                }
+            }
+            
+
         }
 
         public int NextId() { return _keyPoints.Max(x => x.Id) + 1; }
