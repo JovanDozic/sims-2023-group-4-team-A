@@ -39,6 +39,11 @@ namespace SIMSProject.Model
             City = Convert.ToString(values[1]);
             Country = Convert.ToString(values[2]);
         }
+
+        public override string? ToString()
+        {
+            return City + " " + Country;
+        }
     }
 
     

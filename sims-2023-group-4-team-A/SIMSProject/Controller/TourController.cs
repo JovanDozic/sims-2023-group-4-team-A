@@ -33,5 +33,33 @@ namespace SIMSProject.Controller
         {
             return _tours.Save(tour);
         }
+
+        public List<Tour> SearchLocations(string locationId)
+        {
+            return _tours.SearchLocations(locationId);
+        }
+
+        public List<Tour> SearchDurations(string duration)
+        {
+            return _tours.SearchDurations(duration);
+        }
+
+        public List<Tour> SearchLanguages(string language)
+        {
+            return _tours.SearchLanguages(language);
+        }
+
+        public List<Tour> SearchMaxGuest(string maxGuests)
+        {
+            return _tours.SearchMaxGuests(maxGuests);
+        }
+
+
+
+
+        /*public static List<Tour> Search(string searchText)
+        {
+            return _tours.Search(searchText);
+        }*/
     }
 }
