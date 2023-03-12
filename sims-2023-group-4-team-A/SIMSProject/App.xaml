@@ -4,13 +4,6 @@
              xmlns:local="clr-namespace:SIMSProject"
              ShutdownMode="OnMainWindowClose"
              StartupUri="View/OwnerViews/RegisterAccommodation.xaml">
-    <Application.Resources>
-    <ControlTemplate x:Key="ValidationTemplate">
-        <StackPanel>
-            <AdornedElementPlaceholder x:Name="textBox"></AdornedElementPlaceholder>
-            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#99ff0000"></TextBlock>
-        </StackPanel>
-    </ControlTemplate>
-    </Application.Resources>
-
+             StartupUri="View/TourCreationWindow.xaml"
+             ShutdownMode="OnMainWindowClose">
 </Application>
