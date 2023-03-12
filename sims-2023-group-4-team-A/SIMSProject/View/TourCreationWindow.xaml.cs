@@ -31,22 +31,23 @@ namespace SIMSProject.View
     {
 
         public TourController tourController { get; set; } = new();
-        public KeyPointController KeyPointController { get; set; } = new();
+        public KeyPointController keyPointController { get; set; } = new();
+        public TourDateController tourDateController { get; set; } = new();
+
+
 
         public Tour New { get; set; }
-
-        public KeyPoint SelectedKeyPoint { get; set; } = new();
-        
-        public List<KeyPoint> NewKeyPoints { get; set; } = new();
-        public List<KeyPoint> KeyPoints { get; set; } = new();
-
-
-        public TranslatedLanguage NewTranslate { get; set; }
-
         public TourLocation NewAddress { get; set; }
-        public DateTime TourDate { get; set; } = DateTime.Now;
-
+        public TranslatedLanguage NewTranslate { get; set; }
+        public KeyPoint SelectedKeyPoint { get; set; } = new();
+        public DateTime SelectedDate { get; set; } = DateTime.Now;
+        public string SelectedTime { get; set; } = string.Empty;
+        public string Images { get; set;} = string.Empty;
         public User Guide {  get; set; }
+
+        public List<KeyPoint> NewKeyPoints { get; set; } = new();
+        public List<DateTime> NewDates { get; set; } = new();
+        public List<KeyPoint> KeyPoints { get; set; } = new();
 
         public TourCreationWindow()
         {
@@ -54,18 +55,20 @@ namespace SIMSProject.View
             this.DataContext = this;
 
 
-            AddEnums();
+            AddTranslatedLanguages();
 
             New = new Tour();
             NewAddress = new TourLocation();
+
+
             Guide = new User("Admin", "Admin");
             Guide.Id = 256;
 
-            KeyPoints = KeyPointController.GetAll();
+            KeyPoints = keyPointController.GetAll();
 
         }
 
-        public void AddEnums()
+        private void AddTranslatedLanguages()
         {
             foreach(var enumValue in  Enum.GetValues(typeof(TranslatedLanguage))) 
             {
@@ -73,7 +76,7 @@ namespace SIMSProject.View
             }
         }
 
-        public  Language FindCorespondive(TranslatedLanguage translate)
+        private Language FindCorespondive(TranslatedLanguage translate)
         {
             foreach(Language value in Enum.GetValues(typeof(Language)))
             { 
@@ -93,11 +96,20 @@ namespace SIMSProject.View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private List<string> SeperateURLs()
+        {
+           List<string> seperatedURLS = new List<string>();
+           string[] urls =  Images.Split(",");
+            seperatedURLS.AddRange(urls);
+            return seperatedURLS;
+        }
+
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
 
-            TourDate tourDate = new TourDate(-1,TourDate ,-1);
+            TourDate tourDate = new TourDate(-1,SelectedDate ,-1);
 
+            List<string> images = SeperateURLs();
             New.KeyPoints = NewKeyPoints;
             New.Location = NewAddress;
             New.TourLanguage = FindCorespondive(NewTranslate);
@@ -105,6 +117,9 @@ namespace SIMSProject.View
             New.Guide = Guide;
             New.GuideId = Guide.Id;
             New.LocationId = NewAddress.Id;
+            New.Images = images;
+
+
             tourController.Create(New);
 
         }
@@ -113,6 +128,22 @@ namespace SIMSProject.View
         {
             NewKeyPoints.Add(SelectedKeyPoint);
 
+        }
+
+        private void AddDate_Click(object sender, RoutedEventArgs e)
+        {
+            string[] timeParts = SelectedTime.Split(":");
+            int hours = int.Parse(timeParts[0]);
+            int minutes = int.Parse(timeParts[1]);
+            int seconds = 0;
+
+            DateTime newDate = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, hours, minutes, seconds);
+            NewDates.Add(newDate);
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

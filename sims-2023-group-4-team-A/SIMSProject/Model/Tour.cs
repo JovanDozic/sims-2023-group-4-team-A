@@ -6,38 +6,133 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 public enum Language { ENGLISH = 0, SERBIAN, SPANISH, FRENCH };
 
 namespace SIMSProject.Model
 {
-    public class Tour : ISerializable, IDataErrorInfo
+    public class Tour : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
 
         public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
+
+        private string? _name;
+        public string Name 
+        { 
+            get => _name; 
+            set 
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    OnPropertyChanged(nameof(Name));
+                }
+            } 
+        }
 
         public User Guide { get; set; }
 
         public TourLocation Location { get; set; }
-        public string Description { get; set; } = string.Empty;
 
-        public Language TourLanguage { get; set; }
+        private string? _description;
+        public string Description
+        {
+            get => _description;
+            set
+            {
+                if(value != _description)
+                {
+                    _description = value; 
+                    OnPropertyChanged(nameof(Description));
+                }
+            }
+        }
 
-        public int MaxGuestNumber { get; set; }
+        private Language _language;
+        public Language TourLanguage
+        {
+            get => _language;
+            set
+            {
+                if (value != _language)
+                {
+                    _language = value;
+                    OnPropertyChanged(nameof(Language));
+                }
+            }
+        }
+
+        private int _maxGuestNumber;
+        public int MaxGuestNumber 
+        { 
+            get => _maxGuestNumber;
+            set
+            {
+                if(_maxGuestNumber != value && value >= 1)
+                {
+                    _maxGuestNumber = value;
+                    OnPropertyChanged(nameof(MaxGuestNumber));
+                }
+            }
+        }
+
+        private int _duration;
+        public int Duration
+        {
+            get => _duration;
+            set
+            {
+                if(_duration != value && value >= 1)
+                {
+                    _duration = value;
+                    OnPropertyChanged(nameof(Duration));
+                }
+            }
+        }
+
+        private int _locationId;
+        public int LocationId
+        {
+            get => _locationId;
+            set
+            {
+                if (value != _locationId)
+                {
+                    _locationId = value;
+                    OnPropertyChanged(nameof(LocationId));
+                }
+            }
+        }
+
+        private int _guideId;
+        public int GuideId
+        {
+            get => _guideId;
+            set
+            {
+                if (_guideId != value)
+                {
+                    _guideId = value;
+                    OnPropertyChanged(nameof(GuideId));
+                }
+            }
+        }
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public List<KeyPoint> KeyPoints { get; set; } = new List<KeyPoint>();
 
         public List<TourDate> Dates { get; set; } = new List<TourDate>();
-        public int Duration { get; set; }
 
         public List<String> Images { get; set; } = new List<String>();
 
         public List<User> Sightseers { get; set; } = new List<User>();
 
-        public int LocationId { get; set; }
-        public int GuideId { get; set; }
-
+        
         public Tour() { }
 
         public Tour(int id, string name, User guide, TourLocation location, string description, Language tourLanguage, int maxGuestNumber, int duration, int locationId, int guideId)
@@ -64,11 +159,30 @@ namespace SIMSProject.Model
             Duration = Convert.ToInt32(values[5]);
             LocationId = Convert.ToInt32(values[6]);
             GuideId = Convert.ToInt32(values[7]);
+
+            string[] ImageURLs = values[8].Split(',');
+            Images.AddRange(ImageURLs);
+
         }
 
+
+
+        private StringBuilder CreateImageURLs()
+        {
+            StringBuilder imageURLs = new StringBuilder();
+            foreach (string imageURL in Images)
+            {
+                imageURLs.Append(imageURL + ",");
+            }
+            imageURLs.Remove(imageURLs.Length - 1, 1);
+            return imageURLs;
+        }
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name, Description, TourLanguage.ToString(), MaxGuestNumber.ToString(), Duration.ToString(), LocationId.ToString(), GuideId.ToString() };
+            
+            StringBuilder imageURLs = CreateImageURLs();
+
+            string[] csvValues = { Id.ToString(), Name, Description, TourLanguage.ToString(), MaxGuestNumber.ToString(), Duration.ToString(), LocationId.ToString(), GuideId.ToString(), imageURLs.ToString() };
             return csvValues;
         }
 
@@ -107,6 +221,8 @@ namespace SIMSProject.Model
         }
 
         private readonly string[] _validatesProperties = { "Name", "Duration", "MaxGuestNumber"};
+
+        
 
         public bool isValid
         {

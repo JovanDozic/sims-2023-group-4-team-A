@@ -9,15 +9,55 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
+using System.Runtime.CompilerServices;
 
 namespace SIMSProject.Model
 {
-    public class TourLocation : ISerializable,  IDataErrorInfo
+    public class TourLocation : ISerializable,  IDataErrorInfo, INotifyPropertyChanged
     {
         public int Id { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
 
+        private string _city;
+        public string City 
+        {   get => _city;
+            set 
+            { 
+                if(value != _city)
+                {
+                    _city = value;
+                    OnPropertyChanged(nameof(City));
+                    
+                }
+            }
+        }
+
+        private string _country;
+        public string Country 
+        { 
+            get => _country;
+            set
+            {
+                if(value != _country)
+                {
+                    _country = value;
+                    OnPropertyChanged(nameof(Country));
+                }
+            } 
+        }
+
+
+
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public override string ToString()
+        {
+            return $"{City}, {Country}";
+        }
 
         public TourLocation()
         {
@@ -58,17 +98,17 @@ namespace SIMSProject.Model
                 if (columnName == "Country")
                 {
                     if (string.IsNullOrEmpty(Country))
-                        return "Grad";
+                        return "Država";
 
                     if (!Regex.IsMatch(Country, templateRegex))
-                        return "Ne moze biti grad";
+                        return "Ne moze biti država";
                 }
                 else if (columnName == "City")
                 {
                     if (string.IsNullOrEmpty(City))
-                        return "Drzava";
+                        return "Grad";
                     if (!Regex.IsMatch(City, templateRegex))
-                        return "Ne moze biti drzava";
+                        return "Ne moze biti grad";
                 }
                
 
@@ -77,6 +117,8 @@ namespace SIMSProject.Model
         }
 
         private readonly string[] _validatesProperties = { "City", "Country"};
+
+        
 
         public bool isValid
         {
