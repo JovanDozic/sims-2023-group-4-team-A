@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using SIMSProject.View.OwnerViews;
+using SIMSProject.Controller;
+using SIMSProject.Model;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -20,6 +18,9 @@ namespace SIMSProject.View
     /// </summary>
     public partial class InitialWindow : Window
     {
+
+        public Accommodation Accommodation { get; set; }
+        public static AccommodationController AccommodationController { get; set; }
         public InitialWindow()
         {
             InitializeComponent();
@@ -27,7 +28,8 @@ namespace SIMSProject.View
 
         private void Guest1_Click(object sender, RoutedEventArgs e)
         {
-
+            Guest1.AccommodationSearchAndShowForm accommondationSearchAndShowForm = new();
+            accommondationSearchAndShowForm.Show();
         }
 
         private void Guest2_Click(object sender, RoutedEventArgs e)
@@ -36,9 +38,10 @@ namespace SIMSProject.View
             showAndSearchTours.Show();
         }
 
-        private void Owner_Click(object sender, RoutedEventArgs e)
+        private void Owner_Click(object? sender, RoutedEventArgs? e)
         {
-
+            OwnerInitialWindow window = new();
+            window.Show();
         }
 
         private void TourGuide_Click(object sender, RoutedEventArgs e)

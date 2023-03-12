@@ -5,6 +5,12 @@
              StartupUri="View/Guest2/ShowAndSearchTours.xaml"
              ShutdownMode="OnMainWindowClose">
     <Application.Resources>
-         
+    <ControlTemplate x:Key="ValidationTemplate">
+        <StackPanel>
+            <AdornedElementPlaceholder x:Name="textBox"></AdornedElementPlaceholder>
+            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#99ff0000"></TextBlock>
+        </StackPanel>
+    </ControlTemplate>
     </Application.Resources>
+
 </Application>

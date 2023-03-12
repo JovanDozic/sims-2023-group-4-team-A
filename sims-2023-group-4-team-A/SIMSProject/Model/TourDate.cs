@@ -19,6 +19,11 @@ namespace SIMSProject.Model
             
         }
 
+        public override string ToString()
+        {
+            return $"{DateTime}";
+        }
+
         public TourDate(int id, DateTime dateTime, int tourId)
         {
             Id = id;

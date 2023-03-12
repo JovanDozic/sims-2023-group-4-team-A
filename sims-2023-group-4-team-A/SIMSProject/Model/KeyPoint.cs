@@ -22,13 +22,17 @@ namespace SIMSProject.Model
         {
             
         }
-        public KeyPoint(int id, string description, Address location, List<Tour> tours, int locationId)
+        public KeyPoint(int id, string description, Address location, int locationId)
         {
             Id = id;
             Description = description;
             Location = location;
-            Tours = tours;
             LocationId = locationId;
+        }
+
+        public override string ToString()
+        {
+            return $"{Description}";
         }
 
         public string[] ToCSV()
