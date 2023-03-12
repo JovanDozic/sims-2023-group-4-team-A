@@ -21,14 +21,14 @@ using SIMSProject.View.Guest1;
 namespace SIMSProject.View.Guest1
 {
     /// <summary>
-    /// Interaction logic for AccommondationSearchAndShowForm.xaml
+    /// Interaction logic for AccommodationSearchAndShowForm.xaml
     /// </summary>
-    public partial class AccommondationSearchAndShowForm : Window, IObserver
+    public partial class AccommodationSearchAndShowForm : Window, IObserver
     {
         public Accommodation Accommodation { get; set; }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         private AccommodationController AccommodationControllers;
-        public AccommondationSearchAndShowForm()
+        public AccommodationSearchAndShowForm()
         {
             InitializeComponent();
 
