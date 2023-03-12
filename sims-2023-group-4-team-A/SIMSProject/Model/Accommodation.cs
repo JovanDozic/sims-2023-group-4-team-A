@@ -133,8 +133,8 @@ namespace SIMSProject.Model
             ImageURLsCSV = imageURLsCSV;
             ImageURLsFromCSV(ImageURLsCSV);
         }
-
-
+        
+    
 
         // [SERIALIZATION HANDLING]
 

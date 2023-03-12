@@ -95,8 +95,6 @@ namespace SIMSProject.Model
             Country = values[4];
         }
 
-
-
         // [VALIDATION HANDLING]
         public string Error => null;
         public string this[string columnName]
@@ -128,6 +126,13 @@ namespace SIMSProject.Model
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
+
+        public override string? ToString()
+        {
+            return City + " " + Country;
         }
     }
 }
