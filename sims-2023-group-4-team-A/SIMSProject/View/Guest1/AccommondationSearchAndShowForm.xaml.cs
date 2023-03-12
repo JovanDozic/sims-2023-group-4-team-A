@@ -23,11 +23,11 @@ namespace SIMSProject.View.Guest1
     /// <summary>
     /// Interaction logic for AccommondationSearchAndShowForm.xaml
     /// </summary>
-    public partial class AccommondationSearchAndShowForm : Window,  IObserver
+    public partial class AccommondationSearchAndShowForm : Window, IObserver
     {
         public Accommodation Accommodation { get; set; }
-        public ObservableCollection<Accommodation> Accommodations { get;}
-        private readonly AccommodationController AccommodationControllers;
+        public ObservableCollection<Accommodation> Accommodations { get; set; }
+        private AccommodationController AccommodationControllers;
         public AccommondationSearchAndShowForm()
         {
             InitializeComponent();
@@ -35,18 +35,78 @@ namespace SIMSProject.View.Guest1
             DataContext = this;
 
             Accommodation = new();
-            
+
 
             AccommodationControllers = new AccommodationController();
 
 
             Accommodations = new ObservableCollection<Accommodation>(AccommodationControllers.GetAll());
-           
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            String search = TextSearch.Text;
+            Accommodations.Clear();
+
+            foreach (var accommodations in new ObservableCollection<Accommodation>(AccommodationControllers.GetAll()))
+            {
+                Accommodations.Add(accommodations);
+            }
+
+            String search1 = TextSearch1.Text;
+            if (search1 == "Naziv tip lokacija") search1 = string.Empty;
+            List<Accommodation> searchResults = new();
+            List<string> searchList = new List<string>();
+
+            string[] searchValues = search1.Split(" ");
+
+            int searchNumberOfGuests = TextSearch2.Value <= 0 ? -1 : TextSearch2.Value;
+
+            int searchNumberOfDays = TextSearch3.Value <= 0 ? -1 : TextSearch3.Value;
+
+            
+
+
+
+            foreach (string value in searchValues)
+            {
+                foreach (var acc in Accommodations)
+                {
+                    if (acc.ToString().ToLower().Contains(value.ToLower()))
+                    {
+
+
+                        if (searchNumberOfGuests == -1)
+                        {
+                            if (searchNumberOfDays == -1)
+                                searchResults.Add(acc);
+                            else if (acc.MinReservationDays <= searchNumberOfDays)
+                                searchResults.Add(acc);
+                        }
+                        else if (acc.MaxGuestNumber >= searchNumberOfGuests)
+                        {
+                            if (searchNumberOfDays == -1)
+                                searchResults.Add(acc);
+                            else if (acc.MinReservationDays <= searchNumberOfDays)
+                                searchResults.Add(acc);
+                        }
+                        
+                        
+
+
+
+                    }
+
+                }
+            }
+
+
+            Accommodations.Clear();
+
+            foreach (var searchResult in searchResults)
+            {
+                Accommodations.Add(searchResult);
+            }
 
 
         }
@@ -54,6 +114,26 @@ namespace SIMSProject.View.Guest1
         public void Update()
         {
             throw new NotImplementedException();
+        }
+
+        private void TextSearch_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox? textbox = sender as TextBox;
+            if (textbox is null) return;
+            textbox.Foreground = new SolidColorBrush(Colors.Black);
+            if (textbox.Text == "Naziv tip lokacija") textbox.Text = string.Empty;
+        }
+
+        private void TextSearch_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox? textbox = sender as TextBox;
+            if (textbox is null) return;
+            if (textbox.Text == string.Empty)
+            {
+                textbox.Foreground = new SolidColorBrush(Colors.Gray);
+                textbox.Text = "Naziv tip lokacija";
+
+            }
         }
     }
 }
