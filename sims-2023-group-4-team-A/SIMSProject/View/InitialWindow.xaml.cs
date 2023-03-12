@@ -2,6 +2,14 @@ using System.Windows;
 using SIMSProject.View.OwnerViews;
 using SIMSProject.Controller;
 using SIMSProject.Model;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using SIMSProject.View.Guest2;
 
 namespace SIMSProject.View
 {
@@ -26,7 +34,8 @@ namespace SIMSProject.View
 
         private void Guest2_Click(object sender, RoutedEventArgs e)
         {
-
+            ShowAndSearchTours showAndSearchTours = new ShowAndSearchTours();
+            showAndSearchTours.Show();
         }
 
         private void Owner_Click(object? sender, RoutedEventArgs? e)
