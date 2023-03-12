@@ -34,7 +34,12 @@ namespace SIMSProject.Controller
         {
             return _accommodations.Save(accommodation);
         }
-
         
+        public ACCOMMODATION_TYPE GetType(string type)
+        {
+            if (type == "Apartman") return ACCOMMODATION_TYPE.APARTMENT;
+            else if (type == "Kuća") return ACCOMMODATION_TYPE.HOUSE;
+            else return ACCOMMODATION_TYPE.HUT;
+        }
     }
 }

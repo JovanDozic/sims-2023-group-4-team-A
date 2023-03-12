@@ -11,22 +11,33 @@ namespace SIMSProject.Model
     {
         public int Id { get; set; }
         public string Description { get; set; } = string.Empty;
-        public int TourId { get; set; }
+
+        public Address Location { get; set; }
+
+        public List<Tour> Tours { get; set; } =  new List<Tour>();
+
+        public int LocationId { get; set; }
 
         public KeyPoint()
         {
             
         }
-        public KeyPoint(int id, string description, int tourId)
+        public KeyPoint(int id, string description, Address location, int locationId)
         {
             Id = id;
             Description = description;
-            TourId = tourId;
+            Location = location;
+            LocationId = locationId;
+        }
+
+        public override string ToString()
+        {
+            return $"{Description}";
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Description, TourId.ToString() };
+            string[] csvValues = { Id.ToString(), Description, LocationId.ToString()};
             return csvValues;
         }
 
@@ -34,7 +45,7 @@ namespace SIMSProject.Model
         {
             Id = Convert.ToInt32(values[0]);
             Description = values[1];
-            Id = Convert.ToInt32(values[2]);
+            LocationId = Convert.ToInt32(values[2]);
         }
     }
 }
