@@ -21,7 +21,11 @@ namespace SIMSProject.Model.DAO
             _keyPoints = _repository.Load();
             _observers = new();
 
+            AssociatePoints();
+        }
 
+        private void AssociatePoints()
+        {
             TourLocationRepository tourLocationRepository = new();
             TourRepository tourRepository = new();
             TourKeyPointRepository tourKeyPointRepository = new();
@@ -30,23 +34,17 @@ namespace SIMSProject.Model.DAO
             List<Tour> tours = tourRepository.Load();
             List<TourKeyPoint> tourKeyPoints = tourKeyPointRepository.Load();
 
-            foreach(var keyPoint in _keyPoints)
+            foreach (var keyPoint in _keyPoints)
             {
                 keyPoint.Location = toursLocations.Find(x => x.Id == keyPoint.LocationId);
 
-                foreach(var tour in tours)
+                List<TourKeyPoint> pairs = tourKeyPoints.FindAll(x => x.KeyPointId == keyPoint.Id);
+                foreach (var pair in pairs)
                 {
-                    foreach(var pair in tourKeyPoints)
-                    {
-                        if(pair.TourId == tour.Id)
-                        {
-                            keyPoint.Tours.Add(tour);
-                        }
-                    }
+                    Tour matchingTour = tours.Find(x => x.Id == pair.TourId);
+                    keyPoint.Tours.Add(matchingTour);
                 }
             }
-            
-
         }
 
         public int NextId() { return _keyPoints.Max(x => x.Id) + 1; }

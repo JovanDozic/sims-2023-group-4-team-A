@@ -191,6 +191,7 @@ namespace SIMSProject.Model
         Regex NameReg = new Regex("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$");
         Regex MaxGuestsReg = new Regex("^[0-9]+$");
         Regex DurationReg = new Regex("^[0-9]{1}");
+        Regex DescriptionReg = new Regex("^\\w+(\\s+\\w+){2,}$");
 
         public string Error => null;
 
@@ -198,7 +199,7 @@ namespace SIMSProject.Model
         {
             get
             {
-                if(columnName == "Name")
+                if (columnName == "Name")
                 {
                     if (string.IsNullOrEmpty(Name))
                         return "Naziv";
@@ -206,22 +207,31 @@ namespace SIMSProject.Model
                     if (!NameReg.IsMatch(Name))
                         return "Ne moze biti naziv ture";
                 }
-                else if(columnName == "MaxGuestNumber") 
+                else if (columnName == "MaxGuestNumber")
                 {
-                    if(MaxGuestNumber <= 0)
+                    if (MaxGuestNumber <= 0)
                         return "Broj";
                 }
-                else if(columnName == "Duration")
+                else if (columnName == "Duration")
                 {
                     if (Duration <= 0)
                         return "Trajanje";
                 }
+                else if (columnName == "Description")
+                {
+                    if (string.IsNullOrEmpty(Description))
+                        return "Obavezno uneti opis ture";
+                    if (!DescriptionReg.IsMatch(Description))
+                        return "Opis mora sadržati bar 3 reči";
+                }
+                    
+
 
                 return null;
             }
         }
 
-        private readonly string[] _validatesProperties = { "Name", "Duration", "MaxGuestNumber"};
+        private readonly string[] _validatesProperties = { "Name", "Duration", "MaxGuestNumber", "Description"};
 
         
 
