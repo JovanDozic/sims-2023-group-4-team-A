@@ -1,11 +1,7 @@
 ﻿using SIMSProject.Observer;
 using SIMSProject.Repository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SIMSProject.Model.DAO
 {
@@ -45,8 +41,6 @@ namespace SIMSProject.Model.DAO
         {
             return _addresses.Find(x => x.Id == id);
         }
-
-
 
         // [OBSERVERS]
         public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }

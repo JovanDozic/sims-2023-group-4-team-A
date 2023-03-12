@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SIMSProject.View.Guest1;
 
 namespace SIMSProject.Controller
 {
@@ -33,6 +34,7 @@ namespace SIMSProject.Controller
         {
             return _accommodations.Save(accommodation);
         }
+        
         public ACCOMMODATION_TYPE GetType(string type)
         {
             if (type == "Apartman") return ACCOMMODATION_TYPE.APARTMENT;

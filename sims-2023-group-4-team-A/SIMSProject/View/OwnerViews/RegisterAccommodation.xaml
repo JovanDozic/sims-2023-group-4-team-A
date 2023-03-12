@@ -29,7 +29,6 @@
 
         <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Registracija smeštaja" FontSize="20"
                VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold"/>
-
         <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"
                Content="Naziv" Grid.ColumnSpan="2"
                FontSize="16"/>
@@ -46,28 +45,38 @@
         <Label Grid.Row="8" Grid.Column="0" VerticalAlignment="Center"
                Content="Slike" Grid.ColumnSpan="2" FontSize="16"/>
 
-        <TextBox Text="{Binding Path=Accommodation.Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+        <TextBox Text="{Binding Path=Accommodation.Name, 
+                                UpdateSourceTrigger=PropertyChanged, 
+                                Mode=TwoWay, 
+                                ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                  Grid.Row="1" Grid.Column="1" FontSize="16" Padding="5,0,0,0" 
-                 VerticalContentAlignment="Center" Margin="5,9,5,9" Height="30"/>
+                 VerticalContentAlignment="Center" Margin="5,9,5,9" Height="30"
+                 TextChanged="TextBox_FocusChanged"/>
 
         <Grid Grid.Row="2" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBox Text="{Binding Path=Accommodation.Location.Street, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+            <TextBox Text="{Binding Path=Accommodation.Location.Street,
+                                    UpdateSourceTrigger=PropertyChanged, 
+                                    Mode=TwoWay, 
+                                    ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                      Grid.Column="0"
                      FontSize="16" VerticalContentAlignment="Center" 
-                     Margin="5,9,5,9" Height="30" Padding="5,0,0,0" 
-                     GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"
-                     Foreground="#7F000000"
-                     />
-            <TextBox Text="{Binding Path=Accommodation.Location.StreetNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     Margin="5,9,5,9" Height="30" Padding="5,0,0,0"
+                     TextChanged="TextBox_FocusChanged"/>
+            <TextBox Text="{Binding Path=Accommodation.Location.StreetNumber,
+                                    UpdateSourceTrigger=PropertyChanged, 
+                                    Mode=TwoWay, 
+                                    ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                      Grid.Column="1"
                      FontSize="16" VerticalContentAlignment="Center" 
                      Margin="5,9,5,9" Height="30" Padding="5,0,0,0"
-                     GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"
-                     Foreground="#7F000000"/>
+                     TextChanged="TextBox_FocusChanged"/>
         </Grid>
 
         <Grid Grid.Row="3" Grid.Column="1">
@@ -75,61 +84,74 @@
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBox Text="{Binding Path=Accommodation.Location.City, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+            <TextBox Text="{Binding Path=Accommodation.Location.City,
+                                    UpdateSourceTrigger=PropertyChanged, 
+                                    Mode=TwoWay, 
+                                    ValidatesOnDataErrors=True}" 
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                      Grid.Column="0" 
                      FontSize="16" VerticalContentAlignment="Center" 
-                     Margin="5,9,5,9" Height="30" Padding="5,0,0,0" 
-                     GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"
-                     Foreground="#7F000000"/>
-            <TextBox Text="{Binding Path=Accommodation.Location.Country, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     Margin="5,9,5,9" Height="30" Padding="5,0,0,0"
+                     TextChanged="TextBox_FocusChanged"/>
+            <TextBox Text="{Binding Path=Accommodation.Location.Country,
+                                    UpdateSourceTrigger=PropertyChanged, 
+                                    Mode=TwoWay, 
+                                    ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                      Grid.Column="1" 
                      FontSize="16" VerticalContentAlignment="Center" 
-                     Margin="5,9,5,9" Height="30" Padding="5,0,0,0" 
-                     GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"
-                     Foreground="#7F000000"/>
+                     Margin="5,9,5,9" Height="30" Padding="5,0,0,0"
+                     TextChanged="TextBox_FocusChanged"/>
         </Grid>
 
         <ComboBox x:Name="CBType" 
                   Grid.Row="4" Grid.Column="1" FontSize="16" 
                   VerticalContentAlignment="Center" Margin="5,9,5,9" Height="30"
-                  ItemsSource="{Binding Path=AccommodationTypeSource}"/>  <cstm:NumericTextBox Grid.Row="5" Grid.Column="1"
-                             Value="{Binding Path=Accommodation.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                  ItemsSource="{Binding Path=AccommodationTypeSource}"/>
+        
+        <cstm:NumericTextBox Grid.Row="5" Grid.Column="1"
+                             Value="{Binding Path=Accommodation.MaxGuestNumber, 
+                                             UpdateSourceTrigger=PropertyChanged,
+                                             Mode=TwoWay}"/>
 
         <cstm:NumericTextBox Grid.Row="6" Grid.Column="1"
-                             Value="{Binding Path=Accommodation.MinReservationDays, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                             Value="{Binding Path=Accommodation.MinReservationDays, 
+                                             UpdateSourceTrigger=PropertyChanged,
+                                             Mode=TwoWay}"/>
 
         <Grid Grid.Row="7" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="3*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-
-            <cstm:NumericTextBox Value="{Binding Path=Accommodation.CancellationThreshold, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            <!--<my:NumericTextBox Value="10" ValueChanged="NumericTextBox_ValueChanged" />-->
-            
+            <cstm:NumericTextBox Value="{Binding Path=Accommodation.CancellationThreshold, 
+                                                 UpdateSourceTrigger=PropertyChanged,
+                                                 Mode=TwoWay}"/>
             <Label Content="dana pred rezervaciju"
                    Grid.Column="1"
                    FontSize="16" VerticalAlignment="Center"/>
         </Grid>
 
-
-
-
-        <TextBox x:Name="TBImageURLs" 
+        <TextBox Text="{Binding Path=Accommodation.ImageURLsCSV,
+                                UpdateSourceTrigger=PropertyChanged, 
+                                Mode=TwoWay, 
+                                ValidatesOnDataErrors=True}" 
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                  Grid.Row="8" Grid.Column="1" FontSize="16" Padding="5" 
                  VerticalContentAlignment="top" Margin="5,9,5,9" Height="70"
                  AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible"
-                 Text="primer1.jpg, primer2.png..." GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"
-                 Foreground="#7F000000"/>
+                 TextChanged="TextBox_FocusChanged"/>
 
 
 
-        <Button Grid.Row="9" Grid.ColumnSpan="2"
+        <Button x:Name="BTNRegister"
+                Grid.Row="9" Grid.ColumnSpan="2" IsDefault="True"
                 Content="Registruj" FontSize="16" Padding="15,3,15,3" Width="100" Height="35"
                 Margin="0,0,150,0" HorizontalAlignment="Center" VerticalAlignment="Center"
-                Click="RegisterButton_Click"/>
+                Click="RegisterButton_Click"
+                IsEnabled="false"/>
 
-        <Button Grid.Row="9" Grid.ColumnSpan="2"
+        <Button Grid.Row="9" Grid.ColumnSpan="2" IsCancel="True"
                 Content="Otkaži" FontSize="16" Padding="15,3,15,3" Width="100" Height="35"
                 Margin="150,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" 
                 Click="CancelButton_Click"/>

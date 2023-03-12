@@ -70,9 +70,7 @@ namespace SIMSProject.View
 
             New = new Tour();
             NewAddress = new TourLocation();
-
-
-            Guide = new User("Admin", "Admin");
+            Guide = new User("Admin", "Admin", USER_ROLE.OWNER);
             Guide.Id = 256;
 
             KeyPoints = keyPointController.GetAll();

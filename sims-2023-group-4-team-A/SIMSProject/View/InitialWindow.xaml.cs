@@ -1,6 +1,7 @@
-﻿using System.Security.Cryptography.Xml;
 using System.Windows;
 using SIMSProject.View.OwnerViews;
+using SIMSProject.Controller;
+using SIMSProject.Model;
 
 namespace SIMSProject.View
 {
@@ -9,6 +10,9 @@ namespace SIMSProject.View
     /// </summary>
     public partial class InitialWindow : Window
     {
+
+        public Accommodation Accommodation { get; set; }
+        public static AccommodationController AccommodationController { get; set; }
         public InitialWindow()
         {
             InitializeComponent();
@@ -16,7 +20,8 @@ namespace SIMSProject.View
 
         private void Guest1_Click(object sender, RoutedEventArgs e)
         {
-
+            Guest1.AccommondationSearchAndShowForm accommondationSearchAndShowForm = new();
+            accommondationSearchAndShowForm.Show();
         }
 
         private void Guest2_Click(object sender, RoutedEventArgs e)
