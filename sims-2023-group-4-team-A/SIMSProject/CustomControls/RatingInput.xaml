@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="SIMSProject.CustomControls.RatingInput"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="40" d:DesignWidth="180">
+    <Grid>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Content="1" Margin="5"/>
+            <RadioButton x:Name="star1" GroupName="RatingGroup1"
+                         VerticalAlignment="Center" Margin="5"
+                         Click="Star1_Click"/>
+            <RadioButton x:Name="star2" GroupName="RatingGroup2"
+                         VerticalAlignment="Center" Margin="5"
+                         Click="Star2_Click"/>
+            <RadioButton x:Name="star3" GroupName="RatingGroup3"
+                         VerticalAlignment="Center" Margin="5"
+                         Click="Star3_Click"/>
+            <RadioButton x:Name="star4" GroupName="RatingGroup4"
+                         VerticalAlignment="Center" Margin="5"
+                         Click="Star4_Click"/>
+            <RadioButton x:Name="star5" GroupName="RatingGroup5"
+                         VerticalAlignment="Center" Margin="5"
+                         Click="Star5_Click"/>
+            <Label Content="5" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
