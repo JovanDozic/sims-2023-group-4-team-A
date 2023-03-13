@@ -1,0 +1,101 @@
+﻿<Window x:Class="SIMSProject.View.TourCreation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMSProject.View"
+        xmlns:cstm="clr-namespace:SIMSProject.CustomControls"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="TourCreationWindow" Height="600" Width="820" WindowStartupLocation="CenterScreen" >
+    <Window.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <!-- Placeholder for the TextBox itself -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+            </StackPanel>
+        </ControlTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="400"/>
+            <RowDefinition Height="120"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions >
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Content="Naziv ture:" Height="30" ></Label>
+            <Label Grid.Column="0" Grid.Row="1" Content="Lokacija ture:" Height="30"></Label>
+            <Label Grid.Column="0" Grid.Row="2" Content="Jezik ture:" Height="30"></Label>
+            <Label Grid.Column="0" Grid.Row="3" Content="Max broj gostiju ture:" Height="30"></Label>
+            <Label Grid.Column="0" Grid.Row="4" Content="Trajanje ture:" Height="30"></Label>
+            <TextBox Grid.Column="1" Grid.Row="0" Margin="5" Height="30" Text="{Binding Path=New.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
+            <StackPanel Grid.Column="1" Grid.Row="1">
+                <TextBox x:Name="TBCity"  
+                    Margin="5,5,5,0" 
+                          Text="{Binding Path=New.Location.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                          Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+                          
+                />
+                <TextBox x:Name="TBCountry" 
+                    Margin="5,25,5,0" 
+                    Text="{Binding Path=New.Location.Country, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                    Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+                    
+                    />
+            </StackPanel>
+
+            <ComboBox x:Name="LanguageCombo" Grid.Column="1" Grid.Row="2" Margin="5" Height="30" ItemsSource="{Binding Path=TourLanguages, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+            <cstm:NumericTextBox Grid.Column="1" Grid.Row="3" Margin="5"  Height="50" Value="{Binding Path=New.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True, Mode=TwoWay}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></cstm:NumericTextBox>
+            <cstm:NumericTextBox Grid.Column="1" Grid.Row="4" Margin="5"  Height="50" Value="{Binding Path=New.Duration, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></cstm:NumericTextBox>
+        </Grid>
+        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Unesite vreme u formatu: hh:mm"/>
+                <DatePicker x:Name="myDatePicker" SelectedDate="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged}" DisplayDateStart="{x:Static sys:DateTime.Now}"/>
+                <TextBox x:Name="TBTime" 
+                         Width="55" 
+                         Margin="2,0,0,0"                         
+                         Text="{Binding SelectedTime, UpdateSourceTrigger=PropertyChanged}"
+                         />
+                <Button x:Name="AddDate" Content="Dodaj" Margin="5,0,0,0" Click="AddDate_Click"></Button>
+            </StackPanel>
+            <WrapPanel Margin="0,25,0,0">
+                <ComboBox x:Name="KeyPointCombo" Width="300" 
+                          ItemsSource="{Binding KeyPoints, UpdateSourceTrigger=PropertyChanged}" 
+                          SelectedItem="{Binding SelectedKeyPoint, UpdateSourceTrigger=PropertyChanged}"
+                          IsEditable="True"
+                          />
+                <Button x:Name="AddKeyPoint" Content="Dodaj" Margin="10,0,0,0" Click="AddKeyPoint_Click"></Button>
+            </WrapPanel>
+            <DockPanel Margin="0,55,0,0" Width="250" Height="250">
+                <Label DockPanel.Dock="Top" Content="URL-ovi slika:"></Label>
+                <TextBox x:Name="ImageURLs" Margin="5" Text="{Binding Images, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            </DockPanel>
+        </StackPanel>
+        <TextBox x:Name="Description" Grid.ColumnSpan="2" Grid.Row="1" Margin="10" 
+                 Text="{Binding Path=New.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+                 />
+        <DockPanel Grid.ColumnSpan="2" Grid.Row="2" Height="30" Margin="0,10,0,0">
+            <Button x:Name="Confirm" Content="Potvrdi" Margin="5" Click="Confirm_Click" DockPanel.Dock="Left"></Button>
+            <Button x:Name="Close" Content="Izadji" Margin="5" IsCancel="True" DockPanel.Dock="Right" Click="Close_Click"></Button>
+            <Separator></Separator>
+        </DockPanel>
+    </Grid>
+</Window>

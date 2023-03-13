@@ -1,11 +1,7 @@
 ﻿using SIMSProject.Observer;
 using SIMSProject.Repository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SIMSProject.Model.DAO
 {
@@ -13,7 +9,7 @@ namespace SIMSProject.Model.DAO
     {
         private List<IObserver> _observers;
         private AddressRepository _repository;
-        private List<Address> _addresses;
+        private List<Location> _addresses;
 
         public AddressDAO()
         {
@@ -23,9 +19,9 @@ namespace SIMSProject.Model.DAO
         }
 
         public int NextId() { return _addresses.Max(x => x.Id) + 1; }
-        public List<Address> GetAll() { return _addresses; }
+        public List<Location> GetAll() { return _addresses; }
 
-        public Address Save(Address address)
+        public Location Save(Location address)
         {
             address.Id = NextId();
             _addresses.Add(address);
@@ -34,19 +30,17 @@ namespace SIMSProject.Model.DAO
             return address;
         }
 
-        public void SaveAll(List<Address> addresses)
+        public void SaveAll(List<Location> addresses)
         {
             _repository.Save(addresses);
             _addresses = addresses;
             NotifyObservers();
         }
 
-        public Address Get(int id)
+        public Location Get(int id)
         {
             return _addresses.Find(x => x.Id == id);
         }
-
-
 
         // [OBSERVERS]
         public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }

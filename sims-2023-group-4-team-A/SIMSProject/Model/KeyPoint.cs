@@ -1,34 +1,73 @@
-﻿using SIMSProject.Serializer;
+﻿using SIMSProject.Controller;
+using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using SIMSProject.Repository;
 
 namespace SIMSProject.Model
 {
-    public class KeyPoint : ISerializable
+    public class KeyPoint : ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
-        public string Description { get; set; } = string.Empty;
 
-        public Address Location { get; set; }
+        private string _description;
+        public string Description
+        {
+            get => _description;
+            set
+            {
+                if (value != _description)
+                {
+                    _description = value;
+                    OnPropertyChanged(nameof(Description));
+                }
+            }
+        }
+        private int _locationId;
+        public int LocationId
+        {
+            get => _locationId;
+            set
+            {
+                if (value != _locationId)
+                {
+                    _locationId = value;
+                    OnPropertyChanged(nameof(LocationId));
+                }
+            }
+        }
+
+        public Location Location { get; set; }
 
         public List<Tour> Tours { get; set; } =  new List<Tour>();
-
-        public int LocationId { get; set; }
-
         public KeyPoint()
         {
             
         }
-        public KeyPoint(int id, string description, Address location, List<Tour> tours, int locationId)
+        public KeyPoint(int id, string description, Location location, int locationId)
         {
             Id = id;
             Description = description;
             Location = location;
-            Tours = tours;
             LocationId = locationId;
+        }
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public override string ToString()
+        {
+            return $"{Description}";
         }
 
         public string[] ToCSV()
@@ -41,7 +80,7 @@ namespace SIMSProject.Model
         {
             Id = Convert.ToInt32(values[0]);
             Description = values[1];
-            LocationId = Convert.ToInt32(values[2]);
+            LocationId = Convert.ToInt32(values[2]);         
         }
     }
 }

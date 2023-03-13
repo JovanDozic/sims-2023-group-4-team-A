@@ -1,28 +1,26 @@
 ﻿using SIMSProject.Model;
 using SIMSProject.Serializer;
 using System.Collections.Generic;
-using System.Linq;
-
 namespace SIMSProject.Repository
 {
     public class UserRepository
     {
         private const string FilePath = "../../../Resources/Data/users.csv";
-
         private readonly Serializer<User> _serializer;
-
-        private List<User> _users;
 
         public UserRepository()
         {
-            _serializer = new Serializer<User>();
-            _users = _serializer.FromCSV(FilePath);
+            _serializer = new();
         }
 
-        public User GetByUsername(string username)
+        public List<User> Load()
         {
-            _users = _serializer.FromCSV(FilePath);
-            return _users.FirstOrDefault(u => u.Username == username);
+            return _serializer.FromCSV(FilePath);
+        }
+
+        public void Save(List<User> users)
+        {
+            _serializer.ToCSV(FilePath, users);
         }
     }
 }

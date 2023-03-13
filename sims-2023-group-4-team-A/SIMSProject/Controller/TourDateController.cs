@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using SIMSProject.Model;
 using SIMSProject.Model.DAO;
+using SIMSProject.Model;
 
 namespace SIMSProject.Controller
 {

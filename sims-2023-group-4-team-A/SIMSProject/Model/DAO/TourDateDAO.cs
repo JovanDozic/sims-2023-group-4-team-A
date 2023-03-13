@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SIMSProject.Model;
 using SIMSProject.Observer;
 using SIMSProject.Repository;
 
