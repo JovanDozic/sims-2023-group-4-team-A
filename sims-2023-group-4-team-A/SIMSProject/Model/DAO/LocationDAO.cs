@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using SIMSProject.Model;
 using SIMSProject.Model.DAO;
 using SIMSProject.Observer;
@@ -9,36 +10,37 @@ namespace SIMSProject.Model.DAO
     public class LocationDAO : ISubject
     {
         private List<IObserver> _observers;
-        private TourLocationRepository _repository;
-        private List<Location> _tourLocations;
+        private LocationRepository _repository;
+        private List<Location> _locations;
 
         public LocationDAO()
         {
             _repository = new();
-            _tourLocations = _repository.Load();
+            _locations = _repository.Load();
             _observers = new();
         }
 
-        public List<Location> GetAll() { return _tourLocations; }
-
-        public Location Save(Location tourLocation)
+        public List<Location> GetAll() { return _locations; }
+        public int NextId() { return _locations.Max(x => x.Id) + 1; }
+        public Location Save(Location location)
         {
-            _tourLocations.Add(tourLocation);
-            _repository.Save(_tourLocations);
+            location.Id = NextId();
+            _locations.Add(location);
+            _repository.Save(_locations);
             NotifyObservers();
-            return tourLocation;
+            return location;
         }
 
         public void SaveAll(List<Location> tourLocations)
         {
             _repository.Save(tourLocations);
-            _tourLocations = tourLocations;
+            _locations = tourLocations;
             NotifyObservers();
         }
 
         public Location Get(int id)
         {
-            return _tourLocations.Find(x => x.Id == id);
+            return _locations.Find(x => x.Id == id);
         }
 
         // [OBSERVERS]

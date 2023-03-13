@@ -1,5 +1,4 @@
-﻿using SIMSProject.Model;
-using SIMSProject.Observer;
+﻿using SIMSProject.Observer;
 using SIMSProject.Repository;
 using System;
 using System.Collections.Generic;
@@ -30,7 +29,7 @@ namespace SIMSProject.Model.DAO
 
         private void AssociateTours()
         {
-            TourLocationRepository tourLocationRepository = new();
+            LocationRepository tourLocationRepository = new();
             TourKeyPointRepository tourKeyPointRepository = new();
             KeyPointRepository keyPointRepository = new();
             TourDateRepository tourDateRepository = new();

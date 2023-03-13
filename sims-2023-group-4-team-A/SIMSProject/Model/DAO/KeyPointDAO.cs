@@ -26,7 +26,7 @@ namespace SIMSProject.Model.DAO
 
         private void AssociatePoints()
         {
-            TourLocationRepository tourLocationRepository = new();
+            LocationRepository tourLocationRepository = new();
             TourRepository tourRepository = new();
             TourKeyPointRepository tourKeyPointRepository = new();
 

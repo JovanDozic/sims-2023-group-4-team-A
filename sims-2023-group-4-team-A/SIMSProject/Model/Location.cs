@@ -1,15 +1,8 @@
 ﻿using SIMSProject.Serializer;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text.RegularExpressions;
-using System.Linq;
-using System.Security.Permissions;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Xml.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 namespace SIMSProject.Model
 {
@@ -17,7 +10,7 @@ namespace SIMSProject.Model
     {
         public int Id { get; set; }
 
-        private string _city;
+        private string _city = string.Empty;
         public string City 
         {   get => _city;
             set 
@@ -31,7 +24,7 @@ namespace SIMSProject.Model
             }
         }
 
-        private string _country;
+        private string _country = string.Empty;
         public string Country 
         { 
             get => _country;
@@ -84,7 +77,6 @@ namespace SIMSProject.Model
             Country = Convert.ToString(values[2]);
         }
 
-
         /*Validation*/
 
         string templateRegex = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
@@ -118,9 +110,7 @@ namespace SIMSProject.Model
 
         private readonly string[] _validatesProperties = { "City", "Country"};
 
-        
-
-        public bool isValid
+        public bool IsValid
         {
             get
             {
@@ -134,6 +124,4 @@ namespace SIMSProject.Model
             }
         }
     }
-
-    
 }

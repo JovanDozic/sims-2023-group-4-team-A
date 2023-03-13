@@ -1,23 +1,9 @@
 ﻿using SIMSProject.Controller;
 using SIMSProject.Model;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using SIMSProject.CustomControls;
 using System.Diagnostics;
 
 namespace SIMSProject.View.OwnerViews
@@ -30,7 +16,7 @@ namespace SIMSProject.View.OwnerViews
         public Accommodation Accommodation { get; set; } = new();
         public string ImageURLs { get; set; } = "primer1.jpg, primer2.png...";
         private AccommodationController _accommodationController { get; set; } = new();
-        private AddressController _addressController { get; set; } = new();
+        private LocationController _locationController { get; set; } = new();
 
         public ObservableCollection<string> AccommodationTypeSource { get; set; }
         public RegisterAccommodation()
@@ -40,7 +26,6 @@ namespace SIMSProject.View.OwnerViews
 
             Accommodation = new();
             
-
             AccommodationTypeSource = new()
             {
                 "Apartman",
@@ -58,7 +43,7 @@ namespace SIMSProject.View.OwnerViews
                 return;
             }
 
-            Accommodation.Location = _addressController.Create(Accommodation.Location);
+            Accommodation.Location = _locationController.Create(Accommodation.Location);
             Trace.WriteLine("\nACC: " + Accommodation.ImageURLsCSV);
             _accommodationController.Create(Accommodation);
 

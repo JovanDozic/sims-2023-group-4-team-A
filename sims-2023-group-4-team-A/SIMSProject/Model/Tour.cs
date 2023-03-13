@@ -16,9 +16,7 @@ namespace SIMSProject.Model
 {
     public class Tour : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
-
         public int Id { get; set; }
-
         private string? _name;
         public string Name 
         { 
@@ -32,11 +30,8 @@ namespace SIMSProject.Model
                 }
             } 
         }
-
         public User Guide { get; set; }
-
         public Location Location { get; set; } = new Location();
-
         private string? _description;
         public string Description
         {
@@ -50,7 +45,6 @@ namespace SIMSProject.Model
                 }
             }
         }
-
         private Language _language;
         public string TourLanguage
         {
@@ -262,7 +256,7 @@ namespace SIMSProject.Model
 
         
 
-        public bool isValid
+        public bool IsValid
         {
             get
             {

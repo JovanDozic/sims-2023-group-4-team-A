@@ -9,7 +9,7 @@ namespace SIMSProject.Model.DAO
     {
         private List<IObserver> _observers;
         private AddressRepository _repository;
-        private List<Address> _addresses;
+        private List<Location> _addresses;
 
         public AddressDAO()
         {
@@ -19,9 +19,9 @@ namespace SIMSProject.Model.DAO
         }
 
         public int NextId() { return _addresses.Max(x => x.Id) + 1; }
-        public List<Address> GetAll() { return _addresses; }
+        public List<Location> GetAll() { return _addresses; }
 
-        public Address Save(Address address)
+        public Location Save(Location address)
         {
             address.Id = NextId();
             _addresses.Add(address);
@@ -30,14 +30,14 @@ namespace SIMSProject.Model.DAO
             return address;
         }
 
-        public void SaveAll(List<Address> addresses)
+        public void SaveAll(List<Location> addresses)
         {
             _repository.Save(addresses);
             _addresses = addresses;
             NotifyObservers();
         }
 
-        public Address Get(int id)
+        public Location Get(int id)
         {
             return _addresses.Find(x => x.Id == id);
         }
