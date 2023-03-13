@@ -90,6 +90,7 @@ namespace SIMSProject.Model
 
                 return true;
             }
+        }
             
         public override string? ToString()
         {

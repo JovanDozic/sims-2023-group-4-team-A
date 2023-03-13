@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:SIMSProject.View.Guest1"
         xmlns:custom="clr-namespace:SIMSProject.CustomControls"
     mc:Ignorable="d"
-        Title="AccommodationSearchAndShowForm" Height="460" Width="798">
+        Title="AccommodationSearchAndShowForm" Height="460" Width="798"
+        WindowStartupLocation="CenterScreen">
 
     <DockPanel>
 

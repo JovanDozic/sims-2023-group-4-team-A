@@ -31,14 +31,13 @@ namespace SIMSProject.View.Guest2
 
     public partial class ShowAndSearchTours : Window
     {
+        public Tour Tour { get; set; }
         public ObservableCollection<Tour> Tours { get; set; }
-        public ObservableCollection<TourLocation> TourLocations { get; set; }
-      
-
-        public ObservableCollection<Tour> toursFilteredByLocation { get; set; }
-        public ObservableCollection<Tour> toursFilteredByDuration { get; set; }
-        public ObservableCollection<Tour> toursFilteredByLanguage { get; set; }
-        public ObservableCollection<Tour> toursFilteredByMaxGuests { get; set; }
+        //public ObservableCollection<TourLocation> TourLocations { get; set; }      
+        //public ObservableCollection<Tour> toursFilteredByLocation { get; set; }
+        //public ObservableCollection<Tour> toursFilteredByDuration { get; set; }
+        //public ObservableCollection<Tour> toursFilteredByLanguage { get; set; }
+        //public ObservableCollection<Tour> toursFilteredByMaxGuests { get; set; }
         
 
         private readonly TourController TourController;
@@ -50,7 +49,7 @@ namespace SIMSProject.View.Guest2
         {
             InitializeComponent();
             DataContext = this;
-
+            Tour = new();
             TourController = new TourController();
             //tourController.Subscribe(this);
 
@@ -68,6 +67,61 @@ namespace SIMSProject.View.Guest2
 
         private void PretraziClick(object sender, RoutedEventArgs e)
         {
+            Tours.Clear();
+            foreach (var tour in new ObservableCollection<Tour>(TourController.GetAll()))
+            {
+                Tours.Add(tour);
+            }
+
+            String locationAndLanguage = LocationAndLanguageSearch.Text;
+            if (locationAndLanguage == "Lokacija jezik") locationAndLanguage = string.Empty;
+            List<Tour> searchResults = new();
+            List<string> searchList = new List<string>();
+
+            string[] searchValues = locationAndLanguage.Split(" ");
+
+            int searchDuration = DurationSearch.Value <= 0 ? -1 : DurationSearch.Value;
+            int searchMaxGuests = GuestSearch.Value <= 0 ? -1 : GuestSearch.Value;
+
+            foreach(string  value in searchValues)
+            {
+                foreach(var tour in Tours)
+                {
+                    if (tour.ToString().ToLower().Contains(value.ToLower()))
+                    {
+
+
+                        if (searchDuration == -1)
+                        {
+                            if (searchMaxGuests == -1)
+                                searchResults.Add(tour);
+                            else if (tour.MaxGuestNumber >= searchMaxGuests)
+                                searchResults.Add(tour);
+                        }
+                        else if (tour.Duration == searchDuration)
+                        {
+                            if (searchMaxGuests == -1)
+                                searchResults.Add(tour);
+                            else if (tour.MaxGuestNumber >= searchMaxGuests)
+                                searchResults.Add(tour);
+                        }
+
+
+
+
+
+                    }
+                }
+            }
+
+            Tours.Clear();
+
+            foreach (var searchResult in searchResults)
+            {
+                Tours.Add(searchResult);
+            }
+
+            /*
             //string searchtext = LocationSearch.Text + LanguageSearch.Text + DurationSearch.Text + GuestSearch.Text;
             //var results = TourController.search(searchtext);
 
@@ -137,8 +191,29 @@ namespace SIMSProject.View.Guest2
             //int duration = string.isnullorempty(durationsearch.text) ? 0 : int.parse(durationsearch.text);
 
             //searchtours(numguests, language, location, duration);
+            */
 
-    }
+        }
+
+        private void TextSearch_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox? textbox = sender as TextBox;
+            if (textbox is null) return;
+            textbox.Foreground = new SolidColorBrush(Colors.Black);
+            if (textbox.Text == "Lokacija jezik") textbox.Text = string.Empty;
+        }
+
+        private void TextSearch_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox? textbox = sender as TextBox;
+            if (textbox is null) return;
+            if (textbox.Text == string.Empty)
+            {
+                textbox.Foreground = new SolidColorBrush(Colors.Gray);
+                textbox.Text = "Lokacija jezik";
+
+            }
+        }
 
         private void SearchTours(int numGuests, Language language, string location, int duration)
         {
@@ -169,7 +244,7 @@ namespace SIMSProject.View.Guest2
             // Display the matching tours to the user
             //ShowMatchingTours(matchingTours);
         }
-
+        
 
     }
 }
