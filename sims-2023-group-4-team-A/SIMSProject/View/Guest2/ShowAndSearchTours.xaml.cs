@@ -38,7 +38,7 @@ namespace SIMSProject.View.Guest2
         //public ObservableCollection<Tour> toursFilteredByDuration { get; set; }
         //public ObservableCollection<Tour> toursFilteredByLanguage { get; set; }
         //public ObservableCollection<Tour> toursFilteredByMaxGuests { get; set; }
-        
+
 
         private readonly TourController TourController;
         private readonly TourLocationController TourLocationController = new();
@@ -68,130 +68,34 @@ namespace SIMSProject.View.Guest2
         private void PretraziClick(object sender, RoutedEventArgs e)
         {
             Tours.Clear();
-            foreach (var tour in new ObservableCollection<Tour>(TourController.GetAll()))
-            {
-                Tours.Add(tour);
-            }
+            foreach (var tour in new ObservableCollection<Tour>
+                (TourController.GetAll()))
+                     Tours.Add(tour);
+            
 
             String locationAndLanguage = LocationAndLanguageSearch.Text;
             if (locationAndLanguage == "Lokacija jezik") locationAndLanguage = string.Empty;
-            List<Tour> searchResults = new();
-            List<string> searchList = new List<string>();
-
             string[] searchValues = locationAndLanguage.Split(" ");
 
             int searchDuration = DurationSearch.Value <= 0 ? -1 : DurationSearch.Value;
             int searchMaxGuests = GuestSearch.Value <= 0 ? -1 : GuestSearch.Value;
 
-            foreach(string  value in searchValues)
-            {
-                foreach(var tour in Tours)
-                {
-                    if (tour.ToString().ToLower().Contains(value.ToLower()))
-                    {
+            List<Tour> searchResults = Tours.ToList();
+            List<Tour> fourdResults = new();
 
+            // Removing all by location and language
+            foreach(string value in searchValues)
+                searchResults.RemoveAll(x=>!x.ToString().ToLower().Contains(value.ToLower()));
 
-                        if (searchDuration == -1)
-                        {
-                            if (searchMaxGuests == -1)
-                                searchResults.Add(tour);
-                            else if (tour.MaxGuestNumber >= searchMaxGuests)
-                                searchResults.Add(tour);
-                        }
-                        else if (tour.Duration == searchDuration)
-                        {
-                            if (searchMaxGuests == -1)
-                                searchResults.Add(tour);
-                            else if (tour.MaxGuestNumber >= searchMaxGuests)
-                                searchResults.Add(tour);
-                        }
-
-
-
-
-
-                    }
-                }
-            }
+            // Removing by numbers
+            if (searchDuration > 0) searchResults.RemoveAll(x => x.Duration != searchDuration);
+            if(searchMaxGuests > 0) searchResults.RemoveAll(x=>x.MaxGuestNumber < searchMaxGuests);
+          
 
             Tours.Clear();
-
             foreach (var searchResult in searchResults)
-            {
                 Tours.Add(searchResult);
-            }
-
-            /*
-            //string searchtext = LocationSearch.Text + LanguageSearch.Text + DurationSearch.Text + GuestSearch.Text;
-            //var results = TourController.search(searchtext);
-
-
-            //if (LocationSearch.Text != string.Empty)
-            //{
-            //    Tours.Clear();
-            //    foreach (var tour in TourController.SearchLocations(LocationSearch.Text))
-            //    {
-            //        Tours.Add(tour);
-            //    }
-
-            //    toursFilteredByLocation = Tours;
-
-            //}
-
-            //if (DurationSearch.Text != string.Empty)
-            //{
-            //    Tours.Clear();
-            //    foreach (var tour in TourController.SearchDurations(DurationSearch.Text))
-            //    {
-            //        Tours.Add(tour);
-            //    }
-
-            //    toursFilteredByDuration = Tours;
-
-            //}
-
-            //if (LanguageSearch.Text != string.Empty)
-            //{
-            //    Tours.Clear();
-            //    foreach (var tour in TourController.SearchLanguages(LanguageSearch.Text))
-            //    {
-            //        Tours.Add(tour);
-            //    }
-
-            //    toursFilteredByLanguage = Tours;
-
-            //}
-
-            //if (GuestSearch.Text != string.Empty)
-            //{
-            //    Tours.Clear();
-            //    foreach (var tour in TourController.SearchMaxGuest(GuestSearch.Text))
-            //    {
-            //        Tours.Add(tour);
-            //    }
-
-            //    toursFilteredByMaxGuests = Tours;
-            //}
-
-
-            //Tours.Clear();
-            //var commonElements = toursFilteredByLocation.Intersect(toursFilteredByDuration).Intersect(toursFilteredByLanguage).Intersect(toursFilteredByMaxGuests);
-            //List<Tour> toursFlitered = commonElements.ToList();
-            //foreach (var element in toursFlitered)
-            //{
-            //    Tours.Add(element);
-            //}
-
-
-
-
-            //int numguests = string.isnullorempty(guestsearch.text) ? 0 : int.parse(guestsearch.text);
-            //language language = (language)enum.parse(typeof(language), languagesearch.text.tostring());
-            //string location = locationsearch.text;
-            //int duration = string.isnullorempty(durationsearch.text) ? 0 : int.parse(durationsearch.text);
-
-            //searchtours(numguests, language, location, duration);
-            */
+            
 
         }
 
@@ -244,7 +148,7 @@ namespace SIMSProject.View.Guest2
             // Display the matching tours to the user
             //ShowMatchingTours(matchingTours);
         }
-        
+
 
     }
 }
