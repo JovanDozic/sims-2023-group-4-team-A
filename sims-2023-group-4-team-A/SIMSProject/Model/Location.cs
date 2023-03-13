@@ -13,7 +13,7 @@ using System.Runtime.CompilerServices;
 
 namespace SIMSProject.Model
 {
-    public class TourLocation : ISerializable,  IDataErrorInfo, INotifyPropertyChanged
+    public class Location : ISerializable,  IDataErrorInfo, INotifyPropertyChanged
     {
         public int Id { get; set; }
 
@@ -59,12 +59,12 @@ namespace SIMSProject.Model
             return $"{City}, {Country}";
         }
 
-        public TourLocation()
+        public Location()
         {
             
         }
 
-        public TourLocation(int id, string city, string country)
+        public Location(int id, string city, string country)
         {
             Id = id;
             City = city;

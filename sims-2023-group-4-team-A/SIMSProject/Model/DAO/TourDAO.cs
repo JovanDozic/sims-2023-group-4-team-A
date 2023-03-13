@@ -1,4 +1,5 @@
-﻿using SIMSProject.Observer;
+﻿using SIMSProject.Model;
+using SIMSProject.Observer;
 using SIMSProject.Repository;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace SIMSProject.Model.DAO
             KeyPointRepository keyPointRepository = new();
             TourDateRepository tourDateRepository = new();
 
-            List<TourLocation> tourLocations = tourLocationRepository.Load();
+            List<Location> tourLocations = tourLocationRepository.Load();
             List<TourDate> tourDateS = tourDateRepository.Load();
             List<TourKeyPoint> tourKeyPoints = tourKeyPointRepository.Load();
             List<KeyPoint> keyPoints = keyPointRepository.Load();

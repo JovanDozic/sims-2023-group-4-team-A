@@ -43,14 +43,14 @@ namespace SIMSProject.Model
             }
         }
 
-        public TourLocation Location { get; set; }
+        public Location Location { get; set; }
 
         public List<Tour> Tours { get; set; } =  new List<Tour>();
         public KeyPoint()
         {
             
         }
-        public KeyPoint(int id, string description, TourLocation location, int locationId)
+        public KeyPoint(int id, string description, Location location, int locationId)
         {
             Id = id;
             Description = description;
