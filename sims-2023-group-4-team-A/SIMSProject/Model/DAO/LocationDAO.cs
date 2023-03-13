@@ -6,22 +6,22 @@ using SIMSProject.Repository;
 
 namespace SIMSProject.Model.DAO
 {
-    public class TourLocationDAO : ISubject
+    public class LocationDAO : ISubject
     {
         private List<IObserver> _observers;
         private TourLocationRepository _repository;
-        private List<TourLocation> _tourLocations;
+        private List<Location> _tourLocations;
 
-        public TourLocationDAO()
+        public LocationDAO()
         {
             _repository = new();
             _tourLocations = _repository.Load();
             _observers = new();
         }
 
-        public List<TourLocation> GetAll() { return _tourLocations; }
+        public List<Location> GetAll() { return _tourLocations; }
 
-        public TourLocation Save(TourLocation tourLocation)
+        public Location Save(Location tourLocation)
         {
             _tourLocations.Add(tourLocation);
             _repository.Save(_tourLocations);
@@ -29,14 +29,14 @@ namespace SIMSProject.Model.DAO
             return tourLocation;
         }
 
-        public void SaveAll(List<TourLocation> tourLocations)
+        public void SaveAll(List<Location> tourLocations)
         {
             _repository.Save(tourLocations);
             _tourLocations = tourLocations;
             NotifyObservers();
         }
 
-        public TourLocation Get(int id)
+        public Location Get(int id)
         {
             return _tourLocations.Find(x => x.Id == id);
         }

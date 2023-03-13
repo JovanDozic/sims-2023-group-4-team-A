@@ -35,7 +35,7 @@ namespace SIMSProject.Model
 
         public User Guide { get; set; }
 
-        public TourLocation Location { get; set; } = new TourLocation();
+        public Location Location { get; set; } = new Location();
 
         private string? _description;
         public string Description
@@ -52,16 +52,27 @@ namespace SIMSProject.Model
         }
 
         private Language _language;
-        public Language TourLanguage
+        public string TourLanguage
         {
-            get => _language;
+            get 
+            {
+                return _language switch
+                {
+                    Language.ENGLISH => "Engleski",
+                    Language.SERBIAN => "Srpski",
+                    Language.SPANISH => "Španski",
+                    _ => "Francuski"
+                };
+            }
             set
             {
-                if (value != _language)
+                _language = value switch
                 {
-                    _language = value;
-                    OnPropertyChanged(nameof(Language));
-                }
+                    "Engleski" => Language.ENGLISH,
+                    "Srpski" => Language.SERBIAN,
+                    "Francuski" => Language.FRENCH,
+                    _ => Language.SPANISH
+                };
             }
         }
 
@@ -75,6 +86,20 @@ namespace SIMSProject.Model
                 {
                     _maxGuestNumber = value;
                     OnPropertyChanged(nameof(MaxGuestNumber));
+                }
+            }
+        }
+
+        private int _availableSpots;
+        public int AvailableSpots
+        {
+            get => _availableSpots;
+            set
+                {
+                if(_availableSpots != value)
+                {
+                    _availableSpots = value;
+                    OnPropertyChanged(nameof(AvailableSpots));
                 }
             }
         }
@@ -137,15 +162,16 @@ namespace SIMSProject.Model
         
         public Tour() { }
 
-        public Tour(int id, string name, User guide, TourLocation location, string description, Language tourLanguage, int maxGuestNumber, int duration, int locationId, int guideId)
+        public Tour(int id, string name, User guide, Location location, string description, Language tourLanguage, int maxGuestNumber, int availableSpots,int duration, int locationId, int guideId)
         {
             Id = id;
             Name = name;
             Guide = guide;
             Location = location;
             Description = description;
-            TourLanguage = tourLanguage;
+            _language = tourLanguage;
             MaxGuestNumber = maxGuestNumber;
+            AvailableSpots = availableSpots;
             Duration = duration;
             LocationId = locationId;
             GuideId = guideId;
@@ -156,12 +182,13 @@ namespace SIMSProject.Model
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
             Description = values[2];
-            Enum.TryParse(values[3], out Language TourLanguage);
+            TourLanguage = values[3];
             MaxGuestNumber = Convert.ToInt32(values[4]);
-            Duration = Convert.ToInt32(values[5]);
-            LocationId = Convert.ToInt32(values[6]);
-            GuideId = Convert.ToInt32(values[7]);
-            string[] ImageURLs = values[8].Split(',');
+            AvailableSpots = Convert.ToInt32(Convert.ToInt32(values[5]));
+            Duration = Convert.ToInt32(values[6]);
+            LocationId = Convert.ToInt32(values[7]);
+            GuideId = Convert.ToInt32(values[8]);
+            string[] ImageURLs = values[9].Split(',');
             Images.AddRange(ImageURLs);
 
         }
@@ -183,7 +210,7 @@ namespace SIMSProject.Model
             
             StringBuilder imageURLs = CreateImageURLs();
 
-            string[] csvValues = { Id.ToString(), Name, Description, TourLanguage.ToString(), MaxGuestNumber.ToString(), Duration.ToString(), LocationId.ToString(), GuideId.ToString(), imageURLs.ToString() };
+            string[] csvValues = { Id.ToString(), Name, Description, TourLanguage.ToString(), MaxGuestNumber.ToString(), AvailableSpots.ToString(),Duration.ToString(), LocationId.ToString(), GuideId.ToString(), imageURLs.ToString() };
             return csvValues;
         }
 

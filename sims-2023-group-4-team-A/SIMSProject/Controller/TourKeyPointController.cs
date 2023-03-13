@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using SIMSProject.Model;
 using SIMSProject.Model.DAO;
-
 namespace SIMSProject.Controller
 {
     public class TourKeyPointController

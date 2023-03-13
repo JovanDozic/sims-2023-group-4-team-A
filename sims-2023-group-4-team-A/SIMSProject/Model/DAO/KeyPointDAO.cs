@@ -30,7 +30,7 @@ namespace SIMSProject.Model.DAO
             TourRepository tourRepository = new();
             TourKeyPointRepository tourKeyPointRepository = new();
 
-            List<TourLocation> toursLocations = tourLocationRepository.Load();
+            List<Location> toursLocations = tourLocationRepository.Load();
             List<Tour> tours = tourRepository.Load();
             List<TourKeyPoint> tourKeyPoints = tourKeyPointRepository.Load();
 

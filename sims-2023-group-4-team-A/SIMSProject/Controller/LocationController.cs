@@ -4,33 +4,33 @@ using SIMSProject.Model.DAO;
 
 namespace SIMSProject.Controller
 {
-    public class TourLocationController
+    public class LocationController
     {
-        private TourLocationDAO _tourLocations;
-        public TourLocation TourLocation;
+        private LocationDAO _tourLocations;
+        public Location TourLocation;
 
-        public TourLocationController()
+        public LocationController()
         {
             _tourLocations = new();
             TourLocation = new();
         }
 
-        public List<TourLocation> GetAll()
+        public List<Location> GetAll()
         {
             return _tourLocations.GetAll();
         }
 
-        public void SaveAll(List<TourLocation> tourLocations)
+        public void SaveAll(List<Location> tourLocations)
         {
             _tourLocations.SaveAll(tourLocations);
         }
 
-        public TourLocation Create(TourLocation tourLocation)
+        public Location Create(Location tourLocation)
         {
             return _tourLocations.Save(tourLocation);
         }
 
-        public TourLocation GetByID(int id)
+        public Location GetByID(int id)
         {
             return _tourLocations.Get(id);
         }
