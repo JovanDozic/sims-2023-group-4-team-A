@@ -4,16 +4,42 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMSProject.View.OwnerViews"
+        xmlns:cstm="clr-namespace:SIMSProject.CustomControls"
         mc:Ignorable="d"
+        Icon="../../../Resources/Images/Stars.png"
         Title="OwnerInitialWindow" Height="450" Width="800">
     <Grid>
 
-        <Button Width="150" Height="40" Click="OpenRegisterAccommodationWindowButton_Click">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="../../../Resources/Images/add.png" Width="20" Height="20" Margin="0 0 5 0"/>
-                <TextBlock Margin="5,2,0,0" Text="Registruj smeštaj" />
-            </StackPanel>
-        </Button>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+            
+            <Button Width="150" Height="40" Margin="30" HorizontalContentAlignment="Left"
+                    Click="OpenRegisterAccommodationWindowButton_Click">
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Image Source="../../../Resources/Images/Add.png" Width="20" Height="20" Margin="0,0,5,0"/>
+                    <TextBlock Margin="5,2,0,0" Text="Registruj smeštaj" />
+                </StackPanel>
+            </Button>
+
+            <Button Width="150" Height="40" Margin="30" HorizontalContentAlignment="Left"
+                    Click="OpenRateGuestWindowButton_Click">
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Image Source="../../../Resources/Images/Rating.png" Width="20" Height="20" Margin="0,0,5,0"/>
+                    <TextBlock Margin="5,2,0,0" Text="Oceni gosta" />
+                </StackPanel>
+            </Button>
+
+            <!--<cstm:RatingInput Rating="{Binding Path=Accommodation.MaxGuestNumber, 
+                                               UpdateSourceTrigger=PropertyChanged,
+                                               Mode=TwoWay}"/>
+
+            <Label Content="{Binding Path=Accommodation.MaxGuestNumber, 
+                                     UpdateSourceTrigger=PropertyChanged,
+                                     Mode=TwoWay}" 
+                   FontSize="25" Margin="30" Height="40" HorizontalAlignment="Center"/>-->
+
+        </StackPanel>
+        
+        
 
     </Grid>
 </Window>
