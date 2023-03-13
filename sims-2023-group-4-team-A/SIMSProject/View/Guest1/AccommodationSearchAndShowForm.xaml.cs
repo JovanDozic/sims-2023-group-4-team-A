@@ -28,6 +28,7 @@ namespace SIMSProject.View.Guest1
         public Accommodation Accommodation { get; set; }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         private AccommodationController AccommodationControllers;
+        public Accommodation selectedAccommodation { set; get; } = new();
         public AccommodationSearchAndShowForm()
         {
             InitializeComponent();
@@ -47,68 +48,30 @@ namespace SIMSProject.View.Guest1
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Accommodations.Clear();
-
             foreach (var accommodations in new ObservableCollection<Accommodation>(AccommodationControllers.GetAll()))
-            {
                 Accommodations.Add(accommodations);
-            }
 
             String search1 = TextSearch1.Text;
             if (search1 == "Naziv tip lokacija") search1 = string.Empty;
-            List<Accommodation> searchResults = new();
-            List<string> searchList = new List<string>();
-
             string[] searchValues = search1.Split(" ");
 
             int searchNumberOfGuests = TextSearch2.Value <= 0 ? -1 : TextSearch2.Value;
-
             int searchNumberOfDays = TextSearch3.Value <= 0 ? -1 : TextSearch3.Value;
 
-            
+            List<Accommodation> searchResults = Accommodations.ToList();
+            List<Accommodation> foundResults = new();
 
-
-
+            // Removing all by name, location and type
             foreach (string value in searchValues)
-            {
-                foreach (var acc in Accommodations)
-                {
-                    if (acc.ToString().ToLower().Contains(value.ToLower()))
-                    {
+                searchResults.RemoveAll(x => !x.ToString().ToLower().Contains(value.ToLower()));
 
-
-                        if (searchNumberOfGuests == -1)
-                        {
-                            if (searchNumberOfDays == -1)
-                                searchResults.Add(acc);
-                            else if (acc.MinReservationDays <= searchNumberOfDays)
-                                searchResults.Add(acc);
-                        }
-                        else if (acc.MaxGuestNumber >= searchNumberOfGuests)
-                        {
-                            if (searchNumberOfDays == -1)
-                                searchResults.Add(acc);
-                            else if (acc.MinReservationDays <= searchNumberOfDays)
-                                searchResults.Add(acc);
-                        }
-                        
-                        
-
-
-
-                    }
-
-                }
-            }
-
+            // Removing by numbers
+            if (searchNumberOfDays > 0) searchResults.RemoveAll(x => x.MinReservationDays > searchNumberOfDays);
+            if (searchNumberOfGuests > 0) searchResults.RemoveAll(x => x.MaxGuestNumber < searchNumberOfGuests);
 
             Accommodations.Clear();
-
             foreach (var searchResult in searchResults)
-            {
                 Accommodations.Add(searchResult);
-            }
-
-
         }
 
         public void Update()
@@ -134,6 +97,12 @@ namespace SIMSProject.View.Guest1
                 textbox.Text = "Naziv tip lokacija";
 
             }
+        }
+
+        private void Reservation_Click(object sender, RoutedEventArgs e)
+        {
+            var openReservation = new AccommodationReservation(selectedAccommodation);
+            openReservation.Show();
         }
     }
 }
