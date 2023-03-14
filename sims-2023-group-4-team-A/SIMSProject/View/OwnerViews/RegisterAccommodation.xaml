@@ -22,7 +22,6 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
@@ -34,15 +33,16 @@
                FontSize="16"/>
         <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"
                Content="Lokacija" Grid.ColumnSpan="2" FontSize="16"/>
-        <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"
+        
+        <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"
                Content="Tip" Grid.ColumnSpan="2" FontSize="16"/>
-        <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"
+        <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"
                Content="Maksimalan broj gostiju" Grid.ColumnSpan="2" FontSize="16"/>
-        <Label Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"
+        <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"
                Content="Minimalan broj dana za rezervaciju" Grid.ColumnSpan="2" FontSize="16"/>
-        <Label Grid.Row="7" Grid.Column="0" VerticalAlignment="Center"
+        <Label Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"
                Content="Granica za otkazivanje" Grid.ColumnSpan="2" FontSize="16"/>
-        <Label Grid.Row="8" Grid.Column="0" VerticalAlignment="Center"
+        <Label Grid.Row="7" Grid.Column="0" VerticalAlignment="Center"
                Content="Slike" Grid.ColumnSpan="2" FontSize="16"/>
 
         <TextBox Text="{Binding Path=Accommodation.Name, 
@@ -54,7 +54,7 @@
                  VerticalContentAlignment="Center" Margin="5,9,5,9" Height="30"
                  TextChanged="TextBox_FocusChanged"/>
 
-        <Grid Grid.Row="2" Grid.Column="1">
+        <!--<Grid Grid.Row="2" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -77,9 +77,9 @@
                      FontSize="16" VerticalContentAlignment="Center" 
                      Margin="5,9,5,9" Height="30" Padding="5,0,0,0"
                      TextChanged="TextBox_FocusChanged"/>
-        </Grid>
+        </Grid>-->
 
-        <Grid Grid.Row="3" Grid.Column="1">
+        <Grid Grid.Row="2" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -105,21 +105,21 @@
         </Grid>
 
         <ComboBox x:Name="CBType" 
-                  Grid.Row="4" Grid.Column="1" FontSize="16" 
+                  Grid.Row="3" Grid.Column="1" FontSize="16" 
                   VerticalContentAlignment="Center" Margin="5,9,5,9" Height="30"
                   ItemsSource="{Binding Path=AccommodationTypeSource}"/>
         
-        <cstm:NumericTextBox Grid.Row="5" Grid.Column="1"
+        <cstm:NumericTextBox Grid.Row="4" Grid.Column="1"
                              Value="{Binding Path=Accommodation.MaxGuestNumber, 
                                              UpdateSourceTrigger=PropertyChanged,
                                              Mode=TwoWay}"/>
 
-        <cstm:NumericTextBox Grid.Row="6" Grid.Column="1"
+        <cstm:NumericTextBox Grid.Row="5" Grid.Column="1"
                              Value="{Binding Path=Accommodation.MinReservationDays, 
                                              UpdateSourceTrigger=PropertyChanged,
                                              Mode=TwoWay}"/>
 
-        <Grid Grid.Row="7" Grid.Column="1">
+        <Grid Grid.Row="6" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -137,7 +137,7 @@
                                 Mode=TwoWay, 
                                 ValidatesOnDataErrors=True}" 
                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
-                 Grid.Row="8" Grid.Column="1" FontSize="16" Padding="5" 
+                 Grid.Row="7" Grid.Column="1" FontSize="16" Padding="5" 
                  VerticalContentAlignment="top" Margin="5,9,5,9" Height="70"
                  AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible"
                  TextChanged="TextBox_FocusChanged"/>

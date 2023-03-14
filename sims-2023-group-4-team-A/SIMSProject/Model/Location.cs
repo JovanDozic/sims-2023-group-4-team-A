@@ -1,30 +1,63 @@
 ﻿using SIMSProject.Serializer;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using System.Linq;
-using System.Security.Permissions;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Xml.Linq;
 
 namespace SIMSProject.Model
 {
-    public class TourLocation : ISerializable,  IDataErrorInfo
+    public class Location : ISerializable,  IDataErrorInfo, INotifyPropertyChanged
     {
         public int Id { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
+
+        private string _city = string.Empty;
+        public string City 
+        {   get => _city;
+            set 
+            { 
+                if(value != _city)
+                {
+                    _city = value;
+                    OnPropertyChanged(nameof(City));
+                    
+                }
+            }
+        }
+
+        private string _country = string.Empty;
+        public string Country 
+        { 
+            get => _country;
+            set
+            {
+                if(value != _country)
+                {
+                    _country = value;
+                    OnPropertyChanged(nameof(Country));
+                }
+            } 
+        }
 
 
-        public TourLocation()
+
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public override string ToString()
+        {
+            return $"{City}, {Country}";
+        }
+
+        public Location()
         {
             
         }
 
-        public TourLocation(int id, string city, string country)
+        public Location(int id, string city, string country)
         {
             Id = id;
             City = city;
@@ -44,7 +77,6 @@ namespace SIMSProject.Model
             Country = Convert.ToString(values[2]);
         }
 
-
         /*Validation*/
 
         string templateRegex = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
@@ -58,17 +90,17 @@ namespace SIMSProject.Model
                 if (columnName == "Country")
                 {
                     if (string.IsNullOrEmpty(Country))
-                        return "Grad";
+                        return "Država";
 
                     if (!Regex.IsMatch(Country, templateRegex))
-                        return "Ne moze biti grad";
+                        return "Ne moze biti država";
                 }
                 else if (columnName == "City")
                 {
                     if (string.IsNullOrEmpty(City))
-                        return "Drzava";
+                        return "Grad";
                     if (!Regex.IsMatch(City, templateRegex))
-                        return "Ne moze biti drzava";
+                        return "Ne moze biti grad";
                 }
                
 
@@ -78,7 +110,7 @@ namespace SIMSProject.Model
 
         private readonly string[] _validatesProperties = { "City", "Country"};
 
-        public bool isValid
+        public bool IsValid
         {
             get
             {
@@ -97,6 +129,4 @@ namespace SIMSProject.Model
             return City + " " + Country;
         }
     }
-
-    
 }

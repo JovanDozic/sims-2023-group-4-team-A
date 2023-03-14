@@ -11,6 +11,9 @@
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\rating.png" />
+    <None Remove="Resources\Images\stars.png" />
+    <None Remove="Resources\Images\statusInformation.png" />
     <None Remove="Resources\Images\view.png" />
   </ItemGroup>
 
@@ -18,6 +21,9 @@
     <Resource Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\rating.png" />
+    <Resource Include="Resources\Images\stars.png" />
+    <Resource Include="Resources\Images\statusInformation.png" />
     <Content Include="Resources\Images\delete.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

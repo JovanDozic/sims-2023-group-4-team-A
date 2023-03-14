@@ -11,7 +11,7 @@ namespace SIMSProject.Serializer
 
         public void ToCSV(string fileName, List<T> objects)
         {
-            StringBuilder csv = new StringBuilder();
+            StringBuilder csv = new();
 
             foreach(T obj in objects)
             {
@@ -25,12 +25,12 @@ namespace SIMSProject.Serializer
 
         public List<T> FromCSV(string fileName)
         {
-            List<T> objects = new List<T>();
+            List<T> objects = new();
 
             foreach(string line in File.ReadLines(fileName))
             {
                 string[] csvValues = line.Split(Delimiter);
-                T obj = new T();
+                T obj = new ();
                 obj.FromCSV(csvValues);
                 objects.Add(obj);
             }

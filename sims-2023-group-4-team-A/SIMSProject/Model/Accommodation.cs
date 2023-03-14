@@ -25,8 +25,8 @@ namespace SIMSProject.Model
                 }
             }
         }
-        private Address _location = new();
-        public Address Location
+        private Location _location = new();
+        public Location Location
         {
             get => _location;
             set
@@ -47,7 +47,7 @@ namespace SIMSProject.Model
                 {
                     ACCOMMODATION_TYPE.APARTMENT => "Apartman",
                     ACCOMMODATION_TYPE.HOUSE => "Kuća",
-                    _ => "Koliba",
+                    _ => "Koliba"
                 };
             }
             set
@@ -56,7 +56,7 @@ namespace SIMSProject.Model
                 {
                     "Apartman" => ACCOMMODATION_TYPE.APARTMENT,
                     "Kuća" => ACCOMMODATION_TYPE.HOUSE,
-                    _ => ACCOMMODATION_TYPE.HUT,
+                    _ => ACCOMMODATION_TYPE.HUT
                 };
                 OnPropertyChanged(nameof(Type));
             }
@@ -121,7 +121,7 @@ namespace SIMSProject.Model
             ImageURLs = new();
         }
 
-        public Accommodation(string name, Address location, string type, int maxGuestNumber, int minReservationDays, int cancellationThreshold, string imageURLsCSV)
+        public Accommodation(string name, Location location, string type, int maxGuestNumber, int minReservationDays, int cancellationThreshold, string imageURLsCSV)
         {
             Name = name;
             Location = location;
@@ -158,8 +158,8 @@ namespace SIMSProject.Model
         {
             Id = int.Parse(values[0]);
             Name = values[1];
-            AddressController addressController = new();
-            Location = addressController.GetById(int.Parse(values[2]));
+            LocationController _locationController = new();
+            Location = _locationController.GetByID(int.Parse(values[2]));
             Type = values[3];
             MaxGuestNumber = int.Parse(values[4]);
             MinReservationDays = int.Parse(values[5]);

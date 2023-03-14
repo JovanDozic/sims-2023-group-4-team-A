@@ -12,13 +12,18 @@ namespace SIMSProject.Model.DAO
     {
         private List<IObserver> _observers;
         private AccommodationRepository _repository;
+        private LocationRepository _locationRepository;
         private List<Accommodation> _accommodations;
 
         public AccommodationDAO()
         {
             _repository = new();
+            _locationRepository = new();
             _accommodations = _repository.Load();
             _observers = new();
+
+            List<Location> locations = _locationRepository.Load();
+            foreach (var accommodation in _accommodations) accommodation.Location = locations.Find(x => x.Id == accommodation.Location.Id) ?? new Location(accommodation.Location.Id, "<null>", "<null>");
         }
 
         public int NextId() { return _accommodations.Max(x => x.Id) + 1; }
@@ -40,13 +45,9 @@ namespace SIMSProject.Model.DAO
             NotifyObservers();
         }
 
-
-
         // [OBSERVERS]
         public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }
         public void Subscribe(IObserver observer) { _observers.Add(observer); }
         public void Unsubscribe(IObserver observer) { _observers.Remove(observer); }
-
-
     }
 }
