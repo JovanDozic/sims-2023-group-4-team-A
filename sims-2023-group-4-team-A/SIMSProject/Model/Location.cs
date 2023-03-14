@@ -17,7 +17,7 @@ namespace SIMSProject.Model
     {
         public int Id { get; set; }
 
-        private string _city;
+        private string? _city;
         public string City 
         {   get => _city;
             set 
@@ -31,7 +31,7 @@ namespace SIMSProject.Model
             }
         }
 
-        private string _country;
+        private string? _country;
         public string Country 
         { 
             get => _country;
@@ -132,11 +132,6 @@ namespace SIMSProject.Model
 
                 return true;
             }
-        }
-            
-        public override string? ToString()
-        {
-            return City + " " + Country;
         }
     }
 

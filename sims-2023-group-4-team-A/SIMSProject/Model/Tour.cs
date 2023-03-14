@@ -70,8 +70,8 @@ namespace SIMSProject.Model
                 {
                     "Engleski" => Language.ENGLISH,
                     "Srpski" => Language.SERBIAN,
-                    "Francuski" => Language.FRENCH,
-                    _ => Language.SPANISH
+                    "Španski" => Language.SPANISH,
+                    _ => Language.FRENCH
                 };
             }
         }
@@ -162,14 +162,14 @@ namespace SIMSProject.Model
         
         public Tour() { }
 
-        public Tour(int id, string name, User guide, Location location, string description, Language tourLanguage, int maxGuestNumber, int availableSpots,int duration, int locationId, int guideId)
+        public Tour(int id, string name, User guide, Location location, string description, string tourLanguage, int maxGuestNumber, int availableSpots,int duration, int locationId, int guideId)
         {
             Id = id;
             Name = name;
             Guide = guide;
             Location = location;
             Description = description;
-            _language = tourLanguage;
+            TourLanguage = tourLanguage;
             MaxGuestNumber = maxGuestNumber;
             AvailableSpots = availableSpots;
             Duration = duration;
@@ -210,7 +210,7 @@ namespace SIMSProject.Model
             
             StringBuilder imageURLs = CreateImageURLs();
 
-            string[] csvValues = { Id.ToString(), Name, Description, TourLanguage.ToString(), MaxGuestNumber.ToString(), AvailableSpots.ToString(),Duration.ToString(), LocationId.ToString(), GuideId.ToString(), imageURLs.ToString() };
+            string[] csvValues = { Id.ToString(), Name, Description, TourLanguage, MaxGuestNumber.ToString(), AvailableSpots.ToString(),Duration.ToString(), LocationId.ToString(), GuideId.ToString(), imageURLs.ToString() };
             return csvValues;
         }
 

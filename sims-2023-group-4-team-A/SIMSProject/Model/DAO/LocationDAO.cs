@@ -9,7 +9,7 @@ namespace SIMSProject.Model.DAO
     public class LocationDAO : ISubject
     {
         private List<IObserver> _observers;
-        private TourLocationRepository _repository;
+        private LocationRepository _repository;
         private List<Location> _tourLocations;
 
         public LocationDAO()

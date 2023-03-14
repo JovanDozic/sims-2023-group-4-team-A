@@ -27,9 +27,9 @@
                   ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
                   >
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Location}" Header="Lokacija" Width="150" x:Name="location"/>
+                <DataGridTextColumn Binding="{Binding Path = Location}" Header="Lokacija" Width="150" x:Name="location"/>
                 <DataGridTextColumn Binding="{Binding Duration}" Header="Trajanje ture" Width="100" x:Name="duration"/>
-                <DataGridTextColumn Binding="{Binding TourLanguage}" Header="Jezik" Width="80" x:Name="tourLanguage"/>
+                <DataGridTextColumn Binding="{Binding Path = TourLanguage}" Header="Jezik" Width="80" x:Name="tourLanguage"/>
                 <DataGridTextColumn Binding="{Binding MaxGuestNumber}" Header="Broj ljudi" Width="100" x:Name="maxGuestNumber"/>
             </DataGrid.Columns>
         </DataGrid>

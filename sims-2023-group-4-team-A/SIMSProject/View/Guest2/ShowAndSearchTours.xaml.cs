@@ -14,7 +14,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using SIMSProject.Controller;
 using System.Collections;
 using System.Diagnostics;
 using System.ComponentModel;
@@ -27,11 +26,9 @@ namespace SIMSProject.View.Guest2
     /// </summary>
     /// 
 
-    public enum TourLanguage { ENGLISH = 0, SERBIAN, SPANISH, FRENCH };
-
     public partial class ShowAndSearchTours : Window, INotifyPropertyChanged
     {
-        public Tour Tour { get; set; }
+        public Tour Tour { get; set; } = new();
 
         private int _durationSearchBox = 0;
         public int DurationSearchBox
@@ -63,20 +60,20 @@ namespace SIMSProject.View.Guest2
         public ObservableCollection<Tour> Tours { get; set; }
 
         private readonly TourController TourController;
-        private readonly TourLocationController TourLocationController = new();
+        private readonly LocationController TourLocationController = new();
 
 
 
         public ShowAndSearchTours()
         {
             InitializeComponent();
-            DataContext = this;
-            Tour = new();
+            this.DataContext = this;
+            
             TourController = new TourController();
             
             Tours = new ObservableCollection<Tour>(TourController.GetAll());
 
-            var tourLocations = TourLocationController.GetAll();
+            List<Location> tourLocations = TourLocationController.GetAll();
 
             foreach (var tour in Tours)
             {

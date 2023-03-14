@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace SIMSProject.Repository
 {
-    public class TourLocationRepository
+    public class LocationRepository
     {
         private const string FilePath = "../../../Resources/Data/locations1.csv";
         private readonly Serializer<Location> serializer;
 
-        public TourLocationRepository()
+        public LocationRepository()
         {
             serializer = new Serializer<Location>();
         }
