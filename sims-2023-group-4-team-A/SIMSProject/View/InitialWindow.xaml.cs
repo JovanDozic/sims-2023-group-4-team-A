@@ -10,6 +10,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SIMSProject.View.Guest2;
+using SIMSProject.View.Guest1;
+using SIMSProject.View.GuideViews;
+
 
 namespace SIMSProject.View
 {
@@ -28,7 +31,7 @@ namespace SIMSProject.View
 
         private void Guest1_Click(object sender, RoutedEventArgs e)
         {
-            Guest1.AccommodationSearchAndShowForm accommondationSearchAndShowForm = new();
+            AccommodationSearchAndShowForm accommondationSearchAndShowForm = new();
             accommondationSearchAndShowForm.Show();
         }
 
@@ -46,7 +49,10 @@ namespace SIMSProject.View
 
         private void TourGuide_Click(object sender, RoutedEventArgs e)
         {
-
+            TourCreation tourCreation = new TourCreation();
+            tourCreation.Show();
+            
+            
         }
     }
 }

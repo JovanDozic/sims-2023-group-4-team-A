@@ -18,7 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SIMSProject.View
+namespace SIMSProject.View.GuideViews
 {
     /// <summary>
     /// Interaction logic for TourCreation.xaml
