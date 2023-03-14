@@ -59,6 +59,41 @@ namespace SIMSProject.Model.DAO
         public int NextId() { return _tours.Max(x => x.Id) + 1; }
         public List<Tour> GetAll() { return _tours; }
 
+        /*public static List<Tour> Search(string searchText)
+        {
+            // učitaj podatke iz izvora podataka
+            List<Tour> allTours = GetAll();
+            // podeli pretražni tekst na dva dela, ime i prezime
+            var searchTerms = searchText.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var firstName = searchTerms.Length > 0 ? searchTerms[0] : string.Empty;
+            var lastName = searchTerms.Length > 1 ? searchTerms[1] : string.Empty;
+            // filtriraj podatke na osnovu pretražnih pojmova
+            var filteredData = allData.Where(d => d.FirstName.Contains(firstName) && d.LastName.Contains(lastName));
+            // mapiraj filtrirane podatke u rezultate
+            var results = filteredData.Select(d => new Result(d));
+            return results.ToList();
+        }*/
+
+        public List<Tour> SearchLocations(string locationId)
+        {
+            return _tours.Where(tour => tour.LocationId.Equals(locationId)).ToList();
+        }
+
+        public List<Tour> SearchDurations(string duration)
+        {
+            return _tours.Where(tour => tour.Duration.Equals(duration)).ToList();
+        }
+
+        public List<Tour> SearchLanguages(string language)
+        {
+            return _tours.Where(tour => tour.TourLanguage.Equals(language)).ToList();
+        }
+
+        public List<Tour> SearchMaxGuests(string maxGuests)
+        {
+            return _tours.Where(tour => tour.MaxGuestNumber.Equals(maxGuests)).ToList();
+        }
+
         public Tour Save(Tour tour)
         {
             tour.Id = NextId();
