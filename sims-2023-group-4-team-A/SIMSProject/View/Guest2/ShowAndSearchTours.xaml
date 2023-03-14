@@ -13,16 +13,14 @@
         
         <ToolBar DockPanel.Dock="Top" Height="60">
             <TextBlock Width="25"/>
-            <Label Content="Lokacija i jezik: " Height="30"/>
             <TextBox x:Name="LocationAndLanguageSearch" Width="120" Height="30" Text="Lokacija jezik" 
                      Foreground="Gray" GotFocus="TextSearch_GotFocus" LostFocus="TextSearch_LostFocus"/>
             <Label Content="   Trajanje ture: " Height="30"/>
-            <custom:NumericTextBox x:Name="DurationSearch" Value="0"/>
+            <custom:NumericTextBox x:Name="DurationSearch" Value="{Binding DurationSearchBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             <Label Content="   Broj ljudi: " Height="30"/>
-            <custom:NumericTextBox x:Name="GuestSearch"/>
+            <custom:NumericTextBox x:Name="GuestSearch" Value="{Binding MaxGuestSearchBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             <TextBlock Width="90"/>
-            <Button  Height="30" Width ="100" Click="PretraziClick" Content="Pretrazi" Background="Gold"/>
-
+            <Button  Height="30" Width ="100" Click="Search_Click" Content="Pretrazi" Background="Gold"/>
         </ToolBar>
 
         <DataGrid Height="300" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"
