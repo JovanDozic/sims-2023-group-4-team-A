@@ -1,7 +1,9 @@
 ﻿using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,7 +13,6 @@ namespace SIMSProject.Model
     {
         public int TourId { get; set; }
         public int GuestId { get; set; }
-
         public TourGuest()
         {
             

@@ -47,7 +47,7 @@ namespace SIMSProject.Model
                 {
                     ACCOMMODATION_TYPE.APARTMENT => "Apartman",
                     ACCOMMODATION_TYPE.HOUSE => "Kuća",
-                    _ => "Koliba",
+                    _ => "Koliba"
                 };
             }
             set
@@ -56,7 +56,7 @@ namespace SIMSProject.Model
                 {
                     "Apartman" => ACCOMMODATION_TYPE.APARTMENT,
                     "Kuća" => ACCOMMODATION_TYPE.HOUSE,
-                    _ => ACCOMMODATION_TYPE.HUT,
+                    _ => ACCOMMODATION_TYPE.HUT
                 };
                 OnPropertyChanged(nameof(Type));
             }
