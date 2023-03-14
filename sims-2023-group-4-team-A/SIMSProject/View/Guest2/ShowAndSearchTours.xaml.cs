@@ -14,11 +14,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using SIMSProject.Controller;
 using System.Collections;
 using System.Diagnostics;
-
-
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace SIMSProject.View.Guest2
 {
@@ -27,149 +26,119 @@ namespace SIMSProject.View.Guest2
     /// </summary>
     /// 
 
-    public enum TourLanguage { ENGLISH = 0, SERBIAN, SPANISH, FRENCH };
-
-    public partial class ShowAndSearchTours : Window
+    public partial class ShowAndSearchTours : Window, INotifyPropertyChanged
     {
-        public ObservableCollection<Tour> Tours { get; set; }
-        public ObservableCollection<Location> TourLocations { get; set; }
-      
+        public Tour Tour { get; set; } = new();
 
-        public ObservableCollection<Tour> toursFilteredByLocation { get; set; }
-        public ObservableCollection<Tour> toursFilteredByDuration { get; set; }
-        public ObservableCollection<Tour> toursFilteredByLanguage { get; set; }
-        public ObservableCollection<Tour> toursFilteredByMaxGuests { get; set; }
-        
+        private int _durationSearchBox = 0;
+        public int DurationSearchBox
+        {
+            get => _durationSearchBox;
+            set
+            {
+                if (value != _durationSearchBox && value >= 0)
+                {
+                    _durationSearchBox = value;
+                    OnPropertyChanged(nameof(DurationSearchBox));
+                }
+            }
+        }
+
+        private int _maxGuestSearchBox = 0;
+        public int MaxGuestSearchBox
+        {
+            get => _maxGuestSearchBox;
+            set
+            {
+                if (value != _maxGuestSearchBox && value >= 0)
+                {
+                    _maxGuestSearchBox = value;
+                    OnPropertyChanged(nameof(MaxGuestSearchBox));
+                }
+            }
+        }
+        public ObservableCollection<Tour> Tours { get; set; }
 
         private readonly TourController TourController;
-        private readonly TourLocationController TourLocationController = new();
+        private readonly LocationController TourLocationController = new();
 
 
 
         public ShowAndSearchTours()
         {
             InitializeComponent();
-            DataContext = this;
-
+            this.DataContext = this;
+            
             TourController = new TourController();
-            //tourController.Subscribe(this);
-
+            
             Tours = new ObservableCollection<Tour>(TourController.GetAll());
 
-            var tourLocations = TourLocationController.GetAll();
+            List<Location> tourLocations = TourLocationController.GetAll();
 
             foreach (var tour in Tours)
             {
                 tour.Location = tourLocations.Find(x => x.Id == tour.LocationId);
             }
-
-            //Trace.WriteLine("lok " + Tours.First().LocationId + TourLocationController.GetAll().Find(x => x.Id == Tours.First().LocationId));
+            
         }
 
-        private void PretraziClick(object sender, RoutedEventArgs e)
+        private void Search_Click(object sender, RoutedEventArgs e)
         {
-            //string searchtext = LocationSearch.Text + LanguageSearch.Text + DurationSearch.Text + GuestSearch.Text;
-            //var results = TourController.search(searchtext);
+            Tours.Clear();
+            foreach (var tour in new ObservableCollection<Tour>
+                (TourController.GetAll()))
+                     Tours.Add(tour);
+            
 
+            String locationAndLanguage = LocationAndLanguageSearch.Text;
+            if (locationAndLanguage == "Lokacija jezik") locationAndLanguage = string.Empty;
+            string[] searchValues = locationAndLanguage.Split(" ");
 
-            //if (LocationSearch.Text != string.Empty)
-            //{
-            //    Tours.Clear();
-            //    foreach (var tour in TourController.SearchLocations(LocationSearch.Text))
-            //    {
-            //        Tours.Add(tour);
-            //    }
+            int searchDuration = DurationSearch.Value <= 0 ? -1 : DurationSearch.Value;
+            int searchMaxGuests = GuestSearch.Value <= 0 ? -1 : GuestSearch.Value;
 
-            //    toursFilteredByLocation = Tours;
+            List<Tour> searchResults = Tours.ToList();
+            List<Tour> fourdResults = new();
 
-            //}
+            // Removing all by location and language
+            foreach(string value in searchValues)
+                searchResults.RemoveAll(x=>!x.ToString().ToLower().Contains(value.ToLower()));
 
-            //if (DurationSearch.Text != string.Empty)
-            //{
-            //    Tours.Clear();
-            //    foreach (var tour in TourController.SearchDurations(DurationSearch.Text))
-            //    {
-            //        Tours.Add(tour);
-            //    }
-
-            //    toursFilteredByDuration = Tours;
-
-            //}
-
-            //if (LanguageSearch.Text != string.Empty)
-            //{
-            //    Tours.Clear();
-            //    foreach (var tour in TourController.SearchLanguages(LanguageSearch.Text))
-            //    {
-            //        Tours.Add(tour);
-            //    }
-
-            //    toursFilteredByLanguage = Tours;
-
-            //}
-
-            //if (GuestSearch.Text != string.Empty)
-            //{
-            //    Tours.Clear();
-            //    foreach (var tour in TourController.SearchMaxGuest(GuestSearch.Text))
-            //    {
-            //        Tours.Add(tour);
-            //    }
-
-            //    toursFilteredByMaxGuests = Tours;
-            //}
-
-
-            //Tours.Clear();
-            //var commonElements = toursFilteredByLocation.Intersect(toursFilteredByDuration).Intersect(toursFilteredByLanguage).Intersect(toursFilteredByMaxGuests);
-            //List<Tour> toursFlitered = commonElements.ToList();
-            //foreach (var element in toursFlitered)
-            //{
-            //    Tours.Add(element);
-            //}
-
-
-
-
-            //int numguests = string.isnullorempty(guestsearch.text) ? 0 : int.parse(guestsearch.text);
-            //language language = (language)enum.parse(typeof(language), languagesearch.text.tostring());
-            //string location = locationsearch.text;
-            //int duration = string.isnullorempty(durationsearch.text) ? 0 : int.parse(durationsearch.text);
-
-            //searchtours(numguests, language, location, duration);
-
-    }
-
-        private void SearchTours(int numGuests, Language language, string location, int duration)
-        {
-            // TODO: Implement code to search for tours using the provided parameters
-            List<Tour> matchingTours = new List<Tour>();
-
-            foreach (Tour tour in Tours)
-            {
-                // Check if the tour matches the search criteria
-                if ((numGuests == 0 || tour.MaxGuestNumber >= numGuests) &&
-                    /*(language == Language.Any || tour.TourLanguage == language) &&*/
-                    (string.IsNullOrEmpty(location) || tour.Location.Equals(location)) &&
-                    (duration == 0 || tour.Duration <= duration))
-                {
-                    // Add the tour to the list of matching tours
-                    matchingTours.Add(tour);
-                }
-            }
+            // Removing by numbers
+            if (searchDuration > 0) searchResults.RemoveAll(x => x.Duration != searchDuration);
+            if(searchMaxGuests > 0) searchResults.RemoveAll(x=>x.MaxGuestNumber < searchMaxGuests);          
 
             Tours.Clear();
-            foreach (Tour tour in matchingTours)
-            {
-                Tours.Add(tour);
-            }
-
-            //tours = matchingTours;
-
-            // Display the matching tours to the user
-            //ShowMatchingTours(matchingTours);
+            foreach (var searchResult in searchResults)
+                Tours.Add(searchResult);
+            
         }
 
+        private void TextSearch_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox? textbox = sender as TextBox;
+            if (textbox is null) return;
+            textbox.Foreground = new SolidColorBrush(Colors.Black);
+            if (textbox.Text == "Lokacija jezik") textbox.Text = string.Empty;
+        }
+
+        private void TextSearch_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox? textbox = sender as TextBox;
+            if (textbox is null) return;
+            if (textbox.Text == string.Empty)
+            {
+                textbox.Foreground = new SolidColorBrush(Colors.Gray);
+                textbox.Text = "Lokacija jezik";
+
+            }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
     }
 }

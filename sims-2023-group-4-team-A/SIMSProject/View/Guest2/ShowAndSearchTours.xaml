@@ -7,28 +7,29 @@
       xmlns:custom="clr-namespace:SIMSProject.CustomControls"
       mc:Ignorable="d" 
       d:DesignHeight="400" d:DesignWidth="800"
-      Title="ShowAndSearchTours">
+      Title="ShowAndSearchTours" Width="800" Height="400">
 
     <DockPanel>
         
-        <ToolBar DockPanel.Dock="Top" Height="50">
-            <Label Content="Lokacija i jezik: "/>
-            <TextBox x:Name="LocationAndLanguageSearch" Width="120" Height="30" Text="Lokacija jezik" />
-            <Label Content="Trajanje ture: "/>
-            <TextBox x:Name="DurationSearch" Width="50" Height="30" />
-            <Label Content="Broj ljudi: "/>
-            <TextBox x:Name="GuestSearch" Width="50" Height="30" />
-            <Button  Height="60" Width ="70" Click="PretraziClick" Content="Pretrazi" Background="Gold"/>
-
+        <ToolBar DockPanel.Dock="Top" Height="60">
+            <TextBlock Width="25"/>
+            <TextBox x:Name="LocationAndLanguageSearch" Width="120" Height="30" Text="Lokacija jezik" 
+                     Foreground="Gray" GotFocus="TextSearch_GotFocus" LostFocus="TextSearch_LostFocus"/>
+            <Label Content="   Trajanje ture: " Height="30"/>
+            <custom:NumericTextBox x:Name="DurationSearch" Value="{Binding DurationSearchBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <Label Content="   Broj ljudi: " Height="30"/>
+            <custom:NumericTextBox x:Name="GuestSearch" Value="{Binding MaxGuestSearchBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBlock Width="90"/>
+            <Button  Height="30" Width ="100" Click="Search_Click" Content="Pretrazi" Background="Gold"/>
         </ToolBar>
 
-        <DataGrid Height="400" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"
+        <DataGrid Height="300" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"
                   ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
                   >
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Location}" Header="Lokacija" Width="150" x:Name="location"/>
+                <DataGridTextColumn Binding="{Binding Path = Location}" Header="Lokacija" Width="150" x:Name="location"/>
                 <DataGridTextColumn Binding="{Binding Duration}" Header="Trajanje ture" Width="100" x:Name="duration"/>
-                <DataGridTextColumn Binding="{Binding TourLanguage}" Header="Jezik" Width="80" x:Name="tourLanguage"/>
+                <DataGridTextColumn Binding="{Binding Path = TourLanguage}" Header="Jezik" Width="80" x:Name="tourLanguage"/>
                 <DataGridTextColumn Binding="{Binding MaxGuestNumber}" Header="Broj ljudi" Width="100" x:Name="maxGuestNumber"/>
             </DataGrid.Columns>
         </DataGrid>

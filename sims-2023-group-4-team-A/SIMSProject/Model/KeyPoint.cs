@@ -16,7 +16,7 @@ namespace SIMSProject.Model
     {
         public int Id { get; set; }
 
-        private string _description;
+        private string _description = string.Empty;
         public string Description
         {
             get => _description;
@@ -43,7 +43,7 @@ namespace SIMSProject.Model
             }
         }
 
-        public Location Location { get; set; }
+        public Location Location { get; set; } = new();
 
         public List<Tour> Tours { get; set; } =  new List<Tour>();
         public KeyPoint()
@@ -67,7 +67,7 @@ namespace SIMSProject.Model
 
         public override string ToString()
         {
-            return $"{Description}";
+            return $"{Description}, {Location}";
         }
 
         public string[] ToCSV()
