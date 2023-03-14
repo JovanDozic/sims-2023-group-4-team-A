@@ -9,8 +9,8 @@ namespace SIMSProject.Model.DAO
     public class TourLocationDAO : ISubject
     {
         private List<IObserver> _observers;
-        private TourLocationRepository _repository;
-        private List<TourLocation> _tourLocations;
+        private LocationRepository _repository;
+        private List<Location> _tourLocations;
 
         public TourLocationDAO()
         {
@@ -19,9 +19,9 @@ namespace SIMSProject.Model.DAO
             _observers = new();
         }
 
-        public List<TourLocation> GetAll() { return _tourLocations; }
+        public List<Location> GetAll() { return _tourLocations; }
 
-        public TourLocation Save(TourLocation tourLocation)
+        public Location Save(Location tourLocation)
         {
             _tourLocations.Add(tourLocation);
             _repository.Save(_tourLocations);
@@ -29,7 +29,7 @@ namespace SIMSProject.Model.DAO
             return tourLocation;
         }
 
-        public void SaveAll(List<TourLocation> tourLocations)
+        public void SaveAll(List<Location> tourLocations)
         {
             _repository.Save(tourLocations);
             _tourLocations = tourLocations;

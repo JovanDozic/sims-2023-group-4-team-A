@@ -32,7 +32,7 @@ namespace SIMSProject.View.Guest2
     public partial class ShowAndSearchTours : Window
     {
         public ObservableCollection<Tour> Tours { get; set; }
-        public ObservableCollection<TourLocation> TourLocations { get; set; }
+        public ObservableCollection<Location> TourLocations { get; set; }
       
 
         public ObservableCollection<Tour> toursFilteredByLocation { get; set; }

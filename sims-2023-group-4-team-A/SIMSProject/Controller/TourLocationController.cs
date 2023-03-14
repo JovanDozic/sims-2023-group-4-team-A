@@ -7,7 +7,7 @@ namespace SIMSProject.Controller
     public class TourLocationController
     {
         private TourLocationDAO _tourLocations;
-        public TourLocation TourLocation;
+        public Location TourLocation;
 
         public TourLocationController()
         {
@@ -15,17 +15,17 @@ namespace SIMSProject.Controller
             TourLocation = new();
         }
 
-        public List<TourLocation> GetAll()
+        public List<Location> GetAll()
         {
             return _tourLocations.GetAll();
         }
 
-        public void SaveAll(List<TourLocation> tourLocations)
+        public void SaveAll(List<Location> tourLocations)
         {
             _tourLocations.SaveAll(tourLocations);
         }
 
-        public TourLocation Create(TourLocation tourLocation)
+        public Location Create(Location tourLocation)
         {
             return _tourLocations.Save(tourLocation);
         }
