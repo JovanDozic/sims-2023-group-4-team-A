@@ -16,6 +16,8 @@ using SIMSProject.Observer;
 using SIMSProject.Controller;
 using System.Collections.ObjectModel;
 using SIMSProject.View.Guest1;
+using System.Runtime.CompilerServices;
+using System.ComponentModel;
 
 
 namespace SIMSProject.View.Guest1
@@ -23,12 +25,49 @@ namespace SIMSProject.View.Guest1
     /// <summary>
     /// Interaction logic for AccommodationSearchAndShowForm.xaml
     /// </summary>
-    public partial class AccommodationSearchAndShowForm : Window, IObserver
+    public partial class AccommodationSearchAndShowForm : Window, IObserver, INotifyPropertyChanged
     {
+
         public Accommodation Accommodation { get; set; }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         private AccommodationController AccommodationControllers;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         public Accommodation selectedAccommodation { set; get; } = new();
+
+        private int _durationSearch;
+
+        public int DurationSearch
+        {
+            get => _durationSearch;
+
+            set
+            {
+                if(value != _durationSearch && value >= 0)
+                {
+                    _durationSearch = value;
+                    OnPropertyChanged(nameof(DurationSearch));
+                }
+            }
+        }
+
+        private int _maxGuestsSearch;
+
+        public int MaxGuestsSearch
+        {
+            get => _maxGuestsSearch;
+
+            set
+            {
+                if(value != _maxGuestsSearch && value >= 0)
+                {
+                    _maxGuestsSearch = value;
+                    OnPropertyChanged(nameof(MaxGuestsSearch));
+                }
+            }
+        }
+
         public AccommodationSearchAndShowForm()
         {
             InitializeComponent();
@@ -55,19 +94,15 @@ namespace SIMSProject.View.Guest1
             if (search1 == "Naziv tip lokacija") search1 = string.Empty;
             string[] searchValues = search1.Split(" ");
 
-            int searchNumberOfGuests = TextSearch2.Value <= 0 ? -1 : TextSearch2.Value;
-            int searchNumberOfDays = TextSearch3.Value <= 0 ? -1 : TextSearch3.Value;
-
             List<Accommodation> searchResults = Accommodations.ToList();
-            List<Accommodation> foundResults = new();
 
             // Removing all by name, location and type
             foreach (string value in searchValues)
                 searchResults.RemoveAll(x => !x.ToString().ToLower().Contains(value.ToLower()));
 
             // Removing by numbers
-            if (searchNumberOfDays > 0) searchResults.RemoveAll(x => x.MinReservationDays > searchNumberOfDays);
-            if (searchNumberOfGuests > 0) searchResults.RemoveAll(x => x.MaxGuestNumber < searchNumberOfGuests);
+            if (DurationSearch > 0) searchResults.RemoveAll(x => x.MinReservationDays > DurationSearch);
+            if (MaxGuestsSearch > 0) searchResults.RemoveAll(x => x.MaxGuestNumber < MaxGuestsSearch);
 
             Accommodations.Clear();
             foreach (var searchResult in searchResults)
@@ -103,6 +138,11 @@ namespace SIMSProject.View.Guest1
         {
             var openReservation = new AccommodationReservation(selectedAccommodation);
             openReservation.Show();
+        }
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
