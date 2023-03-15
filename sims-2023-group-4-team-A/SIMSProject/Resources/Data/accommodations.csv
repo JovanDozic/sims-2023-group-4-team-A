@@ -1,19 +1,9 @@
-1|Seaside Kuća|1|Kuća|6|2|7|image01.png,picture.jpg
-2|Cozy Apartman|2|Apartman|4|3|14|image042.jpeg
-3|Mountain Koliba|3|Koliba|10|7|30|
-4|Downtown Apartman|4|Apartman|2|2|1|image2.png
-5|Forest Kuća|5|Kuća|8|5|14|mainimage.jpeg
-6|Riverside Apartman|6|Apartman|4|2|7|gif.gif,gifara.gif
-7|Countryside Kuća|7|Kuća|12|7|30|picture1.png,picture2.png,picture3.png,picture4.png
-8|Beachfront Apartman|8|Apartman|6|3|14|img.png
-9|Lakeside Kuća|9|Kuća|10|5|14|image.jpeg
-10|Mountain View Koliba|10|Koliba|6|3|14|pic.jpg
-11|Jovanov smeštaj|11|Apartman|100|14|10|picture.png,image.jpg
-12|markov smestaj|12|Apartman|5|5|5|
-14|anja|16|Apartman|10|10|10|anja.jpeg
-15|natalijin smeštaj|19|Apartman|4|4|4|natalija.png,vegeta.jpg
-16|markic|20|Apartman|8|1|1|slike.jpg
-17|naTalija|21|Apartman|2|3|4|naTalija
-18|test2|0|Apartman|1|1|1|test
-19|testttt|42903|Apartman|1|1|1|testttt
-20|Mile|42905|Apartman|3|3|1|mmm.jpg
+1|Seaside Kuća|1|Kuća|6|2|7|../../../Resources/UserImages/Accommodation_1/img.jpg
+2|Cozy Apartman|2|Apartman|4|3|14|../../../Resources/UserImages/Accommodation_2/img.jpg
+3|Forest Kuća|5|Kuća|8|5|14|../../../Resources/UserImages/Accommodation_3/img1.jpg,../../../Resources/UserImages/Accommodation_3/img2.jpg,../../../Resources/UserImages/Accommodation_3/img3.jpg
+4|Riverside Apartman|6|Apartman|4|2|7|../../../Resources/UserImages/Accommodation_4/img.jpg
+5|Countryside Kuća|7|Kuća|12|7|30|../../../Resources/UserImages/Accommodation_5/img.jpg
+6|Lakeside Kuća|9|Kuća|10|5|14|../../../Resources/UserImages/Accommodation_6/img.jpg
+7|Mountain View Koliba|10|Koliba|6|3|14|../../../Resources/UserImages/Accommodation_7/img.jpg
+8|Vodeni Apartman|42926|Apartman|4|3|10|../../../Resources/UserImages/Accommodation_8/image1.jpg
+9|Ledena Koliba|42927|Apartman|2|1|15|../../../Resources/UserImages/Accommodation_9/image2.jpg

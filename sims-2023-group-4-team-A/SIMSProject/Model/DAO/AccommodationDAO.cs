@@ -2,6 +2,7 @@
 using SIMSProject.Repository;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,7 @@ namespace SIMSProject.Model.DAO
         public Accommodation Save(Accommodation accommodation)
         {
             accommodation.Id = NextId();
+            accommodation = LoadImagesToLocalFolder(accommodation);
             _accommodations.Add(accommodation);
             _repository.Save(_accommodations);
             NotifyObservers();
@@ -43,6 +45,12 @@ namespace SIMSProject.Model.DAO
             _repository.Save(accommodation);
             _accommodations = accommodation;
             NotifyObservers();
+        }
+
+        public Accommodation LoadImagesToLocalFolder(Accommodation accommodation)
+        {
+            for (int i = 0; i < accommodation.ImageURLs.Count; i++) accommodation.ImageURLs[i] = _repository.SaveImage(accommodation.ImageURLs[i], accommodation.Id);
+            return accommodation;
         }
 
         // [OBSERVERS]
