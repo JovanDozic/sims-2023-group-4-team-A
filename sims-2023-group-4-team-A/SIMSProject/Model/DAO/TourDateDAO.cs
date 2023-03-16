@@ -2,13 +2,14 @@
 using System.Linq;
 using SIMSProject.Observer;
 using SIMSProject.FileHandler;
+using SIMSProject.Controller;
 
 namespace SIMSProject.Model.DAO
 {
     public class TourDateDAO : ISubject
     {
         private List<IObserver> _observers;
-        private TourDateFileHandler _fileHandler;
+        private readonly TourDateFileHandler _fileHandler;
         private List<TourDate> _tourDates;
 
         public TourDateDAO()
@@ -16,6 +17,36 @@ namespace SIMSProject.Model.DAO
             _fileHandler = new();
             _tourDates = _fileHandler.Load();
             _observers = new();
+
+            AssociateTourDates();
+
+        }
+
+        private void AssociateTourDates()
+        {
+            TourFileHandler tourFileHandler = new();
+            KeyPointFileHandler keyPointFileHandler = new();
+
+            List<Tour> tours = tourFileHandler.Load();
+            List<KeyPoint> keyPoints = keyPointFileHandler.Load();
+
+            foreach (TourDate date in _tourDates)
+            {
+                AssociateTour(tours, date);
+                AssociateCurrenKeyPoint(keyPoints, date);
+            }
+        }
+
+        private static void AssociateCurrenKeyPoint(List<KeyPoint> keyPoints, TourDate date)
+        {
+            KeyPoint current = keyPoints.Find(x => x.Id == date.CurrentKeyPointId);
+            date.CurrentKeyPoint = current;
+        }
+
+        private static void AssociateTour(List<Tour> tours, TourDate date)
+        {
+            Tour tour = tours.Find(x => x.Id == date.TourId);
+            date.Tour = tour;
         }
 
         public int NextId() { return _tourDates.Max(x => x.Id) + 1; }
