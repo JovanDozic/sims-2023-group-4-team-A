@@ -4,10 +4,10 @@ using System.ComponentModel;
 using System.DirectoryServices.ActiveDirectory;
 using System.Runtime.CompilerServices;
 
-namespace SIMSProject.Model
+namespace SIMSProject.Model.UserModel
 {
     public enum USER_ROLE { OWNER = 0, GUIDE, GUEST }
-    public class User : ISerializable, INotifyPropertyChanged
+    public class User : INotifyPropertyChanged
     {
         private int _id;
         public int Id
@@ -48,7 +48,7 @@ namespace SIMSProject.Model
                 }
             }
         }
-        private USER_ROLE _role;
+        protected USER_ROLE _role;
         public string Role
         {
             get
@@ -72,7 +72,6 @@ namespace SIMSProject.Model
             }
         }
 
-
         public User() { }
 
         public User(string username, string password, USER_ROLE role)
@@ -81,22 +80,6 @@ namespace SIMSProject.Model
             Password = password;
             _role = role;
         }
-
-        public string[] ToCSV()
-        {
-            string[] csvValues = { Id.ToString(), Username, Password, Role };
-            return csvValues;
-        }
-
-        public void FromCSV(string[] values)
-        {
-            Id = int.Parse(values[0]);
-            Username = values[1];
-            Password = values[2];
-            Role = values[3];
-        }
-
-
 
         // [PROPERTY CHANGED EVENT HANDLER]
 
