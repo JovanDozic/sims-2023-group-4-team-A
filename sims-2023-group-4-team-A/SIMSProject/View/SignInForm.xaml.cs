@@ -1,6 +1,5 @@
-﻿using SIMSProject.Forms;
-using SIMSProject.Model;
-using SIMSProject.Repository;
+﻿using SIMSProject.Model;
+using SIMSProject.FileHandler;
 using SIMSProject.View;
 using SIMSProject.View.OwnerViews;
 using System.ComponentModel;
@@ -15,7 +14,7 @@ namespace SIMSProject
     public partial class SignInForm : Window
     {
 
-        private readonly UserRepository _repository;
+        private readonly UserFileHandler _fileHandler;
 
         private string _username = string.Empty;
         public string Username
@@ -42,7 +41,7 @@ namespace SIMSProject
         {
             InitializeComponent();
             DataContext = this;
-            _repository = new UserRepository();
+            _fileHandler = new UserFileHandler();
         }
 
         private void SignIn(object sender, RoutedEventArgs e)
@@ -51,7 +50,7 @@ namespace SIMSProject
             InitialWindow initialWindow = new InitialWindow();
             initialWindow.Show();
             
-            /*User user = _repository.GetByUsername(Username);
+            /*User user = _fileHandler.GetByUsername(Username);
             if (user != null)
             {
                 if(user.Password == txtPassword.Password)

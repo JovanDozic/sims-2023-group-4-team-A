@@ -5,27 +5,42 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Diagnostics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SIMSProject.View.OwnerViews
 {
     /// <summary>
     /// Interaction logic for RegisterAccommodation.xaml
     /// </summary>
-    public partial class RegisterAccommodation : Window
+    public partial class RegisterAccommodation : Window, INotifyPropertyChanged
     {
-        public Accommodation Accommodation { get; set; } = new();
-        public string ImageURLs { get; set; } = "primer1.jpg, primer2.png...";
+        public Accommodation Accommodation { get; set; }
         private AccommodationController _accommodationController { get; set; } = new();
         private LocationController _locationController { get; set; } = new();
-
         public ObservableCollection<string> AccommodationTypeSource { get; set; }
+        private string _selectedImageFile = string.Empty;
+        public string SelectedImageFile
+        {
+            get => _selectedImageFile;
+            set
+            {
+                if (_selectedImageFile != value)
+                {
+                    _selectedImageFile = value;
+                    OnPropertyChanged(nameof(SelectedImageFile));
+                }
+            }
+        }
+        
         public RegisterAccommodation()
         {
             InitializeComponent();
             DataContext = this;
 
             Accommodation = new();
-            
+
             AccommodationTypeSource = new()
             {
                 "Apartman",
@@ -37,14 +52,13 @@ namespace SIMSProject.View.OwnerViews
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!Accommodation.IsValid && !Accommodation.Location.IsValid)
+            if (!Accommodation.IsValid || !Accommodation.Location.IsValid || Accommodation.ImageURLsCSV == string.Empty)
             {
-                MessageBox.Show("Nisu unešeni svi podaci!", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Nisu uneti svi podaci!", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             Accommodation.Location = _locationController.Create(Accommodation.Location);
-            Trace.WriteLine("\nACC: " + Accommodation.ImageURLsCSV);
             _accommodationController.Create(Accommodation);
 
             MessageBox.Show("Registracija smeštaja uspešna!", "Registracija uspešna", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -56,9 +70,21 @@ namespace SIMSProject.View.OwnerViews
             Close();
         }
 
-      
+        private void BTNUploadFiles_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new()
+            {
+                Multiselect = true,
+                Filter = "Image files (*.jpg, *.jpeg, *.png, *.bmp)|*.jpg;*.jpeg;*.png;*.bmp"
+            };
 
-
+            bool? result = dlg.ShowDialog();
+            if (result == true)
+            {
+                Accommodation.ImageURLs = dlg.FileNames.ToList();
+                Accommodation.ImageURLsToCSV();
+            }
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
@@ -66,10 +92,5 @@ namespace SIMSProject.View.OwnerViews
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void TextBox_FocusChanged(object sender, RoutedEventArgs e)
-        {
-            if (Accommodation.IsValid && Accommodation.Location.IsValid) BTNRegister.IsEnabled = true;
-            else BTNRegister.IsEnabled = false;
-        }
     }
 }

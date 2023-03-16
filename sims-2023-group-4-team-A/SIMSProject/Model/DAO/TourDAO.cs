@@ -1,5 +1,5 @@
 ﻿using SIMSProject.Observer;
-using SIMSProject.Repository;
+using SIMSProject.FileHandler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +15,13 @@ namespace SIMSProject.Model.DAO
     public class TourDAO : ISubject
     {
         private List<IObserver> _observers;
-        private TourRepository _repository;
+        private TourFileHandler _fileHandler;
         private List<Tour> _tours;
 
         public TourDAO()
         {
-            _repository = new();
-            _tours = _repository.Load();
+            _fileHandler = new();
+            _tours = _fileHandler.Load();
             _observers = new();
 
             AssociateTours();            
@@ -29,15 +29,15 @@ namespace SIMSProject.Model.DAO
 
         private void AssociateTours()
         {
-            LocationRepository tourLocationRepository = new();
-            TourKeyPointRepository tourKeyPointRepository = new();
-            KeyPointRepository keyPointRepository = new();
-            TourDateRepository tourDateRepository = new();
+            LocationFileHandler tourLocationFileHandler = new();
+            TourKeyPointFileHandler tourKeyPointFileHandler = new();
+            KeyPointFileHandler keyPointFileHandler = new();
+            TourDateFileHandler tourDateFileHandler = new();
 
-            List<Location> tourLocations = tourLocationRepository.Load();
-            List<TourDate> tourDateS = tourDateRepository.Load();
-            List<TourKeyPoint> tourKeyPoints = tourKeyPointRepository.Load();
-            List<KeyPoint> keyPoints = keyPointRepository.Load();
+            List<Location> tourLocations = tourLocationFileHandler.Load();
+            List<TourDate> tourDateS = tourDateFileHandler.Load();
+            List<TourKeyPoint> tourKeyPoints = tourKeyPointFileHandler.Load();
+            List<KeyPoint> keyPoints = keyPointFileHandler.Load();
 
 
             foreach (var tour in _tours)
@@ -112,14 +112,14 @@ namespace SIMSProject.Model.DAO
         {
             tour.Id = NextId();
             _tours.Add(tour);
-            _repository.Save(_tours);
+            _fileHandler.Save(_tours);
             NotifyObservers();
             return tour;
         }
 
         public void SaveAll(List<Tour> tours)
         {
-            _repository.Save(tours);
+            _fileHandler.Save(tours);
             _tours = tours;
             NotifyObservers();
         }

@@ -1,5 +1,5 @@
 ﻿using SIMSProject.Observer;
-using SIMSProject.Repository;
+using SIMSProject.FileHandler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +12,13 @@ namespace SIMSProject.Model.DAO
     public class KeyPointDAO : ISubject
     {
         private List<IObserver> _observers;
-        private KeyPointRepository _repository;
+        private KeyPointFileHandler _fileHandler;
         private List<KeyPoint> _keyPoints;
 
         public KeyPointDAO()
         {
-            _repository = new();
-            _keyPoints = _repository.Load();
+            _fileHandler = new();
+            _keyPoints = _fileHandler.Load();
             _observers = new();
 
             AssociatePoints();
@@ -26,13 +26,13 @@ namespace SIMSProject.Model.DAO
 
         private void AssociatePoints()
         {
-            LocationRepository tourLocationRepository = new();
-            TourRepository tourRepository = new();
-            TourKeyPointRepository tourKeyPointRepository = new();
+            LocationFileHandler tourLocationFileHandler = new();
+            TourFileHandler tourFileHandler = new();
+            TourKeyPointFileHandler tourKeyPointFileHandler = new();
 
-            List<Location> toursLocations = tourLocationRepository.Load();
-            List<Tour> tours = tourRepository.Load();
-            List<TourKeyPoint> tourKeyPoints = tourKeyPointRepository.Load();
+            List<Location> toursLocations = tourLocationFileHandler.Load();
+            List<Tour> tours = tourFileHandler.Load();
+            List<TourKeyPoint> tourKeyPoints = tourKeyPointFileHandler.Load();
 
             foreach (var keyPoint in _keyPoints)
             {
@@ -54,14 +54,14 @@ namespace SIMSProject.Model.DAO
         {
             keyPoint.Id = NextId();
             _keyPoints.Add(keyPoint);
-            _repository.Save(_keyPoints);
+            _fileHandler.Save(_keyPoints);
             NotifyObservers();
             return keyPoint;
         }
 
         public void SaveAll(List<KeyPoint> keyPoints)
         {
-            _repository.Save(keyPoints);
+            _fileHandler.Save(keyPoints);
             _keyPoints = keyPoints;
             NotifyObservers();
         }

@@ -1,5 +1,5 @@
 ﻿using SIMSProject.Observer;
-using SIMSProject.Repository;
+using SIMSProject.FileHandler;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,13 +8,13 @@ namespace SIMSProject.Model.DAO
     public class AddressDAO : ISubject
     {
         private List<IObserver> _observers;
-        private AddressRepository _repository;
+        private AddressFileHandler _fileHandler;
         private List<Location> _addresses;
 
         public AddressDAO()
         {
-            _repository = new();
-            _addresses = _repository.Load();
+            _fileHandler = new();
+            _addresses = _fileHandler.Load();
             _observers = new();
         }
 
@@ -25,14 +25,14 @@ namespace SIMSProject.Model.DAO
         {
             address.Id = NextId();
             _addresses.Add(address);
-            _repository.Save(_addresses);
+            _fileHandler.Save(_addresses);
             NotifyObservers();
             return address;
         }
 
         public void SaveAll(List<Location> addresses)
         {
-            _repository.Save(addresses);
+            _fileHandler.Save(addresses);
             _addresses = addresses;
             NotifyObservers();
         }

@@ -9,7 +9,6 @@ namespace SIMSProject.Model
     public class Location : ISerializable,  IDataErrorInfo, INotifyPropertyChanged
     {
         public int Id { get; set; }
-
         private string _city = string.Empty;
         public string City 
         {   get => _city;
@@ -23,7 +22,6 @@ namespace SIMSProject.Model
                 }
             }
         }
-
         private string _country = string.Empty;
         public string Country 
         { 
@@ -38,23 +36,9 @@ namespace SIMSProject.Model
             } 
         }
 
-
-
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public override string ToString()
-        {
-            return $"{City} {Country}";
-        }
-
         public Location()
         {
-            
+
         }
 
         public Location(int id, string city, string country)
@@ -77,12 +61,10 @@ namespace SIMSProject.Model
             Country = Convert.ToString(values[2]);
         }
 
-        /*Validation*/
+        // [VALIDATION]
 
         string templateRegex = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
-
         public string Error => null;
-
         public string this[string columnName]
         {
             get
@@ -102,14 +84,11 @@ namespace SIMSProject.Model
                     if (!Regex.IsMatch(City, templateRegex))
                         return "Ne moze biti grad";
                 }
-               
-
                 return null;
             }
         }
 
         private readonly string[] _validatesProperties = { "City", "Country"};
-
         public bool IsValid
         {
             get
@@ -119,10 +98,19 @@ namespace SIMSProject.Model
                     if (this[property] != null)
                         return false;
                 }
-
                 return true;
             }
         }
-        
+
+        public override string ToString()
+        {
+            return $"{City} {Country}";
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

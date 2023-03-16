@@ -100,7 +100,19 @@ namespace SIMSProject.Model
                 }
             }
         }
-        public List<string> ImageURLs;
+        private List<string> _imageURLs = new();
+        public List<string> ImageURLs
+        {
+            get => _imageURLs;
+            set
+            {
+                if (_imageURLs != value)
+                {
+                    _imageURLs = value;
+                    OnPropertyChanged(nameof(ImageURLs));
+                }
+            }
+        }
         private string _imageURLsCSV = string.Empty;
         public string ImageURLsCSV
         {
@@ -170,7 +182,7 @@ namespace SIMSProject.Model
             Trace.Write("\nAccommodation [" + Id + "] has " + ImageURLs.Count + " images: ");
             foreach (var imageURL in ImageURLs) Trace.Write(imageURL + " --- ");
         }
-        private void ImageURLsToCSV()
+        public void ImageURLsToCSV()
         {
             if (ImageURLs.Count > 0)
             {
@@ -180,7 +192,7 @@ namespace SIMSProject.Model
             }
         }
 
-        private void ImageURLsFromCSV(string value)
+        public void ImageURLsFromCSV(string value)
         {
             var imageURLs = value.Split(',');
             foreach (var imageURL in imageURLs) if (imageURL != string.Empty) ImageURLs.Add(imageURL);
@@ -196,11 +208,10 @@ namespace SIMSProject.Model
             {
                 if (columnName == "Name" && string.IsNullOrEmpty(Name)) return "Naziv je obavezan.";
                 else if (columnName == "Type" && string.IsNullOrEmpty(Type)) return "Tip je obavezan.";
-                else if (columnName == "ImageURLsCSV" && string.IsNullOrEmpty(ImageURLsCSV)) return "Bar jedna slika je obavezna.";
                 return null;
             }
         }
-        private readonly string[] _validatedProperties = { "Name", "Type", "ImageURLsCSV" };
+        private readonly string[] _validatedProperties = { "Name", "Type" };
         public bool IsValid
         {
             get
