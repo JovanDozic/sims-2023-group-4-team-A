@@ -54,6 +54,11 @@ namespace SIMSProject.Controller
             return _tours.SearchMaxGuests(maxGuests);
         }
 
+        public List<Tour> FindTodays()
+        {
+            return _tours.FindTodaysTours();
+        }
+
 
 
 

@@ -1,0 +1,41 @@
+﻿<Window x:Class="SIMSProject.View.GuideViews.GuideInitialWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMSProject.View.GuideViews"
+        mc:Ignorable="d"
+        Title="GuideInitialWindow" Height="450" Width="800">
+    <DockPanel>
+        <VirtualizingStackPanel DockPanel.Dock="Top">
+            <ToolBar >
+                <Button x:Name="CreateTour" Content="Kreiraj novu turu"/>
+                <Button x:Name="GenereateReport" Content="Generiši izveštaj"/>
+                <Button x:Name="Quit" Content="Daj otkaz" HorizontalAlignment="Right"/>
+                <Button x:Name="Help" Content="Pomoć" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </ToolBar>
+        </VirtualizingStackPanel>
+        <TabControl>
+            <TabItem Header="Prikaz današnjih turi">
+                <DataGrid Height="350" AutoGenerateColumns="False" 
+                          ItemsSource="{Binding Path=TodaysTours, UpdateSourceTrigger=PropertyChanged}"
+                          CanUserAddRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Naziv" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Lokacija" Binding="{Binding Location}"/>
+                        <DataGridTextColumn Header="Maks. broj gostiju" Binding="{Binding MaxGuestNumber}"/>
+                        <DataGridTextColumn Header="Preostalo mesta" Binding="{Binding AvailableSpots}"/>
+                        <DataGridTextColumn Header="Vreme početka" Binding="{Binding Time}"/>
+                        <DataGridCheckBoxColumn Header="Započni turu"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            
+            <TabItem Header="Prikaz statistike o turama"></TabItem>
+            <TabItem Header="Zahtevi za ture"></TabItem>
+            <TabItem Header="Prikaz statistike o zahtevima za ture"></TabItem>
+        </TabControl>
+        
+        
+    </DockPanel>
+</Window>

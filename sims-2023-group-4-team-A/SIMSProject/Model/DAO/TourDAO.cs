@@ -43,7 +43,7 @@ namespace SIMSProject.Model.DAO
             foreach (var tour in _tours)
             {
                 tour.Location = tourLocations.Find(x => x.Id == tour.LocationId);
-                tour.Dates = tourDateS.Where(x => x.TourId == tour.Id).ToList();
+                tour.Dates.AddRange(tourDateS.FindAll(x => x.TourId == tour.Id));
 
 
                 List<TourKeyPoint> pairs = tourKeyPoints.FindAll(x => x.TourId == tour.Id);
@@ -92,6 +92,20 @@ namespace SIMSProject.Model.DAO
         public List<Tour> SearchMaxGuests(string maxGuests)
         {
             return _tours.Where(tour => tour.MaxGuestNumber.Equals(maxGuests)).ToList();
+        }
+
+        public List<Tour> FindTodaysTours()
+        {
+            return _tours.FindAll(x => x.Dates.Any(x => x.Date.Date == DateTime.Today.Date));
+        }
+
+        public Tour EndTour(int tourId, int dateId)
+        {
+            Tour toEnd = _tours.Find(x => x.Id == tourId);
+            if (toEnd == null) return null;
+            toEnd.TourState = "Završena";
+            _repository.Save(_tours);
+            return toEnd;
         }
 
         public Tour Save(Tour tour)

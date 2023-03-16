@@ -49,8 +49,8 @@ namespace SIMSProject.View
 
         private void TourGuide_Click(object sender, RoutedEventArgs e)
         {
-            TourCreation tourCreation = new TourCreation();
-            tourCreation.Show();
+            GuideInitialWindow window = new();
+            window.Show();
             
             
         }
