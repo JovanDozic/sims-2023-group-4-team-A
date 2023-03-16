@@ -32,19 +32,20 @@
         <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Registracija smeštaja" FontSize="20"
                VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold"/>
         <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"
-               Content="Naziv" Grid.ColumnSpan="2"
-               FontSize="16"/>
+               Content="Naziv" Grid.ColumnSpan="2" FontSize="16"/>
         <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"
                Content="Lokacija" Grid.ColumnSpan="2" FontSize="16"/>
-
         <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"
                Content="Tip" Grid.ColumnSpan="2" FontSize="16"/>
         <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"
-               Content="Maksimalan broj gostiju" Grid.ColumnSpan="2" FontSize="16"/>
+               Content="Maksimalan broj gostiju" Grid.ColumnSpan="2"
+               FontSize="16"/>
         <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"
-               Content="Minimalan broj dana za rezervaciju" Grid.ColumnSpan="2" FontSize="16"/>
+               Content="Minimalan broj dana za rezervaciju" 
+               Grid.ColumnSpan="2" FontSize="16"/>
         <Label Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"
-               Content="Granica za otkazivanje" Grid.ColumnSpan="2" FontSize="16"/>
+               Content="Granica za otkazivanje" Grid.ColumnSpan="2" 
+               FontSize="16"/>
         <Label Grid.Row="7" Grid.Column="0" VerticalAlignment="Center"
                Content="Slike" Grid.ColumnSpan="2" FontSize="16"/>
 
