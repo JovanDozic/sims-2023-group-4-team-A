@@ -1,7 +1,8 @@
 ﻿using SIMSProject.Observer;
-using SIMSProject.Repository;
+using SIMSProject.FileHandler;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,18 +12,18 @@ namespace SIMSProject.Model.DAO
     public class AccommodationDAO : ISubject
     {
         private List<IObserver> _observers;
-        private AccommodationRepository _repository;
-        private LocationRepository _locationRepository;
+        private AccommodationFileHandler _fileHandler;
+        private LocationFileHandler _locationFileHandler;
         private List<Accommodation> _accommodations;
 
         public AccommodationDAO()
         {
-            _repository = new();
-            _locationRepository = new();
-            _accommodations = _repository.Load();
+            _fileHandler = new();
+            _locationFileHandler = new();
+            _accommodations = _fileHandler.Load();
             _observers = new();
 
-            List<Location> locations = _locationRepository.Load();
+            List<Location> locations = _locationFileHandler.Load();
             foreach (var accommodation in _accommodations) accommodation.Location = locations.Find(x => x.Id == accommodation.Location.Id) ?? new Location(accommodation.Location.Id, "<null>", "<null>");
         }
 
@@ -32,17 +33,24 @@ namespace SIMSProject.Model.DAO
         public Accommodation Save(Accommodation accommodation)
         {
             accommodation.Id = NextId();
+            accommodation = LoadImagesToLocalFolder(accommodation);
             _accommodations.Add(accommodation);
-            _repository.Save(_accommodations);
+            _fileHandler.Save(_accommodations);
             NotifyObservers();
             return accommodation;
         }
 
         public void SaveAll(List<Accommodation> accommodation)
         {
-            _repository.Save(accommodation);
+            _fileHandler.Save(accommodation);
             _accommodations = accommodation;
             NotifyObservers();
+        }
+
+        public Accommodation LoadImagesToLocalFolder(Accommodation accommodation)
+        {
+            for (int i = 0; i < accommodation.ImageURLs.Count; i++) accommodation.ImageURLs[i] = _fileHandler.SaveImage(accommodation.ImageURLs[i], accommodation.Id);
+            return accommodation;
         }
 
         // [OBSERVERS]

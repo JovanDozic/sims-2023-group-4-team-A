@@ -1,5 +1,5 @@
 ﻿using SIMSProject.Observer;
-using SIMSProject.Repository;
+using SIMSProject.FileHandler;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,13 +8,13 @@ namespace SIMSProject.Model.DAO
     public class UserDAO : ISubject
     {
         private List<IObserver> _observers;
-        private UserRepository _repository;
+        private UserFileHandler _fileHandler;
         private List<User> _users;
 
         public UserDAO()
         {
-            _repository = new();
-            _users = _repository.Load();
+            _fileHandler = new();
+            _users = _fileHandler.Load();
             _observers = new();
         }
 
@@ -26,14 +26,14 @@ namespace SIMSProject.Model.DAO
         {
             user.Id = NextId();
             _users.Add(user);
-            _repository.Save(_users);
+            _fileHandler.Save(_users);
             NotifyObservers();
             return user;
         }
 
         public void SaveAll(List<User> users)
         {
-            _repository.Save(users);
+            _fileHandler.Save(users);
             _users = users;
             NotifyObservers();
         }

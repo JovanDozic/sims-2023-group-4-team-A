@@ -3,20 +3,20 @@ using System.Linq;
 using SIMSProject.Model;
 using SIMSProject.Model.DAO;
 using SIMSProject.Observer;
-using SIMSProject.Repository;
+using SIMSProject.FileHandler;
 
 namespace SIMSProject.Model.DAO
 {
     public class LocationDAO : ISubject
     {
         private List<IObserver> _observers;
-        private LocationRepository _repository;
+        private LocationFileHandler _fileHandler;
         private List<Location> _locations;
 
         public LocationDAO()
         {
-            _repository = new();
-            _locations = _repository.Load();
+            _fileHandler = new();
+            _locations = _fileHandler.Load();
             _observers = new();
         }
 
@@ -26,14 +26,14 @@ namespace SIMSProject.Model.DAO
         {
             location.Id = NextId();
             _locations.Add(location);
-            _repository.Save(_locations);
+            _fileHandler.Save(_locations);
             NotifyObservers();
             return location;
         }
 
         public void SaveAll(List<Location> tourLocations)
         {
-            _repository.Save(tourLocations);
+            _fileHandler.Save(tourLocations);
             _locations = tourLocations;
             NotifyObservers();
         }

@@ -2,20 +2,20 @@
 using System.Linq;
 using SIMSProject.Model.DAO;
 using SIMSProject.Observer;
-using SIMSProject.Repository;
+using SIMSProject.FileHandler;
 
 namespace SIMSProject.Model.DAO
 {
     public class TourGuestDAO : ISubject
     {
         private List<IObserver> _observers;
-        private TourGuestRepository _repository;
+        private TourGuestFileHandler _fileHandler;
         private List<TourGuest> _tourGuests;
 
         public TourGuestDAO()
         {
-            _repository = new();
-            _tourGuests = _repository.Load();
+            _fileHandler = new();
+            _tourGuests = _fileHandler.Load();
             _observers = new();
         }
         public List<TourGuest> GetAll() { return _tourGuests; }
@@ -23,14 +23,14 @@ namespace SIMSProject.Model.DAO
         public TourGuest Save(TourGuest tourGuest)
         {
             _tourGuests.Add(tourGuest);
-            _repository.Save(_tourGuests);
+            _fileHandler.Save(_tourGuests);
             NotifyObservers();
             return tourGuest;
         }
 
         public void SaveAll(List<TourGuest> tourGuests)
         {
-            _repository.Save(tourGuests);
+            _fileHandler.Save(tourGuests);
             _tourGuests = tourGuests;
             NotifyObservers();
         }
