@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMSProject.Repository
+namespace SIMSProject.FileHandler
 {
-    public class TourKeyPointRepository
+    public class TourKeyPointFileHandler
     {
         private const string FilePath = "../../../Resources/Data/tourkeypoints.csv";
         private readonly Serializer<TourKeyPoint> serializer;
 
-        public TourKeyPointRepository()
+        public TourKeyPointFileHandler()
         {
             serializer = new Serializer<TourKeyPoint>();
         }

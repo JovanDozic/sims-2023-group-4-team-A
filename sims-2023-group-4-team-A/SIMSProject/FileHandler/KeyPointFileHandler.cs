@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMSProject.Repository
+namespace SIMSProject.FileHandler
 {
-    public class KeyPointRepository
+    public class KeyPointFileHandler
     {
         private const string FilePath = "../../../Resources/Data/keypoints.csv";
         private readonly Serializer<KeyPoint> serializer;
 
-        public KeyPointRepository()
+        public KeyPointFileHandler()
         {
             serializer = new Serializer<KeyPoint>();
         }

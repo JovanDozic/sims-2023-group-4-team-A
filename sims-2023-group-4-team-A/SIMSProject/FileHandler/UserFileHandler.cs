@@ -1,14 +1,14 @@
 ﻿using SIMSProject.Model;
 using SIMSProject.Serializer;
 using System.Collections.Generic;
-namespace SIMSProject.Repository
+namespace SIMSProject.FileHandler
 {
-    public class UserRepository
+    public class UserFileHandler
     {
         private const string FilePath = "../../../Resources/Data/users.csv";
         private readonly Serializer<User> _serializer;
 
-        public UserRepository()
+        public UserFileHandler()
         {
             _serializer = new();
         }

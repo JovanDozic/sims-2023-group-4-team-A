@@ -8,15 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMSProject.Repository
+namespace SIMSProject.FileHandler
 {
-    public class AccommodationRepository
+    public class AccommodationFileHandler
     {
         private const string FilePath = "../../../Resources/Data/accommodations.csv";
         private const string UserImagesFolderPath = "../../../Resources/UserImages/Accommodation_";
         private readonly Serializer<Accommodation> _serializer;
 
-        public AccommodationRepository()
+        public AccommodationFileHandler()
         {
             _serializer = new();
         }

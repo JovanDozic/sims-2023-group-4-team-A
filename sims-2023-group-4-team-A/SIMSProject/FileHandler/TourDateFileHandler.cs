@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMSProject.Repository
+namespace SIMSProject.FileHandler
 {
-    public class TourDateRepository
+    public class TourDateFileHandler
     {
         private const string FilePath = "../../../Resources/Data/tourdates.csv";
         private readonly Serializer<TourDate> serializer;
 
-        public TourDateRepository()
+        public TourDateFileHandler()
         {
             serializer = new Serializer<TourDate>();
         }

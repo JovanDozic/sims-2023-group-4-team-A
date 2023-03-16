@@ -3,14 +3,14 @@ using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
 
-namespace SIMSProject.Repository
+namespace SIMSProject.FileHandler
 {
-    public class AddressRepository
+    public class AddressFileHandler
     {
         private const string FilePath = "../../../Resources/Data/addresses.csv";
         private readonly Serializer<Location> _serializer;
 
-        public AddressRepository()
+        public AddressFileHandler()
         {
             _serializer = new();
         }
