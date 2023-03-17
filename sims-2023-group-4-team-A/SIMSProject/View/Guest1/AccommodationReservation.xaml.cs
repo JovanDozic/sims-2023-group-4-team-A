@@ -12,15 +12,32 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SIMSProject.Model;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace SIMSProject.View.Guest1
 {
     /// <summary>
     /// Interaction logic for AccommodationReservation.xaml
     /// </summary>
-    public partial class AccommodationReservation : Window
+    public partial class AccommodationReservation : Window, INotifyPropertyChanged
     {
         public Accommodation Accommodation { get; set; }
+
+        private string _selectedImageFile = string.Empty;
+        public string SelectedImageFile
+        {
+            get => _selectedImageFile;
+            set
+            {
+                if (_selectedImageFile != value)
+                {
+                    _selectedImageFile = value;
+                    OnPropertyChanged(nameof(SelectedImageFile));
+                }
+            }
+        }
         public AccommodationReservation(Accommodation accommodation)
         {
             InitializeComponent();
@@ -31,6 +48,17 @@ namespace SIMSProject.View.Guest1
             TextBoxTip.Text = accommodation.Type;
 
 
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void Button_Click_Close(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
