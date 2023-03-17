@@ -18,6 +18,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SIMSProject.View.Guest2;
 
 namespace SIMSProject.View.Guest2
 {
@@ -29,6 +30,7 @@ namespace SIMSProject.View.Guest2
     public partial class ShowAndSearchTours : Window, INotifyPropertyChanged
     {
         public Tour Tour { get; set; } = new();
+        public Tour SelectedTour { get; set; } = new();
 
         private int _durationSearchBox = 0;
         public int DurationSearchBox
@@ -140,5 +142,17 @@ namespace SIMSProject.View.Guest2
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private void Reserve_Click(object sender, RoutedEventArgs e)
+        {
+            if(SelectedTour != null) 
+            {
+                TourReservation tourReservation = new TourReservation(SelectedTour);
+                tourReservation.Show();
+            }
+            else
+            {
+                MessageBox.Show("Odaberite turu koju zelite da rezervisete!");
+            }
+        }
     }
 }
