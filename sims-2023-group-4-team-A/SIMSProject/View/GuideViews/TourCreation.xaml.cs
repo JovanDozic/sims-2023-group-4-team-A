@@ -158,7 +158,7 @@ namespace SIMSProject.View.GuideViews
             int seconds = 0;
 
             DateTime newDate = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, hours, minutes, seconds);
-            NewDates.Add(new(-1, SelectedDate, -1));
+            NewDates.Add(new(-1, SelectedDate, -1, -1));
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)

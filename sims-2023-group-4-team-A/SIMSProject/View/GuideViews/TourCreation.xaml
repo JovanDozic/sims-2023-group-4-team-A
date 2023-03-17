@@ -7,7 +7,7 @@
         xmlns:cstm="clr-namespace:SIMSProject.CustomControls"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="TourCreationWindow" Height="600" Width="820" WindowStartupLocation="CenterScreen" >
+        Title="TourCreationWindow" Height="600" Width="820" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>

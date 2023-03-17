@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:SIMSProject"
              ShutdownMode="OnMainWindowClose"
              
-             StartupUri="View/OwnerViews/OwnerInitialWindow.xaml"
+             StartupUri="View/GuideViews/GuideInitialWindow.xaml"
              
              
              

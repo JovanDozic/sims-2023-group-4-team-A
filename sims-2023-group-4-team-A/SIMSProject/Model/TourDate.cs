@@ -87,14 +87,12 @@ namespace SIMSProject.Model
 
         public TourDate(){}
 
-        public TourDate(int id, DateTime date, int tourId, string tourStatus, int currentKeyPointId, KeyPoint currentKeyPoint)
+        public TourDate(int id, DateTime date, int tourId, int currentKeyPointId)
         {
             Id = id;
             Date = date;
             TourId = tourId;
-            TourStatus = tourStatus;
             CurrentKeyPointId = currentKeyPointId;
-            CurrentKeyPoint = currentKeyPoint;
         }
 
         public override string ToString()

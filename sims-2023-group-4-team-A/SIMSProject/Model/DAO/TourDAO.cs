@@ -72,21 +72,6 @@ namespace SIMSProject.Model.DAO
         public int NextId() { return _tours.Max(x => x.Id) + 1; }
         public List<Tour> GetAll() { return _tours; }
 
-        /*public static List<Tour> Search(string searchText)
-        {
-            // učitaj podatke iz izvora podataka
-            List<Tour> allTours = GetAll();
-            // podeli pretražni tekst na dva dela, ime i prezime
-            var searchTerms = searchText.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            var firstName = searchTerms.Length > 0 ? searchTerms[0] : string.Empty;
-            var lastName = searchTerms.Length > 1 ? searchTerms[1] : string.Empty;
-            // filtriraj podatke na osnovu pretražnih pojmova
-            var filteredData = allData.Where(d => d.FirstName.Contains(firstName) && d.LastName.Contains(lastName));
-            // mapiraj filtrirane podatke u rezultate
-            var results = filteredData.Select(d => new Result(d));
-            return results.ToList();
-        }*/
-
         public List<Tour> SearchLocations(string locationId)
         {
             return _tours.Where(tour => tour.LocationId.Equals(locationId)).ToList();
@@ -110,6 +95,13 @@ namespace SIMSProject.Model.DAO
         public List<Tour> FindTodaysTours()
         {
             return _tours.FindAll(x => x.Dates.Any(x => x.Date.Date == DateTime.Today.Date));
+        }
+
+        public List<TourDate> FindTodaysDatesById(int TourId)
+        {
+            Tour? tour = _tours.Find(x => x.Id == TourId);
+            List<TourDate> todaysDates = tour.Dates.FindAll(x => x.Date.Date == DateTime.Today.Date);
+            return todaysDates;
         }
 
         public Tour EndTour(int tourId, int dateId)

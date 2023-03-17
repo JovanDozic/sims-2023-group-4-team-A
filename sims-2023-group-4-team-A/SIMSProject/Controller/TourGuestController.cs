@@ -7,7 +7,7 @@ namespace SIMSProject.Controller
     public class TourGuestController
     {
         private TourGuestDAO _tourGuests;
-        public Model.Attendance TourGuest;
+        public TourGuest TourGuest;
 
         public TourGuestController()
         {
@@ -15,17 +15,17 @@ namespace SIMSProject.Controller
             TourGuest = new();
         }
 
-        public List<Model.Attendance> GetAll()
+        public List<TourGuest> GetAll()
         {
             return _tourGuests.GetAll();
         }
 
-        public void SaveAll(List<Model.Attendance> tourGuests)
+        public void SaveAll(List<TourGuest> tourGuests)
         {
             _tourGuests.SaveAll(tourGuests);
         }
 
-        public Model.Attendance Create(Model.Attendance tourGuest)
+        public TourGuest Create(TourGuest tourGuest)
         {
             return _tourGuests.Save(tourGuest);
         }

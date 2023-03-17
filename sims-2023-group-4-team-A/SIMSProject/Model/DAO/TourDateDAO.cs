@@ -3,6 +3,7 @@ using System.Linq;
 using SIMSProject.Observer;
 using SIMSProject.FileHandler;
 using SIMSProject.Controller;
+using System.Windows.Navigation;
 
 namespace SIMSProject.Model.DAO
 {
@@ -66,6 +67,24 @@ namespace SIMSProject.Model.DAO
             _fileHandler.Save(tourDates);
             _tourDates = tourDates;
             NotifyObservers();
+        }
+
+        public void UpdateTourDate(TourDate tourDate)
+        {
+            TourDate? oldTourDate = _tourDates.Find(x => x.Id == tourDate.Id);
+            if (oldTourDate == null) return;
+            oldTourDate.TourStatus = tourDate.TourStatus;
+            oldTourDate.CurrentKeyPoint = tourDate.CurrentKeyPoint;
+            oldTourDate.CurrentKeyPointId = tourDate.CurrentKeyPointId;
+            _fileHandler.Save(_tourDates);
+        }
+
+        public void EndTourDate(int tourDateId)
+        {
+            TourDate? tourDate = _tourDates.Find(x => x.Id == tourDateId);
+            if (tourDate == null) return;
+            tourDate.TourStatus = "Završena";
+            _fileHandler.Save(_tourDates);
         }
 
         // [OBSERVERS]

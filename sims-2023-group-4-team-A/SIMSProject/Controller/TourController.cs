@@ -59,6 +59,11 @@ namespace SIMSProject.Controller
             return _tours.FindTodaysTours();
         }
 
+        public List<TourDate> FindTodaysDatesByTour(int TourId)
+        {
+            return _tours.FindTodaysDatesById(TourId);
+        }
+
 
 
 

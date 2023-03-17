@@ -23,8 +23,9 @@ namespace SIMSProject.View.GuideViews
     public partial class GuideInitialWindow : Window
     {
         private readonly TourController tourController = new();
+        private readonly KeyPointController keyPointController = new();
         public ObservableCollection<Tour> TodaysTours { get; set; }
-        public TimeSpan Time { get; set; }
+        public Tour SelectedTour { get; set; } = new();
         public bool TourActivated { get; set; } = false;
 
         public GuideInitialWindow()
@@ -38,6 +39,18 @@ namespace SIMSProject.View.GuideViews
             {
                 TodaysTours.Add(tour);
             }
+        }
+
+        private void ShowTour_Click(object sender, RoutedEventArgs e)
+        {
+            TodaysTourPreviewWindow window = new TodaysTourPreviewWindow(SelectedTour);
+            window.Show();  
+        }
+
+        private void CreateTour_Click(object sender, RoutedEventArgs e)
+        {
+            TourCreation window = new TourCreation();
+            window.Show();
         }
     }
 }

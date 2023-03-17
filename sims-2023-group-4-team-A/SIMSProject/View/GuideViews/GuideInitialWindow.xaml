@@ -5,30 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMSProject.View.GuideViews"
         mc:Ignorable="d"
-        Title="GuideInitialWindow" Height="450" Width="800">
+        Title="GuideInitialWindow" Height="480" Width="800" WindowStartupLocation="CenterScreen">
     <DockPanel>
         <VirtualizingStackPanel DockPanel.Dock="Top">
             <ToolBar >
-                <Button x:Name="CreateTour" Content="Kreiraj novu turu"/>
+                <Button x:Name="CreateTour" Content="Kreiraj novu turu" Click="CreateTour_Click"/>
                 <Button x:Name="GenereateReport" Content="Generiši izveštaj"/>
                 <Button x:Name="Quit" Content="Daj otkaz" HorizontalAlignment="Right"/>
                 <Button x:Name="Help" Content="Pomoć" HorizontalAlignment="Right" VerticalAlignment="Center"/>
             </ToolBar>
         </VirtualizingStackPanel>
-        <TabControl>
-            <TabItem Header="Prikaz današnjih turi">
-                <DataGrid Height="350" AutoGenerateColumns="False" 
+        <TabControl TabStripPlacement="Left">
+            <TabItem Header="Prikaz današnjih turi" Height="50">
+                <StackPanel>
+                    <DataGrid Height="350" 
+                          AutoGenerateColumns="False" 
                           ItemsSource="{Binding Path=TodaysTours, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding Path=SelectedTour}"
                           CanUserAddRows="False">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Naziv" Binding="{Binding Name}"/>
-                        <DataGridTextColumn Header="Lokacija" Binding="{Binding Location}"/>
-                        <DataGridTextColumn Header="Maks. broj gostiju" Binding="{Binding MaxGuestNumber}"/>
-                        <DataGridTextColumn Header="Preostalo mesta" Binding="{Binding AvailableSpots}"/>
-                        <DataGridTextColumn Header="Vreme početka" Binding="{Binding Time}"/>
-                        <DataGridCheckBoxColumn Header="Započni turu"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Naziv" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Opis" Binding="{Binding Description}"/>
+                            <DataGridTextColumn Header="Lokacija" Binding="{Binding Location}"/>
+                            <DataGridTextColumn Header="Maks. broj gostiju" Binding="{Binding MaxGuestNumber}"/>
+                            <DataGridTextColumn Header="Preostalo mesta" Binding="{Binding AvailableSpots}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button x:Name="ShowTour" Content="Prikaži detalje" Height="30" Width="100" HorizontalAlignment="Left" Margin="10,10,0,0" Click="ShowTour_Click"></Button>
+                </StackPanel>
             </TabItem>
             
             <TabItem Header="Prikaz statistike o turama"></TabItem>
