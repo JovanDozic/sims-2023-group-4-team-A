@@ -4,8 +4,7 @@
              xmlns:local="clr-namespace:SIMSProject"
              ShutdownMode="OnMainWindowClose"
              
-             StartupUri="View/OwnerViews/OwnerInitialWindow.xaml"
-             
+            StartupUri="View/Guest1/AccommodationSearchAndShowForm.xaml"             
              
              
              >

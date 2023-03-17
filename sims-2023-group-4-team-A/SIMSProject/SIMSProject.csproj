@@ -15,6 +15,7 @@
     <None Remove="Resources\Images\stars.png" />
     <None Remove="Resources\Images\statusInformation.png" />
     <None Remove="Resources\Images\view.png" />
+    <None Remove="Resources\UserImages\Accommodation_1\img.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +25,9 @@
     <Resource Include="Resources\Images\rating.png" />
     <Resource Include="Resources\Images\stars.png" />
     <Resource Include="Resources\Images\statusInformation.png" />
+    <Resource Include="Resources\UserImages\Accommodation_1\img.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Resources\Images\delete.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
