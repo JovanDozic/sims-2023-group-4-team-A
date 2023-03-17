@@ -28,15 +28,6 @@
                 </StackPanel>
             </Button>
 
-            <!--<cstm:RatingInput Rating="{Binding Path=Accommodation.MaxGuestNumber, 
-                                               UpdateSourceTrigger=PropertyChanged,
-                                               Mode=TwoWay}"/>
-
-            <Label Content="{Binding Path=Accommodation.MaxGuestNumber, 
-                                     UpdateSourceTrigger=PropertyChanged,
-                                     Mode=TwoWay}" 
-                   FontSize="25" Margin="30" Height="40" HorizontalAlignment="Center"/>-->
-
         </StackPanel>
         
         

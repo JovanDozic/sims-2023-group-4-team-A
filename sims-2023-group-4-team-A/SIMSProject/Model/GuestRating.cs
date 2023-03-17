@@ -23,28 +23,26 @@ namespace SIMSProject.Model
             get => _cleanliness;
             set
             {
-                if (_cleanliness != value)
+                if (_cleanliness != value && value >= 1 && value <= 5)
                 {
                     _cleanliness = value;
                     OnPropertyChanged(nameof(Cleanliness));
                 }
             }
         }
-
         private int _rulesAcceptance;
         public int RulesAcceptance
         {
             get => _rulesAcceptance;
             set
             {
-                if (_rulesAcceptance != value)
+                if (_rulesAcceptance != value && value >= 1 && value <= 5) 
                 {
                     _rulesAcceptance = value;
                     OnPropertyChanged(nameof(RulesAcceptance));
                 }
             }
         }
-
         private string _comment = string.Empty;
         public string Comment
         {

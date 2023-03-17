@@ -14,14 +14,19 @@ using System.Windows.Shapes;
 
 namespace SIMSProject.View.OwnerViews
 {
-    /// <summary>
-    /// Interaction logic for RateGuest.xaml
-    /// </summary>
     public partial class RateGuest : Window
     {
+
+
         public RateGuest()
         {
             InitializeComponent();
+            DataContext = this;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
