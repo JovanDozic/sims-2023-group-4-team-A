@@ -1,6 +1,8 @@
 ﻿using SIMSProject.Model;
 using SIMSProject.Serializer;
 using System.Collections.Generic;
+using SIMSProject.Model.UserModel;
+
 namespace SIMSProject.FileHandler
 {
     public class UserFileHandler

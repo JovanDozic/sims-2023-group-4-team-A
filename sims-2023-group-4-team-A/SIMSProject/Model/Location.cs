@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using SIMSProject.Model.UserModel;
 
 namespace SIMSProject.Model
 {

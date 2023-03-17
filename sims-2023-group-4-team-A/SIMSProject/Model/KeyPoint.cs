@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using SIMSProject.FileHandler;
+using SIMSProject.Model.UserModel;
 
 namespace SIMSProject.Model
 {

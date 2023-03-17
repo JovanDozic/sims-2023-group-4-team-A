@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Serializer;
+using SIMSProject.Model.UserModel;
 using System;
 
 namespace SIMSProject.Model
@@ -7,8 +8,8 @@ namespace SIMSProject.Model
     {
         public int Id { get; set; }
         public DateTime CreationTime { get; set; }
-        public string Text { get; set; }
-        public User User { get; set; }
+        public string Text { get; set; } = string.Empty;
+        public User User { get; set; } = new();
 
         public Comment() { }
 

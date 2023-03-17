@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using SIMSProject.Model.UserModel;
 using System.Threading.Tasks;
 
 namespace SIMSProject.Model.UserModel
@@ -39,13 +40,13 @@ namespace SIMSProject.Model.UserModel
             // TODO: Add list of Accommodation IDs that Owner owns
         }
 
-        public string[] ToCSV()
+        public new string[] ToCSV()
         {
             string[] csvValues = { Id.ToString(), Username, Password, Role, Math.Round(Rating, 2).ToString() };
             return csvValues;
         }
 
-        public void FromCSV(string[] values)
+        public new void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
             Username = values[1];

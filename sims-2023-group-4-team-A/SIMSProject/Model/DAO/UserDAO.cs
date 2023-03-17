@@ -2,6 +2,7 @@
 using SIMSProject.FileHandler;
 using System.Collections.Generic;
 using System.Linq;
+using SIMSProject.Model.UserModel;
 
 namespace SIMSProject.Model.DAO
 {
