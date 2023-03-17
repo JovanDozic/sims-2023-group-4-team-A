@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 namespace SIMSProject.Model.UserModel
 {
     public enum USER_ROLE { OWNER = 0, GUIDE, GUEST }
-    public class User : INotifyPropertyChanged
+    public class User : INotifyPropertyChanged, ISerializable
     {
         private int _id;
         public int Id
@@ -87,6 +87,16 @@ namespace SIMSProject.Model.UserModel
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public string[] ToCSV()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void FromCSV(string[] values)
+        {
+            throw new NotImplementedException();
         }
     }
 }

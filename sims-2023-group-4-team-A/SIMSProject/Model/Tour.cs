@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using SIMSProject.Controller;
 using SIMSProject.FileHandler;
+using SIMSProject.Model.UserModel;
 
 public enum Language { ENGLISH = 0, SERBIAN, SPANISH, FRENCH };
 
