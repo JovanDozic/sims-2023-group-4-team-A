@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SIMSProject.Model; 
 
 namespace SIMSProject.View.Guest1
 {
@@ -19,9 +20,23 @@ namespace SIMSProject.View.Guest1
     /// </summary>
     public partial class AccommodationReservationConfirmation : Window
     {
-        public AccommodationReservationConfirmation()
+        public Accommodation Accommodation { get; set; } = new();
+        public AccommodationReservationConfirmation(Accommodation accommodation)
         {
             InitializeComponent();
+            Accommodation = accommodation;
+            NameTextBlock.Text = Accommodation.Name;
+        }
+
+        private void Button_Click_Back(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Confirm_Button(object sender, RoutedEventArgs e)
+        {
+            var confirm = new FreeAccommodationsSuggestions();
+            confirm.Show();
         }
     }
 }

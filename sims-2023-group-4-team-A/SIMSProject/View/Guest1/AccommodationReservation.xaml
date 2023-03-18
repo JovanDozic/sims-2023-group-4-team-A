@@ -7,8 +7,8 @@
         xmlns:custom="clr-namespace:SIMSProject.CustomControls"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        Title="AccommodationReservation" Height="440" Width="467">
-    <Grid Margin="20,10,10,32">
+        Title="Prikaz smeštaja" Height="449" Width="473">
+    <Grid Margin="10,10,10,32">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"></ColumnDefinition>
@@ -30,18 +30,18 @@
         </Grid.RowDefinitions>
 
 
-        <Label Content="Naziv" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <TextBox x:Name="TextBoxNaziv" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="150" Height="20" IsReadOnly="True"/>
+        <Label FontSize="14" Content="Naziv:" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBox FontSize="14" x:Name="TextBoxNaziv" VerticalAlignment="Center" HorizontalAlignment="Left" Width="184" Height="22" IsReadOnly="True" Grid.ColumnSpan="2" Margin="218,0,0,0"/>
 
-        <Label Content="Lokacija" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <TextBox x:Name="TextBoxLokacija" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Width="150" Height="20" IsReadOnly="True"/>
+        <Label FontSize="14" Content="Lokacija:" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBox FontSize="14" x:Name="TextBoxLokacija" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="184" Height="22" IsReadOnly="True" Grid.ColumnSpan="2" Margin="218,0,0,0"/>
 
-        <Label Content="Tip" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <TextBox x:Name="TextBoxTip" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Left" Width="150" Height="20" IsReadOnly="True"/>
+        <Label FontSize="14" Content="Tip:" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBox FontSize="14" x:Name="TextBoxTip" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Width="184" Height="22" IsReadOnly="True" Grid.ColumnSpan="2" Margin="218,0,0,0"/>
 
         <Grid Grid.Row="3" Grid.Column="0" Margin="5,10,20,10">
             <Border BorderThickness="2" BorderBrush="#ffb0b0b0" Panel.ZIndex="1">
-                <Image Source="{Binding SelectedImageFile}"/>
+                <Image  Source="{Binding SelectedImageFile}"/>
             </Border>
             <TextBlock Text="Slika..." FontSize="14"
                        VerticalAlignment="Center" HorizontalAlignment="Center"
@@ -59,8 +59,8 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Content="Zatvori" Grid.Row="4" Width="100" Click="Button_Click_Close"></Button>
-        <Button Content="Rezervacija" Grid.Row="4" Grid.Column="1" Width="100"/>
+        <Button FontSize="15" Content="Zatvori" Grid.Row="4" Width="100" Click="Button_Click_Close" Margin="59,10,60,0"></Button>
+        <Button FontSize="15" Content="Rezervacija" Grid.Row="4" Grid.Column="1" Width="100" Margin="60,10,59,0" Click="Button_Click_Reserve"/>
         <!--<Label Content="Datum od" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
         <!--<DatePicker Grid.Row="3" Grid.Column="4" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center"/>-->
 

@@ -1,0 +1,38 @@
+﻿<Window x:Class="SIMSProject.View.Guest1.FreeAccommodationsSuggestions"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMSProject.View.Guest1"
+        mc:Ignorable="d"
+        Title="Dostupni termini" Height="440" Width="408"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="0,0,0,9">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition  ></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+
+        </Grid.RowDefinitions>
+
+        <Label Grid.ColumnSpan="2" FontSize="15" Content="Smeštaj nije slobodan u odabranom periodu!" Width="400" FontStyle="Oblique" HorizontalAlignment="Left"></Label>
+
+        <Label FontSize="20" Content="Slobodni datumi:" Grid.Row="1" ></Label>
+
+        <DataGrid Grid.Row="2" Grid.ColumnSpan="2" Margin="7,0,7,31" >
+            
+        </DataGrid>
+
+        <Button Content="Otkazi" FontSize="15" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100" Click="Button_Click_Close"></Button>
+        <Button Content="Potvrdi" FontSize="15" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100" />
+
+
+    </Grid>
+</Window>

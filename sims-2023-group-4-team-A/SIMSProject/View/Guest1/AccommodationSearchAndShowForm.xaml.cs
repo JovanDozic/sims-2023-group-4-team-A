@@ -134,10 +134,21 @@ namespace SIMSProject.View.Guest1
             }
         }
 
-        private void Reservation_Click(object sender, RoutedEventArgs e)
+        private void Show_Click(object sender, RoutedEventArgs e)
         {
-            var openReservation = new AccommodationReservation(selectedAccommodation);
-            openReservation.Show();
+            /*
+            if (selectedAccommodation != null)
+            {
+            */
+                var openReservation = new AccommodationReservation(selectedAccommodation);
+                openReservation.Show();
+            /*
+            }
+            else
+            {
+                MessageBox.Show("Morate izabrati smeštaj!");
+            }
+            */
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

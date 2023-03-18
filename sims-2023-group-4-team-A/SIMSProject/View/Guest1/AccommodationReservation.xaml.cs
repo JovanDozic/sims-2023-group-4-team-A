@@ -24,6 +24,7 @@ namespace SIMSProject.View.Guest1
     public partial class AccommodationReservation : Window, INotifyPropertyChanged
     {
         public Accommodation Accommodation { get; set; }
+        public Accommodation selectedAccommodation { set; get; } = new();
 
         private string _selectedImageFile = string.Empty;
         public string SelectedImageFile
@@ -59,6 +60,12 @@ namespace SIMSProject.View.Guest1
         private void Button_Click_Close(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void Button_Click_Reserve(object sender, RoutedEventArgs e)
+        {
+            var reserve = new AccommodationReservationConfirmation(Accommodation);
+            reserve.Show();
         }
     }
 }
