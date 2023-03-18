@@ -6,8 +6,8 @@ using System.Runtime.CompilerServices;
 
 namespace SIMSProject.Model.UserModel
 {
-    public enum USER_ROLE { OWNER = 0, GUIDE, GUEST }
-    public class User : INotifyPropertyChanged, ISerializable
+    public enum USER_ROLE { OWNER = 0, GUIDE, GUEST, SUPER_OWNER, SUPER_GUIDE, SUPER_GUEST }
+    public class User : INotifyPropertyChanged
     {
         private int _id;
         public int Id
@@ -58,6 +58,7 @@ namespace SIMSProject.Model.UserModel
                     USER_ROLE.OWNER => "Vlasink",
                     USER_ROLE.GUIDE => "Vodič",
                     _ => "Gost"
+                    // TODO: Add super-users
                 };
             }
             set
@@ -67,6 +68,7 @@ namespace SIMSProject.Model.UserModel
                     "Vlasnik" => USER_ROLE.OWNER,
                     "Vodič" => USER_ROLE.GUIDE,
                     _ => USER_ROLE.GUEST
+                    // TODO: Add super-users
                 };
                 OnPropertyChanged(nameof(Role));
             }
@@ -74,29 +76,12 @@ namespace SIMSProject.Model.UserModel
 
         public User() { }
 
-        public User(string username, string password, USER_ROLE role)
-        {
-            Username = username;
-            Password = password;
-            _role = role;
-        }
-
         // [PROPERTY CHANGED EVENT HANDLER]
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public string[] ToCSV()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void FromCSV(string[] values)
-        {
-            throw new NotImplementedException();
         }
     }
 }

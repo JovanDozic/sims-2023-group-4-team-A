@@ -31,7 +31,7 @@ namespace SIMSProject.Model
                 }
             } 
         }
-        public User Guide { get; set; }
+        public Guest Guide { get; set; }
         public Location Location { get; set; } = new Location();
         private string? _description;
         public string Description
@@ -152,12 +152,12 @@ namespace SIMSProject.Model
 
         public List<String> Images { get; set; } = new List<String>();
 
-        public List<User> Sightseers { get; set; } = new List<User>();
+        public List<Guest> Sightseers { get; set; } = new List<Guest>();
 
         
         public Tour() { }
 
-        public Tour(int id, string name, User guide, Location location, string description, string tourLanguage, int maxGuestNumber, int availableSpots,int duration, int locationId, int guideId)
+        public Tour(int id, string name, Guest guide, Location location, string description, string tourLanguage, int maxGuestNumber, int availableSpots,int duration, int locationId, int guideId)
         {
             Id = id;
             Name = name;

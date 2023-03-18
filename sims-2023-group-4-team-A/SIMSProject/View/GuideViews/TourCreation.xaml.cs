@@ -67,7 +67,7 @@ namespace SIMSProject.View.GuideViews
             }
         }
         public string Images { get; set; } = "slika1.png,slika2.jpg...";
-        public User Guide { get; set; }
+        public Guest Guide { get; set; }
 
         public List<KeyPoint> NewKeyPoints { get; set; } = new();
         public List<TourDate> NewDates { get; set; } = new();
@@ -82,7 +82,7 @@ namespace SIMSProject.View.GuideViews
 
             New = new Tour();
 
-            Guide = new User("Admin", "Admin", USER_ROLE.GUIDE);
+            Guide = new Guest("Admin", "Admin", USER_ROLE.GUIDE);
             Guide.Id = 256;
 
             TourLanguages = new()

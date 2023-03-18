@@ -50,7 +50,8 @@ namespace SIMSProject
             InitialWindow initialWindow = new InitialWindow();
             initialWindow.Show();
             
-            /*User user = _fileHandler.GetByUsername(Username);
+            /*
+            Guest user = _fileHandler.GetByUsername(Username);
             if (user != null)
             {
                 if(user.Password == txtPassword.Password)
@@ -67,7 +68,8 @@ namespace SIMSProject
             else
             {
                 MessageBox.Show("Wrong username!");
-            }*/
+            }
+            */
             
         }
     }

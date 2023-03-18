@@ -1,22 +1,13 @@
-﻿using SIMSProject.Controller;
-using SIMSProject.Serializer;
-using System;
-using System.Collections.Generic;
+﻿using SIMSProject.Serializer;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace SIMSProject.Model
 {
     public class GuestRating : ISerializable, INotifyPropertyChanged
     {
-        // TODO: trebalo bi da primarni kljuc bude po rezervaciji, ali mi nemamo klasu rezervacije
-
         public int Id { get; set; }
+        public int ReservationId { get; set; }
         private int _cleanliness;
         public int Cleanliness
         {

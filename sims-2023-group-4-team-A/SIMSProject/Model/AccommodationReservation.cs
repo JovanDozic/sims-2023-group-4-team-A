@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SIMSProject.Controller;
 using SIMSProject.Serializer;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -12,12 +7,10 @@ namespace SIMSProject.Model
 {
     public class AccommodationReservation: ISerializable, INotifyPropertyChanged
     {
-
         public int Id { get; set; }
         public int AccommodationId { get; set; }
         public int GuestId { get; set; }
         private DateTime _startDate; 
-
         public DateTime StartDate
         {
             get => _startDate;
@@ -27,15 +20,10 @@ namespace SIMSProject.Model
                 {
                     _startDate = value;
                     OnPropertyChanged(nameof(StartDate));
-
                 }
-
-                
             }
         }
-
         private DateTime _endDate;
-
         public DateTime EndDate
         {
             get => _endDate;
@@ -46,13 +34,9 @@ namespace SIMSProject.Model
                     _endDate = value;
                     OnPropertyChanged(nameof(EndDate));
                 } 
-                
             }
-
         }
-
         private int _numberOfDays;
-
         public int NumberOfDays
         {
             get => _numberOfDays;
@@ -65,13 +49,9 @@ namespace SIMSProject.Model
                 }
             }
         }
-
         public bool Canceled = false;
 
-        public AccommodationReservation()
-        {
-
-        }
+        public AccommodationReservation() { }
 
         public AccommodationReservation(int id, int accommodationId, int guestId, DateTime startDate, DateTime endDate, int numberOfDays, bool canceled)
         {
@@ -116,9 +96,5 @@ namespace SIMSProject.Model
             NumberOfDays = int.Parse(values[5]);
             Canceled = bool.Parse(values[6]);
         }
-
-        
     }
-
-    
 }
