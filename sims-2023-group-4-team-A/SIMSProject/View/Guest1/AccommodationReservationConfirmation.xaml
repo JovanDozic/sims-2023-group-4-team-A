@@ -30,13 +30,13 @@
         <TextBlock FontSize="17" FontStyle="Oblique" x:Name="NameTextBlock" Height="30" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="204,0,0,0"/>
 
         <Label FontSize="15" Content="Datum početka:" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <DatePicker FontSize="15" Grid.Row="1" Grid.Column="4" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <DatePicker x:Name="DateBeginBox" FontSize="15" Grid.Row="1" Grid.Column="4" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
         <Label FontSize="15" Content="Datum kraja:" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <DatePicker FontSize="15" Grid.Row="2" Grid.Column="1" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <DatePicker x:Name="DateEndBox" FontSize="15" Grid.Row="2" Grid.Column="1" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
         <Label FontSize="15" Content="Broj dana:" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <custom:NumericTextBox FontSize="15" Grid.Row="3" Grid.Column="6" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        <custom:NumericTextBox x:Name="DaysBox" FontSize="15" Grid.Row="3" Grid.Column="6" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
         <Button FontSize="15" Content="Rezerviši"  Grid.Row="4" Grid.Column="1"  Height="35" Width="120" Click="Confirm_Button"/>
         <Button Content="Nazad" FontSize="15" Grid.Row ="6" Grid.Column="0" Height="35" Width="120" Click="Button_Click_Back" ></Button>

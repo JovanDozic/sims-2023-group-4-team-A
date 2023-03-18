@@ -28,6 +28,8 @@ namespace SIMSProject.View.Guest1
     public partial class AccommodationSearchAndShowForm : Window, IObserver, INotifyPropertyChanged
     {
 
+       
+
         public Accommodation Accommodation { get; set; }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         private AccommodationController AccommodationControllers;
@@ -91,7 +93,7 @@ namespace SIMSProject.View.Guest1
                 Accommodations.Add(accommodations);
 
             String search1 = TextSearch1.Text;
-            if (search1 == "Naziv tip lokacija") search1 = string.Empty;
+            if (search1 == "Naziv Tip Lokacija") search1 = string.Empty;
             string[] searchValues = search1.Split(" ");
 
             List<Accommodation> searchResults = Accommodations.ToList();
@@ -119,7 +121,7 @@ namespace SIMSProject.View.Guest1
             TextBox? textbox = sender as TextBox;
             if (textbox is null) return;
             textbox.Foreground = new SolidColorBrush(Colors.Black);
-            if (textbox.Text == "Naziv tip lokacija") textbox.Text = string.Empty;
+            if (textbox.Text == "Naziv Tip Lokacija") textbox.Text = string.Empty;
         }
 
         private void TextSearch_LostFocus(object sender, RoutedEventArgs e)
@@ -129,7 +131,7 @@ namespace SIMSProject.View.Guest1
             if (textbox.Text == string.Empty)
             {
                 textbox.Foreground = new SolidColorBrush(Colors.Gray);
-                textbox.Text = "Naziv tip lokacija";
+                textbox.Text = "Naziv Tip Lokacija";
 
             }
         }
@@ -140,7 +142,7 @@ namespace SIMSProject.View.Guest1
             if (selectedAccommodation != null)
             {
             */
-                var openReservation = new AccommodationReservation(selectedAccommodation);
+                var openReservation = new AccommodationReview(selectedAccommodation);
                 openReservation.Show();
             /*
             }

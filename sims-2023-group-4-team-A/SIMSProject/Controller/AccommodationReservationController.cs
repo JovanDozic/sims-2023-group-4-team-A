@@ -10,27 +10,27 @@ namespace SIMSProject.Controller
 {
     public class AccommodationReservationController
     {
-        private AccommodationReservationDAO _accommodationReservationDAO;
+        private AccommodationReservationDAO _AccommodationReservationDAO;
         public AccommodationReservation AccommodationReservation;
 
         public AccommodationReservationController()
         {
-            _accommodationReservationDAO = new AccommodationReservationDAO();
+            _AccommodationReservationDAO = new AccommodationReservationDAO();
             AccommodationReservation = new AccommodationReservation();
         }
 
         public List<AccommodationReservation> GetAll()
         {
-            return _accommodationReservationDAO.GetAll();
+            return _AccommodationReservationDAO.GetAll();
         }
 
-        public void SaveAll(List<AccommodationReservation> accommodationReservation)
+        public void SaveAll(List<AccommodationReservation> AccommodationReservation)
         {
-            _accommodationReservationDAO.SaveAll(accommodationReservation);
+            _AccommodationReservationDAO.SaveAll(AccommodationReservation);
         }
-        public AccommodationReservation Create(AccommodationReservation accommodationReservation)
+        public AccommodationReservation Create(AccommodationReservation AccommodationReservation)
         {
-            return _accommodationReservationDAO.Save(accommodationReservation);
+            return _AccommodationReservationDAO.Save(AccommodationReservation);
         }
     }
 }

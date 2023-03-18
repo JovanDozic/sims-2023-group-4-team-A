@@ -15,17 +15,20 @@ using SIMSProject.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Drawing;
 
 namespace SIMSProject.View.Guest1
 {
     /// <summary>
-    /// Interaction logic for AccommodationReservation.xaml
+    /// Interaction logic for AccommodationReview.xaml
     /// </summary>
-    public partial class AccommodationReservation : Window, INotifyPropertyChanged
+    public partial class AccommodationReview : Window, INotifyPropertyChanged
     {
         public Accommodation Accommodation { get; set; }
         public Accommodation selectedAccommodation { set; get; } = new();
 
+      
+        
         private string _selectedImageFile = string.Empty;
         public string SelectedImageFile
         {
@@ -39,7 +42,8 @@ namespace SIMSProject.View.Guest1
                 }
             }
         }
-        public AccommodationReservation(Accommodation accommodation)
+        
+        public AccommodationReview(Accommodation accommodation)
         {
             InitializeComponent();
             DataContext = this;

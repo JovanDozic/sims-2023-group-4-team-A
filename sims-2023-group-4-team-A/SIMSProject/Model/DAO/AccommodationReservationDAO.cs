@@ -14,41 +14,41 @@ namespace SIMSProject.Model.DAO
         private List<IObserver> _observers;
         private AccommodationReservationFileHandler _fileHandler;
         private LocationFileHandler _locationFileHandler;
-        private List<AccommodationReservation> _accommodationReservations;
+        private List<AccommodationReservation> _AccommodationReservations;
 
         public AccommodationReservationDAO()
         {
             _observers = new List<IObserver>();
             _fileHandler = new AccommodationReservationFileHandler();
             _locationFileHandler = new LocationFileHandler();
-            _accommodationReservations = _fileHandler.Load();
+            _AccommodationReservations = _fileHandler.Load();
 
             
         }
 
         public int NextId()
         {
-            return _accommodationReservations.Max(x => x.Id) + 1;
+            return _AccommodationReservations.Max(x => x.Id) + 1;
         }
 
         public List<AccommodationReservation> GetAll()
         {
-            return _accommodationReservations;
+            return _AccommodationReservations;
         }
 
-        public AccommodationReservation Save(AccommodationReservation accommodationReservation)
+        public AccommodationReservation Save(AccommodationReservation AccommodationReservation)
         {
-            accommodationReservation.Id = NextId();
-            _accommodationReservations.Add(accommodationReservation);
-            _fileHandler.Save(_accommodationReservations);
+            AccommodationReservation.Id = NextId();
+            _AccommodationReservations.Add(AccommodationReservation);
+            _fileHandler.Save(_AccommodationReservations);
             NotifyObservers();
-            return accommodationReservation;
+            return AccommodationReservation;
         }
 
-        public void SaveAll(List<AccommodationReservation> accommodationReservation)
+        public void SaveAll(List<AccommodationReservation> AccommodationReservation)
         {
-            _fileHandler.Save(accommodationReservation);
-            _accommodationReservations = accommodationReservation;
+            _fileHandler.Save(AccommodationReservation);
+            _AccommodationReservations = AccommodationReservation;
             NotifyObservers();
         }
 

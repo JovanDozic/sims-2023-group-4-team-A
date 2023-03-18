@@ -21,11 +21,17 @@ namespace SIMSProject.View.Guest1
     public partial class AccommodationReservationConfirmation : Window
     {
         public Accommodation Accommodation { get; set; } = new();
+        List<AccommodationReservation> AccommodationReservations { get; set; } = new List<AccommodationReservation>();
         public AccommodationReservationConfirmation(Accommodation accommodation)
         {
             InitializeComponent();
             Accommodation = accommodation;
             NameTextBlock.Text = Accommodation.Name;
+            int id = Accommodation.Id;
+
+           
+             
+
         }
 
         private void Button_Click_Back(object sender, RoutedEventArgs e)
@@ -35,8 +41,36 @@ namespace SIMSProject.View.Guest1
 
         private void Confirm_Button(object sender, RoutedEventArgs e)
         {
-            var confirm = new FreeAccommodationsSuggestions();
-            confirm.Show();
+            DateTime dateBegin = (DateTime)DateBeginBox.SelectedDate;
+            DateTime dateEnd = (DateTime)DateEndBox.SelectedDate;
+            int Days = DaysBox.Value;
+
+            if(Days >= Accommodation.MinReservationDays)
+            {
+                if (CheckReservations(AccommodationReservations, dateBegin, dateEnd))
+                {
+                    var confirm = new FreeAccommodationsSuggestions();
+                    confirm.Show();
+                }
+                else
+                {
+                    //AccommodationReservation = new AccommodationReservation(...);
+                }
+
+            }
+ 
+        }
+
+        public bool CheckReservations(List<AccommodationReservation> reservations, DateTime startDate, DateTime endDate)
+        {
+            foreach (var reservation in reservations)
+            {
+                if (startDate >= reservation.StartDate && startDate <= reservation.EndDate)
+                {
+                    return true;  //Taken
+                }
+            }
+            return false; //It's free
         }
     }
 }

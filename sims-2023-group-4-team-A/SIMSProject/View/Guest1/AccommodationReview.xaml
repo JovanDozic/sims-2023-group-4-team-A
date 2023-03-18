@@ -1,4 +1,4 @@
-﻿<Window x:Class="SIMSProject.View.Guest1.AccommodationReservation"
+﻿<Window x:Class="SIMSProject.View.Guest1.AccommodationReview"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -41,7 +41,7 @@
 
         <Grid Grid.Row="3" Grid.Column="0" Margin="5,10,20,10">
             <Border BorderThickness="2" BorderBrush="#ffb0b0b0" Panel.ZIndex="1">
-                <Image  Source="{Binding SelectedImageFile}"/>
+                <Image DataContext="{Binding ElementName=mainGrid, Path= SelectedItem}"  Source="{Binding SelectedImageFile}"/>
             </Border>
             <TextBlock Text="Slika..." FontSize="14"
                        VerticalAlignment="Center" HorizontalAlignment="Center"
@@ -49,7 +49,7 @@
                        Panel.ZIndex="0"/>
         </Grid>
 
-        <DataGrid Grid.Row="3" Grid.Column="1" Margin="5,10,5,10"
+        <DataGrid x:Name="mainGrid" Grid.Row="3" Grid.Column="1" Margin="5,10,5,10"
                   ItemsSource="{Binding Accommodation.ImageURLs, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedImageFile}"
                   SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"
