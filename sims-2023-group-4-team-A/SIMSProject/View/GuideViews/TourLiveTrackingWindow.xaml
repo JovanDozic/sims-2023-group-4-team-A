@@ -1,0 +1,57 @@
+﻿<Window x:Class="SIMSProject.View.GuideViews.TourLiveTrackingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cstm="clr-namespace:SIMSProject.CustomControls"
+        mc:Ignorable="d"
+        Title="TourLiveTrackingWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <Label Content="Odsutni gosti:" 
+                       Margin="0,10,0,0"
+                       FontSize="20"/>
+                <ListBox x:Name="Away_guests"
+                         Margin="0,0,20,0"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1">
+                <Label Content="Prisutni gosti:" 
+                       Margin="0,10,0,0"
+                       FontSize="20"/>
+                <ListBox x:Name="Present_guests"
+                         Margin="0,0,20,0"/>
+            </StackPanel>
+        </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75*"/>
+                <RowDefinition Height="250*" />
+                <RowDefinition Height="120*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                   FontSize="35" FontWeight="Bold"
+                   Content="Naziv ture"
+                   Margin="20,0,0,0"/>
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <Button Content="Završi turu ranije"
+                        FontSize="20"
+                        Height="50"
+                        Margin="20,0,0,0"/>
+                <Button Content="Pauziraj turu"
+                        FontSize="20"
+                        Height="50"
+                        Margin="20,0,0,0"/>
+            </StackPanel>
+            <cstm:CustomListCheckBox ItemsSource="{Binding KeyPoints}"/>
+        </Grid>
+    </Grid>
+</Window>

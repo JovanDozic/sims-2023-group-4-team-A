@@ -68,6 +68,9 @@ namespace SIMSProject.View.GuideViews
             LiveTrackingDate.CurrentKeyPoint = SelectedTour.KeyPoints[0];
             LiveTrackingDate.TourStatus = "Aktivna";
             TourDateController.Update(LiveTrackingDate);
+
+            TourLiveTrackingWindow window = new TourLiveTrackingWindow(LiveTrackingDate);
+            window.Show();
         }
     }
 }
