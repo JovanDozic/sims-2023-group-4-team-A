@@ -2,6 +2,7 @@
 using System.Linq;
 using SIMSProject.Observer;
 using SIMSProject.FileHandler;
+using System;
 
 namespace SIMSProject.Model.DAO
 {
@@ -20,7 +21,18 @@ namespace SIMSProject.Model.DAO
 
         public int NextId() { return _tourDates.Max(x => x.Id) + 1; }
         public List<TourDate> GetAll() { return _tourDates; }
-
+        public List<TourDate> GetAllByTourId(int tourId)
+        {
+            List<TourDate> dates = new();
+            foreach(TourDate date in GetAll())
+            {
+                if(date.TourId == tourId)
+                {
+                    dates.Add(date);
+                }
+            }
+            return dates;
+        }
         public TourDate Save(TourDate tourDate)
         {
             tourDate.Id = NextId();
@@ -41,5 +53,7 @@ namespace SIMSProject.Model.DAO
         public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }
         public void Subscribe(IObserver observer) { _observers.Add(observer); }
         public void Unsubscribe(IObserver observer) { _observers.Remove(observer); }
+
+        
     }
 }

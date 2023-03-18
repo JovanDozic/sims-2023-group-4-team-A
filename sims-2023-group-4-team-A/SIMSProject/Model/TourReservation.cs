@@ -26,16 +26,16 @@ namespace SIMSProject.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = {Id.ToString(), GuestNumber.ToString(),TourDateId.ToString(), GuestId.ToString()};
+            string[] csvValues = {Id.ToString(),TourDateId.ToString(), GuestId.ToString(), GuestNumber.ToString() };
             return csvValues;
         }
 
         public void FromCSV(string[] value)
         {
             Id = Convert.ToInt32(value[0]);
-            GuestNumber = Convert.ToInt32(value[1]);
-            TourDateId = Convert.ToInt32(value[2]);
-            GuestId = Convert.ToInt32(value[3]);
+            TourDateId = Convert.ToInt32(value[1]);
+            GuestId = Convert.ToInt32(value[2]);
+            GuestNumber = Convert.ToInt32(value[3]);
         }
     }
 }

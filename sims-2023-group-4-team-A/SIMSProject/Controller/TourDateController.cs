@@ -20,6 +20,11 @@ namespace SIMSProject.Controller
             return _tourDates.GetAll();
         }
 
+        public List<TourDate> GetAllByTourId(int TourId)
+        {
+            return _tourDates.GetAllByTourId(TourId);
+        }
+
         public void SaveAll(List<TourDate> tourDates)
         {
             _tourDates.SaveAll(tourDates);

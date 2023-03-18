@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Xml.Linq;
+using System.Diagnostics;
 
 namespace SIMSProject.Model.DAO
 {
@@ -74,25 +75,7 @@ namespace SIMSProject.Model.DAO
             return results.ToList();
         }*/
 
-        public List<Tour> SearchLocations(string locationId)
-        {
-            return _tours.Where(tour => tour.LocationId.Equals(locationId)).ToList();
-        }
-
-        public List<Tour> SearchDurations(string duration)
-        {
-            return _tours.Where(tour => tour.Duration.Equals(duration)).ToList();
-        }
-
-        public List<Tour> SearchLanguages(string language)
-        {
-            return _tours.Where(tour => tour.TourLanguage.Equals(language)).ToList();
-        }
-
-        public List<Tour> SearchMaxGuests(string maxGuests)
-        {
-            return _tours.Where(tour => tour.MaxGuestNumber.Equals(maxGuests)).ToList();
-        }
+        
 
         public Tour Save(Tour tour)
         {
@@ -110,10 +93,24 @@ namespace SIMSProject.Model.DAO
             NotifyObservers();
         }
 
+        public List<Tour> GetToursWithSameLocation(Tour selectedTour)
+        {
+            List<Tour> tours = new();
+            foreach (Tour tour in GetAll())
+            {
+                if (tour.Location.Id == selectedTour.Location.Id && tour.Id!=selectedTour.Id)
+                {
+                    tours.Add(tour);
+                }
+            }
+            return tours;
+        }
+
         // [OBSERVERS]
         public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }
         public void Subscribe(IObserver observer) { _observers.Add(observer); }
         public void Unsubscribe(IObserver observer) { _observers.Remove(observer); }
 
+        
     }
 }

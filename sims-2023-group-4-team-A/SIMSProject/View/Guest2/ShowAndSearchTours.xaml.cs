@@ -146,8 +146,8 @@ namespace SIMSProject.View.Guest2
         {
             if(SelectedTour != null) 
             {
-                TourReservation tourReservation = new TourReservation(SelectedTour);
-                tourReservation.Show();
+                TourReservationCreation tourReservationCreation = new TourReservationCreation(SelectedTour);
+                tourReservationCreation.Show();
             }
             else
             {

@@ -98,5 +98,6 @@ namespace SIMSProject.Model.UserModel
         {
             throw new NotImplementedException();
         }
+
     }
 }
