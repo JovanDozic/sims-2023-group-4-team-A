@@ -1,14 +1,14 @@
 ﻿using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Media;
 
 namespace SIMSProject.Model.UserModel
 {
-    public class Guest : User, ISerializable
+    public class Guide : User, ISerializable
     {
         private double _rating = 0;
         public double Rating
@@ -26,18 +26,15 @@ namespace SIMSProject.Model.UserModel
         public List<TourReservation> TourReservations { get; set; } = new();
         public List<AccommodationReservation> AccommodationReservations { get; set; } = new();
 
-        public Guest() { }
+        public Guide() { }
 
-        public Guest(int id, string username, string password, double rating = 0)
+        public Guide(int id, string username, string password, double rating)
         {
             Id = id;
             Username = username;
             Password = password;
-            _role = USER_ROLE.GUEST;
+            _role = USER_ROLE.GUIDE;
             Rating = rating;
-            TourReservations = new();
-            AccommodationReservations = new();
-            // TODO: load tours and  reservations
         }
 
         public string[] ToCSV()
@@ -51,7 +48,7 @@ namespace SIMSProject.Model.UserModel
             };
             return csvValues;
         }
-        
+
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
