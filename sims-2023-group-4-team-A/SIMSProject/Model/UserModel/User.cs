@@ -55,7 +55,7 @@ namespace SIMSProject.Model.UserModel
             {
                 return _role switch
                 {
-                    USER_ROLE.OWNER => "Vlasink",
+                    USER_ROLE.OWNER => "Vlasnik",
                     USER_ROLE.GUIDE => "Vodič",
                     _ => "Gost"
                     // TODO: Add super-users

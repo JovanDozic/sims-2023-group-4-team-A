@@ -82,7 +82,7 @@ namespace SIMSProject.View.GuideViews
 
             New = new Tour();
 
-            Guide = new Guest("Admin", "Admin", USER_ROLE.GUIDE);
+            Guide = new Guest(256, "Admin", "Admin");
             Guide.Id = 256;
 
             TourLanguages = new()

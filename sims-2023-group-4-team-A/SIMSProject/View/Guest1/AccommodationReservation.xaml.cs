@@ -15,6 +15,7 @@ using SIMSProject.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SIMSProject.Model.UserModel;
 
 namespace SIMSProject.View.Guest1
 {
@@ -23,6 +24,7 @@ namespace SIMSProject.View.Guest1
     /// </summary>
     public partial class AccommodationReservation : Window, INotifyPropertyChanged
     {
+        public Guest User = new();
         public Accommodation Accommodation { get; set; }
 
         private string _selectedImageFile = string.Empty;
@@ -38,10 +40,11 @@ namespace SIMSProject.View.Guest1
                 }
             }
         }
-        public AccommodationReservation(Accommodation accommodation)
+        public AccommodationReservation(Guest user, Accommodation accommodation)
         {
             InitializeComponent();
             DataContext = this;
+            User = user;
             Accommodation = accommodation;
             TextBoxNaziv.Text = accommodation.Name;
             TextBoxLokacija.Text = accommodation.Location.ToString();

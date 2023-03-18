@@ -10,7 +10,7 @@ namespace SIMSProject.FileHandler.UserFileHandler
 {
     public class GuestFileHandler
     {
-        private const string FilePath = "../../../Resources/Data/guests.csv";
+        private const string FilePath = "../../../Resources/Data/Users/guests.csv";
         private readonly Serializer<Guest> _serializer;
 
         public GuestFileHandler()

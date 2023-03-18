@@ -10,7 +10,7 @@ namespace SIMSProject.FileHandler.UserFileHandler
 {
     public class OwnerFileHandler
     {
-        private const string FilePath = "../../../Resources/Data/owners.csv";
+        private const string FilePath = "../../../Resources/Data/Users/owners.csv";
         private readonly Serializer<Owner> _serializer;
 
         public OwnerFileHandler()

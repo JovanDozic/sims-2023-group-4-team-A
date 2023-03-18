@@ -28,7 +28,7 @@ namespace SIMSProject.Model.UserModel
 
         public Guest() { }
 
-        public Guest(int id, string username, string password, USER_ROLE role, double rating)
+        public Guest(int id, string username, string password, double rating = 0)
         {
             Id = id;
             Username = username;

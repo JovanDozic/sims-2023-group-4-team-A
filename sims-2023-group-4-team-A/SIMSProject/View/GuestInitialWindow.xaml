@@ -1,30 +1,28 @@
-﻿<Window x:Class="SIMSProject.View.OwnerViews.OwnerInitialWindow"
+﻿<Window x:Class="SIMSProject.View.GuestInitialWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SIMSProject.View.OwnerViews"
-        xmlns:cstm="clr-namespace:SIMSProject.CustomControls"
+        xmlns:local="clr-namespace:SIMSProject.View"
         mc:Ignorable="d"
-        Icon="../../../Resources/Images/Stars.png"
-        Title="OwnerInitialWindow" Height="450" Width="800">
+        Title="Gost" Height="450" Width="800">
     <Grid>
 
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-            
-            <Button Width="150" Height="40" Margin="30" HorizontalContentAlignment="Left"
-                    Click="OpenRegisterAccommodationWindowButton_Click">
+
+            <Button Width="160" Height="40" Margin="30" HorizontalContentAlignment="Left"
+                    Click="OpenAccommodations_Click">
                 <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                     <Image Source="../../../Resources/Images/Add.png" Width="20" Height="20" Margin="0,0,5,0"/>
-                    <TextBlock Margin="5,2,0,0" Text="Registruj smeštaj" />
+                    <TextBlock Margin="5,2,0,0" Text="Pregledaj smeštaje" />
                 </StackPanel>
             </Button>
 
-            <Button Width="150" Height="40" Margin="30" HorizontalContentAlignment="Left"
-                    Click="OpenRateGuestWindowButton_Click">
+            <Button Width="160" Height="40" Margin="30" HorizontalContentAlignment="Left"
+                    Click="OpenTours_Click">
                 <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                     <Image Source="../../../Resources/Images/Rating.png" Width="20" Height="20" Margin="0,0,5,0"/>
-                    <TextBlock Margin="5,2,0,0" Text="Oceni gosta" />
+                    <TextBlock Margin="5,2,0,0" Text="Pregledaj ture" />
                 </StackPanel>
             </Button>
 
