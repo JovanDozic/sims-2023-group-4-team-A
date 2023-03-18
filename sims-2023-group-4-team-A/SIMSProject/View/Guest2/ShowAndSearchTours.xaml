@@ -7,7 +7,8 @@
       xmlns:custom="clr-namespace:SIMSProject.CustomControls"
       mc:Ignorable="d" 
       d:DesignHeight="400" d:DesignWidth="800"
-      Title="ShowAndSearchTours" Width="800" Height="400">
+      Title="ShowAndSearchTours" Width="800" Height="400"
+      WindowStartupLocation="CenterScreen">
 
     <DockPanel>
         
@@ -19,12 +20,14 @@
             <custom:NumericTextBox x:Name="DurationSearch" Value="{Binding DurationSearchBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             <Label Content="   Broj ljudi: " Height="30"/>
             <custom:NumericTextBox x:Name="GuestSearch" Value="{Binding MaxGuestSearchBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            <TextBlock Width="90"/>
+            <TextBlock Width="50"/>
             <Button  Height="30" Width ="100" Click="Search_Click" Content="Pretrazi" Background="Gold"/>
+            <Button  Height="30" Width ="100" Click="Reserve_Click"  Content="Rezervisi" Background="Gold"/>
         </ToolBar>
 
         <DataGrid Height="300" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"
                   ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}"
                   >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path = Location}" Header="Lokacija" Width="150" x:Name="location"/>

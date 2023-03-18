@@ -1,13 +1,14 @@
 ﻿using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SIMSProject.Model.UserModel
 {
-    public class Owner : User, ISerializable
+    public class Guide : User, ISerializable
     {
         private double _rating = 0;
         public double Rating
@@ -22,17 +23,17 @@ namespace SIMSProject.Model.UserModel
                 }
             }
         }
-        
-        // TODO: Add list of owned accommodations
+        public List<TourReservation> TourReservations { get; set; } = new();
+        public List<AccommodationReservation> AccommodationReservations { get; set; } = new();
 
-        public Owner() { }
+        public Guide() { }
 
-        public Owner(int id, string username, string password, double rating)
+        public Guide(int id, string username, string password, double rating)
         {
             Id = id;
             Username = username;
             Password = password;
-            _role = USER_ROLE.OWNER;
+            _role = USER_ROLE.GUIDE;
             Rating = rating;
         }
 

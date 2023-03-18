@@ -6,33 +6,33 @@ namespace SIMSProject.Controller
 {
     public class LocationController
     {
-        private LocationDAO _tourLocations;
-        public Location TourLocation;
+        private LocationDAO _locations;
+        public Location Location;
 
         public LocationController()
         {
-            _tourLocations = new();
-            TourLocation = new();
+            _locations = new();
+            Location = new();
         }
 
         public List<Location> GetAll()
         {
-            return _tourLocations.GetAll();
+            return _locations.GetAll();
         }
 
-        public void SaveAll(List<Location> tourLocations)
+        public void SaveAll(List<Location> locations)
         {
-            _tourLocations.SaveAll(tourLocations);
+            _locations.SaveAll(locations);
         }
 
-        public Location Create(Location tourLocation)
+        public Location Create(Location location)
         {
-            return _tourLocations.Save(tourLocation);
+            return _locations.Save(location);
         }
 
         public Location GetByID(int id)
         {
-            return _tourLocations.Get(id);
+            return _locations.Get(id);
         }
     }
 }

@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace SIMSProject.Model.UserModel
 {
-    public class Owner : User, ISerializable
+    public class Guest : User, ISerializable
     {
         private double _rating = 0;
         public double Rating
@@ -22,18 +23,21 @@ namespace SIMSProject.Model.UserModel
                 }
             }
         }
-        
-        // TODO: Add list of owned accommodations
+        public List<TourReservation> TourReservations { get; set; } = new();
+        public List<AccommodationReservation> AccommodationReservations { get; set; } = new();
 
-        public Owner() { }
+        public Guest() { }
 
-        public Owner(int id, string username, string password, double rating)
+        public Guest(int id, string username, string password, double rating = 0)
         {
             Id = id;
             Username = username;
             Password = password;
-            _role = USER_ROLE.OWNER;
+            _role = USER_ROLE.GUEST;
             Rating = rating;
+            TourReservations = new();
+            AccommodationReservations = new();
+            // TODO: load tours and  reservations
         }
 
         public string[] ToCSV()
@@ -47,7 +51,7 @@ namespace SIMSProject.Model.UserModel
             };
             return csvValues;
         }
-
+        
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);

@@ -15,7 +15,6 @@ using SIMSProject.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Drawing;
 
 namespace SIMSProject.View.Guest1
 {
@@ -24,6 +23,7 @@ namespace SIMSProject.View.Guest1
     /// </summary>
     public partial class AccommodationReview : Window, INotifyPropertyChanged
     {
+        public Guest User = new();
         public Accommodation Accommodation { get; set; }
         public Accommodation selectedAccommodation { set; get; } = new();
 
@@ -42,11 +42,11 @@ namespace SIMSProject.View.Guest1
                 }
             }
         }
-        
-        public AccommodationReview(Accommodation accommodation)
+        public AccommodationReview(Guest user, Accommodation accommodation)
         {
             InitializeComponent();
             DataContext = this;
+            User = user;
             Accommodation = accommodation;
             TextBoxNaziv.Text = accommodation.Name;
             TextBoxLokacija.Text = accommodation.Location.ToString();
