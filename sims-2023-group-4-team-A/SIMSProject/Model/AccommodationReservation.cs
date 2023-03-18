@@ -49,19 +49,34 @@ namespace SIMSProject.Model
                 }
             }
         }
+
+        private int _guestsNumber;
+        public int GuestsNumber
+        {
+            get => _guestsNumber;
+            set
+            {
+                if(value != _guestsNumber)
+                {
+                    _guestsNumber = value;
+                    OnPropertyChanged(nameof(GuestsNumber));
+                }
+            }
+        }
+
         public bool Canceled = false;
 
         public AccommodationReservation() { }
 
-        public AccommodationReservation(int id, int accommodationId, int guestId, DateTime startDate, DateTime endDate, int numberOfDays, bool canceled)
+        public AccommodationReservation(int accommodationId, int guestId, DateTime startDate, DateTime endDate, int numberOfDays, int guestsNumber)
         {
-            Id = id;
             AccommodationId = accommodationId;
             GuestId = guestId;
             StartDate = startDate;
             EndDate = endDate;
             NumberOfDays = numberOfDays;
-            Canceled = canceled;
+            Canceled = false;
+            GuestsNumber = guestsNumber;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -80,6 +95,7 @@ namespace SIMSProject.Model
                 StartDate.ToString(),
                 EndDate.ToString(),
                 NumberOfDays.ToString(),
+                GuestsNumber.ToString(),
                 Canceled.ToString()
 
             };
@@ -94,7 +110,8 @@ namespace SIMSProject.Model
             StartDate = DateTime.Parse(values[3]);
             EndDate = DateTime.Parse(values[4]);
             NumberOfDays = int.Parse(values[5]);
-            Canceled = bool.Parse(values[6]);
+            GuestsNumber = int.Parse(values[6]);
+            Canceled = bool.Parse(values[7]);
         }
     }
 }
