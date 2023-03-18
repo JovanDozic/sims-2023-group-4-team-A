@@ -27,7 +27,7 @@ namespace SIMSProject.Model.UserModel
 
         public Owner() { }
 
-        public Owner(int id, string username, string password, double rating)
+        public Owner(int id, string username, string password, double rating = 0)
         {
             Id = id;
             Username = username;

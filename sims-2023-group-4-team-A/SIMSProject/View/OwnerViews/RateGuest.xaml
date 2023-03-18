@@ -58,7 +58,7 @@
 
         <Button Grid.Row="4" IsCancel="True"
                 Content="Otkaži" FontSize="16" Padding="15,3,15,3" Width="100" Height="35"
-                Margin="25,11,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Click="Button_Click"/>
+                Margin="25,11,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Click="BTNCancel_Click"/>
 
     </Grid>
 </Window>

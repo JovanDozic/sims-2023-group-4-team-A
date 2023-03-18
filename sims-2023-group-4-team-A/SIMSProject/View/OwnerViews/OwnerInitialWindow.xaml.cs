@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Model;
+using SIMSProject.Model.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -14,12 +15,14 @@ namespace SIMSProject.View.OwnerViews
     /// </summary>
     public partial class OwnerInitialWindow : Window
     {
+        public Owner User { get; set; } = new();
         public Accommodation Accommodation { get; set; } = new();
 
-        public OwnerInitialWindow()
+        public OwnerInitialWindow(Owner user)
         {
             InitializeComponent();
             DataContext = this;
+            User = user;
             Accommodation.MaxGuestNumber = 1;
         }
 
@@ -31,7 +34,7 @@ namespace SIMSProject.View.OwnerViews
 
         private void OpenRateGuestWindowButton_Click(object sender, RoutedEventArgs e)
         {
-            RateGuest window = new();
+            RateGuest window = new(User);
             window.Show();
         }
     }

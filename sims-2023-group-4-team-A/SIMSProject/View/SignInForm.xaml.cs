@@ -36,46 +36,57 @@ namespace SIMSProject
             DataContext = this;
 
             _userController = new();
+
+            SignIn(null, null);
         }
 
-        private void SignIn(object sender, RoutedEventArgs e)
+        private void SignIn(object? sender, RoutedEventArgs? e)
         {
+            // TODO: Remove following lines:
+            Username = "jovan";
+            txtPassword.Password = "jovan";
             var user = _userController.GetByUsername(Username) as User;
-            if (user != null)
             {
-                if (user.Password == txtPassword.Password)
-                {
-                    //MessageBox.Show("Ovaj user je: " + user.Role, "Informacija", MessageBoxButton.OK, MessageBoxImage.Information);
-                    switch (user.Role)
-                    {
-                        case "Vlasnik":
-                            {
-                                OwnerInitialWindow window = new();
-                                window.Show();
-                                break;
-                            }
-                        case "Vodič":
-                            {
-                                // TODO: Add initial window call
-                                break;
-                            }
-                        case "Gost":
-                            {
-                                GuestInitialWindow window = new(user as Guest ?? new Guest(0, "<null>", "<null>"));
-                                window.Show();
-                                break;
-                            }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Pogrešna šifra!", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                OwnerInitialWindow window = new(user as Owner ?? new Owner(0, "<null>", "<null>"));
+                window.Show();
+                Close();
             }
-            else
-            {
-                MessageBox.Show(Username + " korisnik ne postoji!", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+
+            //if (user != null)
+            //{
+            //    if (user.Password == txtPassword.Password)
+            //    {
+            //        //MessageBox.Show("Ovaj user je: " + user.Role, "Informacija", MessageBoxButton.OK, MessageBoxImage.Information);
+            //        switch (user.Role)
+            //        {
+            //            case "Vlasnik":
+            //                {
+            //                    OwnerInitialWindow window = new(user as Owner ?? new Owner(0, "<null>", "<null>"));
+            //                    window.Show();
+            //                    break;
+            //                }
+            //            case "Vodič":
+            //                {
+            //                    // TODO: Add initial window call
+            //                    break;
+            //                }
+            //            case "Gost":
+            //                {
+            //                    GuestInitialWindow window = new(user as Guest ?? new Guest(0, "<null>", "<null>"));
+            //                    window.Show();
+            //                    break;
+            //                }
+            //        }
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("Pogrešna šifra!", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show(Username + " korisnik ne postoji!", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

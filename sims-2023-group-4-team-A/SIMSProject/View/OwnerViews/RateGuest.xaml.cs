@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SIMSProject.Model;
+using SIMSProject.Model.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,15 +18,18 @@ namespace SIMSProject.View.OwnerViews
 {
     public partial class RateGuest : Window
     {
+        public Owner User { get; set; } = new();
+        public GuestRating GuestRating { get; set; } = new();
 
-
-        public RateGuest()
+        public RateGuest(Owner user)
         {
             InitializeComponent();
             DataContext = this;
+            User = user;
+
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BTNCancel_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
