@@ -11,7 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using SIMSProject.Model; 
+using SIMSProject.Model;
+using SIMSProject.Model.UserModel;
+using SIMSProject.Controller;
 
 namespace SIMSProject.View.Guest1
 {
@@ -20,18 +22,18 @@ namespace SIMSProject.View.Guest1
     /// </summary>
     public partial class AccommodationReservationConfirmation : Window
     {
+        public Guest User { get; set; } = new();
         public Accommodation Accommodation { get; set; } = new();
         List<AccommodationReservation> AccommodationReservations { get; set; } = new List<AccommodationReservation>();
-        public AccommodationReservationConfirmation(Accommodation accommodation)
+        public AccommodationReservationController Controller { get; set; }
+        public AccommodationReservation AccommodationReservation { get; set; } = new();
+        public AccommodationReservationConfirmation(Guest user, Accommodation accommodation)
         {
             InitializeComponent();
             Accommodation = accommodation;
+            Controller = new AccommodationReservationController();
             NameTextBlock.Text = Accommodation.Name;
-            int id = Accommodation.Id;
-
-           
-             
-
+            User = user;
         }
 
         private void Button_Click_Back(object sender, RoutedEventArgs e)
@@ -44,19 +46,30 @@ namespace SIMSProject.View.Guest1
             DateTime dateBegin = (DateTime)DateBeginBox.SelectedDate;
             DateTime dateEnd = (DateTime)DateEndBox.SelectedDate;
             int Days = DaysBox.Value;
+            TimeSpan duration = dateEnd - dateBegin;
 
-            if(Days >= Accommodation.MinReservationDays)
+            if(Days >= Accommodation.MinReservationDays && Days <= duration.Days)
             {
-                if (CheckReservations(AccommodationReservations, dateBegin, dateEnd))
+                if (CheckReservations(Controller.GetAll(), dateBegin, dateEnd))
                 {
                     var confirm = new FreeAccommodationsSuggestions();
                     confirm.Show();
                 }
                 else
                 {
-                    //AccommodationReservation = new AccommodationReservation(...);
+                     
+                   /* AccommodationReservation = new AccommodationReservation(Accommodation.Id, User.Id, dateBegin, dateEnd, Days);
+
+                    Controller.Create(AccommodationReservation);
+                    MessageBox.Show("Smestaj rezervisan!");
+
+                    */
                 }
 
+            }
+            else
+            {
+                MessageBox.Show("Broj dana nije prihvatljiv!");
             }
  
         }
@@ -65,7 +78,9 @@ namespace SIMSProject.View.Guest1
         {
             foreach (var reservation in reservations)
             {
-                if (startDate >= reservation.StartDate && startDate <= reservation.EndDate)
+                if ((startDate >= reservation.StartDate && startDate <= reservation.EndDate) ||
+                    (endDate >= reservation.StartDate && endDate <= reservation.EndDate) ||
+                    (startDate <= reservation.StartDate && endDate >= reservation.EndDate))
                 {
                     return true;  //Taken
                 }

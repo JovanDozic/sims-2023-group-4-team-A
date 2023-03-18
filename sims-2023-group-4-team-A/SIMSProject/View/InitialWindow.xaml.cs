@@ -3,11 +3,14 @@ using SIMSProject.View.OwnerViews;
 using SIMSProject.View.GuideViews;
 using SIMSProject.View.Guest2;
 using SIMSProject.View.Guest1;
+using SIMSProject.Model.UserModel;
 
 namespace SIMSProject.View
 {
     public partial class InitialWindow : Window
     {
+        public Guest Guest { get; set; }
+
         public InitialWindow()
         {
             InitializeComponent();
@@ -15,7 +18,7 @@ namespace SIMSProject.View
 
         private void Guest1_Click(object sender, RoutedEventArgs e)
         {
-            AccommodationSearchAndShowForm accommondationSearchAndShowForm = new();
+            AccommodationSearchAndShowForm accommondationSearchAndShowForm = new(Guest);
             accommondationSearchAndShowForm.Show();
         }
 

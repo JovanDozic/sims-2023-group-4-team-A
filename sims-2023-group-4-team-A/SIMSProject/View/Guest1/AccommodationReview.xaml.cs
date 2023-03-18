@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SIMSProject.Model;
+using SIMSProject.Model.UserModel;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -68,7 +69,7 @@ namespace SIMSProject.View.Guest1
 
         private void Button_Click_Reserve(object sender, RoutedEventArgs e)
         {
-            var reserve = new AccommodationReservationConfirmation(Accommodation);
+            var reserve = new AccommodationReservationConfirmation(User, Accommodation);
             reserve.Show();
         }
     }
