@@ -4,12 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMSProject"
-        mc:Ignorable="d" KeyDown="Window_KeyDown"
+        mc:Ignorable="d" KeyDown="Window_KeyDown" 
+        Icon="../../../Resources/Images/Stars.png"
         Title="Sign in" Height="300" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="2.5*"></RowDefinition>
+            <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -40,7 +42,32 @@
 
         <Button x:Name="BTNSignIn" Content="Uloguj se" Margin="5,9,0,9"
                 FontSize="16" Padding="15,3,15,3"
-                Grid.Row="7" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top"
+                Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top"
                 Width="120" Height="35" Click="SignIn"/>
+
+        <Grid Grid.Row="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="BTNGoToOwner" Content="Go to owner" Margin="5,9,5,9"
+                FontSize="16"
+                Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                Width="120" Height="35" Click="BTNGoTo_Click" BorderBrush="#FFDADADA" Background="#FFFBFBFB"/>
+            <Button x:Name="BTNGoToGuest" Content="Go to guest" Margin="5,9,5,9"
+                FontSize="16"
+                Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                Width="120" Height="35" Click="BTNGoTo_Click" BorderBrush="#FFDADADA" Background="#FFFBFBFB"/>
+            <Button x:Name="BTNGoToGuide" Content="Go to guide" Margin="5,9,5,9"
+                FontSize="16"
+                Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"
+                Width="120" Height="35" Click="BTNGoTo_Click" BorderBrush="#FFDADADA" Background="#FFFBFBFB"/>
+
+
+        </Grid>
+        
     </Grid>
 </Window>

@@ -33,7 +33,6 @@ namespace SIMSProject.Model.DAO
         public Accommodation Save(Accommodation accommodation)
         {
             accommodation.Id = NextId();
-            accommodation = LoadImagesToLocalFolder(accommodation);
             _accommodations.Add(accommodation);
             _fileHandler.Save(_accommodations);
             NotifyObservers();
@@ -45,12 +44,6 @@ namespace SIMSProject.Model.DAO
             _fileHandler.Save(accommodation);
             _accommodations = accommodation;
             NotifyObservers();
-        }
-
-        public Accommodation LoadImagesToLocalFolder(Accommodation accommodation)
-        {
-            for (int i = 0; i < accommodation.ImageURLs.Count; i++) accommodation.ImageURLs[i] = _fileHandler.SaveImage(accommodation.ImageURLs[i], accommodation.Id);
-            return accommodation;
         }
 
         // [OBSERVERS]

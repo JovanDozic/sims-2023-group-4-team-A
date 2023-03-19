@@ -184,6 +184,7 @@ namespace SIMSProject.Model
         }
         public void ImageURLsToCSV()
         {
+            Trace.WriteLine("ImageURLs.Count() => " + ImageURLs.Count);
             if (ImageURLs.Count > 0)
             {
                 ImageURLsCSV = string.Empty;

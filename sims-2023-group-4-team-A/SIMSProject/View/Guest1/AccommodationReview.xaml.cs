@@ -52,8 +52,6 @@ namespace SIMSProject.View.Guest1
             TextBoxNaziv.Text = accommodation.Name;
             TextBoxLokacija.Text = accommodation.Location.ToString();
             TextBoxTip.Text = accommodation.Type;
-
-
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -71,6 +69,11 @@ namespace SIMSProject.View.Guest1
         {
             var reserve = new AccommodationReservationConfirmation(User, Accommodation);
             reserve.Show();
+        }
+
+        private void mainGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TXTImagePlaceholder.Text = "Učitavanje...";
         }
     }
 }

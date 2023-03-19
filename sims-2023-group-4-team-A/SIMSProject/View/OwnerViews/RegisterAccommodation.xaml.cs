@@ -8,18 +8,18 @@ using System.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Drawing;
+using System.Windows.Media;
 
 namespace SIMSProject.View.OwnerViews
 {
-    /// <summary>
-    /// Interaction logic for RegisterAccommodation.xaml
-    /// </summary>
     public partial class RegisterAccommodation : Window, INotifyPropertyChanged
     {
         public Accommodation Accommodation { get; set; }
         private AccommodationController _accommodationController { get; set; } = new();
         private LocationController _locationController { get; set; } = new();
         public ObservableCollection<string> AccommodationTypeSource { get; set; }
+        private bool _imageAdded { get; set; } = false;
         private string _selectedImageFile = string.Empty;
         public string SelectedImageFile
         {
@@ -52,6 +52,7 @@ namespace SIMSProject.View.OwnerViews
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
+            Accommodation.ImageURLsToCSV();
             if (!Accommodation.IsValid || !Accommodation.Location.IsValid || Accommodation.ImageURLsCSV == string.Empty)
             {
                 MessageBox.Show("Nisu uneti svi podaci!", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -70,19 +71,20 @@ namespace SIMSProject.View.OwnerViews
             Close();
         }
 
-        private void BTNUploadFiles_Click(object sender, RoutedEventArgs e)
+        private void BTNAddFiles_Click(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog dlg = new()
-            {
-                Multiselect = true,
-                Filter = "Image files (*.jpg, *.jpeg, *.png, *.bmp)|*.jpg;*.jpeg;*.png;*.bmp"
-            };
+            Accommodation.ImageURLs.Add(TBImageURL.Text);
+            //Accommodation.ImageURLsToCSV();
+            DGRImageURLs.Items.Refresh();
+            _imageAdded = true;
+        }
 
-            bool? result = dlg.ShowDialog();
-            if (result == true)
+        private void TBImageURL_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (_imageAdded)
             {
-                Accommodation.ImageURLs = dlg.FileNames.ToList();
-                Accommodation.ImageURLsToCSV();
+                _imageAdded = false;
+                TBImageURL.Text = string.Empty;
             }
         }
 
@@ -92,5 +94,9 @@ namespace SIMSProject.View.OwnerViews
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private void DGRImageURLs_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            TXTImagePlaceholder.Text = "Učitavanje...";
+        }
     }
 }

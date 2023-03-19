@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMSProject.View.OwnerViews"
         xmlns:cstm="clr-namespace:SIMSProject.CustomControls"
-        mc:Ignorable="d"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" 
         Icon="../../../Resources/Images/Stars.png"
         Title="OwnerInitialWindow" Height="450" Width="800">
     <Grid>
-
+        
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
             
             <Button Width="150" Height="40" Margin="30" HorizontalContentAlignment="Left"

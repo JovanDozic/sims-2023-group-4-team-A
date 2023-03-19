@@ -41,9 +41,9 @@
 
         <Grid Grid.Row="3" Grid.Column="0" Margin="5,10,20,10">
             <Border BorderThickness="2" BorderBrush="#ffb0b0b0" Panel.ZIndex="1">
-                <Image DataContext="{Binding ElementName=mainGrid, Path= SelectedItem}"  Source="{Binding SelectedImageFile}"/>
+                <Image Source="{Binding Path=SelectedImageFile, UpdateSourceTrigger=PropertyChanged}"/>
             </Border>
-            <TextBlock Text="Slika..." FontSize="14"
+            <TextBlock x:Name="TXTImagePlaceholder" Text="Izaberite sliku" FontSize="14"
                        VerticalAlignment="Center" HorizontalAlignment="Center"
                        Foreground="#ffb0b0b0"
                        Panel.ZIndex="0"/>
@@ -51,9 +51,10 @@
 
         <DataGrid x:Name="mainGrid" Grid.Row="3" Grid.Column="1" Margin="5,10,5,10"
                   ItemsSource="{Binding Accommodation.ImageURLs, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding SelectedImageFile}"
+                  SelectedItem="{Binding Path=SelectedImageFile}"
                   SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"
-                  HorizontalScrollBarVisibility="Visible">
+                  HorizontalScrollBarVisibility="Visible"
+                  SelectionChanged="mainGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding}"/>
             </DataGrid.Columns>

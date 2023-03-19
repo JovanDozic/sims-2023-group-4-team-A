@@ -9,6 +9,7 @@ using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.Controller.UserController;
 using SIMSProject.Model.UserModel;
 using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace SIMSProject
 {
@@ -36,57 +37,47 @@ namespace SIMSProject
             DataContext = this;
 
             _userController = new();
-
-            SignIn(null, null);
         }
 
         private void SignIn(object? sender, RoutedEventArgs? e)
         {
-            // TODO: Remove following lines:
-            Username = "jovan";
-            txtPassword.Password = "jovan";
             var user = _userController.GetByUsername(Username) as User;
-            {
-                OwnerInitialWindow window = new(user as Owner ?? new Owner(0, "<null>", "<null>"));
-                window.Show();
-                Close();
-            }
 
-            //if (user != null)
-            //{
-            //    if (user.Password == txtPassword.Password)
-            //    {
-            //        //MessageBox.Show("Ovaj user je: " + user.Role, "Informacija", MessageBoxButton.OK, MessageBoxImage.Information);
-            //        switch (user.Role)
-            //        {
-            //            case "Vlasnik":
-            //                {
-            //                    OwnerInitialWindow window = new(user as Owner ?? new Owner(0, "<null>", "<null>"));
-            //                    window.Show();
-            //                    break;
-            //                }
-            //            case "Vodič":
-            //                {
-            //                    // TODO: Add initial window call
-            //                    break;
-            //                }
-            //            case "Gost":
-            //                {
-            //                    GuestInitialWindow window = new(user as Guest ?? new Guest(0, "<null>", "<null>"));
-            //                    window.Show();
-            //                    break;
-            //                }
-            //        }
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Pogrešna šifra!", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show(Username + " korisnik ne postoji!", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
+            if (user != null)
+            {
+                if (user.Password == txtPassword.Password)
+                {
+                    //MessageBox.Show("Ovaj user je: " + user.Role, "Informacija", MessageBoxButton.OK, MessageBoxImage.Information);
+                    switch (user.Role)
+                    {
+                        case "Vlasnik":
+                            {
+                                OwnerInitialWindow window = new(user as Owner ?? new Owner(0, "<null>", "<null>"));
+                                window.Show();
+                                break;
+                            }
+                        case "Vodič":
+                            {
+                                // TODO: Add initial window call
+                                break;
+                            }
+                        case "Gost":
+                            {
+                                GuestInitialWindow window = new(user as Guest ?? new Guest(0, "<null>", "<null>"));
+                                window.Show();
+                                break;
+                            }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Pogrešna šifra!", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show(Username + " korisnik ne postoji!", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -111,6 +102,36 @@ namespace SIMSProject
         private void TBPassword_GotFocus(object sender, RoutedEventArgs e)
         {
             txtPassword.Password = "";
+        }
+
+        private void BTNGoTo_Click(object sender, RoutedEventArgs e)
+        {
+            var senderButton = sender as Button;
+            if (senderButton != null)
+            {
+                string senderName = senderButton.Name.ToString() ?? "";
+                if (senderName == "BTNGoToOwner")
+                {
+                    Username = "jovan";
+                    txtPassword.Password = "jovan";
+
+                }
+                else if (senderName == "BTNGoToGuest")
+                {
+                    Username = "marko";
+                    txtPassword.Password = "marko";
+                }
+                else if (senderName == "BTNGoToGuide")
+                {
+                    Username = "nata";
+                    txtPassword.Password = "nata";
+                }
+
+                SignIn(sender, e);
+                Username = string.Empty;
+                txtPassword.Password = string.Empty;
+                //Close();
+            }
         }
     }
 }
