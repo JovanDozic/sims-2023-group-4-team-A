@@ -74,6 +74,11 @@ namespace SIMSProject.Controller
             _tours.EndTour(tourId, dateId);
         }
 
+        public void AddNewDate(int tourId, TourDate date)
+        {
+            _tours.AddNewDate(tourId, date);
+        }
+
         /*public static List<Tour> Search(string searchText)
         {
             return _tours.Search(searchText);

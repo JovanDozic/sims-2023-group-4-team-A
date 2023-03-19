@@ -133,6 +133,18 @@ namespace SIMSProject.Model.DAO
             _fileHandler.Save(_tourDates);
         }
 
+        public TourDate InitializeTour(TourDate tourDate, Tour tour)
+        {
+            TourDate? oldDate = _tourDates.Find(x => x.Id ==  tourDate.Id);
+            if(oldDate == null) return null;
+
+            oldDate.Tour = tour;
+            oldDate.TourId = tour.Id;
+            oldDate.AvailableSpots = tour.MaxGuestNumber;
+            _fileHandler.Save(_tourDates);
+            return oldDate;
+        }
+
         // [OBSERVERS]
         public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }
         public void Subscribe(IObserver observer) { _observers.Add(observer); }

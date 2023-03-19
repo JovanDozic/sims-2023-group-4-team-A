@@ -50,5 +50,10 @@ namespace SIMSProject.Controller
             _tourDates.EndTourDate(dateId);
         }
 
+        public TourDate InitializeTour(TourDate tourDate, Tour tour)
+        {
+            return _tourDates.InitializeTour(tourDate, tour);
+        }
+
     }
 }

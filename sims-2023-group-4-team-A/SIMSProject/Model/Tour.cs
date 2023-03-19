@@ -131,7 +131,7 @@ namespace SIMSProject.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public Guest Guide { get; set; } = new();
+        public Guide Guide { get; set; } = new();
         public Location Location { get; set; } = new();
 
         public List<KeyPoint> KeyPoints { get; set; } = new List<KeyPoint>();
@@ -145,7 +145,7 @@ namespace SIMSProject.Model
         
         public Tour() { }
 
-        public Tour(int id, string name, Guest guide, Location location, string description, string tourLanguage, int maxGuestNumber, int duration, int locationId, int guideId)
+        public Tour(int id, string name, Guide guide, Location location, string description, string tourLanguage, int maxGuestNumber, int duration, int locationId, int guideId)
         {
             Id = id;
             Name = name;
@@ -190,7 +190,8 @@ namespace SIMSProject.Model
             
             StringBuilder imageURLs = CreateImageURLs();
 
-            string[] csvValues = { Id.ToString(),
+            string[] csvValues = { 
+                Id.ToString(),
                 Name, 
                 Description,
                 TourLanguage,

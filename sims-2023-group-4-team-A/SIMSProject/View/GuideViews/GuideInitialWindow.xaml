@@ -28,13 +28,11 @@
                             <DataGridTextColumn Header="Opis" Binding="{Binding Description}"/>
                             <DataGridTextColumn Header="Lokacija" Binding="{Binding Location}"/>
                             <DataGridTextColumn Header="Maks. broj gostiju" Binding="{Binding MaxGuestNumber}"/>
-                            <DataGridTextColumn Header="Preostalo mesta" Binding="{Binding AvailableSpots}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Button x:Name="ShowTour" Content="Prikaži detalje" Height="30" Width="100" HorizontalAlignment="Left" Margin="10,10,0,0" Click="ShowTour_Click"></Button>
                 </StackPanel>
             </TabItem>
-            
             <TabItem Header="Prikaz statistike o turama"></TabItem>
             <TabItem Header="Zahtevi za ture"></TabItem>
             <TabItem Header="Prikaz statistike o zahtevima za ture"></TabItem>

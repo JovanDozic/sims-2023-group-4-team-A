@@ -33,8 +33,7 @@ namespace SIMSProject.View
 
         private void TourGuide_Click(object sender, RoutedEventArgs e)
         {
-            GuideInitialWindow window = new();
-            window.Show();
+           
         }
     }
 }

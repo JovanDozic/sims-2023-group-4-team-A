@@ -153,6 +153,13 @@ namespace SIMSProject.Model.DAO
             _fileHandler.Save(_tours);
         }
 
+        public void AddNewDate(int tourId, TourDate dateTime)
+        {
+            Tour tour = Get(tourId);
+            if (tour == null) return;
+            tour.Dates.Add(dateTime);
+        }
+
 
         // [OBSERVERS]
         public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }

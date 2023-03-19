@@ -28,26 +28,16 @@ namespace SIMSProject.View.GuideViews
     public partial class TourCreation : Window, INotifyPropertyChanged
     {
 
-        private static int keyPointCounter = 0;
-        public TourController tourController { get; set; } = new();
-        public KeyPointController keyPointController { get; set; } = new();
-        public TourDateController tourDateController { get; set; } = new();
-        public LocationController tourLocationController { get; set; } = new();
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-
-        public Tour New { get; set; }
-        public KeyPoint? SelectedKeyPoint { get; set; }
-        public DateTime SelectedDate { get; set; } = DateTime.Now;
-        public string SelectedTime { get; set; } = "hh:mm";
-
+        private int keyPointCounter = 0;
+        private readonly TourController tourController = new();
+        private readonly KeyPointController keyPointController = new();
+        private readonly TourDateController tourDateController = new();
+        private readonly LocationController tourLocationController = new();
+        private readonly TourKeyPointController tourKeyPointController = new();
 
         private Location? _selectedLocation;
+        private bool _imageAdded;
+
         public Location SelectedLocation
         {
             get => _selectedLocation;
@@ -66,25 +56,31 @@ namespace SIMSProject.View.GuideViews
                 }
             }
         }
-        public string Images { get; set; } = "slika1.png,slika2.jpg...";
-        public Guest Guide { get; set; }
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public Tour New { get; set; } = new();
+        public KeyPoint? SelectedKeyPoint { get; set; }
+        public DateTime SelectedDate { get; set; } = DateTime.Now;
+        public string SelectedTime { get; set; } = "hh:mm";
+        public string Images { get; set; } = "slika1.png,slika2.jpg...";
+        public Guide Guide { get; set; } = new();
         public List<KeyPoint> NewKeyPoints { get; set; } = new();
         public List<TourDate> NewDates { get; set; } = new();
         public ObservableCollection<KeyPoint> KeyPoints { get; set; } = new();
         public ObservableCollection<string> TourLanguages { get; set; } = new();
         public ObservableCollection<Location> Locations { get; set; } = new();
 
-        public TourCreation()
+        public TourCreation(Guide guide)
         {
             InitializeComponent();
             this.DataContext = this;
 
-            New = new Tour();
-
-            Guide = new Guest(256, "Admin", "Admin");
-            Guide.Id = 256;
-
+            Guide = guide;
             TourLanguages = new()
             {
                 "Srpski",
@@ -98,13 +94,6 @@ namespace SIMSProject.View.GuideViews
 
         }
 
-        private List<string> SeperateURLs()
-        {
-            List<string> seperatedURLS = new List<string>();
-            string[] urls = Images.Split(",");
-            seperatedURLS.AddRange(urls);
-            return seperatedURLS;
-        }
 
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
@@ -112,7 +101,6 @@ namespace SIMSProject.View.GuideViews
             {
                 
                 New.KeyPoints = NewKeyPoints;
-                New.Dates = NewDates;
                 New.TourLanguage = (string)LanguageCombo.SelectedItem;
                 
                 New.Guide = Guide;
@@ -120,12 +108,24 @@ namespace SIMSProject.View.GuideViews
                 New.Location = SelectedLocation;
                 New.LocationId = SelectedLocation.Id;
 
-                List<string> images = SeperateURLs();
-                New.Images = images;
+                //List<string> images = SeperateURLs();
+                //New.Images = images;
 
-                keyPointCounter = 0;
+                Tour createdTour = tourController.Create(New);
 
-                tourController.Create(New);
+                foreach(var date in NewDates)
+                {
+                    TourDate createdDate = tourDateController.Create(date);
+                    TourDate updatedDate = tourDateController.InitializeTour(createdDate, createdTour);
+                    tourController.AddNewDate(createdTour.Id, updatedDate);
+                }
+
+                foreach(var keyPoint in NewKeyPoints)
+                {
+                    TourKeyPoint newPair = new(createdTour.Id, keyPoint.Id);
+                    tourKeyPointController.Create(newPair);
+                }
+
                 MessageBox.Show("Tura uspešno kreirana.");
                 Close();
                 
@@ -159,9 +159,33 @@ namespace SIMSProject.View.GuideViews
             NewDates.Add(new(-1, SelectedDate, -1, 0, -1));
         }
 
+        private List<string> SeperateURLs()
+        {
+            List<string> seperatedURLS = new List<string>();
+            string[] urls = Images.Split(",");
+            seperatedURLS.AddRange(urls);
+            return seperatedURLS;
+        }
+
+
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void ImageURLs_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (_imageAdded)
+            {
+                _imageAdded = false;
+                ImageURLs.Text = string.Empty;
+            }
+        }
+
+        private void BTNUploadFiles_Click(object sender, RoutedEventArgs e)
+        {
+            New.Images.Add(ImageURLs.Text);
+            _imageAdded = true;
         }
     }
 }

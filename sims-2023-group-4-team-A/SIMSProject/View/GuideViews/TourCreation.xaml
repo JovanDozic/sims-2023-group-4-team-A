@@ -74,8 +74,8 @@
                 <Button x:Name="AddKeyPoint" Content="Dodaj" Margin="10,0,0,0" Click="AddKeyPoint_Click"></Button>
             </WrapPanel>
             <DockPanel Margin="0,55,0,0" Width="250" Height="250">
-                <Label DockPanel.Dock="Top" Content="URL-ovi slika:"></Label>
-                <TextBox x:Name="ImageURLs" Margin="5" Text="{Binding Images, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox x:Name="ImageURLs"  Height="55" DockPanel.Dock="Top" GotFocus="ImageURLs_GotFocus"/>
+                <Button x:Name="BTNUploadFiles" Click="BTNUploadFiles_Click" Content="Dodaj slike" Height="30"></Button>
             </DockPanel>
         </StackPanel>
         <TextBox x:Name="Description" Grid.ColumnSpan="2" Grid.Row="1" Margin="10" 
