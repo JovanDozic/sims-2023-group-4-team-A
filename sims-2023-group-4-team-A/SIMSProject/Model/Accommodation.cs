@@ -129,6 +129,10 @@ namespace SIMSProject.Model
                 }
             }
         }
+
+        public bool IsOccupied { get; set; }
+
+        
         private List<AccommodationReservation> _reservations = new();
         public List<AccommodationReservation> Reservations
         {
