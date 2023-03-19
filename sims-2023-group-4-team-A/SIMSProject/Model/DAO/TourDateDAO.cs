@@ -99,8 +99,7 @@ namespace SIMSProject.Model.DAO
             date.Tour = tour;
         }
 
-        public int NextId() { return _tourDates.Max(x => x.Id) + 1; }
-        public List<TourDate> GetAll() { return _tourDates; }
+        
         public List<TourDate> GetAllByTourId(int tourId)
         {
             List<TourDate> dates = new();
@@ -114,10 +113,7 @@ namespace SIMSProject.Model.DAO
             return dates;
         }
 
-        public TourDate Save(TourDate tourDate)
-        {
-            return _tourDates.FindAll(x => x.TourId == TourId);
-        }
+        
 
         public void AdvanceToNextKeyPoint(int dateId, KeyPoint nextKeyPoint)
         {
@@ -166,6 +162,10 @@ namespace SIMSProject.Model.DAO
             oldDate.AvailableSpots = tour.MaxGuestNumber;
             _fileHandler.Save(_tourDates);
             return oldDate;
+        }
+        public List<TourDate> FindByTour(int TourId)
+        {
+            return _tourDates.FindAll(x => x.TourId == TourId);
         }
 
         // [OBSERVERS]
