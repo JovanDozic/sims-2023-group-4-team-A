@@ -110,7 +110,7 @@ namespace SIMSProject.View.Guest1
 
         public AccommodationReservation CheckReservations(List<AccommodationReservation> reservations, DateTime startDate, DateTime endDate, int accommodationId)
         {
-            var conflictingReservation =  reservations.FirstOrDefault(r => r.AccommodationId == accommodationId && (startDate < r.EndDate && r.StartDate < endDate));
+            var conflictingReservation =  reservations.FirstOrDefault(r => r.Accommodation.Id == accommodationId && (startDate < r.EndDate && r.StartDate < endDate));
 
             return conflictingReservation;
         }

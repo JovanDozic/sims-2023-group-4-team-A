@@ -104,7 +104,7 @@ namespace SIMSProject.View.Guest1
 
             if(guestNumber <= Accommodation.MaxGuestNumber)
             {
-                AccommodationReservation = new AccommodationReservation(AccommodationReservation.AccommodationId, User.Id, SelectedRange.StartDate, SelectedRange.EndDate, DaysNumber, guestNumber);
+                AccommodationReservation = new AccommodationReservation(AccommodationReservation.Accommodation.Id, User.Id, SelectedRange.StartDate, SelectedRange.EndDate, DaysNumber, guestNumber);
 
                 Controller.Create(AccommodationReservation);
                 MessageBox.Show("Smeštaj rezervisan!");
