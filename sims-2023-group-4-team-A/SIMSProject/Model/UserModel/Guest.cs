@@ -39,6 +39,12 @@ namespace SIMSProject.Model.UserModel
             AccommodationReservations = new();
         }
 
+        public override string ToString()
+        {
+            return $"{Username}";
+        }
+
+
         public string[] ToCSV()
         {
             string[] csvValues = {

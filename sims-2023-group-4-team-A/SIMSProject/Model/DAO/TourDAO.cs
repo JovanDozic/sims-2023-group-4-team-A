@@ -15,7 +15,7 @@ namespace SIMSProject.Model.DAO
     public class TourDAO : ISubject
     {
         private List<IObserver> _observers;
-        private TourFileHandler _fileHandler;
+        private readonly TourFileHandler _fileHandler;
         private List<Tour> _tours;
 
         public TourDAO()
@@ -24,55 +24,78 @@ namespace SIMSProject.Model.DAO
             _tours = _fileHandler.Load();
             _observers = new();
 
-            AssociateTours();            
-        }
-
-        private void AssociateTours()
-        {
-            LocationFileHandler tourLocationFileHandler = new();
-            TourKeyPointFileHandler tourKeyPointFileHandler = new();
-            KeyPointFileHandler keyPointFileHandler = new();
-            TourDateFileHandler tourDateFileHandler = new();
-
-            List<Location> tourLocations = tourLocationFileHandler.Load();
-            List<TourDate> tourDateS = tourDateFileHandler.Load();
-            List<TourKeyPoint> tourKeyPoints = tourKeyPointFileHandler.Load();
-            List<KeyPoint> keyPoints = keyPointFileHandler.Load();
-
-
-            foreach (var tour in _tours)
-            {
-                tour.Location = tourLocations.Find(x => x.Id == tour.LocationId);
-                tour.Dates = tourDateS.Where(x => x.TourId == tour.Id).ToList();
-
-
-                List<TourKeyPoint> pairs = tourKeyPoints.FindAll(x => x.TourId == tour.Id);
-                foreach (var pair in pairs)
-                {
-                    KeyPoint matchingKeyPoint = keyPoints.Find(x => x.Id == pair.KeyPointId);
-                    tour.KeyPoints.Add(matchingKeyPoint);
-                }
-
-            }
+            AssociateTours();
         }
 
         public int NextId() { return _tours.Max(x => x.Id) + 1; }
         public List<Tour> GetAll() { return _tours; }
 
-        /*public static List<Tour> Search(string searchText)
+        public Tour Get(int id)
         {
-            // učitaj podatke iz izvora podataka
-            List<Tour> allTours = GetAll();
-            // podeli pretražni tekst na dva dela, ime i prezime
-            var searchTerms = searchText.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            var firstName = searchTerms.Length > 0 ? searchTerms[0] : string.Empty;
-            var lastName = searchTerms.Length > 1 ? searchTerms[1] : string.Empty;
-            // filtriraj podatke na osnovu pretražnih pojmova
-            var filteredData = allData.Where(d => d.FirstName.Contains(firstName) && d.LastName.Contains(lastName));
-            // mapiraj filtrirane podatke u rezultate
-            var results = filteredData.Select(d => new Result(d));
-            return results.ToList();
-        }*/
+            return _tours.Find(x => x.Id == id);
+        }
+
+        public Tour Save(Tour tour)
+        {
+            tour.Id = NextId();
+            _tours.Add(tour);
+            _fileHandler.Save(_tours);
+            NotifyObservers();
+            return tour;
+        }
+
+        public void SaveAll(List<Tour> tours)
+        {
+            _fileHandler.Save(tours);
+            _tours = tours;
+            NotifyObservers();
+        }
+
+        private void AssociateTours()
+        {
+            foreach (var tour in _tours)
+            {
+                AssociateLocation(tour);
+                AssociateDates(tour);
+                AssociateKeyPoints(tour);
+
+            }
+        }
+
+        private static void AssociateLocation(Tour tour)
+        {
+            LocationFileHandler tourLocationFileHandler = new();
+            List<Location> tourLocations = tourLocationFileHandler.Load();
+
+            Location? matchingLocation = tourLocations.Find(x => x.Id == tour.LocationId);
+            if (matchingLocation == null) return;
+            tour.Location = matchingLocation;
+        }
+
+        private static void AssociateDates(Tour tour)
+        {
+            TourDateFileHandler tourDateFileHandler = new();
+            List<TourDate> tourDates = tourDateFileHandler.Load();
+
+            tour.Dates.AddRange(tourDates.FindAll(x => x.TourId == tour.Id));
+        }
+
+        private static void AssociateKeyPoints(Tour tour)
+        {
+            TourKeyPointFileHandler tourKeyPointFileHandler = new();
+            KeyPointFileHandler keyPointFileHandler = new();
+            List<TourKeyPoint> tourKeyPoints = tourKeyPointFileHandler.Load();
+            List<KeyPoint> keyPoints = keyPointFileHandler.Load();
+
+            List<TourKeyPoint> pairs = tourKeyPoints.FindAll(x => x.TourId == tour.Id);
+            foreach (var pair in pairs)
+            {
+                KeyPoint? matchingKeyPoint = keyPoints.Find(x => x.Id == pair.KeyPointId);
+                if (matchingKeyPoint == null) continue;
+                tour.KeyPoints.Add(matchingKeyPoint);
+            }
+        }
+
 
         public List<Tour> SearchLocations(string locationId)
         {
@@ -94,21 +117,49 @@ namespace SIMSProject.Model.DAO
             return _tours.Where(tour => tour.MaxGuestNumber.Equals(maxGuests)).ToList();
         }
 
-        public Tour Save(Tour tour)
+        public List<Tour> FindTodaysTours()
         {
-            tour.Id = NextId();
-            _tours.Add(tour);
-            _fileHandler.Save(_tours);
-            NotifyObservers();
-            return tour;
+            return _tours.FindAll(x => x.Dates.Any(x => x.Date.Date == DateTime.Today.Date));
         }
 
-        public void SaveAll(List<Tour> tours)
+        public KeyPoint GetNextKeyPoint(TourDate date)
         {
-            _fileHandler.Save(tours);
-            _tours = tours;
-            NotifyObservers();
+            Tour? currentTour = Get(date.TourId);
+            if (currentTour == null) return null;
+
+            int currentIndex = currentTour.KeyPoints.FindIndex(x => x.Id == date.CurrentKeyPointId);
+            bool indexOutOfRange = currentIndex < 0 || currentIndex >= currentTour.KeyPoints.Count - 1;
+
+            if (indexOutOfRange) return null;
+
+            return currentTour.KeyPoints[currentIndex + 1];
         }
+
+        public KeyPoint FindLastKeyPoint(TourDate date)
+        {
+            Tour? currentTour = Get(date.TourId);
+            if (currentTour == null) return null;
+            return currentTour.KeyPoints.Last();
+        }
+
+        public void EndTour(int tourId, int dateId)
+        {
+            Tour? toEnd = Get(tourId);
+            if (toEnd == null) return;
+
+            TourDate? dateToEnd = toEnd.Dates.Find(x => x.Id == dateId);
+            if (dateToEnd == null) return;
+            dateToEnd.TourStatus = "Završena";
+            _fileHandler.Save(_tours);
+        }
+
+        public void AddNewDate(int tourId, TourDate dateTime)
+        {
+            Tour tour = Get(tourId);
+            if (tour == null) return;
+            tour.Dates.Add(dateTime);
+        }
+
 
         // [OBSERVERS]
         public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }

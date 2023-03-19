@@ -29,5 +29,31 @@ namespace SIMSProject.Controller
         {
             return _tourDates.Save(tourDate);
         }
+
+        public List<TourDate> FindTodaysByTour(int TourId)
+        {
+            return _tourDates.FindByTour(TourId);
+        }
+
+        public void AdvanceToNext(int dateId, KeyPoint SelectedKeyPoint)
+        {
+            _tourDates.AdvanceToNextKeyPoint(dateId, SelectedKeyPoint);
+        }
+
+        public void StartTourLiveTracking(TourDate tourDate)
+        {
+            _tourDates.StartLiveTracking(tourDate);
+        }
+
+        public void StopTourLiveTracking(int dateId) 
+        {
+            _tourDates.EndTourDate(dateId);
+        }
+
+        public TourDate InitializeTour(TourDate tourDate, Tour tour)
+        {
+            return _tourDates.InitializeTour(tourDate, tour);
+        }
+
     }
 }

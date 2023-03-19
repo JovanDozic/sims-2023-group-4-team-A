@@ -54,8 +54,30 @@ namespace SIMSProject.Controller
             return _tours.SearchMaxGuests(maxGuests);
         }
 
+        public List<Tour> FindTodays()
+        {
+            return _tours.FindTodaysTours();
+        }
 
+        public KeyPoint FindNext(TourDate Date)
+        {
+            return _tours.GetNextKeyPoint(Date);
+        }
 
+        public KeyPoint GetLast(TourDate date)
+        {
+            return _tours.FindLastKeyPoint(date);
+        }
+
+        public void EndTour(int tourId, int dateId)
+        {
+            _tours.EndTour(tourId, dateId);
+        }
+
+        public void AddNewDate(int tourId, TourDate date)
+        {
+            _tours.AddNewDate(tourId, date);
+        }
 
         /*public static List<Tour> Search(string searchText)
         {

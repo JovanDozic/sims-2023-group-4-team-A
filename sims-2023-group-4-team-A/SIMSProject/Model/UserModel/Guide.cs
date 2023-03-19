@@ -3,8 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
+
+
 
 namespace SIMSProject.Model.UserModel
 {
@@ -33,8 +36,14 @@ namespace SIMSProject.Model.UserModel
             Id = id;
             Username = username;
             Password = password;
+            Rating = rating;
             _role = USER_ROLE.GUIDE;
             Rating = rating;
+        }
+
+        public override string ToString()
+        {
+            return $"{Username}";
         }
 
         public string[] ToCSV()

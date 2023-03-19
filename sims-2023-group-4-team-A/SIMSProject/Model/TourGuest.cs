@@ -8,33 +8,67 @@ using System.Text;
 using SIMSProject.Model.UserModel;
 using System.Threading.Tasks;
 
+
+
 namespace SIMSProject.Model
 {
+    public enum GuestAttendance { ABSENT = 0, PENDING, PRESENT }
     public class TourGuest : ISerializable
     {
-        public int TourId { get; set; }
+        public int TourDateId { get; set; }
         public int GuestId { get; set; }
-        public TourGuest()
+        public int JoinedKeyPointId { get; set; }
+
+        private GuestAttendance _guestStatus;
+        public string GuestStatus
         {
-            
+            get
+            {
+                return _guestStatus switch
+                {
+                    GuestAttendance.PRESENT => "Prisutan",
+                    GuestAttendance.ABSENT => "Odsutan",
+                    _ => "Prijavljen"
+                };
+            }
+            set
+            {
+                _guestStatus = value switch
+                {
+                    "Prisutan" => GuestAttendance.PRESENT,
+                    "Odsutan" => GuestAttendance.ABSENT,
+                    _ => GuestAttendance.PENDING
+                };
+            }
         }
 
-        public TourGuest(int tourId, int guestId)
+        //public User Guest { get; set; }
+
+        public TourDate TourDate { get; set; } = new();
+        public KeyPoint JoinedKeyPoint { get; set; } = new();
+
+        public TourGuest() { }
+
+        public TourGuest(int tourDateId, int guestId, int keypoint)
         {
-            TourId = tourId;
+            TourDateId = tourDateId;
             GuestId = guestId;
+            JoinedKeyPointId = keypoint;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = {TourId.ToString(), GuestId.ToString()};
+            string[] csvValues = {TourDateId.ToString(), GuestId.ToString(), GuestStatus, JoinedKeyPointId .ToString()};
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
-           TourId = Convert.ToInt32(values[0]);
+        
+            TourDateId = Convert.ToInt32(values[0]);
             GuestId = Convert.ToInt32(values[1]);
+            GuestStatus = values[2];
+            JoinedKeyPointId = Convert.ToInt32(values[3]);
         }
     }
 }

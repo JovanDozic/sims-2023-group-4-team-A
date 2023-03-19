@@ -10,12 +10,14 @@ using SIMSProject.Controller.UserController;
 using SIMSProject.Model.UserModel;
 using System.Windows.Input;
 using System.Windows.Controls;
+using SIMSProject.View.GuideViews;
 
 namespace SIMSProject
 {
     public partial class SignInForm : Window
     {
         private readonly UserController _userController;
+        private readonly GuideController guideController;
 
         private string _username = string.Empty;
         public string Username
@@ -37,6 +39,7 @@ namespace SIMSProject
             DataContext = this;
 
             _userController = new();
+            guideController = new();
         }
 
         private void SignIn(object? sender, RoutedEventArgs? e)
@@ -55,7 +58,9 @@ namespace SIMSProject
                             }
                         case "Vodič":
                             {
-                                // TODO: Add initial window call
+                                Guide guide = guideController.GetByID(user.Id);
+                                GuideInitialWindow window = new(guide);
+                                window.Show();
                                 break;
                             }
                         case "Gost":
