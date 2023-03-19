@@ -27,9 +27,22 @@
                 <Label Content="Odsutni gosti:" 
                        Margin="0,10,0,0"
                        FontSize="20"/>
-                <ListBox x:Name="Away_guests"
+                <DataGrid x:Name="Away_guests"
                          Margin="0,0,20,0"
-                         ItemsSource="{Binding AbsentGuests,UpdateSourceTrigger=PropertyChanged}"/>
+                         ItemsSource="{Binding AbsentGuests,UpdateSourceTrigger=PropertyChanged}" 
+                         Height="100"
+                         SelectedItem="{Binding Path=PendingGuest, UpdateSourceTrigger=PropertyChanged}"
+                         CanUserAddRows="False"
+                         AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Username}"></DataGridTextColumn>
+                        <DataGridCheckBoxColumn></DataGridCheckBoxColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button x:Name="Sign_guestBTN" 
+                        Content="Prijavi gosta" 
+                        Click="Sign_guestBTN_Click"
+                        Margin="25,25,25,0"/>
             </StackPanel>
             <StackPanel Grid.Row="1">
                 <Label Content="Prisutni gosti:" 
@@ -37,6 +50,7 @@
                        FontSize="20"/>
                 <ListBox x:Name="Present_guests"
                          Margin="0,0,20,0"
+                         Height="100"
                          ItemsSource="{Binding PresentGuests, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </Grid>
@@ -51,24 +65,43 @@
                    Content="Naziv ture"
                    Margin="20,0,0,0"/>
             <StackPanel Grid.Row="2" Orientation="Horizontal">
-                <Button Content="Završi turu ranije"
-                        FontSize="20"
+                <Button x:Name="CloseBTN"
+                        Content="Završi turu"
+                        FontSize="15"
                         Height="50"
-                        Margin="20,0,0,0"/>
-                <Button Content="Pauziraj turu"
-                        FontSize="20"
+                        Margin="15,0,0,0"
+                        Click="CloseBTN_Click"/>
+                <Button x:Name="PauseBTN"
+                        Content="Pauziraj turu"
+                        FontSize="15"
                         Height="50"
-                        Margin="20,0,0,0"/>
+                        Margin="15,0,0,0"
+                        Click="PauseBTN_Click"/>
+                <Button x:Name="Go_nextBTN"
+                        Content="Idi na sledeću tačku"
+                        FontSize="15"
+                        Margin="15,0,0,0"
+                        Height="50"
+                        Click="Go_nextBTN_Click"/>
             </StackPanel>
-            <ListBox
-                Width="270"
-                Height="210"
-                Grid.Row="1"
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="27*"/>
+                    <RowDefinition Height="95*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Label Content="Trenutna ključna tačka:"
+                           FontSize="15"/>
+                    <TextBox Text="{Binding Path=SelectedDate.CurrentKeyPoint, UpdateSourceTrigger=PropertyChanged}"
+                             IsReadOnly="True"
+                             Width="150"/>
+                </StackPanel>
+                <ListBox x:Name="KeyPointLB"
                 FontSize="15"
                 ItemsSource="{Binding KeyPoints}"
-                SelectedItem="{Binding SelectedKeyPoint, UpdateSourceTrigger=PropertyChanged}"
-                SelectionChanged="ListBox_SelectionChanged" BorderBrush="White" Margin="19,17,111,17"
-                />
+                BorderBrush="White" Margin="13,19,117,12" Grid.Row="1"/>
+            </Grid>
+
         </Grid>
     </Grid>
 </Window>

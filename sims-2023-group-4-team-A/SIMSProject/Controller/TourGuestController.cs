@@ -29,5 +29,15 @@ namespace SIMSProject.Controller
         {
             return _tourGuests.Save(tourGuest);
         }
+
+        public void SignGuest(int guestId, int tourDateId)
+        {
+            _tourGuests.SignUpGuest(guestId, tourDateId);
+        }
+
+        public void MakeGuestPresent(int guestId, int tourDateId, KeyPoint currentKeyPoint)
+        {
+            _tourGuests.MakeGuestPresent(guestId, tourDateId, currentKeyPoint);
+        }
     }
 }

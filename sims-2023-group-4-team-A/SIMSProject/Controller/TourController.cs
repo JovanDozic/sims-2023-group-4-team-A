@@ -64,8 +64,15 @@ namespace SIMSProject.Controller
             return _tours.GetNextKeyPoint(Date);
         }
 
+        public KeyPoint GetLast(TourDate date)
+        {
+            return _tours.FindLastKeyPoint(date);
+        }
 
-
+        public void EndTour(int tourId, int dateId)
+        {
+            _tours.EndTour(tourId, dateId);
+        }
 
         /*public static List<Tour> Search(string searchText)
         {

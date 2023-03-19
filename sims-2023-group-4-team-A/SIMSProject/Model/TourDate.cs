@@ -127,10 +127,9 @@ namespace SIMSProject.Model
         public string[] ToCSV()
         {
             string[] csvValues = { Id.ToString(),
-                Date.ToString(),
+                Date.ToString("dd.MM.yyyy HH:mm:ss"),
                 TourId.ToString(),
                 TourStatus,
-                AvailableSpots.ToString(),
                 AvailableSpots.ToString(),
                 CurrentKeyPointId.ToString() };
             return csvValues;

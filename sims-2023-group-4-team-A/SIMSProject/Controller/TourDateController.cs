@@ -44,5 +44,11 @@ namespace SIMSProject.Controller
         {
             _tourDates.StartLiveTracking(tourDate);
         }
+
+        public void StopTourLiveTracking(int dateId) 
+        {
+            _tourDates.EndTourDate(dateId);
+        }
+
     }
 }

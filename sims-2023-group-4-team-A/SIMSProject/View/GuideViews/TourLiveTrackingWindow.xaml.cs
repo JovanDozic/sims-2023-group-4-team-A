@@ -28,11 +28,15 @@ namespace SIMSProject.View.GuideViews
         private readonly TourDateController tourDateController = new();
         private readonly TourGuestController tourGuestController = new();
 
-        public ObservableCollection<KeyPoint> KeyPoints { get; set; }
-        public ObservableCollection<Guest> AbsentGuests { get; set; }
-        public ObservableCollection<Guest> PresentGuests { get; set; }
-        public KeyPoint SelectedKeyPoint { get; set; }
-        public TourDate SelectedDate { get; set; }
+
+        private KeyPoint LastKeyPoint = new();
+
+        public ObservableCollection<KeyPoint> KeyPoints { get; set; } = new();
+        public ObservableCollection<Guest> AbsentGuests { get; set; } = new();
+        public ObservableCollection<Guest> PresentGuests { get; set; } = new();
+        public KeyPoint CurrentKeyPoint { get; set; } = new();
+        public TourDate SelectedDate { get; set; } = new();
+        public Guest PendingGuest { get; set; } = new();
 
 
 
@@ -42,46 +46,84 @@ namespace SIMSProject.View.GuideViews
             InitializeComponent();
             this.DataContext = this;
 
-            KeyPoints = new();
-            AbsentGuests = new();
-            PresentGuests = new();
-            SelectedKeyPoint = new();
-            SelectedDate = new();
             SelectedDate = Date;
+            CurrentKeyPoint = SelectedDate.CurrentKeyPoint;
+            LastKeyPoint = tourController.GetLast(SelectedDate);
 
+            SortGuests();
+            AddKeyPoints();
+        }
 
-            List<TourGuest> guests = tourGuestController.GetAll();
+        private void AddKeyPoints()
+        {
+            Tour? tour = tourController.GetAll().Find(x => x.Id == SelectedDate.TourId);
+            if (tour == null) throw new Exception("Greška. Tura ne postoji!");
 
-            foreach(var guest in Date.Guests)
-            {
-                if (guests.Find(x => x.GuestId == guest.Id).GuestStatus.Equals("Odsutan"))
-                    AbsentGuests.Add(guest);
-                else
-                    PresentGuests.Add(guest);
-            
-            }
-
-            Tour? tour = tourController.GetAll().Find(x => x.Id == Date.TourId);
-
-            foreach(var key in tour.KeyPoints)
+            foreach (var key in tour.KeyPoints)
             {
                 KeyPoints.Add(key);
             }
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SortGuests()
         {
-            KeyPoint NextKeyPoint = tourController.FindNext(SelectedDate);
-            if(NextKeyPoint.Id != SelectedKeyPoint.Id)
+            AbsentGuests.Clear();
+            PresentGuests.Clear();
+
+            List<TourGuest> guests = tourGuestController.GetAll();
+
+            foreach (var guest in SelectedDate.Guests)
             {
-                MessageBox.Show("Ne mozete preskakati kljucne tacke");
+                TourGuest? tourGuest = guests.Find(x => x.GuestId == guest.Id);
+                if (tourGuest == null) continue;
+                
+                bool guestNotPresent = tourGuest.GuestStatus.Equals("Odsutan") || tourGuest.GuestStatus.Equals("Prijavljen");
+                if (guestNotPresent)
+                    AbsentGuests.Add(guest);
+                else
+                {
+                    if (tourGuest.JoinedKeyPointId == -1)
+                        tourGuestController.MakeGuestPresent(guest.Id, SelectedDate.Id, CurrentKeyPoint);
+
+                    PresentGuests.Add(guest);
+                }
             }
-            else
+        }
+
+        private void Go_nextBTN_Click(object sender, RoutedEventArgs e)
+        {
+            SortGuests();
+            
+            if(LastKeyPoint.Equals(CurrentKeyPoint))
             {
-                tourDateController.AdvanceToNext(SelectedDate.Id, SelectedKeyPoint);
+                MessageBox.Show("Došli ste do kraja, završite turu!");
+                return;
             }
 
-            
+            KeyPoint NextKeyPoint = tourController.FindNext(SelectedDate);
+            if(NextKeyPoint != null)
+            {
+                tourDateController.AdvanceToNext(SelectedDate.Id, NextKeyPoint);
+                CurrentKeyPoint = NextKeyPoint;            }
+        }
+
+        private void PauseBTN_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void CloseBTN_Click(object sender, RoutedEventArgs e)
+        {
+            tourController.EndTour(SelectedDate.TourId, SelectedDate.Id);
+            tourDateController.StopTourLiveTracking(SelectedDate.Id);
+            MessageBox.Show("Tura završena.");
+            Close();
+        }
+
+        private void Sign_guestBTN_Click(object sender, RoutedEventArgs e)
+        {
+            tourGuestController.SignGuest(PendingGuest.Id, SelectedDate.Id);
+            MessageBox.Show("Gost prijavljen!");
         }
     }
 }

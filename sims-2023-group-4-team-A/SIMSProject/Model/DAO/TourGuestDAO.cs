@@ -68,6 +68,24 @@ namespace SIMSProject.Model.DAO
             tourGuest.TourDate = tourDate;
         }
 
+        public void SignUpGuest(int guestId, int tourDateId)
+        {
+            TourGuest? tourGuest = _tourGuests.Find(x => x.GuestId ==  guestId && x.TourDateId == tourDateId);
+            if(tourGuest == null) return;
+
+            tourGuest.GuestStatus = "Prijavljen";
+            SaveAll(_tourGuests);
+        }
+
+        public void MakeGuestPresent(int guestId, int tourDateId, KeyPoint currentKeyPoint)
+        {
+            TourGuest? tourGuest = _tourGuests.Find(x => x.GuestId == guestId && x.TourDateId == tourDateId);
+            if (tourGuest == null) return;
+
+            tourGuest.JoinedKeyPoint = currentKeyPoint;
+            tourGuest.JoinedKeyPointId = currentKeyPoint.Id;
+        }
+
 
         // [OBSERVERS]
         public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }

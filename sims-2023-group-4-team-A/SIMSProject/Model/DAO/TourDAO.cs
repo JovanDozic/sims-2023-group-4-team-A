@@ -51,9 +51,6 @@ namespace SIMSProject.Model.DAO
             NotifyObservers();
         }
 
-
-
-
         private void AssociateTours()
         {
             foreach (var tour in _tours)
@@ -138,16 +135,22 @@ namespace SIMSProject.Model.DAO
             return currentTour.KeyPoints[currentIndex + 1];
         }
 
-        public Tour EndTour(int tourId, int dateId)
+        public KeyPoint FindLastKeyPoint(TourDate date)
+        {
+            Tour? currentTour = Get(date.TourId);
+            if (currentTour == null) return null;
+            return currentTour.KeyPoints.Last();
+        }
+
+        public void EndTour(int tourId, int dateId)
         {
             Tour? toEnd = Get(tourId);
-            if (toEnd == null) return null;
+            if (toEnd == null) return;
 
             TourDate? dateToEnd = toEnd.Dates.Find(x => x.Id == dateId);
-            if (dateToEnd == null) return null;
+            if (dateToEnd == null) return;
             dateToEnd.TourStatus = "Završena";
             _fileHandler.Save(_tours);
-            return toEnd;
         }
 
 
