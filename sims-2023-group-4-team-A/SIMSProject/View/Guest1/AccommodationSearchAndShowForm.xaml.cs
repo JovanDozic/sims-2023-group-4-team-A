@@ -71,19 +71,12 @@ namespace SIMSProject.View.Guest1
         public AccommodationSearchAndShowForm(Guest user)
         {
             InitializeComponent();
-
             DataContext = this;
-
             User = user;
-
             Accommodation = new();
 
-
             AccommodationControllers = new AccommodationController();
-
-
             Accommodations = new ObservableCollection<Accommodation>(AccommodationControllers.GetAll());
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

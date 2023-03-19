@@ -47,6 +47,5 @@ namespace SIMSProject.Controller
             else Create(updatedReservation);
             SaveAll(reservations);
         }
-
     }
 }

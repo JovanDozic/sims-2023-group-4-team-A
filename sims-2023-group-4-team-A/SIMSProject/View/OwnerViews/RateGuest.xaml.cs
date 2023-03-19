@@ -63,15 +63,14 @@ namespace SIMSProject.View.OwnerViews
             GuestRating.Reservation = Reservation;
             controller.Create(GuestRating);
 
-            // refresh user ratings
             new GuestController().RefreshRatings();
-
 
             Reservation.GuestRated = true;
             var reservationController = new AccommodationReservationController();
             reservationController.UpdateExisting(Reservation);
 
-            MessageBox.Show("Ocena uspešno ostavljena!", "Ocenjeno", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Ocena uspešno ostavljena!", "Gost ocenjen", MessageBoxButton.OK, MessageBoxImage.Information);
+            Close();
         }
     }
 }

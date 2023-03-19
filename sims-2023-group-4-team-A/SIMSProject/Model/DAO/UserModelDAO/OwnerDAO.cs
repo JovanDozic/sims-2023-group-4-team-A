@@ -21,9 +21,9 @@ namespace SIMSProject.Model.DAO.UserModelDAO
             _fileHandler = new();
             _owners = _fileHandler.Load();
             _observers = new();
-            var accommodations = new AccommodationDAO().GetAll();
 
-            foreach (var owner in _owners) owner.Accommodations = accommodations.FindAll(x => x.OwnerId == owner.Id);
+            var accommodations = new AccommodationDAO().GetAll();
+            foreach (var owner in _owners) owner.Accommodations = accommodations.FindAll(x => x.Owner.Id == owner.Id);
         }
 
         public int NextId() { return _owners.Max(x => x.Id) + 1; }

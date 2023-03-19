@@ -7,7 +7,7 @@
         xmlns:cstm="clr-namespace:SIMSProject.CustomControls"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" 
         Icon="../../../Resources/Images/Stars.png"
-        Title="OwnerInitialWindow" Height="420" Width="820">
+        Title="OwnerInitialWindow" Height="450" Width="820">
     <Grid Margin="20">
 
         <Grid.ColumnDefinitions>
@@ -84,24 +84,15 @@
                       Height="250" Margin="20,10,20,20"
                       IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding Id}"/>
-                    <DataGridTextColumn Header="Od" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yy\}}"/>
-                    <DataGridTextColumn Header="Do" Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yy\}}"/>
-                    <DataGridTextColumn Header="Broj dana" Binding="{Binding NumberOfDays}"/>
-                    <DataGridTextColumn Header="Broj gostiju" Binding="{Binding GuestNumber}"/>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="30"/>
+                    <DataGridTextColumn Header="Od" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yy\}}" Width="80"/>
+                    <DataGridTextColumn Header="Do" Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yy\}}" Width="80"/>
+                    <DataGridTextColumn Header="Gost" Binding="{Binding Guest.Username}" Width="80"/>
                     <DataGridCheckBoxColumn Header="Gost ocenjen" Binding="{Binding GuestRated}"/>
                     <DataGridCheckBoxColumn Header="Vlasnik ocenjen" Binding="{Binding OwnerRated}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        
-        <!--/
-        Dodaces da kada se selektuje smestaj, da se ispisu sve njegove rezervacije. To radis tako sto ces i u svaki smestaj staviti listu rezervacija koja se ucitava pri DAOu.
-        Dalje onda se prijkazuje da li je gost ocenjen itd tid itd.
-        
-        Ali svakako pri Initialize dodajes da se prodje kroz tu listu i pobacaju svi ShowDialogovi koje ce vlasnik morati da klikne, i da oceni.
-        To radis tako sto ce u init. biti jedan foreach koji ce to da obavi.
-        -->
 
     </Grid>
 </Window>

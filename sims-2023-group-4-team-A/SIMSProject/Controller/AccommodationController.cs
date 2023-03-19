@@ -41,5 +41,10 @@ namespace SIMSProject.Controller
             else if (type == "Kuća") return ACCOMMODATION_TYPE.HOUSE;
             else return ACCOMMODATION_TYPE.HUT;
         }
+
+        public List<Accommodation> GetAllByOwner(int id)
+        {
+            return _accommodations.GetAll().FindAll(x => x.Owner.Id == id);
+        }
     }
 }

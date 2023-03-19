@@ -44,10 +44,7 @@ namespace SIMSProject
             var user = _userController.GetByUsername(Username) as User;
 
             if (user != null)
-            {
                 if (user.Password == txtPassword.Password)
-                {
-                    //MessageBox.Show("Ovaj user je: " + user.Role, "Informacija", MessageBoxButton.OK, MessageBoxImage.Information);
                     switch (user.Role)
                     {
                         case "Vlasnik":
@@ -68,16 +65,9 @@ namespace SIMSProject
                                 break;
                             }
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Pogrešna šifra!", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show(Username + " korisnik ne postoji!", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                else MessageBox.Show("Pogrešna šifra!", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
+            else MessageBox.Show(Username + " korisnik ne postoji!", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
+            Close();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -114,7 +104,6 @@ namespace SIMSProject
                 {
                     Username = "jovan";
                     txtPassword.Password = "jovan";
-
                 }
                 else if (senderName == "BTNGoToGuest")
                 {
@@ -128,9 +117,6 @@ namespace SIMSProject
                 }
 
                 SignIn(sender, e);
-                Username = string.Empty;
-                txtPassword.Password = string.Empty;
-                //Close();
             }
         }
     }

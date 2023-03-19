@@ -56,10 +56,10 @@ namespace SIMSProject.Model.DAO
             return AccommodationReservation;
         }
 
-        public void SaveAll(List<AccommodationReservation> AccommodationReservation)
+        public void SaveAll(List<AccommodationReservation> AccommodationReservations)
         {
-            _fileHandler.Save(AccommodationReservation);
-            _accommodationReservations = AccommodationReservation;
+            _fileHandler.Save(AccommodationReservations);
+            _accommodationReservations = AccommodationReservations;
             NotifyObservers();
         }
 

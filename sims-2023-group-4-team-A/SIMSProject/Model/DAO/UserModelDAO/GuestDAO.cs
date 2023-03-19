@@ -23,6 +23,9 @@ namespace SIMSProject.Model.DAO.UserModelDAO
             _guests = _fileHandler.Load();
             _observers = new();
 
+            var reservations = new AccommodationReservationFileHandler().Load();
+            foreach (var guest in _guests) guest.AccommodationReservations = reservations.FindAll(x => x.Guest.Id == guest.Id);
+
             RefreshRatings();
         }
 
@@ -37,7 +40,6 @@ namespace SIMSProject.Model.DAO.UserModelDAO
             {
                 try
                 {
-                    //MessageBox.Show(_ratings.FindAll(x => x.Reservation.Guest.Id == guest.Id).Count.ToString());
                     guest.Rating = _ratings.FindAll(x => x.Reservation.Guest.Id == guest.Id).Average(x => x.Overall);
                 }
                 catch

@@ -37,7 +37,6 @@ namespace SIMSProject.Model.UserModel
             Rating = rating;
             TourReservations = new();
             AccommodationReservations = new();
-            // TODO: load tours and  reservations
         }
 
         public string[] ToCSV()
