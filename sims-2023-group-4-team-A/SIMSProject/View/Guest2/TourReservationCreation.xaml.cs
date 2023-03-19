@@ -1,5 +1,7 @@
 ﻿using SIMSProject.Controller;
+using SIMSProject.Controller.UserController;
 using SIMSProject.Model;
+using SIMSProject.Model.DAO.UserModelDAO;
 using SIMSProject.Model.UserModel;
 using System;
 using System.Collections.Generic;
@@ -29,32 +31,32 @@ namespace SIMSProject.View.Guest2
         public Guest User = new();
         public Tour Tour { get; set; }
         public Tour AlternativeTour { get; set; }
-        
+        public TourDate AlternativeTourDate { get; set; } = new();
+        public TourDate SelectedTourDate { get; set; }
         public TourReservation NewTourReservation { get; set; } = new();
+
         private int _guestsForReservation = 1;
         public int GuestsForReservation
         {
             get => _guestsForReservation;
             set
             {
-                if(value!=_guestsForReservation && value >= 1)
+                if (value != _guestsForReservation && value >= 1)
                 {
                     _guestsForReservation = value;
                     OnPropertyChanged(nameof(GuestsForReservation));
                 }
             }
         }
-        
-        private TourReservationController TourReservationController = new();
-        private TourController TourController = new();
-        private LocationController TourLocationController = new();
-        private TourDateController TourDateController = new();
+
+        public TourReservationController TourReservationController = new();
+        public TourController TourController = new();
+        public LocationController TourLocationController = new();
+        public TourDateController TourDateController = new();
+        public GuestController GuestController = new();
 
         public ObservableCollection<Tour> AlternativeTours { get; set; }
-        public ObservableCollection<TourDate> AlternativeTourDates { get; set; }
-        public List<TourDate> TourDates { get; set; } = new();
         public List<TourDate> CBTourDates { get; set; } = new();
-        public TourDate SelectedTourDate { get; set; }
 
         public TourReservationCreation(Guest user, Tour selectedTour)
         {
@@ -62,7 +64,7 @@ namespace SIMSProject.View.Guest2
             DataContext = this;
             User = user;
             Tour = selectedTour;
-            
+
             TBName.Text = Tour.Name;
             TBLocation.Text = Tour.Location.ToString();
             TBDescription.Text = Tour.Description;
@@ -74,14 +76,7 @@ namespace SIMSProject.View.Guest2
             TBLanguage.Text = Tour.TourLanguage;
             TBMaxGuests.Text = Tour.MaxGuestNumber.ToString();
 
-            
             AlternativeTours = new ObservableCollection<Tour>(TourController.GetToursWithSameLocation(Tour));
-            //foreach (Tour tour in AlternativeTours)
-            //{
-            //    TourDates = TourDateController.GetAllByTourId(tour.Id);
-            //}
-            //AlternativeTourDates = new ObservableCollection<TourDate>(TourDates);
-
             List<Location> tourLocations = TourLocationController.GetAll();
 
             foreach (var tour in AlternativeTours)
@@ -90,50 +85,51 @@ namespace SIMSProject.View.Guest2
             }
 
             CBTourDates = TourDateController.GetAllByTourId(Tour.Id);
-            
-
         }
-
+        private void ReserveTour(TourReservation tourReservation, TourDate tourDate, int guestsForReservation)
+        {
+            tourReservation.TourDateId = tourDate.TourId;
+            tourReservation.GuestId = User.Id;
+            tourReservation.GuestNumber = guestsForReservation;
+            TourReservationController.Create(tourReservation);
+            tourDate.AvailableSpots -= guestsForReservation;
+            TourDateController.UpdateAvailableSpots(tourDate);
+            return;
+        }
         private void Reservation_Click(object sender, RoutedEventArgs e)
         {
             GuestsForReservation = NumGuests.Value;
-            if(Tour.AvailableSpots == 0)
+            if (SelectedTourDate == null) return;
+            if (SelectedTourDate.AvailableSpots == 0)
             {
-                MessageBox.Show("Na odabranoj turi nema vise slobodnih mesta. \n Izaberite neku od ponudjenih alternativnih tura ili odustanite. \n");
+                MessageBox.Show("Na odabranoj turi nema vise slobodnih mesta. \nIzaberite neku od ponudjenih alternativnih tura ili odustanite. \n");
+                LBLAlternativneTure.Visibility = Visibility.Visible;
                 AlternativeGrid.Visibility = Visibility.Visible;
-                if (AlternativeTour != null)
+                if (AlternativeTour == null) return;
+                if (GuestsForReservation > AlternativeTourDate.AvailableSpots)
                 {
-                    if(GuestsForReservation > AlternativeTour.AvailableSpots)
-                    {
-                        MessageBox.Show("Nema dovoljno slobodnih mesta na turi.\nNa turi ima " + AlternativeTour.AvailableSpots + " mesta.\n");
-                    }
-                    else
-                    {
-                        NewTourReservation.TourDateId = SelectedTourDate.Id;
-                        NewTourReservation.GuestNumber = GuestsForReservation;
-                        NewTourReservation.GuestId = User.Id;
-                        TourReservationController.Create(NewTourReservation);
-                        AlternativeTour.AvailableSpots -= GuestsForReservation; //u tour date ce se smanjivati
-                        MessageBox.Show("Rezervacija uspesna!");
-                        return;
-                    }
+                    MessageBox.Show("Nema dovoljno slobodnih mesta na turi.\nNa turi ima " + AlternativeTourDate.AvailableSpots + " mesta.\n");
+                    return;
                 }
-                return;
-            }else if (GuestsForReservation > Tour.AvailableSpots)
+                else
+                {
+                    ReserveTour(NewTourReservation, AlternativeTourDate, GuestsForReservation);
+                    MessageBox.Show("Rezervacija za " + GuestsForReservation + " osoba uspesna!");
+                    return;
+                }
+            }
+            else if (GuestsForReservation > SelectedTourDate.AvailableSpots)
             {
-                MessageBox.Show("Nema dovoljno slobodnih mesta na turi.\nNa turi ima " + Tour.AvailableSpots + " mesta.\n" +
+                MessageBox.Show("Nema dovoljno slobodnih mesta na turi.\nNa turi ima " + SelectedTourDate.AvailableSpots + " mesta.\n" +
                     "Izaberite neku od alternativnih tura ili promenite broj gostiju.");
-                //AlternativeGrid.Visibility = Visibility.Visible; 
+                LBLAlternativneTure.Visibility = Visibility.Visible;
+                AlternativeGrid.Visibility = Visibility.Visible;
                 return;
             }
             else
             {
-                NewTourReservation.TourDateId = SelectedTourDate.Id;
-                NewTourReservation.GuestNumber = GuestsForReservation;
-                NewTourReservation.GuestId = User.Id;
-                TourReservationController.Create(NewTourReservation);
-                Tour.AvailableSpots -= GuestsForReservation; //u tour date ce se smanjivati
-                MessageBox.Show("Rezervacija uspesna!");
+                ReserveTour(NewTourReservation, SelectedTourDate, GuestsForReservation);
+                MessageBox.Show("Rezervacija za " + GuestsForReservation + " osoba uspesna!");
                 return;
             }
 
@@ -172,7 +168,7 @@ namespace SIMSProject.View.Guest2
                 tour.Location = tourLocations.Find(x => x.Id == tour.LocationId);
             }
 
-            CBTourDates = TourDateController.GetAllByTourId(AlternativeTour.Id);
+            CBSelectedTourDates.ItemsSource = TourDateController.GetAllByTourId(AlternativeTour.Id);
         }
     }
 }

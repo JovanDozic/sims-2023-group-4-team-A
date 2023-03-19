@@ -16,12 +16,12 @@ namespace SIMSProject.Model
 
         public TourReservation() { }
 
-        public TourReservation(int id, int guestNumber, int tourDateId, int guestId)
+        public TourReservation(int id, int tourDateId, int guestId, int guestNumber)
         {
             Id = id;
-            GuestNumber = guestNumber;
             TourDateId = tourDateId;
             GuestId = guestId;
+            GuestNumber = guestNumber;
         }   
 
         public string[] ToCSV()

@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Model;
+using SIMSProject.Model.UserModel;
 using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
@@ -76,8 +77,22 @@ namespace SIMSProject.Model
             }
         }
 
+        private int _availableSpots;
+        public int AvailableSpots
+        {
+            get => _availableSpots;
+            set
+            {
+                if (_availableSpots != value)
+                {
+                    _availableSpots = value;
+                    OnPropertyChanged(nameof(AvailableSpots));
+                }
+            }
+        }
         public Tour Tour { get; set; } = new();
         public KeyPoint CurrentKeyPoint { get; set; } = new();
+        public List<Guest> Guests { get; set; } = new();
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
@@ -87,11 +102,12 @@ namespace SIMSProject.Model
 
         public TourDate(){}
 
-        public TourDate(int id, DateTime date, int tourId, int currentKeyPointId)
+        public TourDate(int id, DateTime date, int tourId, int availableSpots, int currentKeyPointId)
         {
             Id = id;
             Date = date;
             TourId = tourId;
+            AvailableSpots = availableSpots;
             CurrentKeyPointId = currentKeyPointId;
         }
 
@@ -100,21 +116,22 @@ namespace SIMSProject.Model
             return $"{Date}";
         }
 
-        
 
-            public void FromCSV(string[] values)
-            {
-                Id = Convert.ToInt32(values[0]);
-                Date = DateTime.Parse(values[1]);
-                TourId = Convert.ToInt32(values[2]);
-                TourStatus = values[3];
-                CurrentKeyPointId = Convert.ToInt32(values[4]);
-            }
 
-            public string[] ToCSV()
-            {
-                string[] csvValues = { Id.ToString(), Date.ToString(), TourId.ToString(), TourStatus, CurrentKeyPointId.ToString() };
-                return csvValues;
-            }
+        public void FromCSV(string[] values)
+        {
+            Id = Convert.ToInt32(values[0]);
+            Date = DateTime.Parse(values[1]);
+            TourId = Convert.ToInt32(values[2]);
+            TourStatus = values[3];
+            AvailableSpots = Convert.ToInt32(values[4]);
+            CurrentKeyPointId = Convert.ToInt32(values[5]);
+        }
+
+        public string[] ToCSV()
+        {
+            string[] csvValues = { Id.ToString(), Date.ToString(), TourId.ToString(), TourStatus, AvailableSpots.ToString(), CurrentKeyPointId.ToString() };
+            return csvValues;
+        }
     }
 }

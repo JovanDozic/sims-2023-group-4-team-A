@@ -46,16 +46,14 @@
         <Label FontSize="15" Content="Jezik" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <TextBox x:Name="TBLanguage" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="30" IsReadOnly="True"/>
         <Label FontSize="15" Content="Kapacitet ture" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <TextBox x:Name="TBMaxGuests" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="30" IsReadOnly="True"/>
-        
+        <TextBox Grid.Row="6" Grid.Column="1" x:Name="TBMaxGuests" VerticalAlignment="Center" Width="200" Height="30" IsReadOnly="True"/>
+
+
 
         <Label Content="Slike:" Grid.Row="0" Grid.Column="2" FontSize="15" HorizontalAlignment="Center"/>
         <GridSplitter Grid.Row="8" Grid.ColumnSpan="3" Height="5" Background="Gray"  HorizontalAlignment="Stretch"/>
         <Label FontSize="20" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Izvrši rezervaciju ture" Grid.ColumnSpan="2"/>
         <Grid Grid.Row="10" Grid.Column="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="10"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
@@ -66,19 +64,16 @@
                                  Value="{Binding GuestsForReservation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
         </Grid>
         <Grid Grid.Row="10" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="10"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Label Grid.Row="1" Content="Izaberi termin: " FontSize="15" HorizontalAlignment="Center"/>
-            <ComboBox x:Name="CBSelectedTourDate" Grid.Row="2" Height="30" Width="150" ItemsSource="{Binding CBTourDates, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding SelectedTourDate}"/>
+            <ComboBox x:Name="CBSelectedTourDates" Grid.Row="2" Height="30" Width="150" ItemsSource="{Binding CBTourDates, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding Path = SelectedTourDate}"/>
         </Grid>
-        <Label FontSize="15" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Alternativne ture:" Grid.ColumnSpan="2"/>
-        <DataGrid x:Name="AlternativeGrid" Height="100" Width="400" Grid.Row="12" Grid.ColumnSpan="2" Visibility="Visible"
+        <Label x:Name="LBLAlternativneTure" Visibility="Hidden" FontSize="15" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Alternativne ture:" Grid.ColumnSpan="2"/>
+        <DataGrid x:Name="AlternativeGrid" Height="100" Width="400" Grid.Row="12" Grid.ColumnSpan="2" Visibility="Hidden"
                    SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" 
                   SelectionChanged="AlternativeGrid_SelectionChanged"
                   ItemsSource="{Binding Path=AlternativeTours, UpdateSourceTrigger=PropertyChanged}"
@@ -111,8 +106,5 @@
                        Foreground="#ffb0b0b0"
                        Panel.ZIndex="0"/>
         </Grid>
-        <!-- <TextBox>Unesite zeljeni broj ljudi za rezervaciju ture:</TextBox>
-        <TextBox x:Name="ReservationNumber" Height="50"/>
-        <Button Click="Reserve_Click" Height="20" Width="50" Content="Rezervisi"/> -->
     </Grid>
 </Window>

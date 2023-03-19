@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace SIMSProject.Model.UserModel
 {
     public enum Title { REGULAR = 0, SUPERGUIDE }
-    internal class Guide: User, ISerializable
+    public class Guide: User, ISerializable
     {
         private double _rating = 0;
         public double Rating
@@ -65,7 +65,7 @@ namespace SIMSProject.Model.UserModel
 
         public string[] ToCSV()
         {
-            string[] CSVValue = {Id.ToString(), Username, Password, Rating.ToString(), GuideTitle, Role};
+            string[] CSVValue = {Id.ToString(), Username, Password, Rating.ToString(), Role};
             return CSVValue;
         }
 
@@ -75,8 +75,7 @@ namespace SIMSProject.Model.UserModel
             Username = values[1];
             Password = values[2];
             Rating = Convert.ToDouble(values[3]);
-            GuideTitle = values[4];
-            Role = values[5];
+            Role = values[4];
         }
     }
 }

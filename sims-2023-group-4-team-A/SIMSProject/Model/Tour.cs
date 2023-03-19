@@ -85,19 +85,7 @@ namespace SIMSProject.Model
             }
         }
 
-        private int _availableSpots;
-        public int AvailableSpots
-        {
-            get => _availableSpots;
-            set
-                {
-                if(_availableSpots != value)
-                {
-                    _availableSpots = value;
-                    OnPropertyChanged(nameof(AvailableSpots));
-                }
-            }
-        }
+        
 
         private int _duration;
         public int Duration
@@ -157,7 +145,7 @@ namespace SIMSProject.Model
         
         public Tour() { }
 
-        public Tour(int id, string name, Guest guide, Location location, string description, string tourLanguage, int maxGuestNumber, int availableSpots,int duration, int locationId, int guideId)
+        public Tour(int id, string name, Guest guide, Location location, string description, string tourLanguage, int maxGuestNumber, int duration, int locationId, int guideId)
         {
             Id = id;
             Name = name;
@@ -166,7 +154,6 @@ namespace SIMSProject.Model
             Description = description;
             TourLanguage = tourLanguage;
             MaxGuestNumber = maxGuestNumber;
-            AvailableSpots = availableSpots;
             Duration = duration;
             LocationId = locationId;
             GuideId = guideId;
@@ -179,11 +166,10 @@ namespace SIMSProject.Model
             Description = values[2];
             TourLanguage = values[3];
             MaxGuestNumber = Convert.ToInt32(values[4]);
-            AvailableSpots = Convert.ToInt32(Convert.ToInt32(values[5]));
-            Duration = Convert.ToInt32(values[6]);
-            LocationId = Convert.ToInt32(values[7]);
-            GuideId = Convert.ToInt32(values[8]);
-            string[] ImageURLs = values[9].Split(',');
+            Duration = Convert.ToInt32(values[5]);
+            LocationId = Convert.ToInt32(values[6]);
+            GuideId = Convert.ToInt32(values[7]);
+            string[] ImageURLs = values[8].Split(',');
             Images.AddRange(ImageURLs);
 
         }
@@ -205,7 +191,7 @@ namespace SIMSProject.Model
             
             StringBuilder imageURLs = CreateImageURLs();
 
-            string[] csvValues = { Id.ToString(), Name, Description, TourLanguage, MaxGuestNumber.ToString(), AvailableSpots.ToString(),Duration.ToString(), LocationId.ToString(), GuideId.ToString(), imageURLs.ToString() };
+            string[] csvValues = { Id.ToString(), Name, Description, TourLanguage, MaxGuestNumber.ToString(), Duration.ToString(), LocationId.ToString(), GuideId.ToString(), imageURLs.ToString() };
             return csvValues;
         }
 

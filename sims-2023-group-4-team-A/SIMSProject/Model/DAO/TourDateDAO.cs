@@ -4,6 +4,7 @@ using SIMSProject.Observer;
 using SIMSProject.FileHandler;
 using SIMSProject.Controller;
 using System.Windows.Navigation;
+using System;
 
 namespace SIMSProject.Model.DAO
 {
@@ -65,7 +66,6 @@ namespace SIMSProject.Model.DAO
             return dates;
         }
 
-        
         public TourDate Save(TourDate tourDate)
         {
             tourDate.Id = NextId();
@@ -79,6 +79,14 @@ namespace SIMSProject.Model.DAO
         {
             _fileHandler.Save(tourDates);
             _tourDates = tourDates;
+            NotifyObservers();
+        }
+        public void UpdateAvailableSpots(TourDate tourDate)
+        {
+            TourDate? oldTourDate = _tourDates.Find(x => x.Id == tourDate.Id);
+            if (oldTourDate == null) return;
+            oldTourDate.AvailableSpots = tourDate.AvailableSpots;
+            _fileHandler.Save(_tourDates);
             NotifyObservers();
         }
 

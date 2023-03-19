@@ -35,9 +35,6 @@ namespace SIMSProject.Model.UserModel
             Password = password;
             _role = USER_ROLE.GUEST;
             Rating = rating;
-            TourReservations = new();
-            AccommodationReservations = new();
-            // TODO: load tours and  reservations
         }
 
         public string[] ToCSV()

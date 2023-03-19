@@ -20,6 +20,9 @@ namespace SIMSProject.Model.DAO.UserModelDAO
             _fileHandler = new();
             _guests = _fileHandler.Load();
             _observers = new();
+
+            var tourReservations = new TourReservationDAO().GetAll();
+            foreach (var guest in _guests) guest.TourReservations = tourReservations.FindAll(x => x.GuestId == guest.Id);
         }
 
         public int NextId() { return _guests.Max(x => x.Id) + 1; }
