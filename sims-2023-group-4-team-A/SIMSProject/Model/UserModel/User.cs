@@ -57,8 +57,10 @@ namespace SIMSProject.Model.UserModel
                 {
                     USER_ROLE.OWNER => "Vlasnik",
                     USER_ROLE.GUIDE => "Vodič",
-                    _ => "Gost"
-                    // TODO: Add super-users
+                    USER_ROLE.GUEST => "Gost",
+                    USER_ROLE.SUPER_OWNER => "Super Vlasnik",
+                    USER_ROLE.SUPER_GUIDE => "Super Vodič",
+                    _ => "Super Gost"
                 };
             }
             set
@@ -67,8 +69,10 @@ namespace SIMSProject.Model.UserModel
                 {
                     "Vlasnik" => USER_ROLE.OWNER,
                     "Vodič" => USER_ROLE.GUIDE,
-                    _ => USER_ROLE.GUEST
-                    // TODO: Add super-users
+                    "Gost" => USER_ROLE.GUEST,
+                    "Super Vlasnik" => USER_ROLE.SUPER_OWNER,
+                    "Super Vodič" => USER_ROLE.SUPER_GUIDE,
+                    _ => USER_ROLE.SUPER_GUEST
                 };
                 OnPropertyChanged(nameof(Role));
             }

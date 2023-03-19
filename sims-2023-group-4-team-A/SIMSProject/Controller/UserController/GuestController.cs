@@ -34,5 +34,10 @@ namespace SIMSProject.Controller.UserController
         {
             return _guests.Get(id);
         }
+
+        public void RefreshRatings()
+        {
+            _guests.RefreshRatings();
+        }
     }
 }

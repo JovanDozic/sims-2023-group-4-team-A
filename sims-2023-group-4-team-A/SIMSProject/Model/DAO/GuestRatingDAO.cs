@@ -1,10 +1,12 @@
 ﻿using SIMSProject.FileHandler;
+using SIMSProject.Model.DAO.UserModelDAO;
 using SIMSProject.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SIMSProject.Model.DAO
 {
@@ -19,10 +21,24 @@ namespace SIMSProject.Model.DAO
             _fileHandler = new();
             _guestRatings = _fileHandler.Load();
             _observers = new();
+
+            var reservations = new AccommodationReservationFileHandler().Load();
+            foreach (var rating in _guestRatings)
+                rating.Reservation = reservations.Find(x => x.Id == rating.Reservation.Id) ?? new();
         }
 
         public List<GuestRating> GetAll() { return _guestRatings; }
-        public int NextId() { return _guestRatings.Max(x => x.Id) + 1; }
+        public int NextId() 
+        { 
+            try
+            {
+                return _guestRatings.Max(x => x.Id) + 1;
+            }
+            catch
+            {
+                return 1;
+            }
+        }
 
         public GuestRating Save(GuestRating guestRating)
         {

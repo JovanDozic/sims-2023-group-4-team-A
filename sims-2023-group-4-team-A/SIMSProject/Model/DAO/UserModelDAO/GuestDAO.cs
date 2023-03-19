@@ -1,4 +1,5 @@
-﻿using SIMSProject.FileHandler.UserFileHandler;
+﻿using SIMSProject.FileHandler;
+using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.Model.UserModel;
 using SIMSProject.Observer;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SIMSProject.Model.DAO.UserModelDAO
 {
@@ -20,11 +22,31 @@ namespace SIMSProject.Model.DAO.UserModelDAO
             _fileHandler = new();
             _guests = _fileHandler.Load();
             _observers = new();
+
+            RefreshRatings();
         }
 
         public int NextId() { return _guests.Max(x => x.Id) + 1; }
 
         public List<Guest> GetAll() { return _guests; }
+
+        public void RefreshRatings()
+        {
+            var _ratings = new GuestRatingDAO().GetAll();
+            foreach (var guest in _guests)
+            {
+                try
+                {
+                    //MessageBox.Show(_ratings.FindAll(x => x.Reservation.Guest.Id == guest.Id).Count.ToString());
+                    guest.Rating = _ratings.FindAll(x => x.Reservation.Guest.Id == guest.Id).Average(x => x.Overall);
+                }
+                catch
+                {
+                    guest.Rating = 15;
+                }
+            }
+            SaveAll(_guests);
+        }
 
         public Guest Save(Guest user)
         {

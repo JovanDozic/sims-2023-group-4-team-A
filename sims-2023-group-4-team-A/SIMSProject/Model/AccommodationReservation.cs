@@ -1,5 +1,6 @@
 ﻿using System;
 using SIMSProject.Serializer;
+using SIMSProject.Model.UserModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -8,8 +9,8 @@ namespace SIMSProject.Model
     public class AccommodationReservation: ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
-        public int AccommodationId { get; set; }
-        public int GuestId { get; set; }
+        public Accommodation Accommodation { get; set; } = new();
+        public Guest Guest { get; set; } = new();
         private DateTime _startDate; 
         public DateTime StartDate
         {
@@ -49,9 +50,8 @@ namespace SIMSProject.Model
                 }
             }
         }
-
         private int _guestsNumber;
-        public int GuestsNumber
+        public int GuestNumber
         {
             get => _guestsNumber;
             set
@@ -59,28 +59,53 @@ namespace SIMSProject.Model
                 if(value != _guestsNumber)
                 {
                     _guestsNumber = value;
-                    OnPropertyChanged(nameof(GuestsNumber));
+                    OnPropertyChanged(nameof(GuestNumber));
                 }
             }
         }
-
+        private bool _guestRated = false;
+        public bool GuestRated
+        {
+            get => _guestRated;
+            set
+            {
+                if (value != _guestRated)
+                {
+                    _guestRated = value;
+                    OnPropertyChanged(nameof(GuestRated));
+                }
+            }
+        }
+        private bool _ownerRated = false;
+        public bool OwnerRated
+        {
+            get => _ownerRated;
+            set
+            {
+                if (value != _ownerRated)
+                {
+                    _ownerRated = value;
+                    OnPropertyChanged(nameof(OwnerRated));
+                }
+            }
+        }
         public bool Canceled = false;
 
         public AccommodationReservation() { }
 
         public AccommodationReservation(int accommodationId, int guestId, DateTime startDate, DateTime endDate, int numberOfDays, int guestsNumber)
         {
-            AccommodationId = accommodationId;
-            GuestId = guestId;
+            Accommodation.Id = accommodationId;
+            Guest.Id = guestId;
             StartDate = startDate;
             EndDate = endDate;
             NumberOfDays = numberOfDays;
             Canceled = false;
-            GuestsNumber = guestsNumber;
+            GuestNumber = guestsNumber;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -90,14 +115,15 @@ namespace SIMSProject.Model
             string[] csvValues =
             {
                 Id.ToString(),
-                AccommodationId.ToString(),
-                GuestId.ToString(),
+                Accommodation.Id.ToString(),
+                Guest.Id.ToString(),
                 StartDate.ToString(),
                 EndDate.ToString(),
                 NumberOfDays.ToString(),
-                GuestsNumber.ToString(),
+                GuestNumber.ToString(),
+                GuestRated.ToString(),
+                OwnerRated.ToString(),
                 Canceled.ToString()
-
             };
             return csvValues;
         }
@@ -105,13 +131,15 @@ namespace SIMSProject.Model
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            AccommodationId = int.Parse(values[1]);
-            GuestId = int.Parse(values[2]);
+            Accommodation.Id = int.Parse(values[1]);
+            Guest.Id = int.Parse(values[2]);
             StartDate = DateTime.Parse(values[3]);
             EndDate = DateTime.Parse(values[4]);
             NumberOfDays = int.Parse(values[5]);
-            GuestsNumber = int.Parse(values[6]);
-            Canceled = bool.Parse(values[7]);
+            GuestNumber = int.Parse(values[6]);
+            GuestRated = bool.Parse(values[7]);
+            OwnerRated = bool.Parse(values[8]);
+            Canceled = bool.Parse(values[9]);
         }
     }
 }

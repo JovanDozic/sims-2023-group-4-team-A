@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SIMSProject.View.OwnerViews"
         xmlns:cstm="clr-namespace:SIMSProject.CustomControls"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" 
-        Title="Oceni Gosta" Height="450" Width="700">
+        Title="Oceni Gosta" Height="550" Width="700">
     <Grid Margin="20,5,20,20">
 
         <Grid.ColumnDefinitions>
@@ -18,6 +18,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
             <RowDefinition Height="3*"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
@@ -25,38 +26,46 @@
         <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Oceni gosta"
                FontSize="20" VerticalAlignment="Center" 
                HorizontalAlignment="Center" FontWeight="SemiBold"/>
-
         <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"
+               Content="Gost" Grid.ColumnSpan="2" 
+               FontSize="16"/>
+
+        <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"
                Content="Čistoća" Grid.ColumnSpan="2" 
                FontSize="16"/>
-        <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"
+        <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"
                Content="Poštovanje pravila" Grid.ColumnSpan="2" 
                FontSize="16"/>
-        <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"
+        <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"
                Content="Dodatan komentar" Grid.ColumnSpan="2" 
                FontSize="16"/>
 
-        <cstm:NumericTextBox Grid.Row="1" Grid.Column="1"
-                             FontSize="16"
-                             Value="1"/>
+        <TextBox Text="{Binding Reservation.Guest.Username}"
+                 Grid.Row="1" Grid.Column="1" FontSize="16" Padding="5,0,0,0" 
+                 VerticalContentAlignment="Center" Margin="5,9,5,9" 
+                 Height="30" IsEnabled="False"/>
 
         <cstm:NumericTextBox Grid.Row="2" Grid.Column="1"
                              FontSize="16"
-                             Value="1"/>
+                             Value="{Binding GuestRating.Cleanliness, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+        <cstm:NumericTextBox Grid.Row="3" Grid.Column="1"
+                             FontSize="16"
+                             Value="{Binding GuestRating.RulesAcceptance, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
         <!-- TODO: validation -->
-        <TextBox Text="Komentar" 
-                 Grid.Row="3" Grid.Column="1" FontSize="16" Padding="5" 
+        <TextBox Text="{Binding GuestRating.Comment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                 Grid.Row="4" Grid.Column="1" FontSize="16" Padding="5" 
                  VerticalContentAlignment="top" Margin="5,9,5,9" 
                  Height="130" AcceptsReturn="True" TextWrapping="Wrap" 
                  VerticalScrollBarVisibility="Visible"/>
 
         <Button x:Name="BTNRateGuest"
-                Grid.Row="9" Grid.ColumnSpan="2" IsDefault="True"
+                Grid.Row="5" Grid.ColumnSpan="2" IsDefault="True"
                 Content="Oceni" FontSize="16" Padding="15,3,15,3" Width="100" Height="35"
-                Margin="0,0,150,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                Margin="0,0,150,0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="BTNRateGuest_Click"/>
 
-        <Button Grid.Row="4" IsCancel="True"
+        <Button Grid.Row="5" IsCancel="True"
                 Content="Otkaži" FontSize="16" Padding="15,3,15,3" Width="100" Height="35"
                 Margin="25,11,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Click="BTNCancel_Click"/>
 

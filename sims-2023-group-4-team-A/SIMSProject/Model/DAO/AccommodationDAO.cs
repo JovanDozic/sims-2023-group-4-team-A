@@ -23,8 +23,14 @@ namespace SIMSProject.Model.DAO
             _accommodations = _fileHandler.Load();
             _observers = new();
 
-            List<Location> locations = _locationFileHandler.Load();
-            foreach (var accommodation in _accommodations) accommodation.Location = locations.Find(x => x.Id == accommodation.Location.Id) ?? new Location(accommodation.Location.Id, "<null>", "<null>");
+            var locations = _locationFileHandler.Load();
+            var reservations = new AccommodationReservationDAO().GetAll();
+            foreach (var accommodation in _accommodations)
+            {
+                accommodation.Location = locations.Find(x => x.Id == accommodation.Location.Id)
+                    ?? new Location(accommodation.Location.Id, "<null>", "<null>");
+                accommodation.Reservations = reservations.FindAll(x => x.Accommodation.Id == accommodation.Id);
+            }
         }
 
         public int NextId() { return _accommodations.Max(x => x.Id) + 1; }

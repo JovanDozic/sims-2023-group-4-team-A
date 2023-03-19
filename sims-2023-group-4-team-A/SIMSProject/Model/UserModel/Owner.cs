@@ -22,8 +22,21 @@ namespace SIMSProject.Model.UserModel
                 }
             }
         }
-        
-        // TODO: Add list of owned accommodations
+
+        private List<Accommodation> _accommodations = new();
+        public List<Accommodation> Accommodations
+        {
+            get => _accommodations;
+            set
+            {
+                if (value != _accommodations)
+                {
+                    _accommodations = value;
+                    OnPropertyChanged(nameof(Accommodations));
+                }
+            }
+        }
+
 
         public Owner() { }
 

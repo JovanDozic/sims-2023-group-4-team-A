@@ -14,14 +14,14 @@ namespace SIMSProject.Controller
             _guestRatings = new();
             GuestRating = new();
         }
-        public void SaveAll(List<GuestRating> locations)
+        public void SaveAll(List<GuestRating> ratings)
         {
-            _guestRatings.SaveAll(locations);
+            _guestRatings.SaveAll(ratings);
         }
 
-        public GuestRating Create(GuestRating location)
+        public GuestRating Create(GuestRating rating)
         {
-            return _guestRatings.Save(location);
+            return _guestRatings.Save(rating);
         }
 
         public GuestRating GetByID(int id)

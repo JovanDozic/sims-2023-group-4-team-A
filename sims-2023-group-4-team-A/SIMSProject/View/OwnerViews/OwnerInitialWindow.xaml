@@ -7,28 +7,101 @@
         xmlns:cstm="clr-namespace:SIMSProject.CustomControls"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" 
         Icon="../../../Resources/Images/Stars.png"
-        Title="OwnerInitialWindow" Height="450" Width="800">
-    <Grid>
-        
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-            
-            <Button Width="150" Height="40" Margin="30" HorizontalContentAlignment="Left"
-                    Click="OpenRegisterAccommodationWindowButton_Click">
-                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                    <Image Source="../../../Resources/Images/Add.png" Width="20" Height="20" Margin="0,0,5,0"/>
-                    <TextBlock Margin="5,2,0,0" Text="Registruj smeštaj" />
-                </StackPanel>
-            </Button>
+        Title="OwnerInitialWindow" Height="420" Width="820">
+    <Grid Margin="20">
 
-            <Button Width="150" Height="40" Margin="30" HorizontalContentAlignment="Left"
-                    Click="OpenRateGuestWindowButton_Click">
-                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                    <Image Source="../../../Resources/Images/Rating.png" Width="20" Height="20" Margin="0,0,5,0"/>
-                    <TextBlock Margin="5,2,0,0" Text="Oceni gosta" />
-                </StackPanel>
-            </Button>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+
+        </Grid.RowDefinitions>
+
+        <Button Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" 
+                Width="150" Height="40"        
+                HorizontalContentAlignment="Center"
+                VerticalAlignment="Center" Margin="10"
+                Click="OpenRegisterAccommodationWindowButton_Click">
+            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                <Image Source="../../../Resources/Images/Add.png" Width="20" Height="20" Margin="0,0,5,0"/>
+                <TextBlock Margin="5,2,0,0" Text="Registruj smeštaj" />
+            </StackPanel>
+        </Button>
+
+        <Button x:Name="BTNRateGuest" Grid.Column="2" Grid.Row="1" 
+                Grid.ColumnSpan="2"
+                Width="150" Height="40" 
+                HorizontalContentAlignment="Center"
+                VerticalAlignment="Center"
+                Click="OpenRateGuestWindowButton_Click"
+                IsEnabled="False">
+            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                <Image Source="../../../Resources/Images/Rating.png" Width="20" Height="20" Margin="0,0,5,0"/>
+                <TextBlock Margin="5,2,0,0" Text="Oceni gosta" />
+            </StackPanel>
+        </Button>
+
+
+        <StackPanel Orientation="Vertical" 
+                    Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label Content="Smeštaji" FontSize="20" 
+                   VerticalAlignment="Center" HorizontalAlignment="Center" 
+                   FontWeight="SemiBold"/>
+            <DataGrid ItemsSource="{Binding User.Accommodations, UpdateSourceTrigger=PropertyChanged}" 
+                      AutoGenerateColumns="False"
+                      SelectedValue="{Binding SelectedAccommodation}"
+                      Height="250" Margin="20,10,20,20"
+                      IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Ime" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Lokacija" Binding="{Binding Location}"/>
+                    <DataGridTextColumn Header="Tip" Binding="{Binding Type}"/>
+                    <DataGridTextColumn Header="Maksimalan br. gostiju" Binding="{Binding MaxGuestNumber}"/>
+                    <DataGridTextColumn Header="Minimalan br. dana" Binding="{Binding MinReservationDays}"/>
+                    <DataGridTextColumn Header="Granica otkazivanja" Binding="{Binding CancellationThreshold}"/>
+                    <DataGridTextColumn Header="Broj slika" Binding="{Binding ImageURLs.Count}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
+
+        <StackPanel Orientation="Vertical" 
+                    Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2">
+            <Label Content="Rezervacije" FontSize="20" 
+                   VerticalAlignment="Center" HorizontalAlignment="Center" 
+                   FontWeight="SemiBold"/>
+            <DataGrid ItemsSource="{Binding SelectedAccommodation.Reservations, UpdateSourceTrigger=PropertyChanged}" 
+                      SelectedItem="{Binding SelectedReservation}"
+                      SelectionChanged="DGRReservations_SelectionChanged"
+                      x:Name="DGRReservations"
+                      AutoGenerateColumns="False"
+                      Height="250" Margin="20,10,20,20"
+                      IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Od" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yy\}}"/>
+                    <DataGridTextColumn Header="Do" Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yy\}}"/>
+                    <DataGridTextColumn Header="Broj dana" Binding="{Binding NumberOfDays}"/>
+                    <DataGridTextColumn Header="Broj gostiju" Binding="{Binding GuestNumber}"/>
+                    <DataGridCheckBoxColumn Header="Gost ocenjen" Binding="{Binding GuestRated}"/>
+                    <DataGridCheckBoxColumn Header="Vlasnik ocenjen" Binding="{Binding OwnerRated}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        
+        <!--/
+        Dodaces da kada se selektuje smestaj, da se ispisu sve njegove rezervacije. To radis tako sto ces i u svaki smestaj staviti listu rezervacija koja se ucitava pri DAOu.
+        Dalje onda se prijkazuje da li je gost ocenjen itd tid itd.
+        
+        Ali svakako pri Initialize dodajes da se prodje kroz tu listu i pobacaju svi ShowDialogovi koje ce vlasnik morati da klikne, i da oceni.
+        To radis tako sto ce u init. biti jedan foreach koji ce to da obavi.
+        -->
 
     </Grid>
 </Window>

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
+using System.Windows.Documents.Serialization;
 
 namespace SIMSProject.Model
 {
@@ -12,6 +13,7 @@ namespace SIMSProject.Model
     public class Accommodation : ISerializable, INotifyPropertyChanged, IDataErrorInfo
     {
         public int Id { get; set; }
+        public int OwnerId { get; set; }
         private string _name = string.Empty;
         public string Name
         {
@@ -126,6 +128,19 @@ namespace SIMSProject.Model
                 }
             }
         }
+        private List<AccommodationReservation> _reservations = new();
+        public List<AccommodationReservation> Reservations
+        {
+            get => _reservations;
+            set
+            {
+                if (value != _reservations)
+                {
+                    _reservations = value;
+                    OnPropertyChanged(nameof(Reservations));
+                }
+            }
+        }
 
         public Accommodation()
         {
@@ -133,8 +148,9 @@ namespace SIMSProject.Model
             ImageURLs = new();
         }
 
-        public Accommodation(string name, Location location, string type, int maxGuestNumber, int minReservationDays, int cancellationThreshold, string imageURLsCSV)
+        public Accommodation(int ownerId, string name, Location location, string type, int maxGuestNumber, int minReservationDays, int cancellationThreshold, string imageURLsCSV)
         {
+            OwnerId = ownerId;
             Name = name;
             Location = location;
             Type = type;
@@ -145,8 +161,6 @@ namespace SIMSProject.Model
             ImageURLsCSV = imageURLsCSV;
             ImageURLsFromCSV(ImageURLsCSV);
         }
-        
-    
 
         // [SERIALIZATION HANDLING]
 
@@ -155,6 +169,7 @@ namespace SIMSProject.Model
             ImageURLsToCSV();
             string[] csvValues = {
                 Id.ToString(),
+                OwnerId.ToString(),
                 Name,
                 Location.Id.ToString(),
                 Type.ToString(),
@@ -168,23 +183,24 @@ namespace SIMSProject.Model
 
         public void FromCSV(string[] values)
         {
-            Id = int.Parse(values[0]);
-            Name = values[1];
+            int i = 0;
+            Id = int.Parse(values[i++]);
+            OwnerId = int.Parse(values[i++]);
+            Name = values[i++];
             LocationController _locationController = new();
-            Location = _locationController.GetByID(int.Parse(values[2]));
-            Type = values[3];
-            MaxGuestNumber = int.Parse(values[4]);
-            MinReservationDays = int.Parse(values[5]);
-            CancellationThreshold = int.Parse(values[6]);
-            ImageURLsCSV = values[7];
+            Location = _locationController.GetByID(int.Parse(values[i++]));
+            Type = values[i++];
+            MaxGuestNumber = int.Parse(values[i++]);
+            MinReservationDays = int.Parse(values[i++]);
+            CancellationThreshold = int.Parse(values[i++]);
+            ImageURLsCSV = values[i++];
             ImageURLsFromCSV(ImageURLsCSV);
-
-            Trace.Write("\nAccommodation [" + Id + "] has " + ImageURLs.Count + " images: ");
-            foreach (var imageURL in ImageURLs) Trace.Write(imageURL + " --- ");
+            //Trace.Write("\nAccommodation [" + Id + "] has " + ImageURLs.Count + " images: ");
+            //foreach (var imageURL in ImageURLs) Trace.Write(imageURL + " --- ");
         }
         public void ImageURLsToCSV()
         {
-            Trace.WriteLine("ImageURLs.Count() => " + ImageURLs.Count);
+            //Trace.WriteLine("ImageURLs.Count() => " + ImageURLs.Count);
             if (ImageURLs.Count > 0)
             {
                 ImageURLsCSV = string.Empty;

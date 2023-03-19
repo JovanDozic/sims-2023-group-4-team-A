@@ -10,27 +10,43 @@ namespace SIMSProject.Controller
 {
     public class AccommodationReservationController
     {
-        private AccommodationReservationDAO _AccommodationReservationDAO;
+        private AccommodationReservationDAO _accommodationReservationDAO;
         public AccommodationReservation AccommodationReservation;
 
         public AccommodationReservationController()
         {
-            _AccommodationReservationDAO = new AccommodationReservationDAO();
+            _accommodationReservationDAO = new AccommodationReservationDAO();
             AccommodationReservation = new AccommodationReservation();
         }
 
         public List<AccommodationReservation> GetAll()
         {
-            return _AccommodationReservationDAO.GetAll();
+            return _accommodationReservationDAO.GetAll();
         }
 
-        public void SaveAll(List<AccommodationReservation> AccommodationReservation)
+        public void SaveAll(List<AccommodationReservation> reservation)
         {
-            _AccommodationReservationDAO.SaveAll(AccommodationReservation);
+            _accommodationReservationDAO.SaveAll(reservation);
         }
-        public AccommodationReservation Create(AccommodationReservation AccommodationReservation)
+        
+        public AccommodationReservation Create(AccommodationReservation reservation)
         {
-            return _AccommodationReservationDAO.Save(AccommodationReservation);
+            return _accommodationReservationDAO.Save(reservation);
         }
+
+        public void UpdateExisting(AccommodationReservation updatedReservation)
+        {
+            var reservations = _accommodationReservationDAO.GetAll();
+            var reservation = reservations.Find(x => x.Id == updatedReservation.Id);
+            if (reservation != null)
+            {
+                int index = reservations.IndexOf(reservation);
+                reservations.Remove(reservation);
+                reservations.Insert(index, updatedReservation);
+            }
+            else Create(updatedReservation);
+            SaveAll(reservations);
+        }
+
     }
 }
