@@ -127,6 +127,8 @@ namespace SIMSProject.Model
             }
         }
 
+        public bool IsOccupied { get; set; }
+
         public Accommodation()
         {
             Location = new();
