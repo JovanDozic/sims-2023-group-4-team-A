@@ -24,53 +24,81 @@ namespace SIMSProject.Model.DAO
             _tours = _fileHandler.Load();
             _observers = new();
 
-            AssociateTours();            
-        }
-
-        private void AssociateTours()
-        {
-            LocationFileHandler tourLocationFileHandler = new();
-            TourKeyPointFileHandler tourKeyPointFileHandler = new();
-            KeyPointFileHandler keyPointFileHandler = new();
-            TourDateFileHandler tourDateFileHandler = new();
-
-            List<Location> tourLocations = tourLocationFileHandler.Load();
-            List<TourDate> tourDates = tourDateFileHandler.Load();
-            List<TourKeyPoint> tourKeyPoints = tourKeyPointFileHandler.Load();
-            List<KeyPoint> keyPoints = keyPointFileHandler.Load();
-
-
-            foreach (var tour in _tours)
-            {
-                AssociateLocation(tourLocations, tour);
-                AssociateDates(tourDates, tour);
-                AssociateKeyPoints(tourKeyPoints, keyPoints, tour);
-
-            }
-        }
-
-        private static void AssociateLocation(List<Location> tourLocations, Tour tour)
-        {
-            tour.Location = tourLocations.Find(x => x.Id == tour.LocationId);
-        }
-
-        private static void AssociateDates(List<TourDate> tourDateS, Tour tour)
-        {
-            tour.Dates.AddRange(tourDateS.FindAll(x => x.TourId == tour.Id));
-        }
-
-        private static void AssociateKeyPoints(List<TourKeyPoint> tourKeyPoints, List<KeyPoint> keyPoints, Tour tour)
-        {
-            List<TourKeyPoint> pairs = tourKeyPoints.FindAll(x => x.TourId == tour.Id);
-            foreach (var pair in pairs)
-            {
-                KeyPoint matchingKeyPoint = keyPoints.Find(x => x.Id == pair.KeyPointId);
-                tour.KeyPoints.Add(matchingKeyPoint);
-            }
+            AssociateTours();
         }
 
         public int NextId() { return _tours.Max(x => x.Id) + 1; }
         public List<Tour> GetAll() { return _tours; }
+
+        public Tour Get(int id)
+        {
+            return _tours.Find(x => x.Id == id);
+        }
+
+        public Tour Save(Tour tour)
+        {
+            tour.Id = NextId();
+            _tours.Add(tour);
+            _fileHandler.Save(_tours);
+            NotifyObservers();
+            return tour;
+        }
+
+        public void SaveAll(List<Tour> tours)
+        {
+            _fileHandler.Save(tours);
+            _tours = tours;
+            NotifyObservers();
+        }
+
+
+
+
+        private void AssociateTours()
+        {
+            foreach (var tour in _tours)
+            {
+                AssociateLocation(tour);
+                AssociateDates(tour);
+                AssociateKeyPoints(tour);
+
+            }
+        }
+
+        private static void AssociateLocation(Tour tour)
+        {
+            LocationFileHandler tourLocationFileHandler = new();
+            List<Location> tourLocations = tourLocationFileHandler.Load();
+
+            Location? matchingLocation = tourLocations.Find(x => x.Id == tour.LocationId);
+            if (matchingLocation == null) return;
+            tour.Location = matchingLocation;
+        }
+
+        private static void AssociateDates(Tour tour)
+        {
+            TourDateFileHandler tourDateFileHandler = new();
+            List<TourDate> tourDates = tourDateFileHandler.Load();
+
+            tour.Dates.AddRange(tourDates.FindAll(x => x.TourId == tour.Id));
+        }
+
+        private static void AssociateKeyPoints(Tour tour)
+        {
+            TourKeyPointFileHandler tourKeyPointFileHandler = new();
+            KeyPointFileHandler keyPointFileHandler = new();
+            List<TourKeyPoint> tourKeyPoints = tourKeyPointFileHandler.Load();
+            List<KeyPoint> keyPoints = keyPointFileHandler.Load();
+
+            List<TourKeyPoint> pairs = tourKeyPoints.FindAll(x => x.TourId == tour.Id);
+            foreach (var pair in pairs)
+            {
+                KeyPoint? matchingKeyPoint = keyPoints.Find(x => x.Id == pair.KeyPointId);
+                if (matchingKeyPoint == null) continue;
+                tour.KeyPoints.Add(matchingKeyPoint);
+            }
+        }
+
 
         public List<Tour> SearchLocations(string locationId)
         {
@@ -97,36 +125,31 @@ namespace SIMSProject.Model.DAO
             return _tours.FindAll(x => x.Dates.Any(x => x.Date.Date == DateTime.Today.Date));
         }
 
-        public List<TourDate> FindTodaysDatesById(int TourId)
+        public KeyPoint GetNextKeyPoint(TourDate date)
         {
-            Tour? tour = _tours.Find(x => x.Id == TourId);
-            List<TourDate> todaysDates = tour.Dates.FindAll(x => x.Date.Date == DateTime.Today.Date);
-            return todaysDates;
+            Tour? currentTour = Get(date.TourId);
+            if (currentTour == null) return null;
+
+            int currentIndex = currentTour.KeyPoints.FindIndex(x => x.Id == date.CurrentKeyPointId);
+            bool indexOutOfRange = currentIndex < 0 || currentIndex >= currentTour.KeyPoints.Count - 1;
+
+            if (indexOutOfRange) return null;
+
+            return currentTour.KeyPoints[currentIndex + 1];
         }
 
         public Tour EndTour(int tourId, int dateId)
         {
-            Tour toEnd = _tours.Find(x => x.Id == tourId);
+            Tour? toEnd = Get(tourId);
             if (toEnd == null) return null;
+
+            TourDate? dateToEnd = toEnd.Dates.Find(x => x.Id == dateId);
+            if (dateToEnd == null) return null;
+            dateToEnd.TourStatus = "Završena";
             _fileHandler.Save(_tours);
             return toEnd;
         }
 
-        public Tour Save(Tour tour)
-        {
-            tour.Id = NextId();
-            _tours.Add(tour);
-            _fileHandler.Save(_tours);
-            NotifyObservers();
-            return tour;
-        }
-
-        public void SaveAll(List<Tour> tours)
-        {
-            _fileHandler.Save(tours);
-            _tours = tours;
-            NotifyObservers();
-        }
 
         // [OBSERVERS]
         public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }

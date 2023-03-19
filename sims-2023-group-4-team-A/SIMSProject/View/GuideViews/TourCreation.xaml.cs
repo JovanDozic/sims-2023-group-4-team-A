@@ -67,7 +67,7 @@ namespace SIMSProject.View.GuideViews
             }
         }
         public string Images { get; set; } = "slika1.png,slika2.jpg...";
-        public User Guide { get; set; }
+        public Guest Guide { get; set; }
 
         public List<KeyPoint> NewKeyPoints { get; set; } = new();
         public List<TourDate> NewDates { get; set; } = new();
@@ -82,7 +82,7 @@ namespace SIMSProject.View.GuideViews
 
             New = new Tour();
 
-            Guide = new User("Admin", "Admin", USER_ROLE.GUIDE);
+            Guide = new Guest(256, "Admin", "Admin");
             Guide.Id = 256;
 
             TourLanguages = new()
@@ -113,8 +113,6 @@ namespace SIMSProject.View.GuideViews
                 
                 New.KeyPoints = NewKeyPoints;
                 New.Dates = NewDates;
-                New.AvailableSpots = New.MaxGuestNumber;
-                
                 New.TourLanguage = (string)LanguageCombo.SelectedItem;
                 
                 New.Guide = Guide;
@@ -158,7 +156,7 @@ namespace SIMSProject.View.GuideViews
             int seconds = 0;
 
             DateTime newDate = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, hours, minutes, seconds);
-            NewDates.Add(new(-1, SelectedDate, -1, -1));
+            NewDates.Add(new(-1, SelectedDate, -1, 0, -1));
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)

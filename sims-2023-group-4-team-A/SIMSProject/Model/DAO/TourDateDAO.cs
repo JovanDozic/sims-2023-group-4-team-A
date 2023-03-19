@@ -4,6 +4,8 @@ using SIMSProject.Observer;
 using SIMSProject.FileHandler;
 using SIMSProject.Controller;
 using System.Windows.Navigation;
+using SIMSProject.FileHandler.UserFileHandler;
+using SIMSProject.Model.UserModel;
 
 namespace SIMSProject.Model.DAO
 {
@@ -23,35 +25,12 @@ namespace SIMSProject.Model.DAO
 
         }
 
-        private void AssociateTourDates()
-        {
-            TourFileHandler tourFileHandler = new();
-            KeyPointFileHandler keyPointFileHandler = new();
-
-            List<Tour> tours = tourFileHandler.Load();
-            List<KeyPoint> keyPoints = keyPointFileHandler.Load();
-
-            foreach (TourDate date in _tourDates)
-            {
-                AssociateTour(tours, date);
-                AssociateCurrenKeyPoint(keyPoints, date);
-            }
-        }
-
-        private static void AssociateCurrenKeyPoint(List<KeyPoint> keyPoints, TourDate date)
-        {
-            KeyPoint current = keyPoints.Find(x => x.Id == date.CurrentKeyPointId);
-            date.CurrentKeyPoint = current;
-        }
-
-        private static void AssociateTour(List<Tour> tours, TourDate date)
-        {
-            Tour tour = tours.Find(x => x.Id == date.TourId);
-            date.Tour = tour;
-        }
-
         public int NextId() { return _tourDates.Max(x => x.Id) + 1; }
         public List<TourDate> GetAll() { return _tourDates; }
+        public TourDate Get(int id)
+        {
+            return _tourDates.Find(x => x.Id == id);
+        }
 
         public TourDate Save(TourDate tourDate)
         {
@@ -69,21 +48,88 @@ namespace SIMSProject.Model.DAO
             NotifyObservers();
         }
 
-        public void UpdateTourDate(TourDate tourDate)
+
+
+        private void AssociateTourDates()
         {
-            TourDate? oldTourDate = _tourDates.Find(x => x.Id == tourDate.Id);
+
+
+            foreach (TourDate date in _tourDates)
+            {
+                AssociateTour(date);
+                AssociateCurrenKeyPoint(date);
+                AssociateGuests(date);
+            }
+        }
+
+        private static void AssociateGuests(TourDate date)
+        {
+            GuestFileHandler guestFileHandler = new();
+            List<Guest> guests = guestFileHandler.Load();
+            TourGuestFileHandler tourGuestFileHandler = new();
+            List<TourGuest> tourGuests = tourGuestFileHandler.Load();
+
+
+            List<TourGuest> pairs = tourGuests.FindAll(x => x.TourDateId == date.Id);
+            foreach (var pair in pairs)
+            {
+                Guest? matchingGuest = guests.Find(x => x.Id == pair.GuestId);
+                if (matchingGuest == null) continue;
+                date.Guests.Add(matchingGuest);
+            }
+        }
+
+        private static void AssociateCurrenKeyPoint(TourDate date)
+        {
+            KeyPointFileHandler keyPointFileHandler = new();
+            List<KeyPoint> keyPoints = keyPointFileHandler.Load();
+
+            KeyPoint? current = keyPoints.Find(x => x.Id == date.CurrentKeyPointId);
+            if (current == null) return;
+            date.CurrentKeyPoint = current;
+        }
+
+        private static void AssociateTour(TourDate date)
+        {
+            TourFileHandler tourFileHandler = new();
+            List<Tour> tours = tourFileHandler.Load();
+
+            Tour? tour = tours.Find(x => x.Id == date.TourId);
+            if (tour == null) return;
+            date.Tour = tour;
+        }
+
+        public List<TourDate> FindByTour(int TourId)
+        {
+            return _tourDates.FindAll(x => x.TourId == TourId);
+        }
+
+        public void AdvanceToNextKeyPoint(int dateId, KeyPoint nextKeyPoint)
+        {
+            TourDate? date = Get(dateId);
+            if (date == null) return;
+
+            date.CurrentKeyPoint = nextKeyPoint;
+            date.CurrentKeyPointId = nextKeyPoint.Id;
+            _fileHandler.Save(_tourDates);
+        }
+
+        public void StartLiveTracking(TourDate tourDate)
+        {
+            TourDate? oldTourDate = Get(tourDate.Id);
             if (oldTourDate == null) return;
-            oldTourDate.TourStatus = tourDate.TourStatus;
+
+            oldTourDate.TourStatus = "Aktivna";
             oldTourDate.CurrentKeyPoint = tourDate.CurrentKeyPoint;
             oldTourDate.CurrentKeyPointId = tourDate.CurrentKeyPointId;
             _fileHandler.Save(_tourDates);
         }
 
-        public void EndTourDate(int tourDateId)
+        public void EndTourDate(int dateId)
         {
-            TourDate? tourDate = _tourDates.Find(x => x.Id == tourDateId);
-            if (tourDate == null) return;
-            tourDate.TourStatus = "Završena";
+            TourDate? toEnd = Get(dateId);
+            if (toEnd == null) return;
+            toEnd.TourStatus = "Završena";
             _fileHandler.Save(_tourDates);
         }
 

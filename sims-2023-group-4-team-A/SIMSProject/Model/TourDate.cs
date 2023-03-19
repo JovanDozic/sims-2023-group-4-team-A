@@ -1,13 +1,9 @@
-﻿using SIMSProject.Model;
+﻿using SIMSProject.Model.UserModel;
 using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Markup;
 
 
 namespace SIMSProject.Model
@@ -23,7 +19,7 @@ namespace SIMSProject.Model
             get => _date;
             set
             {
-                if (_date != value) 
+                if (_date != value)
                 {
                     _date = value;
                     OnPropertyChanged(nameof(Date));
@@ -49,11 +45,11 @@ namespace SIMSProject.Model
         public string TourStatus
         {
             get => _tourStatus switch
-                {
-                    Status.ACTIVE => "Aktivna",
-                    Status.INACTIVE => "Neaktivna",
-                    _ => "Završena"
-                };
+            {
+                Status.ACTIVE => "Aktivna",
+                Status.INACTIVE => "Neaktivna",
+                _ => "Završena"
+            };
             set => _tourStatus = value switch
             {
                 "Aktivna" => Status.ACTIVE,
@@ -68,16 +64,31 @@ namespace SIMSProject.Model
             get => _currentKeyPointId;
             set
             {
-                if(value != _currentKeyPointId)
+                if (value != _currentKeyPointId)
                 {
                     _currentKeyPointId = value;
                     OnPropertyChanged(nameof(CurrentKeyPointId));
                 }
             }
         }
+        private int _availableSpots;
+        public int AvailableSpots
+        {
+            get => _availableSpots;
+            set
+            {
+                if (_availableSpots != value)
+                {
+                    _availableSpots = value;
+                    OnPropertyChanged(nameof(AvailableSpots));
+                }
+            }
+        }
+
 
         public Tour Tour { get; set; } = new();
         public KeyPoint CurrentKeyPoint { get; set; } = new();
+        public List<Guest> Guests { get; set; } = new();
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
@@ -85,13 +96,14 @@ namespace SIMSProject.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public TourDate(){}
+        public TourDate() { }
 
-        public TourDate(int id, DateTime date, int tourId, int currentKeyPointId)
+        public TourDate(int id, DateTime date, int tourId, int availableSpots, int currentKeyPointId)
         {
             Id = id;
             Date = date;
             TourId = tourId;
+            AvailableSpots = availableSpots;
             CurrentKeyPointId = currentKeyPointId;
         }
 
@@ -100,21 +112,28 @@ namespace SIMSProject.Model
             return $"{Date}";
         }
 
-        
 
-            public void FromCSV(string[] values)
-            {
-                Id = Convert.ToInt32(values[0]);
-                Date = DateTime.Parse(values[1]);
-                TourId = Convert.ToInt32(values[2]);
-                TourStatus = values[3];
-                CurrentKeyPointId = Convert.ToInt32(values[4]);
-            }
 
-            public string[] ToCSV()
-            {
-                string[] csvValues = { Id.ToString(), Date.ToString(), TourId.ToString(), TourStatus, CurrentKeyPointId.ToString() };
-                return csvValues;
-            }
+        public void FromCSV(string[] values)
+        {
+            Id = Convert.ToInt32(values[0]);
+            Date = DateTime.Parse(values[1]);
+            TourId = Convert.ToInt32(values[2]);
+            TourStatus = values[3];
+            AvailableSpots = Convert.ToInt32(values[4]);
+            CurrentKeyPointId = Convert.ToInt32(values[5]);
+        }
+
+        public string[] ToCSV()
+        {
+            string[] csvValues = { Id.ToString(),
+                Date.ToString(),
+                TourId.ToString(),
+                TourStatus,
+                AvailableSpots.ToString(),
+                AvailableSpots.ToString(),
+                CurrentKeyPointId.ToString() };
+            return csvValues;
+        }
     }
 }

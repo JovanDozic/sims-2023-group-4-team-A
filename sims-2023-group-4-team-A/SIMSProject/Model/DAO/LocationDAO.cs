@@ -22,6 +22,7 @@ namespace SIMSProject.Model.DAO
 
         public List<Location> GetAll() { return _locations; }
         public int NextId() { return _locations.Max(x => x.Id) + 1; }
+        
         public Location Save(Location location)
         {
             location.Id = NextId();
@@ -31,10 +32,10 @@ namespace SIMSProject.Model.DAO
             return location;
         }
 
-        public void SaveAll(List<Location> tourLocations)
+        public void SaveAll(List<Location> locations)
         {
-            _fileHandler.Save(tourLocations);
-            _locations = tourLocations;
+            _fileHandler.Save(locations);
+            _locations = locations;
             NotifyObservers();
         }
 

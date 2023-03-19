@@ -30,9 +30,19 @@ namespace SIMSProject.Controller
             return _tourDates.Save(tourDate);
         }
 
-        public void Update(TourDate tourDate)
+        public List<TourDate> FindTodaysByTour(int TourId)
         {
-            _tourDates.UpdateTourDate(tourDate);
+            return _tourDates.FindByTour(TourId);
+        }
+
+        public void AdvanceToNext(int dateId, KeyPoint SelectedKeyPoint)
+        {
+            _tourDates.AdvanceToNextKeyPoint(dateId, SelectedKeyPoint);
+        }
+
+        public void StartTourLiveTracking(TourDate tourDate)
+        {
+            _tourDates.StartLiveTracking(tourDate);
         }
     }
 }

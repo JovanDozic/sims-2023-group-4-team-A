@@ -18,7 +18,7 @@ using System.Collections.ObjectModel;
 using SIMSProject.View.Guest1;
 using System.Runtime.CompilerServices;
 using System.ComponentModel;
-
+using SIMSProject.Model.UserModel;
 
 namespace SIMSProject.View.Guest1
 {
@@ -27,7 +27,7 @@ namespace SIMSProject.View.Guest1
     /// </summary>
     public partial class AccommodationSearchAndShowForm : Window, IObserver, INotifyPropertyChanged
     {
-
+        public Guest User = new();
         public Accommodation Accommodation { get; set; }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         private AccommodationController AccommodationControllers;
@@ -68,11 +68,13 @@ namespace SIMSProject.View.Guest1
             }
         }
 
-        public AccommodationSearchAndShowForm()
+        public AccommodationSearchAndShowForm(Guest user)
         {
             InitializeComponent();
 
             DataContext = this;
+
+            User = user;
 
             Accommodation = new();
 
@@ -136,7 +138,7 @@ namespace SIMSProject.View.Guest1
 
         private void Reservation_Click(object sender, RoutedEventArgs e)
         {
-            var openReservation = new AccommodationReservation(selectedAccommodation);
+            var openReservation = new AccommodationReservation(User, selectedAccommodation);
             openReservation.Show();
         }
 

@@ -9,11 +9,11 @@ namespace SIMSProject.Model
         public int Id { get; set; }
         public DateTime CreationTime { get; set; }
         public string Text { get; set; } = string.Empty;
-        public User User { get; set; } = new();
+        public Guest User { get; set; } = new();
 
         public Comment() { }
 
-        public Comment(DateTime creationTime, string text, User user)
+        public Comment(DateTime creationTime, string text, Guest user)
         {
             CreationTime = creationTime;
             Text = text;
@@ -31,7 +31,7 @@ namespace SIMSProject.Model
             Id = Convert.ToInt32(values[0]);
             CreationTime = Convert.ToDateTime(values[1]);
             Text = values[2];
-            User = new User() { Id = Convert.ToInt32(values[3]) };
+            User = new Guest() { Id = Convert.ToInt32(values[3]) };
         }
     }
 }

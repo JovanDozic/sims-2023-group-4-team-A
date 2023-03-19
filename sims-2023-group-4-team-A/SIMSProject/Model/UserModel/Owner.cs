@@ -1,10 +1,8 @@
 ﻿using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
-using SIMSProject.Model.UserModel;
 using System.Threading.Tasks;
 
 namespace SIMSProject.Model.UserModel
@@ -24,29 +22,33 @@ namespace SIMSProject.Model.UserModel
                 }
             }
         }
+        
+        // TODO: Add list of owned accommodations
 
-        public Owner()
-        {
+        public Owner() { }
 
-        }
-
-        public Owner(int id, string username, string password, int rating = 0)
+        public Owner(int id, string username, string password, double rating)
         {
             Id = id;
             Username = username;
             Password = password;
             _role = USER_ROLE.OWNER;
             Rating = rating;
-            // TODO: Add list of Accommodation IDs that Owner owns
         }
 
-        public new string[] ToCSV()
+        public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Username, Password, Role, Math.Round(Rating, 2).ToString() };
+            string[] csvValues = {
+                Id.ToString(),
+                Username,
+                Password,
+                Role,
+                Math.Round(Rating, 2).ToString(),
+            };
             return csvValues;
         }
 
-        public new void FromCSV(string[] values)
+        public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
             Username = values[1];

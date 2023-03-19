@@ -2,21 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:SIMSProject"
-             ShutdownMode="OnMainWindowClose"
-             
-             StartupUri="View/GuideViews/GuideInitialWindow.xaml"
-             
-             
-             
-             >
-    <!--
-    After 5th line follow ths:
-        6th line is for DEFAULT   e.g.    StartupUri="View/InitialWindow.xaml"
-        7th line is for OWNER     e.g.    StartupUri="View/OwnerViews/OwnerInitialWindow.xaml"
-        8th line is for GUEST1    e.g.    StartupUri="View/Guest1/AccommodationSearchAndShowForm.xaml"
-        9th line is for GUIDE     e.g.    StartupUri="View/GuideViews/TourCreation.xaml"
-       10th line is for GUEST2    e.g.    StartupUri="View/Guest2/ShowAndSearchTours.xaml"
-    -->
+             StartupUri="View/SignInForm.xaml">
+    <!--ShutdownMode="OnMainWindowClose"-->
     
     <Application.Resources>
     <ControlTemplate x:Key="ValidationTemplate">

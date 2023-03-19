@@ -25,7 +25,7 @@ namespace SIMSProject.View.GuideViews
         public TourDate SelectedDate { get; set; } = new();
         public List<TourDate> TodaysDates { get; set; } = new();
         private readonly TourDateController TourDateController = new();
-        private readonly TourController tourController = new();
+
 
         public TodaysTourPreviewWindow(Tour Tour)
         {
@@ -38,7 +38,7 @@ namespace SIMSProject.View.GuideViews
 
         private void GetTodaysAppointments()
         {
-            foreach (TourDate date in tourController.FindTodaysDatesByTour(SelectedTour.Id))
+            foreach (TourDate date in TourDateController.FindTodaysByTour(SelectedTour.Id))
             {
                 TodaysDates.Add(date);
             }
@@ -47,8 +47,8 @@ namespace SIMSProject.View.GuideViews
         private void LiveTrackBTN_Click(object sender, RoutedEventArgs e)
         {
 
-            TourDate activeDate = TodaysDates.Find(x => x.TourStatus.Equals("Aktivna"));
-            if(activeDate != null)
+            TourDate? activeDate = TodaysDates.Find(x => x.TourStatus.Equals("Aktivna"));
+            if (activeDate != null)
             {
                 if (activeDate.Id != SelectedDate.Id)
                 {
@@ -66,8 +66,7 @@ namespace SIMSProject.View.GuideViews
             TourDate LiveTrackingDate = SelectedDate;
             LiveTrackingDate.CurrentKeyPointId = SelectedTour.KeyPoints[0].Id;
             LiveTrackingDate.CurrentKeyPoint = SelectedTour.KeyPoints[0];
-            LiveTrackingDate.TourStatus = "Aktivna";
-            TourDateController.Update(LiveTrackingDate);
+            TourDateController.StartTourLiveTracking(LiveTrackingDate);
 
             TourLiveTrackingWindow window = new TourLiveTrackingWindow(LiveTrackingDate);
             window.Show();

@@ -15,8 +15,8 @@ namespace SIMSProject.View
 
         private void Guest1_Click(object sender, RoutedEventArgs e)
         {
-            AccommodationSearchAndShowForm accommondationSearchAndShowForm = new();
-            accommondationSearchAndShowForm.Show();
+           // AccommodationSearchAndShowForm accommondationSearchAndShowForm = new();
+            //accommondationSearchAndShowForm.Show();
         }
 
         private void Guest2_Click(object sender, RoutedEventArgs e)
@@ -35,8 +35,6 @@ namespace SIMSProject.View
         {
             GuideInitialWindow window = new();
             window.Show();
-            
-            
         }
     }
 }

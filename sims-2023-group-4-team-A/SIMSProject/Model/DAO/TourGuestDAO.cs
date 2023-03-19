@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using SIMSProject.Model.DAO;
+﻿using SIMSProject.FileHandler;
 using SIMSProject.Observer;
-using SIMSProject.FileHandler;
+using System.Collections.Generic;
 
 namespace SIMSProject.Model.DAO
 {
@@ -22,35 +20,7 @@ namespace SIMSProject.Model.DAO
 
         }
 
-        private void AssociateTourGuests()
-        {
-            TourDateFileHandler dateHandler = new();
-            KeyPointFileHandler keyPointFileHandler = new();
-
-            List<TourDate> tourDates = dateHandler.Load();
-            List<KeyPoint> keyPoints = keyPointFileHandler.Load();
-
-            foreach (TourGuest tourGuest in _tourGuests)
-            {
-                AssociateDate(tourDates, tourGuest);
-                AssociateJoinedKeyPoint(keyPoints, tourGuest);
-            }
-        }
-
-        private static void AssociateJoinedKeyPoint(List<KeyPoint> keyPoints, TourGuest tourGuest)
-        {
-            KeyPoint keyPoint = keyPoints.Find(x => x.Id == tourGuest.JoinedKeyPointId);
-            tourGuest.JoinedKeyPoint = keyPoint;
-        }
-
-        private static void AssociateDate(List<TourDate> tourDates, TourGuest tourGuest)
-        {
-            TourDate tourDate = tourDates.Find(x => x.Id == tourGuest.TourDateId);
-            tourGuest.TourDate = tourDate;
-        }
-
         public List<TourGuest> GetAll() { return _tourGuests; }
-
         public TourGuest Save(TourGuest tourGuest)
         {
             _tourGuests.Add(tourGuest);
@@ -65,6 +35,39 @@ namespace SIMSProject.Model.DAO
             _tourGuests = tourGuests;
             NotifyObservers();
         }
+
+
+        private void AssociateTourGuests()
+        {
+
+            foreach (TourGuest tourGuest in _tourGuests)
+            {
+                AssociateDate(tourGuest);
+                AssociateJoinedKeyPoint(tourGuest);
+            }
+        }
+
+        private static void AssociateJoinedKeyPoint(TourGuest tourGuest)
+        {
+            KeyPointFileHandler keyPointFileHandler = new();
+            List<KeyPoint> keyPoints = keyPointFileHandler.Load();
+
+
+            KeyPoint? keyPoint = keyPoints.Find(x => x.Id == tourGuest.JoinedKeyPointId);
+            if (keyPoint == null) return;
+            tourGuest.JoinedKeyPoint = keyPoint;
+        }
+
+        private static void AssociateDate(TourGuest tourGuest)
+        {
+            TourDateFileHandler dateHandler = new();
+            List<TourDate> tourDates = dateHandler.Load();
+
+            TourDate? tourDate = tourDates.Find(x => x.Id == tourGuest.TourDateId);
+            if(tourDate == null) return;
+            tourGuest.TourDate = tourDate;
+        }
+
 
         // [OBSERVERS]
         public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }

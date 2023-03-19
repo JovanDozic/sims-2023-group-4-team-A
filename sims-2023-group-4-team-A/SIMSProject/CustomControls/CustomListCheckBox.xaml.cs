@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,13 +46,17 @@ namespace SIMSProject.CustomControls
             var customListBox = d as CustomListCheckBox;
             customListBox.listBox.ItemsSource = e.NewValue as IEnumerable<object>;
         }
+        
+        
+        public static readonly DependencyProperty SelectedItemProperty =
+        DependencyProperty.Register("SelectedItem", typeof(object), typeof(CustomListCheckBox), new FrameworkPropertyMetadata(null));
 
-        public IEnumerable<object> SelectedItems
+        public object SelectedItem
         {
-            get
-            {
-                return listBox.SelectedItems.Cast<object>();
-            }
+            get { return (object)GetValue(SelectedItemProperty); }
+            set { SetValue(SelectedItemProperty, value); }
         }
+
+       
     }
 }

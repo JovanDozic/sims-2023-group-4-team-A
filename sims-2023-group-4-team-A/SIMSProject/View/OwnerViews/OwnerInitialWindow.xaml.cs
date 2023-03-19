@@ -29,14 +29,10 @@ namespace SIMSProject.View.OwnerViews
             window.Show();
         }
 
-        private void RatingInput_GotFocus(object sender, RoutedEventArgs e)
-        {
-            Trace.WriteLine("ovo " + Accommodation.MaxGuestNumber.ToString());
-        }
-
         private void OpenRateGuestWindowButton_Click(object sender, RoutedEventArgs e)
         {
-
+            RateGuest window = new();
+            window.Show();
         }
     }
 }

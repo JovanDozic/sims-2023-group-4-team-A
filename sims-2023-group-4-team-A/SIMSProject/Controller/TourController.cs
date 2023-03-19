@@ -59,9 +59,9 @@ namespace SIMSProject.Controller
             return _tours.FindTodaysTours();
         }
 
-        public List<TourDate> FindTodaysDatesByTour(int TourId)
+        public KeyPoint FindNext(TourDate Date)
         {
-            return _tours.FindTodaysDatesById(TourId);
+            return _tours.GetNextKeyPoint(Date);
         }
 
 

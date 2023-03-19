@@ -5,7 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cstm="clr-namespace:SIMSProject.CustomControls"
         mc:Ignorable="d"
-        Title="TourLiveTrackingWindow" Height="450" Width="800">
+        Title="TourLiveTrackingWindow" Height="450" Width="800"
+        >
+    <Window.Resources>
+        <Style x:Key="{x:Type ListBoxItem}" TargetType="{x:Type ListBoxItem}">
+            <!-- Possibly other setters -->
+            <Setter Property="Focusable" Value="False"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -21,14 +28,16 @@
                        Margin="0,10,0,0"
                        FontSize="20"/>
                 <ListBox x:Name="Away_guests"
-                         Margin="0,0,20,0"/>
+                         Margin="0,0,20,0"
+                         ItemsSource="{Binding AbsentGuests,UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Grid.Row="1">
                 <Label Content="Prisutni gosti:" 
                        Margin="0,10,0,0"
                        FontSize="20"/>
                 <ListBox x:Name="Present_guests"
-                         Margin="0,0,20,0"/>
+                         Margin="0,0,20,0"
+                         ItemsSource="{Binding PresentGuests, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </Grid>
         <Grid>
@@ -51,7 +60,15 @@
                         Height="50"
                         Margin="20,0,0,0"/>
             </StackPanel>
-            <cstm:CustomListCheckBox ItemsSource="{Binding KeyPoints}"/>
+            <ListBox
+                Width="270"
+                Height="210"
+                Grid.Row="1"
+                FontSize="15"
+                ItemsSource="{Binding KeyPoints}"
+                SelectedItem="{Binding SelectedKeyPoint, UpdateSourceTrigger=PropertyChanged}"
+                SelectionChanged="ListBox_SelectionChanged" BorderBrush="White" Margin="19,17,111,17"
+                />
         </Grid>
     </Grid>
 </Window>
