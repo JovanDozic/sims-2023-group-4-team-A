@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Xml.Linq;
+using System.Diagnostics;
 
 namespace SIMSProject.Model.DAO
 {
@@ -161,10 +162,24 @@ namespace SIMSProject.Model.DAO
         }
 
 
+        public List<Tour> GetToursWithSameLocation(Tour selectedTour)
+        {
+            List<Tour> tours = new();
+            foreach (Tour tour in GetAll())
+            {
+                if (tour.Location.Id == selectedTour.Location.Id && tour.Id != selectedTour.Id)
+                {
+                    tours.Add(tour);
+                }
+            }
+            return tours;
+        }
+
         // [OBSERVERS]
         public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }
         public void Subscribe(IObserver observer) { _observers.Add(observer); }
         public void Unsubscribe(IObserver observer) { _observers.Remove(observer); }
 
+        
     }
 }

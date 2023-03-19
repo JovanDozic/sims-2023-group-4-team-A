@@ -33,6 +33,12 @@ namespace SIMSProject.Model.UserModel
 
         public Guide(int id, string username, string password, double rating)
         {
+            
+        }
+
+        public Guide(int id, string username, string password,  double rating)
+>>>>>>>>> Temporary merge branch 2
+        {
             Id = id;
             Username = username;
             Password = password;

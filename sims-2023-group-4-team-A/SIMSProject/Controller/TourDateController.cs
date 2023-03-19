@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using SIMSProject.Model.DAO;
 using SIMSProject.Model;
+using System;
 
 namespace SIMSProject.Controller
 {
@@ -18,6 +19,11 @@ namespace SIMSProject.Controller
         public List<TourDate> GetAll()
         {
             return _tourDates.GetAll();
+        }
+
+        public List<TourDate> GetAllByTourId(int tourId)
+        {
+            return _tourDates.GetAllByTourId(tourId);
         }
 
         public void SaveAll(List<TourDate> tourDates)
@@ -54,6 +60,9 @@ namespace SIMSProject.Controller
         {
             return _tourDates.InitializeTour(tourDate, tour);
         }
-
+        public void UpdateAvailableSpots(TourDate tourDate)
+        {
+            _tourDates.UpdateAvailableSpots(tourDate);
+        }
     }
 }

@@ -19,6 +19,7 @@ using System.Diagnostics;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using SIMSProject.View.Guest2;
+using SIMSProject.Model.UserModel;
 
 namespace SIMSProject.View.Guest2
 {
@@ -29,6 +30,7 @@ namespace SIMSProject.View.Guest2
 
     public partial class ShowAndSearchTours : Window, INotifyPropertyChanged
     {
+        public Guest User = new();
         public Tour Tour { get; set; } = new();
         public Tour SelectedTour { get; set; } = new();
 
@@ -66,10 +68,11 @@ namespace SIMSProject.View.Guest2
 
 
 
-        public ShowAndSearchTours()
+        public ShowAndSearchTours(Guest user)
         {
             InitializeComponent();
             this.DataContext = this;
+            User = user;
             
             TourController = new TourController();
             
@@ -146,8 +149,8 @@ namespace SIMSProject.View.Guest2
         {
             if(SelectedTour != null) 
             {
-                TourReservation tourReservation = new TourReservation(SelectedTour);
-                tourReservation.Show();
+                TourReservationCreation tourReservationCreation = new TourReservationCreation(User, SelectedTour);
+                tourReservationCreation.Show();
             }
             else
             {

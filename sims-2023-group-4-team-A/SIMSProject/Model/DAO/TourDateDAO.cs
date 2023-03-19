@@ -99,7 +99,22 @@ namespace SIMSProject.Model.DAO
             date.Tour = tour;
         }
 
-        public List<TourDate> FindByTour(int TourId)
+        public int NextId() { return _tourDates.Max(x => x.Id) + 1; }
+        public List<TourDate> GetAll() { return _tourDates; }
+        public List<TourDate> GetAllByTourId(int tourId)
+        {
+            List<TourDate> dates = new();
+            foreach(TourDate date in GetAll())
+            {
+                if(date.TourId == tourId)
+                {
+                    dates.Add(date);
+                }
+            }
+            return dates;
+        }
+
+        public TourDate Save(TourDate tourDate)
         {
             return _tourDates.FindAll(x => x.TourId == TourId);
         }
@@ -112,6 +127,14 @@ namespace SIMSProject.Model.DAO
             date.CurrentKeyPoint = nextKeyPoint;
             date.CurrentKeyPointId = nextKeyPoint.Id;
             _fileHandler.Save(_tourDates);
+        }
+        public void UpdateAvailableSpots(TourDate tourDate)
+        {
+            TourDate? oldTourDate = _tourDates.Find(x => x.Id == tourDate.Id);
+            if (oldTourDate == null) return;
+            oldTourDate.AvailableSpots = tourDate.AvailableSpots;
+            _fileHandler.Save(_tourDates);
+            NotifyObservers();
         }
 
         public void StartLiveTracking(TourDate tourDate)
@@ -149,5 +172,7 @@ namespace SIMSProject.Model.DAO
         public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }
         public void Subscribe(IObserver observer) { _observers.Add(observer); }
         public void Unsubscribe(IObserver observer) { _observers.Remove(observer); }
+
+        
     }
 }

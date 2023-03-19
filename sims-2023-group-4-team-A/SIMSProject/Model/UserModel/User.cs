@@ -87,5 +87,15 @@ namespace SIMSProject.Model.UserModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public string[] ToCSV()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void FromCSV(string[] values)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

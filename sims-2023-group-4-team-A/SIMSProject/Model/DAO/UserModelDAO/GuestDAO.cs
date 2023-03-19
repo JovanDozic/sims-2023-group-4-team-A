@@ -23,6 +23,9 @@ namespace SIMSProject.Model.DAO.UserModelDAO
             _guests = _fileHandler.Load();
             _observers = new();
 
+            var tourReservations = new TourReservationDAO().GetAll();
+            foreach (var guest in _guests) guest.TourReservations = tourReservations.FindAll(x => x.GuestId == guest.Id);
+
             var reservations = new AccommodationReservationFileHandler().Load();
             foreach (var guest in _guests) guest.AccommodationReservations = reservations.FindAll(x => x.Guest.Id == guest.Id);
 

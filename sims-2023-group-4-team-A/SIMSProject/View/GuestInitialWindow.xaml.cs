@@ -37,7 +37,7 @@ namespace SIMSProject.View
 
         private void OpenTours_Click(object sender, RoutedEventArgs e)
         {
-            ShowAndSearchTours window = new();
+            ShowAndSearchTours window = new(User);
             window.Show();
         }
     }

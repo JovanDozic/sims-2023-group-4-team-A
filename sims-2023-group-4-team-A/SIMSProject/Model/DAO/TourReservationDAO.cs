@@ -12,20 +12,22 @@ namespace SIMSProject.Model.DAO
     {
         private List<IObserver> _observers;
         private TourReservationFileHandler _fileHandler;
-        private List<TourReservation> _tourReservation;
+        private List<TourReservation> _tourReservations;
 
         public TourReservationDAO()
         {
             _fileHandler = new();
-            _tourReservation = _fileHandler.Load();
+            _tourReservations = _fileHandler.Load();
             _observers = new();
         }
-        public List<TourReservation> GetAll() { return _tourReservation; }
+        public List<TourReservation> GetAll() { return _tourReservations; }
 
+        public int NextId() { return _tourReservations.Max(x => x.Id) + 1; }
         public TourReservation Save(TourReservation tourReservation)
         {
-            _tourReservation.Add(tourReservation);
-            _fileHandler.Save(_tourReservation);
+            tourReservation.Id = NextId();
+            _tourReservations.Add(tourReservation);
+            _fileHandler.Save(_tourReservations);
             NotifyObservers();
             return tourReservation;
         }
@@ -33,7 +35,7 @@ namespace SIMSProject.Model.DAO
         public void SaveAll(List<TourReservation> tourReservation)
         {
             _fileHandler.Save(tourReservation);
-            _tourReservation = tourReservation;
+            _tourReservations = tourReservation;
             NotifyObservers();
         }
 

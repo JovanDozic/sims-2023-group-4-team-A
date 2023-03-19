@@ -34,19 +34,9 @@ namespace SIMSProject.Controller
             return _tours.Save(tour);
         }
 
-        public List<Tour> SearchLocations(string locationId)
+        public List<Tour> GetToursWithSameLocation(Tour selectedTour)
         {
-            return _tours.SearchLocations(locationId);
-        }
-
-        public List<Tour> SearchDurations(string duration)
-        {
-            return _tours.SearchDurations(duration);
-        }
-
-        public List<Tour> SearchLanguages(string language)
-        {
-            return _tours.SearchLanguages(language);
+            return _tours.GetToursWithSameLocation(selectedTour);
         }
 
         public List<Tour> SearchMaxGuest(string maxGuests)
