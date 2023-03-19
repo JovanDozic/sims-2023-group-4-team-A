@@ -34,5 +34,10 @@ namespace SIMSProject.Controller
         {
             return _tourDates.Save(tourDate);
         }
+
+        public void Update(TourDate tourDate)
+        {
+            _tourDates.UpdateTourDate(tourDate);
+        }
     }
 }

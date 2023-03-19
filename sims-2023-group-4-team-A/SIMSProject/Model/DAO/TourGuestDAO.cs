@@ -9,7 +9,7 @@ namespace SIMSProject.Model.DAO
     public class TourGuestDAO : ISubject
     {
         private List<IObserver> _observers;
-        private TourGuestFileHandler _fileHandler;
+        private readonly TourGuestFileHandler _fileHandler;
         private List<TourGuest> _tourGuests;
 
         public TourGuestDAO()
@@ -17,7 +17,38 @@ namespace SIMSProject.Model.DAO
             _fileHandler = new();
             _tourGuests = _fileHandler.Load();
             _observers = new();
+
+            AssociateTourGuests();
+
         }
+
+        private void AssociateTourGuests()
+        {
+            TourDateFileHandler dateHandler = new();
+            KeyPointFileHandler keyPointFileHandler = new();
+
+            List<TourDate> tourDates = dateHandler.Load();
+            List<KeyPoint> keyPoints = keyPointFileHandler.Load();
+
+            foreach (TourGuest tourGuest in _tourGuests)
+            {
+                AssociateDate(tourDates, tourGuest);
+                AssociateJoinedKeyPoint(keyPoints, tourGuest);
+            }
+        }
+
+        private static void AssociateJoinedKeyPoint(List<KeyPoint> keyPoints, TourGuest tourGuest)
+        {
+            KeyPoint keyPoint = keyPoints.Find(x => x.Id == tourGuest.JoinedKeyPointId);
+            tourGuest.JoinedKeyPoint = keyPoint;
+        }
+
+        private static void AssociateDate(List<TourDate> tourDates, TourGuest tourGuest)
+        {
+            TourDate tourDate = tourDates.Find(x => x.Id == tourGuest.TourDateId);
+            tourGuest.TourDate = tourDate;
+        }
+
         public List<TourGuest> GetAll() { return _tourGuests; }
 
         public TourGuest Save(TourGuest tourGuest)

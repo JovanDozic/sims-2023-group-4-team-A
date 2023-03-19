@@ -192,7 +192,7 @@ namespace SIMSProject.Model
 
         private StringBuilder CreateImageURLs()
         {
-            StringBuilder imageURLs = new StringBuilder();
+            StringBuilder imageURLs = new();
             foreach (string imageURL in Images)
             {
                 imageURLs.Append(imageURL + ",");
@@ -210,10 +210,8 @@ namespace SIMSProject.Model
         }
 
         /*Validation*/
-        Regex NameReg = new Regex("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$");
-        Regex MaxGuestsReg = new Regex("^[0-9]+$");
-        Regex DurationReg = new Regex("^[0-9]{1}");
-        Regex DescriptionReg = new Regex("^\\w+(\\s+\\w+){2,}$");
+        readonly Regex NameReg = new("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$");
+        readonly Regex DescriptionReg = new("^\\w+(\\s+\\w+){2,}$");
 
         public string Error => null;
 

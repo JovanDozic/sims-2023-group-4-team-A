@@ -68,7 +68,7 @@ namespace SIMSProject.Model
 
         public override string ToString()
         {
-            return $"{Description}, {Location}";
+            return $"{Description} {Location}";
         }
 
         public string[] ToCSV()

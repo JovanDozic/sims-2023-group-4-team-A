@@ -36,14 +36,23 @@ namespace SIMSProject.Model.DAO
 
             foreach (var keyPoint in _keyPoints)
             {
-                keyPoint.Location = toursLocations.Find(x => x.Id == keyPoint.LocationId);
+                AssociateLocation(toursLocations, keyPoint);
+                AssociateTours(tours, tourKeyPoints, keyPoint);
+            }
+        }
 
-                List<TourKeyPoint> pairs = tourKeyPoints.FindAll(x => x.KeyPointId == keyPoint.Id);
-                foreach (var pair in pairs)
-                {
-                    Tour matchingTour = tours.Find(x => x.Id == pair.TourId);
-                    keyPoint.Tours.Add(matchingTour);
-                }
+        private static void AssociateLocation(List<Location> toursLocations, KeyPoint keyPoint)
+        {
+            keyPoint.Location = toursLocations.Find(x => x.Id == keyPoint.LocationId);
+        }
+
+        private static void AssociateTours(List<Tour> tours, List<TourKeyPoint> tourKeyPoints, KeyPoint keyPoint)
+        {
+            List<TourKeyPoint> pairs = tourKeyPoints.FindAll(x => x.KeyPointId == keyPoint.Id);
+            foreach (var pair in pairs)
+            {
+                Tour matchingTour = tours.Find(x => x.Id == pair.TourId);
+                keyPoint.Tours.Add(matchingTour);
             }
         }
 
