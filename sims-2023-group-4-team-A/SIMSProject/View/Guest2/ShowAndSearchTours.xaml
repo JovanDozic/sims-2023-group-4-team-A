@@ -32,10 +32,9 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=Name}" Header="Naziv" Width="200" x:Name="name"/>
                 <DataGridTextColumn Binding="{Binding Path = Location}" Header="Lokacija" Width="150" x:Name="location"/>
-                <DataGridTextColumn Binding="{Binding Duration}" Header="Trajanje ture" Width="100" x:Name="duration"/>
+                <DataGridTextColumn Binding="{Binding Path = Duration}" Header="Trajanje ture" Width="100" x:Name="duration"/>
                 <DataGridTextColumn Binding="{Binding Path = TourLanguage}" Header="Jezik" Width="80" x:Name="tourLanguage"/>
                 <DataGridTextColumn Binding="{Binding MaxGuestNumber}" Header="Broj ljudi na turi" Width="100" x:Name="maxGuestNumber"/>
-                <DataGridTextColumn Binding="{Binding AvailableSpots}" Header="Slobodna mesta" Width="100" x:Name="availableSpots"/>
             </DataGrid.Columns>
         </DataGrid>
 

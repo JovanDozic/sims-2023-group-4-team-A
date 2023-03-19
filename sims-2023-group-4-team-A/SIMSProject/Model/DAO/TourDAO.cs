@@ -98,7 +98,7 @@ namespace SIMSProject.Model.DAO
             List<Tour> tours = new();
             foreach (Tour tour in GetAll())
             {
-                if (tour.Location.Id == selectedTour.Location.Id && tour.Id!=selectedTour.Id)
+                if (tour.Location.Id == selectedTour.Location.Id && tour.Id != selectedTour.Id)
                 {
                     tours.Add(tour);
                 }

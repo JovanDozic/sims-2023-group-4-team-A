@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SIMSProject.View.Guest2"
         xmlns:cstm="clr-namespace:SIMSProject.CustomControls"
         mc:Ignorable="d"
-        Title="Tour details and reservation" Height="750" Width="800"
+        Title="Tour details and reservation" Height="650" Width="800"
         WindowStartupLocation="CenterScreen"
         Background="Beige">
     <Grid Margin="5">
@@ -24,8 +24,8 @@
             <RowDefinition Height="35"></RowDefinition>
             <RowDefinition Height="35"></RowDefinition>
             <RowDefinition Height="35"></RowDefinition>
-            <RowDefinition Height="35"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
             <RowDefinition Height="35"></RowDefinition>
             <RowDefinition Height="100"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
@@ -39,21 +39,19 @@
         <TextBox x:Name="TBLocation" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="30" IsReadOnly="True"/>
         <Label FontSize="15" Content="Opis ture" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <TextBox x:Name="TBDescription" TextWrapping="Wrap" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="60" IsReadOnly="True"/>
-        <Label FontSize="15" Content="Kljucne tacke" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Label FontSize="15" Content="Ključne tačke" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <TextBox x:Name="TBKeyPoints" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="60" IsReadOnly="True"/>
         <Label FontSize="15" Content="Trajanje ture" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <TextBox x:Name="TBDuration" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="30" IsReadOnly="True"/>
         <Label FontSize="15" Content="Jezik" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <TextBox x:Name="TBLanguage" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="30" IsReadOnly="True"/>
-        <Label FontSize="15" Content="Kapacitet gostiju" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Label FontSize="15" Content="Kapacitet ture" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <TextBox x:Name="TBMaxGuests" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="30" IsReadOnly="True"/>
-        <Label FontSize="15" Content="Slobodna mesta" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <TextBox x:Name="TBAvailableSpots" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="30" IsReadOnly="True"/>
-
+        
 
         <Label Content="Slike:" Grid.Row="0" Grid.Column="2" FontSize="15" HorizontalAlignment="Center"/>
         <GridSplitter Grid.Row="8" Grid.ColumnSpan="3" Height="5" Background="Gray"  HorizontalAlignment="Stretch"/>
-        <Label FontSize="20" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Izvrsi rezervaciju ture" Grid.ColumnSpan="2"/>
+        <Label FontSize="20" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Izvrši rezervaciju ture" Grid.ColumnSpan="2"/>
         <Grid Grid.Row="10" Grid.Column="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -77,24 +75,42 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Label Grid.Row="1" Content="Izaberi termin: " FontSize="15" HorizontalAlignment="Center"/>
-            <ComboBox x:Name="CBSelectedTourDate" Grid.Row="2" Height="30" Width="150" ItemsSource="{Binding TourDates}" SelectedValue="{Binding SelectedDate}"/>
+            <ComboBox x:Name="CBSelectedTourDate" Grid.Row="2" Height="30" Width="150" ItemsSource="{Binding CBTourDates, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding SelectedTourDate}"/>
         </Grid>
         <Label FontSize="15" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Alternativne ture:" Grid.ColumnSpan="2"/>
         <DataGrid x:Name="AlternativeGrid" Height="100" Width="400" Grid.Row="12" Grid.ColumnSpan="2" Visibility="Visible"
-                   SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"
+                   SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" 
+                  SelectionChanged="AlternativeGrid_SelectionChanged"
                   ItemsSource="{Binding Path=AlternativeTours, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=AlternativeTour, UpdateSourceTrigger=PropertyChanged}"
                   >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv" Binding="{Binding Name}" Width="150"/>
                 <DataGridTextColumn Header="Lokacija" Binding="{Binding Location}" Width="150"/>
-                <DataGridTextColumn Header="Slobodna mesta" Binding="{Binding AvailableSpots}"/>
+                <DataGridTextColumn Header="Kapacitet" Binding="{Binding MaxGuestNumber}"/>
             </DataGrid.Columns>
 
         </DataGrid>
-        <Button Content="Rezervisi" Grid.Column="2" Grid.Row="12" Height="30" Margin="145,35,10,35" Click="Reservation_Click"/>
+        <Button Content="Rezerviši" Grid.Column="2" Grid.Row="12" Height="30" Margin="145,35,10,35" Click="Reservation_Click"/>
         <Button Content="Odustani" Grid.Column="2" Grid.Row="12" Height="30" Margin="10,35,145,35" Click="Cancel_Click"/>
 
+        <DataGrid Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Margin="30,10,30,10"
+                  
+                  SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"
+                  HorizontalScrollBarVisibility="Visible">
+            <DataGrid.Columns>
+                <DataGridTextColumn />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="3" Grid.Column="2" Grid.RowSpan="3" Margin="30,10,30,10" >
+            <Border BorderThickness="2" BorderBrush="#ffb0b0b0" Panel.ZIndex="1">
+                <Image />
+            </Border>
+            <TextBlock Text="Slika..." FontSize="14"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                       Foreground="#ffb0b0b0"
+                       Panel.ZIndex="0"/>
+        </Grid>
         <!-- <TextBox>Unesite zeljeni broj ljudi za rezervaciju ture:</TextBox>
         <TextBox x:Name="ReservationNumber" Height="50"/>
         <Button Click="Reserve_Click" Height="20" Width="50" Content="Rezervisi"/> -->
