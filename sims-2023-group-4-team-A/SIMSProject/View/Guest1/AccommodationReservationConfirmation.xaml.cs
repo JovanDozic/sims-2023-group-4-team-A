@@ -33,7 +33,7 @@ namespace SIMSProject.View.Guest1
         public string FormattedDateRange => $"{DateRange[0]:dd/MM/yyyy} - {DateRange[1]:dd/MM/yyyy}";
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        private int _guestsNumber;
+        private int _guestsNumber = 1;
         public int GuestsNumber
         {
             get => _guestsNumber;
@@ -47,7 +47,7 @@ namespace SIMSProject.View.Guest1
                 }
             }
         }
-        private int _numberOfDays;
+        private int _numberOfDays = 1;
         public int NumberOfDays
         {
             get => _numberOfDays;
@@ -65,6 +65,7 @@ namespace SIMSProject.View.Guest1
         public AccommodationReservationConfirmation(Guest user, Accommodation accommodation)
         {
             InitializeComponent();
+            DataContext = this;
             Accommodation = accommodation;
             Controller = new AccommodationReservationController();
             NameTextBlock.Text = Accommodation.Name;
