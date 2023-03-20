@@ -1,16 +1,13 @@
-﻿using SIMSProject.Model;
-using SIMSProject.FileHandler;
-using SIMSProject.View;
-using SIMSProject.View.OwnerViews;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using SIMSProject.FileHandler.UserFileHandler;
+using System.Windows.Controls;
+using System.Windows.Input;
 using SIMSProject.Controller.UserController;
 using SIMSProject.Model.UserModel;
-using System.Windows.Input;
-using System.Windows.Controls;
+using SIMSProject.View;
 using SIMSProject.View.GuideViews;
+using SIMSProject.View.OwnerViews;
 
 namespace SIMSProject
 {
@@ -18,7 +15,6 @@ namespace SIMSProject
     {
         private readonly UserController _userController;
         private readonly GuideController guideController;
-
         private string _username = string.Empty;
         public string Username
         {
@@ -38,8 +34,8 @@ namespace SIMSProject
             InitializeComponent();
             DataContext = this;
 
-            _userController = new();
-            guideController = new();
+            _userController = new UserController();
+            guideController = new GuideController();
         }
 
         private void SignIn(object? sender, RoutedEventArgs? e)
@@ -47,41 +43,54 @@ namespace SIMSProject
             var user = _userController.GetByUsername(Username) as User;
 
             if (user != null)
+            {
                 if (user.Password == txtPassword.Password)
+                {
                     switch (user.Role)
                     {
                         case "Vlasnik":
-                            {
-                                OwnerInitialWindow window = new(user as Owner ?? new Owner(0, "<null>", "<null>"));
-                                window.Show();
-                                break;
-                            }
+                        {
+                            OwnerInitialWindow window = new(user as Owner ?? new Owner(0, "<null>", "<null>"));
+                            window.Show();
+                            break;
+                        }
                         case "Vodič":
-                            {
-                                Guide guide = guideController.GetByID(user.Id);
-                                GuideInitialWindow window = new(guide);
-                                window.Show();
-                                break;
-                            }
+                        {
+                            var guide = guideController.GetByID(user.Id);
+                            GuideInitialWindow window = new(guide);
+                            window.Show();
+                            break;
+                        }
                         case "Gost":
-                            {
-                                GuestInitialWindow window = new(user as Guest ?? new Guest(0, "<null>", "<null>"));
-                                window.Show();
-                                break;
-                            }
+                        {
+                            GuestInitialWindow window = new(user as Guest ?? new Guest(0, "<null>", "<null>"));
+                            window.Show();
+                            break;
+                        }
                     }
-                else MessageBox.Show("Pogrešna šifra!", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
-            else MessageBox.Show(Username + " korisnik ne postoji!", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Pogrešna šifra!", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show(Username + " korisnik ne postoji!", "Greška!", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+
             Close();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.Enter))
             {
@@ -104,7 +113,7 @@ namespace SIMSProject
             var senderButton = sender as Button;
             if (senderButton != null)
             {
-                string senderName = senderButton.Name.ToString() ?? "";
+                var senderName = senderButton.Name ?? "";
                 if (senderName == "BTNGoToOwner")
                 {
                     Username = "jovan";

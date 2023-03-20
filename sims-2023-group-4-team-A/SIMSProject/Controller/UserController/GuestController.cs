@@ -1,18 +1,18 @@
-﻿using SIMSProject.Model.DAO.UserModelDAO;
+﻿using System.Collections.Generic;
+using SIMSProject.Model.DAO.UserModelDAO;
 using SIMSProject.Model.UserModel;
-using System.Collections.Generic;
 
 namespace SIMSProject.Controller.UserController
 {
     public class GuestController
     {
-        private GuestDAO _guests;
+        private readonly GuestDAO _guests;
         public Guest Guest;
 
         public GuestController()
         {
-            _guests = new();
-            Guest = new();
+            _guests = new GuestDAO();
+            Guest = new Guest();
         }
 
         public List<Guest> GetAll()

@@ -1,10 +1,6 @@
-﻿using SIMSProject.Model.UserModel;
+﻿using System.Collections.Generic;
+using SIMSProject.Model.UserModel;
 using SIMSProject.Serializer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SIMSProject.FileHandler.UserFileHandler
 {
@@ -15,7 +11,7 @@ namespace SIMSProject.FileHandler.UserFileHandler
 
         public GuestFileHandler()
         {
-            _serializer = new();
+            _serializer = new Serializer<Guest>();
         }
 
         public List<Guest> Load()

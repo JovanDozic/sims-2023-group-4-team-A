@@ -1,23 +1,18 @@
-﻿using SIMSProject.Model.DAO;
+﻿using System.Collections.Generic;
 using SIMSProject.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SIMSProject.View.Guest1;
+using SIMSProject.Model.DAO;
 
 namespace SIMSProject.Controller
 {
     public class AccommodationController
     {
-        private AccommodationDAO _accommodations;
+        private readonly AccommodationDAO _accommodations;
         public Accommodation Accommodation;
 
         public AccommodationController()
         {
-            _accommodations = new();
-            Accommodation = new();
+            _accommodations = new AccommodationDAO();
+            Accommodation = new Accommodation();
         }
 
         public List<Accommodation> GetAll()
@@ -34,12 +29,20 @@ namespace SIMSProject.Controller
         {
             return _accommodations.Save(accommodation);
         }
-        
+
         public ACCOMMODATION_TYPE GetType(string type)
         {
-            if (type == "Apartman") return ACCOMMODATION_TYPE.APARTMENT;
-            else if (type == "Kuća") return ACCOMMODATION_TYPE.HOUSE;
-            else return ACCOMMODATION_TYPE.HUT;
+            if (type == "Apartman")
+            {
+                return ACCOMMODATION_TYPE.APARTMENT;
+            }
+
+            if (type == "Kuća")
+            {
+                return ACCOMMODATION_TYPE.HOUSE;
+            }
+
+            return ACCOMMODATION_TYPE.HUT;
         }
 
         public List<Accommodation> GetAllByOwner(int id)

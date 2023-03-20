@@ -1,40 +1,43 @@
-﻿using SIMSProject.Observer;
-using SIMSProject.FileHandler;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SIMSProject.FileHandler;
+using SIMSProject.Observer;
 
 namespace SIMSProject.Model.DAO
 {
     public class AccommodationDAO : ISubject
     {
-        private List<IObserver> _observers;
-        private AccommodationFileHandler _fileHandler;
-        private LocationFileHandler _locationFileHandler;
+        private readonly List<IObserver> _observers;
+        private readonly AccommodationFileHandler _fileHandler;
+        private readonly LocationFileHandler _locationFileHandler;
         private List<Accommodation> _accommodations;
 
         public AccommodationDAO()
         {
-            _fileHandler = new();
-            _locationFileHandler = new();
+            _fileHandler = new AccommodationFileHandler();
+            _locationFileHandler = new LocationFileHandler();
             _accommodations = _fileHandler.Load();
-            _observers = new();
+            _observers = new List<IObserver>();
 
             var locations = _locationFileHandler.Load();
             var reservations = new AccommodationReservationDAO().GetAll();
             foreach (var accommodation in _accommodations)
             {
                 accommodation.Location = locations.Find(x => x.Id == accommodation.Location.Id)
-                    ?? new Location(accommodation.Location.Id, "<null>", "<null>");
+                                         ?? new Location(accommodation.Location.Id, "<null>", "<null>");
                 accommodation.Reservations = reservations.FindAll(x => x.Accommodation.Id == accommodation.Id);
             }
         }
 
-        public int NextId() { return _accommodations.Max(x => x.Id) + 1; }
-        public List<Accommodation> GetAll() { return _accommodations; }
+        public int NextId()
+        {
+            return _accommodations.Max(x => x.Id) + 1;
+        }
+
+        public List<Accommodation> GetAll()
+        {
+            return _accommodations;
+        }
 
         public Accommodation Save(Accommodation accommodation)
         {
@@ -53,8 +56,22 @@ namespace SIMSProject.Model.DAO
         }
 
         // [OBSERVERS]
-        public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }
-        public void Subscribe(IObserver observer) { _observers.Add(observer); }
-        public void Unsubscribe(IObserver observer) { _observers.Remove(observer); }
+        public void NotifyObservers()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Update();
+            }
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
     }
 }

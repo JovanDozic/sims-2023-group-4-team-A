@@ -1,12 +1,6 @@
-﻿using SIMSProject.Model;
+﻿using System.Collections.Generic;
+using SIMSProject.Model;
 using SIMSProject.Serializer;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SIMSProject.FileHandler
 {
@@ -17,7 +11,7 @@ namespace SIMSProject.FileHandler
 
         public AccommodationFileHandler()
         {
-            _serializer = new();
+            _serializer = new Serializer<Accommodation>();
         }
 
         public List<Accommodation> Load()

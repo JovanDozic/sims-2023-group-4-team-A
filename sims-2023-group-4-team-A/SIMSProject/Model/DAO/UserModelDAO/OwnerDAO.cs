@@ -1,34 +1,39 @@
-﻿using SIMSProject.Controller;
+﻿using System.Collections.Generic;
+using System.Linq;
 using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.Model.UserModel;
 using SIMSProject.Observer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SIMSProject.Model.DAO.UserModelDAO
 {
     public class OwnerDAO
     {
-        private List<IObserver> _observers;
-        private OwnerFileHandler _fileHandler;
+        private readonly List<IObserver> _observers;
+        private readonly OwnerFileHandler _fileHandler;
         private List<Owner> _owners;
 
         public OwnerDAO()
         {
-            _fileHandler = new();
+            _fileHandler = new OwnerFileHandler();
             _owners = _fileHandler.Load();
-            _observers = new();
+            _observers = new List<IObserver>();
 
             var accommodations = new AccommodationDAO().GetAll();
-            foreach (var owner in _owners) owner.Accommodations = accommodations.FindAll(x => x.Owner.Id == owner.Id);
+            foreach (var owner in _owners)
+            {
+                owner.Accommodations = accommodations.FindAll(x => x.Owner.Id == owner.Id);
+            }
         }
 
-        public int NextId() { return _owners.Max(x => x.Id) + 1; }
+        public int NextId()
+        {
+            return _owners.Max(x => x.Id) + 1;
+        }
 
-        public List<Owner> GetAll() { return _owners; }
+        public List<Owner> GetAll()
+        {
+            return _owners;
+        }
 
         public Owner Save(Owner user)
         {
@@ -52,8 +57,22 @@ namespace SIMSProject.Model.DAO.UserModelDAO
         }
 
         // [OBSERVERS]
-        public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }
-        public void Subscribe(IObserver observer) { _observers.Add(observer); }
-        public void Unsubscribe(IObserver observer) { _observers.Remove(observer); }
+        public void NotifyObservers()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Update();
+            }
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
     }
 }

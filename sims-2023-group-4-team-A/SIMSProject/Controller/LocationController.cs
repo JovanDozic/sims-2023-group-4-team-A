@@ -6,13 +6,13 @@ namespace SIMSProject.Controller
 {
     public class LocationController
     {
-        private LocationDAO _locations;
+        private readonly LocationDAO _locations;
         public Location Location;
 
         public LocationController()
         {
-            _locations = new();
-            Location = new();
+            _locations = new LocationDAO();
+            Location = new Location();
         }
 
         public List<Location> GetAll()

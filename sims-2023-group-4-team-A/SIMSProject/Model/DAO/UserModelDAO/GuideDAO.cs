@@ -1,27 +1,33 @@
-﻿using SIMSProject.FileHandler.UserFileHandler;
+﻿using System.Collections.Generic;
+using System.Linq;
+using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.Model.UserModel;
 using SIMSProject.Observer;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SIMSProject.Model.DAO.UserModelDAO
 {
     public class GuideDAO
     {
-        private List<IObserver> _observers;
-        private GuideFileHandler _fileHandler;
+        private readonly List<IObserver> _observers;
+        private readonly GuideFileHandler _fileHandler;
         private List<Guide> _guides;
 
         public GuideDAO()
         {
-            _fileHandler = new();
+            _fileHandler = new GuideFileHandler();
             _guides = _fileHandler.Load();
-            _observers = new();
+            _observers = new List<IObserver>();
         }
 
-        public int NextId() { return _guides.Max(x => x.Id) + 1; }
+        public int NextId()
+        {
+            return _guides.Max(x => x.Id) + 1;
+        }
 
-        public List<Guide> GetAll() { return _guides; }
+        public List<Guide> GetAll()
+        {
+            return _guides;
+        }
 
         public Guide Save(Guide user)
         {
@@ -45,8 +51,22 @@ namespace SIMSProject.Model.DAO.UserModelDAO
         }
 
         // [OBSERVERS]
-        public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }
-        public void Subscribe(IObserver observer) { _observers.Add(observer); }
-        public void Unsubscribe(IObserver observer) { _observers.Remove(observer); }
+        public void NotifyObservers()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Update();
+            }
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
     }
 }

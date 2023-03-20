@@ -1,26 +1,26 @@
 ﻿using System;
-using SIMSProject.Serializer;
-using SIMSProject.Model.UserModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SIMSProject.Model.UserModel;
+using SIMSProject.Serializer;
 
 namespace SIMSProject.Model
 {
-    public class AccommodationReservation: ISerializable, INotifyPropertyChanged
+    public class AccommodationReservation : ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
         public Accommodation Accommodation { get; set; } = new();
         public Guest Guest { get; set; } = new();
-        private DateTime _startDate; 
+        private DateTime _startDate;
         public DateTime StartDate
         {
             get => _startDate;
             set
             {
-                if(value != _startDate)
+                if (value != _startDate)
                 {
                     _startDate = value;
-                    OnPropertyChanged(nameof(StartDate));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -30,11 +30,11 @@ namespace SIMSProject.Model
             get => _endDate;
             set
             {
-                if(value != _endDate)
+                if (value != _endDate)
                 {
                     _endDate = value;
-                    OnPropertyChanged(nameof(EndDate));
-                } 
+                    OnPropertyChanged();
+                }
             }
         }
         private int _numberOfDays;
@@ -43,10 +43,10 @@ namespace SIMSProject.Model
             get => _numberOfDays;
             set
             {
-                if(value != _numberOfDays)
+                if (value != _numberOfDays)
                 {
                     _numberOfDays = value;
-                    OnPropertyChanged(nameof(NumberOfDays));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -56,14 +56,14 @@ namespace SIMSProject.Model
             get => _guestsNumber;
             set
             {
-                if(value != _guestsNumber)
+                if (value != _guestsNumber)
                 {
                     _guestsNumber = value;
-                    OnPropertyChanged(nameof(GuestNumber));
+                    OnPropertyChanged();
                 }
             }
         }
-        private bool _guestRated = false;
+        private bool _guestRated;
         public bool GuestRated
         {
             get => _guestRated;
@@ -72,11 +72,11 @@ namespace SIMSProject.Model
                 if (value != _guestRated)
                 {
                     _guestRated = value;
-                    OnPropertyChanged(nameof(GuestRated));
+                    OnPropertyChanged();
                 }
             }
         }
-        private bool _ownerRated = false;
+        private bool _ownerRated;
         public bool OwnerRated
         {
             get => _ownerRated;
@@ -85,15 +85,18 @@ namespace SIMSProject.Model
                 if (value != _ownerRated)
                 {
                     _ownerRated = value;
-                    OnPropertyChanged(nameof(OwnerRated));
+                    OnPropertyChanged();
                 }
             }
         }
-        public bool Canceled = false;
+        public bool Canceled;
 
-        public AccommodationReservation() { }
+        public AccommodationReservation()
+        {
+        }
 
-        public AccommodationReservation(int accommodationId, int guestId, DateTime startDate, DateTime endDate, int numberOfDays, int guestsNumber)
+        public AccommodationReservation(int accommodationId, int guestId, DateTime startDate, DateTime endDate,
+            int numberOfDays, int guestsNumber)
         {
             Accommodation.Id = accommodationId;
             Guest.Id = guestId;
@@ -105,6 +108,7 @@ namespace SIMSProject.Model
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

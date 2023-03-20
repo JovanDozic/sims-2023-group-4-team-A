@@ -1,19 +1,6 @@
-﻿using SIMSProject.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SIMSProject.CustomControls
 {
@@ -24,8 +11,8 @@ namespace SIMSProject.CustomControls
 
         public int Value
         {
-            get { return (int)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get => (int)GetValue(ValueProperty);
+            set => SetValue(ValueProperty, value);
         }
 
         public NumericTextBox()
@@ -55,7 +42,7 @@ namespace SIMSProject.CustomControls
 
         private bool IsNumeric(string text)
         {
-            return int.TryParse(text, out int _);
+            return int.TryParse(text, out var _);
         }
 
         private void IncrementButton_Click(object sender, RoutedEventArgs e)
@@ -68,6 +55,4 @@ namespace SIMSProject.CustomControls
             Value--;
         }
     }
-
-
 }

@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SIMSProject.Observer;
 using SIMSProject.FileHandler;
-using SIMSProject.Model.DAO.UserModelDAO;
-using SIMSProject.Model.UserModel;
 using SIMSProject.FileHandler.UserFileHandler;
-using System.Windows;
+using SIMSProject.Model.UserModel;
+using SIMSProject.Observer;
 
 namespace SIMSProject.Model.DAO
 {
-    
-    public class AccommodationReservationDAO: ISubject
+    public class AccommodationReservationDAO : ISubject
     {
-        private List<IObserver> _observers;
-        private AccommodationReservationFileHandler _fileHandler;
+        private readonly List<IObserver> _observers;
+        private readonly AccommodationReservationFileHandler _fileHandler;
         private LocationFileHandler _locationFileHandler;
         private List<AccommodationReservation> _accommodationReservations;
 
@@ -26,15 +20,15 @@ namespace SIMSProject.Model.DAO
             _fileHandler = new AccommodationReservationFileHandler();
             _locationFileHandler = new LocationFileHandler();
             _accommodationReservations = _fileHandler.Load();
-            
+
             var _accommodations = new AccommodationFileHandler().Load();
             var _guests = new GuestFileHandler().Load();
             foreach (var reservation in _accommodationReservations)
             {
-                reservation.Accommodation = _accommodations.Find(x => x.Id == reservation.Accommodation.Id) ?? new();
-                reservation.Guest = _guests.Find(x => x.Id == reservation.Guest.Id) ?? new(101, "null", "null");
+                reservation.Accommodation = _accommodations.Find(x => x.Id == reservation.Accommodation.Id) ??
+                                            new Accommodation();
+                reservation.Guest = _guests.Find(x => x.Id == reservation.Guest.Id) ?? new Guest(101, "null", "null");
             }
-            
         }
 
         public int NextId()
@@ -63,8 +57,22 @@ namespace SIMSProject.Model.DAO
             NotifyObservers();
         }
 
-        public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }
-        public void Subscribe(IObserver observer) { _observers.Add(observer); }
-        public void Unsubscribe(IObserver observer) { _observers.Remove(observer); }
+        public void NotifyObservers()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Update();
+            }
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
     }
 }
