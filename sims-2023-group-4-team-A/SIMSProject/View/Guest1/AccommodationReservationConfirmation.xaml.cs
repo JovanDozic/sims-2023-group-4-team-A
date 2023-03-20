@@ -40,7 +40,7 @@ namespace SIMSProject.View.Guest1
 
             set
             {
-                if (value != _guestsNumber && value >= 0)
+                if (value != _guestsNumber && value >= 1)
                 {
                     _guestsNumber = value;
                     OnPropertyChanged(nameof(GuestsNumber));
@@ -54,7 +54,7 @@ namespace SIMSProject.View.Guest1
 
             set
             {
-                if (value != _numberOfDays && value >= 0)
+                if (value != _numberOfDays && value >= 1)
                 {
                     _numberOfDays = value;
                     OnPropertyChanged(nameof(NumberOfDays));
@@ -83,28 +83,34 @@ namespace SIMSProject.View.Guest1
             DateTime dateEnd = DateEndBox.SelectedDate ?? DateTime.MinValue;
             NumberOfDays = DaysBox.Value;
             DateRange selectedDateRange = DatesCombo.SelectedItem as DateRange; //selected date range from combo box
-
             GuestsNumber = GuestsBox.Value;
 
-            if(GuestsNumber <= Accommodation.MaxGuestNumber)
+            if (dateEnd > dateBegin)
             {
-                if (selectedDateRange != null)
+                if (GuestsNumber <= Accommodation.MaxGuestNumber)
                 {
-                    AccommodationReservation = new AccommodationReservation(Accommodation.Id, User.Id, selectedDateRange.StartDate, selectedDateRange.EndDate, NumberOfDays, GuestsNumber);
+                    if (selectedDateRange != null)
+                    {
+                        AccommodationReservation = new AccommodationReservation(Accommodation.Id, User.Id, selectedDateRange.StartDate, selectedDateRange.EndDate, NumberOfDays, GuestsNumber);
 
-                    Controller.Create(AccommodationReservation);
-                    MessageBox.Show("Smeštaj rezervisan!");
-                    Close();
+                        Controller.Create(AccommodationReservation);
+                        MessageBox.Show("Smeštaj rezervisan!");
+                        Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Niste odabrali datum");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Niste odabrali datum");
+                    MessageBox.Show("Broj gostiju nije prihvatljiv");
                 }
+
             }
             else
-            {
-                MessageBox.Show("Broj gostiju nije prihvatljiv");
-            }
+                MessageBox.Show("Datum odlaska mora biti veći od datuma dolaska");
+             
         }
         private void Show_Click(object sender, RoutedEventArgs e)
         {
@@ -114,25 +120,33 @@ namespace SIMSProject.View.Guest1
             TimeSpan duration = dateEnd - dateBegin; //number of days between 2 dates
             AccommodationReservation reserved = CheckReservations(Controller.GetAll(), dateBegin, dateEnd, Accommodation.Id);
 
-            if (NumberOfDays >= Accommodation.MinReservationDays && NumberOfDays <= duration.Days)
+            if (dateEnd > dateBegin)
             {
-                if (reserved != null)
+                if (NumberOfDays >= Accommodation.MinReservationDays && NumberOfDays <= duration.Days)
                 {
-                    DateRange conflictingRange = new DateRange(dateBegin, dateEnd);
-                    DateRange reservedRange = new DateRange(reserved.StartDate, reserved.EndDate);
-                    var confirm = new FreeAccommodationsSuggestions(conflictingRange, reservedRange, NumberOfDays, User, reserved, Accommodation);
-                    confirm.Show();
+                    if (reserved != null)
+                    {
+                        DateRange conflictingRange = new DateRange(dateBegin, dateEnd);
+                        DateRange reservedRange = new DateRange(reserved.StartDate, reserved.EndDate);
+                        var confirm = new FreeAccommodationsSuggestions(conflictingRange, reservedRange, NumberOfDays, User, reserved, Accommodation);
+                        confirm.Show();
+                    }
+                    else
+                    {
+                        AddPossibleDates(dateBegin, dateEnd, NumberOfDays);
+
+                    }
                 }
                 else
                 {
-                    AddPossibleDates(dateBegin, dateEnd, NumberOfDays);
-
+                    MessageBox.Show("Broj dana nije prihvatljiv!");
                 }
+
             }
             else
-            {
-                MessageBox.Show("Broj dana nije prihvatljiv!");
-            }
+                MessageBox.Show("Datum odlaska mora biti veći od datuma dolaska");
+
+             
 
         }
 

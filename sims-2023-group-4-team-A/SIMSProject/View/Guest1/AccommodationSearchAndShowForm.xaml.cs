@@ -75,7 +75,7 @@ namespace SIMSProject.View.Guest1
             Accommodations = new ObservableCollection<Accommodation>(AccommodationControllers.GetAll());
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_Search(object sender, RoutedEventArgs e)
         {
             Accommodations.Clear();
             foreach (var accommodations in new ObservableCollection<Accommodation>(AccommodationControllers.GetAll()))
@@ -135,7 +135,7 @@ namespace SIMSProject.View.Guest1
             }
             else
             {
-                MessageBox.Show("Izaberite smestaj");
+                MessageBox.Show("Izaberite smeštaj");
             }
             
         }

@@ -31,19 +31,19 @@ namespace SIMSProject.View.Guest1
         public DateRange ReservedRange { get; set; }
         public int DaysNumber { get; set; }
         public ObservableCollection<DateRange> DateRanges { get; set; }
-        public DateRange SelectedRange { get; set; } = new();
+        public DateRange SelectedRange { get; set; } = null;
         public AccommodationReservation AccommodationReservation { get; set; } = new();
         public Accommodation Accommodation { get; set; }
         public Guest User { get; set; } = new();
         public AccommodationReservationController Controller { get; set; } = new();
-        private int _guestsNumber;
+        private int _guestsNumber = 1;
         public int GuestsNumber
         {
             get => _guestsNumber;
 
             set
             {
-                if (value != _guestsNumber && value >= 0)
+                if (value != _guestsNumber && value >= 1)
                 {
                     _guestsNumber = value;
                     OnPropertyChanged(nameof(GuestsNumber));
@@ -117,18 +117,26 @@ namespace SIMSProject.View.Guest1
         {
             GuestsNumber = GuestsBox.Value;
 
-            if(GuestsNumber <= Accommodation.MaxGuestNumber)
+            if (SelectedRange != null)
             {
-                AccommodationReservation = new AccommodationReservation(AccommodationReservation.Accommodation.Id, User.Id, SelectedRange.StartDate, SelectedRange.EndDate, DaysNumber, GuestsNumber);
+                if (GuestsNumber <= Accommodation.MaxGuestNumber)
+                {
+                    AccommodationReservation = new AccommodationReservation(AccommodationReservation.Accommodation.Id, User.Id, SelectedRange.StartDate, SelectedRange.EndDate, DaysNumber, GuestsNumber);
 
-                Controller.Create(AccommodationReservation);
-                MessageBox.Show("Smeštaj rezervisan!");
-                Close();
+                    Controller.Create(AccommodationReservation);
+                    MessageBox.Show("Smeštaj rezervisan!");
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Broj gostiju nije prihvatljiv!");
+                }
+
             }
             else
-            {
-                MessageBox.Show("Broj gostiju nije prihvatljiv!");
-            }
+                MessageBox.Show("Niste odabrali datum!");
+
+            
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

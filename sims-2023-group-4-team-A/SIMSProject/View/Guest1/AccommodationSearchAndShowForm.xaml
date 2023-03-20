@@ -26,7 +26,7 @@
 
             <custom:NumericTextBox Value="{Binding DurationSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="TextSearch3"></custom:NumericTextBox>
 
-            <Button Width="80" Height="27" Content="Pretraži" Background="#C8C8C8" Click="Button_Click" Margin="10" FontSize="14"/>
+            <Button Width="80" Height="27" Content="Pretraži" Background="#C8C8C8" Click="Button_Click_Search" Margin="10" FontSize="14"/>
 
             <Button Width="80" Height="27" Content="Prikaži" Background="#C8C8C8" Click="Show_Click" FontSize="14" />
 
