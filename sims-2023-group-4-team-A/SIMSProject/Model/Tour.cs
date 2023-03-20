@@ -261,5 +261,10 @@ namespace SIMSProject.Model
         {
             return Name + ", " + Location + ", " + TourLanguage.ToString();
         }
+
+        public string ToStringSearch()
+        {
+            return Location + " " + TourLanguage.ToString();
+        }
     }
 }

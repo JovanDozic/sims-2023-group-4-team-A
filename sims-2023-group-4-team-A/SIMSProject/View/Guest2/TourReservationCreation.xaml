@@ -89,19 +89,21 @@
         <Button Content="Rezerviši" Grid.Column="2" Grid.Row="12" Height="30" Margin="145,35,10,35" Click="Reservation_Click"/>
         <Button Content="Odustani" Grid.Column="2" Grid.Row="12" Height="30" Margin="10,35,145,35" Click="Cancel_Click"/>
 
-        <DataGrid Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Margin="30,10,30,10"
-                  
+        <DataGrid x:Name="dgrImageURLs" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Margin="30,10,30,10"
+                  ItemsSource="{Binding Tour.Images, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                  SelectedItem="{Binding Path=SelectedImageFile, UpdateSourceTrigger=PropertyChanged}"
                   SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"
-                  HorizontalScrollBarVisibility="Visible">
+                  HorizontalScrollBarVisibility="Visible"
+                  SelectionChanged="imagesGrid_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn />
+                <DataGridTextColumn Binding="{Binding}" />
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Row="3" Grid.Column="2" Grid.RowSpan="3" Margin="30,10,30,10" >
             <Border BorderThickness="2" BorderBrush="#ffb0b0b0" Panel.ZIndex="1">
-                <Image />
+                <Image Source="{Binding Path=SelectedImageFile}"/>
             </Border>
-            <TextBlock Text="Slika..." FontSize="14"
+            <TextBlock x:Name="TXTImagePlaceholder" Text="Izaberite sliku" FontSize="14"
                        VerticalAlignment="Center" HorizontalAlignment="Center"
                        Foreground="#ffb0b0b0"
                        Panel.ZIndex="0"/>
