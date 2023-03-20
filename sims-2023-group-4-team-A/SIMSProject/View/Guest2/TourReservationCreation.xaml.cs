@@ -49,11 +49,24 @@ namespace SIMSProject.View.Guest2
             }
         }
 
+        private string _selectedImageFile = string.Empty;
+        public string SelectedImageFile
+        {
+            get => _selectedImageFile;
+            set
+            {
+                if (_selectedImageFile != value)
+                {
+                    _selectedImageFile = value;
+                    OnPropertyChanged(nameof(SelectedImageFile));
+                }
+            }
+        }
+
         public TourReservationController TourReservationController = new();
         public TourController TourController = new();
         public LocationController TourLocationController = new();
         public TourDateController TourDateController = new();
-        public GuestController GuestController = new();
 
         public ObservableCollection<Tour> AlternativeTours { get; set; }
         public List<TourDate> CBTourDates { get; set; } = new();
@@ -64,17 +77,7 @@ namespace SIMSProject.View.Guest2
             DataContext = this;
             User = user;
             Tour = selectedTour;
-
-            TBName.Text = Tour.Name;
-            TBLocation.Text = Tour.Location.ToString();
-            TBDescription.Text = Tour.Description;
-            foreach (KeyPoint keyPoint in Tour.KeyPoints)
-            {
-                TBKeyPoints.Text += keyPoint.Description + "\n";
-            }
-            TBDuration.Text = Tour.Duration.ToString();
-            TBLanguage.Text = Tour.TourLanguage;
-            TBMaxGuests.Text = Tour.MaxGuestNumber.ToString();
+            ShowDetails(Tour);
 
             AlternativeTours = new ObservableCollection<Tour>(TourController.GetToursWithSameLocation(Tour));
             List<Location> tourLocations = TourLocationController.GetAll();
@@ -85,6 +88,22 @@ namespace SIMSProject.View.Guest2
             }
 
             CBTourDates = TourDateController.GetAllByTourId(Tour.Id);
+
+        }
+
+        private void ShowDetails(Tour tour)
+        {
+            TBName.Text = tour.Name;
+            TBLocation.Text = tour.Location.ToString();
+            TBDescription.Text = tour.Description;
+            foreach (KeyPoint keyPoint in tour.KeyPoints)
+            {
+                TBKeyPoints.Text += keyPoint.Description + "\n";
+            }
+            TBDuration.Text = tour.Duration.ToString();
+            TBLanguage.Text = tour.TourLanguage;
+            TBMaxGuests.Text = tour.MaxGuestNumber.ToString();
+            dgrImageURLs.ItemsSource = tour.Images;
         }
         private void ReserveTour(TourReservation tourReservation, TourDate tourDate, int guestsForReservation)
         {
@@ -102,26 +121,32 @@ namespace SIMSProject.View.Guest2
             if (SelectedTourDate == null) return;
             if (SelectedTourDate.AvailableSpots == 0)
             {
-                MessageBox.Show("Na odabranoj turi nema vise slobodnih mesta. \nIzaberite neku od ponudjenih alternativnih tura ili odustanite. \n");
+                
                 LBLAlternativneTure.Visibility = Visibility.Visible;
                 AlternativeGrid.Visibility = Visibility.Visible;
-                if (AlternativeTour == null) return;
+                if (AlternativeTour == null)
+                {
+                    MessageBox.Show("Na odabranoj turi nema vise slobodnih mesta. \nIzaberite drugi datum, neku od ponudjenih alternativnih tura ili odustanite. \n");
+                    return;
+                }
+                    
                 if (GuestsForReservation > AlternativeTourDate.AvailableSpots)
                 {
-                    MessageBox.Show("Nema dovoljno slobodnih mesta na turi.\nNa turi ima " + AlternativeTourDate.AvailableSpots + " mesta.\n");
+                    MessageBox.Show("Nema dovoljno slobodnih mesta na turi.\nNa turi ima " + AlternativeTourDate.AvailableSpots + " mesta.\n" +
+                    "Izaberite neku od alternativnih tura ili promenite broj gostiju.");
                     return;
                 }
                 else
                 {
                     ReserveTour(NewTourReservation, AlternativeTourDate, GuestsForReservation);
                     MessageBox.Show("Rezervacija za " + GuestsForReservation + " osoba uspesna!");
+                    Close();
                     return;
                 }
-            }
-            else if (GuestsForReservation > SelectedTourDate.AvailableSpots)
+            }else if (GuestsForReservation > SelectedTourDate.AvailableSpots)
             {
                 MessageBox.Show("Nema dovoljno slobodnih mesta na turi.\nNa turi ima " + SelectedTourDate.AvailableSpots + " mesta.\n" +
-                    "Izaberite neku od alternativnih tura ili promenite broj gostiju.");
+                    "Izaberite drugi datum, neku od alternativnih tura ili promenite broj gostiju.");
                 LBLAlternativneTure.Visibility = Visibility.Visible;
                 AlternativeGrid.Visibility = Visibility.Visible;
                 return;
@@ -130,6 +155,7 @@ namespace SIMSProject.View.Guest2
             {
                 ReserveTour(NewTourReservation, SelectedTourDate, GuestsForReservation);
                 MessageBox.Show("Rezervacija za " + GuestsForReservation + " osoba uspesna!");
+                Close();
                 return;
             }
 
@@ -148,17 +174,7 @@ namespace SIMSProject.View.Guest2
 
         private void AlternativeGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-            TBName.Text = AlternativeTour.Name;
-            TBLocation.Text = AlternativeTour.Location.ToString();
-            TBDescription.Text = AlternativeTour.Description;
-            foreach (KeyPoint keyPoint in AlternativeTour.KeyPoints)
-            {
-                TBKeyPoints.Text += keyPoint.Description + "\n";
-            }
-            TBDuration.Text = AlternativeTour.Duration.ToString();
-            TBLanguage.Text = AlternativeTour.TourLanguage;
-            TBMaxGuests.Text = AlternativeTour.MaxGuestNumber.ToString();
+            ShowDetails(AlternativeTour);
 
             AlternativeTours = new ObservableCollection<Tour>(TourController.GetToursWithSameLocation(AlternativeTour));
             List<Location> tourLocations = TourLocationController.GetAll();
@@ -167,8 +183,12 @@ namespace SIMSProject.View.Guest2
             {
                 tour.Location = tourLocations.Find(x => x.Id == tour.LocationId);
             }
-
             CBSelectedTourDates.ItemsSource = TourDateController.GetAllByTourId(AlternativeTour.Id);
+        }
+
+        private void imagesGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TXTImagePlaceholder.Text = "Učitavanje...";
         }
     }
 }

@@ -107,7 +107,7 @@ namespace SIMSProject.View.Guest2
 
             // Removing all by location and language
             foreach(string value in searchValues)
-                searchResults.RemoveAll(x=>!x.ToString().ToLower().Contains(value.ToLower()));
+                searchResults.RemoveAll(x=>!x.ToStringSearch().ToLower().Contains(value.ToLower()));
 
             // Removing by numbers
             if (searchDuration > 0) searchResults.RemoveAll(x => x.Duration != searchDuration);
