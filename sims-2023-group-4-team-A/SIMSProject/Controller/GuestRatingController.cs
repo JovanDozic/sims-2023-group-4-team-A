@@ -1,19 +1,20 @@
-﻿using SIMSProject.Model;
+﻿using System.Collections.Generic;
+using SIMSProject.Model;
 using SIMSProject.Model.DAO;
-using System.Collections.Generic;
 
 namespace SIMSProject.Controller
 {
     public class GuestRatingController
     {
-        private GuestRatingDAO _guestRatings;
+        private readonly GuestRatingDAO _guestRatings;
         public GuestRating GuestRating;
 
         public GuestRatingController()
         {
-            _guestRatings = new();
-            GuestRating = new();
+            _guestRatings = new GuestRatingDAO();
+            GuestRating = new GuestRating();
         }
+
         public void SaveAll(List<GuestRating> ratings)
         {
             _guestRatings.SaveAll(ratings);

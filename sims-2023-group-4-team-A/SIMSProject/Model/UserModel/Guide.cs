@@ -1,19 +1,12 @@
-﻿using SIMSProject.Serializer;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Printing;
-using System.Text;
-using System.Threading.Tasks;
-
-
+using SIMSProject.Serializer;
 
 namespace SIMSProject.Model.UserModel
 {
     public class Guide : User, ISerializable
     {
-        private double _rating = 0;
+        private double _rating;
         public double Rating
         {
             get => _rating;
@@ -22,16 +15,18 @@ namespace SIMSProject.Model.UserModel
                 if (_rating != value)
                 {
                     _rating = value;
-                    OnPropertyChanged(nameof(Rating));
+                    OnPropertyChanged();
                 }
             }
         }
         public List<TourReservation> TourReservations { get; set; } = new();
         public List<AccommodationReservation> AccommodationReservations { get; set; } = new();
 
-        public Guide() { }
+        public Guide()
+        {
+        }
 
-        public Guide(int id, string username, string password,  double rating)
+        public Guide(int id, string username, string password, double rating)
         {
             Id = id;
             Username = username;
@@ -48,12 +43,13 @@ namespace SIMSProject.Model.UserModel
 
         public string[] ToCSV()
         {
-            string[] csvValues = {
+            string[] csvValues =
+            {
                 Id.ToString(),
                 Username,
                 Password,
                 Role,
-                Math.Round(Rating, 2).ToString(),
+                Math.Round(Rating, 2).ToString()
             };
             return csvValues;
         }

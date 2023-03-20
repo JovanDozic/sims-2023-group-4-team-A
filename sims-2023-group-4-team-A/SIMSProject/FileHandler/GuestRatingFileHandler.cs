@@ -1,6 +1,6 @@
-﻿using SIMSProject.Model;
+﻿using System.Collections.Generic;
+using SIMSProject.Model;
 using SIMSProject.Serializer;
-using System.Collections.Generic;
 
 namespace SIMSProject.FileHandler
 {
@@ -11,7 +11,7 @@ namespace SIMSProject.FileHandler
 
         public GuestRatingFileHandler()
         {
-            _serializer = new();
+            _serializer = new Serializer<GuestRating>();
         }
 
         public List<GuestRating> Load()

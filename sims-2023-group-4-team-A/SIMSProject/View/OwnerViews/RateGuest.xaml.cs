@@ -1,22 +1,10 @@
-﻿using SIMSProject.Controller;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows;
+using SIMSProject.Controller;
 using SIMSProject.Controller.UserController;
 using SIMSProject.Model;
 using SIMSProject.Model.UserModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SIMSProject.View.OwnerViews
 {
@@ -25,6 +13,7 @@ namespace SIMSProject.View.OwnerViews
         public Owner User { get; set; } = new();
         public GuestRating GuestRating { get; set; } = new();
         private AccommodationReservation _reservation = new();
+
         public AccommodationReservation Reservation
         {
             get => _reservation;
@@ -33,7 +22,7 @@ namespace SIMSProject.View.OwnerViews
                 if (_reservation != value)
                 {
                     _reservation = value;
-                    OnPropertyChanged(nameof(Reservation));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -52,6 +41,7 @@ namespace SIMSProject.View.OwnerViews
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -69,7 +59,8 @@ namespace SIMSProject.View.OwnerViews
             var reservationController = new AccommodationReservationController();
             reservationController.UpdateExisting(Reservation);
 
-            MessageBox.Show("Ocena uspešno ostavljena!", "Gost ocenjen", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Ocena uspešno ostavljena!", "Gost ocenjen", MessageBoxButton.OK,
+                MessageBoxImage.Information);
             Close();
         }
     }

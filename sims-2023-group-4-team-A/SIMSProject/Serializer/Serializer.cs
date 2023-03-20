@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Windows.Data;
+
+#endregion
 
 namespace SIMSProject.Serializer
 {
-    class Serializer<T> where T: ISerializable, new()
+    internal class Serializer<T> where T : ISerializable, new()
     {
         private const char Delimiter = '|';
 
@@ -13,24 +16,23 @@ namespace SIMSProject.Serializer
         {
             StringBuilder csv = new();
 
-            foreach(T obj in objects)
+            foreach (var obj in objects)
             {
-                string line = string.Join(Delimiter.ToString(), obj.ToCSV());
+                var line = string.Join(Delimiter.ToString(), obj.ToCSV());
                 csv.AppendLine(line);
             }
 
             File.WriteAllText(fileName, csv.ToString());
-
         }
 
         public List<T> FromCSV(string fileName)
         {
             List<T> objects = new();
 
-            foreach(string line in File.ReadLines(fileName))
+            foreach (var line in File.ReadLines(fileName))
             {
-                string[] csvValues = line.Split(Delimiter);
-                T obj = new ();
+                var csvValues = line.Split(Delimiter);
+                T obj = new();
                 obj.FromCSV(csvValues);
                 objects.Add(obj);
             }

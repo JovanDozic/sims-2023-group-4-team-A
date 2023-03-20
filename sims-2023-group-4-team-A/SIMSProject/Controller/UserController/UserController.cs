@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace SIMSProject.Controller.UserController
 {
@@ -14,9 +10,9 @@ namespace SIMSProject.Controller.UserController
 
         public UserController()
         {
-            _ownerController = new();
-            _guestController = new();
-            _guideController = new();
+            _ownerController = new OwnerController();
+            _guestController = new GuestController();
+            _guideController = new GuideController();
         }
 
         public object GetByUsername(string username)
@@ -26,13 +22,22 @@ namespace SIMSProject.Controller.UserController
             var guides = _guideController.GetAll();
 
             var owner = owners.FirstOrDefault(x => x.Username == username);
-            if (owner != null) return owner;
+            if (owner != null)
+            {
+                return owner;
+            }
 
             var guest = guests.FirstOrDefault(x => x.Username == username);
-            if (guest != null) return guest;
+            if (guest != null)
+            {
+                return guest;
+            }
 
             var guide = guides.FirstOrDefault(x => x.Username == username);
-            if (guide != null) return guide;
+            if (guide != null)
+            {
+                return guide;
+            }
 
             return null;
         }

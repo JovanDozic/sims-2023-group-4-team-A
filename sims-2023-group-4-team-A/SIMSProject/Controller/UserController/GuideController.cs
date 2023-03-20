@@ -1,18 +1,18 @@
-﻿using SIMSProject.Model.DAO.UserModelDAO;
+﻿using System.Collections.Generic;
+using SIMSProject.Model.DAO.UserModelDAO;
 using SIMSProject.Model.UserModel;
-using System.Collections.Generic;
 
 namespace SIMSProject.Controller.UserController
 {
     public class GuideController
     {
-        private GuideDAO _guides;
+        private readonly GuideDAO _guides;
         public Guide Guide;
 
         public GuideController()
         {
-            _guides = new();
-            Guide = new();
+            _guides = new GuideDAO();
+            Guide = new Guide();
         }
 
         public List<Guide> GetAll()

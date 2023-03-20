@@ -1,16 +1,19 @@
-﻿using SIMSProject.Controller;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using SIMSProject.Controller;
 using SIMSProject.Model.UserModel;
 using SIMSProject.Serializer;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using System.Windows.Controls;
-using System.Windows.Documents.Serialization;
 
 namespace SIMSProject.Model
 {
-    public enum ACCOMMODATION_TYPE { APARTMENT = 0, HOUSE, HUT };
+    public enum ACCOMMODATION_TYPE
+    {
+        APARTMENT = 0,
+        HOUSE,
+        HUT
+    }
+
     public class Accommodation : ISerializable, INotifyPropertyChanged, IDataErrorInfo
     {
         public int Id { get; set; }
@@ -24,7 +27,7 @@ namespace SIMSProject.Model
                 if (value != _name)
                 {
                     _name = value;
-                    OnPropertyChanged(nameof(Name));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -37,22 +40,20 @@ namespace SIMSProject.Model
                 if (value != _location)
                 {
                     _location = value;
-                    OnPropertyChanged(nameof(Location));
+                    OnPropertyChanged();
                 }
             }
         }
         private ACCOMMODATION_TYPE _type;
         public string Type
         {
-            get
-            {
-                return _type switch
+            get =>
+                _type switch
                 {
                     ACCOMMODATION_TYPE.APARTMENT => "Apartman",
                     ACCOMMODATION_TYPE.HOUSE => "Kuća",
                     _ => "Koliba"
                 };
-            }
             set
             {
                 _type = value switch
@@ -61,7 +62,7 @@ namespace SIMSProject.Model
                     "Kuća" => ACCOMMODATION_TYPE.HOUSE,
                     _ => ACCOMMODATION_TYPE.HUT
                 };
-                OnPropertyChanged(nameof(Type));
+                OnPropertyChanged();
             }
         }
         private int _maxGuestNumber = 1;
@@ -73,7 +74,7 @@ namespace SIMSProject.Model
                 if (value != _maxGuestNumber && value >= 1)
                 {
                     _maxGuestNumber = value;
-                    OnPropertyChanged(nameof(MaxGuestNumber));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -86,7 +87,7 @@ namespace SIMSProject.Model
                 if (value != _minReservationDays && value >= 1)
                 {
                     _minReservationDays = value;
-                    OnPropertyChanged(nameof(MinReservationDays));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -99,7 +100,7 @@ namespace SIMSProject.Model
                 if (value != _cancellationThreshold && value >= 1)
                 {
                     _cancellationThreshold = value;
-                    OnPropertyChanged(nameof(CancellationThreshold));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -112,7 +113,7 @@ namespace SIMSProject.Model
                 if (_imageURLs != value)
                 {
                     _imageURLs = value;
-                    OnPropertyChanged(nameof(ImageURLs));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -125,7 +126,7 @@ namespace SIMSProject.Model
                 if (_imageURLsCSV != value)
                 {
                     _imageURLsCSV = value.Replace(" ", "").Replace("\n", " ").Replace("\t", "");
-                    OnPropertyChanged(nameof(ImageURLsCSV));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -138,14 +139,17 @@ namespace SIMSProject.Model
                 if (value != _reservations)
                 {
                     _reservations = value;
-                    OnPropertyChanged(nameof(Reservations));
+                    OnPropertyChanged();
                 }
             }
         }
 
-        public Accommodation() { }
+        public Accommodation()
+        {
+        }
 
-        public Accommodation(int ownerId, string name, Location location, string type, int maxGuestNumber, int minReservationDays, int cancellationThreshold, string imageURLsCSV)
+        public Accommodation(int ownerId, string name, Location location, string type, int maxGuestNumber,
+            int minReservationDays, int cancellationThreshold, string imageURLsCSV)
         {
             Owner.Id = ownerId;
             Name = name;
@@ -154,7 +158,7 @@ namespace SIMSProject.Model
             MaxGuestNumber = maxGuestNumber;
             MinReservationDays = minReservationDays;
             CancellationThreshold = cancellationThreshold;
-            ImageURLs = new();
+            ImageURLs = new List<string>();
             ImageURLsCSV = imageURLsCSV;
             ImageURLsFromCSV(ImageURLsCSV);
         }
@@ -162,12 +166,13 @@ namespace SIMSProject.Model
         public string[] ToCSV()
         {
             ImageURLsToCSV();
-            string[] csvValues = {
+            string[] csvValues =
+            {
                 Id.ToString(),
                 Owner.Id.ToString(),
                 Name,
                 Location.Id.ToString(),
-                Type.ToString(),
+                Type,
                 MaxGuestNumber.ToString(),
                 MinReservationDays.ToString(),
                 CancellationThreshold.ToString(),
@@ -178,7 +183,7 @@ namespace SIMSProject.Model
 
         public void FromCSV(string[] values)
         {
-            int i = 0;
+            var i = 0;
             Id = int.Parse(values[i++]);
             Owner.Id = int.Parse(values[i++]);
             Name = values[i++];
@@ -191,12 +196,17 @@ namespace SIMSProject.Model
             ImageURLsCSV = values[i++];
             ImageURLsFromCSV(ImageURLsCSV);
         }
+
         public void ImageURLsToCSV()
         {
             if (ImageURLs.Count > 0)
             {
                 ImageURLsCSV = string.Empty;
-                foreach (var imageURL in ImageURLs) ImageURLsCSV += imageURL + ",";
+                foreach (var imageURL in ImageURLs)
+                {
+                    ImageURLsCSV += imageURL + ",";
+                }
+
                 ImageURLsCSV = ImageURLsCSV.Remove(ImageURLsCSV.Length - 1);
             }
         }
@@ -204,7 +214,13 @@ namespace SIMSProject.Model
         public void ImageURLsFromCSV(string value)
         {
             var imageURLs = value.Split(',');
-            foreach (var imageURL in imageURLs) if (imageURL != string.Empty) ImageURLs.Add(imageURL);
+            foreach (var imageURL in imageURLs)
+            {
+                if (imageURL != string.Empty)
+                {
+                    ImageURLs.Add(imageURL);
+                }
+            }
         }
 
         public string Error => null;
@@ -212,8 +228,16 @@ namespace SIMSProject.Model
         {
             get
             {
-                if (columnName == "Name" && string.IsNullOrEmpty(Name)) return "Naziv je obavezan.";
-                else if (columnName == "Type" && string.IsNullOrEmpty(Type)) return "Tip je obavezan.";
+                if (columnName == "Name" && string.IsNullOrEmpty(Name))
+                {
+                    return "Naziv je obavezan.";
+                }
+
+                if (columnName == "Type" && string.IsNullOrEmpty(Type))
+                {
+                    return "Tip je obavezan.";
+                }
+
                 return null;
             }
         }
@@ -222,12 +246,19 @@ namespace SIMSProject.Model
         {
             get
             {
-                foreach (var property in _validatedProperties) if (this[property] != null) return false;
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                    {
+                        return false;
+                    }
+                }
+
                 return true;
             }
         }
-
         public event PropertyChangedEventHandler? PropertyChanged;
+
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

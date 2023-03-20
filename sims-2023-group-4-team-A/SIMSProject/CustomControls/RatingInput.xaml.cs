@@ -1,29 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SIMSProject.CustomControls
 {
     public partial class RatingInput : UserControl
     {
         public static readonly DependencyProperty RatingProperty =
-        DependencyProperty.Register("Rating", typeof(int), typeof(RatingInput), new PropertyMetadata(0));
+            DependencyProperty.Register("Rating", typeof(int), typeof(RatingInput), new PropertyMetadata(0));
 
         public int Rating
         {
-            get { return (int)GetValue(RatingProperty); }
-            set { SetValue(RatingProperty, value); }
+            get => (int)GetValue(RatingProperty);
+            set => SetValue(RatingProperty, value);
         }
 
         public RatingInput()
@@ -58,7 +46,6 @@ namespace SIMSProject.CustomControls
             star2.IsChecked = true;
             star4.IsChecked = false;
             star5.IsChecked = false;
-
         }
 
         private void Star4_Click(object sender, RoutedEventArgs e)
@@ -68,7 +55,6 @@ namespace SIMSProject.CustomControls
             star2.IsChecked = true;
             star3.IsChecked = true;
             star5.IsChecked = false;
-
         }
 
         private void Star5_Click(object sender, RoutedEventArgs e)
@@ -78,8 +64,6 @@ namespace SIMSProject.CustomControls
             star2.IsChecked = true;
             star3.IsChecked = true;
             star4.IsChecked = true;
-
         }
-
     }
 }

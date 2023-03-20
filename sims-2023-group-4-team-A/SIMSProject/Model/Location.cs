@@ -1,45 +1,43 @@
-﻿using SIMSProject.Serializer;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using SIMSProject.Model.UserModel;
+using SIMSProject.Serializer;
 
 namespace SIMSProject.Model
 {
-    public class Location : ISerializable,  IDataErrorInfo, INotifyPropertyChanged
+    public class Location : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
         public int Id { get; set; }
         private string _city = string.Empty;
-        public string City 
-        {   get => _city;
-            set 
-            { 
-                if(value != _city)
+        public string City
+        {
+            get => _city;
+            set
+            {
+                if (value != _city)
                 {
                     _city = value;
-                    OnPropertyChanged(nameof(City));
-                    
+                    OnPropertyChanged();
                 }
             }
         }
         private string _country = string.Empty;
-        public string Country 
-        { 
+        public string Country
+        {
             get => _country;
             set
             {
-                if(value != _country)
+                if (value != _country)
                 {
                     _country = value;
-                    OnPropertyChanged(nameof(Country));
+                    OnPropertyChanged();
                 }
-            } 
+            }
         }
 
         public Location()
         {
-
         }
 
         public Location(int id, string city, string country)
@@ -51,7 +49,7 @@ namespace SIMSProject.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = {Id.ToString(), City.ToString(), Country.ToString()};
+            string[] csvValues = { Id.ToString(), City, Country };
             return csvValues;
         }
 
@@ -63,8 +61,7 @@ namespace SIMSProject.Model
         }
 
         // [VALIDATION]
-
-        string templateRegex = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
+        private readonly string templateRegex = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
         public string Error => null;
         public string this[string columnName]
         {
@@ -73,23 +70,32 @@ namespace SIMSProject.Model
                 if (columnName == "Country")
                 {
                     if (string.IsNullOrEmpty(Country))
+                    {
                         return "Država";
+                    }
 
                     if (!Regex.IsMatch(Country, templateRegex))
+                    {
                         return "Ne moze biti država";
+                    }
                 }
                 else if (columnName == "City")
                 {
                     if (string.IsNullOrEmpty(City))
+                    {
                         return "Grad";
+                    }
+
                     if (!Regex.IsMatch(City, templateRegex))
+                    {
                         return "Ne moze biti grad";
+                    }
                 }
+
                 return null;
             }
         }
-
-        private readonly string[] _validatesProperties = { "City", "Country"};
+        private readonly string[] _validatesProperties = { "City", "Country" };
         public bool IsValid
         {
             get
@@ -97,8 +103,11 @@ namespace SIMSProject.Model
                 foreach (var property in _validatesProperties)
                 {
                     if (this[property] != null)
+                    {
                         return false;
+                    }
                 }
+
                 return true;
             }
         }
@@ -109,6 +118,7 @@ namespace SIMSProject.Model
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

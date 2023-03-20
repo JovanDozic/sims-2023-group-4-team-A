@@ -1,28 +1,33 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SIMSProject.Model;
-using SIMSProject.Model.DAO;
-using SIMSProject.Observer;
 using SIMSProject.FileHandler;
+using SIMSProject.Observer;
 
 namespace SIMSProject.Model.DAO
 {
     public class LocationDAO : ISubject
     {
-        private List<IObserver> _observers;
-        private LocationFileHandler _fileHandler;
+        private readonly List<IObserver> _observers;
+        private readonly LocationFileHandler _fileHandler;
         private List<Location> _locations;
 
         public LocationDAO()
         {
-            _fileHandler = new();
+            _fileHandler = new LocationFileHandler();
             _locations = _fileHandler.Load();
-            _observers = new();
+            _observers = new List<IObserver>();
         }
 
-        public List<Location> GetAll() { return _locations; }
-        public int NextId() { return _locations.Max(x => x.Id) + 1; }
-        
+        public List<Location> GetAll()
+        {
+            return _locations;
+        }
+
+        public int NextId()
+        {
+            return _locations.Max(x => x.Id) + 1;
+        }
+
         public Location Save(Location location)
         {
             location.Id = NextId();
@@ -45,8 +50,22 @@ namespace SIMSProject.Model.DAO
         }
 
         // [OBSERVERS]
-        public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }
-        public void Subscribe(IObserver observer) { _observers.Add(observer); }
-        public void Unsubscribe(IObserver observer) { _observers.Remove(observer); }
+        public void NotifyObservers()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Update();
+            }
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
     }
 }

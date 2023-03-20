@@ -1,7 +1,6 @@
-﻿using SIMSProject.Serializer;
-using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SIMSProject.Serializer;
 
 namespace SIMSProject.Model
 {
@@ -18,7 +17,7 @@ namespace SIMSProject.Model
                 if (_cleanliness != value && value >= 1 && value <= 5)
                 {
                     _cleanliness = value;
-                    OnPropertyChanged(nameof(Cleanliness));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -28,10 +27,10 @@ namespace SIMSProject.Model
             get => _rulesAcceptance;
             set
             {
-                if (_rulesAcceptance != value && value >= 1 && value <= 5) 
+                if (_rulesAcceptance != value && value >= 1 && value <= 5)
                 {
                     _rulesAcceptance = value;
-                    OnPropertyChanged(nameof(RulesAcceptance));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -44,27 +43,29 @@ namespace SIMSProject.Model
                 if (_comment != value)
                 {
                     _comment = value;
-                    OnPropertyChanged(nameof(Comment));
+                    OnPropertyChanged();
                 }
             }
         }
-        private double _overall = 0;
+        private double _overall;
         public double Overall
         {
             get
             {
                 _overall = (Cleanliness + RulesAcceptance) / (double)2;
-                OnPropertyChanged(nameof(Overall));
+                OnPropertyChanged();
                 return _overall;
             }
             set
             {
                 _overall = value;
-                OnPropertyChanged(nameof(Overall));
+                OnPropertyChanged();
             }
         }
 
-        public GuestRating() { }
+        public GuestRating()
+        {
+        }
 
         public GuestRating(int id, int reservationId, int cleanliness, int rulesAcceptance, string comment)
         {
@@ -77,7 +78,8 @@ namespace SIMSProject.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = {
+            string[] csvValues =
+            {
                 Id.ToString(),
                 Reservation.Id.ToString(),
                 Cleanliness.ToString(),
@@ -99,6 +101,7 @@ namespace SIMSProject.Model
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

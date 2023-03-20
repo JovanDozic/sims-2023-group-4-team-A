@@ -1,16 +1,12 @@
-﻿using SIMSProject.Serializer;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
+using SIMSProject.Serializer;
 
 namespace SIMSProject.Model.UserModel
 {
     public class Guest : User, ISerializable
     {
-        private double _rating = 0;
+        private double _rating;
         public double Rating
         {
             get => _rating;
@@ -19,14 +15,16 @@ namespace SIMSProject.Model.UserModel
                 if (_rating != value)
                 {
                     _rating = value;
-                    OnPropertyChanged(nameof(Rating));
+                    OnPropertyChanged();
                 }
             }
         }
         public List<TourReservation> TourReservations { get; set; } = new();
         public List<AccommodationReservation> AccommodationReservations { get; set; } = new();
 
-        public Guest() { }
+        public Guest()
+        {
+        }
 
         public Guest(int id, string username, string password, double rating = 0)
         {
@@ -35,8 +33,8 @@ namespace SIMSProject.Model.UserModel
             Password = password;
             _role = USER_ROLE.GUEST;
             Rating = rating;
-            TourReservations = new();
-            AccommodationReservations = new();
+            TourReservations = new List<TourReservation>();
+            AccommodationReservations = new List<AccommodationReservation>();
         }
 
         public override string ToString()
@@ -44,19 +42,19 @@ namespace SIMSProject.Model.UserModel
             return $"{Username}";
         }
 
-
         public string[] ToCSV()
         {
-            string[] csvValues = {
+            string[] csvValues =
+            {
                 Id.ToString(),
                 Username,
                 Password,
                 Role,
-                Math.Round(Rating, 2).ToString(),
+                Math.Round(Rating, 2).ToString()
             };
             return csvValues;
         }
-        
+
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);

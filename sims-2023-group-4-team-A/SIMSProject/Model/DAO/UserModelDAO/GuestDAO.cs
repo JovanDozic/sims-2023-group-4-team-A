@@ -1,40 +1,48 @@
-﻿using SIMSProject.FileHandler;
+﻿using System.Collections.Generic;
+using System.Linq;
+using SIMSProject.FileHandler;
 using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.Model.UserModel;
 using SIMSProject.Observer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace SIMSProject.Model.DAO.UserModelDAO
 {
     public class GuestDAO : ISubject
     {
-        private List<IObserver> _observers;
-        private GuestFileHandler _fileHandler;
+        private readonly List<IObserver> _observers;
+        private readonly GuestFileHandler _fileHandler;
         private List<Guest> _guests;
 
         public GuestDAO()
         {
-            _fileHandler = new();
+            _fileHandler = new GuestFileHandler();
             _guests = _fileHandler.Load();
-            _observers = new();
+            _observers = new List<IObserver>();
 
             var tourReservations = new TourReservationDAO().GetAll();
-            foreach (var guest in _guests) guest.TourReservations = tourReservations.FindAll(x => x.GuestId == guest.Id);
+            foreach (var guest in _guests)
+            {
+                guest.TourReservations = tourReservations.FindAll(x => x.GuestId == guest.Id);
+            }
 
             var reservations = new AccommodationReservationFileHandler().Load();
-            foreach (var guest in _guests) guest.AccommodationReservations = reservations.FindAll(x => x.Guest.Id == guest.Id);
+            foreach (var guest in _guests)
+            {
+                guest.AccommodationReservations = reservations.FindAll(x => x.Guest.Id == guest.Id);
+            }
 
             RefreshRatings();
         }
 
-        public int NextId() { return _guests.Max(x => x.Id) + 1; }
+        public int NextId()
+        {
+            return _guests.Max(x => x.Id) + 1;
+        }
 
-        public List<Guest> GetAll() { return _guests; }
+        public List<Guest> GetAll()
+        {
+            return _guests;
+        }
 
         public void RefreshRatings()
         {
@@ -50,6 +58,7 @@ namespace SIMSProject.Model.DAO.UserModelDAO
                     guest.Rating = 15;
                 }
             }
+
             SaveAll(_guests);
         }
 
@@ -75,8 +84,22 @@ namespace SIMSProject.Model.DAO.UserModelDAO
         }
 
         // [OBSERVERS]
-        public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }
-        public void Subscribe(IObserver observer) { _observers.Add(observer); }
-        public void Unsubscribe(IObserver observer) { _observers.Remove(observer); }
+        public void NotifyObservers()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Update();
+            }
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
     }
 }

@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SIMSProject.Model.DAO;
+﻿using System.Collections.Generic;
 using SIMSProject.Model;
+using SIMSProject.Model.DAO;
 
 namespace SIMSProject.Controller
 {
     public class AccommodationReservationController
     {
-        private AccommodationReservationDAO _accommodationReservationDAO;
+        private readonly AccommodationReservationDAO _accommodationReservationDAO;
         public AccommodationReservation AccommodationReservation;
 
         public AccommodationReservationController()
@@ -28,7 +24,7 @@ namespace SIMSProject.Controller
         {
             _accommodationReservationDAO.SaveAll(reservation);
         }
-        
+
         public AccommodationReservation Create(AccommodationReservation reservation)
         {
             return _accommodationReservationDAO.Save(reservation);
@@ -40,11 +36,15 @@ namespace SIMSProject.Controller
             var reservation = reservations.Find(x => x.Id == updatedReservation.Id);
             if (reservation != null)
             {
-                int index = reservations.IndexOf(reservation);
+                var index = reservations.IndexOf(reservation);
                 reservations.Remove(reservation);
                 reservations.Insert(index, updatedReservation);
             }
-            else Create(updatedReservation);
+            else
+            {
+                Create(updatedReservation);
+            }
+
             SaveAll(reservations);
         }
     }
