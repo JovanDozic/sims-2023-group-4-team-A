@@ -33,7 +33,34 @@ namespace SIMSProject.View.Guest1
         public string FormattedDateRange => $"{DateRange[0]:dd/MM/yyyy} - {DateRange[1]:dd/MM/yyyy}";
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public int NumberOfDays { get; set; }
+        private int _guestsNumber;
+        public int GuestsNumber
+        {
+            get => _guestsNumber;
+
+            set
+            {
+                if (value != _guestsNumber && value >= 0)
+                {
+                    _guestsNumber = value;
+                    OnPropertyChanged(nameof(GuestsNumber));
+                }
+            }
+        }
+        private int _numberOfDays;
+        public int NumberOfDays
+        {
+            get => _numberOfDays;
+
+            set
+            {
+                if (value != _numberOfDays && value >= 0)
+                {
+                    _numberOfDays = value;
+                    OnPropertyChanged(nameof(NumberOfDays));
+                }
+            }
+        }
 
         public AccommodationReservationConfirmation(Guest user, Accommodation accommodation)
         {
@@ -53,16 +80,16 @@ namespace SIMSProject.View.Guest1
         {
             DateTime dateBegin = DateBeginBox.SelectedDate ?? DateTime.MinValue;
             DateTime dateEnd = DateEndBox.SelectedDate ?? DateTime.MinValue;
-            int Days = DaysBox.Value;
-            DateRange selectedDateRange = DatesCombo.SelectedItem as DateRange;
+            NumberOfDays = DaysBox.Value;
+            DateRange selectedDateRange = DatesCombo.SelectedItem as DateRange; //selected date range from combo box
 
-            int guestsNumber = GuestsBox.Value;
+            GuestsNumber = GuestsBox.Value;
 
-            if(guestsNumber <= Accommodation.MaxGuestNumber)
+            if(GuestsNumber <= Accommodation.MaxGuestNumber)
             {
                 if (selectedDateRange != null)
                 {
-                    AccommodationReservation = new AccommodationReservation(Accommodation.Id, User.Id, selectedDateRange.StartDate, selectedDateRange.EndDate, Days, guestsNumber);
+                    AccommodationReservation = new AccommodationReservation(Accommodation.Id, User.Id, selectedDateRange.StartDate, selectedDateRange.EndDate, NumberOfDays, GuestsNumber);
 
                     Controller.Create(AccommodationReservation);
                     MessageBox.Show("Smeštaj rezervisan!");
@@ -82,22 +109,22 @@ namespace SIMSProject.View.Guest1
         {
             DateTime dateBegin = DateBeginBox.SelectedDate ?? DateTime.MinValue;
             DateTime dateEnd = DateEndBox.SelectedDate ?? DateTime.MinValue;
-            int Days = DaysBox.Value;
-            TimeSpan duration = dateEnd - dateBegin;
+            NumberOfDays = DaysBox.Value;
+            TimeSpan duration = dateEnd - dateBegin; //number of days between 2 dates
             AccommodationReservation reserved = CheckReservations(Controller.GetAll(), dateBegin, dateEnd, Accommodation.Id);
 
-            if (Days >= Accommodation.MinReservationDays && Days <= duration.Days)
+            if (NumberOfDays >= Accommodation.MinReservationDays && NumberOfDays <= duration.Days)
             {
                 if (reserved != null)
                 {
                     DateRange conflictingRange = new DateRange(dateBegin, dateEnd);
                     DateRange reservedRange = new DateRange(reserved.StartDate, reserved.EndDate);
-                    var confirm = new FreeAccommodationsSuggestions(conflictingRange, reservedRange, Days, User, reserved, Accommodation);
+                    var confirm = new FreeAccommodationsSuggestions(conflictingRange, reservedRange, NumberOfDays, User, reserved, Accommodation);
                     confirm.Show();
                 }
                 else
                 {
-                    AddPossibleDates(dateBegin, dateEnd, Days);
+                    AddPossibleDates(dateBegin, dateEnd, NumberOfDays);
 
                 }
             }
@@ -108,13 +135,15 @@ namespace SIMSProject.View.Guest1
 
         }
 
+        //function that checks for free accommodations for a given date range
         public AccommodationReservation CheckReservations(List<AccommodationReservation> reservations, DateTime startDate, DateTime endDate, int accommodationId)
         {
             var conflictingReservation =  reservations.FirstOrDefault(r => r.Accommodation.Id == accommodationId && (startDate < r.EndDate && r.StartDate < endDate));
 
-            return conflictingReservation;
+            return conflictingReservation; //if return value is null it means that accommodation is free in specific date range
         }
 
+        //function that finds date ranges and adds them to combo box
         public void AddPossibleDates(DateTime startDate, DateTime endDate, int numberOfDays)
         {
             List<DateRange> availableRanges = new List<DateRange>();

@@ -17,13 +17,15 @@ using SIMSProject.Observer;
 using SIMSProject.Model.UserModel;
 using SIMSProject.Controller;
 using System.Globalization;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace SIMSProject.View.Guest1
 {
     /// <summary>
     /// Interaction logic for FreeAccommodationsSuggestions.xaml
     /// </summary>
-    public partial class FreeAccommodationsSuggestions : Window
+    public partial class FreeAccommodationsSuggestions : Window, INotifyPropertyChanged
     {
         public DateRange ConflictedRange { get; set; }
         public DateRange ReservedRange { get; set; }
@@ -34,6 +36,20 @@ namespace SIMSProject.View.Guest1
         public Accommodation Accommodation { get; set; }
         public Guest User { get; set; } = new();
         public AccommodationReservationController Controller { get; set; } = new();
+        private int _guestsNumber;
+        public int GuestsNumber
+        {
+            get => _guestsNumber;
+
+            set
+            {
+                if (value != _guestsNumber && value >= 0)
+                {
+                    _guestsNumber = value;
+                    OnPropertyChanged(nameof(GuestsNumber));
+                }
+            }
+        }
 
         public FreeAccommodationsSuggestions(DateRange dateRange, DateRange reservedRange, int numberOfDays, Guest user, AccommodationReservation accommodationReservation, Accommodation accommodation)
         {
@@ -46,8 +62,8 @@ namespace SIMSProject.View.Guest1
             User = user;
             Accommodation = accommodation;
             AccommodationReservation = accommodationReservation;
-            List<DateRange> availableDates = GetAvailableDateRange(ConflictedRange.StartDate, ConflictedRange.EndDate, ReservedRange.StartDate, ReservedRange.EndDate, DaysNumber);
-            ShowDateRangeInDataGrid(availableDates);
+            GetAvailableDateRange(ConflictedRange.StartDate, ConflictedRange.EndDate, ReservedRange.StartDate, ReservedRange.EndDate, DaysNumber);
+            ShowDateRangeInDataGrid();
         }
 
         private void Button_Click_Close(object sender, RoutedEventArgs e)
@@ -55,20 +71,20 @@ namespace SIMSProject.View.Guest1
             Close();
         }
 
-        public List<DateRange> GetAvailableDateRange(DateTime conflictingStartDate, DateTime conflictingEndDate, DateTime reservedStartDate, DateTime reservedEndDate, int numDays)
+        //function that collects available dates from extended date range
+        public void GetAvailableDateRange(DateTime conflictingStartDate, DateTime conflictingEndDate, DateTime reservedStartDate, DateTime reservedEndDate, int numDays)
         {
-            List<DateRange> availableDateRange = new List<DateRange>();
             DateTime startDate = conflictingStartDate;
             DateTime endDate = conflictingEndDate;
 
-            int maxExtends = 7;
+            int maxExtends = 7; //range extends max to 7 days
             int extendCount = 0;
 
             while (extendCount < maxExtends)
             {
-                bool conflict = (startDate.AddDays(numDays) < reservedStartDate || endDate.AddDays(-numDays) > reservedEndDate);
+                bool free = (startDate.AddDays(numDays) < reservedStartDate || endDate.AddDays(-numDays) > reservedEndDate);
 
-                if (conflict)
+                if (free)
                 {
                     if(startDate.AddDays(numDays) < reservedStartDate)
                     {
@@ -87,11 +103,10 @@ namespace SIMSProject.View.Guest1
  
                  extendCount++;
             }
-            
-            return availableDateRange;
         }
- 
-        private void ShowDateRangeInDataGrid(List<DateRange> availableDates)
+        
+        //function for binding with data grid
+        private void ShowDateRangeInDataGrid()
         {
   
             DataGridDates.ItemsSource = DateRanges;
@@ -100,11 +115,11 @@ namespace SIMSProject.View.Guest1
 
         private void Button_Click_Confirm(object sender, RoutedEventArgs e)
         {
-            int guestNumber = GuestsBox.Value;
+            GuestsNumber = GuestsBox.Value;
 
-            if(guestNumber <= Accommodation.MaxGuestNumber)
+            if(GuestsNumber <= Accommodation.MaxGuestNumber)
             {
-                AccommodationReservation = new AccommodationReservation(AccommodationReservation.Accommodation.Id, User.Id, SelectedRange.StartDate, SelectedRange.EndDate, DaysNumber, guestNumber);
+                AccommodationReservation = new AccommodationReservation(AccommodationReservation.Accommodation.Id, User.Id, SelectedRange.StartDate, SelectedRange.EndDate, DaysNumber, GuestsNumber);
 
                 Controller.Create(AccommodationReservation);
                 MessageBox.Show("Smeštaj rezervisan!");
@@ -114,9 +129,12 @@ namespace SIMSProject.View.Guest1
             {
                 MessageBox.Show("Broj gostiju nije prihvatljiv!");
             }
-            
-            
+        }
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

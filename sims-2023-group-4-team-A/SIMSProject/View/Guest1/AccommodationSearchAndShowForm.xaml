@@ -35,8 +35,8 @@
 
         <DataGrid FontSize="14"  Height="297" Margin="10,0,12,0"
                    ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}"
-                               SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" Width="712"
-                   SelectedItem="{Binding selectedAccommodation}">
+                               SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" Width="721"
+                   SelectedItem="{Binding SelectedAccommodation}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv" Width="160" Binding="{Binding Name}" />
                 <DataGridTextColumn Header="Lokacija" Width="160" Binding="{Binding Location}" />

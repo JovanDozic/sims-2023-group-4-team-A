@@ -27,18 +27,18 @@
 
         <Label FontSize="15" Content="Slobodni datumi:" Grid.Row="1" ></Label>
 
-        <DataGrid ItemsSource="{Binding DateRanges }" SelectedItem="{Binding SelectedRange}"  AutoGenerateColumns="False" x:Name="DataGridDates" Grid.Row="2" Grid.ColumnSpan="2" Margin="7,0,37,10" >
+        <DataGrid FontSize="15" IsReadOnly="True" ItemsSource="{Binding DateRanges }" SelectedItem="{Binding SelectedRange}"  AutoGenerateColumns="False" x:Name="DataGridDates" Grid.Row="2" Grid.ColumnSpan="2" Margin="7,0,37,10" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Pocetak" Width="150" Binding="{Binding StartDate, StringFormat={}{0:MM/dd/yyyy}}"/>
-                    <DataGridTextColumn Header="Kraj" Width="150" Binding="{Binding EndDate, StringFormat={}{0:MM/dd/yyyy}}"/>
+                <DataGridTextColumn FontSize="14" Header="Početak" Width="150" Binding="{Binding StartDate, StringFormat={}{0:dd.MM.yyyy.}}"/>
+                    <DataGridTextColumn FontSize="14" Header="Kraj" Width="150" Binding="{Binding EndDate, StringFormat={}{0:dd.MM.yyyy.}}"/>
             </DataGrid.Columns>
 
         </DataGrid>
 
         <Label FontSize="15" Content="Broj gostiju:" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <custom:NumericTextBox x:Name="GuestsBox" FontSize="15" Grid.Row="3" Grid.Column="6" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        <custom:NumericTextBox Value="{Binding GuestsNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  x:Name="GuestsBox" FontSize="15" Grid.Row="3" Grid.Column="6" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
-        <Button Content="Otkazi" FontSize="15" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100" Click="Button_Click_Close"></Button>
+        <Button Content="Otkaži" FontSize="15" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100" Click="Button_Click_Close"></Button>
         <Button Content="Potvrdi" FontSize="15" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100" Click="Button_Click_Confirm" />
 
 

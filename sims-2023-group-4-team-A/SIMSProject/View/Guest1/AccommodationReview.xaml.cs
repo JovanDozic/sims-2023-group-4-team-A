@@ -27,9 +27,7 @@ namespace SIMSProject.View.Guest1
         public Guest User = new();
         public Accommodation Accommodation { get; set; }
         public Accommodation selectedAccommodation { set; get; } = new();
-
-      
-        
+  
         private string _selectedImageFile = string.Empty;
         public string SelectedImageFile
         {

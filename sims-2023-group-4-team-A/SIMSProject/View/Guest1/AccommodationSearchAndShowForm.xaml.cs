@@ -34,10 +34,9 @@ namespace SIMSProject.View.Guest1
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public Accommodation selectedAccommodation { set; get; } = new();
+        public Accommodation? SelectedAccommodation { set; get; } = null;
 
         private int _durationSearch;
-
         public int DurationSearch
         {
             get => _durationSearch;
@@ -51,9 +50,7 @@ namespace SIMSProject.View.Guest1
                 }
             }
         }
-
         private int _maxGuestsSearch;
-
         public int MaxGuestsSearch
         {
             get => _maxGuestsSearch;
@@ -67,7 +64,6 @@ namespace SIMSProject.View.Guest1
                 }
             }
         }
-
         public AccommodationSearchAndShowForm(Guest user)
         {
             InitializeComponent();
@@ -131,8 +127,17 @@ namespace SIMSProject.View.Guest1
 
         private void Show_Click(object sender, RoutedEventArgs e)
         {
-            var openReservation = new AccommodationReview(User,selectedAccommodation);
-            openReservation.Show();
+            
+            if(SelectedAccommodation != null)
+            {
+                var openReservation = new AccommodationReview(User, SelectedAccommodation);
+                openReservation.Show();
+            }
+            else
+            {
+                MessageBox.Show("Izaberite smestaj");
+            }
+            
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
