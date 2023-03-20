@@ -55,7 +55,7 @@ namespace SIMSProject.Model.DAO.UserModelDAO
                 }
                 catch
                 {
-                    guest.Rating = 15;
+                    guest.Rating = 0;
                 }
             }
 

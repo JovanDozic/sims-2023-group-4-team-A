@@ -7,8 +7,8 @@
         xmlns:custom="clr-namespace:SIMSProject.CustomControls"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        Title="Prikaz smeštaja" Height="449" Width="473">
-    <Grid Margin="10,10,10,32">
+        Title="Prikaz smeštaja" Height="482" Width="505">
+    <Grid Margin="10,10,10,26">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"></ColumnDefinition>
@@ -19,7 +19,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="200"></RowDefinition>
+            <RowDefinition Height="230"></RowDefinition>
 
 
             <RowDefinition Height="50"></RowDefinition>
@@ -41,7 +41,7 @@
 
         <Grid Grid.Row="3" Grid.Column="0" Margin="5,10,20,10">
             <Border BorderThickness="2" BorderBrush="#ffb0b0b0" Panel.ZIndex="1">
-                <Image Source="{Binding Path=SelectedImageFile, UpdateSourceTrigger=PropertyChanged}"/>
+                <Image Source="{Binding Path=SelectedImageFile, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,2"/>
             </Border>
             <TextBlock x:Name="TXTImagePlaceholder" Text="Izaberite sliku" FontSize="14"
                        VerticalAlignment="Center" HorizontalAlignment="Center"

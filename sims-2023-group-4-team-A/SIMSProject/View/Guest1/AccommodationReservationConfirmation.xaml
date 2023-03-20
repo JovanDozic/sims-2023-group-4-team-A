@@ -7,9 +7,9 @@
         xmlns:custom="clr-namespace:SIMSProject.CustomControls"
 
         mc:Ignorable="d"
-        Title="Rezervacija smeštaja" Height="450" Width="455"
+        Title="Rezervacija smeštaja" Height="585" Width="490"
         WindowStartupLocation="CenterScreen">
-    <Grid Margin="25,10,21,10">
+    <Grid Margin="32,10,21,12">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -18,28 +18,42 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="120"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
 
         </Grid.RowDefinitions>
 
-        <Label Height="39" FontSize="17" Content="Rezervacija smeštaja:"  HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-        <TextBlock FontSize="17" FontStyle="Oblique" x:Name="NameTextBlock" Height="30" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="204,0,0,0"/>
+        <Label Height="39" FontSize="18" Content="Rezervacija smeštaja:"  HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <TextBlock FontSize="18" FontStyle="Oblique" x:Name="NameTextBlock" Height="30" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="204,0,0,0"/>
 
         <Label FontSize="15" Content="Datum početka:" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <DatePicker x:Name="DateBeginBox" FontSize="15" Grid.Row="1" Grid.Column="4" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <DatePicker Loaded="DatePicker_Loaded" x:Name="DateBeginBox" SelectedDate="{Binding StartDate}" FontSize="15" Grid.Row="1" Grid.Column="4" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
         <Label FontSize="15" Content="Datum kraja:" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <DatePicker x:Name="DateEndBox" FontSize="15" Grid.Row="2" Grid.Column="1" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <DatePicker Loaded="DatePicker_Loaded" x:Name="DateEndBox" SelectedDate="{Binding EndDate}" FontSize="15" Grid.Row="2" Grid.Column="1" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
         <Label FontSize="15" Content="Broj dana:" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <custom:NumericTextBox x:Name="DaysBox" FontSize="15" Grid.Row="3" Grid.Column="6" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        <custom:NumericTextBox Value="{Binding NumberOfDays, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="DaysBox" FontSize="15" Grid.Row="3" Grid.Column="6" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
-        <Button FontSize="15" Content="Rezerviši"  Grid.Row="4" Grid.Column="1"  Height="35" Width="120" Click="Confirm_Button"/>
-        <Button Content="Nazad" FontSize="15" Grid.Row ="6" Grid.Column="0" Height="35" Width="120" Click="Button_Click_Back" ></Button>
+        <Button Content="Prikaži" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100" Grid.ColumnSpan="2" Click="Show_Click"></Button>
+
+        <Label Content="Mogući termini:" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"/>
+        <ComboBox x:Name="DatesCombo" ItemsSource="{Binding AvailableDateRanges}" DisplayMemberPath="FormattedDateRange" Visibility="Visible" Grid.Row="5" Grid.Column="1" Height="35" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="15" >
+            
+        </ComboBox>
+
+        <custom:NumericTextBox Value="{Binding GuestsNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="GuestsBox" FontSize="15" Grid.Row="6" Grid.Column="6" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+        <Label FontSize="15" Content="Broj gostiju:" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+        <Button FontSize="15" Content="Rezerviši"  Grid.Row="7" Grid.Column="1"  Height="35" Width="120" Click="Confirm_Button"/>
+        <Button Content="Nazad" FontSize="15" Grid.Row ="7" Grid.Column="0" Height="35" Width="120" Click="Button_Click_Back" ></Button>
 
     </Grid>
 </Window>
