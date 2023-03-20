@@ -31,8 +31,8 @@ namespace SIMSProject.View.Guest1
         public AccommodationReservation AccommodationReservation { get; set; } = new();
         public DateTime[] DateRange { get; set; }
         public string FormattedDateRange => $"{DateRange[0]:dd/MM/yyyy} - {DateRange[1]:dd/MM/yyyy}";
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime StartDate { get; set; } = DateTime.Now;
+        public DateTime EndDate { get; set; } = DateTime.Now;
         private int _guestsNumber = 1;
         public int GuestsNumber
         {
