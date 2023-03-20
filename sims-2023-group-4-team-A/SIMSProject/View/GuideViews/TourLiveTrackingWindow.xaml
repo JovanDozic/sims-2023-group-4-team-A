@@ -61,8 +61,8 @@
                 <RowDefinition Height="120*"/>
             </Grid.RowDefinitions>
             <Label Grid.Row="0"
-                   FontSize="35" FontWeight="Bold"
-                   Content="Naziv ture"
+                   FontSize="25" FontWeight="Bold"
+                   Content="{Binding Path=SelectedDate.Tour.Name}"
                    Margin="20,0,0,0"/>
             <StackPanel Grid.Row="2" Orientation="Horizontal">
                 <Button x:Name="CloseBTN"
@@ -92,9 +92,9 @@
                 <StackPanel Grid.Row="0" Orientation="Horizontal">
                     <Label Content="Trenutna ključna tačka:"
                            FontSize="15"/>
-                    <TextBox Text="{Binding Path=SelectedDate.CurrentKeyPoint, UpdateSourceTrigger=PropertyChanged}"
-                             IsReadOnly="True"
-                             Width="150"/>
+                    <TextBlock x:Name="CurrentKeyPointTB" Text="{Binding Path=CurrentKeyPoint, UpdateSourceTrigger=PropertyChanged}"
+                               Width="150"
+                               FontSize="15"/>
                 </StackPanel>
                 <ListBox x:Name="KeyPointLB"
                 FontSize="15"

@@ -53,6 +53,7 @@ namespace SIMSProject.View.GuideViews
                 if (activeDate.Id != SelectedDate.Id)
                 {
                     MessageBox.Show("Već postoji aktivna tura!");
+                    return;
                 }
                 //Samo nastavi turu
 

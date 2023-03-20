@@ -122,7 +122,7 @@ namespace SIMSProject.Model.DAO
 
             date.CurrentKeyPoint = nextKeyPoint;
             date.CurrentKeyPointId = nextKeyPoint.Id;
-            _fileHandler.Save(_tourDates);
+            SaveAll(_tourDates);
         }
         public void UpdateAvailableSpots(TourDate tourDate)
         {

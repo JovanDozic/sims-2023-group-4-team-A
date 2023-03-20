@@ -16,6 +16,11 @@ namespace SIMSProject.Controller
             TourDate = new();
         }
 
+        public TourDate GetById(int id)
+        {
+            return _tourDates.Get(id);
+        }
+
         public List<TourDate> GetAll()
         {
             return _tourDates.GetAll();

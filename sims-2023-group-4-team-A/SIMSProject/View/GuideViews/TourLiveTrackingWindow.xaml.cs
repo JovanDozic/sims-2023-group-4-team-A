@@ -46,10 +46,12 @@ namespace SIMSProject.View.GuideViews
             InitializeComponent();
             this.DataContext = this;
 
-            SelectedDate = Date;
+            SelectedDate = tourDateController.GetById(Date.Id);
             CurrentKeyPoint = SelectedDate.CurrentKeyPoint;
             LastKeyPoint = tourController.GetLast(SelectedDate);
 
+
+            CurrentKeyPointTB.Text = CurrentKeyPoint.ToString();
             SortGuests();
             AddKeyPoints();
         }
@@ -104,7 +106,9 @@ namespace SIMSProject.View.GuideViews
             if(NextKeyPoint != null)
             {
                 tourDateController.AdvanceToNext(SelectedDate.Id, NextKeyPoint);
-                CurrentKeyPoint = NextKeyPoint;            }
+                CurrentKeyPoint = NextKeyPoint;
+                CurrentKeyPointTB.Text = CurrentKeyPoint.ToString();
+            }
         }
 
         private void PauseBTN_Click(object sender, RoutedEventArgs e)

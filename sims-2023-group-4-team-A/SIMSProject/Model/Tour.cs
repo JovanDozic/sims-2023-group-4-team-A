@@ -259,7 +259,7 @@ namespace SIMSProject.Model
 
         public override string? ToString()
         {
-            return Location + " " + TourLanguage.ToString();
+            return Name + ", " + Location + ", " + TourLanguage.ToString();
         }
     }
 }
