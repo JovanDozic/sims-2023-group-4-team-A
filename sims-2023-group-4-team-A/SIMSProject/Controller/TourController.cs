@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SIMSProject.Model;
+using SIMSProject.Observer;
 
 namespace SIMSProject.Controller
 {
@@ -67,6 +68,16 @@ namespace SIMSProject.Controller
         public void AddNewDate(int tourId, TourDate date)
         {
             _tours.AddNewDate(tourId, date);
+        }
+
+        public void Refresh()
+        {
+            _tours.Refresh();
+        }
+
+        public void Subscribe(IObserver observer) 
+        { 
+            _tours.Subscribe(observer);
         }
 
         /*public static List<Tour> Search(string searchText)

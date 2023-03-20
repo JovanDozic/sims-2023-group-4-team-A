@@ -43,7 +43,7 @@ namespace SIMSProject.Controller
 
         public List<TourDate> FindTodaysByTour(int TourId)
         {
-            return _tourDates.FindByTour(TourId);
+            return _tourDates.FindTodaysDates(TourId);
         }
 
         public void AdvanceToNext(int dateId, KeyPoint SelectedKeyPoint)

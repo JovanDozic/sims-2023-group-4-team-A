@@ -6,6 +6,8 @@ using SIMSProject.Controller;
 using System.Windows.Navigation;
 using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.Model.UserModel;
+using Microsoft.VisualBasic;
+using System;
 
 namespace SIMSProject.Model.DAO
 {
@@ -163,6 +165,12 @@ namespace SIMSProject.Model.DAO
             _fileHandler.Save(_tourDates);
             return oldDate;
         }
+
+        public List<TourDate> FindTodaysDates(int TourId)
+        {
+            return _tourDates.FindAll(x => x.TourId == TourId && x.Date.Date == DateTime.Now.Date);
+        }
+
         public List<TourDate> FindByTour(int TourId)
         {
             return _tourDates.FindAll(x => x.TourId == TourId);

@@ -45,6 +45,13 @@ namespace SIMSProject.Model.DAO
             return tour;
         }
 
+
+        public void Refresh()
+        {
+            _fileHandler.Save(_tours);
+            NotifyObservers();
+        }
+
         public void SaveAll(List<Tour> tours)
         {
             _fileHandler.Save(tours);

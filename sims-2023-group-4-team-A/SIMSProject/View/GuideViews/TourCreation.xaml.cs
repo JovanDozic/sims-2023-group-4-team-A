@@ -126,6 +126,7 @@ namespace SIMSProject.View.GuideViews
                     tourKeyPointController.Create(newPair);
                 }
 
+                tourController.Refresh();
                 MessageBox.Show("Tura uspešno kreirana.");
                 Close();
                 

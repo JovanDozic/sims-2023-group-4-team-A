@@ -1,6 +1,7 @@
 ﻿using SIMSProject.Controller;
 using SIMSProject.Model;
 using SIMSProject.Model.UserModel;
+using SIMSProject.Observer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,10 +22,10 @@ namespace SIMSProject.View.GuideViews
     /// <summary>
     /// Interaction logic for GuideInitialWindow.xaml
     /// </summary>
-    public partial class GuideInitialWindow : Window
+    public partial class GuideInitialWindow : Window, IObserver
     {
         private readonly TourController tourController = new();
-        public ObservableCollection<Tour> TodaysTours { get; set; }
+        public ObservableCollection<Tour> TodaysTours { get; set; } = new ObservableCollection<Tour>();
         public Tour SelectedTour { get; set; } = new();
         public Guide guide { get; set; } = new();
 
@@ -33,9 +34,9 @@ namespace SIMSProject.View.GuideViews
             InitializeComponent();
             this.DataContext = this;
 
-            TodaysTours = new();
             this.guide = guide;
 
+            tourController.Subscribe(this);
             DisplayTodaysTours();
         }
 
@@ -57,6 +58,20 @@ namespace SIMSProject.View.GuideViews
         {
             TourCreation window = new TourCreation(guide);
             window.Show();
+        }
+
+        private void UpdateTodaysTours()
+        {
+            TodaysTours.Clear();
+            foreach (var tour in tourController.FindTodays())
+            {
+                TodaysTours.Add(tour);
+            }
+        }
+
+        public void Update()
+        {
+            UpdateTodaysTours();
         }
     }
 }
