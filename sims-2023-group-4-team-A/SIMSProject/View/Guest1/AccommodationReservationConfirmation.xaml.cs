@@ -126,28 +126,24 @@ namespace SIMSProject.View.Guest1
                 {
                     if (reserved != null)
                     {
+                        List<AccommodationReservation> reservations = GetReservations(Controller.GetAll(), Accommodation.Id);
+                        List<DateRange> reservedDates = GetReservationDates(reservations);
                         DateRange conflictingRange = new DateRange(dateBegin, dateEnd);
-                        DateRange reservedRange = new DateRange(reserved.StartDate, reserved.EndDate);
-                        var confirm = new FreeAccommodationsSuggestions(conflictingRange, reservedRange, NumberOfDays, User, reserved, Accommodation);
-                        confirm.Show();
+                        var show = new FreeAccommodationsSuggestions(conflictingRange, reservedDates, NumberOfDays, User, AccommodationReservation, Accommodation);
+                        show.Show();
                     }
                     else
                     {
                         AddPossibleDates(dateBegin, dateEnd, NumberOfDays);
-
                     }
                 }
                 else
                 {
                     MessageBox.Show("Broj dana nije prihvatljiv!");
                 }
-
             }
             else
                 MessageBox.Show("Datum odlaska mora biti veći od datuma dolaska");
-
-             
-
         }
 
         //function that checks for free accommodations for a given date range
@@ -170,6 +166,34 @@ namespace SIMSProject.View.Guest1
                 availableRanges.Add(dateRange);
             }
             DatesCombo.ItemsSource = availableRanges;
+        }
+
+        //function that goes through reservations and return their dates
+        public List<DateRange> GetReservationDates(List<AccommodationReservation> reservations)
+        {
+            List<DateRange> dateRanges = new List<DateRange>();
+
+            foreach(AccommodationReservation reservation in reservations)
+            {
+                dateRanges.Add(new DateRange(reservation.StartDate, reservation.EndDate));
+            }
+            return dateRanges;
+        }
+
+        //function that returns all reservations for specific accommodation
+        public List<AccommodationReservation> GetReservations(List<AccommodationReservation> reservations, int accommodationId)
+        {
+            List<AccommodationReservation> matchingReservations = new List<AccommodationReservation>();
+
+            foreach(AccommodationReservation reservation in reservations)
+            {
+                if(reservation.Accommodation.Id == accommodationId)
+                {
+                    matchingReservations.Add(reservation);
+                }
+            }
+
+            return matchingReservations;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
