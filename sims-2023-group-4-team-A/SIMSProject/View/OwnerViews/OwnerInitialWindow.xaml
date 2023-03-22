@@ -54,6 +54,7 @@
             <DataGrid ItemsSource="{Binding User.Accommodations, UpdateSourceTrigger=PropertyChanged}"
                       AutoGenerateColumns="False"
                       SelectedValue="{Binding SelectedAccommodation}"
+                      x:Name="DGRAccommodations"
                       Height="250" Margin="20,10,20,20"
                       IsReadOnly="True">
                 <DataGrid.Columns>

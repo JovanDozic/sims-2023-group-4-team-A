@@ -14,7 +14,6 @@ namespace SIMSProject.View.OwnerViews
     {
         public Owner User { get; set; } = new();
         private Accommodation _selectedAccommodation = new();
-
         public Accommodation SelectedAccommodation
         {
             get => _selectedAccommodation;
@@ -27,9 +26,7 @@ namespace SIMSProject.View.OwnerViews
                 }
             }
         }
-
         private AccommodationReservation _selectedReservation = new();
-
         public AccommodationReservation SelectedReservation
         {
             get => _selectedReservation;
@@ -42,9 +39,7 @@ namespace SIMSProject.View.OwnerViews
                 }
             }
         }
-
         private AccommodationReservationController _reservationController = new();
-
         public OwnerInitialWindow(Owner user)
         {
             InitializeComponent();
@@ -58,15 +53,8 @@ namespace SIMSProject.View.OwnerViews
         {
             foreach (var reservation in _reservationController.GetAll())
             {
-                if (reservation.GuestRated || reservation.Accommodation.Owner.Id != User.Id)
-                {
-                    continue;
-                }
-
-                if (DateTime.Now < reservation.EndDate || DateTime.Now > reservation.EndDate.AddDays(5))
-                {
-                    continue;
-                }
+                if (reservation.GuestRated || reservation.Accommodation.Owner.Id != User.Id)  continue;
+                if (DateTime.Now < reservation.EndDate || DateTime.Now > reservation.EndDate.AddDays(5)) continue;
 
                 if (RateGuestDialogue(reservation))
                 {
@@ -94,16 +82,20 @@ namespace SIMSProject.View.OwnerViews
 
         private void OpenRegisterAccommodationWindowButton_Click(object sender, RoutedEventArgs e)
         {
-            RegisterAccommodation window = new();
-            window.Show();
+            RegisterAccommodation window = new(User);
+            window.ShowDialog();
+            RefreshAccommodations();
+        }
+
+        private void RefreshAccommodations()
+        {
+            User.Accommodations = new AccommodationController().GetAllByOwner(User.Id);
+            DGRAccommodations.Items.Refresh();
         }
 
         private void OpenRateGuestWindowButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DateTime.Now < SelectedReservation.EndDate)
-            {
-                return;
-            }
+            if (DateTime.Now < SelectedReservation.EndDate) return;
 
             RateGuest window = new(User, SelectedReservation);
             window.Show();

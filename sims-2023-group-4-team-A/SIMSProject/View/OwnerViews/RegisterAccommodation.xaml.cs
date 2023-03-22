@@ -5,36 +5,35 @@ using System.Windows;
 using System.Windows.Controls;
 using SIMSProject.Controller;
 using SIMSProject.Model;
+using SIMSProject.Model.UserModel;
 
 namespace SIMSProject.View.OwnerViews
 {
     public partial class RegisterAccommodation : Window, INotifyPropertyChanged
     {
-        public Accommodation Accommodation { get; set; }
-        private AccommodationController _accommodationController { get; } = new();
-        private LocationController _locationController { get; } = new();
+        public Owner User { get; set; }
+        public Accommodation Accommodation { get; set; } = new();
+        private AccommodationController _accommodationController { get; set; } = new();
+        private LocationController _locationController { get; set; } = new();
         public ObservableCollection<string> AccommodationTypeSource { get; set; }
-        private bool _imageAdded { get; set; }
-        private string _selectedImageFile = string.Empty;
+        private bool ImageAdded { get; set; }
+        public string _selectedImageFile = string.Empty;
         public string SelectedImageFile
         {
             get => _selectedImageFile;
             set
             {
-                if (_selectedImageFile != value)
-                {
-                    _selectedImageFile = value;
-                    OnPropertyChanged();
-                }
+                if (_selectedImageFile == value) return;
+                _selectedImageFile = value;
+                OnPropertyChanged();
             }
         }
 
-        public RegisterAccommodation()
+        public RegisterAccommodation(Owner user)
         {
             InitializeComponent();
             DataContext = this;
-
-            Accommodation = new Accommodation();
+            User = user;
 
             AccommodationTypeSource = new ObservableCollection<string>
             {
@@ -54,11 +53,13 @@ namespace SIMSProject.View.OwnerViews
                 return;
             }
 
+            Accommodation.Owner = User;
             Accommodation.Location = _locationController.Create(Accommodation.Location);
             _accommodationController.Create(Accommodation);
 
             MessageBox.Show("Registracija smeštaja uspešna!", "Registracija uspešna", MessageBoxButton.OK,
                 MessageBoxImage.Information);
+
             Close();
         }
 
@@ -70,16 +71,16 @@ namespace SIMSProject.View.OwnerViews
         private void BTNAddFiles_Click(object sender, RoutedEventArgs e)
         {
             Accommodation.ImageURLs.Add(TBImageURL.Text);
-            //Accommodation.ImageURLsToCSV();
+            Accommodation.ImageURLsToCSV();
             DGRImageURLs.Items.Refresh();
-            _imageAdded = true;
+            ImageAdded = true;
         }
 
         private void TBImageURL_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (_imageAdded)
+            if (ImageAdded)
             {
-                _imageAdded = false;
+                ImageAdded = false;
                 TBImageURL.Text = string.Empty;
             }
         }
