@@ -41,7 +41,7 @@ namespace SIMSProject.View.OwnerViews
                 "Kuća",
                 "Koliba"
             };
-            CBType.SelectedIndex = 0;
+            CbType.SelectedIndex = 0;
         }
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
@@ -70,19 +70,17 @@ namespace SIMSProject.View.OwnerViews
 
         private void BTNAddFiles_Click(object sender, RoutedEventArgs e)
         {
-            Accommodation.ImageURLs.Add(TBImageURL.Text);
+            Accommodation.ImageURLs.Add(TbImageUrl.Text);
             Accommodation.ImageURLsToCSV();
-            DGRImageURLs.Items.Refresh();
+            DgrImageUrLs.Items.Refresh();
             ImageAdded = true;
         }
 
         private void TBImageURL_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (ImageAdded)
-            {
-                ImageAdded = false;
-                TBImageURL.Text = string.Empty;
-            }
+            if (!ImageAdded) return;
+            ImageAdded = false;
+            TbImageUrl.Text = string.Empty;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -94,7 +92,7 @@ namespace SIMSProject.View.OwnerViews
 
         private void DGRImageURLs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TXTImagePlaceholder.Text = "Učitavanje...";
+            TxtImagePlaceholder.Text = "Učitavanje...";
         }
     }
 }

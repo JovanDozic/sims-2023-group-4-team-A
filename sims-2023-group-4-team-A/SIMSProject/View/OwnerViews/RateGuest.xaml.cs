@@ -19,11 +19,9 @@ namespace SIMSProject.View.OwnerViews
             get => _reservation;
             set
             {
-                if (_reservation != value)
-                {
-                    _reservation = value;
-                    OnPropertyChanged();
-                }
+                if (_reservation == value) return;
+                _reservation = value;
+                OnPropertyChanged();
             }
         }
 
@@ -59,8 +57,7 @@ namespace SIMSProject.View.OwnerViews
             var reservationController = new AccommodationReservationController();
             reservationController.UpdateExisting(Reservation);
 
-            MessageBox.Show("Ocena uspešno ostavljena!", "Gost ocenjen", MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            MessageBox.Show("Ocena uspešno ostavljena!", "Gost ocenjen", MessageBoxButton.OK, MessageBoxImage.Information);
             Close();
         }
     }
