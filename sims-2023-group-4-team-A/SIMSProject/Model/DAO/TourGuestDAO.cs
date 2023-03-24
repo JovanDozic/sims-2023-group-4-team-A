@@ -1,26 +1,29 @@
-﻿using SIMSProject.FileHandler;
+﻿using System.Collections.Generic;
+using SIMSProject.FileHandler;
 using SIMSProject.Observer;
-using System.Collections.Generic;
 
 namespace SIMSProject.Model.DAO
 {
     public class TourGuestDAO : ISubject
     {
-        private List<IObserver> _observers;
+        private readonly List<IObserver> _observers;
         private readonly TourGuestFileHandler _fileHandler;
         private List<TourGuest> _tourGuests;
 
         public TourGuestDAO()
         {
-            _fileHandler = new();
+            _fileHandler = new TourGuestFileHandler();
             _tourGuests = _fileHandler.Load();
-            _observers = new();
+            _observers = new List<IObserver>();
 
             AssociateTourGuests();
-
         }
 
-        public List<TourGuest> GetAll() { return _tourGuests; }
+        public List<TourGuest> GetAll()
+        {
+            return _tourGuests;
+        }
+
         public TourGuest Save(TourGuest tourGuest)
         {
             _tourGuests.Add(tourGuest);
@@ -36,11 +39,9 @@ namespace SIMSProject.Model.DAO
             NotifyObservers();
         }
 
-
         private void AssociateTourGuests()
         {
-
-            foreach (TourGuest tourGuest in _tourGuests)
+            foreach (var tourGuest in _tourGuests)
             {
                 AssociateDate(tourGuest);
                 AssociateJoinedKeyPoint(tourGuest);
@@ -50,28 +51,39 @@ namespace SIMSProject.Model.DAO
         private static void AssociateJoinedKeyPoint(TourGuest tourGuest)
         {
             KeyPointFileHandler keyPointFileHandler = new();
-            List<KeyPoint> keyPoints = keyPointFileHandler.Load();
+            var keyPoints = keyPointFileHandler.Load();
 
 
-            KeyPoint? keyPoint = keyPoints.Find(x => x.Id == tourGuest.JoinedKeyPointId);
-            if (keyPoint == null) return;
+            var keyPoint = keyPoints.Find(x => x.Id == tourGuest.JoinedKeyPointId);
+            if (keyPoint == null)
+            {
+                return;
+            }
+
             tourGuest.JoinedKeyPoint = keyPoint;
         }
 
         private static void AssociateDate(TourGuest tourGuest)
         {
             TourDateFileHandler dateHandler = new();
-            List<TourDate> tourDates = dateHandler.Load();
+            var tourDates = dateHandler.Load();
 
-            TourDate? tourDate = tourDates.Find(x => x.Id == tourGuest.TourDateId);
-            if(tourDate == null) return;
+            var tourDate = tourDates.Find(x => x.Id == tourGuest.TourDateId);
+            if (tourDate == null)
+            {
+                return;
+            }
+
             tourGuest.TourDate = tourDate;
         }
 
         public void SignUpGuest(int guestId, int tourDateId)
         {
-            TourGuest? tourGuest = _tourGuests.Find(x => x.GuestId ==  guestId && x.TourDateId == tourDateId);
-            if(tourGuest == null) return;
+            var tourGuest = _tourGuests.Find(x => x.GuestId == guestId && x.TourDateId == tourDateId);
+            if (tourGuest == null)
+            {
+                return;
+            }
 
             tourGuest.GuestStatus = "Prijavljen";
             SaveAll(_tourGuests);
@@ -79,17 +91,33 @@ namespace SIMSProject.Model.DAO
 
         public void MakeGuestPresent(int guestId, int tourDateId, KeyPoint currentKeyPoint)
         {
-            TourGuest? tourGuest = _tourGuests.Find(x => x.GuestId == guestId && x.TourDateId == tourDateId);
-            if (tourGuest == null) return;
+            var tourGuest = _tourGuests.Find(x => x.GuestId == guestId && x.TourDateId == tourDateId);
+            if (tourGuest == null)
+            {
+                return;
+            }
 
             tourGuest.JoinedKeyPoint = currentKeyPoint;
             tourGuest.JoinedKeyPointId = currentKeyPoint.Id;
         }
 
-
         // [OBSERVERS]
-        public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }
-        public void Subscribe(IObserver observer) { _observers.Add(observer); }
-        public void Unsubscribe(IObserver observer) { _observers.Remove(observer); }
+        public void NotifyObservers()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Update();
+            }
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
     }
 }

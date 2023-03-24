@@ -1,28 +1,40 @@
-﻿using SIMSProject.FileHandler;
-using SIMSProject.Observer;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SIMSProject.FileHandler;
+using SIMSProject.Observer;
 
 namespace SIMSProject.Model.DAO
 {
     public class TourReservationDAO : ISubject
     {
-        private List<IObserver> _observers;
-        private TourReservationFileHandler _fileHandler;
+        private readonly List<IObserver> _observers;
+        private readonly TourReservationFileHandler _fileHandler;
         private List<TourReservation> _tourReservations;
 
         public TourReservationDAO()
         {
-            _fileHandler = new();
+            _fileHandler = new TourReservationFileHandler();
             _tourReservations = _fileHandler.Load();
-            _observers = new();
+            _observers = new List<IObserver>();
         }
-        public List<TourReservation> GetAll() { return _tourReservations; }
 
-        public int NextId() { return _tourReservations.Max(x => x.Id) + 1; }
+        public List<TourReservation> GetAll()
+        {
+            return _tourReservations;
+        }
+
+        public int NextId()
+        {
+            try
+            {
+                return _tourReservations.Max(x => x.Id) + 1;
+            }
+            catch
+            {
+                return 1;
+            }
+        }
+
         public TourReservation Save(TourReservation tourReservation)
         {
             tourReservation.Id = NextId();
@@ -40,9 +52,22 @@ namespace SIMSProject.Model.DAO
         }
 
         // [OBSERVERS]
-        public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }
-        public void Subscribe(IObserver observer) { _observers.Add(observer); }
-        public void Unsubscribe(IObserver observer) { _observers.Remove(observer); }
+        public void NotifyObservers()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Update();
+            }
+        }
 
+        public void Subscribe(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
     }
 }

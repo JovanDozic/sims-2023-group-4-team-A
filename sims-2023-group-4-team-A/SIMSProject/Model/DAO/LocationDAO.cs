@@ -25,7 +25,14 @@ namespace SIMSProject.Model.DAO
 
         public int NextId()
         {
-            return _locations.Max(x => x.Id) + 1;
+            try
+            {
+                return _locations.Max(x => x.Id) + 1;
+            }
+            catch
+            {
+                return 1;
+            }
         }
 
         public Location Save(Location location)
