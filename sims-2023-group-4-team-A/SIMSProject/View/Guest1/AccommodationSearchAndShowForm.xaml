@@ -19,12 +19,12 @@
 
             <Label Content="Broj gostiju:" Width="82" Height="29" FontSize="14"/>
 
-            <custom:NumericTextBox Value="{Binding MaxGuestsSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="TextSearch2" ></custom:NumericTextBox>
+            <custom:NumericTextBox Value="{Binding Path=MaxGuestsSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="TextSearch2" ></custom:NumericTextBox>
 
             <Label Width="71" Height="30" Content="Broj dana:" FontSize="14" />
 
 
-            <custom:NumericTextBox Value="{Binding DurationSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="TextSearch3"></custom:NumericTextBox>
+            <custom:NumericTextBox Value="{Binding Path=DurationSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="TextSearch3"></custom:NumericTextBox>
 
             <Button Width="80" Height="27" Content="Pretraži" Background="#C8C8C8" Click="Button_Click_Search" Margin="10" FontSize="14"/>
 

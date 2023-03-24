@@ -12,7 +12,7 @@ namespace SIMSProject.View.OwnerViews
 {
     public partial class OwnerInitialWindow : Window, INotifyPropertyChanged
     {
-        public Owner User { get; set; }
+        public Owner? User { get; set; }
         private Accommodation _selectedAccommodation = new();
         public Accommodation SelectedAccommodation
         {
@@ -117,6 +117,14 @@ namespace SIMSProject.View.OwnerViews
             {
                 BtnRateGuest.IsEnabled = true;
             }
+        }
+
+        private void LogOut_Click(object sender, RoutedEventArgs e)
+        {
+            User = null;
+            SignInForm window = new();
+            window.Show();
+            Close();
         }
     }
 }

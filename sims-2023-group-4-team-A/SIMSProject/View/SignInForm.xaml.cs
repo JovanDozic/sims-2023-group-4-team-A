@@ -14,7 +14,7 @@ namespace SIMSProject
     public partial class SignInForm : Window
     {
         private readonly UserController _userController;
-        private readonly GuideController guideController;
+        private readonly GuideController _guideController;
         private string _username = string.Empty;
         public string Username
         {
@@ -35,7 +35,7 @@ namespace SIMSProject
             DataContext = this;
 
             _userController = new UserController();
-            guideController = new GuideController();
+            _guideController = new GuideController();
         }
 
         private void SignIn(object? sender, RoutedEventArgs? e)
@@ -56,7 +56,7 @@ namespace SIMSProject
                         }
                         case "Vodič":
                         {
-                            var guide = guideController.GetByID(user.Id);
+                            var guide = _guideController.GetByID(user.Id);
                             GuideInitialWindow window = new(guide);
                             window.Show();
                             break;
