@@ -1,37 +1,42 @@
-﻿using SIMSProject.Observer;
-using SIMSProject.FileHandler;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Xml.Linq;
-using System.Diagnostics;
-using SIMSProject.FileHandler.UserFileHandler;
-using SIMSProject.Model.UserModel;
+using SIMSProject.FileHandler;
+using SIMSProject.Observer;
 
 namespace SIMSProject.Model.DAO
 {
     public class TourDAO : ISubject
     {
-        private List<IObserver> _observers;
+        private readonly List<IObserver> _observers;
         private readonly TourFileHandler _fileHandler;
         private List<Tour> _tours;
 
         public TourDAO()
         {
-            _fileHandler = new();
+            _fileHandler = new TourFileHandler();
             _tours = _fileHandler.Load();
-            _observers = new();
+            _observers = new List<IObserver>();
 
             AssociateTours();
         }
 
-        public int NextId() { return _tours.Max(x => x.Id) + 1; }
-        public List<Tour> GetAll() { return _tours; }
+        public int NextId()
+        {
+            try
+            {
+                return _tours.Max(x => x.Id) + 1;
+            }
+            catch
+            {
+                return 1;
+            }
+        }
+
+        public List<Tour> GetAll()
+        {
+            return _tours;
+        }
 
         public Tour Get(int id)
         {
@@ -46,7 +51,6 @@ namespace SIMSProject.Model.DAO
             NotifyObservers();
             return tour;
         }
-
 
         public void Refresh()
         {
@@ -109,7 +113,6 @@ namespace SIMSProject.Model.DAO
             }
         }
 
-
         public List<Tour> SearchLocations(string locationId)
         {
             return _tours.Where(tour => tour.LocationId.Equals(locationId)).ToList();
@@ -137,28 +140,47 @@ namespace SIMSProject.Model.DAO
 
         public KeyPoint GoToNextKeyPoint(TourAppointment date)
         {
-            Tour? currentTour = Get(date.TourId);
-            if (currentTour == null) return null;
+            var currentTour = Get(date.TourId);
+            if (currentTour == null)
+            {
+                return null;
+            }
 
-            int currentIndex = currentTour.KeyPoints.FindIndex(x => x.Id == date.CurrentKeyPointId);
-            bool indexOutOfRange = currentIndex < 0 || currentIndex >= currentTour.KeyPoints.Count - 1;
+            var currentIndex = currentTour.KeyPoints.FindIndex(x => x.Id == date.CurrentKeyPointId);
+            var indexOutOfRange = currentIndex < 0 || currentIndex >= currentTour.KeyPoints.Count - 1;
 
-            if (indexOutOfRange) return null;
+            if (indexOutOfRange)
+            {
+                return null;
+            }
 
             return currentTour.KeyPoints[currentIndex + 1];
         }
 
         public KeyPoint GetLastKeyPoint(TourAppointment date)
         {
-            Tour? currentTour = Get(date.TourId);
-            if (currentTour == null) return null;
+            var currentTour = Get(date.TourId);
+            if (currentTour == null)
+            {
+                return null;
+            }
+
             return currentTour.KeyPoints.Last();
         }
 
         public void EndTour(int tourId, int dateId)
         {
-            Tour? toEnd = Get(tourId);
-            if (toEnd == null) return;
+            var toEnd = Get(tourId);
+            if (toEnd == null)
+            {
+                return;
+            }
+
+            var dateToEnd = toEnd.Dates.Find(x => x.Id == dateId);
+            if (dateToEnd == null)
+            {
+                return;
+            }
 
             TourAppointment? dateToEnd = toEnd.Appointments.Find(x => x.Id == dateId);
             if (dateToEnd == null) return;
@@ -173,25 +195,37 @@ namespace SIMSProject.Model.DAO
             tour.Appointments.Add(appointment);
         }
 
-
         public List<Tour> GetToursWithSameLocation(Tour selectedTour)
         {
             List<Tour> tours = new();
-            foreach (Tour tour in GetAll())
+            foreach (var tour in GetAll())
             {
                 if (tour.Location.Id == selectedTour.Location.Id && tour.Id != selectedTour.Id)
                 {
                     tours.Add(tour);
                 }
             }
+
             return tours;
         }
 
         // [OBSERVERS]
-        public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }
-        public void Subscribe(IObserver observer) { _observers.Add(observer); }
-        public void Unsubscribe(IObserver observer) { _observers.Remove(observer); }
+        public void NotifyObservers()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Update();
+            }
+        }
 
+        public void Subscribe(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
 
+        public void Unsubscribe(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
     }
 }

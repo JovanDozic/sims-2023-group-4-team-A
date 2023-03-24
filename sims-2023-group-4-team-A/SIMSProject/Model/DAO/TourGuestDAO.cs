@@ -1,28 +1,31 @@
-﻿using SIMSProject.FileHandler;
+﻿using System.Collections.Generic;
+using SIMSProject.FileHandler;
 using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.Model.UserModel;
 using SIMSProject.Observer;
-using System.Collections.Generic;
 
 namespace SIMSProject.Model.DAO
 {
     public class TourGuestDAO : ISubject
     {
-        private List<IObserver> _observers;
+        private readonly List<IObserver> _observers;
         private readonly TourGuestFileHandler _fileHandler;
         private List<TourGuest> _tourGuests;
 
         public TourGuestDAO()
         {
-            _fileHandler = new();
+            _fileHandler = new TourGuestFileHandler();
             _tourGuests = _fileHandler.Load();
-            _observers = new();
+            _observers = new List<IObserver>();
 
             AssociateTourGuests();
-
         }
 
-        public List<TourGuest> GetAll() { return _tourGuests; }
+        public List<TourGuest> GetAll()
+        {
+            return _tourGuests;
+        }
+
         public TourGuest Save(TourGuest tourGuest)
         {
             _tourGuests.Add(tourGuest);
@@ -37,7 +40,6 @@ namespace SIMSProject.Model.DAO
             _tourGuests = tourGuests;
             NotifyObservers();
         }
-
 
         private void AssociateTourGuests()
         {
@@ -93,10 +95,23 @@ namespace SIMSProject.Model.DAO
             tourGuest.JoinedKeyPointId = currentKeyPoint.Id;
         }
 
-
         // [OBSERVERS]
-        public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }
-        public void Subscribe(IObserver observer) { _observers.Add(observer); }
-        public void Unsubscribe(IObserver observer) { _observers.Remove(observer); }
+        public void NotifyObservers()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Update();
+            }
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
     }
 }

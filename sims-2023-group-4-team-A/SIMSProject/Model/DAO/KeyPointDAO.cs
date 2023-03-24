@@ -1,32 +1,41 @@
-﻿using SIMSProject.Observer;
-using SIMSProject.FileHandler;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows.Navigation;
+using SIMSProject.FileHandler;
+using SIMSProject.Observer;
 
 namespace SIMSProject.Model.DAO
 {
     public class KeyPointDAO : ISubject
     {
-        private List<IObserver> _observers;
-        private KeyPointFileHandler _fileHandler;
+        private readonly List<IObserver> _observers;
+        private readonly KeyPointFileHandler _fileHandler;
         private List<KeyPoint> _keyPoints;
 
         public KeyPointDAO()
         {
-            _fileHandler = new();
+            _fileHandler = new KeyPointFileHandler();
             _keyPoints = _fileHandler.Load();
-            _observers = new();
+            _observers = new List<IObserver>();
 
             AssociateKeyPoints();
         }
 
-        public int NextId() { return _keyPoints.Max(x => x.Id) + 1; }
-        public List<KeyPoint> GetAll() { return _keyPoints; }
+        public int NextId()
+        {
+            try
+            {
+                return _keyPoints.Max(x => x.Id) + 1;
+            }
+            catch
+            {
+                return 1;
+            }
+        }
+
+        public List<KeyPoint> GetAll()
+        {
+            return _keyPoints;
+        }
 
         public KeyPoint Save(KeyPoint keyPoint)
         {
@@ -76,9 +85,22 @@ namespace SIMSProject.Model.DAO
         }
 
         // [OBSERVERS]
-        public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }
-        public void Subscribe(IObserver observer) { _observers.Add(observer); }
-        public void Unsubscribe(IObserver observer) { _observers.Remove(observer); }
-    }
+        public void NotifyObservers()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Update();
+            }
+        }
 
+        public void Subscribe(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
+    }
 }

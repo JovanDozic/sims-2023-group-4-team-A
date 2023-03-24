@@ -87,7 +87,7 @@
                 Margin="5,9,5,9" Height="30" Padding="5,0,0,0" />
         </Grid>
 
-        <ComboBox x:Name="CBType"
+        <ComboBox x:Name="CbType"
                   Grid.Row="3" Grid.Column="1" FontSize="16"
                   VerticalContentAlignment="Center" Margin="5,9,5,9" Height="30"
                   ItemsSource="{Binding Path=AccommodationTypeSource}" />
@@ -120,12 +120,12 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="TBImageURL" Grid.Column="0"
+            <TextBox x:Name="TbImageUrl" Grid.Column="0"
                      FontSize="16" VerticalContentAlignment="Center"
                      Margin="5,9,5,9" Height="30" Padding="5,0,0,0"
                      GotFocus="TBImageURL_GotFocus" />
 
-            <Button Grid.Column="1" x:Name="BTNUploadFiles" Margin="5,9,5,9"
+            <Button Grid.Column="1" x:Name="BtnUploadFiles" Margin="5,9,5,9"
                     FontSize="16" Padding="15,3,15,3"
                     HorizontalAlignment="Center" VerticalAlignment="Center"
                     Height="30" Click="BTNAddFiles_Click">
@@ -137,14 +137,14 @@
             <Border BorderThickness="2" BorderBrush="#ffb0b0b0" Panel.ZIndex="1">
                 <Image Source="{Binding SelectedImageFile}" />
             </Border>
-            <TextBlock x:Name="TXTImagePlaceholder"
+            <TextBlock x:Name="TxtImagePlaceholder"
                        Text="Izaberite sliku" FontSize="14"
                        VerticalAlignment="Center" HorizontalAlignment="Center"
                        Foreground="#ffb0b0b0"
                        Panel.ZIndex="0" />
         </Grid>
 
-        <DataGrid x:Name="DGRImageURLs" Grid.Row="8" Grid.Column="1"
+        <DataGrid x:Name="DgrImageUrLs" Grid.Row="8" Grid.Column="1"
                   Margin="5,10,5,10"
                   ItemsSource="{Binding Accommodation.ImageURLs, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedImageFile}"
@@ -156,7 +156,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button x:Name="BTNRegister"
+        <Button x:Name="BtnRegister"
                 Grid.Row="9" Grid.ColumnSpan="2" IsDefault="True"
                 Content="Registruj" FontSize="16" Padding="15,3,15,3" Width="100" Height="35"
                 Margin="0,0,150,0" HorizontalAlignment="Center" VerticalAlignment="Center"

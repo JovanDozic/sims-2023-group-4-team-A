@@ -27,7 +27,14 @@ namespace SIMSProject.Model.DAO.UserModelDAO
 
         public int NextId()
         {
-            return _owners.Max(x => x.Id) + 1;
+            try
+            {
+                return _owners.Max(x => x.Id) + 1;
+            }
+            catch
+            {
+                return 1;
+            }
         }
 
         public List<Owner> GetAll()

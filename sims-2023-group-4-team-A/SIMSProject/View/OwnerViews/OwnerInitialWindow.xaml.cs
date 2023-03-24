@@ -12,39 +12,32 @@ namespace SIMSProject.View.OwnerViews
 {
     public partial class OwnerInitialWindow : Window, INotifyPropertyChanged
     {
-        public Owner User { get; set; } = new();
+        public Owner? User { get; set; }
         private Accommodation _selectedAccommodation = new();
-
         public Accommodation SelectedAccommodation
         {
             get => _selectedAccommodation;
             set
             {
-                if (value != _selectedAccommodation)
-                {
-                    _selectedAccommodation = value;
-                    OnPropertyChanged();
-                }
+                if (value == _selectedAccommodation) return;
+
+                _selectedAccommodation = value;
+                OnPropertyChanged();
             }
         }
-
         private AccommodationReservation _selectedReservation = new();
-
         public AccommodationReservation SelectedReservation
         {
             get => _selectedReservation;
             set
             {
-                if (value != _selectedReservation)
-                {
-                    _selectedReservation = value;
-                    OnPropertyChanged();
-                }
+                if (value == _selectedReservation) return;
+
+                _selectedReservation = value;
+                OnPropertyChanged();
             }
         }
-
         private AccommodationReservationController _reservationController = new();
-
         public OwnerInitialWindow(Owner user)
         {
             InitializeComponent();
@@ -58,28 +51,19 @@ namespace SIMSProject.View.OwnerViews
         {
             foreach (var reservation in _reservationController.GetAll())
             {
-                if (reservation.GuestRated || reservation.Accommodation.Owner.Id != User.Id)
-                {
-                    continue;
-                }
+                if (reservation.GuestRated || reservation.Accommodation.Owner.Id != User.Id)  continue;
+                if (DateTime.Now < reservation.EndDate || DateTime.Now > reservation.EndDate.AddDays(5)) continue;
+                if (!RateGuestDialogue(reservation)) continue;
 
-                if (DateTime.Now < reservation.EndDate || DateTime.Now > reservation.EndDate.AddDays(5))
-                {
-                    continue;
-                }
-
-                if (RateGuestDialogue(reservation))
-                {
-                    RateGuest window = new(User, reservation);
-                    window.ShowDialog();
-                    BTNRateGuest.IsEnabled = false;
-                }
+                RateGuest window = new(User, reservation);
+                window.ShowDialog();
+                BtnRateGuest.IsEnabled = false;
             }
 
             new GuestController().RefreshRatings();
             _reservationController = new AccommodationReservationController();
             User.Accommodations = new AccommodationController().GetAllByOwner(User.Id);
-            DGRReservations.Items.Refresh();
+            DgrReservations.Items.Refresh();
         }
 
         private bool RateGuestDialogue(AccommodationReservation reservation)
@@ -94,21 +78,25 @@ namespace SIMSProject.View.OwnerViews
 
         private void OpenRegisterAccommodationWindowButton_Click(object sender, RoutedEventArgs e)
         {
-            RegisterAccommodation window = new();
-            window.Show();
+            RegisterAccommodation window = new(User);
+            window.ShowDialog();
+            RefreshAccommodations();
+        }
+
+        private void RefreshAccommodations()
+        {
+            User.Accommodations = new AccommodationController().GetAllByOwner(User.Id);
+            DgrAccommodations.Items.Refresh();
         }
 
         private void OpenRateGuestWindowButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DateTime.Now < SelectedReservation.EndDate)
-            {
-                return;
-            }
+            if (DateTime.Now < SelectedReservation.EndDate) return;
 
             RateGuest window = new(User, SelectedReservation);
             window.Show();
-            BTNRateGuest.IsEnabled = false;
-            DGRReservations.Items.Refresh();
+            BtnRateGuest.IsEnabled = false;
+            DgrReservations.Items.Refresh();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -123,12 +111,20 @@ namespace SIMSProject.View.OwnerViews
             if (SelectedReservation.GuestRated || DateTime.Now < SelectedReservation.EndDate ||
                 DateTime.Now > SelectedReservation.EndDate.AddDays(5))
             {
-                BTNRateGuest.IsEnabled = false;
+                BtnRateGuest.IsEnabled = false;
             }
             else
             {
-                BTNRateGuest.IsEnabled = true;
+                BtnRateGuest.IsEnabled = true;
             }
+        }
+
+        private void LogOut_Click(object sender, RoutedEventArgs e)
+        {
+            User = null;
+            SignInForm window = new();
+            window.Show();
+            Close();
         }
     }
 }
