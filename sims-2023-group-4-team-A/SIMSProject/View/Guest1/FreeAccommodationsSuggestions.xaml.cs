@@ -28,14 +28,16 @@ namespace SIMSProject.View.Guest1
     public partial class FreeAccommodationsSuggestions : Window, INotifyPropertyChanged
     {
         public DateRange ConflictedRange { get; set; }
-        public DateRange ReservedRange { get; set; }
+        public DateRange ReservedRange { get; set; } 
         public int DaysNumber { get; set; }
-        public ObservableCollection<DateRange> DateRanges { get; set; }
+        public ObservableCollection<DateRange> DateRanges { get; set; } = null;
         public DateRange SelectedRange { get; set; } = null;
+        public List<DateRange> ReservedDates { get; set; } = new();
         public AccommodationReservation AccommodationReservation { get; set; } = new();
         public Accommodation Accommodation { get; set; }
         public Guest User { get; set; } = new();
         public AccommodationReservationController Controller { get; set; } = new();
+
         private int _guestsNumber = 1;
         public int GuestsNumber
         {
@@ -51,18 +53,18 @@ namespace SIMSProject.View.Guest1
             }
         }
 
-        public FreeAccommodationsSuggestions(DateRange dateRange, DateRange reservedRange, int numberOfDays, Guest user, AccommodationReservation accommodationReservation, Accommodation accommodation)
+        public FreeAccommodationsSuggestions(DateRange dateRange, List<DateRange> reservedDates, int numberOfDays, Guest user, AccommodationReservation accommodationReservation, Accommodation accommodation)
         {
             InitializeComponent();
             DataContext = this;
             DateRanges = new ObservableCollection<DateRange>();
             ConflictedRange = dateRange;
             DaysNumber = numberOfDays;
-            ReservedRange = reservedRange;
+            ReservedDates = reservedDates;
             User = user;
             Accommodation = accommodation;
             AccommodationReservation = accommodationReservation;
-            GetAvailableDateRange(ConflictedRange.StartDate, ConflictedRange.EndDate, ReservedRange.StartDate, ReservedRange.EndDate, DaysNumber);
+            GetAvailableDateRange(ConflictedRange.StartDate, ConflictedRange.EndDate,ReservedDates, DaysNumber);
             ShowDateRangeInDataGrid();
         }
 
@@ -71,40 +73,64 @@ namespace SIMSProject.View.Guest1
             Close();
         }
 
-        //function that collects available dates from extended date range
-        public void GetAvailableDateRange(DateTime conflictingStartDate, DateTime conflictingEndDate, DateTime reservedStartDate, DateTime reservedEndDate, int numDays)
+        //function that gets all available date ranges
+        public void GetAvailableDateRange(DateTime conflictingStartDate, DateTime conflictingEndDate, List<DateRange> dateranges, int numDays)
         {
-            DateTime startDate = conflictingStartDate;
-            DateTime endDate = conflictingEndDate;
+            DateTime today = DateTime.Today;
+            DateTime startDate = conflictingStartDate.AddDays(-1);
+            DateTime endDate = conflictingEndDate.AddDays(1);
 
             int maxExtends = 7; //range extends max to 7 days
             int extendCount = 0;
 
             while (extendCount < maxExtends)
             {
-                bool free = (startDate.AddDays(numDays) < reservedStartDate || endDate.AddDays(-numDays) > reservedEndDate);
+                bool isAvailableBeforeConflict = CheckAvailability(startDate, startDate.AddDays(numDays), dateranges);
+                bool isAvailableAfterConflict = CheckAvailability(endDate.AddDays(-numDays), endDate, dateranges);
 
-                if (free)
+               if (isAvailableBeforeConflict && isAvailableAfterConflict)
                 {
-                    if(startDate.AddDays(numDays) < reservedStartDate)
-                    {
-                        DateRanges.Add(new DateRange(startDate, startDate.AddDays(numDays)));
-                        break;
-                    }
-                    else
-                    {
-                        DateRanges.Add(new DateRange(endDate.AddDays(-numDays), endDate));
-                        break;
-                    }
-                    
+                    DateRanges.Add(new DateRange(startDate, startDate.AddDays(numDays)));
+                    DateRanges.Add(new DateRange(endDate.AddDays(-numDays), endDate));
+                    break;
                 }
-                 startDate = startDate.AddDays(-1);
-                 endDate = endDate.AddDays(1);
- 
-                 extendCount++;
+
+               else if(isAvailableBeforeConflict)
+                {
+                    DateRanges.Add(new DateRange(startDate, startDate.AddDays(numDays)));
+                    break;
+                }
+                
+               else if(isAvailableAfterConflict)
+                {
+                    DateRanges.Add(new DateRange(endDate.AddDays(-numDays), endDate));
+                    break;
+                }
+
+                if (startDate > today)
+                {
+                    startDate = startDate.AddDays(-1);
+                }
+
+                endDate = endDate.AddDays(1);
+                extendCount++;
             }
+                
         }
-        
+
+        //function that checks if input date range is available
+        public static bool CheckAvailability(DateTime inputStartDate, DateTime inputEndDate, List<DateRange> reservedDates)
+        {
+            foreach (var reservedDate in reservedDates)
+            {
+                if (inputStartDate <= reservedDate.EndDate && reservedDate.StartDate <= inputEndDate)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         //function for binding with data grid
         private void ShowDateRangeInDataGrid()
         {
@@ -135,8 +161,7 @@ namespace SIMSProject.View.Guest1
             }
             else
                 MessageBox.Show("Niste odabrali datum!");
-
-            
+ 
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
