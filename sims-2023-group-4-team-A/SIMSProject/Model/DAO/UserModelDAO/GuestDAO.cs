@@ -36,7 +36,14 @@ namespace SIMSProject.Model.DAO.UserModelDAO
 
         public int NextId()
         {
-            return _guests.Max(x => x.Id) + 1;
+            try
+            {
+                return _guests.Max(x => x.Id) + 1;
+            }
+            catch
+            {
+                return 1;
+            }
         }
 
         public List<Guest> GetAll()
@@ -46,12 +53,12 @@ namespace SIMSProject.Model.DAO.UserModelDAO
 
         public void RefreshRatings()
         {
-            var _ratings = new GuestRatingDAO().GetAll();
+            var ratings = new GuestRatingDAO().GetAll();
             foreach (var guest in _guests)
             {
                 try
                 {
-                    guest.Rating = _ratings.FindAll(x => x.Reservation.Guest.Id == guest.Id).Average(x => x.Overall);
+                    guest.Rating = ratings.FindAll(x => x.Reservation.Guest.Id == guest.Id).Average(x => x.Overall);
                 }
                 catch
                 {

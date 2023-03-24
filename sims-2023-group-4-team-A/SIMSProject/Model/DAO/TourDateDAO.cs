@@ -1,34 +1,44 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using SIMSProject.Observer;
 using SIMSProject.FileHandler;
-using SIMSProject.Controller;
-using System.Windows.Navigation;
 using SIMSProject.FileHandler.UserFileHandler;
-using SIMSProject.Model.UserModel;
-using Microsoft.VisualBasic;
-using System;
+using SIMSProject.Observer;
 
 namespace SIMSProject.Model.DAO
 {
     public class TourDateDAO : ISubject
     {
-        private List<IObserver> _observers;
+        private readonly List<IObserver> _observers;
         private readonly TourDateFileHandler _fileHandler;
         private List<TourDate> _tourDates;
 
         public TourDateDAO()
         {
-            _fileHandler = new();
+            _fileHandler = new TourDateFileHandler();
             _tourDates = _fileHandler.Load();
-            _observers = new();
+            _observers = new List<IObserver>();
 
             AssociateTourDates();
-
         }
 
-        public int NextId() { return _tourDates.Max(x => x.Id) + 1; }
-        public List<TourDate> GetAll() { return _tourDates; }
+        public int NextId()
+        {
+            try
+            {
+                return _tourDates.Max(x => x.Id) + 1;
+            }
+            catch
+            {
+                return 1;
+            }
+        }
+
+        public List<TourDate> GetAll()
+        {
+            return _tourDates;
+        }
+
         public TourDate Get(int id)
         {
             return _tourDates.Find(x => x.Id == id);
@@ -50,13 +60,9 @@ namespace SIMSProject.Model.DAO
             NotifyObservers();
         }
 
-
-
         private void AssociateTourDates()
         {
-
-
-            foreach (TourDate date in _tourDates)
+            foreach (var date in _tourDates)
             {
                 AssociateTour(date);
                 AssociateCurrenKeyPoint(date);
@@ -67,16 +73,20 @@ namespace SIMSProject.Model.DAO
         private static void AssociateGuests(TourDate date)
         {
             GuestFileHandler guestFileHandler = new();
-            List<Guest> guests = guestFileHandler.Load();
+            var guests = guestFileHandler.Load();
             TourGuestFileHandler tourGuestFileHandler = new();
-            List<TourGuest> tourGuests = tourGuestFileHandler.Load();
+            var tourGuests = tourGuestFileHandler.Load();
 
 
-            List<TourGuest> pairs = tourGuests.FindAll(x => x.TourDateId == date.Id);
+            var pairs = tourGuests.FindAll(x => x.TourDateId == date.Id);
             foreach (var pair in pairs)
             {
-                Guest? matchingGuest = guests.Find(x => x.Id == pair.GuestId);
-                if (matchingGuest == null) continue;
+                var matchingGuest = guests.Find(x => x.Id == pair.GuestId);
+                if (matchingGuest == null)
+                {
+                    continue;
+                }
+
                 date.Guests.Add(matchingGuest);
             }
         }
@@ -84,52 +94,66 @@ namespace SIMSProject.Model.DAO
         private static void AssociateCurrenKeyPoint(TourDate date)
         {
             KeyPointFileHandler keyPointFileHandler = new();
-            List<KeyPoint> keyPoints = keyPointFileHandler.Load();
+            var keyPoints = keyPointFileHandler.Load();
 
-            KeyPoint? current = keyPoints.Find(x => x.Id == date.CurrentKeyPointId);
-            if (current == null) return;
+            var current = keyPoints.Find(x => x.Id == date.CurrentKeyPointId);
+            if (current == null)
+            {
+                return;
+            }
+
             date.CurrentKeyPoint = current;
         }
 
         private static void AssociateTour(TourDate date)
         {
             TourFileHandler tourFileHandler = new();
-            List<Tour> tours = tourFileHandler.Load();
+            var tours = tourFileHandler.Load();
 
-            Tour? tour = tours.Find(x => x.Id == date.TourId);
-            if (tour == null) return;
+            var tour = tours.Find(x => x.Id == date.TourId);
+            if (tour == null)
+            {
+                return;
+            }
+
             date.Tour = tour;
         }
 
-        
         public List<TourDate> GetAllByTourId(int tourId)
         {
             List<TourDate> dates = new();
-            foreach(TourDate date in GetAll())
+            foreach (var date in GetAll())
             {
-                if(date.TourId == tourId)
+                if (date.TourId == tourId)
                 {
                     dates.Add(date);
                 }
             }
+
             return dates;
         }
 
-        
-
         public void AdvanceToNextKeyPoint(int dateId, KeyPoint nextKeyPoint)
         {
-            TourDate? date = Get(dateId);
-            if (date == null) return;
+            var date = Get(dateId);
+            if (date == null)
+            {
+                return;
+            }
 
             date.CurrentKeyPoint = nextKeyPoint;
             date.CurrentKeyPointId = nextKeyPoint.Id;
             SaveAll(_tourDates);
         }
+
         public void UpdateAvailableSpots(TourDate tourDate)
         {
-            TourDate? oldTourDate = _tourDates.Find(x => x.Id == tourDate.Id);
-            if (oldTourDate == null) return;
+            var oldTourDate = _tourDates.Find(x => x.Id == tourDate.Id);
+            if (oldTourDate == null)
+            {
+                return;
+            }
+
             oldTourDate.AvailableSpots = tourDate.AvailableSpots;
             _fileHandler.Save(_tourDates);
             NotifyObservers();
@@ -137,8 +161,11 @@ namespace SIMSProject.Model.DAO
 
         public void StartLiveTracking(TourDate tourDate)
         {
-            TourDate? oldTourDate = Get(tourDate.Id);
-            if (oldTourDate == null) return;
+            var oldTourDate = Get(tourDate.Id);
+            if (oldTourDate == null)
+            {
+                return;
+            }
 
             oldTourDate.TourStatus = "Aktivna";
             oldTourDate.CurrentKeyPoint = tourDate.CurrentKeyPoint;
@@ -148,16 +175,23 @@ namespace SIMSProject.Model.DAO
 
         public void EndTourDate(int dateId)
         {
-            TourDate? toEnd = Get(dateId);
-            if (toEnd == null) return;
+            var toEnd = Get(dateId);
+            if (toEnd == null)
+            {
+                return;
+            }
+
             toEnd.TourStatus = "Završena";
             _fileHandler.Save(_tourDates);
         }
 
         public TourDate InitializeTour(TourDate tourDate, Tour tour)
         {
-            TourDate? oldDate = _tourDates.Find(x => x.Id ==  tourDate.Id);
-            if(oldDate == null) return null;
+            var oldDate = _tourDates.Find(x => x.Id == tourDate.Id);
+            if (oldDate == null)
+            {
+                return null;
+            }
 
             oldDate.Tour = tour;
             oldDate.TourId = tour.Id;
@@ -177,10 +211,22 @@ namespace SIMSProject.Model.DAO
         }
 
         // [OBSERVERS]
-        public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }
-        public void Subscribe(IObserver observer) { _observers.Add(observer); }
-        public void Unsubscribe(IObserver observer) { _observers.Remove(observer); }
+        public void NotifyObservers()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Update();
+            }
+        }
 
-        
+        public void Subscribe(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
     }
 }
