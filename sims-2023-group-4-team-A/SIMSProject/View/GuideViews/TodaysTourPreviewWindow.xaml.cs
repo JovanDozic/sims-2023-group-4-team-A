@@ -21,36 +21,37 @@ namespace SIMSProject.View.GuideViews
     /// </summary>
     public partial class TodaysTourPreviewWindow : Window
     {
-        public Tour SelectedTour { get; set; } = new();
-        public TourDate SelectedDate { get; set; } = new();
-        public List<TourDate> TodaysDates { get; set; } = new();
-        private readonly TourDateController TourDateController = new();
+        private readonly TourAppointmentController tourAppointmentController = new();
+
+        public Tour TodaysTour { get; set; } = new();
+        public TourAppointment SelectedAppointment { get; set; } = new();
+        public List<TourAppointment> TodaysAppointments { get; set; } = new();
 
 
-        public TodaysTourPreviewWindow(Tour Tour)
+        public TodaysTourPreviewWindow(Tour TodaysTour)
         {
             InitializeComponent();
             this.DataContext = this;
-            SelectedTour = Tour;
+            this.TodaysTour = TodaysTour;
 
             GetTodaysAppointments();
         }
 
         private void GetTodaysAppointments()
         {
-            foreach (TourDate date in TourDateController.FindTodaysByTour(SelectedTour.Id))
+            foreach (TourAppointment appointment in tourAppointmentController.FindTodaysByTour(TodaysTour.Id))
             {
-                TodaysDates.Add(date);
+                TodaysAppointments.Add(appointment);
             }
         }
 
         private void LiveTrackBTN_Click(object sender, RoutedEventArgs e)
         {
 
-            TourDate? activeDate = TodaysDates.Find(x => x.TourStatus.Equals("Aktivna"));
-            if (activeDate != null)
+            TourAppointment? activeAppointment = TodaysAppointments.Find(x => x.TourStatus.Equals("Aktivna"));
+            if (activeAppointment != null)
             {
-                if (activeDate.Id != SelectedDate.Id)
+                if (activeAppointment.Id != SelectedAppointment.Id)
                 {
                     MessageBox.Show("Već postoji aktivna tura!");
                     return;
@@ -59,15 +60,15 @@ namespace SIMSProject.View.GuideViews
 
             }
             //Napravi novu turu
-            LiveTrackTourDate();
+            StartLiveTracking();
         }
 
-        private void LiveTrackTourDate()
+        private void StartLiveTracking()
         {
-            TourDate LiveTrackingDate = SelectedDate;
-            LiveTrackingDate.CurrentKeyPointId = SelectedTour.KeyPoints[0].Id;
-            LiveTrackingDate.CurrentKeyPoint = SelectedTour.KeyPoints[0];
-            TourDateController.StartTourLiveTracking(LiveTrackingDate);
+            TourAppointment LiveTrackingDate = SelectedAppointment;
+            LiveTrackingDate.CurrentKeyPointId = TodaysTour.KeyPoints[0].Id;
+            LiveTrackingDate.CurrentKeyPoint = TodaysTour.KeyPoints[0];
+            tourAppointmentController.StartTourLiveTracking(LiveTrackingDate);
 
             TourLiveTrackingWindow window = new TourLiveTrackingWindow(LiveTrackingDate);
             window.Show();

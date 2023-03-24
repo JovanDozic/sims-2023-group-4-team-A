@@ -25,41 +25,35 @@ namespace SIMSProject.View.GuideViews
     public partial class TourLiveTrackingWindow : Window
     {
         private readonly TourController tourController = new();
-        private readonly TourDateController tourDateController = new();
+        private readonly TourAppointmentController tourDateController = new();
         private readonly TourGuestController tourGuestController = new();
-
-
-        private KeyPoint LastKeyPoint = new();
+        private readonly KeyPoint lastKeyPoint = new();
 
         public ObservableCollection<KeyPoint> KeyPoints { get; set; } = new();
-        public ObservableCollection<Guest> AbsentGuests { get; set; } = new();
-        public ObservableCollection<Guest> PresentGuests { get; set; } = new();
+        public ObservableCollection<Guest> Guests { get; set; } = new();
         public KeyPoint CurrentKeyPoint { get; set; } = new();
-        public TourDate SelectedDate { get; set; } = new();
+        public TourAppointment CurrentAppointment { get; set; } = new();
         public Guest PendingGuest { get; set; } = new();
 
 
 
 
-        public TourLiveTrackingWindow(TourDate Date)
+        public TourLiveTrackingWindow(TourAppointment appointment)
         {
             InitializeComponent();
             this.DataContext = this;
 
-            SelectedDate = tourDateController.GetById(Date.Id);
-            CurrentKeyPoint = SelectedDate.CurrentKeyPoint;
-            LastKeyPoint = tourController.GetLast(SelectedDate);
-
-
+            CurrentAppointment = tourDateController.GetById(appointment.Id);
+            CurrentKeyPoint = CurrentAppointment.CurrentKeyPoint;
+            lastKeyPoint = tourController.GetLast(CurrentAppointment);
             CurrentKeyPointTB.Text = CurrentKeyPoint.ToString();
-            SortGuests();
+            AddGuests();
             AddKeyPoints();
         }
 
         private void AddKeyPoints()
         {
-            Tour? tour = tourController.GetAll().Find(x => x.Id == SelectedDate.TourId);
-            if (tour == null) throw new Exception("Greška. Tura ne postoji!");
+            Tour? tour = tourController.GetAll().Find(x => x.Id == CurrentAppointment.TourId) ?? throw new Exception("Greška. Tura ne postoji!");
 
             foreach (var key in tour.KeyPoints)
             {
@@ -67,45 +61,34 @@ namespace SIMSProject.View.GuideViews
             }
         }
 
-        private void SortGuests()
+        private void AddGuests()
         {
-            AbsentGuests.Clear();
-            PresentGuests.Clear();
-
+            Guests.Clear();
             List<TourGuest> guests = tourGuestController.GetAll();
 
-            foreach (var guest in SelectedDate.Guests)
+            foreach (var guest in CurrentAppointment.Guests)
             {
                 TourGuest? tourGuest = guests.Find(x => x.GuestId == guest.Id);
                 if (tourGuest == null) continue;
+                Guests.Add(guest);
                 
-                bool guestNotPresent = tourGuest.GuestStatus.Equals("Odsutan") || tourGuest.GuestStatus.Equals("Prijavljen");
-                if (guestNotPresent)
-                    AbsentGuests.Add(guest);
-                else
-                {
-                    if (tourGuest.JoinedKeyPointId == -1)
-                        tourGuestController.MakeGuestPresent(guest.Id, SelectedDate.Id, CurrentKeyPoint);
-
-                    PresentGuests.Add(guest);
-                }
             }
         }
 
         private void Go_nextBTN_Click(object sender, RoutedEventArgs e)
         {
-            SortGuests();
+            AddGuests();
             
-            if(LastKeyPoint.Equals(CurrentKeyPoint))
+            if(lastKeyPoint.Equals(CurrentKeyPoint))
             {
                 MessageBox.Show("Došli ste do kraja, završite turu!");
                 return;
             }
 
-            KeyPoint NextKeyPoint = tourController.FindNext(SelectedDate);
+            KeyPoint NextKeyPoint = tourController.GoToNextKeyPoint(CurrentAppointment);
             if(NextKeyPoint != null)
             {
-                tourDateController.AdvanceToNext(SelectedDate.Id, NextKeyPoint);
+                tourDateController.AdvanceToNext(CurrentAppointment.Id, NextKeyPoint);
                 CurrentKeyPoint = NextKeyPoint;
                 CurrentKeyPointTB.Text = CurrentKeyPoint.ToString();
             }
@@ -118,15 +101,15 @@ namespace SIMSProject.View.GuideViews
 
         private void CloseBTN_Click(object sender, RoutedEventArgs e)
         {
-            tourController.EndTour(SelectedDate.TourId, SelectedDate.Id);
-            tourDateController.StopTourLiveTracking(SelectedDate.Id);
+            tourController.EndTour(CurrentAppointment.TourId, CurrentAppointment.Id);
+            tourDateController.StopTourLiveTracking(CurrentAppointment.Id);
             MessageBox.Show("Tura završena.");
             Close();
         }
 
         private void Sign_guestBTN_Click(object sender, RoutedEventArgs e)
         {
-            tourGuestController.SignGuest(PendingGuest.Id, SelectedDate.Id);
+            tourGuestController.SignGuest(PendingGuest.Id, CurrentAppointment.Id);
             MessageBox.Show("Gost prijavljen!");
         }
     }

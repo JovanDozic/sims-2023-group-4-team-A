@@ -1,4 +1,6 @@
 ﻿using SIMSProject.FileHandler;
+using SIMSProject.FileHandler.UserFileHandler;
+using SIMSProject.Model.UserModel;
 using SIMSProject.Observer;
 using System.Collections.Generic;
 
@@ -39,47 +41,52 @@ namespace SIMSProject.Model.DAO
 
         private void AssociateTourGuests()
         {
+            KeyPointFileHandler keyPointFileHandler = new();
+            List<KeyPoint> keyPoints = keyPointFileHandler.Load();
+            TourAppointmentFileHandler dateHandler = new();
+            List<TourAppointment> appointments = dateHandler.Load();
+            GuestFileHandler guestFileHandler = new();
+            List<Guest> tourGuests = guestFileHandler.Load();
 
             foreach (TourGuest tourGuest in _tourGuests)
             {
-                AssociateDate(tourGuest);
-                AssociateJoinedKeyPoint(tourGuest);
+                AssociateAppointment(tourGuest, appointments);
+                AssociateJoinedKeyPoint(tourGuest, keyPoints);
+                AssociateGuest(tourGuests, tourGuest);
+
             }
         }
 
-        private static void AssociateJoinedKeyPoint(TourGuest tourGuest)
+        private static void AssociateGuest(List<Guest> tourGuests, TourGuest tourGuest)
         {
-            KeyPointFileHandler keyPointFileHandler = new();
-            List<KeyPoint> keyPoints = keyPointFileHandler.Load();
-
-
-            KeyPoint? keyPoint = keyPoints.Find(x => x.Id == tourGuest.JoinedKeyPointId);
-            if (keyPoint == null) return;
-            tourGuest.JoinedKeyPoint = keyPoint;
+            tourGuest.Guest = tourGuests.Find(x => x.Id == tourGuest.GuestId) ?? throw new System.Exception("Error!No matching guest!");
         }
 
-        private static void AssociateDate(TourGuest tourGuest)
+        private static void AssociateJoinedKeyPoint(TourGuest tourGuest, List<KeyPoint> keyPoints)
         {
-            TourDateFileHandler dateHandler = new();
-            List<TourDate> tourDates = dateHandler.Load();
+            if (tourGuest.JoinedKeyPointId == -1)
+                return;
 
-            TourDate? tourDate = tourDates.Find(x => x.Id == tourGuest.TourDateId);
-            if(tourDate == null) return;
-            tourGuest.TourDate = tourDate;
+            tourGuest.JoinedKeyPoint = keyPoints.Find(x => x.Id == tourGuest.JoinedKeyPointId) ?? throw new System.Exception("Error!No matching keyPoint!");
         }
 
-        public void SignUpGuest(int guestId, int tourDateId)
+        private static void AssociateAppointment(TourGuest tourGuest, List<TourAppointment> appointments)
         {
-            TourGuest? tourGuest = _tourGuests.Find(x => x.GuestId ==  guestId && x.TourDateId == tourDateId);
+            tourGuest.Appointment = appointments.Find(x => x.Id == tourGuest.TourDateId) ?? throw new System.Exception("Error!No matching appointment!");
+        }
+
+        public void SignUpGuest(int guestId, int tourAppointmentId)
+        {
+            TourGuest? tourGuest = _tourGuests.Find(x => x.GuestId ==  guestId && x.TourDateId == tourAppointmentId);
             if(tourGuest == null) return;
 
             tourGuest.GuestStatus = "Prijavljen";
             SaveAll(_tourGuests);
         }
 
-        public void MakeGuestPresent(int guestId, int tourDateId, KeyPoint currentKeyPoint)
+        public void MakeGuestPresent(int guestId, int tourAppointmentId, KeyPoint currentKeyPoint)
         {
-            TourGuest? tourGuest = _tourGuests.Find(x => x.GuestId == guestId && x.TourDateId == tourDateId);
+            TourGuest? tourGuest = _tourGuests.Find(x => x.GuestId == guestId && x.TourDateId == tourAppointmentId);
             if (tourGuest == null) return;
 
             tourGuest.JoinedKeyPoint = currentKeyPoint;

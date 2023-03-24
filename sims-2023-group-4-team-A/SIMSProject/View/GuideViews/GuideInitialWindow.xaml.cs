@@ -25,9 +25,10 @@ namespace SIMSProject.View.GuideViews
     public partial class GuideInitialWindow : Window, IObserver
     {
         private readonly TourController tourController = new();
-        public ObservableCollection<Tour> TodaysTours { get; set; } = new ObservableCollection<Tour>();
         public Tour SelectedTour { get; set; } = new();
         public Guide guide { get; set; } = new();
+        public ObservableCollection<Tour> TodaysTours { get; set; } = new ObservableCollection<Tour>();
+
 
         public GuideInitialWindow(Guide guide)
         {
@@ -42,7 +43,7 @@ namespace SIMSProject.View.GuideViews
 
         private void DisplayTodaysTours()
         {
-            foreach (var tour in tourController.FindTodays())
+            foreach (var tour in tourController.FindTodaysTours())
             {
                 TodaysTours.Add(tour);
             }
@@ -60,18 +61,18 @@ namespace SIMSProject.View.GuideViews
             window.Show();
         }
 
+        public void Update()
+        {
+            UpdateTodaysTours();
+        }
         private void UpdateTodaysTours()
         {
             TodaysTours.Clear();
-            foreach (var tour in tourController.FindTodays())
+            foreach (var tour in tourController.FindTodaysTours())
             {
                 TodaysTours.Add(tour);
             }
         }
 
-        public void Update()
-        {
-            UpdateTodaysTours();
-        }
     }
 }

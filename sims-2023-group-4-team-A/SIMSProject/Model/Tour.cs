@@ -18,29 +18,59 @@ namespace SIMSProject.Model
     public class Tour : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
         public int Id { get; set; }
+
+        private int _guideId;
+        public int GuideId
+        {
+            get => _guideId;
+            set
+            {
+                if (_guideId != value)
+                {
+                    _guideId = value;
+                    OnPropertyChanged(nameof(GuideId));
+                }
+            }
+        }
+
+        private int _locationId;
+        public int LocationId
+        {
+            get => _locationId;
+            set
+            {
+                if (value != _locationId)
+                {
+                    _locationId = value;
+                    OnPropertyChanged(nameof(LocationId));
+                }
+            }
+        }
+
+
         private string? _name;
-        public string Name 
-        { 
-            get => _name; 
-            set 
+        public string Name
+        {
+            get => _name;
+            set
             {
                 if (_name != value)
                 {
                     _name = value;
                     OnPropertyChanged(nameof(Name));
                 }
-            } 
+            }
         }
-        
+
         private string? _description;
         public string Description
         {
             get => _description;
             set
             {
-                if(value != _description)
+                if (value != _description)
                 {
-                    _description = value; 
+                    _description = value;
                     OnPropertyChanged(nameof(Description));
                 }
             }
@@ -48,7 +78,7 @@ namespace SIMSProject.Model
         private Language _language;
         public string TourLanguage
         {
-            get 
+            get
             {
                 return _language switch
                 {
@@ -71,12 +101,12 @@ namespace SIMSProject.Model
         }
 
         private int _maxGuestNumber;
-        public int MaxGuestNumber 
-        { 
+        public int MaxGuestNumber
+        {
             get => _maxGuestNumber;
             set
             {
-                if(_maxGuestNumber != value && value >= 1)
+                if (_maxGuestNumber != value && value >= 1)
                 {
                     _maxGuestNumber = value;
                     OnPropertyChanged(nameof(MaxGuestNumber));
@@ -90,7 +120,7 @@ namespace SIMSProject.Model
             get => _duration;
             set
             {
-                if(_duration != value && value >= 1)
+                if (_duration != value && value >= 1)
                 {
                     _duration = value;
                     OnPropertyChanged(nameof(Duration));
@@ -98,33 +128,7 @@ namespace SIMSProject.Model
             }
         }
 
-        private int _locationId;
-        public int LocationId
-        {
-            get => _locationId;
-            set
-            {
-                if (value != _locationId)
-                {
-                    _locationId = value;
-                    OnPropertyChanged(nameof(LocationId));
-                }
-            }
-        }
 
-        private int _guideId;
-        public int GuideId
-        {
-            get => _guideId;
-            set
-            {
-                if (_guideId != value)
-                {
-                    _guideId = value;
-                    OnPropertyChanged(nameof(GuideId));
-                }
-            }
-        }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
@@ -136,13 +140,10 @@ namespace SIMSProject.Model
 
         public List<KeyPoint> KeyPoints { get; set; } = new List<KeyPoint>();
 
-        public List<TourDate> Dates { get; set; } = new List<TourDate>();
+        public List<TourAppointment> Appointments { get; set; } = new List<TourAppointment>();
 
         public List<String> Images { get; set; } = new List<String>();
 
-        public List<Guest> Sightseers { get; set; } = new List<Guest>();
-
-        
         public Tour() { }
 
         public Tour(int id, string name, Guide guide, Location location, string description, string tourLanguage, int maxGuestNumber, int duration, int locationId, int guideId)
@@ -187,12 +188,12 @@ namespace SIMSProject.Model
         }
         public string[] ToCSV()
         {
-            
+
             StringBuilder imageURLs = CreateImageURLs();
 
-            string[] csvValues = { 
+            string[] csvValues = {
                 Id.ToString(),
-                Name, 
+                Name,
                 Description,
                 TourLanguage,
                 MaxGuestNumber.ToString(),
@@ -213,36 +214,34 @@ namespace SIMSProject.Model
         {
             get
             {
-                if (columnName == "Name")
+                switch (columnName)
                 {
-                    if (string.IsNullOrEmpty(Name))
-                        return "Naziv";
+                    case "Name":
+                        {
+                            if (string.IsNullOrEmpty(Name))
+                                return "Naziv";
 
-                    if (!NameReg.IsMatch(Name))
-                        return "Ne moze biti naziv ture";
-                }
-                else if (columnName == "MaxGuestNumber")
-                {
-                    if (MaxGuestNumber <= 0)
-                        return "Broj";
-                }
-                else if (columnName == "Duration")
-                {
-                    if (Duration <= 0)
-                        return "Trajanje";
-                }
-                else if (columnName == "Description")
-                {
-                    if (string.IsNullOrEmpty(Description))
-                        return "Obavezno uneti opis ture";
-                    if (!DescriptionReg.IsMatch(Description))
-                        return "Opis mora sadržati bar 3 reči";
+                            if (!NameReg.IsMatch(Name))
+                                return "Ne moze biti naziv ture";
+
+                            break;
+                        }
+                    case "Description":
+                        {
+                            if (string.IsNullOrEmpty(Description))
+                                return "Obavezno uneti opis ture";
+                            if (!DescriptionReg.IsMatch(Description))
+                                return "Opis mora sadržati bar 3 reči";
+
+                            break;
+
+                        }
                 }
                 return null;
             }
         }
 
-        private readonly string[] _validatesProperties = { "Name", "Duration", "MaxGuestNumber", "Description"};
+        private readonly string[] _validatesProperties = { "Name", "Duration"};
         public bool IsValid
         {
             get

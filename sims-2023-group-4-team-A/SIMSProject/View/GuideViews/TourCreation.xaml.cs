@@ -31,7 +31,7 @@ namespace SIMSProject.View.GuideViews
         private int keyPointCounter = 0;
         private readonly TourController tourController = new();
         private readonly KeyPointController keyPointController = new();
-        private readonly TourDateController tourDateController = new();
+        private readonly TourAppointmentController tourAppointmentController = new();
         private readonly LocationController tourLocationController = new();
         private readonly TourKeyPointController tourKeyPointController = new();
 
@@ -43,12 +43,12 @@ namespace SIMSProject.View.GuideViews
             get => _selectedLocation;
             set
             {
-                if(value != _selectedLocation)
+                if (value != _selectedLocation)
                 {
                     _selectedLocation = value;
-                    
+
                     KeyPoints.Clear();
-                    foreach(var point in keyPointController.GetAll().FindAll(x => x.LocationId == value.Id))
+                    foreach (var point in keyPointController.GetAll().FindAll(x => x.LocationId == value.Id))
                     {
                         KeyPoints.Add(point);
                     }
@@ -65,15 +65,13 @@ namespace SIMSProject.View.GuideViews
 
         public Tour New { get; set; } = new();
         public KeyPoint? SelectedKeyPoint { get; set; }
-        public DateTime SelectedDate { get; set; } = DateTime.Now;
-        public string SelectedTime { get; set; } = "hh:mm";
-        public string Images { get; set; } = "slika1.png,slika2.jpg...";
+        public DateTime SelectedAppointment { get; set; } = DateTime.Now;
         public Guide Guide { get; set; } = new();
         public List<KeyPoint> NewKeyPoints { get; set; } = new();
-        public List<TourDate> NewDates { get; set; } = new();
-        public ObservableCollection<KeyPoint> KeyPoints { get; set; } = new();
-        public ObservableCollection<string> TourLanguages { get; set; } = new();
-        public ObservableCollection<Location> Locations { get; set; } = new();
+        public List<TourAppointment> NewAppointments { get; set; } = new();
+        public List<KeyPoint> KeyPoints { get; set; } = new();
+        public List<string> TourLanguages { get; set; } = new();
+        public List<Location> Locations { get; set; } = new();
 
         public TourCreation(Guide guide)
         {
@@ -97,50 +95,57 @@ namespace SIMSProject.View.GuideViews
 
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedLocation != null && keyPointCounter >= 2)
-            {
-                
-                New.KeyPoints = NewKeyPoints;
-                New.TourLanguage = (string)LanguageCombo.SelectedItem;
-                
-                New.Guide = Guide;
-                New.GuideId = Guide.Id;
-                New.Location = SelectedLocation;
-                New.LocationId = SelectedLocation.Id;
-
-                //List<string> images = SeperateURLs();
-                //New.Images = images;
-
-                Tour createdTour = tourController.Create(New);
-
-                foreach(var date in NewDates)
-                {
-                    TourDate createdDate = tourDateController.Create(date);
-                    TourDate updatedDate = tourDateController.InitializeTour(createdDate, createdTour);
-                    tourController.AddNewDate(createdTour.Id, updatedDate);
-                }
-
-                foreach(var keyPoint in NewKeyPoints)
-                {
-                    TourKeyPoint newPair = new(createdTour.Id, keyPoint.Id);
-                    tourKeyPointController.Create(newPair);
-                }
-
-                tourController.Refresh();
-                MessageBox.Show("Tura uspešno kreirana.");
-                Close();
-                
-            }
-            else
+            if (keyPointCounter < 2)
             {
                 MessageBox.Show("Morate uneti najmanje 2 ključne tačke!");
-            }            
+                return;
+            }
+            else if (New.Images.Count == 0)
+            {
+                MessageBox.Show("Morate dodati bar 1 sliku.");
+                return;
+            }
 
+            New.KeyPoints = NewKeyPoints;
+            New.TourLanguage = (string)LanguageCombo.SelectedItem;
+
+            New.Guide = Guide;
+            New.GuideId = Guide.Id;
+            New.Location = SelectedLocation;
+            New.LocationId = SelectedLocation.Id;
+
+            Tour createdTour = tourController.Create(New);
+
+            CreateAndAssignTourAppointment(createdTour);
+            CreateNewPairs(createdTour);
+
+            tourController.Refresh();
+            MessageBox.Show("Tura uspešno kreirana.");
+            Close();
+        }
+
+        private void CreateNewPairs(Tour createdTour)
+        {
+            foreach (var keyPoint in NewKeyPoints)
+            {
+                TourKeyPoint newPair = new(createdTour.Id, keyPoint.Id);
+                tourKeyPointController.Create(newPair);
+            }
+        }
+
+        private void CreateAndAssignTourAppointment(Tour createdTour)
+        {
+            foreach (var appointment in NewAppointments)
+            {
+                TourAppointment createdAppointment = tourAppointmentController.Create(appointment);
+                TourAppointment updatedAppointment = tourAppointmentController.InitializeTour(createdAppointment, createdTour);
+                tourController.AddAppointment(createdTour.Id, updatedAppointment);
+            }
         }
 
         private void AddKeyPoint_Click(object sender, RoutedEventArgs e)
         {
-            if(SelectedKeyPoint == null)
+            if (SelectedKeyPoint == null)
             {
                 MessageBox.Show("Nije moguće izabrati ključnu tačku koja ne postoji!");
                 return;
@@ -151,23 +156,21 @@ namespace SIMSProject.View.GuideViews
 
         private void AddDate_Click(object sender, RoutedEventArgs e)
         {
-            string[] timeParts = SelectedTime.Split(":");
+            DateTime newAppointment = CreateAppointment();
+            NewAppointments.Add(new(-1, newAppointment, -1, 0, -1));
+        }
+
+        private DateTime CreateAppointment()
+        {
+            string[] timeParts = TBTime.Text.Split(":");
             int hours = int.Parse(timeParts[0]);
             int minutes = int.Parse(timeParts[1]);
             int seconds = 0;
 
-            DateTime newDate = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, hours, minutes, seconds);
-            NewDates.Add(new(-1, SelectedDate, -1, 0, -1));
+            TBTime.Text = "hh:mm";
+            DateTime newDate = new DateTime(SelectedAppointment.Year, SelectedAppointment.Month, SelectedAppointment.Day, hours, minutes, seconds);
+            return newDate;
         }
-
-        private List<string> SeperateURLs()
-        {
-            List<string> seperatedURLS = new List<string>();
-            string[] urls = Images.Split(",");
-            seperatedURLS.AddRange(urls);
-            return seperatedURLS;
-        }
-
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {

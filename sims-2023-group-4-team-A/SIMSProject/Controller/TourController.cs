@@ -45,19 +45,19 @@ namespace SIMSProject.Controller
             return _tours.SearchMaxGuests(maxGuests);
         }
 
-        public List<Tour> FindTodays()
+        public List<Tour> FindTodaysTours()
         {
             return _tours.FindTodaysTours();
         }
 
-        public KeyPoint FindNext(TourDate Date)
+        public KeyPoint GoToNextKeyPoint(TourAppointment Date)
         {
-            return _tours.GetNextKeyPoint(Date);
+            return _tours.GoToNextKeyPoint(Date);
         }
 
-        public KeyPoint GetLast(TourDate date)
+        public KeyPoint GetLast(TourAppointment date)
         {
-            return _tours.FindLastKeyPoint(date);
+            return _tours.GetLastKeyPoint(date);
         }
 
         public void EndTour(int tourId, int dateId)
@@ -65,9 +65,9 @@ namespace SIMSProject.Controller
             _tours.EndTour(tourId, dateId);
         }
 
-        public void AddNewDate(int tourId, TourDate date)
+        public void AddAppointment(int tourId, TourAppointment date)
         {
-            _tours.AddNewDate(tourId, date);
+            _tours.AddNewAppointment(tourId, date);
         }
 
         public void Refresh()
@@ -80,9 +80,5 @@ namespace SIMSProject.Controller
             _tours.Subscribe(observer);
         }
 
-        /*public static List<Tour> Search(string searchText)
-        {
-            return _tours.Search(searchText);
-        }*/
     }
 }

@@ -8,8 +8,8 @@ using System.Runtime.CompilerServices;
 
 namespace SIMSProject.Model
 {
-    public enum Status { ACTIVE = 0, INACTIVE, COMPLETED }
-    public class TourDate : ISerializable, INotifyPropertyChanged
+    public enum Status { ACTIVE = 0, INACTIVE, COMPLETED, CANCELED }
+    public class TourAppointment : ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
 
@@ -48,12 +48,14 @@ namespace SIMSProject.Model
             {
                 Status.ACTIVE => "Aktivna",
                 Status.INACTIVE => "Neaktivna",
+                Status.CANCELED => "Otkazana",
                 _ => "Završena"
             };
             set => _tourStatus = value switch
             {
                 "Aktivna" => Status.ACTIVE,
                 "Neaktivna" => Status.INACTIVE,
+                "Otkazana" => Status.CANCELED,
                 _ => Status.COMPLETED
             };
         }
@@ -96,9 +98,9 @@ namespace SIMSProject.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public TourDate() { }
+        public TourAppointment() { }
 
-        public TourDate(int id, DateTime date, int tourId, int availableSpots, int currentKeyPointId)
+        public TourAppointment(int id, DateTime date, int tourId, int availableSpots, int currentKeyPointId)
         {
             Id = id;
             Date = date;

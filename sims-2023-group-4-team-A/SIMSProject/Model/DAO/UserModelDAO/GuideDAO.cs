@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using SIMSProject.FileHandler;
 using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.Model.UserModel;
 using SIMSProject.Observer;
@@ -17,6 +18,24 @@ namespace SIMSProject.Model.DAO.UserModelDAO
             _fileHandler = new GuideFileHandler();
             _guides = _fileHandler.Load();
             _observers = new List<IObserver>();
+
+            AssociateGuides();
+        }
+
+        private void AssociateGuides()
+        {
+            TourFileHandler tourFileHandler = new();
+            List<Tour> tours = tourFileHandler.Load();
+            foreach (var guide in _guides)
+            {
+                AssociateTours(tours, guide);
+            }
+        }
+
+        private static void AssociateTours(List<Tour> tours, Guide guide)
+        {
+            List<Tour>? matchingTours = tours.FindAll(x => x.Id == guide.Id);
+            guide.Tours.AddRange(matchingTours);
         }
 
         public int NextId()

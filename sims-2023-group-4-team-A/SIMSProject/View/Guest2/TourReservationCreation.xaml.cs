@@ -31,8 +31,8 @@ namespace SIMSProject.View.Guest2
         public Guest User = new();
         public Tour Tour { get; set; }
         public Tour AlternativeTour { get; set; }
-        public TourDate AlternativeTourDate { get; set; } = new();
-        public TourDate SelectedTourDate { get; set; }
+        public TourAppointment AlternativeTourDate { get; set; } = new();
+        public TourAppointment SelectedTourDate { get; set; }
         public TourReservation NewTourReservation { get; set; } = new();
 
         private int _guestsForReservation = 1;
@@ -66,10 +66,10 @@ namespace SIMSProject.View.Guest2
         public TourReservationController TourReservationController = new();
         public TourController TourController = new();
         public LocationController TourLocationController = new();
-        public TourDateController TourDateController = new();
+        public TourAppointmentController TourDateController = new();
 
         public ObservableCollection<Tour> AlternativeTours { get; set; }
-        public List<TourDate> CBTourDates { get; set; } = new();
+        public List<TourAppointment> CBTourDates { get; set; } = new();
 
         public TourReservationCreation(Guest user, Tour selectedTour)
         {
@@ -105,7 +105,7 @@ namespace SIMSProject.View.Guest2
             TBMaxGuests.Text = tour.MaxGuestNumber.ToString();
             dgrImageURLs.ItemsSource = tour.Images;
         }
-        private void ReserveTour(TourReservation tourReservation, TourDate tourDate, int guestsForReservation)
+        private void ReserveTour(TourReservation tourReservation, TourAppointment tourDate, int guestsForReservation)
         {
             tourReservation.TourDateId = tourDate.TourId;
             tourReservation.GuestId = User.Id;

@@ -42,9 +42,8 @@ namespace SIMSProject.Model
             }
         }
 
-        //public User Guest { get; set; }
-
-        public TourDate TourDate { get; set; } = new();
+        public Guest Guest { get; set; } = new();
+        public TourAppointment Appointment { get; set; } = new();
         public KeyPoint JoinedKeyPoint { get; set; } = new();
 
         public TourGuest() { }
