@@ -24,7 +24,12 @@ namespace SIMSProject.View.GuideViews
     /// </summary>
     public partial class GuideInitialWindow : Window, IObserver
     {
-        private readonly TourController tourController = new();
+        public static readonly TourController tourController = new();
+        public static readonly KeyPointController keyPointController = new();
+        public static readonly LocationController locationController = new();
+        public static readonly TourAppointmentController tourAppointmentController = new();
+        public static readonly TourGuestController tourGuestController = new();
+        public static readonly TourKeyPointController tourKeyPointController = new();
         public Tour SelectedTour { get; set; } = new();
         public Guide guide { get; set; } = new();
         public ObservableCollection<Tour> TodaysTours { get; set; } = new ObservableCollection<Tour>();

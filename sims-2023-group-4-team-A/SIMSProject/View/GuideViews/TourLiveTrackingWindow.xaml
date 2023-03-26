@@ -24,7 +24,8 @@
                          CanUserAddRows="False"
                          AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Username}"></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Guest}"></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding GuestStatus}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
                 <Button x:Name="Sign_guestBTN" 
@@ -40,7 +41,7 @@
             </Grid.RowDefinitions>
             <Label Grid.Row="0"
                    FontSize="25" FontWeight="Bold"
-                   Content="{Binding Path=SelectedDate.Tour.Name}"
+                   Content="{Binding Path=CurrentAppointment.Tour.Name}"
                    Margin="20,0,0,0"/>
             <StackPanel Grid.Row="2" Orientation="Horizontal">
                 <Button x:Name="CloseBTN"

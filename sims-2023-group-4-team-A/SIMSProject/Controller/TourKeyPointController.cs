@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using SIMSProject.Model;
 using SIMSProject.Model.DAO;
+using SIMSProject.Observer;
+
 namespace SIMSProject.Controller
 {
     public class TourKeyPointController
@@ -27,6 +29,12 @@ namespace SIMSProject.Controller
         public TourKeyPoint Create(TourKeyPoint tourKeyPoint)
         {
             return _tourKeyPoints.Save(tourKeyPoint);
+        
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            _tourKeyPoints.Subscribe(observer);
         }
     }
 }

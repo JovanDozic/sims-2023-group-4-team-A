@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using SIMSProject.Model.DAO;
 using SIMSProject.Model;
+using SIMSProject.Observer;
 
 namespace SIMSProject.Controller
 {
@@ -38,6 +39,11 @@ namespace SIMSProject.Controller
         public void MakeGuestPresent(int guestId, int tourAppointmentId, KeyPoint currentKeyPoint)
         {
             _tourGuests.MakeGuestPresent(guestId, tourAppointmentId, currentKeyPoint);
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            _tourGuests.Subscribe(observer);
         }
     }
 }

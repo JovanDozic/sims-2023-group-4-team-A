@@ -2,18 +2,19 @@
 using SIMSProject.Model.DAO;
 using SIMSProject.Model;
 using System;
+using SIMSProject.Observer;
 
 namespace SIMSProject.Controller
 {
     public class TourAppointmentController
     {
         private TourAppointmentDAO _tourAppointments;
-        public TourAppointment TourDate;
+        public TourAppointment TourAppointment;
 
         public TourAppointmentController()
         {
             _tourAppointments = new();
-            TourDate = new();
+            TourAppointment = new();
         }
 
         public TourAppointment GetById(int id)
@@ -68,6 +69,11 @@ namespace SIMSProject.Controller
         public void UpdateAvailableSpots(TourAppointment appointment)
         {
             _tourAppointments.UpdateAvailableSpots(appointment);
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            _tourAppointments.Subscribe(observer);
         }
     }
 }

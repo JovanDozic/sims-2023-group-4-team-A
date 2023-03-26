@@ -111,7 +111,7 @@ namespace SIMSProject.Model
 
         public override string ToString()
         {
-            return $"{Date}";
+            return $"{Date} {TourStatus}";
         }
 
 

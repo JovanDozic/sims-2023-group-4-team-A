@@ -170,7 +170,7 @@ namespace SIMSProject.Model.DAO
             return currentTour.KeyPoints.Last();
         }
 
-        public void EndTour(int tourId, int dateId)
+        public void EndTour(int tourId, int appointmentId)
         {
             var toEnd = Get(tourId);
             if (toEnd == null)
@@ -179,10 +179,11 @@ namespace SIMSProject.Model.DAO
             }
 
 
-            TourAppointment? dateToEnd = toEnd.Appointments.Find(x => x.Id == dateId);
-            if (dateToEnd == null) return;
-            dateToEnd.TourStatus = "Završena";
+            TourAppointment? appointmentToEnd = toEnd.Appointments.Find(x => x.Id == appointmentId);
+            if (appointmentToEnd == null) return;
+            appointmentToEnd.TourStatus = "Završena";
             _fileHandler.Save(_tours);
+            NotifyObservers();
         }
 
         public void AddNewAppointment(int tourId, TourAppointment appointment)

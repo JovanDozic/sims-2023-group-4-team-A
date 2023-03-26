@@ -37,6 +37,7 @@ namespace SIMSProject.Model.DAO
         public TourAppointment Save(TourAppointment appointment)
         {
             appointment.Id = NextId();
+            appointment.TourStatus = "Neaktivna";
             _tourAppointments.Add(appointment);
             _fileHandler.Save(_tourAppointments);
             NotifyObservers();
@@ -73,7 +74,7 @@ namespace SIMSProject.Model.DAO
 
         private static void AssociateGuests(TourAppointment appointment, List<Guest> guests, List<TourGuest> tourGuests)
         {
-            List<TourGuest> pairs = tourGuests.FindAll(x => x.TourDateId == appointment.Id);
+            List<TourGuest> pairs = tourGuests.FindAll(x => x.AppointmentId == appointment.Id);
             foreach (var pair in pairs)
             {
                 Guest? matchingGuest = guests.Find(x => x.Id == pair.GuestId) ?? throw new SystemException("Error!No matching guest!");
@@ -137,6 +138,7 @@ namespace SIMSProject.Model.DAO
             TourAppointment? toEnd = Get(appointmentId) ?? throw new SystemException("Error!Can't find appointment!");
             toEnd.TourStatus = "Završena";
             _fileHandler.Save(_tourAppointments);
+            NotifyObservers();
         }
 
         public TourAppointment InitializeTour(TourAppointment appointment, Tour tour)

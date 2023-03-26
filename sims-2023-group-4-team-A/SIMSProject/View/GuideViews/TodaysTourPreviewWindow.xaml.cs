@@ -1,7 +1,9 @@
 ﻿using SIMSProject.Controller;
 using SIMSProject.Model;
+using SIMSProject.Observer;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,13 +21,12 @@ namespace SIMSProject.View.GuideViews
     /// <summary>
     /// Interaction logic for TodaysTourPreviewWindow.xaml
     /// </summary>
-    public partial class TodaysTourPreviewWindow : Window
+    public partial class TodaysTourPreviewWindow : Window, IObserver
     {
-        private readonly TourAppointmentController tourAppointmentController = new();
 
         public Tour TodaysTour { get; set; } = new();
         public TourAppointment SelectedAppointment { get; set; } = new();
-        public List<TourAppointment> TodaysAppointments { get; set; } = new();
+        public ObservableCollection<TourAppointment> TodaysAppointments { get; set; } = new();
 
 
         public TodaysTourPreviewWindow(Tour TodaysTour)
@@ -34,12 +35,16 @@ namespace SIMSProject.View.GuideViews
             this.DataContext = this;
             this.TodaysTour = TodaysTour;
 
+            GuideInitialWindow.tourController.Subscribe(this);
+            GuideInitialWindow.tourAppointmentController.Subscribe(this);
+
             GetTodaysAppointments();
         }
 
         private void GetTodaysAppointments()
         {
-            foreach (TourAppointment appointment in tourAppointmentController.FindTodaysByTour(TodaysTour.Id))
+            TodaysAppointments.Clear();
+            foreach (TourAppointment appointment in GuideInitialWindow.tourAppointmentController.FindTodaysByTour(TodaysTour.Id))
             {
                 TodaysAppointments.Add(appointment);
             }
@@ -47,8 +52,13 @@ namespace SIMSProject.View.GuideViews
 
         private void LiveTrackBTN_Click(object sender, RoutedEventArgs e)
         {
+            if (SelectedAppointment.TourStatus.Equals("Završena"))
+            {
+                MessageBox.Show("Ne možete otpočeti turu koja se završila!");
+                return;
+            }
 
-            TourAppointment? activeAppointment = TodaysAppointments.Find(x => x.TourStatus.Equals("Aktivna"));
+            TourAppointment? activeAppointment = TodaysAppointments.ToList().Find(x => x.TourStatus.Equals("Aktivna"));
             if (activeAppointment != null)
             {
                 if (activeAppointment.Id != SelectedAppointment.Id)
@@ -56,22 +66,34 @@ namespace SIMSProject.View.GuideViews
                     MessageBox.Show("Već postoji aktivna tura!");
                     return;
                 }
-                //Samo nastavi turu
+                TourLiveTrackingWindow window = new(SelectedAppointment);
+                window.Show();
 
             }
-            //Napravi novu turu
-            StartLiveTracking();
+            else
+            {
+                StartLiveTracking();
+            }
         }
 
         private void StartLiveTracking()
         {
-            TourAppointment LiveTrackingDate = SelectedAppointment;
-            LiveTrackingDate.CurrentKeyPointId = TodaysTour.KeyPoints[0].Id;
-            LiveTrackingDate.CurrentKeyPoint = TodaysTour.KeyPoints[0];
-            tourAppointmentController.StartTourLiveTracking(LiveTrackingDate);
+            SetAppointmentStartPoint();
+            GuideInitialWindow.tourAppointmentController.StartTourLiveTracking(SelectedAppointment);
 
-            TourLiveTrackingWindow window = new TourLiveTrackingWindow(LiveTrackingDate);
+            TourLiveTrackingWindow window = new(SelectedAppointment);
             window.Show();
+        }
+
+        private void SetAppointmentStartPoint()
+        {
+            SelectedAppointment.CurrentKeyPointId = TodaysTour.KeyPoints[0].Id;
+            SelectedAppointment.CurrentKeyPoint = TodaysTour.KeyPoints[0];
+        }
+
+        public void Update()
+        {
+            GetTodaysAppointments();
         }
     }
 }

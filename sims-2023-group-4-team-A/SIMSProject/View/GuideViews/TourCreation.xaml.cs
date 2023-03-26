@@ -29,11 +29,6 @@ namespace SIMSProject.View.GuideViews
     {
 
         private int keyPointCounter = 0;
-        private readonly TourController tourController = new();
-        private readonly KeyPointController keyPointController = new();
-        private readonly TourAppointmentController tourAppointmentController = new();
-        private readonly LocationController tourLocationController = new();
-        private readonly TourKeyPointController tourKeyPointController = new();
 
         private Location? _selectedLocation;
         private bool _imageAdded;
@@ -48,7 +43,7 @@ namespace SIMSProject.View.GuideViews
                     _selectedLocation = value;
 
                     KeyPoints.Clear();
-                    foreach (var point in keyPointController.GetAll().FindAll(x => x.LocationId == value.Id))
+                    foreach (var point in GuideInitialWindow.keyPointController.GetAll().FindAll(x => x.LocationId == value.Id))
                     {
                         KeyPoints.Add(point);
                     }
@@ -87,8 +82,8 @@ namespace SIMSProject.View.GuideViews
                 "Španski"
             };
 
-            KeyPoints = new(keyPointController.GetAll());
-            Locations = new(tourLocationController.GetAll());
+            KeyPoints = new(GuideInitialWindow.keyPointController.GetAll());
+            Locations = new(GuideInitialWindow.locationController.GetAll());
 
         }
 
@@ -114,12 +109,12 @@ namespace SIMSProject.View.GuideViews
             New.Location = SelectedLocation;
             New.LocationId = SelectedLocation.Id;
 
-            Tour createdTour = tourController.Create(New);
+            Tour createdTour = GuideInitialWindow.tourController.Create(New);
 
             CreateAndAssignTourAppointment(createdTour);
             CreateNewPairs(createdTour);
 
-            tourController.Refresh();
+            GuideInitialWindow.tourController.Refresh();
             MessageBox.Show("Tura uspešno kreirana.");
             Close();
         }
@@ -129,7 +124,7 @@ namespace SIMSProject.View.GuideViews
             foreach (var keyPoint in NewKeyPoints)
             {
                 TourKeyPoint newPair = new(createdTour.Id, keyPoint.Id);
-                tourKeyPointController.Create(newPair);
+                GuideInitialWindow.tourKeyPointController.Create(newPair);
             }
         }
 
@@ -137,9 +132,9 @@ namespace SIMSProject.View.GuideViews
         {
             foreach (var appointment in NewAppointments)
             {
-                TourAppointment createdAppointment = tourAppointmentController.Create(appointment);
-                TourAppointment updatedAppointment = tourAppointmentController.InitializeTour(createdAppointment, createdTour);
-                tourController.AddAppointment(createdTour.Id, updatedAppointment);
+                TourAppointment createdAppointment = GuideInitialWindow.tourAppointmentController.Create(appointment);
+                TourAppointment updatedAppointment = GuideInitialWindow.tourAppointmentController.InitializeTour(createdAppointment, createdTour);
+                GuideInitialWindow.tourController.AddAppointment(createdTour.Id, updatedAppointment);
             }
         }
 

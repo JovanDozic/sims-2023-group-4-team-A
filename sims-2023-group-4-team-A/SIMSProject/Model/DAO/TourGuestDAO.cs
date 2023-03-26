@@ -74,12 +74,12 @@ namespace SIMSProject.Model.DAO
 
         private static void AssociateAppointment(TourGuest tourGuest, List<TourAppointment> appointments)
         {
-            tourGuest.Appointment = appointments.Find(x => x.Id == tourGuest.TourDateId) ?? throw new System.Exception("Error!No matching appointment!");
+            tourGuest.Appointment = appointments.Find(x => x.Id == tourGuest.AppointmentId) ?? throw new System.Exception("Error!No matching appointment!");
         }
 
         public void SignUpGuest(int guestId, int tourAppointmentId)
         {
-            TourGuest? tourGuest = _tourGuests.Find(x => x.GuestId ==  guestId && x.TourDateId == tourAppointmentId);
+            TourGuest? tourGuest = _tourGuests.Find(x => x.GuestId ==  guestId && x.AppointmentId == tourAppointmentId);
             if(tourGuest == null) return;
 
             tourGuest.GuestStatus = "Prijavljen";
@@ -88,7 +88,7 @@ namespace SIMSProject.Model.DAO
 
         public void MakeGuestPresent(int guestId, int tourAppointmentId, KeyPoint currentKeyPoint)
         {
-            TourGuest? tourGuest = _tourGuests.Find(x => x.GuestId == guestId && x.TourDateId == tourAppointmentId);
+            TourGuest? tourGuest = _tourGuests.Find(x => x.GuestId == guestId && x.AppointmentId == tourAppointmentId);
             if (tourGuest == null) return;
 
             tourGuest.JoinedKeyPoint = currentKeyPoint;
