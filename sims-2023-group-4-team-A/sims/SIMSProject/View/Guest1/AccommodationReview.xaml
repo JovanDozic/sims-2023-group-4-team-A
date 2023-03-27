@@ -1,0 +1,76 @@
+﻿<Window x:Class="SIMSProject.View.Guest1.AccommodationReview"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMSProject.View.Guest1"
+        xmlns:custom="clr-namespace:SIMSProject.CustomControls"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        Title="Prikaz smeštaja" Height="482" Width="505">
+    <Grid Margin="10,10,10,26">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*"></ColumnDefinition>
+            <ColumnDefinition Width="50*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="230"></RowDefinition>
+
+
+            <RowDefinition Height="50"></RowDefinition>
+
+
+
+
+        </Grid.RowDefinitions>
+
+
+        <Label FontSize="14" Content="Naziv:" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBox FontSize="14" x:Name="TextBoxNaziv" VerticalAlignment="Center" HorizontalAlignment="Left" Width="184" Height="22" IsReadOnly="True" Grid.ColumnSpan="2" Margin="218,0,0,0"/>
+
+        <Label FontSize="14" Content="Lokacija:" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBox FontSize="14" x:Name="TextBoxLokacija" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="184" Height="22" IsReadOnly="True" Grid.ColumnSpan="2" Margin="218,0,0,0"/>
+
+        <Label FontSize="14" Content="Tip:" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBox FontSize="14" x:Name="TextBoxTip" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Width="184" Height="22" IsReadOnly="True" Grid.ColumnSpan="2" Margin="218,0,0,0"/>
+
+        <Grid Grid.Row="3" Grid.Column="0" Margin="5,10,20,10">
+            <Border BorderThickness="2" BorderBrush="#ffb0b0b0" Panel.ZIndex="1">
+                <Image Source="{Binding Path=SelectedImageFile, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,2"/>
+            </Border>
+            <TextBlock x:Name="TXTImagePlaceholder" Text="Izaberite sliku" FontSize="14"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                       Foreground="#ffb0b0b0"
+                       Panel.ZIndex="0"/>
+        </Grid>
+
+        <DataGrid x:Name="mainGrid" Grid.Row="3" Grid.Column="1" Margin="5,10,5,10"
+                  ItemsSource="{Binding Accommodation.ImageURLs, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=SelectedImageFile}"
+                  SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"
+                  HorizontalScrollBarVisibility="Visible"
+                  SelectionChanged="mainGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button FontSize="15" Content="Zatvori" Grid.Row="4" Width="100" Click="Button_Click_Close" Margin="59,10,60,0"></Button>
+        <Button FontSize="15" Content="Rezervacija" Grid.Row="4" Grid.Column="1" Width="100" Margin="60,10,59,0" Click="Button_Click_Reserve"/>
+        <!--<Label Content="Datum od" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
+        <!--<DatePicker Grid.Row="3" Grid.Column="4" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center"/>-->
+
+        <!--<Label Content="Datum do" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
+        <!--<DatePicker Grid.Row="4" Grid.Column="5" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center"/>-->
+
+        <!--<Label Content="Broj dana" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
+        <!--<custom:NumericTextBox Grid.Row="5" Grid.Column="6" VerticalAlignment="Center" HorizontalAlignment="Left"/>-->
+
+
+    </Grid>
+</Window>

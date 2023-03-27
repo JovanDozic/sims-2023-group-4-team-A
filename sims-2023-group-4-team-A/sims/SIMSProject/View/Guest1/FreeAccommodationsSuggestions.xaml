@@ -1,0 +1,46 @@
+﻿<Window x:Class="SIMSProject.View.Guest1.FreeAccommodationsSuggestions"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMSProject.View.Guest1" xmlns:custom="clr-namespace:SIMSProject.CustomControls"
+        mc:Ignorable="d"
+        Title="Dostupni termini" Height="404" Width="347"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="0,0,0,9">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition  ></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+
+        </Grid.RowDefinitions>
+
+        <Label Grid.ColumnSpan="2" FontSize="15" Content="Smeštaj nije slobodan u odabranom periodu!" Width="420" FontStyle="Oblique" HorizontalAlignment="Left"></Label>
+
+        <Label FontSize="15" Content="Slobodni datumi:" Grid.Row="1" ></Label>
+
+        <DataGrid FontSize="15" IsReadOnly="True" ItemsSource="{Binding DateRanges }" SelectedItem="{Binding SelectedRange}"  AutoGenerateColumns="False" x:Name="DataGridDates" Grid.Row="2" Grid.ColumnSpan="2" Margin="7,0,37,10" >
+            <DataGrid.Columns>
+                <DataGridTextColumn FontSize="14" Header="Početak" Width="150" Binding="{Binding StartDate, StringFormat={}{0:dd.MM.yyyy.}}"/>
+                    <DataGridTextColumn FontSize="14" Header="Kraj" Width="150" Binding="{Binding EndDate, StringFormat={}{0:dd.MM.yyyy.}}"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <Label FontSize="15" Content="Broj gostiju:" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <custom:NumericTextBox Value="{Binding GuestsNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  x:Name="GuestsBox" FontSize="15" Grid.Row="3" Grid.Column="6" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+        <Button Content="Otkaži" FontSize="15" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100" Click="Button_Click_Close"></Button>
+        <Button Content="Potvrdi" FontSize="15" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100" Click="Button_Click_Confirm" />
+
+
+    </Grid>
+</Window>

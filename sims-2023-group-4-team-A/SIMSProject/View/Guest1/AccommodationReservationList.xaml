@@ -1,0 +1,45 @@
+﻿<Window x:Class="SIMSProject.View.Guest1.AccommodationReservationList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMSProject.View.Guest1"
+        mc:Ignorable="d"
+        Title="AccommodationReservationList" Height="598" Width="843"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="410"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+
+        </Grid.RowDefinitions>
+
+        <Label FontSize="32" Content="Prikaz Vaših Rezervacija"></Label>
+
+        <DataGrid IsReadOnly="True" ItemsSource="{Binding AccommodationReservations, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" FontSize="20" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="810" Height="402">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naziv smeštaja" Width="280" Binding="{Binding Accommodation.Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum dolaska" Width="146" Binding="{Binding StartDate, StringFormat={}{0:dd.MM.yyyy.}}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum odlaska" Width="146" Binding="{Binding EndDate, StringFormat={}{0:dd.MM.yyyy.}}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Broj dana" Width="100" Binding="{Binding NumberOfDays}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Broj gostiju" Width="120" Binding="{Binding GuestNumber}"></DataGridTextColumn>
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <Button FontSize="20" Content="Otkaži rezervaciju" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="45" Width="200"></Button>
+        <Button FontSize="20" Grid.Row="3" Grid.Column="1" Content="Pomeri rezervaciju" Height="45" Width="200"></Button>
+
+
+    </Grid>
+</Window>
