@@ -91,7 +91,7 @@ namespace SIMSProject.View.Guest1
                 {
                     if (selectedDateRange != null)
                     {
-                        AccommodationReservation = new AccommodationReservation(Accommodation.Id, User.Id, selectedDateRange.StartDate, selectedDateRange.EndDate, NumberOfDays, GuestsNumber);
+                        AccommodationReservation = new AccommodationReservation(Accommodation.Id, User.Id, selectedDateRange.StartDate, selectedDateRange.EndDate, NumberOfDays, GuestsNumber, false);
 
                         Controller.Create(AccommodationReservation);
                         MessageBox.Show("Smeštaj rezervisan!");
@@ -129,12 +129,15 @@ namespace SIMSProject.View.Guest1
                         List<AccommodationReservation> reservations = GetReservations(Controller.GetAll(), Accommodation.Id);
                         List<DateRange> reservedDates = GetReservationDates(reservations);
                         DateRange conflictingRange = new DateRange(dateBegin, dateEnd);
-                        var show = new FreeAccommodationsSuggestions(conflictingRange, reservedDates, NumberOfDays, User, AccommodationReservation, Accommodation);
-                        show.Show();
-                    }
-                    else
-                    {
-                        AddPossibleDates(dateBegin, dateEnd, NumberOfDays);
+                       
+                        if (reserved.Canceled)
+                         AddPossibleDates(dateBegin, dateEnd, NumberOfDays);
+
+                        else
+                        {
+                            var show = new FreeAccommodationsSuggestions(conflictingRange, reservedDates, NumberOfDays, User, AccommodationReservation, Accommodation);
+                            show.Show();
+                        }
                     }
                 }
                 else

@@ -24,7 +24,8 @@
 
         <Label FontSize="32" Content="Prikaz Vaših Rezervacija"></Label>
 
-        <DataGrid IsReadOnly="True" ItemsSource="{Binding AccommodationReservations, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" FontSize="20" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="810" Height="402">
+        <DataGrid IsReadOnly="True" ItemsSource="{Binding AccommodationReservations, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" FontSize="20" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="810" Height="402"
+                  SelectedItem="{Binding SelectedReservation}">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv smeštaja" Width="280" Binding="{Binding Accommodation.Name}"></DataGridTextColumn>
@@ -37,7 +38,7 @@
 
         </DataGrid>
 
-        <Button FontSize="20" Content="Otkaži rezervaciju" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="45" Width="200"></Button>
+        <Button FontSize="20" Content="Otkaži rezervaciju" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="45" Width="200" Click="Button_Click_Cancellation"></Button>
         <Button FontSize="20" Grid.Row="3" Grid.Column="1" Content="Pomeri rezervaciju" Height="45" Width="200"></Button>
 
 

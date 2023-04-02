@@ -23,7 +23,7 @@ namespace SIMSProject.View.Guest1
     /// </summary>
     public partial class AccommodationReservationList : Window
     {
-        public AccommodationReservation AccommodationReservation { get; set; }
+        public AccommodationReservation SelectedReservation { get; set; } = null;
         public ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
         private AccommodationReservationController AccommodationReservationController { get; set; }
         public AccommodationReservationList()
@@ -31,9 +31,29 @@ namespace SIMSProject.View.Guest1
             InitializeComponent();
             DataContext = this;
             AccommodationReservationController = new AccommodationReservationController();
-            AccommodationReservations = new ObservableCollection<AccommodationReservation>(AccommodationReservationController.GetAll());
+            var reservations = AccommodationReservationController.GetAll().Where(r => !r.Canceled);
+            AccommodationReservations = new ObservableCollection<AccommodationReservation>(reservations);
         }
 
-       
+        private void Button_Click_Cancellation(object sender, RoutedEventArgs e)
+        {
+            if (SelectedReservation != null)
+            {
+                if(DateTime.Today < SelectedReservation.StartDate.AddHours(-24))
+                {
+                    var reservation = AccommodationReservationController.FindAndCancel(SelectedReservation);
+                    AccommodationReservationController.Update(reservation);
+                    MessageBox.Show("Rezervacija je otkazana!");
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Rezervaciju je moguće bilo izvršiti najkasnije 24h pre dolaska");
+                }
+            }
+            else
+                MessageBox.Show("Morate da odaberete rezervaciju!");
+            
+        }
     }
 }
