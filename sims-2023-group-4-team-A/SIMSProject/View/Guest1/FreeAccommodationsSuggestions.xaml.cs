@@ -116,7 +116,7 @@ namespace SIMSProject.View.Guest1
                 extendCount++;
             }
                 
-        }
+        }  
 
         //function that checks if input date range is available
         public static bool CheckAvailability(DateTime inputStartDate, DateTime inputEndDate, List<DateRange> reservedDates)
@@ -147,7 +147,7 @@ namespace SIMSProject.View.Guest1
             {
                 if (GuestsNumber <= Accommodation.MaxGuestNumber)
                 {
-                    AccommodationReservation = new AccommodationReservation(AccommodationReservation.Accommodation.Id, User.Id, SelectedRange.StartDate, SelectedRange.EndDate, DaysNumber, GuestsNumber);
+                    AccommodationReservation = new AccommodationReservation(AccommodationReservation.Accommodation.Id, User.Id, SelectedRange.StartDate, SelectedRange.EndDate, DaysNumber, GuestsNumber, false);
 
                     Controller.Create(AccommodationReservation);
                     MessageBox.Show("Smeštaj rezervisan!");

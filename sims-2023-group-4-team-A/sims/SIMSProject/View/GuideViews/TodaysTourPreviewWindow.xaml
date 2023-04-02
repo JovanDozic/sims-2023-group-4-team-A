@@ -1,0 +1,68 @@
+﻿<Window x:Class="SIMSProject.View.GuideViews.TodaysTourPreviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMSProject.View.GuideViews"
+        mc:Ignorable="d"
+        Title="TodaysTourPreviewWindow" Height="470" Width="550" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <TextBlock Text="{Binding Path=SelectedTour.Name}" FontWeight="Bold" FontSize="20"/>
+                <TextBlock Text="{Binding Path=SelectedTour.Location}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <TextBlock Text="Jezik ture:"/>
+                <TextBlock Text="{Binding Path=SelectedTour.TourLanguage}" Margin="5,0,0,0"/>
+                <TextBlock Text="Maks. broj gostiju:" Margin="10,0,0,0"/>
+                <TextBlock Text="{Binding Path=SelectedTour.MaxGuestNumber}" Margin="5,0,0,0"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <TextBlock Text="Današnji termini" 
+                           HorizontalAlignment="Center"
+                           Margin="0,10,0,0"/>
+                <ListBox ItemsSource="{Binding Path=TodaysDates}"
+                         Margin="5,0,10,0"
+                         Height="140" Width="220"
+                         SelectedItem="{Binding Path=SelectedDate, UpdateSourceTrigger=PropertyChanged}">
+                </ListBox>
+                <Button x:Name="LiveTrackBTN" 
+                        Content="Započni turu" 
+                        Width="100" Margin="0,10,0,0"
+                        Click="LiveTrackBTN_Click"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <TextBlock Text="Slobodnih mesta:"/>
+                <TextBlock Text="{Binding Path=SelectedTour.AvailableSpots}" Margin="5,0,0,0"/>
+                <TextBlock Text="Trajanje(h):" Margin="10,0,0,0"/>
+                <TextBlock Text="{Binding Path=SelectedTour.Duration}" Margin="5,0,0,0"/>
+            </StackPanel>
+        </Grid>
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+            <TextBlock Text="Opis ture" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+            <TextBlock Text="{Binding Path=SelectedTour.Description}" Height="75"/>
+            <TextBlock Text="Ključne tačke" HorizontalAlignment="Center"/>
+            <ListView ItemsSource="{Binding Path=SelectedTour.KeyPoints}"
+                      BorderThickness="0" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</Window>
