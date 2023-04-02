@@ -54,7 +54,7 @@ namespace SIMSProject.Model
                     ACCOMMODATION_TYPE.HOUSE => "Kuća",
                     _ => "Koliba"
                 };
-            set
+            set 
             {
                 _type = value switch
                 {
@@ -191,6 +191,7 @@ namespace SIMSProject.Model
             Id = int.Parse(values[i++]);
             Owner.Id = int.Parse(values[i++]);
             Name = values[i++];
+            // TODO: Skloni ovo majmune
             LocationController _locationController = new();
             Location = _locationController.GetByID(int.Parse(values[i++]));
             Type = values[i++];
