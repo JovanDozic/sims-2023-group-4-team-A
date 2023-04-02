@@ -116,7 +116,7 @@ namespace SIMSProject.View.Guest1
                 extendCount++;
             }
                 
-        }
+        }  
 
         //function that checks if input date range is available
         public static bool CheckAvailability(DateTime inputStartDate, DateTime inputEndDate, List<DateRange> reservedDates)

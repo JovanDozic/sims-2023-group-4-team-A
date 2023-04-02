@@ -24,6 +24,8 @@ namespace SIMSProject.View.Guest1
     public partial class AccommodationReservationList : Window
     {
         public AccommodationReservation SelectedReservation { get; set; } = null;
+        public CancelledReservationsNotifications CancelledReservationsNotifications { get; set; }
+        public CancelledReservationsNotificationsController CancelledReservationsNotificationsController { get; set; }
         public ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
         private AccommodationReservationController AccommodationReservationController { get; set; }
         public AccommodationReservationList()
@@ -31,6 +33,7 @@ namespace SIMSProject.View.Guest1
             InitializeComponent();
             DataContext = this;
             AccommodationReservationController = new AccommodationReservationController();
+            CancelledReservationsNotificationsController = new CancelledReservationsNotificationsController();
             var reservations = AccommodationReservationController.GetAll().Where(r => !r.Canceled);
             AccommodationReservations = new ObservableCollection<AccommodationReservation>(reservations);
         }
@@ -43,6 +46,9 @@ namespace SIMSProject.View.Guest1
                 {
                     var reservation = AccommodationReservationController.FindAndCancel(SelectedReservation);
                     AccommodationReservationController.Update(reservation);
+                    var message = $"Gost {SelectedReservation.Guest.Username} je otkazao rezervaciju {SelectedReservation.Accommodation.Name}({SelectedReservation.StartDate.ToString("dd.MM.yyyy.")} - {SelectedReservation.EndDate.ToString("dd.MM.yyyy.")})";
+                    CancelledReservationsNotifications = new CancelledReservationsNotifications(message, false);
+                    CancelledReservationsNotificationsController.Create(CancelledReservationsNotifications);
                     MessageBox.Show("Rezervacija je otkazana!");
                     Close();
                 }
@@ -54,6 +60,11 @@ namespace SIMSProject.View.Guest1
             else
                 MessageBox.Show("Morate da odaberete rezervaciju!");
             
+        }
+
+        private void Button_Click_Close(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

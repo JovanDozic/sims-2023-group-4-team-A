@@ -127,18 +127,23 @@ namespace SIMSProject.View.Guest1
                     if (reserved != null)
                     {
                         List<AccommodationReservation> reservations = GetReservations(Controller.GetAll(), Accommodation.Id);
-                        List<DateRange> reservedDates = GetReservationDates(reservations);
+                        var reservationsWithoutCancelled = RemovefCancelled(reservations);
+                        List<DateRange> reservedDates = GetReservationDates(reservationsWithoutCancelled);
                         DateRange conflictingRange = new DateRange(dateBegin, dateEnd);
-                       
-                        if (reserved.Canceled)
-                         AddPossibleDates(dateBegin, dateEnd, NumberOfDays);
 
+                        if (reserved.Canceled)
+                        {
+                            AddPossibleDates(dateBegin, dateEnd, NumberOfDays);
+                        }
                         else
                         {
                             var show = new FreeAccommodationsSuggestions(conflictingRange, reservedDates, NumberOfDays, User, AccommodationReservation, Accommodation);
                             show.Show();
                         }
                     }
+                    else
+                        AddPossibleDates(dateBegin, dateEnd, NumberOfDays);
+
                 }
                 else
                 {
@@ -147,6 +152,13 @@ namespace SIMSProject.View.Guest1
             }
             else
                 MessageBox.Show("Datum odlaska mora biti veći od datuma dolaska");
+        }
+
+        //function that removes reservations that are cancelled
+        public List<AccommodationReservation> RemovefCancelled(List<AccommodationReservation> reservedAccommodations)
+        {
+            reservedAccommodations.RemoveAll(reserved => reserved.Canceled);
+            return reservedAccommodations;
         }
 
         //function that checks for free accommodations for a given date range

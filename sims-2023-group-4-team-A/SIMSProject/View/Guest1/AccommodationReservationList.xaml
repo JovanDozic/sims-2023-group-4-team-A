@@ -23,6 +23,7 @@
         </Grid.RowDefinitions>
 
         <Label FontSize="32" Content="Prikaz Vaših Rezervacija"></Label>
+        <Button Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Height="30" Content="Nazad" FontSize="18" Margin="284,0,0,0" Click="Button_Click_Close"></Button>
 
         <DataGrid IsReadOnly="True" ItemsSource="{Binding AccommodationReservations, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" FontSize="20" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="810" Height="402"
                   SelectedItem="{Binding SelectedReservation}">
