@@ -97,15 +97,7 @@ namespace SIMSProject.Model.DAO
 
         public List<TourAppointment> GetAllByTourId(int tourId)
         {
-            List<TourAppointment> appointments = new();
-            foreach(TourAppointment appointment in GetAll())
-            {
-                if(appointment.TourId == tourId)
-                {
-                    appointments.Add(appointment);
-                }
-            }
-            return appointments;
+            return GetAll().FindAll(x => x.TourId == tourId && DateTime.Compare(x.Date, DateTime.Now) > 0);
         }
 
         public void GoToNextKeyPoint(int appointmentId, KeyPoint nextKeyPoint)

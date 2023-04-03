@@ -23,18 +23,19 @@
             <TextBlock Width="50"/>
             <Button  Height="30" Width ="100" Click="Search_Click" Content="Pretrazi" Background="Gray"/>
             <Button  Height="30" Width ="100" Click="Reserve_Click"  Content="Rezervisi" Background="Gray"/>
+            <Button  Height="30" Width ="100" Click="Vouchers_Click"  Content="Moji vauceri" Background="Gray"/>
         </ToolBar>
 
-        <DataGrid Height="500" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"
+        <DataGrid Height="500" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" RowHeight="30" FontSize="20"
                   ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}"
                   >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path = Name}" Header="Naziv" Width="200" x:Name="name"/>
-                <DataGridTextColumn Binding="{Binding Path = Location}" Header="Lokacija" Width="150" x:Name="location"/>
-                <DataGridTextColumn Binding="{Binding Path = Duration}" Header="Trajanje ture" Width="100" x:Name="duration"/>
-                <DataGridTextColumn Binding="{Binding Path = TourLanguage}" Header="Jezik" Width="80" x:Name="tourLanguage"/>
-                <DataGridTextColumn Binding="{Binding MaxGuestNumber}" Header="Broj ljudi na turi" Width="100" x:Name="maxGuestNumber"/>
+                <DataGridTextColumn Binding="{Binding Path = Location}" Header="Lokacija" Width="250" x:Name="location"/>
+                <DataGridTextColumn Binding="{Binding Path = Duration}" Header="Trajanje ture" Width="150" x:Name="duration"/>
+                <DataGridTextColumn Binding="{Binding Path = TourLanguage}" Header="Jezik" Width="100" x:Name="tourLanguage"/>
+                <DataGridTextColumn Binding="{Binding MaxGuestNumber}" Header="Broj ljudi na turi" Width="200" x:Name="maxGuestNumber"/>
             </DataGrid.Columns>
         </DataGrid>
 

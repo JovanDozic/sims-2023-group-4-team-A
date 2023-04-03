@@ -34,6 +34,7 @@ namespace SIMSProject.View.Guest2
         public TourAppointment AlternativeTourDate { get; set; } = new();
         public TourAppointment   SelectedTourDate { get; set; }
         public TourReservation NewTourReservation { get; set; } = new();
+        public Voucher SelectedVoucher { get; set; }
 
         private int _guestsForReservation = 1;
         public int GuestsForReservation
@@ -67,9 +68,12 @@ namespace SIMSProject.View.Guest2
         public TourController TourController = new();
         public LocationController TourLocationController = new();
         public TourAppointmentController TourDateController = new();
+        public VoucherController VoucherController = new();
+
 
         public ObservableCollection<Tour> AlternativeTours { get; set; }
         public List<TourAppointment> CBTourDates { get; set; } = new();
+        public ObservableCollection<Voucher> CBVoucherDates { get; set; } = new();
 
         public TourReservationCreation(Guest user, Tour selectedTour)
         {
@@ -88,6 +92,7 @@ namespace SIMSProject.View.Guest2
             }
 
             CBTourDates = TourDateController.GetAllByTourId(Tour.Id);
+            CBVoucherDates = new ObservableCollection<Voucher>(VoucherController.GetVouchersByGuestId(User.Id));
 
         }
 
@@ -114,6 +119,15 @@ namespace SIMSProject.View.Guest2
             tourDate.AvailableSpots -= guestsForReservation;
             TourDateController.UpdateAvailableSpots(tourDate);
             return;
+        }
+
+        private void UseVoucher()
+        {
+            if(CBSelectedVoucher != null)
+            {
+                VoucherController.Delete(SelectedVoucher);
+            }
+
         }
         private void Reservation_Click(object sender, RoutedEventArgs e)
         {
@@ -154,6 +168,7 @@ namespace SIMSProject.View.Guest2
             else
             {
                 ReserveTour(NewTourReservation, SelectedTourDate, GuestsForReservation);
+                UseVoucher();
                 MessageBox.Show("Rezervacija za " + GuestsForReservation + " osoba uspesna!");
                 Close();
                 return;

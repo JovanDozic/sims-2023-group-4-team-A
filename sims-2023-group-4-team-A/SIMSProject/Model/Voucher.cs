@@ -40,7 +40,7 @@ namespace SIMSProject.Model
  
         private DateTime _expiration;
         public DateTime Expiration { get; set; }
-
+        public string FormattedDate => $"{Expiration:dd/MM/yyyy.}";
         public string[] ToCSV()
         {
             string[] csvValues = { Id.ToString(), 
@@ -57,5 +57,12 @@ namespace SIMSProject.Model
             Reason = Convert.ToString(values[2]);
             Expiration = Convert.ToDateTime(values[3]);
         }
+
+        public override string ToString()
+        {
+            return $"{Reason}, {FormattedDate}";
+        }
+
+        
     }
 }
