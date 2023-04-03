@@ -29,11 +29,10 @@ namespace SIMSProject.View.Guest1
     {
         public Guest User = new();
         public Accommodation Accommodation { get; set; }
+        public AccommodationReservation AccommodationReservation { get; set; }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         private AccommodationController AccommodationControllers;
-
         public event PropertyChangedEventHandler? PropertyChanged;
-
         public Accommodation? SelectedAccommodation { set; get; } = null;
 
         private int _durationSearch;
@@ -70,7 +69,6 @@ namespace SIMSProject.View.Guest1
             DataContext = this;
             User = user;
             Accommodation = new();
-
             AccommodationControllers = new AccommodationController();
             Accommodations = new ObservableCollection<Accommodation>(AccommodationControllers.GetAll());
         }
@@ -143,6 +141,12 @@ namespace SIMSProject.View.Guest1
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void Button_Click_Reservations(object sender, RoutedEventArgs e)
+        {
+            var openReservations = new AccommodationReservationList();
+            openReservations.Show();
         }
     }
 }

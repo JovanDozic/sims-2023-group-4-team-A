@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SIMSProject.View.Guest1"
         xmlns:custom="clr-namespace:SIMSProject.CustomControls"
     mc:Ignorable="d"
-        Title="Smeštaj" Height="460" Width="808"
+        Title="Smeštaj" Height="460" Width="923"
         WindowStartupLocation="CenterScreen">
 
     <DockPanel>
@@ -29,17 +29,18 @@
             <Button Width="80" Height="27" Content="Pretraži" Background="#C8C8C8" Click="Button_Click_Search" Margin="10" FontSize="14"/>
 
             <Button Width="80" Height="27" Content="Prikaži" Background="#C8C8C8" Click="Show_Click" FontSize="14" />
+            <Button FontSize="14" Margin="10" Width="90" Height="27" Content="Rezervacije" Background="#C8C8C8" Click="Button_Click_Reservations"></Button>
 
 
         </ToolBar>
 
         <DataGrid FontSize="14"  Height="297" Margin="10,0,12,0"
                    ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}"
-                               SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" Width="721"
+                               SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" Width="788"
                    SelectedItem="{Binding SelectedAccommodation}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv" Width="160" Binding="{Binding Name}" />
-                <DataGridTextColumn Header="Lokacija" Width="160" Binding="{Binding Location}" />
+                <DataGridTextColumn Header="Naziv" Width="190" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Lokacija" Width="190" Binding="{Binding Location}" />
                 <DataGridTextColumn Header="Tip" Width="130" Binding="{Binding Type}" />
                 <DataGridTextColumn Header="Broj gostiju" Width="100" Binding="{Binding MaxGuestNumber}" />
                 <DataGridTextColumn Header="Broj dana za rezervaciju" Width="160" Binding="{Binding MinReservationDays}" />
