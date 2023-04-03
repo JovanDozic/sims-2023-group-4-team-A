@@ -71,6 +71,11 @@ namespace SIMSProject.Controller
             _tourAppointments.UpdateAvailableSpots(appointment);
         }
 
+        public bool CancelAppointment(TourAppointment appointment)
+        { 
+            return _tourAppointments.CancelAppointment(appointment);
+        }
+
         public void Subscribe(IObserver observer)
         {
             _tourAppointments.Subscribe(observer);

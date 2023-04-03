@@ -32,7 +32,7 @@ namespace SIMSProject.View.Guest2
         public Tour Tour { get; set; }
         public Tour AlternativeTour { get; set; }
         public TourAppointment AlternativeTourDate { get; set; } = new();
-        public TourAppointment SelectedTourDate { get; set; }
+        public TourAppointment   SelectedTourDate { get; set; }
         public TourReservation NewTourReservation { get; set; } = new();
 
         private int _guestsForReservation = 1;
