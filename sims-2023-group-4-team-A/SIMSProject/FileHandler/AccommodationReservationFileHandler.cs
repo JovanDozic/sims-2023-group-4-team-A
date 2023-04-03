@@ -6,7 +6,7 @@ namespace SIMSProject.FileHandler
 {
     public class AccommodationReservationFileHandler
     {
-        private const string FilePath = "../../../Resources/Data/AccommodationReservation.csv";
+        private const string FilePath = "../../../Resources/Data/accommodationReservations.csv";
         private readonly Serializer<AccommodationReservation> _serializer;
 
         public AccommodationReservationFileHandler()
@@ -19,9 +19,9 @@ namespace SIMSProject.FileHandler
             return _serializer.FromCSV(FilePath);
         }
 
-        public void Save(List<AccommodationReservation> AccommodationReservation)
+        public void Save(List<AccommodationReservation> reservations)
         {
-            _serializer.ToCSV(FilePath, AccommodationReservation);
+            _serializer.ToCSV(FilePath, reservations);
         }
     }
 }

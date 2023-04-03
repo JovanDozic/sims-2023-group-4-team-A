@@ -11,14 +11,12 @@ namespace SIMSProject.Model.DAO
     {
         private readonly List<IObserver> _observers;
         private readonly AccommodationReservationFileHandler _fileHandler;
-        private LocationFileHandler _locationFileHandler;
         private List<AccommodationReservation> _accommodationReservations;
 
         public AccommodationReservationDAO()
         {
             _observers = new List<IObserver>();
             _fileHandler = new AccommodationReservationFileHandler();
-            _locationFileHandler = new LocationFileHandler();
             _accommodationReservations = _fileHandler.Load();
 
             var _accommodations = new AccommodationFileHandler().Load();
@@ -46,6 +44,11 @@ namespace SIMSProject.Model.DAO
         public List<AccommodationReservation> GetAll()
         {
             return _accommodationReservations;
+        }
+
+        public AccommodationReservation GetById(int reservationId)
+        {
+            return _accommodationReservations.Find(x => x.Id == reservationId) ?? new AccommodationReservation();
         }
 
         public AccommodationReservation Save(AccommodationReservation AccommodationReservation)

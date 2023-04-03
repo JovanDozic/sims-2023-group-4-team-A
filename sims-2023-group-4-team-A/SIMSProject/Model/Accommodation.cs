@@ -271,7 +271,7 @@ namespace SIMSProject.Model
 
         public override string? ToString()
         {
-            return Name + " " + Location + " " + Type;
+            return Type + ": " + Name + " (" + Location + ")";
         }
     }
 }
