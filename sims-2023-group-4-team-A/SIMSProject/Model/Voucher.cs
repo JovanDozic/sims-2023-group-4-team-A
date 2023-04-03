@@ -47,7 +47,7 @@ namespace SIMSProject.Model
             get => _expiration;
             set => _expiration = value;
         }
-
+        public string FormattedDate => $"{Expiration:dd/MM/yyyy.}";
         public Voucher(int guestId, string reason)
         {
             GuestId = guestId;
