@@ -7,17 +7,18 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-public enum ObtainingReason { APPOINTMENTCANCELED = 0, GUIDEQUIT, WON }
 
 namespace SIMSProject.Model
 {
+    public enum ObtainingReason { APPOINTMENTCANCELED = 0, GUIDEQUIT, WON }
+
     public class Voucher : ISerializable
     {
         public int Id { get; set; }
         private int _guestId;
         public int GuestId
-        { 
-            get => _guestId; 
+        {
+            get => _guestId;
             set => _guestId = value;
         }
         private ObtainingReason _reason;
@@ -27,19 +28,37 @@ namespace SIMSProject.Model
             {
                 ObtainingReason.APPOINTMENTCANCELED => "Termin otkazan",
                 ObtainingReason.GUIDEQUIT => "Vodič dao otkaz",
-                _ => "Osvojen"
+                ObtainingReason.WON => "Osvojen",
+                _ => throw new NotImplementedException()
             };
             set => _reason = value switch
-            { 
+            {
                 "Termin otkazan" => ObtainingReason.APPOINTMENTCANCELED,
                 "Vodič dao otkaz" => ObtainingReason.GUIDEQUIT,
-                _ => ObtainingReason.WON
+                "Osvojen" => ObtainingReason.WON,
+                _ => throw new NotImplementedException()
             };
         }
 
- 
+
         private DateTime _expiration;
-        public DateTime Expiration { get; set; }
+        public DateTime Expiration
+        {
+            get => _expiration;
+            set => _expiration = value;
+        }
+
+        public Voucher(int guestId, string reason)
+        {
+            GuestId = guestId;
+            Reason = reason;
+            Expiration = CalculateExpirationDate(reason);
+        }
+
+        public Voucher()
+        {
+            
+        }
 
         public string[] ToCSV()
         {
@@ -56,6 +75,19 @@ namespace SIMSProject.Model
             GuestId = Convert.ToInt32(values[1]);
             Reason = Convert.ToString(values[2]);
             Expiration = Convert.ToDateTime(values[3]);
+        }
+
+        private static DateTime CalculateExpirationDate(string reason)
+        {
+            switch (reason)
+            {
+                case "Termin otkazan": return DateTime.Now.AddYears(1);
+                case "Vodič dao otkaz": return DateTime.Now.AddYears(2);
+                case "Osvojen": return DateTime.Now.AddMonths(6);
+                default: 
+                    break;
+            }
+            throw new ArgumentException("Reason not acceptable.");
         }
     }
 }

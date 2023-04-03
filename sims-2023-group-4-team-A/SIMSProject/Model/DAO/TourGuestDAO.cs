@@ -86,6 +86,7 @@ namespace SIMSProject.Model.DAO
             SaveAll(_tourGuests);
         }
 
+
         public void MakeGuestPresent(int guestId, int tourAppointmentId, KeyPoint currentKeyPoint)
         {
             TourGuest? tourGuest = _tourGuests.Find(x => x.GuestId == guestId && x.AppointmentId == tourAppointmentId);
@@ -94,6 +95,12 @@ namespace SIMSProject.Model.DAO
             tourGuest.JoinedKeyPoint = currentKeyPoint;
             tourGuest.JoinedKeyPointId = currentKeyPoint.Id;
         }
+
+        public List<TourGuest> GetGuestsIds(int tourAppointmentId)
+        {
+            return _tourGuests.FindAll(x => x.AppointmentId == tourAppointmentId);
+        }
+
 
         // [OBSERVERS]
         public void NotifyObservers()

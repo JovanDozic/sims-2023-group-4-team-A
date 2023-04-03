@@ -21,7 +21,7 @@ namespace SIMSProject.Model.DAO
             _observers = new();
         }
 
-        public int NextId() { return _vouchers.Max(x => x.Id) + 1; }
+        public int NextId() { return _vouchers.Count != 0 ? _vouchers.Max(x => x.Id) + 1 : 1; }
         public List<Voucher> GetAll() { return _vouchers; }
         public Voucher Get(int id)
         {
@@ -44,6 +44,15 @@ namespace SIMSProject.Model.DAO
             _vouchers = appointments;
             NotifyObservers();
         }
+
+        public void GiveVouchers(List<TourGuest> guests, string reason)
+        {
+            foreach (var guest in guests)
+            {
+                Save(new(guest.GuestId, reason));
+            }
+        }
+
 
         // [OBSERVERS]
         public void NotifyObservers() { foreach (var observer in _observers) observer.Update(); }

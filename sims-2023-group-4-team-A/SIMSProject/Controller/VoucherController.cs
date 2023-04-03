@@ -38,5 +38,10 @@ namespace SIMSProject.Controller
         {
             return _vouchers.Get(id);
         }
+
+        public void GiveVouchers(List<TourGuest> guests, string reason)
+        {
+            _vouchers.GiveVouchers(guests, reason);
+        }
     }
 }

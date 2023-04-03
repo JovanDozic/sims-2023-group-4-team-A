@@ -41,6 +41,11 @@ namespace SIMSProject.Controller
             _tourGuests.MakeGuestPresent(guestId, tourAppointmentId, currentKeyPoint);
         }
 
+        public List<TourGuest> GetGuestsIds(int tourAppointmentId)
+        {
+            return _tourGuests.GetGuestsIds(tourAppointmentId);
+        }
+
         public void Subscribe(IObserver observer)
         {
             _tourGuests.Subscribe(observer);

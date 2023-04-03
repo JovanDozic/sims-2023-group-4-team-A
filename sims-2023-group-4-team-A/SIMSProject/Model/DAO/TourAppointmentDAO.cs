@@ -123,9 +123,28 @@ namespace SIMSProject.Model.DAO
             NotifyObservers();
         }
 
+        private static bool IsCancelable(TourAppointment appointment)
+        { 
+            return DateTime.Now.AddHours(-48) > appointment.Date;
+        }
+
+        public bool CancelAppointment(TourAppointment appointment)
+        {
+            TourAppointment? oldAppointment = Get(appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
+
+            if(!IsCancelable(oldAppointment))
+            { 
+                return false; 
+            }
+            
+            oldAppointment.TourStatus = "Otkazana";
+            _fileHandler.Save(_tourAppointments);
+            return true;
+        }
+
         public void StartLiveTracking(TourAppointment appointment)
         {
-            TourAppointment? oldAppointment = Get(appointment.Id) ?? throw new SystemException("Error!Can't find appointment!");
+            TourAppointment? oldAppointment = Get(appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
 
             oldAppointment.TourStatus = "Aktivna";
             oldAppointment.CurrentKeyPoint = appointment.CurrentKeyPoint;
@@ -135,7 +154,7 @@ namespace SIMSProject.Model.DAO
 
         public void StopLiveTracking(int appointmentId)
         {
-            TourAppointment? toEnd = Get(appointmentId) ?? throw new SystemException("Error!Can't find appointment!");
+            TourAppointment? toEnd = Get(appointmentId) ?? throw new ArgumentException("Error!Can't find appointment!");
             toEnd.TourStatus = "Završena";
             _fileHandler.Save(_tourAppointments);
             NotifyObservers();

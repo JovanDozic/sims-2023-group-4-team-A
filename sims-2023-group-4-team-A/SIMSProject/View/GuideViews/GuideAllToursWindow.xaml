@@ -1,0 +1,35 @@
+﻿<Window x:Class="SIMSProject.View.GuideViews.GuideAllToursWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMSProject.View.GuideViews"
+        mc:Ignorable="d"
+        Title="GuideAllToursWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button x:Name="Show_all_appointmentsBTN"
+                Grid.Row="1"
+                Content="Prikaži sve termine"
+                Height="30"
+                Width="200"
+                HorizontalAlignment="Left"
+                HorizontalContentAlignment="Left"
+                Margin="20,0,0,0"
+                Click="Show_all_appointmentsBTN_Click"/>
+        <DataGrid Grid.Row="0" 
+                  ItemsSource="{Binding Path=AllTours, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  Height="150">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naziv ture" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Lokacija" Binding="{Binding Location}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
