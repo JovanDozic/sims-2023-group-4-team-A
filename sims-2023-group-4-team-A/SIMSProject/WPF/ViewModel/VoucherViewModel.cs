@@ -7,10 +7,10 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMSProject.ViewModel
-{ 
+namespace SIMSProject.WPF.ViewModel
+{
 
-    public class VoucherViewModel: INotifyPropertyChanged
+    public class VoucherViewModel : INotifyPropertyChanged
     {
         private Voucher _model;
 
@@ -30,13 +30,13 @@ namespace SIMSProject.ViewModel
             get => _model.GuestId;
             set
             {
-                if(value != _model.GuestId)
+                if (value != _model.GuestId)
                 {
                     _model.GuestId = value;
                     OnPropertyChanged(nameof(GuestId));
                 }
-            
-            }  
+
+            }
         }
 
         //public string Reason
@@ -52,7 +52,7 @@ namespace SIMSProject.ViewModel
         //        "Termin otkazan" => ObtainingReason.APPOINTMENTCANCELED,
         //        "Vodič dao otkaz" => ObtainingReason.GUIDEQUIT,
         //        _ => ObtainingReason.WON
-                
+
         //    };
         //}
         public DateTime Expiration
@@ -60,7 +60,7 @@ namespace SIMSProject.ViewModel
             get => _model.Expiration;
             set
             {
-                if(_model.Expiration != value)
+                if (_model.Expiration != value)
                 {
                     _model.Expiration = value;
                     OnPropertyChanged(nameof(Expiration));
