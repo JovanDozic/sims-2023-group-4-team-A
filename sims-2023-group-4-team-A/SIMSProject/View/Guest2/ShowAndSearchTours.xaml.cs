@@ -65,6 +65,7 @@ namespace SIMSProject.View.Guest2
 
         private readonly TourController TourController;
         private readonly LocationController TourLocationController = new();
+        private readonly VoucherController VoucherController = new();
 
 
 
@@ -75,7 +76,7 @@ namespace SIMSProject.View.Guest2
             User = user;
             
             TourController = new TourController();
-            
+            VoucherController.DeleteExpired();
             Tours = new ObservableCollection<Tour>(TourController.GetAll());
 
             List<Location> tourLocations = TourLocationController.GetAll();
@@ -156,6 +157,12 @@ namespace SIMSProject.View.Guest2
             {
                 MessageBox.Show("Odaberite turu koju zelite da rezervisete!");
             }
+        }
+
+        private void Vouchers_Click(object sender, RoutedEventArgs e)
+        {
+            VouchersDisplay vouchersDisplay = new VouchersDisplay(User);
+            vouchersDisplay.Show();
         }
     }
 }

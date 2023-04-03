@@ -23,9 +23,9 @@ namespace SIMSProject.FileHandler
             return serializer.FromCSV(FilePath);
         }
 
-        public void Save(List<Voucher> tourAppointments)
+        public void Save(List<Voucher> voucher)
         {
-            serializer.ToCSV(FilePath, tourAppointments);
+            serializer.ToCSV(FilePath, voucher);
         }
     }
 }

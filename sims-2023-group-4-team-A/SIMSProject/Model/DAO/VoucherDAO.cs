@@ -23,6 +23,10 @@ namespace SIMSProject.Model.DAO
 
         public int NextId() { return _vouchers.Count != 0 ? _vouchers.Max(x => x.Id) + 1 : 1; }
         public List<Voucher> GetAll() { return _vouchers; }
+        public List<Voucher> GetVouchersByGuestId(int guestId)
+        {
+            return GetAll().FindAll(x => x.GuestId == guestId && DateTime.Compare(x.Expiration, DateTime.Now) > 0); 
+        }
         public Voucher Get(int id)
         {
             return _vouchers.Find(x => x.Id == id);
@@ -45,6 +49,22 @@ namespace SIMSProject.Model.DAO
             NotifyObservers();
         }
 
+        public void Delete(Voucher voucher)
+        {
+            _vouchers.Remove(voucher);
+            _fileHandler.Save(_vouchers);
+            NotifyObservers();
+        }
+
+        public void DeleteExpired()
+        {
+            _vouchers.RemoveAll(x => DateTime.Compare(x.Expiration, DateTime.Now) < 0);
+            _fileHandler.Save(_vouchers);
+            NotifyObservers();
+        }
+
+
+
         public void GiveVouchers(List<TourGuest> guests, string reason)
         {
             foreach (var guest in guests)
@@ -59,5 +79,6 @@ namespace SIMSProject.Model.DAO
         public void Subscribe(IObserver observer) { _observers.Add(observer); }
         public void Unsubscribe(IObserver observer) { _observers.Remove(observer); }
 
+        
     }
 }

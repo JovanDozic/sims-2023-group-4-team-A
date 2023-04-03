@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Animation;
 
 namespace SIMSProject.Controller
 {
@@ -23,7 +24,11 @@ namespace SIMSProject.Controller
         {
             return _vouchers.GetAll();
         }
-
+        
+        public List<Voucher> GetVouchersByGuestId(int guestId)
+        {
+            return _vouchers.GetVouchersByGuestId(guestId);
+        }
         public void SaveAll(List<Voucher> Vouchers)
         {
             _vouchers.SaveAll(Vouchers);
@@ -43,5 +48,16 @@ namespace SIMSProject.Controller
         {
             _vouchers.GiveVouchers(guests, reason);
         }
+
+        public void Delete(Voucher voucher)
+        {
+            _vouchers.Delete(voucher);
+        }
+
+        public void DeleteExpired()
+        {
+            _vouchers.DeleteExpired();
+        }
+        
     }
 }

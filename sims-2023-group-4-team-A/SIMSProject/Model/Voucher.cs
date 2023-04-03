@@ -89,5 +89,12 @@ namespace SIMSProject.Model
             }
             throw new ArgumentException("Reason not acceptable.");
         }
+
+        public override string ToString()
+        {
+            return $"{Reason}, {FormattedDate}";
+        }
+
+        
     }
 }

@@ -21,6 +21,7 @@ namespace SIMSProject.Model.UserModel
         }
         public List<TourReservation> TourReservations { get; set; } = new();
         public List<AccommodationReservation> AccommodationReservations { get; set; } = new();
+        public List<Voucher> Vouchers { get; set; } = new();
 
         public Guest()
         {
@@ -35,6 +36,7 @@ namespace SIMSProject.Model.UserModel
             Rating = rating;
             TourReservations = new List<TourReservation>();
             AccommodationReservations = new List<AccommodationReservation>();
+            Vouchers = new List<Voucher>();
         }
 
         public override string ToString()

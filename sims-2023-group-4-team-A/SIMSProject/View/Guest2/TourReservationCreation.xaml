@@ -72,6 +72,15 @@
             <Label Grid.Row="1" Content="Izaberi termin: " FontSize="15" HorizontalAlignment="Center"/>
             <ComboBox x:Name="CBSelectedTourDates" Grid.Row="2" Height="30" Width="150" ItemsSource="{Binding CBTourDates, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding Path = SelectedTourDate}"/>
         </Grid>
+        <Grid Grid.Row="10" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="1" Content="Izaberi vaucer: " FontSize="15" HorizontalAlignment="Center"/>
+            <ComboBox x:Name="CBSelectedVoucher" Grid.Row="2" Height="30" Width="150" ItemsSource="{Binding CBVoucherDates, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding Path = SelectedVoucher}"/>
+        </Grid>
         <Label x:Name="LBLAlternativneTure" Visibility="Hidden" FontSize="15" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Alternativne ture:" Grid.ColumnSpan="2"/>
         <DataGrid x:Name="AlternativeGrid" Height="100" Width="400" Grid.Row="12" Grid.ColumnSpan="2" Visibility="Hidden"
                    SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" 
