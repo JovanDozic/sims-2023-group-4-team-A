@@ -94,6 +94,7 @@
                     <DataGridTextColumn Header="Od" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yy\}}"
                                         Width="80" />
                     <DataGridTextColumn Header="Do" Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yy\}}" Width="80" />
+                    <DataGridTextColumn Header="Broj dana" Binding="{Binding NumberOfDays}" Width="30" />
                     <DataGridTextColumn Header="Gost" Binding="{Binding Guest.Username}" Width="80" />
                     <DataGridCheckBoxColumn Header="Gost ocenjen" Binding="{Binding GuestRated}" />
                     <DataGridCheckBoxColumn Header="Vlasnik ocenjen" Binding="{Binding OwnerRated}" />

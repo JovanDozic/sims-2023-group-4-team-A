@@ -1,13 +1,11 @@
 ﻿using SIMSProject.Controller;
 using SIMSProject.Model;
 using SIMSProject.Model.UserModel;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 
 namespace SIMSProject.View.OwnerViews
 {
@@ -17,7 +15,7 @@ namespace SIMSProject.View.OwnerViews
 
         public List<ReschedulingRequest> Requests { get; set; } = new();
         private ReschedulingRequestController _requestController { get; set; } = new();
-        private AccommodationController _accommodationController { get; set; } = new();
+        private AccommodationReservationController _reservationController { get; set; } = new();
 
         private ReschedulingRequest _selectedRequest = new();
         public ReschedulingRequest SelectedRequest
@@ -31,7 +29,6 @@ namespace SIMSProject.View.OwnerViews
             }
         }
 
-
         public ReviewReschedulingRequests(Owner user)
         {
             InitializeComponent();
@@ -39,6 +36,7 @@ namespace SIMSProject.View.OwnerViews
 
             User = user;
 
+            // Requests = _requestController.GetAllOnWaitByOwnerId(User.Id);
             Requests = _requestController.GetAllByOwnerId(User.Id);
         }
 
@@ -87,12 +85,15 @@ namespace SIMSProject.View.OwnerViews
             SetButtonState(BtnDecline, true);
             SetButtonState(sender, false);
 
-            DateTime newStartDate = SelectedRequest.NewStartDate;
-            DateTime newEndDate = SelectedRequest.NewStartDate.AddDays(SelectedRequest.AccommodationReservation.NumberOfDays);
+            CheckAndDisplayAvailability();
+        }
 
-            if (_accommodationController.IsOccupied(SelectedRequest.AccommodationReservation.Accommodation.Id, newStartDate, newEndDate)) DisplayAviabilityLabel(false);
-            else DisplayAviabilityLabel(true);
-
+        private void CheckAndDisplayAvailability()
+        {
+            if (_reservationController.IsAvailable(SelectedRequest.AccommodationReservation, 
+                new DateRange(SelectedRequest.NewStartDate, SelectedRequest.NewEndDate)))
+                DisplayAviabilityLabel(true);
+            else DisplayAviabilityLabel(false);
         }
 
         private void DgrRequests_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -103,7 +104,15 @@ namespace SIMSProject.View.OwnerViews
 
         private void BtnAccept_Click(object sender, RoutedEventArgs e)
         {
-
+            if (MessageBox.Show("Da li ste sigurni?", "Odobrenje zahteva", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                SelectedRequest.Status = "Odobren";
+                SelectedRequest.AccommodationReservation.StartDate = SelectedRequest.NewStartDate;
+                SelectedRequest.AccommodationReservation.EndDate = SelectedRequest.NewEndDate;
+                _reservationController.Update(SelectedRequest.AccommodationReservation);
+                _requestController.Update(SelectedRequest);
+            }
+            Close();
         }
 
         private void BtnDecline_Click(object sender, RoutedEventArgs e)
@@ -116,7 +125,9 @@ namespace SIMSProject.View.OwnerViews
 
         private void BtnSendDecline_Click(object sender, RoutedEventArgs e)
         {
-
+            SelectedRequest.Status = "Odbijen";
+            _requestController.Update(SelectedRequest);
+            Close();
         }
 
         private void BtnSendDeclineCancel_Click(object sender, RoutedEventArgs e)
@@ -125,6 +136,14 @@ namespace SIMSProject.View.OwnerViews
             TbOwnerComment.Visibility = Visibility.Hidden;
             SetButtonState(BtnSendDecline, false);
             SetButtonState(BtnSendDeclineCancel, false);
+        }
+
+        private void DgrRequests_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            if (Requests[e.Row.GetIndex()].Status != "Na čekanju")
+            {
+                e.Row.IsEnabled = false;
+            }
         }
     }
 }

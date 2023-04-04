@@ -130,7 +130,8 @@ namespace SIMSProject.View.OwnerViews
         private void BtnReschedulingRequests_Click(object sender, RoutedEventArgs e)
         {
             ReviewReschedulingRequests window = new(User);
-            window.Show();
+            window.ShowDialog();
+            RefreshAccommodations();
         }
     }
 }

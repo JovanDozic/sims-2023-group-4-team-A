@@ -38,6 +38,20 @@ namespace SIMSProject.Model
             }
         }
         private string _ownerComment = string.Empty;
+
+        private DateTime _newEndDate;
+        public DateTime NewEndDate
+        {
+            get => _newEndDate;
+            set
+            {
+                if (_newEndDate == value) return;
+                _newEndDate = value;
+                OnPropertyChanged();
+            }
+
+        }
+
         public string OwnerComment
         {
             get => _ownerComment;
@@ -77,6 +91,7 @@ namespace SIMSProject.Model
                 Id.ToString(),
                 AccommodationReservation.Id.ToString(),
                 NewStartDate.ToString(),
+                NewEndDate.ToString(),
                 OwnerComment,
                 Status
             };
@@ -89,6 +104,7 @@ namespace SIMSProject.Model
             Id = int.Parse(values[i++]);
             AccommodationReservation.Id = int.Parse(values[i++]);
             NewStartDate = DateTime.Parse(values[i++]);
+            NewEndDate = DateTime.Parse(values[i++]);
             OwnerComment = values[i++];
             Status = values[i++];
         }

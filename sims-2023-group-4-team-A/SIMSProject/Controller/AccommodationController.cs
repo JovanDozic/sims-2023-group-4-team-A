@@ -50,12 +50,5 @@ namespace SIMSProject.Controller
         {
             return _accommodations.GetAll().FindAll(x => x.Owner.Id == id);
         }
-
-        public bool IsOccupied(int accommodationId, DateTime startDate, DateTime endDate)
-        {
-            // TODO: implement
-            //MessageBox.Show("Novi od: " + startDate + "\nNovi do: " +  endDate);
-            return false;
-        }
     }
 }

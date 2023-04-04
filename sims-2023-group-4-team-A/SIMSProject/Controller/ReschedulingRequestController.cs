@@ -25,6 +25,13 @@ namespace SIMSProject.Controller
             return _reschedulingRequestDAO.GetAll();
         }
 
+        public List<ReschedulingRequest> GetAllOnWaitByOwnerId(int ownerId)
+        {
+            return _reschedulingRequestDAO.GetAll()
+                .FindAll(x => x.AccommodationReservation.Accommodation.Owner.Id == ownerId &&
+                              x.Status == "Na čekanju");
+        }
+
         public List<ReschedulingRequest> GetAllByOwnerId(int ownerId)
         {
             return GetAll().FindAll(x => x.AccommodationReservation.Accommodation.Owner.Id == ownerId);
@@ -39,37 +46,16 @@ namespace SIMSProject.Controller
         {
             return _reschedulingRequestDAO.Save(request);
         }
-
-        public void UpdateExisting(ReschedulingRequest updatedRequest)
+        
+        public void Update(ReschedulingRequest updatedRequest)
         {
-            // TODO: implement: something like this:
-            //// Dohvati objekt klase Request prema ID-u
-            //Request requestToUpdate = _requestDAO.GetAll().FirstOrDefault(r => r.Id == requestId);
-
-            //// Provjeri postoji li objekt
-            //if (requestToUpdate == null)
-            //{
-            //    throw new ArgumentException("Ne postoji Request s ID-om " + requestId);
-            //}
-
-            //// Ažuriraj svojstvo objekta
-            //PropertyInfo propertyToUpdate = requestToUpdate.GetType().GetProperty(fieldName);
-            //if (propertyToUpdate != null && propertyToUpdate.CanWrite)
-            //{
-            //    propertyToUpdate.SetValue(requestToUpdate, newValue, null);
-            //}
-            //else
-            //{
-            //    throw new ArgumentException("Ne postoji svojstvo " + fieldName + " u klasi Request ili nije moguće ažurirati.");
-            //}
-
-            //// Spremi sve promjene
-            //_requestDAO.SaveAll();
-
-            // There is no need to track index. You can GetAll(), than find one you need and edit it inside of the list, and than SaveAll() where you can forward whole list.
-
+            var requests = _reschedulingRequestDAO.GetAll();
+            int index = requests.FindIndex(x => x.Id == updatedRequest.Id);
+            if (index != -1)
+            {
+                requests[index] = updatedRequest;
+            }
+            SaveAll(requests);
         }
-
-
     }
 }
