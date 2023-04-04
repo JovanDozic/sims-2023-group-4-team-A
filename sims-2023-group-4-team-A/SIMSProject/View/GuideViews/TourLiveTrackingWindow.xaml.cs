@@ -1,6 +1,6 @@
 ﻿using SIMSProject.Controller;
 using SIMSProject.CustomControls;
-using SIMSProject.Model;
+using SIMSProject.Domain.TourModels;
 using SIMSProject.Model.UserModel;
 using System;
 using System.Collections.Generic;

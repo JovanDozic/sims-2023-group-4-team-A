@@ -1,23 +1,25 @@
-﻿using System.Collections.Generic;
-using SIMSProject.Domain.TourModels;
-using SIMSProject.FileHandler;
+﻿using SIMSProject.Domain.TourModels;
 using SIMSProject.FileHandler.UserFileHandler;
+using SIMSProject.FileHandler;
 using SIMSProject.Model.UserModel;
 using SIMSProject.Observer;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SIMSProject.Model.DAO
+namespace SIMSProject.Repositories.TourRepositories
 {
-    public class TourGuestDAO : ISubject
+    public class TourGuestRepository
     {
-        private readonly List<IObserver> _observers;
         private readonly TourGuestFileHandler _fileHandler;
         private List<TourGuest> _tourGuests;
 
-        public TourGuestDAO()
+        public TourGuestRepository()
         {
             _fileHandler = new TourGuestFileHandler();
             _tourGuests = _fileHandler.Load();
-            _observers = new List<IObserver>();
 
             AssociateTourGuests();
         }
@@ -31,7 +33,6 @@ namespace SIMSProject.Model.DAO
         {
             _tourGuests.Add(tourGuest);
             _fileHandler.Save(_tourGuests);
-            NotifyObservers();
             return tourGuest;
         }
 
@@ -39,7 +40,6 @@ namespace SIMSProject.Model.DAO
         {
             _fileHandler.Save(tourGuests);
             _tourGuests = tourGuests;
-            NotifyObservers();
         }
 
         private void AssociateTourGuests()
@@ -77,49 +77,9 @@ namespace SIMSProject.Model.DAO
         {
             tourGuest.Appointment = appointments.Find(x => x.Id == tourGuest.AppointmentId) ?? throw new System.Exception("Error!No matching appointment!");
         }
-
-        public void SignUpGuest(int guestId, int tourAppointmentId) //servis
-        {
-            TourGuest? tourGuest = _tourGuests.Find(x => x.GuestId ==  guestId && x.AppointmentId == tourAppointmentId);
-            if(tourGuest == null) return;
-
-            tourGuest.GuestStatus = "Prijavljen";
-            SaveAll(_tourGuests);
-        }
-
-
-        public void MakeGuestPresent(int guestId, int tourAppointmentId, KeyPoint currentKeyPoint) //servis
-        {
-            TourGuest? tourGuest = _tourGuests.Find(x => x.GuestId == guestId && x.AppointmentId == tourAppointmentId);
-            if (tourGuest == null) return;
-
-            tourGuest.JoinedKeyPoint = currentKeyPoint;
-            tourGuest.JoinedKeyPointId = currentKeyPoint.Id;
-        }
-
         public List<TourGuest> GetGuests(int tourAppointmentId)
         {
             return _tourGuests.FindAll(x => x.AppointmentId == tourAppointmentId);
-        }
-
-
-        // [OBSERVERS]
-        public void NotifyObservers()
-        {
-            foreach (var observer in _observers)
-            {
-                observer.Update();
-            }
-        }
-
-        public void Subscribe(IObserver observer)
-        {
-            _observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            _observers.Remove(observer);
         }
     }
 }

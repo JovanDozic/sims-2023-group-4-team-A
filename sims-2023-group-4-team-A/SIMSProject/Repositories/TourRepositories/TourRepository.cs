@@ -1,39 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using SIMSProject.Domain.TourModels;
+﻿using SIMSProject.Domain.TourModels;
 using SIMSProject.FileHandler;
 using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.Model.UserModel;
-using SIMSProject.Observer;
+using SIMSProject.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SIMSProject.Model.DAO
+namespace SIMSProject.Repositories.TourRepositories
 {
-    public class TourDAO : ISubject
+    public class TourRepository
     {
-        private readonly List<IObserver> _observers;
         private readonly TourFileHandler _fileHandler;
         private List<Tour> _tours;
 
-        public TourDAO()
+        public TourRepository()
         {
             _fileHandler = new TourFileHandler();
             _tours = _fileHandler.Load();
-            _observers = new List<IObserver>();
-
             AssociateTours();
         }
 
         public int NextId()
         {
-            try
-            {
-                return _tours.Max(x => x.Id) + 1;
-            }
-            catch
-            {
-                return 1;
-            }
+                return _tours.Count > 0 ?_tours.Max(x => x.Id) + 1 : 1;
         }
 
         public List<Tour> GetAll()
@@ -51,21 +43,13 @@ namespace SIMSProject.Model.DAO
             tour.Id = NextId();
             _tours.Add(tour);
             _fileHandler.Save(_tours);
-            NotifyObservers();
             return tour;
-        }
-
-        public void Refresh()
-        {
-            _fileHandler.Save(_tours);
-            NotifyObservers();
         }
 
         public void SaveAll(List<Tour> tours)
         {
             _fileHandler.Save(tours);
             _tours = tours;
-            NotifyObservers();
         }
 
         private void AssociateTours()
@@ -87,7 +71,6 @@ namespace SIMSProject.Model.DAO
                 AssociateLocation(tour, tourLocations);
                 AssociateAppointments(tour, tourDates);
                 AssociateKeyPoints(tour, tourKeyPoints, keyPoints);
-
             }
         }
 
@@ -140,76 +123,11 @@ namespace SIMSProject.Model.DAO
         {
             return _tours.FindAll(x => x.Appointments.Any(x => x.Date.Date == DateTime.Today.Date));
         }
-
-        public KeyPoint GoToNextKeyPoint(TourAppointment appointment) //servis
-        {
-            var currentTour = FindById(appointment.TourId);
-            if (currentTour == null)
-            {
-                return null;
-            }
-
-            var currentIndex = currentTour.KeyPoints.FindIndex(x => x.Id == appointment.CurrentKeyPointId);
-            var indexOutOfRange = currentIndex < 0 || currentIndex >= currentTour.KeyPoints.Count - 1;
-
-            if (indexOutOfRange)
-            {
-                return null;
-            }
-
-            return currentTour.KeyPoints[currentIndex + 1];
-        }
-
-        public KeyPoint GetLastKeyPoint(TourAppointment appointment)
-        {
-            return FindById(appointment.TourId)?.KeyPoints.Last();
-        }
-
-        public void EndTourAppointment(int tourId, int appointmentId) //servis
-        {
-            var toEnd = FindById(tourId);
-            if (toEnd == null)
-            {
-                return;
-            }
-
-
-            TourAppointment? appointmentToEnd = toEnd.Appointments.Find(x => x.Id == appointmentId);
-            if (appointmentToEnd == null) return;
-            appointmentToEnd.TourStatus = "Završena";
-            _fileHandler.Save(_tours);
-            NotifyObservers();
-        }
-
-        public void AddNewAppointment(int tourId, TourAppointment appointment) //servis
-        {
-            Tour tour = FindById(tourId);
-            if (tour == null) return;
-            tour.Appointments.Add(appointment);
-        }
-
         public List<Tour> GetToursWithSameLocation(Tour selectedTour)
         {
             return _tours.FindAll(x => x.LocationId == selectedTour.LocationId && x.Id != selectedTour.Id);
         }
 
-        // [OBSERVERS]
-        public void NotifyObservers()
-        {
-            foreach (var observer in _observers)
-            {
-                observer.Update();
-            }
-        }
 
-        public void Subscribe(IObserver observer)
-        {
-            _observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            _observers.Remove(observer);
-        }
     }
 }

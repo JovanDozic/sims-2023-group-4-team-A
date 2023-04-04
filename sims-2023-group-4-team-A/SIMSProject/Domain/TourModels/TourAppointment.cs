@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 
-namespace SIMSProject.Model
+namespace SIMSProject.Domain.TourModels
 {
     public enum Status { ACTIVE = 0, INACTIVE, COMPLETED, CANCELED }
     public class TourAppointment : ISerializable, INotifyPropertyChanged

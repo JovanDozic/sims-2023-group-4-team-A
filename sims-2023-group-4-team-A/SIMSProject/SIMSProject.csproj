@@ -44,10 +44,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\UseCases\" />
     <Folder Include="Domain\RepositoryInterfaces\" />
-    <Folder Include="Repositories\" />
     <Folder Include="Properties\" />
+    <Folder Include="WPF\ViewModel\" />
   </ItemGroup>
 
 </Project>

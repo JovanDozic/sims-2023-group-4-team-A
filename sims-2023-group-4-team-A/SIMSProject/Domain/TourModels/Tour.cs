@@ -10,10 +10,11 @@ using System.Runtime.CompilerServices;
 using SIMSProject.Controller;
 using SIMSProject.FileHandler;
 using SIMSProject.Model.UserModel;
+using SIMSProject.Model;
 
 public enum Language { ENGLISH = 0, SERBIAN, SPANISH, FRENCH };
 
-namespace SIMSProject.Model
+namespace SIMSProject.Domain.TourModels
 {
     public class Tour : ISerializable, IDataErrorInfo, INotifyPropertyChanged
     {
@@ -142,7 +143,7 @@ namespace SIMSProject.Model
 
         public List<TourAppointment> Appointments { get; set; } = new List<TourAppointment>();
 
-        public List<String> Images { get; set; } = new List<String>();
+        public List<string> Images { get; set; } = new List<string>();
 
         public Tour() { }
 
@@ -241,7 +242,7 @@ namespace SIMSProject.Model
             }
         }
 
-        private readonly string[] _validatesProperties = { "Name", "Duration"};
+        private readonly string[] _validatesProperties = { "Name", "Duration" };
         public bool IsValid
         {
             get

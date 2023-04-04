@@ -1,37 +1,31 @@
-﻿using System;
+﻿using SIMSProject.Domain.TourModels;
+using SIMSProject.FileHandler;
+using SIMSProject.Model;
+using SIMSProject.Observer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using SIMSProject.Domain.TourModels;
-using SIMSProject.FileHandler;
-using SIMSProject.Observer;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SIMSProject.Model.DAO
+namespace SIMSProject.Repositories.TourRepositories
 {
-    public class KeyPointDAO : ISubject
+    public class KeyPointRepository
     {
-        private readonly List<IObserver> _observers;
         private readonly KeyPointFileHandler _fileHandler;
         private List<KeyPoint> _keyPoints;
 
-        public KeyPointDAO()
+        public KeyPointRepository()
         {
             _fileHandler = new KeyPointFileHandler();
             _keyPoints = _fileHandler.Load();
-            _observers = new List<IObserver>();
 
             AssociateKeyPoints();
         }
 
         public int NextId()
         {
-            try
-            {
-                return _keyPoints.Max(x => x.Id) + 1;
-            }
-            catch
-            {
-                return 1;
-            }
+           return _keyPoints.Count > 0 ?_keyPoints.Max(x => x.Id) + 1 : 1;
         }
 
         public List<KeyPoint> GetAll()
@@ -44,7 +38,6 @@ namespace SIMSProject.Model.DAO
             keyPoint.Id = NextId();
             _keyPoints.Add(keyPoint);
             _fileHandler.Save(_keyPoints);
-            NotifyObservers();
             return keyPoint;
         }
 
@@ -52,7 +45,6 @@ namespace SIMSProject.Model.DAO
         {
             _fileHandler.Save(keyPoints);
             _keyPoints = keyPoints;
-            NotifyObservers();
         }
 
         private void AssociateKeyPoints()
@@ -86,23 +78,6 @@ namespace SIMSProject.Model.DAO
             }
         }
 
-        // [OBSERVERS]
-        public void NotifyObservers()
-        {
-            foreach (var observer in _observers)
-            {
-                observer.Update();
-            }
-        }
 
-        public void Subscribe(IObserver observer)
-        {
-            _observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            _observers.Remove(observer);
-        }
     }
 }

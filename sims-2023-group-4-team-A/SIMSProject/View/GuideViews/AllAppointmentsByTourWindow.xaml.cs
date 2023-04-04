@@ -1,5 +1,5 @@
 ﻿using SIMSProject.Controller;
-using SIMSProject.Model;
+using SIMSProject.Domain.TourModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

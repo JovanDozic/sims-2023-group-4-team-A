@@ -8,6 +8,7 @@ using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.Model.UserModel;
 using Microsoft.VisualBasic;
 using System;
+using SIMSProject.Domain.TourModels;
 
 namespace SIMSProject.Model.DAO
 {
@@ -100,27 +101,27 @@ namespace SIMSProject.Model.DAO
             return GetAll().FindAll(x => x.TourId == tourId && DateTime.Compare(x.Date, DateTime.Now) > 0);
         }
 
-        public void GoToNextKeyPoint(int appointmentId, KeyPoint nextKeyPoint)
+        public void GoToNextKeyPoint(int appointmentId, KeyPoint nextKeyPoint) //servis
         {
             TourAppointment? appointment = Get(appointmentId) ?? throw new SystemException("Error!Can't find appointment!");
             appointment.CurrentKeyPoint = nextKeyPoint;
             appointment.CurrentKeyPointId = nextKeyPoint.Id;
             SaveAll(_tourAppointments);
         }
-        public void UpdateAvailableSpots(TourAppointment appointment)
+        public void UpdateAvailableSpots(TourAppointment appointment) //servis
         {
-            TourAppointment? oldAppointment = _tourAppointments.Find(x => x.Id == appointment.Id) ?? throw new SystemException("Error!Can't find appointment!");
+            TourAppointment? oldAppointment = _tourAppointments.Find(x => x.Id == appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
             oldAppointment.AvailableSpots = appointment.AvailableSpots;
             _fileHandler.Save(_tourAppointments);
             NotifyObservers();
         }
 
-        private static bool IsCancelable(TourAppointment appointment)
+        private static bool IsCancelable(TourAppointment appointment) //servis
         { 
             return DateTime.Now.AddHours(-48) > appointment.Date;
         }
 
-        public bool CancelAppointment(TourAppointment appointment)
+        public bool CancelAppointment(TourAppointment appointment) //servis
         {
             TourAppointment? oldAppointment = Get(appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
 
@@ -134,7 +135,7 @@ namespace SIMSProject.Model.DAO
             return true;
         }
 
-        public void StartLiveTracking(TourAppointment appointment)
+        public void StartLiveTracking(TourAppointment appointment) //servis
         {
             TourAppointment? oldAppointment = Get(appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
 
@@ -144,7 +145,7 @@ namespace SIMSProject.Model.DAO
             _fileHandler.Save(_tourAppointments);
         }
 
-        public void StopLiveTracking(int appointmentId)
+        public void StopLiveTracking(int appointmentId) //servis
         {
             TourAppointment? toEnd = Get(appointmentId) ?? throw new ArgumentException("Error!Can't find appointment!");
             toEnd.TourStatus = "Završena";
@@ -152,7 +153,7 @@ namespace SIMSProject.Model.DAO
             NotifyObservers();
         }
 
-        public TourAppointment InitializeTour(TourAppointment appointment, Tour tour)
+        public TourAppointment InitializeTour(TourAppointment appointment, Tour tour) //servis
         {
             TourAppointment? oldAppointment = _tourAppointments.Find(x => x.Id ==  appointment.Id) ?? throw new SystemException("Error!Can't find appointment!");
             oldAppointment.Tour = tour;
@@ -165,11 +166,6 @@ namespace SIMSProject.Model.DAO
         public List<TourAppointment> FindTodaysAppointments(int TourId)
         {
             return _tourAppointments.FindAll(x => x.TourId == TourId && x.Date.Date == DateTime.Now.Date);
-        }
-
-        public List<TourAppointment> FindByTour(int TourId)
-        {
-            return _tourAppointments.FindAll(x => x.TourId == TourId);
         }
 
         // [OBSERVERS]

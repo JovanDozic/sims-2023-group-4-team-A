@@ -8,9 +8,7 @@ using System.Text;
 using SIMSProject.Model.UserModel;
 using System.Threading.Tasks;
 
-
-
-namespace SIMSProject.Model
+namespace SIMSProject.Domain.TourModels
 {
     public enum GuestAttendance { ABSENT = 0, PENDING, PRESENT }
     public class TourGuest : ISerializable
@@ -57,13 +55,13 @@ namespace SIMSProject.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = {AppointmentId.ToString(), GuestId.ToString(), GuestStatus, JoinedKeyPointId .ToString()};
+            string[] csvValues = { AppointmentId.ToString(), GuestId.ToString(), GuestStatus, JoinedKeyPointId.ToString() };
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
-        
+
             AppointmentId = Convert.ToInt32(values[0]);
             GuestId = Convert.ToInt32(values[1]);
             GuestStatus = values[2];

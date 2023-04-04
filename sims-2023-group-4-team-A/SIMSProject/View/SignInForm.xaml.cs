@@ -57,7 +57,7 @@ namespace SIMSProject
                         case "Vodič":
                         {
                             var guide = _guideController.GetByID(user.Id);
-                            GuideAllToursWindow window = new();
+                            GuideInitialWindow window = new(guide);
                             window.Show();
                             break;
                         }

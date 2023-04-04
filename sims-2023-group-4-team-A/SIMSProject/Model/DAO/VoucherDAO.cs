@@ -1,4 +1,5 @@
-﻿using SIMSProject.FileHandler;
+﻿using SIMSProject.Domain.TourModels;
+using SIMSProject.FileHandler;
 using SIMSProject.Observer;
 using System;
 using System.Collections.Generic;

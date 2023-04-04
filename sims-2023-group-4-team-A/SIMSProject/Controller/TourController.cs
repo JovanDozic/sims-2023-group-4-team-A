@@ -4,20 +4,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SIMSProject.Model;
 using SIMSProject.Observer;
+using SIMSProject.Domain.TourModels;
+using SIMSProject.Application1.UseCases.Services.TourServices;
 
 namespace SIMSProject.Controller
 {
     public class TourController
     {
         private TourDAO _tours;
+        private TourService _tourService;
         public Tour Tour;
 
         public TourController()
         {
             _tours = new();
             Tour = new();
+            _tourService = new();
         }
 
         public List<Tour> GetAll()
@@ -62,7 +65,7 @@ namespace SIMSProject.Controller
 
         public void EndTour(int tourId, int dateId)
         {
-            _tours.EndTour(tourId, dateId);
+            _tourService.EndTourAppointment(tourId, dateId);
         }
 
         public void AddAppointment(int tourId, TourAppointment date)

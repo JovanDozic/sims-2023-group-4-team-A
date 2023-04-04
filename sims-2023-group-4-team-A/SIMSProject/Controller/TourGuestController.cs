@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using SIMSProject.Model.DAO;
-using SIMSProject.Model;
 using SIMSProject.Observer;
+using SIMSProject.Domain.TourModels;
 
 namespace SIMSProject.Controller
 {
@@ -43,7 +43,7 @@ namespace SIMSProject.Controller
 
         public List<TourGuest> GetGuestsIds(int tourAppointmentId)
         {
-            return _tourGuests.GetGuestsIds(tourAppointmentId);
+            return _tourGuests.GetGuests(tourAppointmentId);
         }
 
         public void Subscribe(IObserver observer)

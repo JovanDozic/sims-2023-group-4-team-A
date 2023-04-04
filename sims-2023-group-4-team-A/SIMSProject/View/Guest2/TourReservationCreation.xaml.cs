@@ -1,5 +1,6 @@
 ﻿using SIMSProject.Controller;
 using SIMSProject.Controller.UserController;
+using SIMSProject.Domain.TourModels;
 using SIMSProject.Model;
 using SIMSProject.Model.DAO.UserModelDAO;
 using SIMSProject.Model.UserModel;

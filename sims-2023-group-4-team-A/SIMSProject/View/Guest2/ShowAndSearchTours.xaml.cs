@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using SIMSProject.View.Guest2;
 using SIMSProject.Model.UserModel;
+using SIMSProject.Domain.TourModels;
 
 namespace SIMSProject.View.Guest2
 {

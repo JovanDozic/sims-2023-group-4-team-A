@@ -10,8 +10,9 @@ using System.Text;
 using System.Threading.Tasks;
 using SIMSProject.FileHandler;
 using SIMSProject.Model.UserModel;
+using SIMSProject.Model;
 
-namespace SIMSProject.Model
+namespace SIMSProject.Domain.TourModels
 {
     public class KeyPoint : ISerializable, INotifyPropertyChanged
     {
@@ -46,10 +47,10 @@ namespace SIMSProject.Model
 
         public Location Location { get; set; } = new();
 
-        public List<Tour> Tours { get; set; } =  new List<Tour>();
+        public List<Tour> Tours { get; set; } = new List<Tour>();
         public KeyPoint()
         {
-            
+
         }
         public KeyPoint(int id, string description, Location location, int locationId)
         {
@@ -73,7 +74,7 @@ namespace SIMSProject.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Description, LocationId.ToString()};
+            string[] csvValues = { Id.ToString(), Description, LocationId.ToString() };
             return csvValues;
         }
 
@@ -81,7 +82,7 @@ namespace SIMSProject.Model
         {
             Id = Convert.ToInt32(values[0]);
             Description = values[1];
-            LocationId = Convert.ToInt32(values[2]);         
+            LocationId = Convert.ToInt32(values[2]);
         }
     }
 }
