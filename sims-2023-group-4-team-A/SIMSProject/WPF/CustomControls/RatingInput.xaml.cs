@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace SIMSProject.CustomControls
+namespace SIMSProject.WPF.CustomControls
 {
     public partial class RatingInput : UserControl
     {
