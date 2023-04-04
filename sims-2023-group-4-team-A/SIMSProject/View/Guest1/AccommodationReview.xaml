@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMSProject.View.Guest1"
-        xmlns:custom="clr-namespace:SIMSProject.CustomControls"
+        xmlns:custom="clr-namespace:SIMSProject.WPF.CustomControls"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         Title="Prikaz smeštaja" Height="482" Width="505">

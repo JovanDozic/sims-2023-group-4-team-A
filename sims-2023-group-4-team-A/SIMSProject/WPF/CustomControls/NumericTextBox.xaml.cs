@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace SIMSProject.CustomControls
+namespace SIMSProject.WPF.CustomControls
 {
     public partial class NumericTextBox : UserControl
     {

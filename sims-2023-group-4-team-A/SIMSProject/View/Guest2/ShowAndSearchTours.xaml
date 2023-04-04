@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.View.Guest2"
-      xmlns:custom="clr-namespace:SIMSProject.CustomControls"
+      xmlns:custom="clr-namespace:SIMSProject.WPF.CustomControls"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1000"
       Title="ShowAndSearchTours" Width="1000" Height="600"

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SIMSProject.View.Guest1" xmlns:custom="clr-namespace:SIMSProject.CustomControls"
+        xmlns:local="clr-namespace:SIMSProject.View.Guest1" xmlns:custom="clr-namespace:SIMSProject.WPF.CustomControls"
         mc:Ignorable="d"
         Title="Dostupni termini" Height="404" Width="347"
         WindowStartupLocation="CenterScreen">
