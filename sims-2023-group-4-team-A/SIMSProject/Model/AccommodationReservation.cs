@@ -96,14 +96,14 @@ namespace SIMSProject.Model
         }
 
         public AccommodationReservation(int accommodationId, int guestId, DateTime startDate, DateTime endDate,
-            int numberOfDays, int guestsNumber)
+            int numberOfDays, int guestsNumber, bool canceled)
         {
             Accommodation.Id = accommodationId;
             Guest.Id = guestId;
             StartDate = startDate;
             EndDate = endDate;
             NumberOfDays = numberOfDays;
-            Canceled = false;
+            Canceled = canceled;
             GuestNumber = guestsNumber;
         }
 

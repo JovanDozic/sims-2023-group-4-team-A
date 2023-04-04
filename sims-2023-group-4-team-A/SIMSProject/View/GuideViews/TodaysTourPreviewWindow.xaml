@@ -21,14 +21,14 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0">
-                <TextBlock Text="{Binding Path=SelectedTour.Name}" FontWeight="Bold" FontSize="20"/>
-                <TextBlock Text="{Binding Path=SelectedTour.Location}"/>
+                <TextBlock Text="{Binding Path=TodaysTour.Name}" FontWeight="Bold" FontSize="20"/>
+                <TextBlock Text="{Binding Path=TodaysTour.Location}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
                 <TextBlock Text="Jezik ture:"/>
-                <TextBlock Text="{Binding Path=SelectedTour.TourLanguage}" Margin="5,0,0,0"/>
+                <TextBlock Text="{Binding Path=TodaysTour.TourLanguage}" Margin="5,0,0,0"/>
                 <TextBlock Text="Maks. broj gostiju:" Margin="10,0,0,0"/>
-                <TextBlock Text="{Binding Path=SelectedTour.MaxGuestNumber}" Margin="5,0,0,0"/>
+                <TextBlock Text="{Binding Path=TodaysTour.MaxGuestNumber}" Margin="5,0,0,0"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="0" Grid.Column="1">
@@ -40,10 +40,10 @@
                 <TextBlock Text="Današnji termini" 
                            HorizontalAlignment="Center"
                            Margin="0,10,0,0"/>
-                <ListBox ItemsSource="{Binding Path=TodaysDates}"
+                <ListBox ItemsSource="{Binding Path=TodaysAppointments}"
                          Margin="5,0,10,0"
                          Height="140" Width="220"
-                         SelectedItem="{Binding Path=SelectedDate, UpdateSourceTrigger=PropertyChanged}">
+                         SelectedItem="{Binding Path=SelectedAppointment, UpdateSourceTrigger=PropertyChanged}">
                 </ListBox>
                 <Button x:Name="LiveTrackBTN" 
                         Content="Započni turu" 
@@ -52,17 +52,18 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
                 <TextBlock Text="Slobodnih mesta:"/>
-                <TextBlock Text="{Binding Path=SelectedTour.AvailableSpots}" Margin="5,0,0,0"/>
                 <TextBlock Text="Trajanje(h):" Margin="10,0,0,0"/>
-                <TextBlock Text="{Binding Path=SelectedTour.Duration}" Margin="5,0,0,0"/>
+                <TextBlock Text="{Binding Path=TodaysTour.Duration}" Margin="5,0,0,0"/>
             </StackPanel>
         </Grid>
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
             <TextBlock Text="Opis ture" HorizontalAlignment="Center" Margin="0,10,0,0"/>
-            <TextBlock Text="{Binding Path=SelectedTour.Description}" Height="75"/>
+            <TextBlock Text="{Binding Path=TodaysTour.Description}" Height="75"/>
             <TextBlock Text="Ključne tačke" HorizontalAlignment="Center"/>
-            <ListView ItemsSource="{Binding Path=SelectedTour.KeyPoints}"
-                      BorderThickness="0" Margin="5"/>
+            <ListView ItemsSource="{Binding Path=TodaysTour.KeyPoints}"
+                      BorderThickness="0"
+                      IsEnabled="False"
+                      Margin="5"/>
         </StackPanel>
     </Grid>
 </Window>

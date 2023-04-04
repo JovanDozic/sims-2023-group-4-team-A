@@ -31,9 +31,10 @@ namespace SIMSProject.View.Guest2
         public Guest User = new();
         public Tour Tour { get; set; }
         public Tour AlternativeTour { get; set; }
-        public TourDate AlternativeTourDate { get; set; } = new();
-        public TourDate SelectedTourDate { get; set; }
+        public TourAppointment AlternativeTourDate { get; set; } = new();
+        public TourAppointment   SelectedTourDate { get; set; }
         public TourReservation NewTourReservation { get; set; } = new();
+        public Voucher SelectedVoucher { get; set; }
 
         private int _guestsForReservation = 1;
         public int GuestsForReservation
@@ -66,10 +67,13 @@ namespace SIMSProject.View.Guest2
         public TourReservationController TourReservationController = new();
         public TourController TourController = new();
         public LocationController TourLocationController = new();
-        public TourDateController TourDateController = new();
+        public TourAppointmentController TourDateController = new();
+        public VoucherController VoucherController = new();
+
 
         public ObservableCollection<Tour> AlternativeTours { get; set; }
-        public List<TourDate> CBTourDates { get; set; } = new();
+        public List<TourAppointment> CBTourDates { get; set; } = new();
+        public ObservableCollection<Voucher> CBVoucherDates { get; set; } = new();
 
         public TourReservationCreation(Guest user, Tour selectedTour)
         {
@@ -88,6 +92,7 @@ namespace SIMSProject.View.Guest2
             }
 
             CBTourDates = TourDateController.GetAllByTourId(Tour.Id);
+            CBVoucherDates = new ObservableCollection<Voucher>(VoucherController.GetVouchersByGuestId(User.Id));
 
         }
 
@@ -105,7 +110,7 @@ namespace SIMSProject.View.Guest2
             TBMaxGuests.Text = tour.MaxGuestNumber.ToString();
             dgrImageURLs.ItemsSource = tour.Images;
         }
-        private void ReserveTour(TourReservation tourReservation, TourDate tourDate, int guestsForReservation)
+        private void ReserveTour(TourReservation tourReservation, TourAppointment tourDate, int guestsForReservation)
         {
             tourReservation.TourDateId = tourDate.TourId;
             tourReservation.GuestId = User.Id;
@@ -114,6 +119,15 @@ namespace SIMSProject.View.Guest2
             tourDate.AvailableSpots -= guestsForReservation;
             TourDateController.UpdateAvailableSpots(tourDate);
             return;
+        }
+
+        private void UseVoucher()
+        {
+            if(CBSelectedVoucher != null)
+            {
+                VoucherController.Delete(SelectedVoucher);
+            }
+
         }
         private void Reservation_Click(object sender, RoutedEventArgs e)
         {
@@ -154,6 +168,7 @@ namespace SIMSProject.View.Guest2
             else
             {
                 ReserveTour(NewTourReservation, SelectedTourDate, GuestsForReservation);
+                UseVoucher();
                 MessageBox.Show("Rezervacija za " + GuestsForReservation + " osoba uspesna!");
                 Close();
                 return;

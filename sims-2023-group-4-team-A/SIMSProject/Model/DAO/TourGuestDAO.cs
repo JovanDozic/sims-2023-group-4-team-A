@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using SIMSProject.FileHandler;
+using SIMSProject.FileHandler.UserFileHandler;
+using SIMSProject.Model.UserModel;
 using SIMSProject.Observer;
 
 namespace SIMSProject.Model.DAO
@@ -41,65 +43,64 @@ namespace SIMSProject.Model.DAO
 
         private void AssociateTourGuests()
         {
-            foreach (var tourGuest in _tourGuests)
-            {
-                AssociateDate(tourGuest);
-                AssociateJoinedKeyPoint(tourGuest);
-            }
-        }
-
-        private static void AssociateJoinedKeyPoint(TourGuest tourGuest)
-        {
             KeyPointFileHandler keyPointFileHandler = new();
-            var keyPoints = keyPointFileHandler.Load();
+            List<KeyPoint> keyPoints = keyPointFileHandler.Load();
+            TourAppointmentFileHandler dateHandler = new();
+            List<TourAppointment> appointments = dateHandler.Load();
+            GuestFileHandler guestFileHandler = new();
+            List<Guest> tourGuests = guestFileHandler.Load();
 
-
-            var keyPoint = keyPoints.Find(x => x.Id == tourGuest.JoinedKeyPointId);
-            if (keyPoint == null)
+            foreach (TourGuest tourGuest in _tourGuests)
             {
-                return;
-            }
+                AssociateAppointment(tourGuest, appointments);
+                AssociateJoinedKeyPoint(tourGuest, keyPoints);
+                AssociateGuest(tourGuests, tourGuest);
 
-            tourGuest.JoinedKeyPoint = keyPoint;
+            }
         }
 
-        private static void AssociateDate(TourGuest tourGuest)
+        private static void AssociateGuest(List<Guest> tourGuests, TourGuest tourGuest)
         {
-            TourDateFileHandler dateHandler = new();
-            var tourDates = dateHandler.Load();
-
-            var tourDate = tourDates.Find(x => x.Id == tourGuest.TourDateId);
-            if (tourDate == null)
-            {
-                return;
-            }
-
-            tourGuest.TourDate = tourDate;
+            tourGuest.Guest = tourGuests.Find(x => x.Id == tourGuest.GuestId) ?? throw new System.Exception("Error!No matching guest!");
         }
 
-        public void SignUpGuest(int guestId, int tourDateId)
+        private static void AssociateJoinedKeyPoint(TourGuest tourGuest, List<KeyPoint> keyPoints)
         {
-            var tourGuest = _tourGuests.Find(x => x.GuestId == guestId && x.TourDateId == tourDateId);
-            if (tourGuest == null)
-            {
+            if (tourGuest.JoinedKeyPointId == -1)
                 return;
-            }
+
+            tourGuest.JoinedKeyPoint = keyPoints.Find(x => x.Id == tourGuest.JoinedKeyPointId) ?? throw new System.Exception("Error!No matching keyPoint!");
+        }
+
+        private static void AssociateAppointment(TourGuest tourGuest, List<TourAppointment> appointments)
+        {
+            tourGuest.Appointment = appointments.Find(x => x.Id == tourGuest.AppointmentId) ?? throw new System.Exception("Error!No matching appointment!");
+        }
+
+        public void SignUpGuest(int guestId, int tourAppointmentId)
+        {
+            TourGuest? tourGuest = _tourGuests.Find(x => x.GuestId ==  guestId && x.AppointmentId == tourAppointmentId);
+            if(tourGuest == null) return;
 
             tourGuest.GuestStatus = "Prijavljen";
             SaveAll(_tourGuests);
         }
 
-        public void MakeGuestPresent(int guestId, int tourDateId, KeyPoint currentKeyPoint)
+
+        public void MakeGuestPresent(int guestId, int tourAppointmentId, KeyPoint currentKeyPoint)
         {
-            var tourGuest = _tourGuests.Find(x => x.GuestId == guestId && x.TourDateId == tourDateId);
-            if (tourGuest == null)
-            {
-                return;
-            }
+            TourGuest? tourGuest = _tourGuests.Find(x => x.GuestId == guestId && x.AppointmentId == tourAppointmentId);
+            if (tourGuest == null) return;
 
             tourGuest.JoinedKeyPoint = currentKeyPoint;
             tourGuest.JoinedKeyPointId = currentKeyPoint.Id;
         }
+
+        public List<TourGuest> GetGuestsIds(int tourAppointmentId)
+        {
+            return _tourGuests.FindAll(x => x.AppointmentId == tourAppointmentId);
+        }
+
 
         // [OBSERVERS]
         public void NotifyObservers()

@@ -1,7 +1,9 @@
 ﻿using SIMSProject.Controller;
 using SIMSProject.Model;
+using SIMSProject.Observer;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,58 +21,79 @@ namespace SIMSProject.View.GuideViews
     /// <summary>
     /// Interaction logic for TodaysTourPreviewWindow.xaml
     /// </summary>
-    public partial class TodaysTourPreviewWindow : Window
+    public partial class TodaysTourPreviewWindow : Window, IObserver
     {
-        public Tour SelectedTour { get; set; } = new();
-        public TourDate SelectedDate { get; set; } = new();
-        public List<TourDate> TodaysDates { get; set; } = new();
-        private readonly TourDateController TourDateController = new();
+
+        public Tour TodaysTour { get; set; } = new();
+        public TourAppointment SelectedAppointment { get; set; } = new();
+        public ObservableCollection<TourAppointment> TodaysAppointments { get; set; } = new();
 
 
-        public TodaysTourPreviewWindow(Tour Tour)
+        public TodaysTourPreviewWindow(Tour TodaysTour)
         {
             InitializeComponent();
             this.DataContext = this;
-            SelectedTour = Tour;
+            this.TodaysTour = TodaysTour;
+
+            GuideInitialWindow.tourController.Subscribe(this);
+            GuideInitialWindow.tourAppointmentController.Subscribe(this);
 
             GetTodaysAppointments();
         }
 
         private void GetTodaysAppointments()
         {
-            foreach (TourDate date in TourDateController.FindTodaysByTour(SelectedTour.Id))
+            TodaysAppointments.Clear();
+            foreach (TourAppointment appointment in GuideInitialWindow.tourAppointmentController.FindTodaysByTour(TodaysTour.Id))
             {
-                TodaysDates.Add(date);
+                TodaysAppointments.Add(appointment);
             }
         }
 
         private void LiveTrackBTN_Click(object sender, RoutedEventArgs e)
         {
-
-            TourDate? activeDate = TodaysDates.Find(x => x.TourStatus.Equals("Aktivna"));
-            if (activeDate != null)
+            if (SelectedAppointment.TourStatus.Equals("Završena"))
             {
-                if (activeDate.Id != SelectedDate.Id)
+                MessageBox.Show("Ne možete otpočeti turu koja se završila!");
+                return;
+            }
+
+            TourAppointment? activeAppointment = TodaysAppointments.ToList().Find(x => x.TourStatus.Equals("Aktivna"));
+            if (activeAppointment != null)
+            {
+                if (activeAppointment.Id != SelectedAppointment.Id)
                 {
                     MessageBox.Show("Već postoji aktivna tura!");
                     return;
                 }
-                //Samo nastavi turu
+                TourLiveTrackingWindow window = new(SelectedAppointment);
+                window.Show();
 
             }
-            //Napravi novu turu
-            LiveTrackTourDate();
+            else
+            {
+                StartLiveTracking();
+            }
         }
 
-        private void LiveTrackTourDate()
+        private void StartLiveTracking()
         {
-            TourDate LiveTrackingDate = SelectedDate;
-            LiveTrackingDate.CurrentKeyPointId = SelectedTour.KeyPoints[0].Id;
-            LiveTrackingDate.CurrentKeyPoint = SelectedTour.KeyPoints[0];
-            TourDateController.StartTourLiveTracking(LiveTrackingDate);
+            SetAppointmentStartPoint();
+            GuideInitialWindow.tourAppointmentController.StartTourLiveTracking(SelectedAppointment);
 
-            TourLiveTrackingWindow window = new TourLiveTrackingWindow(LiveTrackingDate);
+            TourLiveTrackingWindow window = new(SelectedAppointment);
             window.Show();
+        }
+
+        private void SetAppointmentStartPoint()
+        {
+            SelectedAppointment.CurrentKeyPointId = TodaysTour.KeyPoints[0].Id;
+            SelectedAppointment.CurrentKeyPoint = TodaysTour.KeyPoints[0];
+        }
+
+        public void Update()
+        {
+            GetTodaysAppointments();
         }
     }
 }

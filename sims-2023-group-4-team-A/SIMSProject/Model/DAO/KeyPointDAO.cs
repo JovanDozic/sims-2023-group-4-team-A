@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SIMSProject.FileHandler;
 using SIMSProject.Observer;
@@ -17,7 +18,7 @@ namespace SIMSProject.Model.DAO
             _keyPoints = _fileHandler.Load();
             _observers = new List<IObserver>();
 
-            AssociatePoints();
+            AssociateKeyPoints();
         }
 
         public int NextId()
@@ -53,46 +54,33 @@ namespace SIMSProject.Model.DAO
             NotifyObservers();
         }
 
-        private void AssociatePoints()
-        {
-            foreach (var keyPoint in _keyPoints)
-            {
-                AssociateLocation(keyPoint);
-                AssociateTours(keyPoint);
-            }
-        }
-
-        private static void AssociateLocation(KeyPoint keyPoint)
+        private void AssociateKeyPoints()
         {
             LocationFileHandler tourLocationFileHandler = new();
-            var toursLocations = tourLocationFileHandler.Load();
+            List<Location> toursLocations = tourLocationFileHandler.Load();
+            TourFileHandler tourFileHandler = new();
+            List<Tour> tours = tourFileHandler.Load();
+            TourKeyPointFileHandler tourKeyPointFileHandler = new();
+            List<TourKeyPoint> tourKeyPoints = tourKeyPointFileHandler.Load();
 
-            var matchingLocation = toursLocations.Find(x => x.Id == keyPoint.LocationId);
-            if (matchingLocation == null)
+            foreach (var keyPoint in _keyPoints)
             {
-                return;
+                AssociateLocation(keyPoint, toursLocations);
+                AssociateTours(keyPoint, tours, tourKeyPoints);
             }
-
-            keyPoint.LocationId = matchingLocation.Id;
-            keyPoint.Location = matchingLocation;
         }
 
-        private static void AssociateTours(KeyPoint keyPoint)
+        private static void AssociateLocation(KeyPoint keyPoint, List<Location> toursLocations)
         {
-            TourFileHandler tourFileHandler = new();
-            var tours = tourFileHandler.Load();
-            TourKeyPointFileHandler tourKeyPointFileHandler = new();
-            var tourKeyPoints = tourKeyPointFileHandler.Load();
+            keyPoint.Location = toursLocations.Find(x => x.Id == keyPoint.LocationId) ?? throw new SystemException("Error!No matching location!");
+        }
 
-            var pairs = tourKeyPoints.FindAll(x => x.KeyPointId == keyPoint.Id);
+        private static void AssociateTours(KeyPoint keyPoint, List<Tour> tours, List<TourKeyPoint> tourKeyPoints)
+        {
+            List<TourKeyPoint> pairs = tourKeyPoints.FindAll(x => x.KeyPointId == keyPoint.Id);
             foreach (var pair in pairs)
             {
-                var matchingTour = tours.Find(x => x.Id == pair.TourId);
-                if (matchingTour == null)
-                {
-                    continue;
-                }
-
+                Tour? matchingTour = tours.Find(x => x.Id == pair.TourId) ?? throw new SystemException("Error!No matching tour!");
                 keyPoint.Tours.Add(matchingTour);
             }
         }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SIMSProject.Model;
+using SIMSProject.Observer;
 
 namespace SIMSProject.Controller
 {
@@ -32,6 +33,11 @@ namespace SIMSProject.Controller
         public KeyPoint Create(KeyPoint keyPoint)
         {
             return _keyPoints.Save(keyPoint);
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            _keyPoints.Subscribe(observer);
         }
     }
 }

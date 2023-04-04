@@ -50,6 +50,29 @@ namespace SIMSProject.Controller
             SaveAll(reservations);
         }
 
-        
+        public void Update(AccommodationReservation updatedReservation)
+        {
+            var reservations = _accommodationReservationDAO.GetAll();
+            int index = reservations.FindIndex(s => s.Id == updatedReservation.Id);
+            if (index != -1)
+            {
+                reservations[index] = updatedReservation;
+            }
+            SaveAll(reservations);
+
+        }
+
+        public AccommodationReservation FindAndCancel(AccommodationReservation selectedReservation)
+        {
+            foreach(var reservation in _accommodationReservationDAO.GetAll())
+            {
+                if (reservation.Id == selectedReservation.Id)
+                    selectedReservation.Canceled = true;
+            }
+
+            AccommodationReservation accommodationReservation = new AccommodationReservation(selectedReservation.Accommodation.Id, selectedReservation.Guest.Id, selectedReservation.StartDate, selectedReservation.EndDate, selectedReservation.NumberOfDays, selectedReservation.GuestNumber, selectedReservation.Canceled);
+            return accommodationReservation;
+        }
+
     }
 }

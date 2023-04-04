@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:cstm="clr-namespace:SIMSProject.CustomControls"
+        xmlns:cstm="clr-namespace:SIMSProject.WPF.CustomControls"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="TourCreationWindow" Height="600" Width="820" WindowStartupLocation="CenterScreen">
@@ -57,11 +57,10 @@
         <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Unesite vreme u formatu: hh:mm"/>
-                <DatePicker x:Name="myDatePicker" SelectedDate="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged}" DisplayDateStart="{x:Static sys:DateTime.Now}"/>
+                <DatePicker x:Name="myDatePicker" SelectedDate="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged}" DisplayDateStart="{x:Static sys:DateTime.Now}"/>
                 <TextBox x:Name="TBTime" 
                          Width="55" 
                          Margin="2,0,0,0"                         
-                         Text="{Binding SelectedTime, UpdateSourceTrigger=PropertyChanged}"
                          />
                 <Button x:Name="AddDate" Content="Dodaj" Margin="5,0,0,0" Click="AddDate_Click"></Button>
             </StackPanel>

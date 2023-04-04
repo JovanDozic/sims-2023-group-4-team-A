@@ -19,6 +19,8 @@ namespace SIMSProject.Model.UserModel
                 }
             }
         }
+
+        public List<Tour> Tours { get; set; } = new();
         public List<TourReservation> TourReservations { get; set; } = new();
         public List<AccommodationReservation> AccommodationReservations { get; set; } = new();
 
@@ -41,7 +43,7 @@ namespace SIMSProject.Model.UserModel
             return $"{Username}";
         }
 
-        public string[] ToCSV()
+        public new string[] ToCSV()
         {
             string[] csvValues =
             {
@@ -54,7 +56,7 @@ namespace SIMSProject.Model.UserModel
             return csvValues;
         }
 
-        public void FromCSV(string[] values)
+        public new void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
             Username = values[1];

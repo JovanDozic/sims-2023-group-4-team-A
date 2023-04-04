@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using SIMSProject.Model.DAO;
 using SIMSProject.Model;
+using SIMSProject.Observer;
 
 namespace SIMSProject.Controller
 {
@@ -30,14 +31,24 @@ namespace SIMSProject.Controller
             return _tourGuests.Save(tourGuest);
         }
 
-        public void SignGuest(int guestId, int tourDateId)
+        public void SignGuest(int guestId, int tourAppointmentId)
         {
-            _tourGuests.SignUpGuest(guestId, tourDateId);
+            _tourGuests.SignUpGuest(guestId, tourAppointmentId);
         }
 
-        public void MakeGuestPresent(int guestId, int tourDateId, KeyPoint currentKeyPoint)
+        public void MakeGuestPresent(int guestId, int tourAppointmentId, KeyPoint currentKeyPoint)
         {
-            _tourGuests.MakeGuestPresent(guestId, tourDateId, currentKeyPoint);
+            _tourGuests.MakeGuestPresent(guestId, tourAppointmentId, currentKeyPoint);
+        }
+
+        public List<TourGuest> GetGuestsIds(int tourAppointmentId)
+        {
+            return _tourGuests.GetGuestsIds(tourAppointmentId);
+        }
+
+        public void Subscribe(IObserver observer)
+        {
+            _tourGuests.Subscribe(observer);
         }
     }
 }
