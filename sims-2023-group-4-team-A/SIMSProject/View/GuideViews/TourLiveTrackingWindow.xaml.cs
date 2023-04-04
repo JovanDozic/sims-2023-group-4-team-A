@@ -1,5 +1,5 @@
 ﻿using SIMSProject.Controller;
-using SIMSProject.CustomControls;
+using SIMSProject.WPF.CustomControls;
 using SIMSProject.Model;
 using SIMSProject.Model.UserModel;
 using System;
