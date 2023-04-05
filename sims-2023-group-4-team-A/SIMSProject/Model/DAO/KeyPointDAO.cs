@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SIMSProject.Domain.TourModels;
+using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.FileHandler;
 using SIMSProject.Observer;
 

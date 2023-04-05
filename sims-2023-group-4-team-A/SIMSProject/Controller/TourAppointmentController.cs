@@ -2,7 +2,7 @@
 using SIMSProject.Model.DAO;
 using System;
 using SIMSProject.Observer;
-using SIMSProject.Domain.TourModels;
+using SIMSProject.Domain.Models.TourModels;
 
 namespace SIMSProject.Controller
 {

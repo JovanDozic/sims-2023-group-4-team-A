@@ -16,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SIMSProject.Domain.Models.TourModels;
 
 namespace SIMSProject.View.GuideViews
 {

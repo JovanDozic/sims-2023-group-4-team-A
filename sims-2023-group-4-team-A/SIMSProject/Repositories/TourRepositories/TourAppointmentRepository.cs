@@ -1,4 +1,4 @@
-﻿using SIMSProject.Domain.TourModels;
+﻿using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.FileHandler;
 using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.Model.UserModel;
@@ -31,13 +31,19 @@ namespace SIMSProject.Repositories.TourRepositories
             return _tourAppointments.Find(x => x.Id == id);
         }
 
-        public TourAppointment Save(TourAppointment appointment)
+        public TourAppointment Save(TourAppointment appointment, Tour tour)
         {
             appointment.Id = NextId();
-            appointment.TourStatus = "Neaktivna";
+            SaveTour(appointment, tour);
             _tourAppointments.Add(appointment);
             _fileHandler.Save(_tourAppointments);
             return appointment;
+        }
+
+        private static void SaveTour(TourAppointment appointment, Tour tour)
+        {
+            appointment.Tour = tour;
+            appointment.TourId = tour.Id;
         }
 
         public void SaveAll(List<TourAppointment> appointments)

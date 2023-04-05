@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SIMSProject.Observer;
-using SIMSProject.Domain.TourModels;
-using SIMSProject.Application1.UseCases.Services.TourServices;
+using SIMSProject.Application1.Services.TourServices;
+using SIMSProject.Domain.Models.TourModels;
 
 namespace SIMSProject.Controller
 {
@@ -66,11 +66,6 @@ namespace SIMSProject.Controller
         public void EndTour(int tourId, int dateId)
         {
             _tourService.EndTourAppointment(tourId, dateId);
-        }
-
-        public void AddAppointment(int tourId, TourAppointment date)
-        {
-            _tours.AddNewAppointment(tourId, date);
         }
 
         public void Refresh()

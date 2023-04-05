@@ -1,5 +1,4 @@
-﻿using SIMSProject.Domain.TourModels;
-using SIMSProject.FileHandler;
+﻿using SIMSProject.FileHandler;
 using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.Model.UserModel;
 using SIMSProject.Model;
@@ -8,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SIMSProject.Domain.Models.TourModels;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
@@ -41,9 +41,17 @@ namespace SIMSProject.Repositories.TourRepositories
         public Tour Save(Tour tour)
         {
             tour.Id = NextId();
+            SaveAppointments(tour);
             _tours.Add(tour);
             _fileHandler.Save(_tours);
             return tour;
+        }
+        private static void SaveAppointments(Tour tour)
+        {
+            foreach (var appointment in tour.Appointments)
+            {
+                appointment.TourId = tour.Id;
+            }
         }
 
         public void SaveAll(List<Tour> tours)

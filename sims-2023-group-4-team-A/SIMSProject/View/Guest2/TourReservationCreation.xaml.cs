@@ -1,6 +1,6 @@
 ﻿using SIMSProject.Controller;
 using SIMSProject.Controller.UserController;
-using SIMSProject.Domain.TourModels;
+using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Model;
 using SIMSProject.Model.DAO.UserModelDAO;
 using SIMSProject.Model.UserModel;
@@ -107,7 +107,7 @@ namespace SIMSProject.View.Guest2
                 TBKeyPoints.Text += keyPoint.Description + "\n";
             }
             TBDuration.Text = tour.Duration.ToString();
-            TBLanguage.Text = tour.TourLanguage;
+            TBLanguage.Text = tour.TourLanguage.ToString();
             TBMaxGuests.Text = tour.MaxGuestNumber.ToString();
             dgrImageURLs.ItemsSource = tour.Images;
         }

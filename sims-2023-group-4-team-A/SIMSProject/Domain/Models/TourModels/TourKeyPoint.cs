@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SIMSProject.Model.UserModel;
 
-namespace SIMSProject.Domain.TourModels
+namespace SIMSProject.Domain.Models.TourModels
 {
     public class TourKeyPoint : ISerializable
     {

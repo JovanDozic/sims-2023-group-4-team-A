@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SIMSProject.Domain.TourModels;
+using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.FileHandler;
 using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.Model.UserModel;

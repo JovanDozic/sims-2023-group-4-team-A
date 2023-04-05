@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using SIMSProject.Model.DAO;
 using SIMSProject.Observer;
-using SIMSProject.Domain.TourModels;
+using SIMSProject.Domain.Models.TourModels;
 
 namespace SIMSProject.Controller
 {

@@ -8,7 +8,7 @@ using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.Model.UserModel;
 using Microsoft.VisualBasic;
 using System;
-using SIMSProject.Domain.TourModels;
+using SIMSProject.Domain.Models.TourModels;
 
 namespace SIMSProject.Model.DAO
 {
@@ -38,7 +38,7 @@ namespace SIMSProject.Model.DAO
         public TourAppointment Save(TourAppointment appointment)
         {
             appointment.Id = NextId();
-            appointment.TourStatus = "Neaktivna";
+            appointment.TourStatus = Status.INACTIVE;
             _tourAppointments.Add(appointment);
             _fileHandler.Save(_tourAppointments);
             NotifyObservers();
@@ -130,7 +130,7 @@ namespace SIMSProject.Model.DAO
                 return false; 
             }
             
-            oldAppointment.TourStatus = "Otkazana";
+            oldAppointment.TourStatus = Status.CANCELED;
             _fileHandler.Save(_tourAppointments);
             return true;
         }
@@ -139,7 +139,7 @@ namespace SIMSProject.Model.DAO
         {
             TourAppointment? oldAppointment = Get(appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
 
-            oldAppointment.TourStatus = "Aktivna";
+            oldAppointment.TourStatus = Status.ACTIVE;
             oldAppointment.CurrentKeyPoint = appointment.CurrentKeyPoint;
             oldAppointment.CurrentKeyPointId = appointment.CurrentKeyPointId;
             _fileHandler.Save(_tourAppointments);
@@ -148,7 +148,7 @@ namespace SIMSProject.Model.DAO
         public void StopLiveTracking(int appointmentId) //servis
         {
             TourAppointment? toEnd = Get(appointmentId) ?? throw new ArgumentException("Error!Can't find appointment!");
-            toEnd.TourStatus = "Završena";
+            toEnd.TourStatus = Status.COMPLETED;
             _fileHandler.Save(_tourAppointments);
             NotifyObservers();
         }

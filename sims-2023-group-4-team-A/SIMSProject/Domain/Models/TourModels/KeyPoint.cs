@@ -12,7 +12,7 @@ using SIMSProject.FileHandler;
 using SIMSProject.Model.UserModel;
 using SIMSProject.Model;
 
-namespace SIMSProject.Domain.TourModels
+namespace SIMSProject.Domain.Models.TourModels
 {
     public class KeyPoint : ISerializable, INotifyPropertyChanged
     {

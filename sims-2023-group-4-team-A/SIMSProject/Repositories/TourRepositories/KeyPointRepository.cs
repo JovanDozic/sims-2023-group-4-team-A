@@ -1,4 +1,4 @@
-﻿using SIMSProject.Domain.TourModels;
+﻿using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.FileHandler;
 using SIMSProject.Model;
 using SIMSProject.Observer;

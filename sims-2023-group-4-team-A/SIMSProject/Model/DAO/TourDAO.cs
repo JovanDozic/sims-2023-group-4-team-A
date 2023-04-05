@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SIMSProject.Domain.TourModels;
+using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.FileHandler;
 using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.Model.UserModel;
@@ -176,16 +176,9 @@ namespace SIMSProject.Model.DAO
 
             TourAppointment? appointmentToEnd = toEnd.Appointments.Find(x => x.Id == appointmentId);
             if (appointmentToEnd == null) return;
-            appointmentToEnd.TourStatus = "Završena";
+            appointmentToEnd.TourStatus = Status.COMPLETED;
             _fileHandler.Save(_tours);
             NotifyObservers();
-        }
-
-        public void AddNewAppointment(int tourId, TourAppointment appointment) //servis
-        {
-            Tour tour = FindById(tourId);
-            if (tour == null) return;
-            tour.Appointments.Add(appointment);
         }
 
         public List<Tour> GetToursWithSameLocation(Tour selectedTour)

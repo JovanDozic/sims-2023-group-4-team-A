@@ -1,4 +1,4 @@
-﻿using SIMSProject.Domain.TourModels;
+﻿using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Repositories.TourRepositories;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMSProject.Application1.UseCases.Services.TourServices
+namespace SIMSProject.Application1.Services.TourServices
 {
     public class TourService
     {
@@ -15,6 +15,12 @@ namespace SIMSProject.Application1.UseCases.Services.TourServices
         public TourService()
         {
             _repository = new();
+        }
+
+
+        public void CreateTour(Tour tour)
+        {
+            _repository.Save(tour);
         }
 
         public KeyPoint GoToNextKeyPoint(TourAppointment appointment)
@@ -51,15 +57,8 @@ namespace SIMSProject.Application1.UseCases.Services.TourServices
 
             TourAppointment? appointmentToEnd = toEnd.Appointments.Find(x => x.Id == appointmentId);
             if (appointmentToEnd == null) return;
-            appointmentToEnd.TourStatus = "Završena";
+            appointmentToEnd.TourStatus = Status.COMPLETED;
             _repository.SaveAll(_repository.GetAll());
-        }
-
-        public void AddNewAppointment(int tourId, TourAppointment appointment) //servis
-        {
-            Tour tour = _repository.FindById(tourId);
-            if (tour == null) return;
-            tour.Appointments.Add(appointment);
         }
     }
 }

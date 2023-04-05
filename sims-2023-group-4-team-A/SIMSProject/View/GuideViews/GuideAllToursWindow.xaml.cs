@@ -1,4 +1,4 @@
-﻿using SIMSProject.Domain.TourModels;
+﻿using SIMSProject.Domain.Models.TourModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

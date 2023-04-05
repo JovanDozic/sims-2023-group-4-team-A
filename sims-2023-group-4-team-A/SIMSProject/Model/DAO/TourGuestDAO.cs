@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SIMSProject.Domain.TourModels;
+using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.FileHandler;
 using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.Model.UserModel;
@@ -83,7 +83,7 @@ namespace SIMSProject.Model.DAO
             TourGuest? tourGuest = _tourGuests.Find(x => x.GuestId ==  guestId && x.AppointmentId == tourAppointmentId);
             if(tourGuest == null) return;
 
-            tourGuest.GuestStatus = "Prijavljen";
+            tourGuest.GuestStatus = GuestAttendance.PENDING;
             SaveAll(_tourGuests);
         }
 

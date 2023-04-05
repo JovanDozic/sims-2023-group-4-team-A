@@ -8,7 +8,7 @@ using System.Text;
 using SIMSProject.Model.UserModel;
 using System.Threading.Tasks;
 
-namespace SIMSProject.Domain.TourModels
+namespace SIMSProject.Domain.Models.TourModels
 {
     public enum GuestAttendance { ABSENT = 0, PENDING, PRESENT }
     public class TourGuest : ISerializable
@@ -17,30 +17,9 @@ namespace SIMSProject.Domain.TourModels
         public int GuestId { get; set; }
         public int JoinedKeyPointId { get; set; }
 
-        private GuestAttendance _guestStatus;
-        public string GuestStatus
-        {
-            get
-            {
-                return _guestStatus switch
-                {
-                    GuestAttendance.PRESENT => "Prisutan",
-                    GuestAttendance.ABSENT => "Odsutan",
-                    _ => "Prijavljen"
-                };
-            }
-            set
-            {
-                _guestStatus = value switch
-                {
-                    "Prisutan" => GuestAttendance.PRESENT,
-                    "Odsutan" => GuestAttendance.ABSENT,
-                    _ => GuestAttendance.PENDING
-                };
-            }
-        }
+        public GuestAttendance GuestStatus { get; set; }
 
-        public Guest Guest { get; set; } = new();
+        public Guest Guest { get; set; } = new(); 
         public TourAppointment Appointment { get; set; } = new();
         public KeyPoint JoinedKeyPoint { get; set; } = new();
 
@@ -55,16 +34,15 @@ namespace SIMSProject.Domain.TourModels
 
         public string[] ToCSV()
         {
-            string[] csvValues = { AppointmentId.ToString(), GuestId.ToString(), GuestStatus, JoinedKeyPointId.ToString() };
+            string[] csvValues = { AppointmentId.ToString(), GuestId.ToString(), GuestStatus.ToString(), JoinedKeyPointId.ToString() };
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
-
             AppointmentId = Convert.ToInt32(values[0]);
             GuestId = Convert.ToInt32(values[1]);
-            GuestStatus = values[2];
+            GuestStatus = (GuestAttendance)Enum.Parse(typeof(GuestAttendance), values[2]);
             JoinedKeyPointId = Convert.ToInt32(values[3]);
         }
 
