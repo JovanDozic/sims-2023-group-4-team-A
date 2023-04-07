@@ -50,7 +50,7 @@
         <Frame Background="#DBE0E2" x:Name="MainWind" Grid.Row="1" NavigationUIVisibility="Hidden"></Frame>
 
         <Grid>
-            
+
         </Grid>
 
         <Grid Grid.Row="0" Background="#0c669f">
@@ -171,8 +171,15 @@
                         </StackPanel>
                     </ListViewItem>
                 </ListView>
+                <Grid Height="100">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.2*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="chevron-left.png" Grid.ColumnSpan="2" Margin="182,44,91,24"></Image>
 
-
+                    <Button Margin="0,0,10,25" FontSize="20" Foreground="White" Content="Odjavi se" BorderThickness="0" BorderBrush="Transparent" Background="#063e77" Height="30" Width="93" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="1"/>
+                </Grid>
             </StackPanel>
 
         </Grid>
