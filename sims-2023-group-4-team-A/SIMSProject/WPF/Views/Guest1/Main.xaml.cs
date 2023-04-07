@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Navigation;
+using SIMSProject.View;
 
 namespace SIMSProject.WPF.Views.Guest1
 {
@@ -46,6 +47,14 @@ namespace SIMSProject.WPF.Views.Guest1
                 MainWind.Content = null; // remove the NavigationBar page from the content of the MainWindow
                 navigationBar = null; // set the reference to the NavigationBar page to null to allow for a new instance to be created if the button is clicked again
             }
+        }
+
+        private void Button_Click_Close(object sender, RoutedEventArgs e)
+        {
+            var open = new SignInForm();
+            Close();
+            open.Show();
+            
         }
         /*
         private void ReturnToMainWindow_Click(object sender, RoutedEventArgs e)

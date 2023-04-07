@@ -49,8 +49,10 @@
         </Grid.RowDefinitions>
         <Frame Background="#DBE0E2" x:Name="MainWind" Grid.Row="1" NavigationUIVisibility="Hidden"></Frame>
 
-        <Grid>
+        <Button Width="300" Height="300" Grid.Row="1" Background="Black" Content="AAA" Foreground="White" FontSize="50"></Button>
 
+        <Grid Grid.Row="1" x:Name="OverlayPanel" Visibility="Collapsed">
+            <Grid Background="#000000" Opacity="0.5"></Grid>
         </Grid>
 
         <Grid Grid.Row="0" Background="#0c669f">
@@ -78,31 +80,37 @@
             <Button Grid.Column="6" BorderThickness="1" BorderBrush="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="50" Background="#0c669f">
                 <Image Source="notification.png"></Image>
             </Button>
+            <Button Grid.Column="2" Click="Button_Click_1"></Button>
             <Button BorderThickness="0" BorderBrush="Transparent" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="50" Background="#0c669f">
                 <Image Source="home.png"></Image>
             </Button>
             <Button x:Name="ButtonMenu" BorderThickness="0" BorderBrush="Transparent" Grid.Column="8" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="50" Background="#0c669f"  Style="{StaticResource SideMenuButtonLocal}">
-                <Image Source="burger.png"></Image>
+                <Image Source="burger.png" />
                 <Button.Triggers>
                     <EventTrigger RoutedEvent="ButtonBase.Click">
-                        <EventTrigger.Actions>
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
-                                        <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                                        <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="{Binding Path=MenuWidth}"/>
-                                    </DoubleAnimationUsingKeyFrames>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ObjectAnimationUsingKeyFrames
+            Storyboard.TargetName="OverlayPanel"
+            Storyboard.TargetProperty="Visibility">
+                                    <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}" />
+                                </ObjectAnimationUsingKeyFrames>
+                                <DoubleAnimation
+            Storyboard.TargetName="GridMenu"
+            Storyboard.TargetProperty="Width"
+            From="0" To="{Binding Path=MenuWidth}"
+            Duration="0:0:0.3" />
+                            </Storyboard>
+                        </BeginStoryboard>
                     </EventTrigger>
                 </Button.Triggers>
             </Button>
+            
 
         </Grid>
 
 
-        <Grid x:Name="GridMenu" Width="330" HorizontalAlignment="Right" Background="#063e77" Grid.Row="1">
+        <Grid x:Name="GridMenu" Width="0" HorizontalAlignment="Right" Background="#063e77" Grid.Row="1">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="2" ShadowDepth="1" Color="Gray"/>
             </Grid.Effect>
@@ -122,7 +130,26 @@
 
                     <Label Foreground="White" Content="Korisnicko ime" Grid.Row="1" FontSize="22" FontWeight="Bold" Margin="5,6,0,0"></Label>
                     <Label Foreground="White" Content="Status: Gost" Grid.Row="2" FontSize="18" FontWeight="Bold" Margin="5,0,0,4"></Label>
-                    <Button x:Name="ButtonCloseMenu" Width="50" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.ColumnSpan="2"></Button>
+                    <Button x:Name="ButtonCloseMenu" Width="50" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.ColumnSpan="2">
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="ButtonBase.Click">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames
+                        Storyboard.TargetName="OverlayPanel"
+                        Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Collapsed}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation
+                        Storyboard.TargetName="GridMenu"
+                        Storyboard.TargetProperty="Width"
+                        From="{Binding Path=MenuWidth}" To="0"
+                        Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
                     <Image Source="user.png" VerticalAlignment="Top" Margin="10,10,16,0" Grid.Column="1" Height="35" Grid.Row="1"/>
                 </Grid>
 
@@ -178,7 +205,7 @@
                     </Grid.ColumnDefinitions>
                     <Image Source="chevron-left.png" Grid.ColumnSpan="2" Margin="182,44,91,24"></Image>
 
-                    <Button Margin="0,0,10,25" FontSize="20" Foreground="White" Content="Odjavi se" BorderThickness="0" BorderBrush="Transparent" Background="#063e77" Height="30" Width="93" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="1"/>
+                    <Button Click="Button_Click_Close" Margin="0,0,10,25" FontSize="20" Foreground="White" Content="Odjavi se" BorderThickness="0" BorderBrush="Transparent" Background="#063e77" Height="30" Width="93" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="1"/>
                 </Grid>
             </StackPanel>
 
