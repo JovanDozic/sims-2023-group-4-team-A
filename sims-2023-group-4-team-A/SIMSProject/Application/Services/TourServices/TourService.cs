@@ -17,6 +17,16 @@ namespace SIMSProject.Application1.Services.TourServices
             _repository = new();
         }
 
+        public List<Tour> GetTours()
+        {
+            return _repository.GetAll();
+        }
+
+        public List<Tour> GetTodaysTours()
+        {
+            return _repository.FindTodaysTours();
+        }
+
 
         public void CreateTour(Tour tour)
         {
@@ -25,7 +35,7 @@ namespace SIMSProject.Application1.Services.TourServices
 
         public KeyPoint GoToNextKeyPoint(TourAppointment appointment)
         {
-            var currentTour = _repository.FindById(appointment.TourId);
+            var currentTour = _repository.GetById(appointment.TourId);
             if (currentTour == null)
             {
                 return null;
@@ -44,12 +54,12 @@ namespace SIMSProject.Application1.Services.TourServices
 
         public KeyPoint GetLastKeyPoint(TourAppointment appointment)
         {
-            return _repository.FindById(appointment.TourId)?.KeyPoints.Last();
+            return _repository.GetById(appointment.TourId)?.KeyPoints.Last();
         }
 
         public void EndTourAppointment(int tourId, int appointmentId)
         {
-            var toEnd = _repository.FindById(tourId);
+            var toEnd = _repository.GetById(tourId);
             if (toEnd == null)
             {
                 return;

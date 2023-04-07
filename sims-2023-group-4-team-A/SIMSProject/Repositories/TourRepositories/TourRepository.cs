@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
-    public class TourRepository
+    public class TourRepository: ITourRepo
     {
         private readonly TourFileHandler _fileHandler;
         private List<Tour> _tours;
@@ -33,7 +34,7 @@ namespace SIMSProject.Repositories.TourRepositories
             return _tours;
         }
 
-        public Tour FindById(int id)
+        public Tour GetById(int id)
         {
             return _tours.Find(x => x.Id == id);
         }

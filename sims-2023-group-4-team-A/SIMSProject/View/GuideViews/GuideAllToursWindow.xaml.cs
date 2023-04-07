@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.WPF.ViewModel.TourViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,14 +22,14 @@ namespace SIMSProject.View.GuideViews
     /// </summary>
     public partial class GuideAllToursWindow : Window
     {
-
+        public ToursViewModel ToursViewModel { get; set; } = new();
         public ObservableCollection<Tour> AllTours { get; set; }
         public Tour SelectedTour { get; set; } = new();
 
         public GuideAllToursWindow()
         {
             InitializeComponent();
-            this.DataContext = this;
+            this.DataContext = ToursViewModel;
 
             AllTours = new(GuideInitialWindow.tourController.GetAll());
 

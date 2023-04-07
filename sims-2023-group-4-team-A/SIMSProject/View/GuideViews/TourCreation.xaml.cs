@@ -27,64 +27,23 @@ namespace SIMSProject.View.GuideViews
     /// Interaction logic for TourCreation.xaml
     /// </summary>
     ///   
-    public partial class TourCreation : Window, INotifyPropertyChanged
+    public partial class TourCreation : Window
     {
+
 
         private Location? _selectedLocation;
         private bool _imageAdded;
 
-        public Location SelectedLocation
-        {
-            get => _selectedLocation;
-            set
-            {
-                if (value != _selectedLocation)
-                {
-                    _selectedLocation = value;
-
-                    KeyPoints.Clear();
-                    foreach (var point in GuideInitialWindow.keyPointController.GetAll().FindAll(x => x.LocationId == value.Id))
-                    {
-                        KeyPoints.Add(point);
-                    }
-                    OnPropertyChanged(nameof(SelectedLocation));
-                }
-            }
-        }
-
         public TourViewModel View { get; set; } = new();
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public Tour New { get; set; } = new();
-        public KeyPoint? SelectedKeyPoint { get; set; }
-        public DateTime SelectedAppointment { get; set; } = DateTime.Now;
-        public List<KeyPoint> KeyPoints { get; set; } = new();
-        public List<string> TourLanguages { get; set; } = new();
-        public List<Location> Locations { get; set; } = new();
 
         public TourCreation(Guide guide)
         {
             InitializeComponent();
-            this.DataContext = this;
+            this.DataContext = View;
 
             View.Guide = guide;
             View.GuideId = guide.Id;
 
-            TourLanguages = new()
-            {
-                "Srpski",
-                "Engleski",
-                "Francuski",
-                "Španski"
-            };
-
-            KeyPoints = new(GuideInitialWindow.keyPointController.GetAll());
-            Locations = new(GuideInitialWindow.locationController.GetAll());
             TBTime.Text = "hh:mm";
 
         }
@@ -102,12 +61,11 @@ namespace SIMSProject.View.GuideViews
                 return;
             }
 
-            Tour createdTour = GuideInitialWindow.tourController.Create(New);
+            View.CreateTour();
 
-            CreateAndAssignTourAppointment(createdTour);
-            CreateNewPairs(createdTour);
+            //CreateAndAssignTourAppointment(createdTour);
+            //CreateNewPairs(createdTour);
 
-            GuideInitialWindow.tourController.Refresh();
             MessageBox.Show("Tura uspešno kreirana.");
             Close();
         }
@@ -116,12 +74,11 @@ namespace SIMSProject.View.GuideViews
         {
             foreach (var keyPoint in View.Keys)
             {
-                TourKeyPoint newPair = new(createdTour.Id, keyPoint.Id);
-                GuideInitialWindow.tourKeyPointController.Create(newPair);
+                GuideInitialWindow.tourKeyPointController.Create(new(createdTour.Id, keyPoint.Id));//servis
             }
         }
 
-        private void CreateAndAssignTourAppointment(Tour createdTour)
+        private void CreateAndAssignTourAppointment(Tour createdTour) //isto mora servis
         {
             foreach (var appointment in View.Appointments)
             {
@@ -132,18 +89,17 @@ namespace SIMSProject.View.GuideViews
 
         private void AddKeyPoint_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedKeyPoint == null)
+            if (View.SelectedKeyPoint == null)
             {
                 MessageBox.Show("Nije moguće izabrati ključnu tačku koja ne postoji!");
                 return;
             }
-            View.Keys.Add(SelectedKeyPoint);
+            View.Keys.Add(View.SelectedKeyPoint);
         }
 
         private void AddDate_Click(object sender, RoutedEventArgs e)
         {
-            DateTime newAppointment = CreateAppointment();
-            View.Appointments.Add(new(newAppointment, -1, View.MaxGuestNumber, -1));
+            View.Appointments.Add(new(CreateAppointment(), -1, View.MaxGuestNumber, -1));
         }
 
         private DateTime CreateAppointment()
@@ -154,7 +110,7 @@ namespace SIMSProject.View.GuideViews
             int seconds = 0;
 
             TBTime.Text = "hh:mm";
-            DateTime newDate = new(SelectedAppointment.Year, SelectedAppointment.Month, SelectedAppointment.Day, hours, minutes, seconds);
+            DateTime newDate = new(View.SelectedAppointment.Year, View.SelectedAppointment.Month, View.SelectedAppointment.Day, hours, minutes, seconds);
             return newDate;
         }
 

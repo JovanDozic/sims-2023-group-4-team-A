@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.FileHandler;
 using SIMSProject.Observer;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
-    public class TourKeyPointRepository
+    public class TourKeyPointRepository: ITourKeyPointRepo
     {
         private readonly TourKeyPointFileHandler _fileHandler;
         private List<TourKeyPoint> _tourKeyPoints;

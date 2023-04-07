@@ -1,7 +1,7 @@
 ﻿using SIMSProject.Controller;
 using SIMSProject.Controller.UserController;
 using SIMSProject.Domain.Models.TourModels;
-using SIMSProject.Model;
+using SIMSProject.Domain.Models;
 using SIMSProject.Model.DAO.UserModelDAO;
 using SIMSProject.Model.UserModel;
 using System;
@@ -21,6 +21,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SIMSProject.Model;
 
 namespace SIMSProject.View.Guest2
 {

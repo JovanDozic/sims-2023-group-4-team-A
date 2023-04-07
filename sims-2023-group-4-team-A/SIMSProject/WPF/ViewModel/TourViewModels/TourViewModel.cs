@@ -2,8 +2,10 @@
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Model;
 using SIMSProject.Model.UserModel;
+using SIMSProject.View.GuideViews;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -123,6 +125,14 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
                 {
                     _tour.Location = value;
                     LocationId = value.Id;
+
+
+                    KeyPoints.Clear();
+
+                    foreach (var point in GuideInitialWindow.keyPointController.GetAll().FindAll(x => x.LocationId == value.Id))
+                    {
+                        KeyPoints.Add(point);
+                    }
                     OnPropertyChanged(nameof(Location));
                 }
                 
@@ -147,14 +157,35 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
             set { _tour.Images = value; OnPropertyChanged(nameof(Images)); }
         }
 
+        public List<string> TourLanguages { get; set; }
+        public ObservableCollection<Location> AllLocations { get; set; } = new();
+        public ObservableCollection<KeyPoint> KeyPoints { get; set; } = new();
+        public KeyPoint? SelectedKeyPoint { get; set; }
+        public DateTime SelectedAppointment { get; set; } = DateTime.Now;
+
         public TourViewModel()
         {
             _tour = new();
+            TourLanguages = new()
+            {
+                "Srpski",
+                "Engleski",
+                "Francuski",
+                "Španski"
+            };
+            AllLocations = new(GuideInitialWindow.locationController.GetAll());
         }
 
         public TourViewModel(Tour tour)
         {
             _tour = tour;
+            TourLanguages = new()
+            {
+                "Srpski",
+                "Engleski",
+                "Francuski",
+                "Španski"
+            };
         }
 
         public void CreateTour()

@@ -19,7 +19,7 @@ namespace SIMSProject.Application1.Services.TourServices
 
         public void GoToNextKeyPoint(int appointmentId, KeyPoint nextKeyPoint)
         {
-            TourAppointment? appointment = _repository.Get(appointmentId) ?? throw new ArgumentException("Error!Can't find appointment!");
+            TourAppointment? appointment = _repository.GetById(appointmentId) ?? throw new ArgumentException("Error!Can't find appointment!");
             appointment.CurrentKeyPoint = nextKeyPoint;
             appointment.CurrentKeyPointId = nextKeyPoint.Id;
             _repository.SaveAll(_repository.GetAll());
@@ -32,7 +32,7 @@ namespace SIMSProject.Application1.Services.TourServices
 
         public bool CancelAppointment(TourAppointment appointment)
         {
-            TourAppointment? oldAppointment = _repository.Get(appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
+            TourAppointment? oldAppointment = _repository.GetById(appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
 
             if (!IsCancelable(oldAppointment))
             {
@@ -46,7 +46,7 @@ namespace SIMSProject.Application1.Services.TourServices
 
         public void StartLiveTracking(TourAppointment appointment)
         {
-            TourAppointment? oldAppointment = _repository.Get(appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
+            TourAppointment? oldAppointment = _repository.GetById(appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
 
             oldAppointment.TourStatus = Status.ACTIVE;
             oldAppointment.CurrentKeyPoint = appointment.CurrentKeyPoint;
@@ -56,7 +56,7 @@ namespace SIMSProject.Application1.Services.TourServices
 
         public void StopLiveTracking(int appointmentId)
         {
-            TourAppointment? toEnd = _repository.Get(appointmentId) ?? throw new ArgumentException("Error!Can't find appointment!");
+            TourAppointment? toEnd = _repository.GetById(appointmentId) ?? throw new ArgumentException("Error!Can't find appointment!");
             toEnd.TourStatus = Status.COMPLETED;
             _repository.SaveAll(_repository.GetAll());
         }

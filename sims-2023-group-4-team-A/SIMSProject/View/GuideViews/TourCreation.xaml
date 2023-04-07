@@ -43,16 +43,16 @@
             <Label Grid.Column="0" Grid.Row="2" Content="Jezik ture:" Height="30"></Label>
             <Label Grid.Column="0" Grid.Row="3" Content="Max broj gostiju ture:" Height="30"></Label>
             <Label Grid.Column="0" Grid.Row="4" Content="Trajanje ture:" Height="30"></Label>
-            <TextBox Grid.Column="1" Grid.Row="0" Margin="5" Height="30" Text="{Binding Path=View.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="0" Margin="5" Height="30" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
 
-            <ComboBox Grid.Column="1" Grid.Row="1" x:Name="LocationCombo" ItemsSource="{Binding Locations, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedItem="{Binding Path=View.Location, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+            <ComboBox Grid.Column="1" Grid.Row="1" x:Name="LocationCombo" ItemsSource="{Binding AllLocations, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding Path=Location, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                           IsEditable="True"
                           Height="30"></ComboBox>
 
-            <ComboBox x:Name="LanguageCombo" Grid.Column="1" Grid.Row="2" Margin="5" Height="30" ItemsSource="{Binding Path=TourLanguages, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path= View.TourLanguage}"></ComboBox>
-            <cstm:NumericTextBox Grid.Column="1" Grid.Row="3" Margin="5"  Height="50" Value="{Binding Path=View.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True, Mode=TwoWay}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></cstm:NumericTextBox>
-            <cstm:NumericTextBox Grid.Column="1" Grid.Row="4" Margin="5"  Height="50" Value="{Binding Path=View.Duration, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></cstm:NumericTextBox>
+            <ComboBox x:Name="LanguageCombo" Grid.Column="1" Grid.Row="2" Margin="5" Height="30" ItemsSource="{Binding Path=TourLanguages, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path= TourLanguage}"></ComboBox>
+            <cstm:NumericTextBox Grid.Column="1" Grid.Row="3" Margin="5"  Height="50" Value="{Binding Path=MaxGuestNumber, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True, Mode=TwoWay}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></cstm:NumericTextBox>
+            <cstm:NumericTextBox Grid.Column="1" Grid.Row="4" Margin="5"  Height="50" Value="{Binding Path=Duration, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></cstm:NumericTextBox>
         </Grid>
         <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
@@ -78,7 +78,7 @@
             </DockPanel>
         </StackPanel>
         <TextBox x:Name="Description" Grid.ColumnSpan="2" Grid.Row="1" Margin="10" 
-                 Text="{Binding Path=View.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                  />
         <DockPanel Grid.ColumnSpan="2" Grid.Row="2" Height="30" Margin="0,10,0,0">

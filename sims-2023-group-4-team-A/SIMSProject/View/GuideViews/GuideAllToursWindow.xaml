@@ -21,7 +21,7 @@
                 Margin="20,0,0,0"
                 Click="Show_all_appointmentsBTN_Click"/>
         <DataGrid Grid.Row="0" 
-                  ItemsSource="{Binding Path=AllTours, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"

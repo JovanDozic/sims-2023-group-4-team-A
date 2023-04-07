@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.FileHandler;
 using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.Model.UserModel;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
-    public class TourAppointmentRepository
+    public class TourAppointmentRepository: ITourAppointmentRepo
     {
         private readonly TourAppointmentFileHandler _fileHandler;
         private List<TourAppointment> _tourAppointments;
@@ -26,7 +27,7 @@ namespace SIMSProject.Repositories.TourRepositories
 
         public int NextId() { return _tourAppointments.Max(x => x.Id) + 1; }
         public List<TourAppointment> GetAll() { return _tourAppointments; }
-        public TourAppointment Get(int id)
+        public TourAppointment GetById(int id)
         {
             return _tourAppointments.Find(x => x.Id == id);
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Serializer;
 
 namespace SIMSProject.Model.UserModel

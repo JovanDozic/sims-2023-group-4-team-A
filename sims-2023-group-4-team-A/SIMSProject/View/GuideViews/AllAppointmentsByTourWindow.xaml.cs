@@ -42,7 +42,7 @@ namespace SIMSProject.View.GuideViews
                 return;
             }
             List<TourGuest> guests = GuideInitialWindow.tourGuestController.GetGuestsIds(SelectedAppointment.Id);
-            _voucherController.GiveVouchers(guests, "Termin otkazan");
+            _voucherController.GiveVouchers(guests, ObtainingReason.APPOINTMENTCANCELED);
             MessageBox.Show("Uspešno ste otkazali termin.");
 
         }
