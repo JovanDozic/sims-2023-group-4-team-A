@@ -12,12 +12,12 @@ using System.Threading.Tasks;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
-    public class TourAppointmentRepository: ITourAppointmentRepo
+    public class TourAppointmentRepo: ITourAppointmentRepo
     {
         private readonly TourAppointmentFileHandler _fileHandler;
         private List<TourAppointment> _tourAppointments;
 
-        public TourAppointmentRepository()
+        public TourAppointmentRepo()
         {
             _fileHandler = new();
             _tourAppointments = _fileHandler.Load();

@@ -10,7 +10,7 @@ namespace SIMSProject.Application1.Services.TourServices
 {
     public class TourService
     {
-        private readonly TourRepository _repository;
+        private readonly TourRepo _repository;
 
         public TourService()
         {

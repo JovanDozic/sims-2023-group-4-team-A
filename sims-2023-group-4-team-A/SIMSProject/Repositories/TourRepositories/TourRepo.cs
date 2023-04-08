@@ -12,12 +12,12 @@ using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
-    public class TourRepository: ITourRepo
+    public class TourRepo: ITourRepo
     {
         private readonly TourFileHandler _fileHandler;
         private List<Tour> _tours;
 
-        public TourRepository()
+        public TourRepo()
         {
             _fileHandler = new TourFileHandler();
             _tours = _fileHandler.Load();

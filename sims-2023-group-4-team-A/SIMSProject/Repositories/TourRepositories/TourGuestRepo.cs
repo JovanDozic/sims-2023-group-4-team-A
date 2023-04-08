@@ -11,12 +11,12 @@ using SIMSProject.Domain.Models.TourModels;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
-    public class TourGuestRepository
+    public class TourGuestRepo
     {
         private readonly TourGuestFileHandler _fileHandler;
         private List<TourGuest> _tourGuests;
 
-        public TourGuestRepository()
+        public TourGuestRepo()
         {
             _fileHandler = new TourGuestFileHandler();
             _tourGuests = _fileHandler.Load();

@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
-    public class KeyPointRepository: IKeyPointRepo
+    public class KeyPointRepo: IKeyPointRepo
     {
         private readonly KeyPointFileHandler _fileHandler;
         private List<KeyPoint> _keyPoints;
 
-        public KeyPointRepository()
+        public KeyPointRepo()
         {
             _fileHandler = new KeyPointFileHandler();
             _keyPoints = _fileHandler.Load();

@@ -1,4 +1,6 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.FileHandler.CSVManager;
+using SIMSProject.Model.UserModel;
 using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
@@ -8,24 +10,38 @@ using System.Threading.Tasks;
 
 namespace SIMSProject.FileHandler
 {
-    public class TourGuestFileHandler
+    public class TourGuestFileHandler: CSVManager<TourGuest>
     {
         private const string FilePath = "../../../Resources/Data/tourguests.csv";
-        private readonly Serializer<TourGuest> serializer;
 
-        public  TourGuestFileHandler()
+        public  TourGuestFileHandler(): base(FilePath)
         {
-            serializer = new Serializer<TourGuest>();
         }
 
         public List<TourGuest> Load()
         {
-            return serializer.FromCSV(FilePath);
+            return FromCSV();
         }
 
         public void Save(List<TourGuest> tourGuests)
         {
-            serializer.ToCSV(FilePath, tourGuests);
+            ToCSV(tourGuests);
+        }
+
+        protected override TourGuest ParseItemFromCSV(string[] values)
+        {
+            TourGuest tourGuest = new();
+            tourGuest.AppointmentId = Convert.ToInt32(values[0]);
+            tourGuest.GuestId = Convert.ToInt32(values[1]);
+            tourGuest.GuestStatus = (GuestAttendance)Enum.Parse(typeof(GuestAttendance), values[2]);
+            tourGuest.JoinedKeyPointId = Convert.ToInt32(values[3]);
+            return tourGuest;
+        }
+
+        protected override string[] ParseItemToCsv(TourGuest tourGuest)
+        {
+            string[] csvValues = { tourGuest.AppointmentId.ToString(), tourGuest.GuestId.ToString(), tourGuest.GuestStatus.ToString(), tourGuest.JoinedKeyPointId.ToString() };
+            return csvValues;
         }
     }
 }

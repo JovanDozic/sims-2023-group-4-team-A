@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 namespace SIMSProject.Domain.Models.TourModels
 {
     public enum Status { ACTIVE = 0, INACTIVE, COMPLETED, CANCELED }
-    public class TourAppointment : ISerializable
+    public class TourAppointment
     {
         public int Id { get; set; }
         public int CurrentKeyPointId { get; set; }
@@ -43,26 +43,6 @@ namespace SIMSProject.Domain.Models.TourModels
         public override string ToString()
         {
             return $"{Date}, {TourStatus}";
-        }
-        public void FromCSV(string[] values)
-        {
-            Id = Convert.ToInt32(values[0]);
-            Date = DateTime.Parse(values[1]);
-            TourId = Convert.ToInt32(values[2]);
-            TourStatus = (Status)Enum.Parse(typeof(Status), values[3]);
-            AvailableSpots = Convert.ToInt32(values[4]);
-            CurrentKeyPointId = Convert.ToInt32(values[5]);
-        }
-
-        public string[] ToCSV()
-        {
-            string[] csvValues = { Id.ToString(),
-                Date.ToString("dd.MM.yyyy HH:mm:ss"),
-                TourId.ToString(),
-                TourStatus.ToString(),
-                AvailableSpots.ToString(),
-                CurrentKeyPointId.ToString() };
-            return csvValues;
         }
     }
 }

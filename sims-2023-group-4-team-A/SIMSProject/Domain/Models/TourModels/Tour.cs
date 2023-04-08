@@ -17,7 +17,7 @@ namespace SIMSProject.Domain.Models.TourModels
 {
     public enum Language { ENGLISH = 0, SERBIAN, SPANISH, FRENCH };
 
-    public class Tour : ISerializable
+    public class Tour
     {
         public int Id;
         public int GuideId;
@@ -49,22 +49,8 @@ namespace SIMSProject.Domain.Models.TourModels
             LocationId = locationId;
             GuideId = guideId;
         }
-
-        public void FromCSV(string[] values)
-        {
-            Id = Convert.ToInt32(values[0]);
-            Name = values[1];
-            Description = values[2];
-            TourLanguage = (Language)Enum.Parse(typeof(Language), values[3]);
-            MaxGuestNumber = Convert.ToInt32(values[4]);
-            Duration = Convert.ToInt32(values[5]);
-            LocationId = Convert.ToInt32(values[6]);
-            GuideId = Convert.ToInt32(values[7]);
-            string[] ImageURLs = values[8].Split(',');
-            Images.AddRange(ImageURLs);
-
-        }
-        private StringBuilder CreateImageURLs()
+        
+        public StringBuilder CreateImageURLs()
         {
             StringBuilder imageURLs = new();
             foreach (string imageURL in Images)
@@ -73,21 +59,6 @@ namespace SIMSProject.Domain.Models.TourModels
             }
             imageURLs.Remove(imageURLs.Length - 1, 1);
             return imageURLs;
-        }
-        public string[] ToCSV()
-        {
-            StringBuilder imageURLs = CreateImageURLs();
-            string[] csvValues = {
-                Id.ToString(),
-                Name,
-                Description,
-                TourLanguage.ToString(),
-                MaxGuestNumber.ToString(),
-                Duration.ToString(),
-                LocationId.ToString(),
-                GuideId.ToString(),
-                imageURLs.ToString() };
-            return csvValues;
         }
 
         /*Validation*/

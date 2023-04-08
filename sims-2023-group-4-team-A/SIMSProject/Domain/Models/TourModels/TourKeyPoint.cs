@@ -8,7 +8,7 @@ using SIMSProject.Model.UserModel;
 
 namespace SIMSProject.Domain.Models.TourModels
 {
-    public class TourKeyPoint : ISerializable
+    public class TourKeyPoint
     {
         public int TourId { get; set; }
         public int KeyPointId { get; set; }
@@ -22,18 +22,6 @@ namespace SIMSProject.Domain.Models.TourModels
         {
             TourId = tourId;
             KeyPointId = keyPointId;
-        }
-
-        public string[] ToCSV()
-        {
-            string[] csvValues = { TourId.ToString(), KeyPointId.ToString() };
-            return csvValues;
-        }
-
-        public void FromCSV(string[] values)
-        {
-            TourId = Convert.ToInt32(values[0]);
-            KeyPointId = Convert.ToInt32(values[1]);
         }
     }
 }

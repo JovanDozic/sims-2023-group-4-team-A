@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
-    public class TourKeyPointRepository: ITourKeyPointRepo
+    public class TourKeyPointRepo: ITourKeyPointRepo
     {
         private readonly TourKeyPointFileHandler _fileHandler;
         private List<TourKeyPoint> _tourKeyPoints;
 
-        public TourKeyPointRepository()
+        public TourKeyPointRepo()
         {
             _fileHandler = new TourKeyPointFileHandler();
             _tourKeyPoints = _fileHandler.Load();

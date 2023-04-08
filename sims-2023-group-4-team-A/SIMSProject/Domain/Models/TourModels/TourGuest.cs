@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace SIMSProject.Domain.Models.TourModels
 {
     public enum GuestAttendance { ABSENT = 0, PENDING, PRESENT }
-    public class TourGuest : ISerializable
+    public class TourGuest
     {
         public int AppointmentId { get; set; }
         public int GuestId { get; set; }
@@ -31,21 +31,6 @@ namespace SIMSProject.Domain.Models.TourModels
             GuestId = guestId;
             JoinedKeyPointId = keypoint;
         }
-
-        public string[] ToCSV()
-        {
-            string[] csvValues = { AppointmentId.ToString(), GuestId.ToString(), GuestStatus.ToString(), JoinedKeyPointId.ToString() };
-            return csvValues;
-        }
-
-        public void FromCSV(string[] values)
-        {
-            AppointmentId = Convert.ToInt32(values[0]);
-            GuestId = Convert.ToInt32(values[1]);
-            GuestStatus = (GuestAttendance)Enum.Parse(typeof(GuestAttendance), values[2]);
-            JoinedKeyPointId = Convert.ToInt32(values[3]);
-        }
-
         public override string ToString()
         {
             return $"{Guest.Username}, {GuestStatus}";

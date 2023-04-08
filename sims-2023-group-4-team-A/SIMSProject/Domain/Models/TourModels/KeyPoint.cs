@@ -14,7 +14,7 @@ using SIMSProject.Model;
 
 namespace SIMSProject.Domain.Models.TourModels
 {
-    public class KeyPoint : ISerializable, INotifyPropertyChanged
+    public class KeyPoint : INotifyPropertyChanged
     {
         public int Id { get; set; }
 
@@ -70,19 +70,6 @@ namespace SIMSProject.Domain.Models.TourModels
         public override string ToString()
         {
             return $"{Description} {Location}";
-        }
-
-        public string[] ToCSV()
-        {
-            string[] csvValues = { Id.ToString(), Description, LocationId.ToString() };
-            return csvValues;
-        }
-
-        public void FromCSV(string[] values)
-        {
-            Id = Convert.ToInt32(values[0]);
-            Description = values[1];
-            LocationId = Convert.ToInt32(values[2]);
         }
     }
 }

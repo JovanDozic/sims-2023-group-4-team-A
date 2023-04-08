@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.FileHandler.CSVManager;
 using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
@@ -8,24 +9,38 @@ using System.Threading.Tasks;
 
 namespace SIMSProject.FileHandler
 {
-    public class VoucherFileHandler
+    public class VoucherFileHandler: CSVManager<Voucher>
     {
         private const string FilePath = "../../../Resources/Data/tourvoucher.csv";
-        private readonly Serializer<Voucher> serializer;
 
-        public VoucherFileHandler()
+        public VoucherFileHandler(): base(FilePath)
         {
-            serializer = new Serializer<Voucher>();
         }
 
         public List<Voucher> Load()
         {
-            return serializer.FromCSV(FilePath);
+            return FromCSV();
         }
 
-        public void Save(List<Voucher> voucher)
+        public void Save(List<Voucher> vouchers)
         {
-            serializer.ToCSV(FilePath, voucher);
+            ToCSV(vouchers);
+        }
+
+        protected override Voucher ParseItemFromCSV(string[] values)
+        {
+            Voucher voucher = new();
+            voucher.Id = Convert.ToInt32(values[0]);
+            voucher.GuestId = Convert.ToInt32(values[1]);
+            voucher.Reason = (ObtainingReason)Enum.Parse(typeof(ObtainingReason), values[2]);
+            voucher.Expiration = DateTime.Parse(values[3]);
+            return voucher;
+        }
+
+        protected override string[] ParseItemToCsv(Voucher voucher)
+        {
+            string[] csvValues = { voucher.Id.ToString(), voucher.GuestId.ToString(), voucher.Reason.ToString(), voucher.Expiration.ToString() };
+            return csvValues;
         }
     }
 }

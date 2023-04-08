@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
-    public class VoucherRepository: IVoucherRepo
+    public class VoucherRepo: IVoucherRepo
     {
         private readonly VoucherFileHandler _fileHandler;
         private List<Voucher> _vouchers;
 
-        public VoucherRepository()
+        public VoucherRepo()
         {
             _fileHandler = new();
             _vouchers = _fileHandler.Load();

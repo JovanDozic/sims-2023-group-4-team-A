@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMSProject.Application.Services.TourServices
+namespace SIMSProject.Application1.Services.TourServices
 {
     public class VoucherSevice
     {
-        private readonly VoucherRepository _voucherRepository;
+        private readonly VoucherRepo _voucherRepository;
 
         public VoucherSevice()
         {
