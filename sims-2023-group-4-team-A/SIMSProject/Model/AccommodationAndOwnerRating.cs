@@ -37,6 +37,18 @@ namespace SIMSProject.Model
                 OnPropertyChanged();
             }
         }
+        private int _kindness = 1;
+        public int Kindness
+        {
+            get => _kindness;
+            set
+            {
+                if (value == _kindness || value is < 1 or > 5) return;
+                _kindness = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         private string _comment = string.Empty;
         public string Comment
@@ -78,6 +90,10 @@ namespace SIMSProject.Model
                     OnPropertyChanged();
                 }
             }
+        }
+
+        public AccommodationAndOwnerRating()
+        {
         }
 
         public AccommodationAndOwnerRating(int id, AccommodationReservation accommodationReservation, int cleanlinessRating, int ownerCorrectness, string comment, List<string> imageURLs, string imageURLsCSV)

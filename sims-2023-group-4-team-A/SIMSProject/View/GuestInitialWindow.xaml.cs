@@ -26,5 +26,11 @@ namespace SIMSProject.View
             ShowAndSearchTours window = new(User);
             window.Show();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new AccommodationAndOwnerRating(User);
+            window.Show();
+        }
     }
 }

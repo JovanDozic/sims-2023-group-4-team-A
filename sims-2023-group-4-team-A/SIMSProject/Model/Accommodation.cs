@@ -18,6 +18,8 @@ namespace SIMSProject.Model
     {
         public int Id { get; set; }
         public Owner Owner { get; set; } = new();
+        public string NameAndOwnerName => $"{Name}, {Owner.Username}";
+
         private string _name = string.Empty;
         public string Name
         {
