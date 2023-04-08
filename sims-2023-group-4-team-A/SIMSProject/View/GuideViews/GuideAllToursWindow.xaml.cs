@@ -23,15 +23,12 @@ namespace SIMSProject.View.GuideViews
     public partial class GuideAllToursWindow : Window
     {
         public ToursViewModel ToursViewModel { get; set; } = new();
-        public ObservableCollection<Tour> AllTours { get; set; }
         public Tour SelectedTour { get; set; } = new();
 
         public GuideAllToursWindow()
         {
             InitializeComponent();
             this.DataContext = ToursViewModel;
-
-            AllTours = new(GuideInitialWindow.tourController.GetAll());
 
         }
 

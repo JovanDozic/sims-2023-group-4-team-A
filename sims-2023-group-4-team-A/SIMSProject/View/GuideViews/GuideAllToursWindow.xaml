@@ -21,13 +21,13 @@
                 Margin="20,0,0,0"
                 Click="Show_all_appointmentsBTN_Click"/>
         <DataGrid Grid.Row="0" 
-                  ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding Path= Tours, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
                   Height="150">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv ture" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Naziv ture" Binding="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Lokacija" Binding="{Binding Location}"/>
             </DataGrid.Columns>
         </DataGrid>
