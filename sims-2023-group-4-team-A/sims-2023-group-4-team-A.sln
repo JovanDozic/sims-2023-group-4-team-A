@@ -5,8 +5,6 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIMSProject", "SIMSProject\SIMSProject.csproj", "{02D0C455-B507-4DCF-9E5F-78A3AF99EFC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DI_Example", "DI_Example\DI_Example.csproj", "{34812E7F-43E8-4E97-971A-1D146BECE474}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{02D0C455-B507-4DCF-9E5F-78A3AF99EFC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02D0C455-B507-4DCF-9E5F-78A3AF99EFC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02D0C455-B507-4DCF-9E5F-78A3AF99EFC6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{34812E7F-43E8-4E97-971A-1D146BECE474}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{34812E7F-43E8-4E97-971A-1D146BECE474}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{34812E7F-43E8-4E97-971A-1D146BECE474}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{34812E7F-43E8-4E97-971A-1D146BECE474}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
