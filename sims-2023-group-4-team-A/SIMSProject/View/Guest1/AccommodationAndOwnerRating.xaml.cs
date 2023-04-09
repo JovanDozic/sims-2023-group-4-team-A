@@ -54,7 +54,7 @@ namespace SIMSProject.View.Guest1
         {
             foreach(var reservation in AccommodationReservationController.GetAll())
             {
-                if(reservation.EndDate < DateTime.Today)
+                if(reservation.EndDate < DateTime.Today && !reservation.Canceled)
                 {
                    Reservations.Add(reservation);
                 }
