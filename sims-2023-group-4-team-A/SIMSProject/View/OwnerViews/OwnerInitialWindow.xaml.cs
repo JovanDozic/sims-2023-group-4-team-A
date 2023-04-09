@@ -122,8 +122,8 @@ namespace SIMSProject.View.OwnerViews
         private void LogOut_Click(object sender, RoutedEventArgs e)
         {
             User = null;
-            SignInForm window = new();
-            window.Show();
+            //SignInForm window = new();
+            //window.Show();
             Close();
         }
 
