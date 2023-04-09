@@ -1,5 +1,5 @@
-﻿using SIMSProject.Model;
-using SIMSProject.Model.UserModel;
+﻿using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.Model;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;

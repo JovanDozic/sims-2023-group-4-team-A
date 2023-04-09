@@ -17,7 +17,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using SIMSProject.Model.UserModel;
+using SIMSProject.Domain.Models.UserModels;
 
 namespace SIMSProject.View.GuideViews
 {

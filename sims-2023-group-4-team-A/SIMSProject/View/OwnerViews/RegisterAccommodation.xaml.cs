@@ -4,8 +4,8 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using SIMSProject.Controller;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Model;
-using SIMSProject.Model.UserModel;
 
 namespace SIMSProject.View.OwnerViews
 {

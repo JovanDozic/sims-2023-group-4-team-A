@@ -9,7 +9,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using SIMSProject.FileHandler;
-using SIMSProject.Model.UserModel;
+using SIMSProject.Domain.Models.UserModels;
+
 
 namespace SIMSProject.Model
 {

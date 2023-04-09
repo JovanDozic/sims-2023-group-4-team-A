@@ -1,4 +1,4 @@
-﻿<Window x:Class="SIMSProject.WPF.Views.SignInForm"
+﻿<Window x:Class="SIMSProject.WPF.Views.SignInView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -28,17 +28,18 @@
 
             <TextBox x:Name="TxtUsername" Grid.Row="0" Grid.Column="1" FontSize="16" Padding="5,0,0,0"
                      VerticalContentAlignment="Center" VerticalAlignment="Center"
-                     Margin="5,9,5,9" Height="30" />
+                     Margin="5,9,5,9" Height="30"
+                     Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
             <PasswordBox x:Name="TxtPassword" Grid.Row="1" Grid.Column="1" FontSize="16" Padding="5,0,0,0"
                          VerticalContentAlignment="Center" VerticalAlignment="Center"
                          Margin="5,9,5,9" Height="30" />
         </Grid>
 
-        <Button x:Name="BTNSignIn" Content="Uloguj se" Margin="5,9,0,9"
+        <Button x:Name="BtnSignIn" Content="Uloguj se" Margin="5,9,0,9"
                 FontSize="16" Padding="15,3,15,3"
                 Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top"
-                Width="120" Height="35" Click="SignIn" />
+                Width="120" Height="35" Click="BtnSignIn_Click" />
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

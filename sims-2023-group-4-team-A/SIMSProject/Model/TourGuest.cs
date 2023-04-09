@@ -5,10 +5,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using SIMSProject.Model.UserModel;
 using System.Threading.Tasks;
-
-
+using SIMSProject.Domain.Models.UserModels;
 
 namespace SIMSProject.Model
 {

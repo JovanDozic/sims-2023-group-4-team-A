@@ -1,9 +1,9 @@
-﻿using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
-using SIMSProject.Model.UserModel;
+﻿using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using System;
 using System.Linq;
 
-namespace SIMSProject.Application1.Services
+namespace SIMSProject.Application.Services
 {
     public class UserService
     {

@@ -14,11 +14,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SIMSProject.Model;
 using SIMSProject.Observer;
-using SIMSProject.Model.UserModel;
 using SIMSProject.Controller;
 using System.Globalization;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SIMSProject.Domain.Models.UserModels;
 
 namespace SIMSProject.View.Guest1
 {

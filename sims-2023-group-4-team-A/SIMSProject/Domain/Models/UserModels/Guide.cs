@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using SIMSProject.Model;
 using SIMSProject.Serializer;
 
-namespace SIMSProject.Model.UserModel
+namespace SIMSProject.Domain.Models.UserModels
 {
-    public class Guest : User, ISerializable
+    public class Guide : User, ISerializable
     {
         private double _rating;
         public double Rating
@@ -19,24 +20,23 @@ namespace SIMSProject.Model.UserModel
                 }
             }
         }
+
+        public List<Tour> Tours { get; set; } = new();
         public List<TourReservation> TourReservations { get; set; } = new();
         public List<AccommodationReservation> AccommodationReservations { get; set; } = new();
-        public List<Voucher> Vouchers { get; set; } = new();
 
-        public Guest()
+        public Guide()
         {
         }
 
-        public Guest(int id, string username, string password, double rating = 0)
+        public Guide(int id, string username, string password, double rating)
         {
             Id = id;
             Username = username;
             Password = password;
-            _role = USER_ROLE.GUEST;
             Rating = rating;
-            TourReservations = new List<TourReservation>();
-            AccommodationReservations = new List<AccommodationReservation>();
-            Vouchers = new List<Voucher>();
+            _role = USER_ROLE.GUIDE;
+            Rating = rating;
         }
 
         public override string ToString()
@@ -44,7 +44,7 @@ namespace SIMSProject.Model.UserModel
             return $"{Username}";
         }
 
-        public string[] ToCSV()
+        public new string[] ToCSV()
         {
             string[] csvValues =
             {
@@ -57,7 +57,7 @@ namespace SIMSProject.Model.UserModel
             return csvValues;
         }
 
-        public void FromCSV(string[] values)
+        public new void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
             Username = values[1];

@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using SIMSProject.Controller;
-using SIMSProject.Model.UserModel;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Serializer;
 
 namespace SIMSProject.Model

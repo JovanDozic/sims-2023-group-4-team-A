@@ -5,8 +5,8 @@ using System.Windows;
 using System.Windows.Controls;
 using SIMSProject.Controller;
 using SIMSProject.Controller.UserController;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Model;
-using SIMSProject.Model.UserModel;
 
 namespace SIMSProject.View.OwnerViews
 {
@@ -122,7 +122,7 @@ namespace SIMSProject.View.OwnerViews
         private void LogOut_Click(object sender, RoutedEventArgs e)
         {
             User = null;
-            //SignInForm window = new();
+            //SignInView window = new();
             //window.Show();
             Close();
         }

@@ -2,7 +2,7 @@
 using System.Linq;
 using SIMSProject.FileHandler;
 using SIMSProject.FileHandler.UserFileHandler;
-using SIMSProject.Model.UserModel;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Observer;
 
 namespace SIMSProject.Model.DAO

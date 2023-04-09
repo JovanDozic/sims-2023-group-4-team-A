@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace SIMSProject.Model.UserModel
+namespace SIMSProject.Domain.Models.UserModels
 {
     public enum USER_ROLE
     {

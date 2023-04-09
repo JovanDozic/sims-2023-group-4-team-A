@@ -1,6 +1,6 @@
-﻿using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
+﻿using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using SIMSProject.FileHandler.UserFileHandler;
-using SIMSProject.Model.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

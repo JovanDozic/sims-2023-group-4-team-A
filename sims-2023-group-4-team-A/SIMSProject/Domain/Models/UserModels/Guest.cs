@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using SIMSProject.Model;
 using SIMSProject.Serializer;
 
-namespace SIMSProject.Model.UserModel
+namespace SIMSProject.Domain.Models.UserModels
 {
-    public class Owner : User, ISerializable
+    public class Guest : User, ISerializable
     {
         private double _rating;
         public double Rating
@@ -19,31 +20,29 @@ namespace SIMSProject.Model.UserModel
                 }
             }
         }
-        private List<Accommodation> _accommodations = new();
-        public List<Accommodation> Accommodations
-        {
-            get => _accommodations;
-            set
-            {
-                if (value != _accommodations)
-                {
-                    _accommodations = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public List<TourReservation> TourReservations { get; set; } = new();
+        public List<AccommodationReservation> AccommodationReservations { get; set; } = new();
+        public List<Voucher> Vouchers { get; set; } = new();
 
-        public Owner()
+        public Guest()
         {
         }
 
-        public Owner(int id, string username, string password, double rating = 0)
+        public Guest(int id, string username, string password, double rating = 0)
         {
             Id = id;
             Username = username;
             Password = password;
-            _role = USER_ROLE.OWNER;
+            _role = USER_ROLE.GUEST;
             Rating = rating;
+            TourReservations = new List<TourReservation>();
+            AccommodationReservations = new List<AccommodationReservation>();
+            Vouchers = new List<Voucher>();
+        }
+
+        public override string ToString()
+        {
+            return $"{Username}";
         }
 
         public string[] ToCSV()

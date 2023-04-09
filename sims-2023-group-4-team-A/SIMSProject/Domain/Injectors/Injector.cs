@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using SIMSProject.Application1.Services;
+using SIMSProject.Application.Services;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using SIMSProject.Repositories.AccommodationRepositories;
@@ -8,9 +8,9 @@ using System;
 
 namespace SIMSProject.Domain.Injectors
 {
-    public static class AppInjector
+    public static class Injector
     {
-        public static IServiceProvider Configure()
+        private static IServiceProvider Configure()
         {
             var services = new ServiceCollection();
 
@@ -19,6 +19,11 @@ namespace SIMSProject.Domain.Injectors
             services.AddScoped<UserService>();
 
             return services.BuildServiceProvider();
+        }
+
+        public static T GetService<T>()
+        {
+            return Configure().GetService<T>() ?? throw new Exception("Dependency Injection Failed.");
         }
     }
 }

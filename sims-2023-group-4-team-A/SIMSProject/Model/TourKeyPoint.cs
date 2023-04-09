@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SIMSProject.Model.UserModel;
+using SIMSProject.Domain.Models.UserModels;
 
 namespace SIMSProject.Model
 {

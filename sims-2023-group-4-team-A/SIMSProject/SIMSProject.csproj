@@ -56,6 +56,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Model\UserModel\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 

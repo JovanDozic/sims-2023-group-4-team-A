@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using SIMSProject.Model;
 using SIMSProject.Serializer;
 
-namespace SIMSProject.Model.UserModel
+namespace SIMSProject.Domain.Models.UserModels
 {
-    public class Guide : User, ISerializable
+    public class Owner : User, ISerializable
     {
         private double _rating;
         public double Rating
@@ -19,31 +20,34 @@ namespace SIMSProject.Model.UserModel
                 }
             }
         }
+        private List<Accommodation> _accommodations = new();
+        public List<Accommodation> Accommodations
+        {
+            get => _accommodations;
+            set
+            {
+                if (value != _accommodations)
+                {
+                    _accommodations = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
-        public List<Tour> Tours { get; set; } = new();
-        public List<TourReservation> TourReservations { get; set; } = new();
-        public List<AccommodationReservation> AccommodationReservations { get; set; } = new();
-
-        public Guide()
+        public Owner()
         {
         }
 
-        public Guide(int id, string username, string password, double rating)
+        public Owner(int id, string username, string password, double rating = 0)
         {
             Id = id;
             Username = username;
             Password = password;
-            Rating = rating;
-            _role = USER_ROLE.GUIDE;
+            _role = USER_ROLE.OWNER;
             Rating = rating;
         }
 
-        public override string ToString()
-        {
-            return $"{Username}";
-        }
-
-        public new string[] ToCSV()
+        public string[] ToCSV()
         {
             string[] csvValues =
             {
@@ -56,7 +60,7 @@ namespace SIMSProject.Model.UserModel
             return csvValues;
         }
 
-        public new void FromCSV(string[] values)
+        public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
             Username = values[1];

@@ -1,6 +1,6 @@
 ﻿using SIMSProject.Controller;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Model;
-using SIMSProject.Model.UserModel;
 using SIMSProject.Observer;
 using System.Collections.ObjectModel;
 using System.Windows;

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.FileHandler;
 using SIMSProject.FileHandler.UserFileHandler;
-using SIMSProject.Model.UserModel;
 using SIMSProject.Observer;
 
 namespace SIMSProject.Model.DAO

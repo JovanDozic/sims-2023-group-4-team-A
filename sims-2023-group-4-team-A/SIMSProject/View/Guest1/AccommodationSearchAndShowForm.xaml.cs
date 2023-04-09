@@ -18,7 +18,7 @@ using System.Collections.ObjectModel;
 using SIMSProject.View.Guest1;
 using System.Runtime.CompilerServices;
 using System.ComponentModel;
-using SIMSProject.Model.UserModel;
+using SIMSProject.Domain.Models.UserModels;
 
 namespace SIMSProject.View.Guest1
 {

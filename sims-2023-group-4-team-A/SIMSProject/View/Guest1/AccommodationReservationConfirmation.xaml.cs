@@ -12,10 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SIMSProject.Model;
-using SIMSProject.Model.UserModel;
 using SIMSProject.Controller;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SIMSProject.Domain.Models.UserModels;
 
 namespace SIMSProject.View.Guest1
 {

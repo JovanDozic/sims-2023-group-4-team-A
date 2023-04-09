@@ -3,8 +3,8 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using SIMSProject.Controller;
 using SIMSProject.Controller.UserController;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Model;
-using SIMSProject.Model.UserModel;
 
 namespace SIMSProject.View.OwnerViews
 {
