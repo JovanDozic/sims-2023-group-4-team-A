@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Orientation="Vertical">
-        <Grid Height="90" Margin="10,0,0,70">
+        <Grid Height="90" Margin="10,10,0,70">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
@@ -33,9 +33,9 @@
             </Grid.RowDefinitions>
 
             <TextBox Grid.ColumnSpan="2" Width="391" Height="61"></TextBox>
-            <Label Grid.Row="1" Content="Broj gostiju:" FontSize="30"></Label>
-            <custom:NumericTextBox Grid.Row="2" HorizontalAlignment="Left"></custom:NumericTextBox>
-            <custom:NumericTextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center"></custom:NumericTextBox>
+            <Label Content="Broj gostiju:" FontSize="30" HorizontalAlignment="Left" Margin="-6,4,0,58" Grid.RowSpan="2" Grid.Row="1"/>
+            <custom:NumericBox Grid.Row="1" Grid.ColumnSpan="2" Margin="0,58,195,4" Grid.RowSpan="2"></custom:NumericBox>
+            <custom:NumericBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="60,58,0,4" Grid.RowSpan="2"></custom:NumericBox>
             <Label Grid.Row="1" Grid.Column="1" Content="Broj dana:" FontSize="30" HorizontalAlignment="Right"></Label>
             <Button Background="#0c669f" Foreground="White" Content="Pretraži" FontSize="30" Grid.Row="3" Grid.ColumnSpan="2" Width="391" Height="61"></Button>
         </Grid>
