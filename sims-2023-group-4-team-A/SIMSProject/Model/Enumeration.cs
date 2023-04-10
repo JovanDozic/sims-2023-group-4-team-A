@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SIMSProject.Model
+﻿namespace SIMSProject.Model
 {
     public enum AccommodationType
     {
@@ -13,8 +6,13 @@ namespace SIMSProject.Model
         House,
         Hut
     }
-
-
-
-
+    public enum UserRole
+    {
+        Owner = 0,
+        Guide,
+        Guest,
+        SuperOwner,
+        SuperGuide,
+        SuperGuest
+    }
 }

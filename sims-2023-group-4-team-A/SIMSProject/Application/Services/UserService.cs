@@ -1,5 +1,6 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
+using SIMSProject.Model;
 using System;
 using System.Linq;
 
@@ -8,6 +9,7 @@ namespace SIMSProject.Application.Services
     public class UserService
     {
         private readonly IUserRepo _repo;
+
         public UserService(IUserRepo repo)
         {
             _repo = repo;
@@ -22,11 +24,11 @@ namespace SIMSProject.Application.Services
 
             switch (user.Role)
             {
-                case "Vlasnik":
+                case UserRole.Owner or UserRole.SuperOwner:
                     return user as Owner;
-                case "Vodič":
+                case UserRole.Guide or UserRole.SuperGuide:
                     return user as Guide;
-                case "Gost":
+                case UserRole.Guest or UserRole.SuperGuest:
                     return user as Guest;
             }
             return null;

@@ -19,6 +19,7 @@ using System.Globalization;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.Domain.Models.AccommodationModels;
 
 namespace SIMSProject.View.Guest1
 {

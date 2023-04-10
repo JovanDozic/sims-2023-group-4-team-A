@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using SIMSProject.Controller;
 using SIMSProject.Controller.UserController;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Model;
 

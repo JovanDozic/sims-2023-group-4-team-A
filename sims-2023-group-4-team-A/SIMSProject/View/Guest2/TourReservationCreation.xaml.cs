@@ -1,5 +1,6 @@
 ﻿using SIMSProject.Controller;
 using SIMSProject.Controller.UserController;
+using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Model;
 using SIMSProject.Model.DAO.UserModelDAO;

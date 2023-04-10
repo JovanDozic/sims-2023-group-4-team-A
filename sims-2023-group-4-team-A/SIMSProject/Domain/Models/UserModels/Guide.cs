@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Model;
 using SIMSProject.Serializer;
 
@@ -7,20 +8,7 @@ namespace SIMSProject.Domain.Models.UserModels
 {
     public class Guide : User, ISerializable
     {
-        private double _rating;
-        public double Rating
-        {
-            get => _rating;
-            set
-            {
-                if (_rating != value)
-                {
-                    _rating = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
+        public double Rating { get; set; }
         public List<Tour> Tours { get; set; } = new();
         public List<TourReservation> TourReservations { get; set; } = new();
         public List<AccommodationReservation> AccommodationReservations { get; set; } = new();
@@ -35,7 +23,7 @@ namespace SIMSProject.Domain.Models.UserModels
             Username = username;
             Password = password;
             Rating = rating;
-            _role = USER_ROLE.GUIDE;
+            Role = UserRole.Guide;
             Rating = rating;
         }
 
@@ -44,25 +32,25 @@ namespace SIMSProject.Domain.Models.UserModels
             return $"{Username}";
         }
 
-        public new string[] ToCSV()
+        public string[] ToCSV()
         {
             string[] csvValues =
             {
                 Id.ToString(),
                 Username,
                 Password,
-                Role,
+                GetRole(Role),
                 Math.Round(Rating, 2).ToString()
             };
             return csvValues;
         }
 
-        public new void FromCSV(string[] values)
+        public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
             Username = values[1];
             Password = values[2];
-            Role = values[3];
+            Role = GetRole(values[3]);
             Rating = double.Parse(values[4]);
         }
     }

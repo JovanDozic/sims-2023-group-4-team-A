@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Serializer;
 
 namespace SIMSProject.Model

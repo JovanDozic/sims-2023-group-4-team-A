@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Serializer;
 
 namespace SIMSProject.Model

@@ -1,103 +1,43 @@
-﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using SIMSProject.Model;
 
 namespace SIMSProject.Domain.Models.UserModels
 {
-    public enum USER_ROLE
+    public class User
     {
-        OWNER = 0,
-        GUIDE,
-        GUEST,
-        SUPER_OWNER,
-        SUPER_GUIDE,
-        SUPER_GUEST
-    }
+        public int Id { get; set; }
+        public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public UserRole Role { get; set; }
 
-    public class User : INotifyPropertyChanged
-    {
-        private int _id;
-        public int Id
+        public User()
         {
-            get => _id;
-            set
+
+        }
+
+        public static UserRole GetRole(string role)
+        {
+            return role switch
             {
-                if (_id != value)
-                {
-                    _id = value;
-                    OnPropertyChanged();
-                }
-            }
+                "Vlasnik" => UserRole.Owner,
+                "Vodič" => UserRole.Guide,
+                "Gost" => UserRole.Guest,
+                "Super Vlasnik" => UserRole.SuperOwner,
+                "Super Vodič" => UserRole.SuperGuide,
+                _ => UserRole.SuperGuest
+            };
         }
-        private string _username = string.Empty;
-        public string Username
+
+        public static string GetRole(UserRole role)
         {
-            get => _username;
-            set
+            return role switch
             {
-                if (_username != value)
-                {
-                    _username = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private string _password = string.Empty;
-        public string Password
-        {
-            get => _password;
-            set
-            {
-                if (_password != value)
-                {
-                    _password = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        protected USER_ROLE _role;
-        public string Role
-        {
-            get =>
-                _role switch
-                {
-                    USER_ROLE.OWNER => "Vlasnik",
-                    USER_ROLE.GUIDE => "Vodič",
-                    USER_ROLE.GUEST => "Gost",
-                    USER_ROLE.SUPER_OWNER => "Super Vlasnik",
-                    USER_ROLE.SUPER_GUIDE => "Super Vodič",
-                    _ => "Super Gost"
-                };
-            set
-            {
-                _role = value switch
-                {
-                    "Vlasnik" => USER_ROLE.OWNER,
-                    "Vodič" => USER_ROLE.GUIDE,
-                    "Gost" => USER_ROLE.GUEST,
-                    "Super Vlasnik" => USER_ROLE.SUPER_OWNER,
-                    "Super Vodič" => USER_ROLE.SUPER_GUIDE,
-                    _ => USER_ROLE.SUPER_GUEST
-                };
-                OnPropertyChanged();
-            }
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public string[] ToCSV()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void FromCSV(string[] values)
-        {
-            throw new NotImplementedException();
+                UserRole.Owner => "Vlasnik",
+                UserRole.Guide => "Vodič",
+                UserRole.Guest => "Gost",
+                UserRole.SuperOwner => "Super Vlasnik",
+                UserRole.SuperGuide => "Super Vodič",
+                _ => "Super Gost"
+            };
         }
     }
 }

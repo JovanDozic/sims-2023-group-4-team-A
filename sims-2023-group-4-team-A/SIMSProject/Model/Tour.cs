@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using SIMSProject.Controller;
 using SIMSProject.FileHandler;
 using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.Domain.Models;
 
 public enum Language { ENGLISH = 0, SERBIAN, SPANISH, FRENCH };
 

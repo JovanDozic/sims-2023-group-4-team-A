@@ -48,18 +48,18 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="BTNGoToOwner" Content="Go to owner" Margin="5,9,5,9"
+            <Button x:Name="BtnGoToOwner" Content="Go to owner" Margin="5,9,5,9"
                     FontSize="16"
                     Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"
-                    Width="120" Height="35" BorderBrush="#FFDADADA" Background="#FFFBFBFB" />
-            <Button x:Name="BTNGoToGuest" Content="Go to guest" Margin="5,9,5,9"
+                    Width="120" Height="35" BorderBrush="#FFDADADA" Background="#FFFBFBFB" Click="BtnGoToOwner_Click" />
+            <Button x:Name="BtnGoToGuest" Content="Go to guest" Margin="5,9,5,9"
                     FontSize="16"
                     Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
-                    Width="120" Height="35" BorderBrush="#FFDADADA" Background="#FFFBFBFB" />
-            <Button x:Name="BTNGoToGuide" Content="Go to guide" Margin="5,9,5,9"
+                    Width="120" Height="35" BorderBrush="#FFDADADA" Background="#FFFBFBFB" Click="BtnGoToGuest_Click" />
+            <Button x:Name="BtnGoToGuide" Content="Go to guide" Margin="5,9,5,9"
                     FontSize="16"
                     Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"
-                    Width="120" Height="35" BorderBrush="#FFDADADA" Background="#FFFBFBFB" />
+                    Width="120" Height="35" BorderBrush="#FFDADADA" Background="#FFFBFBFB" Click="BtnGoToGuide_Click" />
         </Grid>
 
     </Grid>

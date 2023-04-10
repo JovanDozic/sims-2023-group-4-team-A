@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SIMSProject.FileHandler;
 using SIMSProject.Domain.Models.UserModels;
-
+using SIMSProject.Domain.Models;
 
 namespace SIMSProject.Model
 {

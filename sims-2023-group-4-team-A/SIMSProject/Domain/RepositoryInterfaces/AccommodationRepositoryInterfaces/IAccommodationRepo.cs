@@ -1,4 +1,4 @@
-﻿using SIMSProject.Model;
+﻿using SIMSProject.Domain.Models.AccommodationModels;
 using System.Collections.Generic;
 
 namespace SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces
@@ -6,7 +6,7 @@ namespace SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfa
     public interface IAccommodationRepo
     {
         public Accommodation GetById(int accommodationId);
-        public List<Accommodation> GetByOwnerId(int ownerId);
+        public List<Accommodation> GetAllByOwnerId(int ownerId);
         public List<Accommodation> GetAll();
         public int NextId();
         public Accommodation Save(Accommodation accommodation);

@@ -4,8 +4,8 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using SIMSProject.Controller;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.Model;
 
 namespace SIMSProject.View.OwnerViews
 {
@@ -47,11 +47,11 @@ namespace SIMSProject.View.OwnerViews
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
             Accommodation.ImageURLsToCSV();
-            if (!Accommodation.IsValid || !Accommodation.Location.IsValid || Accommodation.ImageURLsCSV == string.Empty)
-            {
-                MessageBox.Show("Nisu uneti svi podaci!", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+            //if (!Accommodation.IsValid || !Accommodation.Location.IsValid || Accommodation.ImageURLsCSV == string.Empty)
+            //{
+            //    MessageBox.Show("Nisu uneti svi podaci!", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    return;
+            //}
 
             Accommodation.Owner = User;
             Accommodation.Location = _locationController.Create(Accommodation.Location);

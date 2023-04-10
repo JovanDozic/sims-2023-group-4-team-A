@@ -36,7 +36,7 @@ namespace SIMSProject.View.OwnerViews
 
             User = user;
 
-            // Requests = _requestController.GetAllOnWaitByOwnerId(User.Id);
+            // Requests = _requestController.GetAllOnWaitByOwnerId(_owner.Id);
             Requests = _requestController.GetAllByOwnerId(User.Id);
         }
 

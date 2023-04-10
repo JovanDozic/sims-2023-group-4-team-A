@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Model;
 using SIMSProject.Serializer;
 
@@ -7,35 +8,12 @@ namespace SIMSProject.Domain.Models.UserModels
 {
     public class Owner : User, ISerializable
     {
-        private double _rating;
-        public double Rating
-        {
-            get => _rating;
-            set
-            {
-                if (_rating != value)
-                {
-                    _rating = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private List<Accommodation> _accommodations = new();
-        public List<Accommodation> Accommodations
-        {
-            get => _accommodations;
-            set
-            {
-                if (value != _accommodations)
-                {
-                    _accommodations = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public double Rating { get; set; }
+        public List<Accommodation> Accommodations { get; set; } = new();
 
         public Owner()
         {
+
         }
 
         public Owner(int id, string username, string password, double rating = 0)
@@ -43,7 +21,7 @@ namespace SIMSProject.Domain.Models.UserModels
             Id = id;
             Username = username;
             Password = password;
-            _role = USER_ROLE.OWNER;
+            Role = UserRole.Owner;
             Rating = rating;
         }
 
@@ -54,7 +32,7 @@ namespace SIMSProject.Domain.Models.UserModels
                 Id.ToString(),
                 Username,
                 Password,
-                Role,
+                GetRole(Role),
                 Math.Round(Rating, 2).ToString()
             };
             return csvValues;
@@ -65,7 +43,7 @@ namespace SIMSProject.Domain.Models.UserModels
             Id = int.Parse(values[0]);
             Username = values[1];
             Password = values[2];
-            Role = values[3];
+            Role = GetRole(values[3]);
             Rating = double.Parse(values[4]);
         }
     }

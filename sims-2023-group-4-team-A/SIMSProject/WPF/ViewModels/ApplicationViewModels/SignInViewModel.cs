@@ -1,13 +1,14 @@
 ﻿using SIMSProject.Application.Services;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.View.GuideViews;
-using SIMSProject.View.OwnerViews;
 using SIMSProject.View;
 using System;
 using System.Windows;
 using SIMSProject.Domain.Models.UserModels;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SIMSProject.WPF.Views.OwnerViews;
+using SIMSProject.Model;
 
 namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
 {
@@ -38,7 +39,6 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
             {
                 User? user = _userService.GetUser(Username, password) as User
                              ?? throw new Exception("Dogodila se greška prilikom logovanja.");
-                MessageBox.Show("Ulogovao se: " + user.Username + " i on je " + user.Role, "nista");
                 OpenWindow(user);
             }
             catch (Exception ex)
@@ -52,22 +52,28 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
             if (user == null) return;
             switch (user.Role)
             {
-                case "Vlasnik":
-                    OwnerInitialWindow ownerWindow = new(user as Owner
+                case UserRole.Owner or UserRole.SuperOwner:
+                    OwnerHomeView ownerWindow = new(user as Owner
                         ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
                     ownerWindow.Show();
                     break;
-                case "Vodič":
+                case UserRole.Guide or UserRole.SuperGuide:
                     GuideInitialWindow guideWindow = new(user as Guide
                         ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
                     guideWindow.Show();
                     break;
-                case "Gost":
+                case UserRole.Guest or UserRole.SuperGuest:
                     GuestInitialWindow guestWindow = new(user as Guest
                         ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
                     guestWindow.Show();
                     break;
             }
+        }
+
+        public void DirectSignIn(string username, string password)
+        {
+            Username = username;
+            SignIn(password);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

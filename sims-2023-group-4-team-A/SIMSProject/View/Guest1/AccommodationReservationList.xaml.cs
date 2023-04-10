@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using SIMSProject.Model;
 using SIMSProject.Observer;
 using SIMSProject.Controller;
+using SIMSProject.Domain.Models.AccommodationModels;
 
 namespace SIMSProject.View.Guest1
 {

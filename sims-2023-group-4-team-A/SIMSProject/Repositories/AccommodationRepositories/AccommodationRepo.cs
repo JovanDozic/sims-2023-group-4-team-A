@@ -1,6 +1,7 @@
-﻿using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
+﻿using SIMSProject.Domain.Models.AccommodationModels;
+using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.FileHandler;
-using SIMSProject.Model;
+using SIMSProject.Repositories.UserRepositories;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,7 +16,10 @@ namespace SIMSProject.Repositories.AccommodationRepositories
         {
             _fileHandler = new();
             _accommodations = _fileHandler.Load();
+
             // TODO: call mapping functions
+            MapOwners();
+            MapLocations();
         }
 
         public List<Accommodation> GetAll()
@@ -28,7 +32,7 @@ namespace SIMSProject.Repositories.AccommodationRepositories
             return _accommodations.Find(x => x.Id == accommodationId);
         }
 
-        public List<Accommodation> GetByOwnerId(int ownerId)
+        public List<Accommodation> GetAllByOwnerId(int ownerId)
         { 
             return _accommodations.FindAll(x => x.Owner.Id == ownerId);
         }
@@ -59,15 +63,23 @@ namespace SIMSProject.Repositories.AccommodationRepositories
             _accommodations = accommodations;
         }
 
-        public void MapOwner()
+        public void MapOwners()
         {
-            // TODO: implement
-            
+            OwnerRepo repo = new();
+            foreach (var accommodation in _accommodations)
+            {
+                accommodation.Owner = repo.GetById(accommodation.Owner.Id);
+            }
         }
 
-        public void MapLocation()
+        public void MapLocations()
         {
             // TODO: implement
+            LocationRepo repo = new();
+            foreach (var accommodation in _accommodations)
+            {
+                accommodation.Location = repo.GetById(accommodation.Location.Id);
+            }
         }
     }
 }

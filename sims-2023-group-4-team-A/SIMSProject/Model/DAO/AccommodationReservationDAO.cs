@@ -4,6 +4,7 @@ using SIMSProject.FileHandler;
 using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Observer;
+using SIMSProject.Domain.Models.AccommodationModels;
 
 namespace SIMSProject.Model.DAO
 {
