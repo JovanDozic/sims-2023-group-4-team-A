@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         Title="Main" Height="768" Width="1024">
-    <Grid>
+    <Grid MouseLeftButtonDown="BG_PreviewMouseLeftButtonDown">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
@@ -18,13 +18,13 @@
             <RowDefinition ></RowDefinition>
         </Grid.RowDefinitions>
         <local:MainPage x:Name="MainUserControl" Grid.Row="1"></local:MainPage>
-        <Frame Background="#F2DDF2" x:Name="MainWind" Grid.Row="1" NavigationUIVisibility="Hidden" MouseLeftButtonDown="BG_PreviewMouseLeftButtonDown">
+        <Frame Background="#F2DDF2" x:Name="MainWind" Grid.Row="1" NavigationUIVisibility="Hidden" >
 
         </Frame>
 
 
         <Grid Grid.Row="1" x:Name="OverlayPanel" Visibility="Collapsed">
-            <Grid Background="#000000" Opacity="0.5"></Grid>
+            <Grid Background="#000000" Opacity="0.6"></Grid>
         </Grid>
 
         <Grid Grid.Row="0" Background="#0c669f">
