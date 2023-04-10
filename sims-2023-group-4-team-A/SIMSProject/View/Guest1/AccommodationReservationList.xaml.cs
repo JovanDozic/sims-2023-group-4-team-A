@@ -34,23 +34,30 @@ namespace SIMSProject.View.Guest1
             DataContext = this;
             AccommodationReservationController = new AccommodationReservationController();
             CancelledReservationsNotificationsController = new CancelledReservationsNotificationsController();
-            var reservations = AccommodationReservationController.GetAll().Where(r => !r.Canceled);
+            var reservations = AccommodationReservationController.GetAll().Where(r => !r.Canceled && r.StartDate > DateTime.Today);
             AccommodationReservations = new ObservableCollection<AccommodationReservation>(reservations);
         }
 
         private void Button_Click_Cancellation(object sender, RoutedEventArgs e)
         {
+           
+           
             if (SelectedReservation != null)
             {
                 if(DateTime.Today < SelectedReservation.StartDate.AddHours(-24))
                 {
-                    var reservation = AccommodationReservationController.FindAndCancel(SelectedReservation);
-                    AccommodationReservationController.Update(reservation);
-                    var message = $"Gost {SelectedReservation.Guest.Username} je otkazao rezervaciju {SelectedReservation.Accommodation.Name}({SelectedReservation.StartDate.ToString("dd.MM.yyyy.")} - {SelectedReservation.EndDate.ToString("dd.MM.yyyy.")})";
-                    CancelledReservationsNotifications = new CancelledReservationsNotifications(message, false);
-                    CancelledReservationsNotificationsController.Create(CancelledReservationsNotifications);
-                    MessageBox.Show("Rezervacija je otkazana!");
-                    Close();
+                    MessageBoxResult result = MessageBox.Show("Da li ste sigurni da zelite da otkazete rezervaciju?", "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        var reservation = AccommodationReservationController.FindAndCancel(SelectedReservation);
+                        AccommodationReservationController.Update(reservation);
+                        var message = $"Gost {SelectedReservation.Guest.Username} je otkazao rezervaciju {SelectedReservation.Accommodation.Name}({SelectedReservation.StartDate.ToString("dd.MM.yyyy.")} - {SelectedReservation.EndDate.ToString("dd.MM.yyyy.")})";
+                        CancelledReservationsNotifications = new CancelledReservationsNotifications(message, false);
+                        CancelledReservationsNotificationsController.Create(CancelledReservationsNotifications);
+                        MessageBox.Show("Rezervacija je otkazana!");
+                        Close();
+                    }
+                   
                 }
                 else
                 {
@@ -65,6 +72,18 @@ namespace SIMSProject.View.Guest1
         private void Button_Click_Close(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedReservation != null)
+            {
+                var window = new MovingReservations(SelectedReservation);
+                window.Show();
+            }
+            else
+                MessageBox.Show("Morate da odaberete rezervaciju!");
+            
         }
     }
 }
