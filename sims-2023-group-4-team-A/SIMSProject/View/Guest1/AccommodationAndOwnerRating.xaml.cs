@@ -40,6 +40,7 @@ namespace SIMSProject.View.Guest1
         {
             InitializeComponent();
             DataContext = this;
+            User = user;
             Reservations = new ObservableCollection<AccommodationReservation>();
             AccommodationReservationController = new AccommodationReservationController();
             AccommodationController = new AccommodationController();
@@ -52,13 +53,12 @@ namespace SIMSProject.View.Guest1
 
         public void AddReservationsToCombo()
         {
-            foreach(var reservation in AccommodationReservationController.GetAll())
+            foreach (var reservation in AccommodationReservationController.GetAll())
             {
-                if(reservation.EndDate < DateTime.Today && !reservation.Canceled)
+                if (reservation.EndDate < DateTime.Today && !reservation.Canceled && reservation.Guest.Id == User.Id)
                 {
-                   Reservations.Add(reservation);
+                    Reservations.Add(reservation);
                 }
-
             }
             ReservationsCombo.ItemsSource = Reservations;
         }
