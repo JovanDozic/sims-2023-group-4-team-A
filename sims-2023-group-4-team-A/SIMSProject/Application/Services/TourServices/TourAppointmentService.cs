@@ -17,6 +17,19 @@ namespace SIMSProject.Application1.Services.TourServices
             _repository = new();
         }
 
+
+        public void CreateAppointments(List<TourAppointment> tourAppointments, Tour tour)
+        {
+            foreach(var appointment in tourAppointments)
+            {
+               _repository.Save(appointment, tour);
+            }
+        }
+        public List<TourAppointment> GetAllByTourId(int tourId)
+        {
+            return _repository.GetAll().FindAll(x => x.TourId == tourId && DateTime.Compare(x.Date, DateTime.Now) > 0);
+        }
+
         public void GoToNextKeyPoint(int appointmentId, KeyPoint nextKeyPoint)
         {
             TourAppointment? appointment = _repository.GetById(appointmentId) ?? throw new ArgumentException("Error!Can't find appointment!");
@@ -27,7 +40,7 @@ namespace SIMSProject.Application1.Services.TourServices
 
         private static bool IsCancelable(TourAppointment appointment)
         {
-            return DateTime.Now.AddHours(-48) > appointment.Date;
+            return appointment.Date.AddHours(-48) > DateTime.Now;
         }
 
         public bool CancelAppointment(TourAppointment appointment)

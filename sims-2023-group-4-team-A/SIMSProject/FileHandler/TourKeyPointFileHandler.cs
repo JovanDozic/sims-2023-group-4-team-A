@@ -29,9 +29,11 @@ namespace SIMSProject.FileHandler
 
         protected override TourKeyPoint ParseItemFromCSV(string[] values)
         {
-            TourKeyPoint tourKeyPoint = new();
-            tourKeyPoint.TourId = Convert.ToInt32(values[0]);
-            tourKeyPoint.KeyPointId = Convert.ToInt32(values[1]);
+            TourKeyPoint tourKeyPoint = new()
+            {
+                TourId = Convert.ToInt32(values[0]),
+                KeyPointId = Convert.ToInt32(values[1])
+            };
             return tourKeyPoint;
         }
 

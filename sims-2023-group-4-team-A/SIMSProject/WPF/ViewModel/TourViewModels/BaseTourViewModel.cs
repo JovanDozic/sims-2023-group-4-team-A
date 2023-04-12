@@ -129,6 +129,7 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
                 if (_tour.Guide != value)
                 {
                     _tour.Guide = value;
+                    _tour.GuideId = value.Id;
                     OnPropertyChanged(nameof(Guide));
                 }
             }

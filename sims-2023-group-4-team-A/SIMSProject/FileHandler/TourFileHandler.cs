@@ -33,15 +33,17 @@ namespace SIMSProject.FileHandler
 
         protected override Tour ParseItemFromCSV(string[] values)
         {
-            Tour tour = new();
-            tour.Id = Convert.ToInt32(values[0]);
-            tour.Name = values[1];
-            tour.Description = values[2];
-            tour.TourLanguage = (Language)Enum.Parse(typeof(Language), values[3]);
-            tour.MaxGuestNumber = Convert.ToInt32(values[4]);
-            tour.Duration = Convert.ToInt32(values[5]);
-            tour.LocationId = Convert.ToInt32(values[6]);
-            tour.GuideId = Convert.ToInt32(values[7]);
+            Tour tour = new()
+            {
+                Id = Convert.ToInt32(values[0]),
+                Name = values[1],
+                Description = values[2],
+                TourLanguage = (Language)Enum.Parse(typeof(Language), values[3]),
+                MaxGuestNumber = Convert.ToInt32(values[4]),
+                Duration = Convert.ToInt32(values[5]),
+                LocationId = Convert.ToInt32(values[6]),
+                GuideId = Convert.ToInt32(values[7]),
+            };
             tour.Images.AddRange(values[8].Split(','));
             return tour;
         }

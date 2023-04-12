@@ -97,7 +97,7 @@ namespace SIMSProject.Model.DAO
             tourGuest.JoinedKeyPointId = currentKeyPoint.Id;
         }
 
-        public List<TourGuest> GetGuests(int tourAppointmentId)
+        public List<TourGuest> GetGuests(int tourAppointmentId) //repo
         {
             return _tourGuests.FindAll(x => x.AppointmentId == tourAppointmentId);
         }

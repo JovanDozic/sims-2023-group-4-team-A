@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Properties\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <None Remove="Properties\**" />
+    <Page Remove="Properties\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\checkboxlist.png" />
     <None Remove="Resources\Images\delete.png" />
@@ -47,7 +54,6 @@
 
   <ItemGroup>
     <Folder Include="Commands\TourCommands\TourCreationCommands\" />
-    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

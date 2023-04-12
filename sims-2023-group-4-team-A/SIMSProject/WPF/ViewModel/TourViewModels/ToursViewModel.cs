@@ -11,21 +11,22 @@ using System.Threading.Tasks;
 
 namespace SIMSProject.WPF.ViewModel.TourViewModels
 {
-    public class ToursViewModel: TourCreationViewModel
+    public class ToursViewModel
     {
-        private TourService _tourService = new();
+        private readonly TourService _tourService = new();
 
-        public ObservableCollection<BaseTourViewModel> Tours { get; set; }
+        public ObservableCollection<Tour> Tours { get; set; }
+        public Tour SelectedTour { get; set; } = new();
 
         public ToursViewModel()
         {
-            Tours = new(_tourService.GetTours().Select(x => new BaseTourViewModel(x)));
+            Tours = new(_tourService.GetTours());
         }
 
         public void GetTodaysTours()
         {
             Tours.Clear();
-            Tours = new(_tourService.GetTodaysTours().Select(x => new BaseTourViewModel(x)));
+            Tours = new(_tourService.GetTodaysTours());
         }
     }
 }

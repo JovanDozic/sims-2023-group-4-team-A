@@ -12,7 +12,7 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
 {
     public class TourAppointmentViewMode : INotifyPropertyChanged
     {
-        private readonly TourAppointment _tourAppointment;
+        private readonly TourAppointment? _tourAppointment;
         public int Id { get; set; }
         public int TourId { get; set; }
         public DateTime Date { get; set; }
@@ -79,6 +79,11 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
                 _tourAppointment.Guests = value;
                 OnPropertyChanged(nameof(Guests));
             }
+        }
+
+        public TourAppointmentViewMode()
+        {
+            _tourAppointment = new();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

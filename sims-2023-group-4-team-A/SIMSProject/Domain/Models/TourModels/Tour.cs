@@ -19,15 +19,15 @@ namespace SIMSProject.Domain.Models.TourModels
 
     public class Tour
     {
-        public int Id;
-        public int GuideId;
-        public int LocationId;
+        public int Id { get; set; }
+        public int GuideId { get; set; }
+        public int LocationId { get; set; }
 
-        public string Name = string.Empty;
-        public string Description = string.Empty;
-        public Language TourLanguage;
-        public int MaxGuestNumber;
-        public int Duration;
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public Language TourLanguage { get; set; }
+        public int MaxGuestNumber { get; set; }
+        public int Duration { get; set; }
 
         public Guide Guide { get; set; } = new();
         public Location Location { get; set; } = new();

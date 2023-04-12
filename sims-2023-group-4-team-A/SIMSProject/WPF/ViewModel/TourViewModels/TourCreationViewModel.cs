@@ -19,6 +19,8 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
     public class TourCreationViewModel : BaseTourViewModel
     {
         private readonly TourService _tourService = new();
+        private readonly TourAppointmentService _tourAppointmentService = new();
+        private readonly TourKeyPointService  _tourKeyPointService = new();
 
         public new Location Location
         {
@@ -47,7 +49,7 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
         public KeyPoint? SelectedKeyPoint { get; set; }
         public DateTime SelectedAppointment { get; set; } = DateTime.Now;
 
-        public TourCreationViewModel() : base(new())
+        public TourCreationViewModel(Guide guide) : base(new())
         {
             TourLanguages = new()
             {
@@ -56,23 +58,32 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
                 "Francuski",
                 "Španski"
             };
+            Guide = guide;
             AllLocations = new(GuideInitialWindow.locationController.GetAll());
-        }
-
-        public TourCreationViewModel(Tour tour) : base(tour)
-        {
-            TourLanguages = new()
-            {
-                "Srpski",
-                "Engleski",
-                "Francuski",
-                "Španski"
-            };
         }
 
         public void CreateTour()
         {
             _tourService.CreateTour(_tour);
+            _tourAppointmentService.CreateAppointments(_tour.Appointments, _tour);
+            _tourKeyPointService.CreateNewPairs(_tour);
+            MessageBox.Show("Tura uspešno kreirana.");
+
+        }
+
+        public bool IsValid()
+        {
+            return KeyPoints.Count < 2 || Images.Count < 1;
+        }
+
+        public void AddKeyPoint()
+        {
+            if(SelectedKeyPoint == null)
+            {
+                MessageBox.Show("Nije moguće izabrati ključnu tačku koja ne postoji!");
+                return;
+            }
+            KeyPoints.Add(SelectedKeyPoint);
         }
     }
 }

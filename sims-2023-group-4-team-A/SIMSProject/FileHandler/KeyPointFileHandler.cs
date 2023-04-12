@@ -30,10 +30,12 @@ namespace SIMSProject.FileHandler
 
         protected override KeyPoint ParseItemFromCSV(string[] values)
         {
-            KeyPoint keyPoint = new KeyPoint();
-            keyPoint.Id = Convert.ToInt32(values[0]);
-            keyPoint.Description = values[1];
-            keyPoint.LocationId = Convert.ToInt32(values[2]);
+            KeyPoint keyPoint = new()
+            {
+                Id = Convert.ToInt32(values[0]),
+                Description = values[1],
+                LocationId = Convert.ToInt32(values[2])
+            };
             return keyPoint;
         }
 

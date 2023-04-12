@@ -29,11 +29,13 @@ namespace SIMSProject.FileHandler
 
         protected override Voucher ParseItemFromCSV(string[] values)
         {
-            Voucher voucher = new();
-            voucher.Id = Convert.ToInt32(values[0]);
-            voucher.GuestId = Convert.ToInt32(values[1]);
-            voucher.Reason = (ObtainingReason)Enum.Parse(typeof(ObtainingReason), values[2]);
-            voucher.Expiration = DateTime.Parse(values[3]);
+            Voucher voucher = new()
+            {
+                Id = Convert.ToInt32(values[0]),
+                GuestId = Convert.ToInt32(values[1]),
+                Reason = (ObtainingReason)Enum.Parse(typeof(ObtainingReason), values[2]),
+                Expiration = DateTime.Parse(values[3])
+            };
             return voucher;
         }
 

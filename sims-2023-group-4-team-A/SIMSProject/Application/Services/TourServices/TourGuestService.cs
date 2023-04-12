@@ -25,8 +25,6 @@ namespace SIMSProject.Application1.Services.TourServices
             tourGuest.GuestStatus = GuestAttendance.PENDING;
             _repository.SaveAll(_repository.GetAll());
         }
-
-
         public void MakeGuestPresent(int guestId, int tourAppointmentId, KeyPoint currentKeyPoint)
         {
             TourGuest? tourGuest = _repository.GetAll().Find(x => x.GuestId == guestId && x.AppointmentId == tourAppointmentId);
@@ -34,7 +32,11 @@ namespace SIMSProject.Application1.Services.TourServices
 
             tourGuest.JoinedKeyPoint = currentKeyPoint;
             tourGuest.JoinedKeyPointId = currentKeyPoint.Id;
+        }
 
+        public List<TourGuest> GetGuests(TourAppointment appointment)
+        {
+            return _repository.GetGuests(appointment.Id);
         }
     }
 }

@@ -2,6 +2,7 @@
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Model.UserModel;
 using SIMSProject.Observer;
+using SIMSProject.WPF.Views.TourViews.GuideViews;
 using System.Collections.ObjectModel;
 using System.Windows;
 
@@ -10,7 +11,7 @@ namespace SIMSProject.View.GuideViews
     /// <summary>
     /// Interaction logic for GuideInitialWindow.xaml
     /// </summary>
-    public partial class GuideInitialWindow : Window, IObserver
+    public partial class GuideInitialWindow : Window
     {
         public static readonly TourController tourController = new();
         public static readonly KeyPointController keyPointController = new();
@@ -19,27 +20,17 @@ namespace SIMSProject.View.GuideViews
         public static readonly TourGuestController tourGuestController = new();
         public static readonly TourKeyPointController tourKeyPointController = new();
         public Tour SelectedTour { get; set; } = new();
-        public Guide guide { get; set; } = new();
+        public Guide Guide { get; set; } = new();
         public ObservableCollection<Tour> TodaysTours { get; set; } = new ObservableCollection<Tour>();
 
 
         public GuideInitialWindow(Guide guide)
         {
             InitializeComponent();
-            this.DataContext = this;
+            this.Guide = guide;
 
-            this.guide = guide;
+            frame.Content = new AllToursPage();
 
-            tourController.Subscribe(this);
-            DisplayTodaysTours();
-        }
-
-        private void DisplayTodaysTours()
-        {
-            foreach (var tour in tourController.FindTodaysTours())
-            {
-                TodaysTours.Add(tour);
-            }
         }
 
         private void ShowTour_Click(object sender, RoutedEventArgs e)
@@ -50,22 +41,13 @@ namespace SIMSProject.View.GuideViews
 
         private void CreateTour_Click(object sender, RoutedEventArgs e)
         {
-            TourCreation window = new(guide);
+            TourCreation window = new(Guide);
             window.Show();
         }
 
-        public void Update()
+        private void StackPanel_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            UpdateTodaysTours();
-        }
-        private void UpdateTodaysTours()
-        {
-            TodaysTours.Clear();
-            foreach (var tour in tourController.FindTodaysTours())
-            {
-                TodaysTours.Add(tour);
-            }
-        }
 
+        }
     }
 }

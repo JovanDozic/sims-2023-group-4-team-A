@@ -30,13 +30,15 @@ namespace SIMSProject.FileHandler
 
         protected override TourAppointment ParseItemFromCSV(string[] values)
         {
-            TourAppointment tourAppointment = new();
-            tourAppointment.Id = Convert.ToInt32(values[0]);
-            tourAppointment.Date = DateTime.Parse(values[1]);
-            tourAppointment.TourId = Convert.ToInt32(values[2]);
-            tourAppointment.TourStatus = (Status)Enum.Parse(typeof(Status), values[3]);
-            tourAppointment.AvailableSpots = Convert.ToInt32(values[4]);
-            tourAppointment.CurrentKeyPointId = Convert.ToInt32(values[5]);
+            TourAppointment tourAppointment = new()
+            {
+                Id = Convert.ToInt32(values[0]),
+                Date = DateTime.Parse(values[1]),
+                TourId = Convert.ToInt32(values[2]),
+                TourStatus = (Status)Enum.Parse(typeof(Status), values[3]),
+                AvailableSpots = Convert.ToInt32(values[4]),
+                CurrentKeyPointId = Convert.ToInt32(values[5])
+            };
             return tourAppointment;
         }
 
