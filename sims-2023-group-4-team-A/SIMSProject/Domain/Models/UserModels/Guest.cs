@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Model;
 using SIMSProject.Serializer;
 
@@ -8,10 +7,8 @@ namespace SIMSProject.Domain.Models.UserModels
 {
     public class Guest : User, ISerializable
     {
-        private double _rating;
         public double Rating { get; set; }
         public List<TourReservation> TourReservations { get; set; } = new();
-        public List<AccommodationReservation> AccommodationReservations { get; set; } = new();
         public List<Voucher> Vouchers { get; set; } = new();
 
         public Guest()
@@ -26,7 +23,6 @@ namespace SIMSProject.Domain.Models.UserModels
             Role = UserRole.Guest;
             Rating = rating;
             TourReservations = new List<TourReservation>();
-            AccommodationReservations = new List<AccommodationReservation>();
             Vouchers = new List<Voucher>();
         }
 

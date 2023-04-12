@@ -1,23 +1,34 @@
-﻿using SIMSProject.Domain.Models.AccommodationModels;
+﻿using SIMSProject.Domain.Injectors;
+using SIMSProject.Domain.Models.AccommodationModels;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
+using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using SIMSProject.FileHandler;
+using SIMSProject.Model;
+using SIMSProject.Repositories.UserRepositories;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Media;
+using System.Windows;
 
 namespace SIMSProject.Repositories.AccommodationRepositories
 {
     public class AccommodationReservationRepo : IAccommodationReservationRepo
     {
-        private AccommodationReservationFileHandler _fileHandler;
+        private readonly AccommodationReservationFileHandler _fileHandler;
+        private readonly IAccommodationRepo _accommodationRepo;
+        private readonly IGuestRepo _guestRepo;
         private List<AccommodationReservation> _reservations;
 
-        public AccommodationReservationRepo()
+        public AccommodationReservationRepo(IAccommodationRepo accommodationRepo, IGuestRepo guestRepo)
         {
             _fileHandler = new();
             _reservations = _fileHandler.Load();
+            _accommodationRepo = accommodationRepo;
+            _guestRepo = guestRepo;
 
             MapAccommodations();
-            // TODO: call mapping funkcions
+            MapGuests();
         }
 
         public List<AccommodationReservation> GetAll()
@@ -37,14 +48,7 @@ namespace SIMSProject.Repositories.AccommodationRepositories
 
         public int NextId()
         {
-            try
-            {
-                return _reservations.Max(x => x.Id) + 1;
-            }
-            catch
-            {
-                return 1;
-            }
+            return _reservations.Count > 0 ? _reservations.Max(x => x.Id) + 1 : 1;
         }
 
         public AccommodationReservation Save(AccommodationReservation reservation)
@@ -61,26 +65,28 @@ namespace SIMSProject.Repositories.AccommodationRepositories
             _reservations = reservations;
         }
 
-        public void MapAccommodations()
+        public void Update(AccommodationReservation reservation)
         {
-            // TODO: Proveri da li je u redu ovako:
-            AccommodationRepo repo = new AccommodationRepo();
-            foreach (var reservation in _reservations)
-            {
-                reservation.Accommodation = repo.GetById(reservation.Accommodation.Id);
-            }
-
-            // Ili da se koristi FileHandler:
-            //var accommodations = new AccommodationFileHandler().Load();
-            //foreach (var reservation in _reservations)
-            //{
-            //    reservation.Accommodation = accommodations.Find(x => x.Id == reservation.Accommodation.Id) ?? new();
-            //}
+            AccommodationReservation reservationToUpdate = GetById(reservation.Id) ?? throw new System.Exception("Updating accommodation reservation failed!");
+            int index = _reservations.IndexOf(reservationToUpdate);
+            _reservations[index] = reservation;
+            _fileHandler.Save(_reservations);
         }
 
-        public void MapGuests()
+        private void MapAccommodations()
         {
-            // TODO: implement
+            foreach (var reservation in _reservations)
+            {
+                reservation.Accommodation = _accommodationRepo.GetById(reservation.Accommodation.Id);
+            }
+        }
+
+        private void MapGuests()
+        {
+            foreach (var reservation in _reservations)
+            {
+                reservation.Guest = _guestRepo.GetById(reservation.Guest.Id);
+            }
         }
     }
 }

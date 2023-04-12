@@ -3,8 +3,9 @@ using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using SIMSProject.Model;
 using System;
 using System.Linq;
+using SIMSProject.Domain.Models;
 
-namespace SIMSProject.Application.Services
+namespace SIMSProject.Application.Services.UserServices
 {
     public class UserService
     {
@@ -25,7 +26,7 @@ namespace SIMSProject.Application.Services
             switch (user.Role)
             {
                 case UserRole.Owner or UserRole.SuperOwner:
-                    return user as Owner;
+                    return user as User;
                 case UserRole.Guide or UserRole.SuperGuide:
                     return user as Guide;
                 case UserRole.Guest or UserRole.SuperGuest:

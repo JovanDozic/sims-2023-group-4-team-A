@@ -11,7 +11,7 @@ namespace SIMSProject.View.OwnerViews
 {
     public partial class ReviewReschedulingRequests : Window, INotifyPropertyChanged
     {
-        public Owner User { get; set; } = new();
+        public User User { get; set; } = new();
 
         public List<ReschedulingRequest> Requests { get; set; } = new();
         private ReschedulingRequestController _requestController { get; set; } = new();
@@ -29,14 +29,14 @@ namespace SIMSProject.View.OwnerViews
             }
         }
 
-        public ReviewReschedulingRequests(Owner user)
+        public ReviewReschedulingRequests(User user)
         {
             InitializeComponent();
             DataContext = this;
 
             User = user;
 
-            // Requests = _requestController.GetAllOnWaitByOwnerId(_owner.Id);
+            // Requests = _requestController.GetAllOnWaitByOwnerId(_user.Id);
             Requests = _requestController.GetAllByOwnerId(User.Id);
         }
 

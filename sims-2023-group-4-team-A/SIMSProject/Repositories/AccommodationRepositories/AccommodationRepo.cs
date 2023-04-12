@@ -1,7 +1,8 @@
 ﻿using SIMSProject.Domain.Models.AccommodationModels;
+using SIMSProject.Domain.RepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
+using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using SIMSProject.FileHandler;
-using SIMSProject.Repositories.UserRepositories;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,15 +10,24 @@ namespace SIMSProject.Repositories.AccommodationRepositories
 {
     public class AccommodationRepo : IAccommodationRepo
     {
-        private AccommodationFileHandler _fileHandler;
+        private readonly AccommodationFileHandler _fileHandler;
+        private readonly ILocationRepo _locationRepo;
+        private readonly IOwnerRepo _ownerRepo;
         private List<Accommodation> _accommodations;
 
-        public AccommodationRepo()
+        public AccommodationRepo(ILocationRepo locationRepo, IOwnerRepo ownerRepo)
         {
             _fileHandler = new();
-            _accommodations = _fileHandler.Load();
+            _accommodations = new();
+            _locationRepo = locationRepo;
+            _ownerRepo = ownerRepo;
 
-            // TODO: call mapping functions
+            Load();
+        }
+
+        public void Load()
+        {
+            _accommodations = _fileHandler.Load();
             MapOwners();
             MapLocations();
         }
@@ -33,20 +43,13 @@ namespace SIMSProject.Repositories.AccommodationRepositories
         }
 
         public List<Accommodation> GetAllByOwnerId(int ownerId)
-        { 
+        {
             return _accommodations.FindAll(x => x.Owner.Id == ownerId);
         }
 
         public int NextId()
         {
-            try
-            {
-                return _accommodations.Max(x => x.Id) + 1;
-            }
-            catch
-            {
-                return 1;
-            }
+            return _accommodations.Count > 0 ? _accommodations.Max(x => x.Id) + 1 : 1;
         }
 
         public Accommodation Save(Accommodation accommodation)
@@ -63,22 +66,19 @@ namespace SIMSProject.Repositories.AccommodationRepositories
             _accommodations = accommodations;
         }
 
-        public void MapOwners()
+        private void MapOwners()
         {
-            OwnerRepo repo = new();
             foreach (var accommodation in _accommodations)
             {
-                accommodation.Owner = repo.GetById(accommodation.Owner.Id);
+                accommodation.Owner = _ownerRepo.GetById(accommodation.Owner.Id);
             }
         }
 
-        public void MapLocations()
+        private void MapLocations()
         {
-            // TODO: implement
-            LocationRepo repo = new();
             foreach (var accommodation in _accommodations)
             {
-                accommodation.Location = repo.GetById(accommodation.Location.Id);
+                accommodation.Location = _locationRepo.GetById(accommodation.Location.Id);
             }
         }
     }

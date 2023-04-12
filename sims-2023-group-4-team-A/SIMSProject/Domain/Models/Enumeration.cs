@@ -1,4 +1,4 @@
-﻿namespace SIMSProject.Model
+﻿namespace SIMSProject.Domain.Models
 {
     public enum AccommodationType
     {

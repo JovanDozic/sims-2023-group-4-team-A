@@ -13,8 +13,10 @@ namespace SIMSProject.WPF.Views
             InitializeComponent();
             _signInViewModel = new SignInViewModel();
             DataContext = _signInViewModel;
-            _signInViewModel.DirectSignIn("jovan", "jovan");
-            Close();
+
+            // TODO: remove this before committing
+            // _signInViewModel.DirectSignIn("jovan", "jovan");
+            // Close();
         }
 
         private void BtnSignIn_Click(object sender, RoutedEventArgs e)
@@ -39,12 +41,17 @@ namespace SIMSProject.WPF.Views
 
         private void BtnGoToGuest_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Implement
+            _signInViewModel.DirectSignIn("marko", "marko");
+            Close();
+            // Or use this:
+            // _signInViewModel.DirectSignIn("anja", "anja");
+            // Close();
         }
 
         private void BtnGoToGuide_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Implement
+            _signInViewModel.DirectSignIn("nata", "nata");
+            Close();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using SIMSProject.Domain.Models.UserModels;
+﻿
+using SIMSProject.Domain.Models.UserModels;
 using System.Collections.Generic;
 
 namespace SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces

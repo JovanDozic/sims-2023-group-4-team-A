@@ -2,31 +2,32 @@
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 {
     public class AccommodationReservationViewModel : INotifyPropertyChanged
     {
-        private Owner _owner;
+        private readonly User _user;
         private readonly AccommodationReservationService _reservationService;
         public ObservableCollection<AccommodationReservation> Reservations = new();
 
-        public AccommodationReservationViewModel(Owner owner)
+        public AccommodationReservationViewModel(User user)
         {
-            _owner = owner;
+            _user = user;
             _reservationService = Injector.GetService<AccommodationReservationService>();
-            LoadReservations();
         }
 
-        public void LoadReservations()
+        public ObservableCollection<AccommodationReservation> LoadReservations()
         {
-            Reservations = new ObservableCollection<AccommodationReservation>(_reservationService.GetAll());
+            return new ObservableCollection<AccommodationReservation>(_reservationService.GetAll());
+        }
+
+        public ObservableCollection<AccommodationReservation> LoadReservationsByAccommodation(Accommodation accommodation)
+        {
+            return new ObservableCollection<AccommodationReservation>(_reservationService.GetAllByAccommodationId(accommodation.Id));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

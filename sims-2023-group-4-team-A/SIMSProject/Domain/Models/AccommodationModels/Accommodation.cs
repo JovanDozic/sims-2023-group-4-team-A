@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.Model;
+﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Serializer;
+using System.Collections.Generic;
 
 namespace SIMSProject.Domain.Models.AccommodationModels
 {
@@ -17,7 +16,6 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public int CancellationThreshold { get; set; } = 1;
         public List<string> ImageURLs { get; set; } = new();
         public string ImageURLsCSV { get; set; } = string.Empty;
-        public List<AccommodationReservation> Reservations { get; set; } = new();
 
         public Accommodation()
         {

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Icon="../../../Resources/Images/Stars.png"
-        Title="OwnerInitialWindow" Height="500" Width="820">
+        Title="OwnerInitialWindow" Height="500" Width="1000">
     <Grid Margin="20">
 
         <Grid.ColumnDefinitions>
@@ -21,10 +21,10 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Button Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+        <Button x:Name="BtnRegisterAccommodation" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
                 Width="150" Height="40"
                 HorizontalContentAlignment="Center"
-                VerticalAlignment="Center">
+                VerticalAlignment="Center" Click="BtnRegisterAccommodation_Click">
             <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                 <Image Source="../../../Resources/Images/Add.png" Width="20" Height="20" Margin="0,0,5,0" />
                 <TextBlock Margin="5,2,0,0" Text="Registruj smeštaj" />
@@ -35,7 +35,7 @@
                 Width="150" Height="40"
                 HorizontalContentAlignment="Center"
                 VerticalAlignment="Center"
-                IsEnabled="False">
+                IsEnabled="False" Click="BtnRateGuest_Click">
             <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                 <Image Source="../../../Resources/Images/Rating.png" Width="20" Height="20" Margin="0,0,5,0" />
                 <TextBlock Margin="5,2,0,0" Text="Oceni gosta" />
@@ -55,12 +55,13 @@
             <Label Content="Smeštaji" FontSize="20"
                    VerticalAlignment="Center" HorizontalAlignment="Center"
                    FontWeight="SemiBold" />
-            <DataGrid ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}"
+            <DataGrid x:Name="DgrAccommodations" 
+                      ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedAccommodation}"
                       AutoGenerateColumns="False"
-                      x:Name="DgrAccommodations"
                       Height="250" Margin="20,10,20,20"
-                      IsReadOnly="True">
+                      IsReadOnly="True"
+                      SelectionChanged="DgrAccommodations_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
                     <DataGridTextColumn Header="Ime" Binding="{Binding Name}" />
@@ -79,16 +80,15 @@
             <Label Content="Rezervacije" FontSize="20"
                    VerticalAlignment="Center" HorizontalAlignment="Center"
                    FontWeight="SemiBold" />
-            <DataGrid ItemsSource="{Binding SelectedAccommodation.Reservations, UpdateSourceTrigger=PropertyChanged}"
+            <DataGrid x:Name="DgrReservations" 
+                      ItemsSource="{Binding SelectedAccommodationReservations, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedReservation}"
-                      x:Name="DgrReservations"
                       AutoGenerateColumns="False"
                       Height="250" Margin="20,10,20,20"
-                      IsReadOnly="True">
+                      IsReadOnly="True" SelectionChanged="DgrReservations_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="30" />
-                    <DataGridTextColumn Header="Od" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yy\}}"
-                                        Width="80" />
+                    <DataGridTextColumn Header="Od" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yy\}}" Width="80" />
                     <DataGridTextColumn Header="Do" Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yy\}}" Width="80" />
                     <DataGridTextColumn Header="Broj dana" Binding="{Binding NumberOfDays}" Width="30" />
                     <DataGridTextColumn Header="Gost" Binding="{Binding Guest.Username}" Width="80" />

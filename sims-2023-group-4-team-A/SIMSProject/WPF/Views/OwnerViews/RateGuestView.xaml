@@ -1,4 +1,4 @@
-﻿<Window x:Class="SIMSProject.View.OwnerViews.RateGuest"
+﻿<Window x:Class="SIMSProject.WPF.Views.OwnerViews.RateGuestView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -72,25 +72,25 @@
 
         <cstm:NumericTextBox Grid.Row="2" Grid.Column="2"
                              FontSize="16" HorizontalAlignment="Center"
-                             Value="{Binding GuestRating.CleanlinessRating, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                             Value="{Binding CleanlinessRating, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
         <cstm:NumericTextBox Grid.Row="3" Grid.Column="2"
                              FontSize="16" HorizontalAlignment="Center"
-                             Value="{Binding GuestRating.ComplianceWithRules, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                             Value="{Binding ComplianceWithRules, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
         <cstm:NumericTextBox Grid.Row="4" Grid.Column="2"
                              FontSize="16" HorizontalAlignment="Center"
-                             Value="{Binding GuestRating.PaymentAndBilling , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                             Value="{Binding PaymentAndBilling , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
         <cstm:NumericTextBox Grid.Row="5" Grid.Column="2"
                              FontSize="16" HorizontalAlignment="Center"
-                             Value="{Binding GuestRating.CommunicationRating , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                             Value="{Binding CommunicationRating , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
         <cstm:NumericTextBox Grid.Row="6" Grid.Column="2"
                              FontSize="16" HorizontalAlignment="Center"
-                             Value="{Binding GuestRating.Recommendation , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                             Value="{Binding Recommendation , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
-        <TextBox Text="{Binding GuestRating.Comment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+        <TextBox Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                  Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"
                  FontSize="16" Padding="5"
                  VerticalContentAlignment="top" Margin="5,9,5,9"

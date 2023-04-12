@@ -1,11 +1,8 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using SIMSProject.FileHandler.UserFileHandler;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SIMSProject.Repositories.UserRepositories
 {
@@ -18,7 +15,6 @@ namespace SIMSProject.Repositories.UserRepositories
         {
             _fileHandler = new();
             _owners = _fileHandler.Load();
-            // TODO: map accommodations
         }
 
         public List<Owner> GetAll()
@@ -33,14 +29,7 @@ namespace SIMSProject.Repositories.UserRepositories
 
         public int NextId()
         {
-            try
-            {
-                return _owners.Max(x => x.Id) + 1;
-            }
-            catch
-            {
-                return 1;
-            }
+            return _owners.Count > 0 ? _owners.Max(x => x.Id) + 1 : 1;
         }
 
         public Owner Save(Owner owner)
@@ -55,12 +44,6 @@ namespace SIMSProject.Repositories.UserRepositories
         {
             _fileHandler.Save(owners);
             _owners = owners;
-        }
-
-        public void MapAccommodations()
-        {
-            // TODO: implement
-
         }
     }
 }

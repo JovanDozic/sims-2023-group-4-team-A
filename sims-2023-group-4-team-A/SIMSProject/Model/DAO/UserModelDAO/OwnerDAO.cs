@@ -17,12 +17,6 @@ namespace SIMSProject.Model.DAO.UserModelDAO
             _fileHandler = new OwnerFileHandler();
             _owners = _fileHandler.Load();
             _observers = new List<IObserver>();
-
-            var accommodations = new AccommodationDAO().GetAll();
-            foreach (var owner in _owners)
-            {
-                owner.Accommodations = accommodations.FindAll(x => x.Owner.Id == owner.Id);
-            }
         }
 
         public int NextId()

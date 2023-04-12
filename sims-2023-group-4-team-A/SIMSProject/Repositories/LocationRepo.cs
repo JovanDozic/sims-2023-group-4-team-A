@@ -27,16 +27,14 @@ namespace SIMSProject.Repositories
             return _locations.Find(x => x.Id == locationId);
         }
 
+        public Location? GetByInfo(string city, string country)
+        {
+            return _locations.Find(x => x.City == city && x.Country == country);
+        }
+
         public int NextId()
         {
-            try
-            {
-                return _locations.Max(x => x.Id) + 1;
-            }
-            catch
-            {
-                return 1;
-            }
+            return _locations.Count > 0 ? _locations.Max(x => x.Id) + 1 : 1;
         }
 
         public Location Save(Location location)

@@ -1,14 +1,15 @@
-﻿using SIMSProject.Application.Services;
-using SIMSProject.Domain.Injectors;
+﻿using SIMSProject.Domain.Injectors;
 using SIMSProject.View.GuideViews;
 using SIMSProject.View;
 using System;
 using System.Windows;
 using SIMSProject.Domain.Models.UserModels;
 using System.ComponentModel;
+using SIMSProject.Domain.Models;
 using System.Runtime.CompilerServices;
 using SIMSProject.WPF.Views.OwnerViews;
 using SIMSProject.Model;
+using SIMSProject.Application.Services.UserServices;
 
 namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
 {
@@ -53,7 +54,7 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
             switch (user.Role)
             {
                 case UserRole.Owner or UserRole.SuperOwner:
-                    OwnerHomeView ownerWindow = new(user as Owner
+                    OwnerHomeView ownerWindow = new(user as User
                         ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
                     ownerWindow.Show();
                     break;

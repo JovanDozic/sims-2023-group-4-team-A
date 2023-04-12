@@ -13,6 +13,20 @@ namespace SIMSProject.Domain.Models
         {
         }
 
+        public Location(int id, string city, string country)
+        {
+            Id = id;
+            City = city;
+            Country = country;
+        }
+
+        public Location(string city, string country)
+        {
+            Id = 0;
+            City = city;
+            Country = country;
+        }
+
         public string[] ToCSV()
         {
             string[] csvValues = { 
