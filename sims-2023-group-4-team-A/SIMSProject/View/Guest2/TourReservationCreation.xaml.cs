@@ -1,8 +1,9 @@
 ﻿using SIMSProject.Controller;
 using SIMSProject.Controller.UserController;
+using SIMSProject.Domain.Models;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Model;
 using SIMSProject.Model.DAO.UserModelDAO;
-using SIMSProject.Model.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

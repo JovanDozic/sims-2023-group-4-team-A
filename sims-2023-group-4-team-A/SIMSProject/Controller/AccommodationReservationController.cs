@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Model;
 using SIMSProject.Model.DAO;
 
@@ -18,6 +21,11 @@ namespace SIMSProject.Controller
         public List<AccommodationReservation> GetAll()
         {
             return _accommodationReservationDAO.GetAll();
+        }
+
+        public List<AccommodationReservation> GetAllByAccommodation(Accommodation accommodation)
+        {
+            return _accommodationReservationDAO.GetAll().FindAll(x => x.Accommodation.Id == accommodation.Id);
         }
 
         public void SaveAll(List<AccommodationReservation> reservation)
@@ -57,7 +65,6 @@ namespace SIMSProject.Controller
                 reservations[index] = updatedReservation;
             }
             SaveAll(reservations);
-
         }
 
         public AccommodationReservation FindAndCancel(AccommodationReservation selectedReservation)
@@ -70,6 +77,17 @@ namespace SIMSProject.Controller
 
             AccommodationReservation accommodationReservation = new AccommodationReservation(selectedReservation.Accommodation.Id, selectedReservation.Guest.Id, selectedReservation.StartDate, selectedReservation.EndDate, selectedReservation.NumberOfDays, selectedReservation.GuestNumber, selectedReservation.Canceled);
             return accommodationReservation;
+        }
+
+        public bool IsAvailable(AccommodationReservation reservationToBeMoved, DateRange newDates)
+        {
+            foreach (var reservation in GetAllByAccommodation(reservationToBeMoved.Accommodation))
+            {
+                if (reservation.Id == reservationToBeMoved.Id) continue;
+                if (newDates.StartDate < reservation.EndDate && newDates.EndDate > reservation.StartDate)
+                    return false;
+            }
+            return true;
         }
 
     }

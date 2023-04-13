@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.FileHandler;
+using SIMSProject.Domain.Models;
 using SIMSProject.Observer;
 
 namespace SIMSProject.Model.DAO
@@ -24,21 +26,13 @@ namespace SIMSProject.Model.DAO
             foreach (var accommodation in _accommodations)
             {
                 accommodation.Location = locations.Find(x => x.Id == accommodation.Location.Id)
-                                         ?? new Location(accommodation.Location.Id, "<null>", "<null>");
-                accommodation.Reservations = reservations.FindAll(x => x.Accommodation.Id == accommodation.Id);
+                                         ?? new Location();
             }
         }
 
         public int NextId()
         {
-            try
-            {
-                return _accommodations.Max(x => x.Id) + 1;
-            }
-            catch
-            {
-                return 1;
-            }
+            return _accommodations.Count > 0 ? _accommodations.Max(x => x.Id) + 1 : 1;
         }
 
         public List<Accommodation> GetAll()

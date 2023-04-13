@@ -11,11 +11,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using SIMSProject.Model;
-using SIMSProject.Model.UserModel;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.Domain.Models.AccommodationModels;
 
 namespace SIMSProject.View.Guest1
 {
@@ -49,7 +49,7 @@ namespace SIMSProject.View.Guest1
             Accommodation = accommodation;
             TextBoxNaziv.Text = accommodation.Name;
             TextBoxLokacija.Text = accommodation.Location.ToString();
-            TextBoxTip.Text = accommodation.Type;
+            TextBoxTip.Text = Accommodation.GetType(accommodation.Type);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

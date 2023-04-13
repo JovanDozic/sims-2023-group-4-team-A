@@ -1,7 +1,7 @@
 ﻿using SIMSProject.Controller;
 using SIMSProject.WPF.CustomControls;
 using SIMSProject.Model;
-using SIMSProject.Model.UserModel;
+using SIMSProject.Domain.Models.UserModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
