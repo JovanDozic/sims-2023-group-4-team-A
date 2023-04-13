@@ -1,6 +1,6 @@
 ﻿using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.FileHandler;
-using SIMSProject.Model.UserModel;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Observer;
 using System;
 using System.Collections.Generic;
@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
-    public class TourGuestRepo
+    public class TourGuestRepo: ITourGuestRepo
     {
         private readonly TourGuestFileHandler _fileHandler;
         private List<TourGuest> _tourGuests;

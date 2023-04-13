@@ -2,11 +2,14 @@
 using SIMSProject.Application.Services;
 using SIMSProject.Application.Services.AccommodationServices;
 using SIMSProject.Application.Services.UserServices;
+using SIMSProject.Application1.Services.TourServices;
 using SIMSProject.Domain.RepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
+using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using SIMSProject.Repositories;
 using SIMSProject.Repositories.AccommodationRepositories;
+using SIMSProject.Repositories.TourRepositories;
 using SIMSProject.Repositories.UserRepositories;
 using System;
 
@@ -46,6 +49,15 @@ namespace SIMSProject.Domain.Injectors
                 )
             );
 
+            services.AddSingleton<ITourRepo, TourRepo>();
+            services.AddSingleton<ITourAppointmentRepo, TourAppointmentRepo>();
+            services.AddSingleton<ITourKeyPointRepo, TourKeyPointRepo>();
+            services.AddSingleton<ITourGuestRepo, TourGuestRepo>();
+            services.AddSingleton<IKeyPointRepo, KeyPointRepo>();
+            services.AddSingleton<IVoucherRepo, VoucherRepo>();
+
+
+
             // Service Injections
             services.AddScoped<UserService>();
             services.AddScoped<AccommodationService>();
@@ -53,6 +65,12 @@ namespace SIMSProject.Domain.Injectors
             services.AddScoped<LocationService>();
             services.AddScoped<GuestRatingService>();
             services.AddScoped<ReschedulingRequestService>();
+
+            services.AddScoped<TourService>();
+            services.AddScoped<TourAppointmentService>();
+            services.AddScoped<TourGuestService>();
+            services.AddScoped<TourKeyPointService>();
+            services.AddScoped<VoucherSevice>();
 
             // Try if service no work!
             //services.AddScoped<ServiceName>(

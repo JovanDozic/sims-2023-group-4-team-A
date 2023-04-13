@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.Repositories.TourRepositories;
 using System;
 using System.Collections.Generic;
@@ -10,18 +11,18 @@ namespace SIMSProject.Application1.Services.TourServices
 {
     public class TourKeyPointService
     {
-        private readonly TourKeyPointRepo _repository;
+        private readonly ITourKeyPointRepo _repo;
 
-        public TourKeyPointService()
+        public TourKeyPointService(ITourKeyPointRepo repo)
         {
-            _repository = new();
+            _repo = repo;
         }
 
         public void CreateNewPairs(Tour tour)
         {
             foreach(var keyPoint in tour.KeyPoints)
             {
-                _repository.Save(new(tour.Id, keyPoint.Id));
+                _repo.Save(new(tour.Id, keyPoint.Id));
             }
         }
     }

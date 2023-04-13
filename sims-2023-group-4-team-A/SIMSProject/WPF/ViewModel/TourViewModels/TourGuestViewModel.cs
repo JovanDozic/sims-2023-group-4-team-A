@@ -1,12 +1,7 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
-using SIMSProject.Model.UserModel;
-using System;
-using System.Collections.Generic;
+using SIMSProject.Domain.Models.UserModels;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SIMSProject.WPF.ViewModel.TourViewModels
 {

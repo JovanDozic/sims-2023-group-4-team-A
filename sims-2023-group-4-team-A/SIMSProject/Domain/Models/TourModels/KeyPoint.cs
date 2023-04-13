@@ -1,18 +1,6 @@
-﻿using SIMSProject.Controller;
-using SIMSProject.Serializer;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using SIMSProject.FileHandler;
-using SIMSProject.Model.UserModel;
-using SIMSProject.Model;
-using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.Domain.Models;
 
 namespace SIMSProject.Domain.Models.TourModels
 {

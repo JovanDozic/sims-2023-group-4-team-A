@@ -1,7 +1,6 @@
 ﻿using SIMSProject.Controller;
 using SIMSProject.Domain.Models.TourModels;
-using SIMSProject.Model.UserModel;
-using SIMSProject.Observer;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.Views.TourViews.GuideViews;
 using System.Collections.ObjectModel;
 using System.Windows;

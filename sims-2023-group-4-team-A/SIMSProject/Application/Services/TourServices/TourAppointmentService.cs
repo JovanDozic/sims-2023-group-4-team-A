@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.Repositories.TourRepositories;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,11 @@ namespace SIMSProject.Application1.Services.TourServices
 {
     public class TourAppointmentService
     {
-        private readonly TourAppointmentRepo _repository;
+        private readonly ITourAppointmentRepo _repo;
 
-        public TourAppointmentService()
+        public TourAppointmentService(ITourAppointmentRepo repo)
         {
-            _repository = new();
+            _repo = repo;
         }
 
 
@@ -22,20 +23,20 @@ namespace SIMSProject.Application1.Services.TourServices
         {
             foreach(var appointment in tourAppointments)
             {
-               _repository.Save(appointment, tour);
+               _repo.Save(appointment, tour);
             }
         }
         public List<TourAppointment> GetAllByTourId(int tourId)
         {
-            return _repository.GetAll().FindAll(x => x.TourId == tourId && DateTime.Compare(x.Date, DateTime.Now) > 0);
+            return _repo.GetAll().FindAll(x => x.TourId == tourId && DateTime.Compare(x.Date, DateTime.Now) > 0);
         }
 
         public TourAppointment GoToNextKeyPoint(int appointmentId, KeyPoint nextKeyPoint)
         {
-            TourAppointment? appointment = _repository.GetById(appointmentId) ?? throw new ArgumentException("Error!Can't find appointment!");
+            TourAppointment? appointment = _repo.GetById(appointmentId) ?? throw new ArgumentException("Error!Can't find appointment!");
             appointment.CurrentKeyPoint = nextKeyPoint;
             appointment.CurrentKeyPointId = nextKeyPoint.Id;
-            _repository.SaveAll(_repository.GetAll());
+            _repo.SaveAll(_repo.GetAll());
             return appointment;
         }
 
@@ -46,7 +47,7 @@ namespace SIMSProject.Application1.Services.TourServices
 
         public bool CancelAppointment(TourAppointment appointment)
         {
-            TourAppointment? oldAppointment = _repository.GetById(appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
+            TourAppointment? oldAppointment = _repo.GetById(appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
 
             if (!IsCancelable(oldAppointment))
             {
@@ -54,42 +55,42 @@ namespace SIMSProject.Application1.Services.TourServices
             }
 
             oldAppointment.TourStatus = Status.CANCELED;
-            _repository.SaveAll(_repository.GetAll());
+            _repo.SaveAll(_repo.GetAll());
             return true;
         }
 
         public void ActivateAppointment(TourAppointment appointment)
         {
-            TourAppointment? oldAppointment = _repository.GetById(appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
+            TourAppointment? oldAppointment = _repo.GetById(appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
 
             oldAppointment.TourStatus = Status.ACTIVE;
             oldAppointment.CurrentKeyPoint = appointment.CurrentKeyPoint;
             oldAppointment.CurrentKeyPointId = appointment.CurrentKeyPointId;
-            _repository.SaveAll(_repository.GetAll());
+            _repo.SaveAll(_repo.GetAll());
         }
 
         public void StopLiveTracking(int appointmentId)
         {
-            TourAppointment? toEnd = _repository.GetById(appointmentId) ?? throw new ArgumentException("Error!Can't find appointment!");
+            TourAppointment? toEnd = _repo.GetById(appointmentId) ?? throw new ArgumentException("Error!Can't find appointment!");
             toEnd.TourStatus = Status.COMPLETED;
-            _repository.SaveAll(_repository.GetAll());
+            _repo.SaveAll(_repo.GetAll());
         }
 
         public TourAppointment InitializeTour(TourAppointment appointment, Tour tour)
         {
-            TourAppointment? oldAppointment = _repository.GetAll().Find(x => x.Id == appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
+            TourAppointment? oldAppointment = _repo.GetAll().Find(x => x.Id == appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
             oldAppointment.Tour = tour;
             oldAppointment.TourId = tour.Id;
             oldAppointment.AvailableSpots = tour.MaxGuestNumber;
-            _repository.SaveAll(_repository.GetAll());
+            _repo.SaveAll(_repo.GetAll());
             return oldAppointment;
         }
 
         public void UpdateAvailableSpots(TourAppointment appointment)
         {
-            TourAppointment? oldAppointment = _repository.GetAll().Find(x => x.Id == appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
+            TourAppointment? oldAppointment = _repo.GetAll().Find(x => x.Id == appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
             oldAppointment.AvailableSpots = appointment.AvailableSpots;
-            _repository.SaveAll(_repository.GetAll());
+            _repo.SaveAll(_repo.GetAll());
         }
     }
 }

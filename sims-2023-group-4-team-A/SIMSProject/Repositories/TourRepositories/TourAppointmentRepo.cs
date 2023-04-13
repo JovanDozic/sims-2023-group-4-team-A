@@ -2,7 +2,7 @@
 using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.FileHandler;
 using SIMSProject.FileHandler.UserFileHandler;
-using SIMSProject.Model.UserModel;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Observer;
 using System;
 using System.Collections.Generic;

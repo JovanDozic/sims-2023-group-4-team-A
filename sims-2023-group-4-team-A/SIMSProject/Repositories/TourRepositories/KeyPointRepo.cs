@@ -1,4 +1,5 @@
-﻿using SIMSProject.Domain.Models.TourModels;
+﻿using SIMSProject.Domain.Models;
+using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.FileHandler;
 using SIMSProject.Model;

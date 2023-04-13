@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Application1.Services.TourServices;
+using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.View.GuideViews;
 using System;
@@ -25,9 +26,9 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
 
         public LiveTrackViewModel(Tour tour, TourAppointment appointment)
         {
-            _tourService = new();
-            _tourAppointmentService = new();
-            _tourGuestService = new();
+            _tourService = Injector.GetService<TourService>();
+            _tourAppointmentService = Injector.GetService<TourAppointmentService>();
+            _tourGuestService = Injector.GetService<TourGuestService>();
 
             Tour = new(tour);
             Appointment = new(appointment);

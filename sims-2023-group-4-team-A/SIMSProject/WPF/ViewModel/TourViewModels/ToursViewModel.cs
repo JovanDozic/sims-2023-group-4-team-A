@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Application1.Services.TourServices;
+using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,13 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
 {
     public class ToursViewModel
     {
-        private readonly TourService _tourService = new();
+        private readonly TourService _tourService;
         public ObservableCollection<Tour> Tours { get; set; }
         public Tour SelectedTour { get; set; } = new();
 
         public ToursViewModel()
         {
+            _tourService = Injector.GetService<TourService>();
             Tours = new(_tourService.GetTours());
         }
 

@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Application1.Services.TourServices;
+using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,9 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
 {
     public class TourAppointmentsViewModel
     {
-        private readonly TourAppointmentService _tourAppointmentService = new();
-        private readonly VoucherSevice _voucherService = new();
-        private readonly TourGuestService _tourGuestService = new();
+        private readonly TourAppointmentService _tourAppointmentService;
+        private readonly VoucherSevice _voucherService;
+        private readonly TourGuestService _tourGuestService;
 
         public BaseTourViewModel Tour { get; set; }
         public ObservableCollection<TourAppointment> Appointments { get; set; }
@@ -22,6 +23,10 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
 
         public TourAppointmentsViewModel(Tour tour)
         {
+            _tourAppointmentService = Injector.GetService<TourAppointmentService>();
+            _voucherService = Injector.GetService<VoucherSevice>();
+            _tourGuestService = Injector.GetService<TourGuestService>();
+            
             Appointments = new(_tourAppointmentService.GetAllByTourId(tour.Id));
             Tour = new(tour);
         }

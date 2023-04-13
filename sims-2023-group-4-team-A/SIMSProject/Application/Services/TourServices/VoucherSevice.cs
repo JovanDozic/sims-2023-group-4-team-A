@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.Repositories.TourRepositories;
 using System;
 using System.Collections.Generic;
@@ -10,24 +11,24 @@ namespace SIMSProject.Application1.Services.TourServices
 {
     public class VoucherSevice
     {
-        private readonly VoucherRepo _voucherRepository;
+        private readonly IVoucherRepo _repo;
 
-        public VoucherSevice()
+        public VoucherSevice(IVoucherRepo repo)
         {
-            _voucherRepository = new();
+            _repo = repo;
         }
 
         public void DeleteExpired()
         {
-            _voucherRepository.GetAll().RemoveAll(x => DateTime.Compare(x.Expiration, DateTime.Now) < 0);
-            _voucherRepository.SaveAll(_voucherRepository.GetAll());
+            _repo.GetAll().RemoveAll(x => DateTime.Compare(x.Expiration, DateTime.Now) < 0);
+            _repo.SaveAll(_repo.GetAll());
         }
 
         public void GiveVouchers(List<TourGuest> guests, ObtainingReason reason)
         {
             foreach (var guest in guests)
             {
-                _voucherRepository.Save(new(guest.GuestId, reason));
+                _repo.Save(new(guest.GuestId, reason));
             }
         }
     }

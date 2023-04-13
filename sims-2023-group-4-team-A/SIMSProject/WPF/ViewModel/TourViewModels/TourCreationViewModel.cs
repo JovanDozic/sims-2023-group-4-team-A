@@ -1,26 +1,21 @@
 ﻿using SIMSProject.Application1.Services.TourServices;
+using SIMSProject.Domain.Injectors;
+using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
-using SIMSProject.Model;
-using SIMSProject.Model.UserModel;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.View.GuideViews;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace SIMSProject.WPF.ViewModel.TourViewModels
 {
     public class TourCreationViewModel : BaseTourViewModel
     {
-        private readonly TourService _tourService = new();
-        private readonly TourAppointmentService _tourAppointmentService = new();
-        private readonly TourKeyPointService  _tourKeyPointService = new();
+        private readonly TourService _tourService;
+        private readonly TourAppointmentService _tourAppointmentService;
+        private readonly TourKeyPointService _tourKeyPointService;
 
         public new Location Location
         {
@@ -56,6 +51,11 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
                 "Francuski",
                 "Španski"
             };
+
+            _tourService = Injector.GetService<TourService>();
+            _tourAppointmentService  = Injector.GetService<TourAppointmentService>();
+            _tourKeyPointService = Injector.GetService<TourKeyPointService>();
+
             Guide = guide;
             AllLocations = new(GuideInitialWindow.LocationController.GetAll());
         }

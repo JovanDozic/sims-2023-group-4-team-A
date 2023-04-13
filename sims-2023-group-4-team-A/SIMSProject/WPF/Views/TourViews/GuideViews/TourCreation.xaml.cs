@@ -1,4 +1,4 @@
-﻿using SIMSProject.Model.UserModel;
+﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModel.TourViewModels;
 using System;
 using System.Windows;

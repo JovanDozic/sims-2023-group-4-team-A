@@ -13,14 +13,12 @@ namespace SIMSProject.Controller
     public class TourController
     {
         private TourDAO _tours;
-        private TourService _tourService;
         public Tour Tour;
 
         public TourController()
         {
             _tours = new();
             Tour = new();
-            _tourService = new();
         }
 
         public List<Tour> GetAll()
@@ -63,10 +61,6 @@ namespace SIMSProject.Controller
             return _tours.GetLastKeyPoint(date);
         }
 
-        public void EndTour(int tourId, int dateId)
-        {
-            _tourService.EndTourAppointment(tourId, dateId);
-        }
 
         public void Refresh()
         {

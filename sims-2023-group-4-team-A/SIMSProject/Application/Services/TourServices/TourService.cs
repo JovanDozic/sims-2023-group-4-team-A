@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.Repositories.TourRepositories;
 using System;
 using System.Collections.Generic;
@@ -10,32 +11,32 @@ namespace SIMSProject.Application1.Services.TourServices
 {
     public class TourService
     {
-        private readonly TourRepo _repository;
+        private readonly ITourRepo _repo;
 
-        public TourService()
+        public TourService(ITourRepo repo)
         {
-            _repository = new();
+            _repo = repo;
         }
 
         public List<Tour> GetTours()
         {
-            return _repository.GetAll();
+            return _repo.GetAll();
         }
 
         public List<Tour> GetTodaysTours()
         {
-            return _repository.FindTodaysTours();
+            return _repo.FindTodaysTours();
         }
 
 
         public void CreateTour(Tour tour)
         {
-            _repository.Save(tour);
+            _repo.Save(tour);
         }
 
         public KeyPoint GoToNextKeyPoint(TourAppointment appointment)
         {
-            var currentTour = _repository.GetById(appointment.TourId);
+            var currentTour = _repo.GetById(appointment.TourId);
             if (currentTour == null)
             {
                 return null;
@@ -54,12 +55,12 @@ namespace SIMSProject.Application1.Services.TourServices
 
         public KeyPoint GetLastKeyPoint(TourAppointment appointment)
         {
-            return _repository.GetById(appointment.TourId)?.KeyPoints.Last();
+            return _repo.GetById(appointment.TourId)?.KeyPoints.Last();
         }
 
         public void EndTourAppointment(int tourId, int appointmentId)
         {
-            var toEnd = _repository.GetById(tourId);
+            var toEnd = _repo.GetById(tourId);
             if (toEnd == null)
             {
                 return;
@@ -68,7 +69,7 @@ namespace SIMSProject.Application1.Services.TourServices
             TourAppointment? appointmentToEnd = toEnd.Appointments.Find(x => x.Id == appointmentId);
             if (appointmentToEnd == null) return;
             appointmentToEnd.TourStatus = Status.COMPLETED;
-            _repository.SaveAll(_repository.GetAll());
+            _repo.SaveAll(_repo.GetAll());
         }
     }
 }

@@ -1,14 +1,12 @@
 ﻿using SIMSProject.FileHandler;
-using SIMSProject.FileHandler.UserFileHandler;
-using SIMSProject.Model.UserModel;
-using SIMSProject.Model;
+using SIMSProject.Domain.Models.UserModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
+using SIMSProject.Domain.Models;
+using SIMSProject.FileHandler.UserFileHandler;
 
 namespace SIMSProject.Repositories.TourRepositories
 {

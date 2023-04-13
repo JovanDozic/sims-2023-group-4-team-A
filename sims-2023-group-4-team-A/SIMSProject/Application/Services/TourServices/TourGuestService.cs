@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.Repositories.TourRepositories;
 using System;
 using System.Collections.Generic;
@@ -10,24 +11,24 @@ namespace SIMSProject.Application1.Services.TourServices
 {
     public class TourGuestService
     {
-        private readonly TourGuestRepo _repository;
+        private readonly ITourGuestRepo _repo;
 
-        public TourGuestService()
+        public TourGuestService(ITourGuestRepo repo)
         {
-            _repository = new();
+            _repo = repo;
         }
 
         public void SignUpGuest(int guestId, int tourAppointmentId)
         {
-            TourGuest? tourGuest = _repository.GetAll().Find(x => x.GuestId == guestId && x.AppointmentId == tourAppointmentId);
+            TourGuest? tourGuest = _repo.GetAll().Find(x => x.GuestId == guestId && x.AppointmentId == tourAppointmentId);
             if (tourGuest == null) return;
 
             tourGuest.GuestStatus = GuestAttendance.PENDING;
-            _repository.SaveAll(_repository.GetAll());
+            _repo.SaveAll(_repo.GetAll());
         }
         public void MakeGuestPresent(int guestId, int tourAppointmentId, KeyPoint currentKeyPoint)
         {
-            TourGuest? tourGuest = _repository.GetAll().Find(x => x.GuestId == guestId && x.AppointmentId == tourAppointmentId);
+            TourGuest? tourGuest = _repo.GetAll().Find(x => x.GuestId == guestId && x.AppointmentId == tourAppointmentId);
             if (tourGuest == null) return;
 
             tourGuest.JoinedKeyPoint = currentKeyPoint;
@@ -36,7 +37,7 @@ namespace SIMSProject.Application1.Services.TourServices
 
         public List<TourGuest> GetGuests(TourAppointment appointment)
         {
-            return _repository.GetGuests(appointment.Id);
+            return _repo.GetGuests(appointment.Id);
         }
     }
 }
