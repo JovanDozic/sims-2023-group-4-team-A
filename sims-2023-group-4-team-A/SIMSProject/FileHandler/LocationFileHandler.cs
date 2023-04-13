@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SIMSProject.Model;
+using SIMSProject.Domain.Models;
 using SIMSProject.Serializer;
 
 namespace SIMSProject.FileHandler

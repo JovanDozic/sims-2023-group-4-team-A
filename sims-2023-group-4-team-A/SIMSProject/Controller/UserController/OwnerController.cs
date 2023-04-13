@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Model.DAO.UserModelDAO;
-using SIMSProject.Model.UserModel;
 
 namespace SIMSProject.Controller.UserController
 {

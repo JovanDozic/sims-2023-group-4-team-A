@@ -5,10 +5,10 @@ using SIMSProject.FileHandler;
 using SIMSProject.Controller;
 using System.Windows.Navigation;
 using SIMSProject.FileHandler.UserFileHandler;
-using SIMSProject.Model.UserModel;
 using Microsoft.VisualBasic;
 using System;
 using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Domain.Models.UserModels;
 
 namespace SIMSProject.Model.DAO
 {

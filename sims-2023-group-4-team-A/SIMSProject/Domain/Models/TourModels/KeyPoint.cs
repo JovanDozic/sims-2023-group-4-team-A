@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using SIMSProject.FileHandler;
 using SIMSProject.Model.UserModel;
 using SIMSProject.Model;
+using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.Domain.Models;
 
 namespace SIMSProject.Domain.Models.TourModels
 {
