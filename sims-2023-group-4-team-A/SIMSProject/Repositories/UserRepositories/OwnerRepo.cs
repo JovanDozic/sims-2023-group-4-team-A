@@ -9,12 +9,16 @@ namespace SIMSProject.Repositories.UserRepositories
     public class OwnerRepo : IOwnerRepo
     {
         private OwnerFileHandler _fileHandler;
+        // TODO: private readonly IOwnerRepo _ratingRepo;
         private List<Owner> _owners;
 
-        public OwnerRepo()
+        public OwnerRepo(/* TODO: IGuestRatingRepo ratingRepo */)
         {
             _fileHandler = new();
+            // TODO: _ratingRepo = ratingRepo;
             _owners = _fileHandler.Load();
+
+            CalculateRating();
         }
 
         public List<Owner> GetAll()
@@ -44,6 +48,14 @@ namespace SIMSProject.Repositories.UserRepositories
         {
             _fileHandler.Save(owners);
             _owners = owners;
+        }
+
+        private void CalculateRating()
+        {
+            foreach (var owner in _owners)
+            {
+                // TODO: implement
+            }
         }
     }
 }

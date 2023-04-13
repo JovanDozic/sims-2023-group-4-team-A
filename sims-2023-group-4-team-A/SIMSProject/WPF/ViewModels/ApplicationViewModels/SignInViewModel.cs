@@ -31,17 +31,19 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
             _userService = Injector.GetService<UserService>();
         }
 
-        public void SignIn(string password)
+        public bool SignIn(string password)
         {
             try
             {
                 User? user = _userService.GetUser(Username, password) as User
                              ?? throw new Exception("Dogodila se greška prilikom logovanja.");
                 OpenWindow(user);
+                return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
             }
         }
 

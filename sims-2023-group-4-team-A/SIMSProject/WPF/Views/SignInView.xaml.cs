@@ -20,8 +20,7 @@ namespace SIMSProject.WPF.Views
 
         private void BtnSignIn_Click(object sender, RoutedEventArgs e)
         {
-            _signInViewModel.SignIn(TxtPassword.Password);
-            Close();
+            if (_signInViewModel.SignIn(TxtPassword.Password)) Close();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)

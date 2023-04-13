@@ -19,10 +19,16 @@ namespace SIMSProject.Domain.Injectors
             var services = new ServiceCollection();
 
             // Repository Injections
-            services.AddSingleton<IUserRepo, UserRepo>();
             services.AddSingleton<IOwnerRepo, OwnerRepo>();
             services.AddSingleton<IGuestRepo, GuestRepo>();
             services.AddSingleton<ILocationRepo, LocationRepo>();
+            services.AddSingleton<IUserRepo, UserRepo>(
+                provider => new UserRepo(
+                    provider.GetService<IOwnerRepo>() ?? throw new Exception("Dependency Injection Failed: IOwnerRepo not found."),
+                    provider.GetService<IGuestRepo>() ?? throw new Exception("Dependency Injection Failed: IGuestRepo not found."),
+                    provider.GetService<IGuestRatingRepo>() ?? throw new Exception("Dependency Injection Failed: IGuestRatingRepo not found.")
+                )
+            );
             services.AddSingleton<IAccommodationRepo, AccommodationRepo>(
                 provider => new AccommodationRepo(
                     provider.GetService<ILocationRepo>() ?? throw new Exception("Dependency Injection Failed: ILocationRepo not found."),

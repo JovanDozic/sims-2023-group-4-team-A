@@ -37,9 +37,15 @@ namespace SIMSProject.Repositories.AccommodationRepositories
             return _ratings.Find(x => x.Id == ratingId);
         }
 
-        public List<GuestRating> GetByGuestId(int guestId)
+        public List<GuestRating> GetAllByGuestId(int guestId)
         {
             return _ratings.FindAll(x => x.Reservation.Guest.Id == guestId);
+        }
+
+        public double GetOverallByGuestId(int guestId)
+        {
+            var ratings = GetAllByGuestId(guestId);
+            return ratings.Count > 0 ? ratings.Average(x => x.Overall) : 0;
         }
 
         public int NextId()
@@ -60,6 +66,8 @@ namespace SIMSProject.Repositories.AccommodationRepositories
             _fileHandler.Save(ratings);
             _ratings = ratings;
         }
+
+        
 
         private void MapAccommodationReservations()
         {
