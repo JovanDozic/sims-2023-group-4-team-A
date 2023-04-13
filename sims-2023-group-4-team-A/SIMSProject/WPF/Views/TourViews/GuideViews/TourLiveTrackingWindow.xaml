@@ -5,82 +5,81 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cstm="clr-namespace:SIMSProject.WPF.CustomControls"
         mc:Ignorable="d"
-        Title="TourLiveTrackingWindow" Height="450" Width="800"
-        >
+        Title="LiveTrackingWindow" Height="700" Width="1200" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="1">
-                <Label Content="Gosti:" 
-                       Margin="0,10,0,0"
-                       FontSize="20"/>
-                <DataGrid x:Name="Away_guests"
-                         Margin="0,0,20,0"
-                         ItemsSource="{Binding Guests,UpdateSourceTrigger=PropertyChanged}" 
-                         Height="100"
-                         SelectedItem="{Binding Path=PendingGuest, UpdateSourceTrigger=PropertyChanged}"
-                         CanUserAddRows="False"
-                         AutoGenerateColumns="False">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Guest}"></DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding GuestStatus}"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-                <Button x:Name="Sign_guestBTN" 
-                        Content="Prijavi gosta" 
-                        Click="Sign_guestBTN_Click"
-                        Margin="25,25,25,0"/>
+        <StackPanel Margin="50,25,0,0"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="0" Grid.Column="0"
+                    Orientation="Vertical"
+                    HorizontalAlignment="Left">
+            <Button x:Name="GoBackBTN"
+                    Width="44" Height="36"
+                    HorizontalAlignment="Left"/>
+            <TextBlock
+                    HorizontalAlignment="Left"
+                    Height="40" Width="400"
+                    FontSize="32" FontWeight="Bold"
+                    Text="{Binding Path=Tour.Name}"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock 
+                    Height="36" Width="292"
+                    FontSize="24"
+                    Text="Trenutna ključna tačka:"/>
+                <TextBlock x:Name="CurrentKeyPointTB" 
+                           Text="{Binding Path=Appointment.CurrentKeyPoint, UpdateSourceTrigger=PropertyChanged}"
+                           Height="36" Width="300"
+                           FontSize="24"/>
             </StackPanel>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="75*"/>
-                <RowDefinition Height="250*" />
-                <RowDefinition Height="120*"/>
-            </Grid.RowDefinitions>
-            <Label Grid.Row="0"
-                   FontSize="25" FontWeight="Bold"
-                   Content="{Binding Path=CurrentAppointment.Tour.Name}"
-                   Margin="20,0,0,0"/>
-            <StackPanel Grid.Row="2" Orientation="Horizontal">
-                <Button x:Name="CloseBTN"
-                        Content="Završi turu"
-                        FontSize="15"
-                        Height="50"
-                        Margin="15,0,0,0"
-                        Click="CloseBTN_Click"/>
+            <TextBlock
+                Margin="0,25,0,0"
+                HorizontalAlignment="Left"
+                FontSize="24"
+                Text="{Binding Path=KeyPoints}"
+                Width="400" Height="250"/>
+            <StackPanel Margin="0,126,0,0"
+                Orientation="Horizontal" Height="80" Width="527">
+                <Button x:Name="NextBTN"
+                        Width="150"
+                        Content="Dalje&#xa;Shift+N"
+                        FontSize="30"
+                        Click="NextBTN_Click"/>
                 <Button x:Name="PauseBTN"
-                        Content="Pauziraj turu"
-                        FontSize="15"
-                        Height="50"
-                        Margin="15,0,0,0"
-                        Click="PauseBTN_Click"/>
-                <Button x:Name="Go_nextBTN"
-                        Content="Idi na sledeću tačku"
-                        FontSize="15"
-                        Margin="15,0,0,0"
-                        Height="50"
-                        Click="Go_nextBTN_Click"/>
+                        Click="PauseBTN_Click"
+                        Content="Pauziraj&#xa;Shift+P"
+                        FontSize="30"
+                        Width="180"/>
+                <Button x:Name="CloseBTN"
+                        Click="CloseBTN_Click"
+                        Content="Završi turu&#xa;Shift+C"
+                        FontSize="30"
+                        Width="197"/>
             </StackPanel>
-            <Grid Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="27*"/>
-                    <RowDefinition Height="95*"/>
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Orientation="Horizontal">
-                    <Label Content="Trenutna ključna tačka:"
-                           FontSize="15"/>
-                    <TextBlock x:Name="CurrentKeyPointTB" Text="{Binding Path=CurrentKeyPoint, UpdateSourceTrigger=PropertyChanged}"
-                               Width="150"
-                               FontSize="15"/>
-                </StackPanel>
-                <ListBox x:Name="KeyPointLB"
-                FontSize="15"
-                ItemsSource="{Binding KeyPoints}"
-                BorderBrush="White" Margin="13,19,117,12" Grid.Row="1"/>
-            </Grid>
-
-        </Grid>
+        </StackPanel>
+        <StackPanel Margin="0,50,0,0"
+                    Grid.Row="0" Grid.Column="1"
+                    Orientation="Vertical"
+                    HorizontalAlignment="Center">
+            <Label
+                HorizontalAlignment="Left"
+                Width="224" Height="36"
+                Content="Gosti:"
+                FontSize="24"/>
+            <ListBox 
+                Width="342" Height="350"
+                ItemsSource="{Binding Path=Guests, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding SelectedGuest, UpdateSourceTrigger=PropertyChanged}"
+                FontSize="24"/>
+            <Button x:Name="Sign_guestBTN" 
+                    Margin="0,100,0,0"
+                    Width="190" Height="80"
+                    FontSize="30"
+                    Content="Dodaj gosta&#xa;Shift+A"
+                    HorizontalContentAlignment="Center"
+                    Click="Sign_guestBTN_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

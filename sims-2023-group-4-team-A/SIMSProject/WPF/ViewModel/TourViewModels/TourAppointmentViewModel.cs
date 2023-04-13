@@ -10,12 +10,42 @@ using System.Threading.Tasks;
 
 namespace SIMSProject.WPF.ViewModel.TourViewModels
 {
-    public class TourAppointmentViewMode : INotifyPropertyChanged
+    public class TourAppointmentViewModel : INotifyPropertyChanged
     {
-        private readonly TourAppointment? _tourAppointment;
-        public int Id { get; set; }
-        public int TourId { get; set; }
-        public DateTime Date { get; set; }
+        private TourAppointment? _tourAppointment;
+        public TourAppointment TourAppointment
+        {
+            get => _tourAppointment;
+            set
+            {
+                if (_tourAppointment != value)
+                {
+                    _tourAppointment = value;
+                    OnPropertyChanged(nameof(TourAppointment));
+                }
+            }
+        }
+
+        public int Id
+        {
+            get => _tourAppointment.Id;
+        }
+        public int TourId
+        {
+            get => _tourAppointment.TourId;
+        }
+        public DateTime Date
+        {
+            get => _tourAppointment.Date;
+            set
+            {
+                if(value != _tourAppointment.Date)
+                {
+                    _tourAppointment.Date = value;
+                    OnPropertyChanged(nameof(Date));
+                }
+            }
+        }
         public string TourStatus
         {
             get => _tourAppointment.TourStatus switch
@@ -81,10 +111,13 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
             }
         }
 
-        public TourAppointmentViewMode()
+        public TourAppointmentViewModel(TourAppointment appointment)
         {
-            _tourAppointment = new();
+            _tourAppointment = appointment;
         }
+
+        public TourAppointment GetAppointment()
+        { return _tourAppointment; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)

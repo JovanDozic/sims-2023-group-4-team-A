@@ -18,7 +18,6 @@
             <Button x:Name="Sign_outBTN" Content="Odjavi se" IsCancel="True"/>
         </ToolBar>
         <StackPanel DockPanel.Dock="Left"
-                    Selector.SelectionChanged="StackPanel_SelectionChanged"
                     Width="235"
                     Height="600"
                     Orientation="Vertical">
@@ -30,15 +29,15 @@
                     <Setter Property="Width" Value="235"/>
                 </Style>
             </StackPanel.Resources>
-            <Button x:Name="AllBTN" Content="Sve ture Ctrl+A"/>
-            <Button x:Name="TodaysBTN" Content="Današnje ture &#xa;Ctrl+T"/>
+            <Button x:Name="AllBTN" Content="Sve ture Ctrl+A" Click="AllBTN_Click"/>
+            <Button x:Name="TodaysBTN" Content="Današnje ture &#xa;Ctrl+T" Click="TodaysBTN_Click"/>
             <Button x:Name="RequestBTN" Content="Zahtevi za ture &#xa;Ctrl+R"/>
             <Button x:Name="MultiPartRequestBTN" Content="Zahtevi za&#xa;složene ture&#xa;Ctrl+Q"/>
             <Button x:Name="StatisticsBTN" Content="Statistika o&#xa;turama Ctrl+S"/>
             <Button x:Name="RequestStatBTN" Content="Statistika o&#xa;zahtevima za ture&#xa;Ctrl+S+R"/>
             <Button x:Name="ReviewBTN" Content="Recenzije Ctrl+G"/>
         </StackPanel>
-        <Frame x:Name="frame">
+        <Frame x:Name="frame" NavigationUIVisibility="Hidden">
         </Frame>
     </DockPanel>
 </Window>

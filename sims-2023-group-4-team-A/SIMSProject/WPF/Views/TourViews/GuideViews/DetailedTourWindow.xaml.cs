@@ -19,10 +19,10 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     /// <summary>
     /// Interaction logic for DetailedTourView.xaml
     /// </summary>
-    public partial class DetailedTourView : Window
+    public partial class DetailedTourWindow : Window
     {
-        private TourAppointmentsViewModel _appointments;
-        public DetailedTourView(Tour tour)
+        private readonly TourAppointmentsViewModel _appointments;
+        public DetailedTourWindow(Tour tour)
         {
             InitializeComponent();
             _appointments = new(tour);

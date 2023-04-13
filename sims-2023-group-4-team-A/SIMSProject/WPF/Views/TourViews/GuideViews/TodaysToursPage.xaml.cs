@@ -17,20 +17,20 @@ using System.Windows.Shapes;
 namespace SIMSProject.WPF.Views.TourViews.GuideViews
 {
     /// <summary>
-    /// Interaction logic for AllToursPage.xaml
+    /// Interaction logic for TodaysToursPage.xaml
     /// </summary>
-    public partial class AllToursPage : Page
+    public partial class TodaysToursPage : Page
     {
-        private readonly ToursViewModel _tours = new();
-        public AllToursPage()
+        private ToursViewModel ToursViewModel { get; set; } = new();
+        public TodaysToursPage()
         {
             InitializeComponent();
-            this.DataContext = _tours;
+            ToursViewModel.GetTodaysTours();
+            this.DataContext = ToursViewModel;
         }
-
-        private void DetailsBTN_Click(object sender, RoutedEventArgs e)
+        private void CheckAppointmentsBTN_Click(object sender, RoutedEventArgs e)
         {
-            var window = new DetailedTourWindow(_tours.SelectedTour);
+            var window = new LiveTrackAppointmentSelectionWindow(ToursViewModel.SelectedTour);
             window.Show();
         }
     }

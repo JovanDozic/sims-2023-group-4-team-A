@@ -61,14 +61,21 @@ namespace SIMSProject.Domain.Models.TourModels
             return imageURLs;
         }
 
-        /*Validation*/
-        readonly Regex NameReg = new("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$");
-        readonly Regex DescriptionReg = new("^\\w+(\\s+\\w+){2,}$");
         public override string? ToString()
         {
             return Name + ", " + Location + ", " + TourLanguage.ToString();
         }
 
+        public string KeyPointsToString()
+        {
+            var builder = new StringBuilder();
+            foreach(var keyPoint in KeyPoints)
+            {
+                builder.Append($"{keyPoint.ToString()}\n");
+            }
+            return builder.ToString();
+        }
+        
         public string ToStringSearch()
         {
             return Location + " " + TourLanguage.ToString();

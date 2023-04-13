@@ -13,12 +13,12 @@ namespace SIMSProject.View.GuideViews
     /// </summary>
     public partial class GuideInitialWindow : Window
     {
-        public static readonly TourController tourController = new();
-        public static readonly KeyPointController keyPointController = new();
-        public static readonly LocationController locationController = new();
-        public static readonly TourAppointmentController tourAppointmentController = new();
-        public static readonly TourGuestController tourGuestController = new();
-        public static readonly TourKeyPointController tourKeyPointController = new();
+
+        public static LocationController LocationController { get; set; } = new();
+        public static KeyPointController KeyPointController { get; set; } = new();
+        public static TourGuestController TourGuestController { get; set; } = new();    
+
+
         public Tour SelectedTour { get; set; } = new();
         public Guide Guide { get; set; } = new();
         public ObservableCollection<Tour> TodaysTours { get; set; } = new ObservableCollection<Tour>();
@@ -33,21 +33,20 @@ namespace SIMSProject.View.GuideViews
 
         }
 
-        private void ShowTour_Click(object sender, RoutedEventArgs e)
-        {
-            TodaysTourPreviewWindow window = new(SelectedTour);
-            window.Show();  
-        }
-
         private void CreateTour_Click(object sender, RoutedEventArgs e)
         {
             TourCreation window = new(Guide);
             window.Show();
         }
 
-        private void StackPanel_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void TodaysBTN_Click(object sender, RoutedEventArgs e)
         {
+            frame.Content = new TodaysToursPage();
+        }
 
+        private void AllBTN_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new AllToursPage();
         }
     }
 }

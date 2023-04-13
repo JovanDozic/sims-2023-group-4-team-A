@@ -14,7 +14,6 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
     public class ToursViewModel
     {
         private readonly TourService _tourService = new();
-
         public ObservableCollection<Tour> Tours { get; set; }
         public Tour SelectedTour { get; set; } = new();
 

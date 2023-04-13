@@ -4,6 +4,8 @@ using SIMSProject.Model;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace SIMSProject.WPF.ViewModel.TourViewModels
 {
@@ -151,26 +153,36 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
             }
         }
 
-        public List<KeyPoint> KeyPoints
+        public ObservableCollection<KeyPoint> KeyPoints
         {
-            get => _tour.KeyPoints;
-            set { _tour.KeyPoints = value; OnPropertyChanged(nameof(KeyPoints)); }
+            get => new(_tour.KeyPoints);
+            set { _tour.KeyPoints = value.ToList(); OnPropertyChanged(nameof(KeyPoints)); }
         }
 
-        public List<TourAppointment> Appointments
+        public ObservableCollection<TourAppointment> Appointments
         {
-            get => _tour.Appointments;
-            set { _tour.Appointments = value; OnPropertyChanged(nameof(Appointments)); }
+            get => new(_tour.Appointments);
+            set { _tour.Appointments = value.ToList(); OnPropertyChanged(nameof(Appointments)); }
         }
 
-        public List<string> Images
+        public ObservableCollection<string> Images
         {
-            get => _tour.Images;
-            set { _tour.Images = value; OnPropertyChanged(nameof(Images)); }
+            get => new(_tour.Images);
+            set { _tour.Images = value.ToList(); OnPropertyChanged(nameof(Images)); }
         }
         public BaseTourViewModel(Tour tour)
         {
             _tour = tour;
+        }
+
+        public Tour GetTour()
+        {
+            return _tour;
+        }
+
+        public string KeyPointsToString()
+        {
+            return  _tour.KeyPointsToString();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

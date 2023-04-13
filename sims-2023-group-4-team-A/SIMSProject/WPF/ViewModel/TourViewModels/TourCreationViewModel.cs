@@ -32,7 +32,7 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
                     _tour.Location = value;
                     LocationId = value.Id;
                     Keys.Clear();
-                    foreach (var point in GuideInitialWindow.keyPointController.GetAll().FindAll(x => x.LocationId == _tour.LocationId))
+                    foreach (var point in GuideInitialWindow.KeyPointController.GetAll().FindAll(x => x.LocationId == _tour.LocationId))
                     {
                         Keys.Add(point);
                     }
@@ -41,8 +41,6 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
 
             }
         }
-
-
         public List<string> TourLanguages { get; set; }
         public ObservableCollection<Location> AllLocations { get; set; } = new();
         public ObservableCollection<KeyPoint> Keys { get; set;} = new();
@@ -59,7 +57,7 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
                 "Španski"
             };
             Guide = guide;
-            AllLocations = new(GuideInitialWindow.locationController.GetAll());
+            AllLocations = new(GuideInitialWindow.LocationController.GetAll());
         }
 
         public void CreateTour()

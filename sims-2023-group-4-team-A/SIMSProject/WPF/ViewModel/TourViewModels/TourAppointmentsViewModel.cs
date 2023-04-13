@@ -16,12 +16,14 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
         private readonly VoucherSevice _voucherService = new();
         private readonly TourGuestService _tourGuestService = new();
 
+        public BaseTourViewModel Tour { get; set; }
         public ObservableCollection<TourAppointment> Appointments { get; set; }
         public TourAppointment SelectedAppointment { get; set; } = new();
 
         public TourAppointmentsViewModel(Tour tour)
         {
             Appointments = new(_tourAppointmentService.GetAllByTourId(tour.Id));
+            Tour = new(tour);
         }
 
         public void CancelAppointment()
@@ -34,6 +36,30 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
             List<TourGuest> guests = _tourGuestService.GetGuests(SelectedAppointment);
             _voucherService.GiveVouchers(guests, ObtainingReason.APPOINTMENTCANCELED);
             MessageBox.Show("Uspešno ste otkazali termin.");
+        }
+
+        public void StartIfActivated()
+        {
+            TourAppointment? activeAppointment = Appointments.ToList().Find(x => x.TourStatus == Status.ACTIVE);
+            if (activeAppointment == null)
+            {
+                SetStartPoint();
+            }
+            else if (activeAppointment.Id != SelectedAppointment.Id)
+            {
+                MessageBox.Show("Već postoji aktivna tura!");
+            }
+            ActivateAppointment();
+        }
+        private void ActivateAppointment()
+        {
+            _tourAppointmentService.ActivateAppointment(SelectedAppointment);
+        }
+
+        private void SetStartPoint()
+        {
+            SelectedAppointment.CurrentKeyPointId = Tour.KeyPoints[0].Id;
+            SelectedAppointment.CurrentKeyPoint = Tour.KeyPoints.First();
         }
     }
 }

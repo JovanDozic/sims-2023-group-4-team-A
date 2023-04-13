@@ -30,12 +30,13 @@ namespace SIMSProject.Application1.Services.TourServices
             return _repository.GetAll().FindAll(x => x.TourId == tourId && DateTime.Compare(x.Date, DateTime.Now) > 0);
         }
 
-        public void GoToNextKeyPoint(int appointmentId, KeyPoint nextKeyPoint)
+        public TourAppointment GoToNextKeyPoint(int appointmentId, KeyPoint nextKeyPoint)
         {
             TourAppointment? appointment = _repository.GetById(appointmentId) ?? throw new ArgumentException("Error!Can't find appointment!");
             appointment.CurrentKeyPoint = nextKeyPoint;
             appointment.CurrentKeyPointId = nextKeyPoint.Id;
             _repository.SaveAll(_repository.GetAll());
+            return appointment;
         }
 
         private static bool IsCancelable(TourAppointment appointment)
@@ -57,7 +58,7 @@ namespace SIMSProject.Application1.Services.TourServices
             return true;
         }
 
-        public void StartLiveTracking(TourAppointment appointment)
+        public void ActivateAppointment(TourAppointment appointment)
         {
             TourAppointment? oldAppointment = _repository.GetById(appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
 
