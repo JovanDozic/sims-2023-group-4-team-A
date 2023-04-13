@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Model;
 using SIMSProject.Model.DAO;
 

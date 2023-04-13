@@ -28,13 +28,13 @@ namespace SIMSProject.Controller
         public List<ReschedulingRequest> GetAllOnWaitByOwnerId(int ownerId)
         {
             return _reschedulingRequestDAO.GetAll()
-                .FindAll(x => x.AccommodationReservation.Accommodation.Owner.Id == ownerId &&
-                              x.Status == "Na čekanju");
+                .FindAll(x => x.Reservation.Accommodation.Owner.Id == ownerId /*&&
+                              x.Status == "Na čekanju"*/);
         }
 
         public List<ReschedulingRequest> GetAllByOwnerId(int ownerId)
         {
-            return GetAll().FindAll(x => x.AccommodationReservation.Accommodation.Owner.Id == ownerId);
+            return GetAll().FindAll(x => x.Reservation.Accommodation.Owner.Id == ownerId);
         }
 
         public void SaveAll(List<ReschedulingRequest> requests)

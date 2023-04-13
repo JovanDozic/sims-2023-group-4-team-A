@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using SIMSProject.Domain.Models;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Model;
 using SIMSProject.Model.DAO;
 
@@ -31,19 +33,19 @@ namespace SIMSProject.Controller
             return _accommodations.Save(accommodation);
         }
 
-        public ACCOMMODATION_TYPE GetType(string type)
+        public AccommodationType GetType(string type)
         {
             if (type == "Apartman")
             {
-                return ACCOMMODATION_TYPE.APARTMENT;
+                return AccommodationType.Apartment;
             }
 
             if (type == "Kuća")
             {
-                return ACCOMMODATION_TYPE.HOUSE;
+                return AccommodationType.House;
             }
 
-            return ACCOMMODATION_TYPE.HUT;
+            return AccommodationType.Hut;
         }
 
         public List<Accommodation> GetAllByOwner(int id)

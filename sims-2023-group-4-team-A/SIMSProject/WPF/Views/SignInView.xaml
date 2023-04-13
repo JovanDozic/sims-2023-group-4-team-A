@@ -1,0 +1,66 @@
+﻿<Window x:Class="SIMSProject.WPF.Views.SignInView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" KeyDown="Window_KeyDown"
+        Title="Sign in" Height="300" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2.5*" />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0" Width="400" Height="100">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="1.5*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Height="30" FontSize="16">Korisničko ime:</Label>
+            <Label Grid.Row="1" Grid.Column="0" Height="30" FontSize="16">Lozinka:</Label>
+
+            <TextBox x:Name="TxtUsername" Grid.Row="0" Grid.Column="1" FontSize="16" Padding="5,0,0,0"
+                     VerticalContentAlignment="Center" VerticalAlignment="Center"
+                     Margin="5,9,5,9" Height="30"
+                     Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+            <PasswordBox x:Name="TxtPassword" Grid.Row="1" Grid.Column="1" FontSize="16" Padding="5,0,0,0"
+                         VerticalContentAlignment="Center" VerticalAlignment="Center"
+                         Margin="5,9,5,9" Height="30" />
+        </Grid>
+
+        <Button x:Name="BtnSignIn" Content="Uloguj se" Margin="5,9,0,9"
+                FontSize="16" Padding="15,3,15,3"
+                Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top"
+                Width="120" Height="35" Click="BtnSignIn_Click" />
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="BtnGoToOwner" Content="Go to owner" Margin="5,9,5,9"
+                    FontSize="16"
+                    Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Width="120" Height="35" BorderBrush="#FFDADADA" Background="#FFFBFBFB" Click="BtnGoToOwner_Click" />
+            <Button x:Name="BtnGoToGuest" Content="Go to guest" Margin="5,9,5,9"
+                    FontSize="16"
+                    Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Width="120" Height="35" BorderBrush="#FFDADADA" Background="#FFFBFBFB" Click="BtnGoToGuest_Click" />
+            <Button x:Name="BtnGoToGuide" Content="Go to guide" Margin="5,9,5,9"
+                    FontSize="16"
+                    Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Width="120" Height="35" BorderBrush="#FFDADADA" Background="#FFFBFBFB" Click="BtnGoToGuide_Click" />
+        </Grid>
+
+    </Grid>
+</Window>

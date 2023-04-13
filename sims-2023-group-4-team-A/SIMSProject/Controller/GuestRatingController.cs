@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SIMSProject.Model;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Model.DAO;
 
 namespace SIMSProject.Controller
