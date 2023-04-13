@@ -4,16 +4,13 @@ using SIMSProject.View;
 using System;
 using System.Windows;
 using SIMSProject.Domain.Models.UserModels;
-using System.ComponentModel;
 using SIMSProject.Domain.Models;
-using System.Runtime.CompilerServices;
 using SIMSProject.WPF.Views.OwnerViews;
-using SIMSProject.Model;
 using SIMSProject.Application.Services.UserServices;
 
 namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
 {
-    public class SignInViewModel : INotifyPropertyChanged
+    public class SignInViewModel : ViewModelBase
     {
         private string _username = string.Empty;
         private readonly UserService _userService;
@@ -75,12 +72,6 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
         {
             Username = username;
             SignIn(password);
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

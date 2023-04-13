@@ -21,56 +21,6 @@ namespace SIMSProject.WPF.Views.OwnerViews
             // TODO: call unrated guest check
         }
 
-        //private void CheckUnratedGuests()
-        //{
-        //    foreach (var reservation in _reservationController.GetAll())
-        //    {
-        //        if (reservation.GuestRated || reservation.Accommodation._user.Id != _user.Id)  continue;
-        //        if (DateTime.Now < reservation.EndDate || DateTime.Now > reservation.EndDate.AddDays(5)) continue;
-        //        if (!RateGuestDialogue(reservation)) continue;
-        //        RateGuestView window = new(_user, reservation);
-        //        window.ShowDialog();
-        //        BtnRateGuest.IsEnabled = false;
-        //    }
-        //    new GuestController().RefreshRatings();
-        //    _reservationController = new AccommodationReservationController();
-        //    _user.Accommodations = new AccommodationController().GetAllByOwner(_user.Id);
-        //    DgrReservations.Items.Refresh();
-        //}
-        //private bool RateGuestDialogue(AccommodationReservation reservation)
-        //{
-        //    var message = "Gost <" + reservation.Guest.Username + "> koji je izašao iz " +
-        //                  reservation.Accommodation.Name + " dana " + reservation.EndDate.ToString("dd.MM.yyyy") +
-        //                  " nije ocenjen. Da li želite da ostavite ocenu?";
-        //    return MessageBox.Show(message, "Ocenite gosta", MessageBoxButton.YesNo, MessageBoxImage.Question) ==
-        //           MessageBoxResult.Yes;
-        //}
-        //private void OpenRegisterAccommodationWindowButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    RegisterAccommodationView window = new(_user);
-        //    window.ShowDialog();
-        //}
-        //private void OpenRateGuestWindowButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (DateTime.Now < SelectedReservation.EndDate) return;
-        //    RateGuestView window = new(_user, SelectedReservation);
-        //    window.Show();
-        //    BtnRateGuest.IsEnabled = false;
-        //    DgrReservations.Items.Refresh();
-        //}
-        //private void DGRReservations_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    if (SelectedReservation.GuestRated || DateTime.Now < SelectedReservation.EndDate ||
-        //        DateTime.Now > SelectedReservation.EndDate.AddDays(5))
-        //    {
-        //        BtnRateGuest.IsEnabled = false;
-        //    }
-        //    else
-        //    {
-        //        BtnRateGuest.IsEnabled = true;
-        //    }
-        //}
-
         private void LogOut_Click(object sender, RoutedEventArgs e)
         {
             _user = new Owner(0, "<null>", "<null>");
@@ -81,8 +31,8 @@ namespace SIMSProject.WPF.Views.OwnerViews
 
         private void BtnReschedulingRequests_Click(object sender, RoutedEventArgs e)
         {
-            //ReviewReschedulingRequests window = new(_user);
-            //window.ShowDialog();
+            ReschedulingRequestsView window = new(_user);
+            window.ShowDialog();
         }
 
         private void DgrAccommodations_SelectionChanged(object sender, SelectionChangedEventArgs e)

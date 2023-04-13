@@ -36,39 +36,6 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             ImageURLsFromCSV(ImageURLsCSV);
         }
 
-        public string[] ToCSV()
-        {
-            ImageURLsToCSV();
-            string[] csvValues =
-            {
-                Id.ToString(),
-                Owner.Id.ToString(),
-                Name,
-                Location.Id.ToString(),
-                GetType(Type),
-                MaxGuestNumber.ToString(),
-                MinReservationDays.ToString(),
-                CancellationThreshold.ToString(),
-                ImageURLsCSV
-            };
-            return csvValues;
-        }
-
-        public void FromCSV(string[] values)
-        {
-            var i = 0;
-            Id = int.Parse(values[i++]);
-            Owner.Id = int.Parse(values[i++]);
-            Name = values[i++];
-            Location.Id = int.Parse(values[i++]);
-            Type = GetType(values[i++]);
-            MaxGuestNumber = int.Parse(values[i++]);
-            MinReservationDays = int.Parse(values[i++]);
-            CancellationThreshold = int.Parse(values[i++]);
-            ImageURLsCSV = values[i++];
-            ImageURLsFromCSV(ImageURLsCSV);
-        }
-
         public static AccommodationType GetType(string type)
         {
             return type switch
@@ -113,6 +80,39 @@ namespace SIMSProject.Domain.Models.AccommodationModels
                     ImageURLs.Add(imageURL);
                 }
             }
+        }
+
+        public string[] ToCSV()
+        {
+            ImageURLsToCSV();
+            string[] csvValues =
+            {
+                Id.ToString(),
+                Owner.Id.ToString(),
+                Name,
+                Location.Id.ToString(),
+                GetType(Type),
+                MaxGuestNumber.ToString(),
+                MinReservationDays.ToString(),
+                CancellationThreshold.ToString(),
+                ImageURLsCSV
+            };
+            return csvValues;
+        }
+
+        public void FromCSV(string[] values)
+        {
+            var i = 0;
+            Id = int.Parse(values[i++]);
+            Owner.Id = int.Parse(values[i++]);
+            Name = values[i++];
+            Location.Id = int.Parse(values[i++]);
+            Type = GetType(values[i++]);
+            MaxGuestNumber = int.Parse(values[i++]);
+            MinReservationDays = int.Parse(values[i++]);
+            CancellationThreshold = int.Parse(values[i++]);
+            ImageURLsCSV = values[i++];
+            ImageURLsFromCSV(ImageURLsCSV);
         }
 
         public override string? ToString()

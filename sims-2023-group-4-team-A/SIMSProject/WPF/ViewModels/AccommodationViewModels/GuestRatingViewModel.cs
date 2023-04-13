@@ -2,13 +2,10 @@
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 {
-    public class GuestRatingViewModel : INotifyPropertyChanged
+    public class GuestRatingViewModel : ViewModelBase
     {
         private readonly User _user;
         private GuestRating _rating = new();
@@ -109,10 +106,5 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _ratingService.LeaveRating(_rating);
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

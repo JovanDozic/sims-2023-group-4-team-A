@@ -15,4 +15,10 @@
         SuperGuide,
         SuperGuest
     }
+    public enum ReschedulingRequestStatus
+    {
+        Waiting = 0,
+        Accepted,
+        Rejected
+    }
 }

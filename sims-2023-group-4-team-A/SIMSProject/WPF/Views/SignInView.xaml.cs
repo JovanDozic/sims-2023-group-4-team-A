@@ -15,8 +15,7 @@ namespace SIMSProject.WPF.Views
             DataContext = _signInViewModel;
 
             // TODO: remove this before committing
-            // _signInViewModel.DirectSignIn("jovan", "jovan");
-            // Close();
+            BtnGoToOwner_Click(null, null);
         }
 
         private void BtnSignIn_Click(object sender, RoutedEventArgs e)
@@ -33,7 +32,7 @@ namespace SIMSProject.WPF.Views
             }
         }
 
-        private void BtnGoToOwner_Click(object sender, RoutedEventArgs e)
+        private void BtnGoToOwner_Click(object? sender, RoutedEventArgs? e)
         {
             _signInViewModel.DirectSignIn("jovan", "jovan");
             Close();

@@ -1,11 +1,10 @@
-﻿<Window x:Class="SIMSProject.View.OwnerViews.ReviewReschedulingRequests"
+﻿<Window x:Class="SIMSProject.WPF.Views.OwnerViews.ReschedulingRequestsView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SIMSProject.View.OwnerViews"
         mc:Ignorable="d"
-        Title="ReviewReschedulingRequests" Height="750" Width="430" WindowStartupLocation="CenterScreen">
+        Title="Zahtevi za pomeranje rezervacije" Height="750" Width="430" WindowStartupLocation="CenterScreen">
     <Grid>
 
         <Grid.RowDefinitions>
@@ -27,7 +26,6 @@
                VerticalAlignment="Center" HorizontalAlignment="Center"
                FontWeight="SemiBold" />
 
-
         <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
                   ItemsSource="{Binding Requests, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedRequest}"
@@ -38,8 +36,8 @@
                   LoadingRow="DgrRequests_LoadingRow">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="30" />
-                <DataGridTextColumn Header="Rez. ID" Binding="{Binding AccommodationReservation.Id}" />
-                <DataGridTextColumn Header="Smeštaj" Binding="{Binding AccommodationReservation.Accommodation}" />
+                <DataGridTextColumn Header="Rez. ID" Binding="{Binding Reservation.Id}" />
+                <DataGridTextColumn Header="Smeštaj" Binding="{Binding Reservation.Accommodation}" />
                 <DataGridTextColumn Header="Novi početak" Binding="{Binding NewStartDate, StringFormat=\{0:dd.MM.yy\}}" />
                 <DataGridTextColumn Header="Novi kraj" Binding="{Binding NewEndDate, StringFormat=\{0:dd.MM.yy\}}" />
                 <DataGridTextColumn Header="Status" Binding="{Binding Status}" />

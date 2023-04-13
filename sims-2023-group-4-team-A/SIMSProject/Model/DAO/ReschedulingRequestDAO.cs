@@ -24,7 +24,7 @@ namespace SIMSProject.Model.DAO
 
         public void MapReschedulingRequests()
         {
-            _reschedulingRequests.ForEach(x => x.AccommodationReservation = _reservationDAO.GetById(x.AccommodationReservation.Id));
+            _reschedulingRequests.ForEach(x => x.Reservation = _reservationDAO.GetById(x.Reservation.Id));
         }
 
         public int NextId()

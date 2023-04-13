@@ -7,12 +7,10 @@ using SIMSProject.Domain.Models.UserModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 {
-    public class AccommodationViewModel : INotifyPropertyChanged
+    public class AccommodationViewModel : ViewModelBase
     {
         private User _user;
         private Accommodation _accommodation = new();
@@ -152,8 +150,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             }
         }
 
-
-
         public AccommodationViewModel(User user)
         {
             _user = user;
@@ -186,13 +182,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             ImageURLs.Add(imageUrl);
         }
 
-
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }
 

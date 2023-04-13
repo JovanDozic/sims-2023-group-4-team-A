@@ -3,12 +3,10 @@ using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace SIMSProject.WPF.ViewModels.OwnerViewModels
 {
-    public class OwnerHomeViewModel : INotifyPropertyChanged
+    public class OwnerHomeViewModel : ViewModelBase
     {
         private readonly User _user;
         public readonly AccommodationViewModel _accommodationViewModel;
@@ -56,7 +54,7 @@ namespace SIMSProject.WPF.ViewModels.OwnerViewModels
 
         public void LoadAccommodations()
         {
-            if (Accommodations  == null) return;
+            if (Accommodations == null) return;
             Accommodations = _accommodationViewModel.LoadAccommodationsByOwner();
         }
 
@@ -72,10 +70,5 @@ namespace SIMSProject.WPF.ViewModels.OwnerViewModels
             return true;
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

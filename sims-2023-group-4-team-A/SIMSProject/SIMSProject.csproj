@@ -58,6 +58,7 @@
   <ItemGroup>
     <Folder Include="Model\UserModel\" />
     <Folder Include="Properties\" />
+    <Folder Include="View\OwnerViews\" />
   </ItemGroup>
 
 </Project>
