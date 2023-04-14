@@ -69,6 +69,7 @@
                 Content="Gosti:"
                 FontSize="24"/>
             <ListBox 
+                x:Name="LbGuests"
                 Width="342" Height="350"
                 ItemsSource="{Binding Path=Guests, UpdateSourceTrigger=PropertyChanged}"
                 SelectedItem="{Binding SelectedGuest, UpdateSourceTrigger=PropertyChanged}"

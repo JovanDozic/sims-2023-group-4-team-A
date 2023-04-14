@@ -18,12 +18,14 @@
                HorizontalContentAlignment="Center"
                Width="488"
                Height="74"/>
-        <ListBox Grid.Row="1"
+        <ListBox x:Name="LbAppointments" 
+                 Grid.Row="1"
                  Width="350"
                  Height="173"
                  FontSize="24"
+                 SelectionChanged="LbAppointments_SelectionChanged"
                  SelectedItem="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                 ItemsSource="{Binding Path=Appointments, UpdateSourceTrigger=PropertyChanged}">
+                 ItemsSource="{Binding Path=Appointments, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
         </ListBox>
         <Button x:Name="StartTrackingBTN"
                 Grid.Row="2"

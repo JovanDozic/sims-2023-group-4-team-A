@@ -1,4 +1,4 @@
-﻿using SIMSProject.WPF.ViewModel.TourViewModels;
+﻿using SIMSProject.WPF.ViewModels.TourViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,16 +21,17 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     /// </summary>
     public partial class TodaysToursPage : Page
     {
-        private ToursViewModel ToursViewModel { get; set; } = new();
+        private ToursViewModel _vewModel { get; set; }
         public TodaysToursPage()
         {
             InitializeComponent();
-            ToursViewModel.GetTodaysTours();
-            this.DataContext = ToursViewModel;
+            _vewModel = new();
+            _vewModel.GetTodaysTours();
+            this.DataContext = _vewModel;
         }
         private void CheckAppointmentsBTN_Click(object sender, RoutedEventArgs e)
         {
-            var window = new LiveTrackAppointmentSelectionWindow(ToursViewModel.SelectedTour);
+            var window = new LiveTrackAppointmentSelectionWindow(_vewModel.SelectedTour);
             window.Show();
         }
     }

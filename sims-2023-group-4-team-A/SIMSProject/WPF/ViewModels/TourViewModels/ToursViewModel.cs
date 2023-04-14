@@ -1,22 +1,28 @@
 ﻿using SIMSProject.Application1.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SIMSProject.WPF.ViewModel.TourViewModels
+namespace SIMSProject.WPF.ViewModels.TourViewModels
 {
-    public class ToursViewModel
+    public class ToursViewModel: ViewModelBase
     {
         private readonly TourService _tourService;
         public ObservableCollection<Tour> Tours { get; set; }
-        public Tour SelectedTour { get; set; } = new();
+
+        private Tour _tour = new();
+        public Tour SelectedTour
+        {   
+            get => _tour;
+            set
+            {
+                if(value != _tour)
+                {
+                    _tour = value;
+                    OnPropertyChanged(nameof(SelectedTour));
+                }
+            }
+        }
 
         public ToursViewModel()
         {

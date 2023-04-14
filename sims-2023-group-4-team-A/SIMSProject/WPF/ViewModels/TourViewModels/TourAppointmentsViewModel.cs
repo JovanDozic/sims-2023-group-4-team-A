@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace SIMSProject.WPF.ViewModel.TourViewModels
+namespace SIMSProject.WPF.ViewModels.TourViewModels
 {
-    public class TourAppointmentsViewModel
+    public class TourAppointmentsViewModel : ViewModelBase
     {
         private readonly TourAppointmentService _tourAppointmentService;
         private readonly VoucherSevice _voucherService;
@@ -19,14 +19,27 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
 
         public BaseTourViewModel Tour { get; set; }
         public ObservableCollection<TourAppointment> Appointments { get; set; }
-        public TourAppointment SelectedAppointment { get; set; } = new();
+
+        private TourAppointment _selectedAppointment = new();
+        public TourAppointment SelectedAppointment
+        {
+            get => _selectedAppointment;
+            set
+            {
+                if (value != _selectedAppointment)
+                {
+                    _selectedAppointment = value;
+                    OnPropertyChanged(nameof(SelectedAppointment));
+                }
+            }
+        }
 
         public TourAppointmentsViewModel(Tour tour)
         {
             _tourAppointmentService = Injector.GetService<TourAppointmentService>();
             _voucherService = Injector.GetService<VoucherSevice>();
             _tourGuestService = Injector.GetService<TourGuestService>();
-            
+
             Appointments = new(_tourAppointmentService.GetAllByTourId(tour.Id));
             Tour = new(tour);
         }
@@ -45,26 +58,20 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
 
         public void StartIfActivated()
         {
-            TourAppointment? activeAppointment = Appointments.ToList().Find(x => x.TourStatus == Status.ACTIVE);
-            if (activeAppointment == null)
+            TourAppointment? active = _tourAppointmentService.GetActiveByTour(Tour.Tour);
+            if (active == null)
             {
-                SetStartPoint();
+                SelectedAppointment = _tourAppointmentService.Activate(SelectedAppointment, Tour.Tour);
             }
-            else if (activeAppointment.Id != SelectedAppointment.Id)
+            else if (active.Id != SelectedAppointment.Id)
             {
                 MessageBox.Show("Već postoji aktivna tura!");
+                return;
             }
-            ActivateAppointment();
-        }
-        private void ActivateAppointment()
-        {
-            _tourAppointmentService.ActivateAppointment(SelectedAppointment);
-        }
-
-        private void SetStartPoint()
-        {
-            SelectedAppointment.CurrentKeyPointId = Tour.KeyPoints[0].Id;
-            SelectedAppointment.CurrentKeyPoint = Tour.KeyPoints.First();
+            else
+            {
+                SelectedAppointment = active;
+            }
         }
     }
 }

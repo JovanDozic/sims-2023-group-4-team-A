@@ -10,18 +10,31 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace SIMSProject.WPF.ViewModel.TourViewModels
+namespace SIMSProject.WPF.ViewModels.TourViewModels
 {
-    public class LiveTrackViewModel
+    public class LiveTrackViewModel: ViewModelBase
     {
         private readonly TourService _tourService;
         private readonly TourAppointmentService _tourAppointmentService;
         private readonly TourGuestService _tourGuestService;
 
         public BaseTourViewModel Tour { get; set; }
-        public TourAppointmentViewModel Appointment { get; set; }
+        public BaseAppointmentViewModel Appointment { get; set; }
         public ObservableCollection<TourGuest> Guests { get; set; } = new();
-        public TourGuest SelectedGuest {get; set;} = new();
+
+        private TourGuest _selectedGuest = new();
+        public TourGuest SelectedGuest
+        {
+            get => _selectedGuest;
+            set
+            {
+                if(value != _selectedGuest)
+                {
+                    _selectedGuest = value;
+                    OnPropertyChanged(nameof(SelectedGuest));
+                }
+            }
+        }
         public string KeyPoints { get; set; } = string.Empty;
 
         public LiveTrackViewModel(Tour tour, TourAppointment appointment)
@@ -33,28 +46,19 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
             Tour = new(tour);
             Appointment = new(appointment);
             KeyPoints = Tour.KeyPointsToString();
-        }
+            Guests = new(_tourGuestService.GetGuests(appointment));
 
-        private void RefreshGuests()
-        {
-            Guests.Clear();
-            List<TourGuest> guests = _tourGuestService.GetGuests(Appointment.TourAppointment);
-
-            foreach (var guest in guests)
-            {
-                Guests.Add(guest);
-            }
         }
 
         public void GoNext()
         {
-            if(Tour.GetTour().KeyPoints.Last().Id == Appointment.CurrentKeyPointId)
+            if (Tour.GetTour().KeyPoints.Last().Id == Appointment.CurrentKeyPointId)
             {
                 MessageBox.Show("Došli ste do kraja, završite turu!");
                 return;
             }
 
-            KeyPoint Next = _tourService.GoToNextKeyPoint(Appointment.GetAppointment());
+            KeyPoint Next = _tourService.GetNextKeyPoint(Appointment.TourAppointment);
             Appointment.TourAppointment = _tourAppointmentService.GoToNextKeyPoint(Appointment.Id, Next);
         }
 
@@ -68,11 +72,8 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
         public void SignUpGuest()
         {
             _tourGuestService.SignUpGuest(SelectedGuest.GuestId, Appointment.Id);
-            RefreshGuests();
             MessageBox.Show("Gost prijavljen!");
         }
-
-
 
     }
 }

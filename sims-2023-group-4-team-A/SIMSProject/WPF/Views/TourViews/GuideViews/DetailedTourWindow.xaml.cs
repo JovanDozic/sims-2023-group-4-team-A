@@ -1,5 +1,5 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
-using SIMSProject.WPF.ViewModel.TourViewModels;
+using SIMSProject.WPF.ViewModels.TourViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,17 +21,19 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     /// </summary>
     public partial class DetailedTourWindow : Window
     {
-        private readonly TourAppointmentsViewModel _appointments;
+        private  TourAppointmentsViewModel _appointments { get; set; }
         public DetailedTourWindow(Tour tour)
         {
             InitializeComponent();
             _appointments = new(tour);
             DataContext = _appointments;
+            
         }
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
             _appointments.CancelAppointment();
+            LbAppointments.Items.Refresh();
         }
     }
 }

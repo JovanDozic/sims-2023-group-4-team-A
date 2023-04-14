@@ -59,14 +59,20 @@ namespace SIMSProject.Application1.Services.TourServices
             return true;
         }
 
-        public void ActivateAppointment(TourAppointment appointment)
+        public TourAppointment GetActiveByTour(Tour tour)
+        {
+            return _repo.GetAll().Find(x => x.TourStatus == Status.ACTIVE && x.TourId == tour.Id);
+        }
+
+        public TourAppointment Activate(TourAppointment appointment, Tour tour)
         {
             TourAppointment? oldAppointment = _repo.GetById(appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
 
             oldAppointment.TourStatus = Status.ACTIVE;
-            oldAppointment.CurrentKeyPoint = appointment.CurrentKeyPoint;
-            oldAppointment.CurrentKeyPointId = appointment.CurrentKeyPointId;
+            oldAppointment.CurrentKeyPoint = tour.KeyPoints.First();
+            oldAppointment.CurrentKeyPointId = tour.KeyPoints.First().Id;
             _repo.SaveAll(_repo.GetAll());
+            return oldAppointment;
         }
 
         public void StopLiveTracking(int appointmentId)

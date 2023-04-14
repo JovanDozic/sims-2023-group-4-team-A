@@ -21,7 +21,7 @@ namespace SIMSProject.Repositories.TourRepositories
         {
             _fileHandler = new();
             _tourAppointments = _fileHandler.Load();
-            AssociateAppointments();
+            MapAppointments();
 
         }
 
@@ -54,7 +54,7 @@ namespace SIMSProject.Repositories.TourRepositories
         }
 
 
-        private void AssociateAppointments()
+        private void MapAppointments()
         {
             GuestFileHandler guestFileHandler = new();
             List<Guest> guests = guestFileHandler.Load();
@@ -68,7 +68,7 @@ namespace SIMSProject.Repositories.TourRepositories
 
             foreach (TourAppointment appointment in _tourAppointments)
             {
-                AssociateTour(appointment, tours);
+                MapTour(appointment, tours);
                 AssociateCurrenKeyPoint(appointment, keyPoints);
                 AssociateGuests(appointment, guests, tourGuests);
             }
@@ -92,7 +92,7 @@ namespace SIMSProject.Repositories.TourRepositories
             appointment.CurrentKeyPoint = keyPoints.Find(x => x.Id == appointment.CurrentKeyPointId) ?? throw new SystemException("Error!No matching key point!");
         }
 
-        private static void AssociateTour(TourAppointment appointment, List<Tour> tours)
+        private static void MapTour(TourAppointment appointment, List<Tour> tours)
         {
             appointment.Tour = tours.Find(x => x.Id == appointment.TourId) ?? throw new SystemException("Error!No matching tour!");
         }

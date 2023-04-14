@@ -3,9 +3,9 @@ using SIMSProject.Domain.Models.UserModels;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace SIMSProject.WPF.ViewModel.TourViewModels
+namespace SIMSProject.WPF.ViewModels.TourViewModels
 {
-    public class TourGuestViewModel : INotifyPropertyChanged
+    public class BaseTourGuestViewModel : ViewModelBase
     {
         private readonly TourGuest _tourGuest;
         public int AppointmentId
@@ -72,7 +72,7 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
         }
         public TourAppointment Appointment
         {
-            get => (TourAppointment)_tourGuest.Appointment;
+            get => _tourGuest.Appointment;
             set
             {
                 _tourGuest.Appointment = value;
@@ -89,20 +89,14 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
             }
         }
 
-        public TourGuestViewModel()
+        public BaseTourGuestViewModel()
         {
             _tourGuest = new();
         }
 
-        public TourGuestViewModel(TourGuest tourGuest)
+        public BaseTourGuestViewModel(TourGuest tourGuest)
         {
             _tourGuest = tourGuest;
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

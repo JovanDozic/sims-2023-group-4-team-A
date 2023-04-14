@@ -34,7 +34,7 @@ namespace SIMSProject.Application1.Services.TourServices
             _repo.Save(tour);
         }
 
-        public KeyPoint GoToNextKeyPoint(TourAppointment appointment)
+        public KeyPoint GetNextKeyPoint(TourAppointment appointment)
         {
             var currentTour = _repo.GetById(appointment.TourId);
             if (currentTour == null)

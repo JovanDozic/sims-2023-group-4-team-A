@@ -12,7 +12,8 @@
             <RowDefinition Height="500"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <DataGrid Grid.Row="0"
+        <DataGrid x:Name="DgrTodays"
+                  Grid.Row="0"
                   Height="400"
                   Width="900"
                   CanUserAddRows="False"

@@ -1,5 +1,5 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.WPF.ViewModel.TourViewModels;
+using SIMSProject.WPF.ViewModels.TourViewModels;
 using System;
 using System.Windows;
 
@@ -12,41 +12,41 @@ namespace SIMSProject.View.GuideViews
     public partial class TourCreation : Window
     {
         private bool _imageAdded;
-        private TourCreationViewModel View { get; set; }
+        private TourCreationViewModel _viewModel { get; set; }
 
         public TourCreation(Guide guide)
         {
             InitializeComponent();
-            View = new(guide);
-            this.DataContext = View;
+            _viewModel = new(guide);
+            this.DataContext = _viewModel;
             TBTime.Text = "hh:mm";
         }
 
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
-            if (!View.IsValid())
+            if (!_viewModel.IsValid())
             {
                 MessageBox.Show("Ne valja");
                 return;
             }
-            View.CreateTour();
+            _viewModel.CreateTour();
             Close();
         }
         private void AddKeyPoint_Click(object sender, RoutedEventArgs e)
         {
-            View.AddKeyPoint();
+            _viewModel.AddKeyPoint();
         }
 
         private void AddDate_Click(object sender, RoutedEventArgs e)
         {
-            View.Appointments.Add(new(CreateDate(), -1, View.MaxGuestNumber, -1));
+            _viewModel.Appointments.Add(new(CreateDate(), -1, _viewModel.MaxGuestNumber, -1));
         }
 
         private DateTime CreateDate()
         {
-            int year = View.SelectedAppointment.Year;
-            int month = View.SelectedAppointment.Month;
-            int day = View.SelectedAppointment.Day;
+            int year = _viewModel.SelectedAppointment.Year;
+            int month = _viewModel.SelectedAppointment.Month;
+            int day = _viewModel.SelectedAppointment.Day;
             int hours, minutes, seconds;
             CalculateTime(out hours, out minutes, out seconds);
             DateTime newDate = new(year, month, day, hours, minutes, seconds);
@@ -74,7 +74,7 @@ namespace SIMSProject.View.GuideViews
         }
         private void BTNUploadFiles_Click(object sender, RoutedEventArgs e)
         {
-            View.Images.Add(ImageURLs.Text);
+            _viewModel.Images.Add(ImageURLs.Text);
             _imageAdded = true;
         }
     }

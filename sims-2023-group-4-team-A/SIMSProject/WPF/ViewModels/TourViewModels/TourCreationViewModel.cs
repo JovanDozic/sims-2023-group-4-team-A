@@ -1,4 +1,6 @@
-﻿using SIMSProject.Application1.Services.TourServices;
+﻿using SIMSProject.Application.Services;
+using SIMSProject.Application.Services.TourServices;
+using SIMSProject.Application1.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
@@ -9,13 +11,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 
-namespace SIMSProject.WPF.ViewModel.TourViewModels
+namespace SIMSProject.WPF.ViewModels.TourViewModels
 {
     public class TourCreationViewModel : BaseTourViewModel
     {
         private readonly TourService _tourService;
         private readonly TourAppointmentService _tourAppointmentService;
         private readonly TourKeyPointService _tourKeyPointService;
+        private readonly LocationService _locationService;
+        private readonly KeyPointService _keyPointService;
 
         public new Location Location
         {
@@ -27,7 +31,7 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
                     _tour.Location = value;
                     LocationId = value.Id;
                     Keys.Clear();
-                    foreach (var point in GuideInitialWindow.KeyPointController.GetAll().FindAll(x => x.LocationId == _tour.LocationId))
+                    foreach (var point in _keyPointService.FindAll().FindAll(x => x.LocationId == _tour.LocationId))
                     {
                         Keys.Add(point);
                     }
@@ -38,7 +42,7 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
         }
         public List<string> TourLanguages { get; set; }
         public ObservableCollection<Location> AllLocations { get; set; } = new();
-        public ObservableCollection<KeyPoint> Keys { get; set;} = new();
+        public ObservableCollection<KeyPoint> Keys { get; set; } = new();
         public KeyPoint? SelectedKeyPoint { get; set; }
         public DateTime SelectedAppointment { get; set; } = DateTime.Now;
 
@@ -53,11 +57,13 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
             };
 
             _tourService = Injector.GetService<TourService>();
-            _tourAppointmentService  = Injector.GetService<TourAppointmentService>();
+            _tourAppointmentService = Injector.GetService<TourAppointmentService>();
             _tourKeyPointService = Injector.GetService<TourKeyPointService>();
+            _locationService = Injector.GetService<LocationService>();
+            _keyPointService = Injector.GetService<KeyPointService>();
 
             Guide = guide;
-            AllLocations = new(GuideInitialWindow.LocationController.GetAll());
+            AllLocations = new(_locationService.FindAll());
         }
 
         public void CreateTour()
@@ -76,7 +82,7 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
 
         public void AddKeyPoint()
         {
-            if(SelectedKeyPoint == null)
+            if (SelectedKeyPoint == null)
             {
                 MessageBox.Show("Nije moguće izabrati ključnu tačku koja ne postoji!");
                 return;

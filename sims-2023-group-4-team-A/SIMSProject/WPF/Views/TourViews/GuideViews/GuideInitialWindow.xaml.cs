@@ -15,12 +15,8 @@ namespace SIMSProject.View.GuideViews
 
         public static LocationController LocationController { get; set; } = new();
         public static KeyPointController KeyPointController { get; set; } = new();
-        public static TourGuestController TourGuestController { get; set; } = new();    
 
-
-        public Tour SelectedTour { get; set; } = new();
         public Guide Guide { get; set; } = new();
-        public ObservableCollection<Tour> TodaysTours { get; set; } = new ObservableCollection<Tour>();
 
 
         public GuideInitialWindow(Guide guide)

@@ -8,11 +8,11 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMSProject.WPF.ViewModel.TourViewModels
+namespace SIMSProject.WPF.ViewModels.TourViewModels
 {
-    public class TourAppointmentViewModel : INotifyPropertyChanged
+    public class BaseAppointmentViewModel : ViewModelBase
     {
-        private TourAppointment? _tourAppointment;
+        private TourAppointment? _tourAppointment = new();
         public TourAppointment TourAppointment
         {
             get => _tourAppointment;
@@ -39,7 +39,7 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
             get => _tourAppointment.Date;
             set
             {
-                if(value != _tourAppointment.Date)
+                if (value != _tourAppointment.Date)
                 {
                     _tourAppointment.Date = value;
                     OnPropertyChanged(nameof(Date));
@@ -69,8 +69,8 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
             get => _tourAppointment.CurrentKeyPointId;
             set
             {
-                    _tourAppointment.CurrentKeyPointId = value;
-                    OnPropertyChanged(nameof(CurrentKeyPointId));
+                _tourAppointment.CurrentKeyPointId = value;
+                OnPropertyChanged(nameof(CurrentKeyPointId));
             }
         }
         public int AvailableSpots
@@ -78,12 +78,12 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
             get => _tourAppointment.AvailableSpots;
             set
             {
-                    _tourAppointment.AvailableSpots  = value;
-                    OnPropertyChanged(nameof(AvailableSpots));
+                _tourAppointment.AvailableSpots = value;
+                OnPropertyChanged(nameof(AvailableSpots));
             }
         }
 
-        public Tour Tour 
+        public Tour Tour
         {
             get => _tourAppointment.Tour;
             set
@@ -111,18 +111,14 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
             }
         }
 
-        public TourAppointmentViewModel(TourAppointment appointment)
+        public BaseAppointmentViewModel()
         {
-            _tourAppointment = appointment;
+            
+        }
+        public BaseAppointmentViewModel(TourAppointment appointment)
+        {
+            TourAppointment = appointment;
         }
 
-        public TourAppointment GetAppointment()
-        { return _tourAppointment; }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

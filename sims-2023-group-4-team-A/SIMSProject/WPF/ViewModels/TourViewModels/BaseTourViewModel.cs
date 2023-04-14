@@ -8,11 +8,24 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using SIMSProject.Domain.Models;
 
-namespace SIMSProject.WPF.ViewModel.TourViewModels
+namespace SIMSProject.WPF.ViewModels.TourViewModels
 {
-    public class BaseTourViewModel: INotifyPropertyChanged
+    public class BaseTourViewModel : ViewModelBase
     {
-        protected readonly Tour _tour;
+        protected  Tour _tour;
+
+        public Tour Tour
+        {
+            get => _tour;
+            set
+            {
+                if(value != _tour)
+                {
+                    _tour = value;
+                    OnPropertyChanged(nameof(Tour));
+                }
+            }
+        }
         public int Id
         {
             get { return _tour.Id; }
@@ -28,7 +41,7 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
                     _tour.GuideId = value;
                     OnPropertyChanged(nameof(GuideId));
                 }
-                
+
             }
         }
 
@@ -42,14 +55,14 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
                     _tour.LocationId = value;
                     OnPropertyChanged(nameof(LocationId));
                 }
-                
+
             }
         }
 
         public string Name
         {
             get { return _tour.Name; }
-            set 
+            set
             {
                 if (_tour.Name != value)
                 {
@@ -62,9 +75,9 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
         public string Description
         {
             get { return _tour.Description; }
-            set 
+            set
             {
-                if(value != _tour.Description)
+                if (value != _tour.Description)
                 {
                     _tour.Description = value;
                     OnPropertyChanged(nameof(Description));
@@ -127,8 +140,8 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
         public Guide Guide
         {
             get => _tour.Guide;
-            set 
-            { 
+            set
+            {
                 if (_tour.Guide != value)
                 {
                     _tour.Guide = value;
@@ -183,13 +196,8 @@ namespace SIMSProject.WPF.ViewModel.TourViewModels
 
         public string KeyPointsToString()
         {
-            return  _tour.KeyPointsToString();
+            return _tour.KeyPointsToString();
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

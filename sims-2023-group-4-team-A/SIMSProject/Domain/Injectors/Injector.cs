@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SIMSProject.Application.Services;
 using SIMSProject.Application.Services.AccommodationServices;
+using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Application.Services.UserServices;
 using SIMSProject.Application1.Services.TourServices;
 using SIMSProject.Domain.RepositoryInterfaces;
@@ -67,10 +68,11 @@ namespace SIMSProject.Domain.Injectors
             services.AddScoped<ReschedulingRequestService>();
 
             services.AddScoped<TourService>();
-            services.AddScoped<TourAppointmentService>();
+            services.AddTransient<TourAppointmentService>();
             services.AddScoped<TourGuestService>();
             services.AddScoped<TourKeyPointService>();
             services.AddScoped<VoucherSevice>();
+            services.AddScoped<KeyPointService>();
 
             // Try if service no work!
             //services.AddScoped<ServiceName>(
