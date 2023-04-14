@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using SIMSProject.View.Guest2;
 using SIMSProject.Model.UserModel;
+using SIMSProject.WPF.Views.Guest2Views;
 
 namespace SIMSProject.View.Guest2
 {
@@ -164,5 +165,11 @@ namespace SIMSProject.View.Guest2
             VouchersDisplay vouchersDisplay = new VouchersDisplay(User);
             vouchersDisplay.Show();
         }
+        private void Reservations_Click(object sender, RoutedEventArgs e)
+        {
+            TourReservations tourReservations = new TourReservations(User);
+            tourReservations.Show();
+        }
+
     }
 }

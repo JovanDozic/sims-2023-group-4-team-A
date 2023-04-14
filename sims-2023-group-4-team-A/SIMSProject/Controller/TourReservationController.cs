@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Model;
+using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Model.DAO;
 using System;
 using System.Collections.Generic;

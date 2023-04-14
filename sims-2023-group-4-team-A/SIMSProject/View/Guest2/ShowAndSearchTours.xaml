@@ -24,6 +24,7 @@
             <Button  Height="30" Width ="100" Click="Search_Click" Content="Pretrazi" Background="Gray"/>
             <Button  Height="30" Width ="100" Click="Reserve_Click"  Content="Rezervisi" Background="Gray"/>
             <Button  Height="30" Width ="100" Click="Vouchers_Click"  Content="Moji vauceri" Background="Gray"/>
+            <Button  Height="30" Width ="100" Click="Reservations_Click"  Content="Moje rezervacije" Background="Gray"/>
         </ToolBar>
 
         <DataGrid Height="500" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" RowHeight="30" FontSize="20"

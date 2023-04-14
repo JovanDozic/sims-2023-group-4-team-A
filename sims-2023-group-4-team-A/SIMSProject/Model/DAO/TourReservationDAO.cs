@@ -2,6 +2,8 @@
 using System.Linq;
 using SIMSProject.FileHandler;
 using SIMSProject.Observer;
+using SIMSProject.Domain.Models.TourModels;
+
 
 namespace SIMSProject.Model.DAO
 {

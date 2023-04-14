@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMSProject.Model
+namespace SIMSProject.Domain.Models.TourModels
 {
     public class TourReservation : ISerializable
     {
@@ -22,11 +22,11 @@ namespace SIMSProject.Model
             TourDateId = tourDateId;
             GuestId = guestId;
             GuestNumber = guestNumber;
-        }   
+        }
 
         public string[] ToCSV()
         {
-            string[] csvValues = {Id.ToString(),TourDateId.ToString(), GuestId.ToString(), GuestNumber.ToString() };
+            string[] csvValues = { Id.ToString(), TourDateId.ToString(), GuestId.ToString(), GuestNumber.ToString() };
             return csvValues;
         }
 
