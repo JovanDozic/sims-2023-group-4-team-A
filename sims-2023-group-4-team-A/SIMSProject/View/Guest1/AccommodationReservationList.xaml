@@ -40,7 +40,7 @@
         </DataGrid>
 
         <Button FontSize="20" Content="Otkaži rezervaciju" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="45" Width="200" Click="Button_Click_Cancellation"></Button>
-        <Button FontSize="20" Grid.Row="3" Grid.Column="1" Content="Pomeri rezervaciju" Height="45" Width="200"></Button>
+        <Button FontSize="20" Grid.Row="3" Grid.Column="1" Content="Pomeri rezervaciju" Height="45" Width="200" Click="Button_Click"></Button>
 
 
     </Grid>
