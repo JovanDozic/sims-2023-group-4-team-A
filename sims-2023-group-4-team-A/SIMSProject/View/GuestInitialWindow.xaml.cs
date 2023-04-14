@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using SIMSProject.Model.UserModel;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.View.Guest1;
 using SIMSProject.View.Guest2;
 

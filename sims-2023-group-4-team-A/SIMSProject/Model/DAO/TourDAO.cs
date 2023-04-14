@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Domain.Models;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.FileHandler;
 using SIMSProject.FileHandler.UserFileHandler;
-using SIMSProject.Model.UserModel;
 using SIMSProject.Observer;
 
 namespace SIMSProject.Model.DAO
@@ -40,7 +42,7 @@ namespace SIMSProject.Model.DAO
             return _tours;
         }
 
-        public Tour Get(int id)
+        public Tour FindById(int id)
         {
             return _tours.Find(x => x.Id == id);
         }
@@ -140,15 +142,15 @@ namespace SIMSProject.Model.DAO
             return _tours.FindAll(x => x.Appointments.Any(x => x.Date.Date == DateTime.Today.Date));
         }
 
-        public KeyPoint GoToNextKeyPoint(TourAppointment date)
+        public KeyPoint GoToNextKeyPoint(TourAppointment appointment) //servis
         {
-            var currentTour = Get(date.TourId);
+            var currentTour = FindById(appointment.TourId);
             if (currentTour == null)
             {
                 return null;
             }
 
-            var currentIndex = currentTour.KeyPoints.FindIndex(x => x.Id == date.CurrentKeyPointId);
+            var currentIndex = currentTour.KeyPoints.FindIndex(x => x.Id == appointment.CurrentKeyPointId);
             var indexOutOfRange = currentIndex < 0 || currentIndex >= currentTour.KeyPoints.Count - 1;
 
             if (indexOutOfRange)
@@ -159,20 +161,14 @@ namespace SIMSProject.Model.DAO
             return currentTour.KeyPoints[currentIndex + 1];
         }
 
-        public KeyPoint GetLastKeyPoint(TourAppointment date)
+        public KeyPoint GetLastKeyPoint(TourAppointment appointment)
         {
-            var currentTour = Get(date.TourId);
-            if (currentTour == null)
-            {
-                return null;
-            }
-
-            return currentTour.KeyPoints.Last();
+            return FindById(appointment.TourId)?.KeyPoints.Last();
         }
 
-        public void EndTour(int tourId, int appointmentId)
+        public void EndTourAppointment(int tourId, int appointmentId) //servis
         {
-            var toEnd = Get(tourId);
+            var toEnd = FindById(tourId);
             if (toEnd == null)
             {
                 return;
@@ -181,30 +177,14 @@ namespace SIMSProject.Model.DAO
 
             TourAppointment? appointmentToEnd = toEnd.Appointments.Find(x => x.Id == appointmentId);
             if (appointmentToEnd == null) return;
-            appointmentToEnd.TourStatus = "Završena";
+            appointmentToEnd.TourStatus = Status.COMPLETED;
             _fileHandler.Save(_tours);
             NotifyObservers();
         }
 
-        public void AddNewAppointment(int tourId, TourAppointment appointment)
-        {
-            Tour tour = Get(tourId);
-            if (tour == null) return;
-            tour.Appointments.Add(appointment);
-        }
-
         public List<Tour> GetToursWithSameLocation(Tour selectedTour)
         {
-            List<Tour> tours = new();
-            foreach (var tour in GetAll())
-            {
-                if (tour.Location.Id == selectedTour.Location.Id && tour.Id != selectedTour.Id)
-                {
-                    tours.Add(tour);
-                }
-            }
-
-            return tours;
+            return _tours.FindAll(x => x.LocationId == selectedTour.LocationId && x.Id != selectedTour.Id);
         }
 
         // [OBSERVERS]

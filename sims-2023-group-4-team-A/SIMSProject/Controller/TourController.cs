@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SIMSProject.Model;
 using SIMSProject.Observer;
+using SIMSProject.Application1.Services.TourServices;
+using SIMSProject.Domain.Models.TourModels;
 
 namespace SIMSProject.Controller
 {
@@ -60,15 +61,6 @@ namespace SIMSProject.Controller
             return _tours.GetLastKeyPoint(date);
         }
 
-        public void EndTour(int tourId, int dateId)
-        {
-            _tours.EndTour(tourId, dateId);
-        }
-
-        public void AddAppointment(int tourId, TourAppointment date)
-        {
-            _tours.AddNewAppointment(tourId, date);
-        }
 
         public void Refresh()
         {

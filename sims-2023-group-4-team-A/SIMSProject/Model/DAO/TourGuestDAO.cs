@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.FileHandler;
 using SIMSProject.FileHandler.UserFileHandler;
-using SIMSProject.Model.UserModel;
 using SIMSProject.Observer;
 
 namespace SIMSProject.Model.DAO
@@ -77,17 +78,17 @@ namespace SIMSProject.Model.DAO
             tourGuest.Appointment = appointments.Find(x => x.Id == tourGuest.AppointmentId) ?? throw new System.Exception("Error!No matching appointment!");
         }
 
-        public void SignUpGuest(int guestId, int tourAppointmentId)
+        public void SignUpGuest(int guestId, int tourAppointmentId) //servis
         {
             TourGuest? tourGuest = _tourGuests.Find(x => x.GuestId ==  guestId && x.AppointmentId == tourAppointmentId);
             if(tourGuest == null) return;
 
-            tourGuest.GuestStatus = "Prijavljen";
+            tourGuest.GuestStatus = GuestAttendance.PENDING;
             SaveAll(_tourGuests);
         }
 
 
-        public void MakeGuestPresent(int guestId, int tourAppointmentId, KeyPoint currentKeyPoint)
+        public void MakeGuestPresent(int guestId, int tourAppointmentId, KeyPoint currentKeyPoint) //servis
         {
             TourGuest? tourGuest = _tourGuests.Find(x => x.GuestId == guestId && x.AppointmentId == tourAppointmentId);
             if (tourGuest == null) return;
@@ -96,7 +97,7 @@ namespace SIMSProject.Model.DAO
             tourGuest.JoinedKeyPointId = currentKeyPoint.Id;
         }
 
-        public List<TourGuest> GetGuestsIds(int tourAppointmentId)
+        public List<TourGuest> GetGuests(int tourAppointmentId) //repo
         {
             return _tourGuests.FindAll(x => x.AppointmentId == tourAppointmentId);
         }

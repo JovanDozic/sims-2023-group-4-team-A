@@ -1,4 +1,5 @@
-﻿using SIMSProject.FileHandler;
+﻿using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.FileHandler;
 using SIMSProject.Observer;
 using System;
 using System.Collections.Generic;
@@ -49,14 +50,14 @@ namespace SIMSProject.Model.DAO
             NotifyObservers();
         }
 
-        public void Delete(Voucher voucher)
+        public void Delete(Voucher voucher) //servis
         {
             _vouchers.Remove(voucher);
             _fileHandler.Save(_vouchers);
             NotifyObservers();
         }
 
-        public void DeleteExpired()
+        public void DeleteExpired() //servis
         {
             _vouchers.RemoveAll(x => DateTime.Compare(x.Expiration, DateTime.Now) < 0);
             _fileHandler.Save(_vouchers);
@@ -65,7 +66,7 @@ namespace SIMSProject.Model.DAO
 
 
 
-        public void GiveVouchers(List<TourGuest> guests, string reason)
+        public void GiveVouchers(List<TourGuest> guests, ObtainingReason reason) //servis
         {
             foreach (var guest in guests)
             {

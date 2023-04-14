@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SIMSProject.Model;
 using SIMSProject.Observer;
+using SIMSProject.Domain.Models.TourModels;
 
 namespace SIMSProject.Controller
 {

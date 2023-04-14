@@ -1,5 +1,5 @@
 ﻿using SIMSProject.Model.DAO;
-using SIMSProject.Model;
+using SIMSProject.Domain.Models.TourModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +44,7 @@ namespace SIMSProject.Controller
             return _vouchers.Get(id);
         }
 
-        public void GiveVouchers(List<TourGuest> guests, string reason)
+        public void GiveVouchers(List<TourGuest> guests, ObtainingReason reason)
         {
             _vouchers.GiveVouchers(guests, reason);
         }
