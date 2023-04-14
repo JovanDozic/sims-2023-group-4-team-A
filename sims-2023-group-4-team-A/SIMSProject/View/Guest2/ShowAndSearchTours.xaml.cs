@@ -22,7 +22,7 @@ using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.Models;
 using SIMSProject.View.Guest2;
-using SIMSProject.Model.UserModel;
+//using SIMSProject.Model.UserModel;
 using SIMSProject.WPF.Views.Guest2Views;
 
 namespace SIMSProject.View.Guest2

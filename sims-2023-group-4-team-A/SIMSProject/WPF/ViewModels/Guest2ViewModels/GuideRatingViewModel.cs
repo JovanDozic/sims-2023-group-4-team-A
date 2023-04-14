@@ -1,8 +1,9 @@
 ﻿using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Model;
-using SIMSProject.Model.UserModel;
+//using SIMSProject.Model.UserModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

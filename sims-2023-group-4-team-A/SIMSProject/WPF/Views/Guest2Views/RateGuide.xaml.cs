@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Model;
-using SIMSProject.Model.UserModel;
+//using SIMSProject.Model.UserModel;
 using SIMSProject.WPF.ViewModels.Guest2ViewModels;
 
 namespace SIMSProject.WPF.Views

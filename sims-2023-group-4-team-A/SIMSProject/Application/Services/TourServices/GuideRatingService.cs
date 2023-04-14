@@ -1,5 +1,6 @@
-﻿using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
-using SIMSProject.Model.UserModel;
+﻿using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
+//using SIMSProject.Model.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Data;
