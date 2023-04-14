@@ -18,7 +18,7 @@ using System.Runtime.CompilerServices;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.Models.AccommodationModels;
 
-namespace SIMSProject.View.Guest1
+namespace SIMSProject.WPF.Views.Guest1
 {
     /// <summary>
     /// Interaction logic for AccommodationReservationConfirmation.xaml

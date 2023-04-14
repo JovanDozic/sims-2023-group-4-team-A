@@ -10,10 +10,11 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using SIMSProject.Domain.Models.AccommodationModels;
 using System.Windows.Shapes;
 using SIMSProject.Model;
 
-namespace SIMSProject.View.Guest1
+namespace SIMSProject.WPF.Views.Guest1
 {
     /// <summary>
     /// Interaction logic for MovingReservations.xaml

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.View.Guest1;
+using SIMSProject.WPF.Views.Guest1;
 using SIMSProject.View.Guest2;
 
 namespace SIMSProject.View

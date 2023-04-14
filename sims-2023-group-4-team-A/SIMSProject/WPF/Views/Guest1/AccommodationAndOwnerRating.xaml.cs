@@ -12,13 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SIMSProject.Model;
-using SIMSProject.Model.UserModel;
+using SIMSProject.Domain.Models;
+using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.Domain.Models.AccommodationModels;
+
+
 using SIMSProject.Controller;
 using System.Collections.ObjectModel;
 using SIMSProject.Controller.UserController;
 
 
-namespace SIMSProject.View.Guest1
+namespace SIMSProject.WPF.Views.Guest1
 {
     /// <summary>
     /// Interaction logic for AccommodationAndOwnerRating.xaml
@@ -34,7 +38,7 @@ namespace SIMSProject.View.Guest1
         public List<Accommodation> Accommodations { get; set; } = new();
         public Owner Owner { get; set; }
         public List<Owner> Owners { get; set; } = new();
-        public Model.AccommodationAndOwnerRating Rating { get; set; } = new();
+        //public Model.AccommodationAndOwnerRating Rating { get; set; } = new();
 
         public AccommodationAndOwnerRating(Guest user)
         {

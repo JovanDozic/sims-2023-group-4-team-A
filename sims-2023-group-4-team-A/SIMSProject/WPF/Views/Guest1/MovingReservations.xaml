@@ -1,9 +1,9 @@
-﻿<Window x:Class="SIMSProject.View.Guest1.MovingReservations"
+﻿<Window x:Class="SIMSProject.WPF.Views.Guest1.MovingReservations"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SIMSProject.View.Guest1"
+        xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest1"
         mc:Ignorable="d"
         Title="MovingReservations" Height="680" Width="1024"
         WindowStartupLocation="CenterScreen">

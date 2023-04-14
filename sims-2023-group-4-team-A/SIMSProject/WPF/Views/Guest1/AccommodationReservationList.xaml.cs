@@ -16,14 +16,19 @@ using SIMSProject.Model;
 using SIMSProject.Observer;
 using SIMSProject.Controller;
 using SIMSProject.Domain.Models.AccommodationModels;
+using SIMSProject.WPF.Views.Guest1;
+using SIMSProject.WPF.ViewModels.AccommodationViewModels;
+using SIMSProject.Domain.Models.UserModels;
 
-namespace SIMSProject.View.Guest1
+namespace SIMSProject.WPF.Views.Guest1
 {
     /// <summary>
     /// Interaction logic for AccommodationReservationList.xaml
     /// </summary>
     public partial class AccommodationReservationList : Window
     {
+        private readonly User _user;
+        private readonly AccommodationReservationViewModel _accommodationReservationViewModel;
         public AccommodationReservation SelectedReservation { get; set; } = null;
         public CancelledReservationsNotifications CancelledReservationsNotifications { get; set; }
         public CancelledReservationsNotificationsController CancelledReservationsNotificationsController { get; set; }
@@ -32,33 +37,30 @@ namespace SIMSProject.View.Guest1
         public AccommodationReservationList()
         {
             InitializeComponent();
-            DataContext = this;
-            AccommodationReservationController = new AccommodationReservationController();
-            CancelledReservationsNotificationsController = new CancelledReservationsNotificationsController();
-            var reservations = AccommodationReservationController.GetAll().Where(r => !r.Canceled);
-            AccommodationReservations = new ObservableCollection<AccommodationReservation>(reservations);
+
+            _accommodationReservationViewModel = new(_user);
+            DataContext = _accommodationReservationViewModel;
+            
         }
 
         private void Button_Click_Cancellation(object sender, RoutedEventArgs e)
         {
            
            
-            if (SelectedReservation != null)
+            if (_accommodationReservationViewModel.IsSelected())
             {
-                if(DateTime.Today < SelectedReservation.StartDate.AddHours(-24))
+                if(_accommodationReservationViewModel.IsDateValid())
                 {
                     MessageBoxResult result = MessageBox.Show("Da li ste sigurni da zelite da otkazete rezervaciju?", "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Yes)
                     {
-                        var reservation = AccommodationReservationController.FindAndCancel(SelectedReservation);
-                        AccommodationReservationController.Update(reservation);
-                        var message = $"Gost {SelectedReservation.Guest.Username} je otkazao rezervaciju {SelectedReservation.Accommodation.Name}({SelectedReservation.StartDate.ToString("dd.MM.yyyy.")} - {SelectedReservation.EndDate.ToString("dd.MM.yyyy.")})";
-                        CancelledReservationsNotifications = new CancelledReservationsNotifications(message, false);
-                        CancelledReservationsNotificationsController.Create(CancelledReservationsNotifications);
+                        _accommodationReservationViewModel.CancelReservation();
+                        _accommodationReservationViewModel.Update();
+                        var message = _accommodationReservationViewModel.GetMessage();
+                        //TODO Notifikacija
                         MessageBox.Show("Rezervacija je otkazana!");
                         Close();
-                    }
-                   
+                    }    
                 }
                 else
                 {

@@ -73,7 +73,7 @@
 
             </Grid.ColumnDefinitions>
 
-            <Image Source="logo5.png"></Image>
+            <Image Source="Icons/logo5.png"></Image>
             <Label Grid.Column="1" FontFamily="Arial"  Foreground="White" Content="Smeštarko" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="40"></Label>
             <Button Grid.Column="6" BorderThickness="1" BorderBrush="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="50" Background="#0c669f">
                 <Image Source="notification.png"></Image>
@@ -82,7 +82,7 @@
                 <Image Source="home.png"></Image>
             </Button>
             <Button x:Name="ButtonMenu" BorderThickness="0" BorderBrush="Transparent" Grid.Column="8" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="50" Background="#0c669f"  Style="{StaticResource SideMenuButtonLocal}">
-                <Image Source="burger.png"></Image>
+                <Image Source="Icons/burger.png"></Image>
                 <Button.Triggers>
                     <EventTrigger RoutedEvent="ButtonBase.Click">
                         <EventTrigger.Actions>
@@ -123,7 +123,7 @@
                     <Label Foreground="White" Content="Korisnicko ime" Grid.Row="1" FontSize="22" FontWeight="Bold" Margin="5,6,0,0"></Label>
                     <Label Foreground="White" Content="Status: Gost" Grid.Row="2" FontSize="18" FontWeight="Bold" Margin="5,0,0,4"></Label>
                     <Button x:Name="ButtonCloseMenu" Width="50" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.ColumnSpan="2"></Button>
-                    <Image Source="user.png" VerticalAlignment="Top" Margin="10,10,16,0" Grid.Column="1" Height="35" Grid.Row="1"/>
+                    <Image Source="Icons/user.png" VerticalAlignment="Top" Margin="10,10,16,0" Grid.Column="1" Height="35" Grid.Row="1"/>
                 </Grid>
 
                 <Separator Width="315" FontWeight="Bold" Background="#BDC3C3" HorizontalAlignment="Stretch"></Separator>
@@ -176,7 +176,7 @@
                         <ColumnDefinition Width="2.2*"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Image Source="chevron-left.png" Grid.ColumnSpan="2" Margin="182,44,91,24"></Image>
+                    <Image Source="Icons/chevron-left.png" Grid.ColumnSpan="2" Margin="182,44,91,24"></Image>
 
                     <Button Margin="0,0,10,25" FontSize="20" Foreground="White" Content="Odjavi se" BorderThickness="0" BorderBrush="Transparent" Background="#063e77" Height="30" Width="93" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="1"/>
                 </Grid>
