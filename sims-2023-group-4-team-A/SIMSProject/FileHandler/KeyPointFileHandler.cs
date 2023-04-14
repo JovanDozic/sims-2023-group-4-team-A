@@ -10,39 +10,24 @@ using System.Threading.Tasks;
 
 namespace SIMSProject.FileHandler
 {
-    public class KeyPointFileHandler: CSVManager<KeyPoint>
+    public class KeyPointFileHandler
     {
         private const string FilePath = "../../../Resources/Data/keypoints.csv";
+        private readonly Serializer<KeyPoint> _serializer;
 
-        public KeyPointFileHandler(): base(FilePath)
+        public KeyPointFileHandler()
         {
+            _serializer = new Serializer<KeyPoint>();
         }
 
         public List<KeyPoint> Load()
         {
-            return FromCSV();
+            return _serializer.FromCSV(FilePath);
         }
 
         public void Save(List<KeyPoint> keyPoints) 
         {
-            ToCSV(keyPoints);
-        }
-
-        protected override KeyPoint ParseItemFromCSV(string[] values)
-        {
-            KeyPoint keyPoint = new()
-            {
-                Id = Convert.ToInt32(values[0]),
-                Description = values[1],
-                LocationId = Convert.ToInt32(values[2])
-            };
-            return keyPoint;
-        }
-
-        protected override string[] ParseItemToCsv(KeyPoint keyPoint)
-        {
-            string[] csvValues = { keyPoint.Id.ToString(), keyPoint.Description, keyPoint.LocationId.ToString() };
-            return csvValues;
+            _serializer.ToCSV(FilePath, keyPoints);
         }
     }
 }

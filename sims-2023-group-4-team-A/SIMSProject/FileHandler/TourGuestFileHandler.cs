@@ -10,40 +10,23 @@ using System.Threading.Tasks;
 
 namespace SIMSProject.FileHandler
 {
-    public class TourGuestFileHandler: CSVManager<TourGuest>
+    public class TourGuestFileHandler
     {
         private const string FilePath = "../../../Resources/Data/tourguests.csv";
-
-        public  TourGuestFileHandler(): base(FilePath)
+        private readonly Serializer<TourGuest> _serializer;
+        public  TourGuestFileHandler()
         {
+            _serializer = new Serializer<TourGuest>();
         }
 
         public List<TourGuest> Load()
         {
-            return FromCSV();
+            return _serializer.FromCSV(FilePath);
         }
 
         public void Save(List<TourGuest> tourGuests)
         {
-            ToCSV(tourGuests);
-        }
-
-        protected override TourGuest ParseItemFromCSV(string[] values)
-        {
-            TourGuest tourGuest = new()
-            {
-                AppointmentId = Convert.ToInt32(values[0]),
-                GuestId = Convert.ToInt32(values[1]),
-                GuestStatus = (GuestAttendance)Enum.Parse(typeof(GuestAttendance), values[2]),
-                JoinedKeyPointId = Convert.ToInt32(values[3])
-            };
-            return tourGuest;
-        }
-
-        protected override string[] ParseItemToCsv(TourGuest tourGuest)
-        {
-            string[] csvValues = { tourGuest.AppointmentId.ToString(), tourGuest.GuestId.ToString(), tourGuest.GuestStatus.ToString(), tourGuest.JoinedKeyPointId.ToString() };
-            return csvValues;
+            _serializer.ToCSV(FilePath, tourGuests);
         }
     }
 }

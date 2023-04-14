@@ -10,7 +10,7 @@ namespace SIMSProject.Domain.Models.TourModels
 {
     public enum ObtainingReason { APPOINTMENTCANCELED = 0, GUIDEQUIT, WON }
 
-    public class Voucher
+    public class Voucher : ISerializable
     {
         public int Id;
         public int GuestId;
@@ -46,6 +46,21 @@ namespace SIMSProject.Domain.Models.TourModels
         public override string ToString()
         {
             return $"{Reason}, {FormattedDate}";
+        }
+
+        public string[] ToCSV()
+        {
+            string[] csvValues = { Id.ToString(), GuestId.ToString(), Reason.ToString(), Expiration.ToString() };
+            return csvValues;
+        }
+
+        public void FromCSV(string[] values)
+        {
+
+            Id = Convert.ToInt32(values[0]);
+            GuestId = Convert.ToInt32(values[1]);
+            Reason = (ObtainingReason)Enum.Parse(typeof(ObtainingReason), values[2]);
+            Expiration = DateTime.Parse(values[3]);
         }
     }
 }

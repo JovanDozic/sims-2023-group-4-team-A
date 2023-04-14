@@ -9,40 +9,23 @@ using System.Threading.Tasks;
 
 namespace SIMSProject.FileHandler
 {
-    public class VoucherFileHandler: CSVManager<Voucher>
+    public class VoucherFileHandler
     {
         private const string FilePath = "../../../Resources/Data/tourvoucher.csv";
-
-        public VoucherFileHandler(): base(FilePath)
+        private readonly Serializer<Voucher> _serializer;
+        public VoucherFileHandler()
         {
+            _serializer = new Serializer<Voucher>();
         }
 
         public List<Voucher> Load()
         {
-            return FromCSV();
+            return _serializer.FromCSV(FilePath);
         }
 
         public void Save(List<Voucher> vouchers)
         {
-            ToCSV(vouchers);
-        }
-
-        protected override Voucher ParseItemFromCSV(string[] values)
-        {
-            Voucher voucher = new()
-            {
-                Id = Convert.ToInt32(values[0]),
-                GuestId = Convert.ToInt32(values[1]),
-                Reason = (ObtainingReason)Enum.Parse(typeof(ObtainingReason), values[2]),
-                Expiration = DateTime.Parse(values[3])
-            };
-            return voucher;
-        }
-
-        protected override string[] ParseItemToCsv(Voucher voucher)
-        {
-            string[] csvValues = { voucher.Id.ToString(), voucher.GuestId.ToString(), voucher.Reason.ToString(), voucher.Expiration.ToString() };
-            return csvValues;
+            _serializer.ToCSV(FilePath, vouchers);
         }
     }
 }

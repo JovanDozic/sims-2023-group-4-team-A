@@ -9,38 +9,24 @@ using System.Threading.Tasks;
 
 namespace SIMSProject.FileHandler
 {
-    public class TourKeyPointFileHandler: CSVManager<TourKeyPoint>
+    public class TourKeyPointFileHandler
     {
         private const string FilePath = "../../../Resources/Data/tourkeypoints.csv";
-
-        public TourKeyPointFileHandler(): base(FilePath)
+        private readonly Serializer<TourKeyPoint> _serializer;
+        public TourKeyPointFileHandler()
         {
+            _serializer = new Serializer<TourKeyPoint>();
         }
 
         public List<TourKeyPoint> Load()
         {
-            return FromCSV();
+            return _serializer.FromCSV(FilePath);
         }
 
         public void Save(List<TourKeyPoint> tourkeypoints)
         {
-            ToCSV(tourkeypoints);
+            _serializer.ToCSV(FilePath, tourkeypoints);
         }
 
-        protected override TourKeyPoint ParseItemFromCSV(string[] values)
-        {
-            TourKeyPoint tourKeyPoint = new()
-            {
-                TourId = Convert.ToInt32(values[0]),
-                KeyPointId = Convert.ToInt32(values[1])
-            };
-            return tourKeyPoint;
-        }
-
-        protected override string[] ParseItemToCsv(TourKeyPoint tourKeyPoint)
-        {
-            string[] csvValues = { tourKeyPoint.TourId.ToString(), tourKeyPoint.KeyPointId.ToString() };
-            return csvValues;
-        }
     }
 }

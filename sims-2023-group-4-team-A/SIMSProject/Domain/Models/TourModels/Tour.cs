@@ -17,7 +17,7 @@ namespace SIMSProject.Domain.Models.TourModels
 {
     public enum Language { ENGLISH = 0, SERBIAN, SPANISH, FRENCH };
 
-    public class Tour
+    public class Tour : ISerializable
     {
         public int Id { get; set; }
         public int GuideId { get; set; }
@@ -49,7 +49,7 @@ namespace SIMSProject.Domain.Models.TourModels
             LocationId = locationId;
             GuideId = guideId;
         }
-        
+
         public StringBuilder CreateImageURLs()
         {
             StringBuilder imageURLs = new();
@@ -69,16 +69,44 @@ namespace SIMSProject.Domain.Models.TourModels
         public string KeyPointsToString()
         {
             var builder = new StringBuilder();
-            foreach(var keyPoint in KeyPoints)
+            foreach (var keyPoint in KeyPoints)
             {
                 builder.Append($"{keyPoint.ToString()}\n");
             }
             return builder.ToString();
         }
-        
+
         public string ToStringSearch()
         {
             return Location + " " + TourLanguage.ToString();
+        }
+
+        public string[] ToCSV()
+        {
+            string[] csvValues = {
+                Id.ToString(),
+                Name,
+                Description,
+                TourLanguage.ToString(),
+                MaxGuestNumber.ToString(),
+                Duration.ToString(),
+                LocationId.ToString(),
+                GuideId.ToString(),
+                CreateImageURLs().ToString() };
+            return csvValues;
+        }
+
+        public void FromCSV(string[] values)
+        {
+            Id = Convert.ToInt32(values[0]);
+            Name = values[1];
+            Description = values[2];
+            TourLanguage = (Language)Enum.Parse(typeof(Language), values[3]);
+            MaxGuestNumber = Convert.ToInt32(values[4]);
+            Duration = Convert.ToInt32(values[5]);
+            LocationId = Convert.ToInt32(values[6]);
+            GuideId = Convert.ToInt32(values[7]);
+            Images.AddRange(values[8].Split(','));
         }
     }
 }
