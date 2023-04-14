@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.FileHandler;
 using SIMSProject.FileHandler.UserFileHandler;
-using SIMSProject.Model.UserModel;
 using SIMSProject.Observer;
 
 namespace SIMSProject.Model.DAO.UserModelDAO
@@ -23,12 +23,6 @@ namespace SIMSProject.Model.DAO.UserModelDAO
             foreach (var guest in _guests)
             {
                 guest.TourReservations = tourReservations.FindAll(x => x.GuestId == guest.Id);
-            }
-
-            var reservations = new AccommodationReservationFileHandler().Load();
-            foreach (var guest in _guests)
-            {
-                guest.AccommodationReservations = reservations.FindAll(x => x.Guest.Id == guest.Id);
             }
 
             RefreshRatings();

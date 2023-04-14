@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.FileHandler.UserFileHandler;
-using SIMSProject.Model.UserModel;
 using SIMSProject.Observer;
 
 namespace SIMSProject.Model.DAO.UserModelDAO
@@ -17,12 +17,6 @@ namespace SIMSProject.Model.DAO.UserModelDAO
             _fileHandler = new OwnerFileHandler();
             _owners = _fileHandler.Load();
             _observers = new List<IObserver>();
-
-            var accommodations = new AccommodationDAO().GetAll();
-            foreach (var owner in _owners)
-            {
-                owner.Accommodations = accommodations.FindAll(x => x.Owner.Id == owner.Id);
-            }
         }
 
         public int NextId()
