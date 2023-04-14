@@ -62,14 +62,9 @@ namespace SIMSProject.Controller
 
         public AccommodationReservation FindAndCancel(AccommodationReservation selectedReservation)
         {
-            foreach(var reservation in _accommodationReservationDAO.GetAll())
-            {
-                if (reservation.Id == selectedReservation.Id)
-                    selectedReservation.Canceled = true;
-            }
+            selectedReservation.Canceled = true;
 
-            AccommodationReservation accommodationReservation = new AccommodationReservation(selectedReservation.Accommodation.Id, selectedReservation.Guest.Id, selectedReservation.StartDate, selectedReservation.EndDate, selectedReservation.NumberOfDays, selectedReservation.GuestNumber, selectedReservation.Canceled);
-            return accommodationReservation;
+            return selectedReservation;
         }
 
     }
