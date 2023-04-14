@@ -34,7 +34,7 @@ namespace SIMSProject.View.Guest1
             DataContext = this;
             AccommodationReservationController = new AccommodationReservationController();
             CancelledReservationsNotificationsController = new CancelledReservationsNotificationsController();
-            var reservations = AccommodationReservationController.GetAll().Where(r => !r.Canceled && r.StartDate > DateTime.Today);
+            var reservations = AccommodationReservationController.GetAll().Where(r => !r.Canceled);
             AccommodationReservations = new ObservableCollection<AccommodationReservation>(reservations);
         }
 
