@@ -70,5 +70,13 @@ namespace SIMSProject.WPF.ViewModels.OwnerViewModels
             return true;
         }
 
+        public bool IsOwnerRatingEnabled()
+        {
+            if (SelectedReservation == null) return false;
+            else if (!SelectedReservation.GuestRated && IsGuestRatingEnabled()) return false;
+            else if (!SelectedReservation.OwnerRated) return false;
+            return true;
+        }
+
     }
 }

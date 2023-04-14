@@ -46,6 +46,11 @@ namespace SIMSProject.Domain.Injectors
                     provider.GetService<IAccommodationReservationRepo>() ?? throw new Exception("Dependency Injection Failed: IAccommodationReservationRepo not found.")
                 )
             );
+            services.AddSingleton<IOwnerRatingRepo, OwnerRatingRepo>(
+                provider => new OwnerRatingRepo(
+                    provider.GetService<IAccommodationReservationRepo>() ?? throw new Exception("Dependency Injection Failed: IAccommodationReservationRepo not found.")
+                )
+            );
             services.AddSingleton<IReschedulingRequestRepo, ReschedulingRequestRepo>(
                 provider => new ReschedulingRequestRepo(
                     provider.GetService<IAccommodationReservationRepo>() ?? throw new Exception("Dependency Injection Failed: IAccommodationReservationRepo not found.")
@@ -58,6 +63,7 @@ namespace SIMSProject.Domain.Injectors
             services.AddScoped<AccommodationReservationService>();
             services.AddScoped<LocationService>();
             services.AddScoped<GuestRatingService>();
+            services.AddScoped<OwnerRatingService>();
             services.AddScoped<ReschedulingRequestService>();
 
             // Try if service no work!

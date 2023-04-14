@@ -9,16 +9,12 @@ namespace SIMSProject.Repositories.UserRepositories
     public class OwnerRepo : IOwnerRepo
     {
         private OwnerFileHandler _fileHandler;
-        // TODO: private readonly IOwnerRepo _ratingRepo;
         private List<Owner> _owners;
 
-        public OwnerRepo(/* TODO: IGuestRatingRepo ratingRepo */)
+        public OwnerRepo()
         {
             _fileHandler = new();
-            // TODO: _ratingRepo = ratingRepo;
             _owners = _fileHandler.Load();
-
-            CalculateRating();
         }
 
         public List<Owner> GetAll()
@@ -50,12 +46,12 @@ namespace SIMSProject.Repositories.UserRepositories
             _owners = owners;
         }
 
-        private void CalculateRating()
+        public void Update(Owner owner)
         {
-            foreach (var owner in _owners)
-            {
-                // TODO: implement
-            }
+            Owner ownerToUpdate = GetById(owner.Id) ?? throw new System.Exception("Updating owner failed!");
+            int index = _owners.IndexOf(ownerToUpdate);
+            _owners[index] = owner;
+            _fileHandler.Save(_owners);
         }
     }
 }
