@@ -22,6 +22,7 @@
     <None Remove="WPF\Views\Guest1\burger.png" />
     <None Remove="WPF\Views\Guest1\chevron-left.png" />
     <None Remove="WPF\Views\Guest1\home.png" />
+    <None Remove="WPF\Views\Guest1\Icons\plus.png" />
     <None Remove="WPF\Views\Guest1\logo5.png" />
     <None Remove="WPF\Views\Guest1\notification.png" />
     <None Remove="WPF\Views\Guest1\user.png" />
@@ -51,6 +52,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\view.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WPF\Views\Guest1\Icons\plus.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

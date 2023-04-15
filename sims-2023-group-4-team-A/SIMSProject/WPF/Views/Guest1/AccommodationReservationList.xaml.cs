@@ -45,31 +45,29 @@ namespace SIMSProject.WPF.Views.Guest1
 
         private void Button_Click_Cancellation(object sender, RoutedEventArgs e)
         {
-           
-           
-            if (_accommodationReservationViewModel.IsSelected())
+            if (!_accommodationReservationViewModel.IsSelected())
             {
-                if(_accommodationReservationViewModel.IsDateValid())
-                {
-                    MessageBoxResult result = MessageBox.Show("Da li ste sigurni da zelite da otkazete rezervaciju?", "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        _accommodationReservationViewModel.CancelReservation();
-                        _accommodationReservationViewModel.Update();
-                        var message = _accommodationReservationViewModel.GetMessage();
-                        //TODO Notifikacija
-                        MessageBox.Show("Rezervacija je otkazana!");
-                        Close();
-                    }    
-                }
-                else
-                {
-                    MessageBox.Show("Rezervaciju je moguće bilo izvršiti najkasnije 24h pre dolaska");
-                }
-            }
-            else
                 MessageBox.Show("Morate da odaberete rezervaciju!");
-            
+                return;
+            }
+
+            if (!_accommodationReservationViewModel.IsDateValid())
+            {
+                MessageBox.Show("Rezervaciju je moguće otkazati najkasnije 24h pre dolaska.");
+                return;
+            }
+
+            MessageBoxResult result = MessageBox.Show("Da li ste sigurni da želite da otkažete rezervaciju?", "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                _accommodationReservationViewModel.CancelReservation();
+                _accommodationReservationViewModel.Update();
+                var message = _accommodationReservationViewModel.GetMessage();
+                //TODO: Add notification
+                MessageBox.Show("Rezervacija je otkazana!");
+                Close();
+            }
         }
 
         private void Button_Click_Close(object sender, RoutedEventArgs e)
