@@ -3,6 +3,7 @@ using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 
@@ -14,6 +15,8 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private OwnerRating _rating = new();
         private OwnerRatingService _ratingService;
         private AccommodationReservationService _reservationService;
+        private Accommodation _accommodation = new();
+
         public ObservableCollection<AccommodationReservation> Reservations { get; set; } = new();
         public object ReservationsCombo { get; private set; }
         private string _ownerNameTB;
@@ -28,14 +31,13 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             }
         }
 
-        private AccommodationReservation _selectedReservation;
         public AccommodationReservation SelectedReservation
         {
-            get => _selectedReservation;
+            get => _rating.Reservation;
             set
             {
-                if (value == _selectedReservation) return;
-                _selectedReservation = value;
+                if (value == _rating.Reservation) return;
+                _rating.Reservation = value;
                 OnPropertyChanged();
             }
         }
@@ -95,7 +97,47 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
+        public string Comment
+        {
+            get => _rating.Comment;
+            set
+            {
+                if (_rating.Comment == value) return;
+                _rating.Comment = value;
+                OnPropertyChanged();
+            }
+        }
+        public double Overall
+        {
+            get => _rating.Overall;
+            set
+            {
+                if (value == _rating.Overall) return;
+                _rating.Overall = value;
+                OnPropertyChanged();
+            }
+        }
+        public Accommodation Accommodation
+        {
+            get => _accommodation;
+            set
+            {
+                if (_accommodation == value) return;
+                _accommodation = value;
+                OnPropertyChanged();
+            }
+        }
 
+        public List<string> ImageURLs
+        {
+            get => Accommodation.ImageURLs;
+            set
+            {
+                if (Accommodation.ImageURLs == value) return;
+                Accommodation.ImageURLs = value;
+                OnPropertyChanged();
+            }
+        }
         public string SelectedImageFile
         {
             get => _selectedImageFile;
@@ -106,9 +148,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
-
-        
-
         public OwnerRatingViewModel(User user, AccommodationReservation reservation)
         {
             _user = user;
@@ -146,13 +185,15 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             return SelectedReservation != null;
         }
 
-        public string DisplayUsername(String username)
+        public void UploadImage(string imageUrl)
         {
-            return OwnerNameTextBlock = username;
+            ImageURLs.Add(imageUrl);
         }
         public void RateOwnerAndAccommodation()
         {
-            
+            SelectedReservation.OwnerRated = true;
+            _ratingService.LeaveRating(_rating);
+
         }
 
         public void LoadRating()

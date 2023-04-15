@@ -41,5 +41,6 @@ namespace SIMSProject.Application.Services.AccommodationServices
         {
             return _ownerRepo.GetById(ownerId);
         }
+       
     }
 }

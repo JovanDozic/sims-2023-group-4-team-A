@@ -51,5 +51,18 @@ namespace SIMSProject.WPF.Views.Guest1
             
         }
 
+        private void Button_Click_Upload(object sender, RoutedEventArgs e)
+        {
+            _ownerRatingViewModel.UploadImage(ImageUrlTB.Text);
+            ImageUrlTB.Text = string.Empty;
+            ImagesList.Items.Refresh();
+        }
+
+        private void Button_Click_Rate(object sender, RoutedEventArgs e)
+        {
+            _ownerRatingViewModel.RateOwnerAndAccommodation();
+            MessageBox.Show("Ocena uspešno ostavljena!", "Vlasnik i smeštaj ocenjeni", MessageBoxButton.OK, MessageBoxImage.Information);
+            Close();
+        }
     }
 }
