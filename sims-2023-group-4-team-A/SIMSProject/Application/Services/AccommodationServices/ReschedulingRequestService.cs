@@ -50,5 +50,10 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
             _requestRepo.Update(request);
         }
+
+        public void SaveRequest(ReschedulingRequest request)
+        {
+            _requestRepo.Save(request);
+        }
     }
 }

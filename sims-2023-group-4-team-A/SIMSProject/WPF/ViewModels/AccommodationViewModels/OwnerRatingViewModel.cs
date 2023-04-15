@@ -173,8 +173,9 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             foreach (var reservation in _reservationService.GetAll())
             {
-                if (reservation.EndDate < DateTime.Today && !reservation.Canceled && reservation.Guest.Id == _user.Id)
+                if (reservation.EndDate < DateTime.Today && !reservation.Canceled && reservation.Guest.Id == _user.Id && !reservation.OwnerRated)
                 {
+                    reservation.ReservationDetails = string.Format("{0} ({1} - {2})", reservation.Accommodation.Name, reservation.StartDate.ToShortDateString(), reservation.EndDate.ToShortDateString());
                     Reservations.Add(reservation);
                 }
             }
@@ -199,7 +200,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         public void RateOwnerAndAccommodation()
         {
             SelectedReservation.OwnerRated = true;
-            MessageBox.Show(_rating.ImageURLs.Count.ToString());
             _ratingService.LeaveRating(_rating);
 
         }

@@ -110,5 +110,9 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             return Requests[e.Row.GetIndex()].Status == ReschedulingRequestStatus.Waiting;
         }
 
+        public void SendRequest()
+        {
+            _service.SaveRequest(_request);
+        }
     }
 }

@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using SIMSProject.Domain.Models.AccommodationModels;
 using System.Windows.Shapes;
 using SIMSProject.Model;
+using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.ViewModels.AccommodationViewModels;
 
 namespace SIMSProject.WPF.Views.Guest1
 {
@@ -21,10 +23,15 @@ namespace SIMSProject.WPF.Views.Guest1
     /// </summary>
     public partial class MovingReservations : Window
     {
+        private readonly User User = new();
+        private readonly ReschedulingRequestViewModel _reschedulingRequestViewModel;
         public AccommodationReservation AccommodationReservation { get; set; }
         public MovingReservations(AccommodationReservation accommodationReservation)
         {
             InitializeComponent();
+            User = new();
+            _reschedulingRequestViewModel = new(User);
+            DataContext = _reschedulingRequestViewModel;
             AccommodationReservation = accommodationReservation;
             ShowNameAndDate();
         }
@@ -68,6 +75,11 @@ namespace SIMSProject.WPF.Views.Guest1
         private void Button_Click_Close(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void Button_Click_SendRequest(object sender, RoutedEventArgs e)
+        {
+            _reschedulingRequestViewModel.SendRequest();
         }
     }
 }

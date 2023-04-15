@@ -37,7 +37,7 @@
                    FontSize="30"></Label>
             <Label Content="Vlasnik:" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" HorizontalContentAlignment="Left"
                    FontSize="30"></Label>
-            <ComboBox FontSize="25" x:Name="ReservationsCombo" ItemsSource="{Binding Reservations}" SelectedItem="{Binding SelectedReservation}" DisplayMemberPath="Accommodation.Name" Grid.Row="2" Height="45" Width="334" VerticalAlignment="Center" HorizontalAlignment="Left" SelectionChanged="ReservationsCombo_SelectionChanged">
+            <ComboBox FontSize="25" x:Name="ReservationsCombo" ItemsSource="{Binding Reservations}" SelectedItem="{Binding SelectedReservation}" DisplayMemberPath="ReservationDetails" Grid.Row="2" Height="45" Width="397" VerticalAlignment="Center" HorizontalAlignment="Left" SelectionChanged="ReservationsCombo_SelectionChanged">
             </ComboBox>
             <TextBlock Grid.Row="2" Height="50" Width="350" Grid.Column="2" x:Name="OwnerNameTextBlock"
                        HorizontalAlignment="Left" VerticalAlignment="Center"
