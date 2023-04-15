@@ -65,7 +65,19 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
-       
+
+        public string ImageURLsCSV
+        {
+            get => _rating.ImageURLsCSV;
+            set
+            {
+                if (_rating.ImageURLsCSV == value) return;
+                _rating.ImageURLsCSV = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public int CleanlinessRating
         {
             get => _rating.CleanlinessRating;
@@ -130,11 +142,11 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
         public List<string> ImageURLs
         {
-            get => Accommodation.ImageURLs;
+            get => _rating.ImageURLs;
             set
             {
-                if (Accommodation.ImageURLs == value) return;
-                Accommodation.ImageURLs = value;
+                if (_rating.ImageURLs == value) return;
+                _rating.ImageURLs = value;
                 OnPropertyChanged();
             }
         }
@@ -175,11 +187,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             return SelectedReservation.Accommodation.Owner.Username;
         }
 
-        public AccommodationReservation GetSelectedReservation()
-        {
-            return SelectedReservation;
-        }
-
         public bool IsSelected()
         {
             return SelectedReservation != null;
@@ -192,6 +199,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         public void RateOwnerAndAccommodation()
         {
             SelectedReservation.OwnerRated = true;
+            MessageBox.Show(_rating.ImageURLs.Count.ToString());
             _ratingService.LeaveRating(_rating);
 
         }

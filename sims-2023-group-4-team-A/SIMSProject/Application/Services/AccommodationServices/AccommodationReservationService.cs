@@ -23,7 +23,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
             return _repo.GetAllByAccommodationId(accommodationId);
         }
 
-        public void UpdateCanceledReservation(AccommodationReservation selectedReservation)
+        public void UpdateReservation(AccommodationReservation selectedReservation)
         {
             _repo.Update(selectedReservation);
         }

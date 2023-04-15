@@ -27,7 +27,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
         public void Update()
         {
-            _reservationService.UpdateCanceledReservation(SelectedReservation);
+            _reservationService.UpdateReservation(SelectedReservation);
         }
 
         public AccommodationReservation GetSelectedReservation()
