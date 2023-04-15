@@ -5,6 +5,7 @@ using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.Model.DAO;
 using SIMSProject.View.GuideViews;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,37 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         private readonly TourKeyPointService _tourKeyPointService;
         private readonly LocationService _locationService;
         private readonly KeyPointService _keyPointService;
+
+
+        private int hours;
+        public int Hours
+        {
+            get => hours;
+            set
+            {
+                if(hours != value && (value >= 0 && value <= 24))
+                {
+                    hours = value;
+                    OnPropertyChanged(nameof(Hours));
+                }
+                
+            }
+        }
+
+        private int minutes;
+        public int Minutes
+        {
+            get => minutes;
+            set
+            {
+                if (minutes != value && (value >=0 && value <= 60))
+                {
+                    minutes = value;
+                    OnPropertyChanged(nameof(Hours));
+                }
+
+            }
+        }
 
         public new Location Location
         {
@@ -47,7 +79,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         public KeyPoint? SelectedKeyPoint { get; set; }
         public DateTime SelectedAppointment { get; set; } = DateTime.Now;
 
-        public TourCreationViewModel(Guide guide) : base(new())
+        public TourCreationViewModel() : base(new())
         {
             TourLanguages = new()
             {
@@ -74,7 +106,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             MessageBox.Show("Tura uspešno kreirana.");
         }
 
-        public bool IsValid()
+        public bool IsNotValid()
         {
             return KeyPoints.Count < 2 || Images.Count < 1;
         }
@@ -87,6 +119,19 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
                 return;
             }
             KeyPoints.Add(SelectedKeyPoint);
+        }
+
+        public void AddAppointment()
+        {
+            if(MaxGuestNumber <= 0)
+            {
+                MessageBox.Show("Morate uneti broj gostiju  na turi!");
+                return;
+            }
+
+            int seconds = 0;
+            DateTime newDate = new(SelectedAppointment.Year, SelectedAppointment.Month, SelectedAppointment.Day, Hours, Minutes, seconds);
+            Appointments.Add(new(newDate, -1, MaxGuestNumber, -1));
         }
     }
 }

@@ -47,7 +47,7 @@ namespace SIMSProject.Domain.Models.TourModels
             GuideId = guideId;
         }
 
-        public StringBuilder CreateImageURLs()
+        public string CreateImageURLs()
         {
             StringBuilder imageURLs = new();
             foreach (string imageURL in Images)
@@ -55,7 +55,7 @@ namespace SIMSProject.Domain.Models.TourModels
                 imageURLs.Append(imageURL + ",");
             }
             imageURLs.Remove(imageURLs.Length - 1, 1);
-            return imageURLs;
+            return imageURLs.ToString();
         }
 
         public override string? ToString()
@@ -89,7 +89,7 @@ namespace SIMSProject.Domain.Models.TourModels
                 Duration.ToString(),
                 LocationId.ToString(),
                 GuideId.ToString(),
-                CreateImageURLs().ToString() };
+                CreateImageURLs()};
             return csvValues;
         }
 

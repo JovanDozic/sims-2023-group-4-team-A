@@ -97,16 +97,17 @@
                     FontSize="20" Margin="10,10,258,47"
                     SelectedDate="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged}" 
                     />
-        <TextBox x:Name="TBTime" 
-                 Grid.Row="1" Grid.Column="1" 
-                 Width="105" Height="42" 
-                 FontSize="28" Text="hh:mm" Margin="195,10,120,45"/>
+        <cstm:TimePicker Grid.Row="1" Grid.Column="1"
+                         Margin="195,10,120,45"
+                         Hours="{Binding Hours, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                         Minutes="{Binding Minutes, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
         <Button x:Name="AddDate"
                 Width="28" Height="23" 
                 Content="+" 
+                Click="AddDate_Click"
                 Grid.Row="1" Grid.Column="1" 
-                Margin="352,19,40,55"
-                Click="AddDate_Click"/>
+                Margin="352,19,40,55"/>
+
         <ListBox x:Name="LbAppointments"
                  Grid.Row="1" Grid.Column="1" 
                  Width="283" Height="99" 

@@ -17,14 +17,13 @@ namespace SIMSProject.View.GuideViews
         public TourCreation(Guide guide)
         {
             InitializeComponent();
-            _viewModel = new(guide);
+            _viewModel = new();
             this.DataContext = _viewModel;
-            TBTime.Text = "hh:mm";
         }
 
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
-            if (!_viewModel.IsValid())
+            if (_viewModel.IsNotValid())
             {
                 MessageBox.Show("Ne valja");
                 return;
@@ -40,28 +39,10 @@ namespace SIMSProject.View.GuideViews
 
         private void AddDate_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.Appointments.Add(new(CreateDate(), -1, _viewModel.MaxGuestNumber, -1));
+            _viewModel.AddAppointment();
             LbAppointments.Items.Refresh();
         }
 
-        private DateTime CreateDate()
-        {
-            int year = _viewModel.SelectedAppointment.Year;
-            int month = _viewModel.SelectedAppointment.Month;
-            int day = _viewModel.SelectedAppointment.Day;
-            int hours, minutes, seconds;
-            CalculateTime(out hours, out minutes, out seconds);
-            DateTime newDate = new(year, month, day, hours, minutes, seconds);
-            TBTime.Text = "hh:mm";
-            return newDate;
-        }
-        private void CalculateTime(out int hours, out int minutes, out int seconds)
-        {
-            string[] timeParts = TBTime.Text.Split(":");
-            hours = int.Parse(timeParts[0]);
-            minutes = int.Parse(timeParts[1]);
-            seconds = 0;
-        }
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             Close();

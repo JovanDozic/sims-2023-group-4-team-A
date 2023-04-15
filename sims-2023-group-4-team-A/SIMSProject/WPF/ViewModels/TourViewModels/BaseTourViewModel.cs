@@ -153,45 +153,40 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         }
         
 
-        private ObservableCollection<KeyPoint> _keyPoints = new();
-        public ObservableCollection<KeyPoint> KeyPoints
+        public List<KeyPoint> KeyPoints
         {
-            get => _keyPoints;
+            get => _tour.KeyPoints;
             set 
             {   
-                if(value != _keyPoints)
+                if(value != _tour.KeyPoints)
                 {
-                    _keyPoints = value;
-                    _tour.KeyPoints = _keyPoints.ToList();
+                    _tour.KeyPoints = value;
                     OnPropertyChanged(nameof(KeyPoints));
                 }
             }
         }
 
-        private ObservableCollection<TourAppointment> _appointments = new();
-        public ObservableCollection<TourAppointment> Appointments
+        public List<TourAppointment> Appointments
         {
-            get => _appointments;
+            get => _tour.Appointments;
             set 
             {       
-                if(value != _appointments)
+                if(value != _tour.Appointments)
                 {
-                    _appointments = value;
+                    _tour.Appointments = value;
                     OnPropertyChanged(nameof(Appointments));
                 }
             }
         }
 
-        private ObservableCollection<string> _images = new();
-        public ObservableCollection<string> Images
+        public List<string> Images
         {
-            get => _images;
+            get => _tour.Images;
             set
             {
-                if(value != _images)
+                if(value != _tour.Images)
                 {
-                    _images = value;
-                    _tour.Images = _images.ToList();
+                    _tour.Images = value;
                     OnPropertyChanged(nameof(Images));
                 }
             }
