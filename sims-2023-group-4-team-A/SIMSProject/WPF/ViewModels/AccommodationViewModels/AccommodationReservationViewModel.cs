@@ -30,7 +30,10 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _reservationService.UpdateCanceledReservation(SelectedReservation);
         }
 
-
+        public AccommodationReservation GetSelectedReservation()
+        {
+            return SelectedReservation;
+        }
         public AccommodationReservationViewModel(User user)
         {
             _user = user;

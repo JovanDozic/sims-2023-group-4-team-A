@@ -20,6 +20,7 @@ using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Controller;
 using System.Collections.ObjectModel;
 using SIMSProject.Controller.UserController;
+using SIMSProject.WPF.ViewModels.AccommodationViewModels;
 
 
 namespace SIMSProject.WPF.Views.Guest1
@@ -29,51 +30,23 @@ namespace SIMSProject.WPF.Views.Guest1
     /// </summary>
     public partial class AccommodationAndOwnerRating : Window
     {
-        public Guest User = new();
-        public List<AccommodationReservation> AccommodationReservations { get; set; }
-        public ObservableCollection<AccommodationReservation> Reservations { get; set; }
-        public AccommodationReservationController AccommodationReservationController { get; set; }
-        public Accommodation Accommodation { get; set; } = new();
-        public AccommodationController AccommodationController { get; set; }
-        public List<Accommodation> Accommodations { get; set; } = new();
-        public Owner Owner { get; set; }
-        public List<Owner> Owners { get; set; } = new();
-        //public Model.AccommodationAndOwnerRating Rating { get; set; } = new();
-
-        public AccommodationAndOwnerRating(Guest user)
+        private readonly User User = new();
+        private readonly OwnerRatingViewModel _ownerRatingViewModel;
+        private AccommodationReservation _accommodationReservation;
+        public AccommodationAndOwnerRating(User user)
         {
             InitializeComponent();
-            DataContext = this;
             User = user;
-            Reservations = new ObservableCollection<AccommodationReservation>();
-            AccommodationReservationController = new AccommodationReservationController();
-            AccommodationController = new AccommodationController();
-            AccommodationReservations = new List<AccommodationReservation>();
-            Accommodations = new List<Accommodation>();
-            Owners = new List<Owner>();
-            AddReservationsToCombo();
+            _ownerRatingViewModel = new(User, _accommodationReservation);
+            DataContext = _ownerRatingViewModel;
+            _ownerRatingViewModel.AddReservationsToCombo();
            
         }
-
-        public void AddReservationsToCombo()
-        {
-            foreach (var reservation in AccommodationReservationController.GetAll())
-            {
-                if (reservation.EndDate < DateTime.Today && !reservation.Canceled && reservation.Guest.Id == User.Id)
-                {
-                    Reservations.Add(reservation);
-                }
-            }
-            ReservationsCombo.ItemsSource = Reservations;
-        }
-
         private void ReservationsCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ReservationsCombo.SelectedItem != null)
+            if (_ownerRatingViewModel.IsSelected())
             {
-                AccommodationReservation selectedReservation = ReservationsCombo.SelectedItem as AccommodationReservation;
-                selectedReservation.Accommodation.Owner = new OwnerController().GetByID(selectedReservation.Accommodation.Owner.Id);
-                OwnerNameTextBlock.Text = selectedReservation.Accommodation.Owner.Username;
+                OwnerNameTextBlock.Text = _ownerRatingViewModel.GetOwnerUsername(); 
             }
             
         }

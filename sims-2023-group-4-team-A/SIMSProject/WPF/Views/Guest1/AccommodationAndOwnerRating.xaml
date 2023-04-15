@@ -37,7 +37,7 @@
                    FontSize="30"></Label>
             <Label Content="Vlasnik:" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" HorizontalContentAlignment="Left"
                    FontSize="30"></Label>
-            <ComboBox FontSize="25" x:Name="ReservationsCombo" ItemsSource="{Binding Reservations}" DisplayMemberPath="Accommodation.Name" Grid.Row="2" Height="45" Width="334" VerticalAlignment="Center" HorizontalAlignment="Left" SelectionChanged="ReservationsCombo_SelectionChanged">
+            <ComboBox FontSize="25" x:Name="ReservationsCombo" ItemsSource="{Binding Reservations}" SelectedItem="{Binding SelectedReservation}" DisplayMemberPath="Accommodation.Name" Grid.Row="2" Height="45" Width="334" VerticalAlignment="Center" HorizontalAlignment="Left" SelectionChanged="ReservationsCombo_SelectionChanged">
             </ComboBox>
             <TextBlock Grid.Row="2" Height="50" Width="350" Grid.Column="2" x:Name="OwnerNameTextBlock"
                        HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -45,12 +45,12 @@
             <Label Grid.Row="3" Content="Cistoća:" HorizontalAlignment="Left" VerticalAlignment="Bottom"
                    FontSize="30"></Label>
             <custom:NumericBoxRating FontSize="30" Grid.Row="3" HorizontalAlignment="Left"  Grid.RowSpan="2" Margin="43,61,0,32"
-                                     Value="{Binding Rating.CleanlinessRating, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></custom:NumericBoxRating>
+                                     Value="{Binding CleanlinessRating, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></custom:NumericBoxRating>
 
             <Label Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom"
                    FontSize="30" Content="Korektnost vlasnika:"></Label>
             <custom:NumericBoxRating FontSize="30" Grid.Column="1" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Width="164" Height="65" Margin="39,63,0,0" Grid.RowSpan="2"
-                                     Value="{Binding Rating.OwnerCorrectness, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></custom:NumericBoxRating>
+                                     Value="{Binding OwnerCorrectness, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></custom:NumericBoxRating>
             <Label Content="Komentar:" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left"
                    FontSize="30"></Label>
 
@@ -80,7 +80,7 @@
                    FontSize="30"></Label>
             <custom:NumericBoxRating FontSize="30" Grid.Row="8" Grid.Column="1" VerticalAlignment="Top"
                                      HorizontalAlignment="Left" Margin="39,72,0,0" Grid.RowSpan="2"
-                                     Value="{Binding Rating.Kindness, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></custom:NumericBoxRating>
+                                     Value="{Binding Kindness, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></custom:NumericBoxRating>
 
             <Button Content="Oceni" Grid.Row="10" FontSize="30" Width="290" Margin="74,19,75,12">
             </Button>

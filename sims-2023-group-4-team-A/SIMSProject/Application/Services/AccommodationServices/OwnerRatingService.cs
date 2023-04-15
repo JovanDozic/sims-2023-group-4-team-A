@@ -37,5 +37,9 @@ namespace SIMSProject.Application.Services.AccommodationServices
             owner.Rating = ratings.Average(x => x.Overall);
             _ownerRepo.Update(owner);
         }
+        public Owner GetOwnerById(int ownerId)
+        {
+            return _ownerRepo.GetById(ownerId);
+        }
     }
 }

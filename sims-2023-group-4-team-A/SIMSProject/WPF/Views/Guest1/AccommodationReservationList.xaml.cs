@@ -30,10 +30,6 @@ namespace SIMSProject.WPF.Views.Guest1
         private readonly User _user;
         private readonly AccommodationReservationViewModel _accommodationReservationViewModel;
         public AccommodationReservation SelectedReservation { get; set; } = null;
-        public CancelledReservationsNotifications CancelledReservationsNotifications { get; set; }
-        public CancelledReservationsNotificationsController CancelledReservationsNotificationsController { get; set; }
-        public ObservableCollection<AccommodationReservation> AccommodationReservations { get; set; }
-        private AccommodationReservationController AccommodationReservationController { get; set; }
         public AccommodationReservationList()
         {
             InitializeComponent();
@@ -77,14 +73,14 @@ namespace SIMSProject.WPF.Views.Guest1
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedReservation != null)
+            if (!_accommodationReservationViewModel.IsSelected())
             {
-                var window = new MovingReservations(SelectedReservation);
-                window.Show();
+                MessageBox.Show("Morate da odaberete smestaj!");
+                return;
             }
-            else
-                MessageBox.Show("Morate da odaberete rezervaciju!");
-            
+            var window = new MovingReservations(_accommodationReservationViewModel.GetSelectedReservation());
+            window.Show();
+
         }
     }
 }

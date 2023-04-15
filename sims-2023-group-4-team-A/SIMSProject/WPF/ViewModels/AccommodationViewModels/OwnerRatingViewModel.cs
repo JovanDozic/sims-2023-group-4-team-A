@@ -2,6 +2,8 @@
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
+using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
@@ -11,6 +13,33 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private readonly User _user;
         private OwnerRating _rating = new();
         private OwnerRatingService _ratingService;
+        private AccommodationReservationService _reservationService;
+        public ObservableCollection<AccommodationReservation> Reservations { get; set; } = new();
+        public object ReservationsCombo { get; private set; }
+        private string _ownerNameTB;
+        public string OwnerNameTextBlock
+        {
+            get => _ownerNameTB;
+            set
+            {
+                if (value == _ownerNameTB) return;
+                _ownerNameTB = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private AccommodationReservation _selectedReservation;
+        public AccommodationReservation SelectedReservation
+        {
+            get => _selectedReservation;
+            set
+            {
+                if (value == _selectedReservation) return;
+                _selectedReservation = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string _selectedImageFile = string.Empty;
 
         public OwnerRating Rating
@@ -34,6 +63,38 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
+       
+        public int CleanlinessRating
+        {
+            get => _rating.CleanlinessRating;
+            set
+            {
+                if (_rating.CleanlinessRating == value || value is < 1 or > 5) return;
+                _rating.CleanlinessRating = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int OwnerCorrectness
+        {
+            get => _rating.OwnerCorrectness;
+            set
+            {
+                if (_rating.OwnerCorrectness == value || value is < 1 or > 5) return;
+                _rating.OwnerCorrectness = value;
+                OnPropertyChanged();
+            }
+        }
+        public int Kindness
+        {
+            get => _rating.Kindness;
+            set
+            {
+                if (_rating.Kindness == value || value is < 1 or > 5) return;
+                _rating.Kindness = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string SelectedImageFile
         {
@@ -46,13 +107,52 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             }
         }
 
+        
+
         public OwnerRatingViewModel(User user, AccommodationReservation reservation)
         {
             _user = user;
             _ratingService = Injector.GetService<OwnerRatingService>();
             Reservation = reservation;
+            _reservationService = Injector.GetService<AccommodationReservationService>();
+            //LoadRating();
+        }
 
-            LoadRating();
+        public void AddReservationsToCombo()
+        {
+            foreach (var reservation in _reservationService.GetAll())
+            {
+                if (reservation.EndDate < DateTime.Today && !reservation.Canceled && reservation.Guest.Id == _user.Id)
+                {
+                    Reservations.Add(reservation);
+                }
+            }
+            ReservationsCombo = Reservations;
+        }
+
+        public string GetOwnerUsername()
+        {
+            SelectedReservation.Accommodation.Owner = _ratingService.GetOwnerById(SelectedReservation.Accommodation.Owner.Id);
+            return SelectedReservation.Accommodation.Owner.Username;
+        }
+
+        public AccommodationReservation GetSelectedReservation()
+        {
+            return SelectedReservation;
+        }
+
+        public bool IsSelected()
+        {
+            return SelectedReservation != null;
+        }
+
+        public string DisplayUsername(String username)
+        {
+            return OwnerNameTextBlock = username;
+        }
+        public void RateOwnerAndAccommodation()
+        {
+            
         }
 
         public void LoadRating()
