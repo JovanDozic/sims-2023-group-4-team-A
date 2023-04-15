@@ -1,51 +1,77 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using SIMSProject.FileHandler.UserFileHandler;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SIMSProject.Repositories.UserRepositories
 {
     public class UserRepo : IUserRepo
     {
-        private List<Owner> _owners;
-        private List<Guide> _guides;
-        private List<Guest> _guests;
+        private readonly IOwnerRepo _ownerRepo;
+        // TODO: IOwnerRatingRepo
+        // TODO: private readonly IGuideRepo _guideRepo;
+        private readonly IGuestRepo _guestRepo;
+        private readonly IGuestRatingRepo _guestRatingRepo;
 
-        public UserRepo()
+        public UserRepo(IOwnerRepo ownerRepo, /* TODO: Implement IGuideRepo */ IGuestRepo guestRepo, IGuestRatingRepo guestRatingRepo)
         {
-            _owners = new OwnerFileHandler().Load();
-            _guides = new GuideFileHandler().Load();
-            _guests = new GuestFileHandler().Load();
+            _ownerRepo = ownerRepo;
+            // TODO: IOwnerRatingRepo
+            _guestRepo = guestRepo;
+            _guestRatingRepo = guestRatingRepo;
+
+            CalculateRatings();
         }
-        
+
+        private void CalculateRatings()
+        {
+            _ownerRepo.SaveAll(GetAllOwners().Select(x =>
+                {
+                    // TODO: Calculate Owner rating
+                    return x;
+                }
+            ).ToList());
+
+            _guestRepo.SaveAll(GetAllGuests().Select(x =>
+                {
+                    x.Rating = _guestRatingRepo.GetOverallByGuestId(x.Id);
+                    return x;
+                }
+            ).ToList());
+        }
+
         public List<Guest> GetAllGuests()
         {
-            return _guests;
+            return _guestRepo.GetAll();
         }
 
         public List<Guide> GetAllGuides()
         {
-            return _guides;
+            // TODO: Fix this
+            return new GuideFileHandler().Load();
         }
 
         public List<Owner> GetAllOwners()
         {
-            return _owners;
+            return _ownerRepo.GetAll();
         }
 
         public Guest? GetGuestById(int id)
         {
-            return _guests.Find(x => x.Id == id);
+            return _guestRepo.GetById(id);
         }
 
         public Guide? GetGuideById(int id)
         {
-            return _guides.Find(x => x.Id == id);
+            // TODO: Fix this
+            return new GuideFileHandler().Load().Find(x => x.Id == id);
         }
 
         public Owner? GetOwnerById(int id)
         {
-            return _owners.Find(x => x.Id == id);
+            return _ownerRepo.GetById(id);
         }
     }
 }

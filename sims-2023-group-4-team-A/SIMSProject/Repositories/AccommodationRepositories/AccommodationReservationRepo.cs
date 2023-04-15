@@ -1,15 +1,9 @@
-﻿using SIMSProject.Domain.Injectors;
-using SIMSProject.Domain.Models.AccommodationModels;
-using SIMSProject.Domain.Models.UserModels;
+﻿using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using SIMSProject.FileHandler;
-using SIMSProject.Model;
-using SIMSProject.Repositories.UserRepositories;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Media;
-using System.Windows;
 
 namespace SIMSProject.Repositories.AccommodationRepositories
 {

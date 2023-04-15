@@ -28,7 +28,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
         public void UpdateGuestsTotalRating(Guest guest)
         {
-            var ratings = _ratingRepo.GetByGuestId(guest.Id);
+            var ratings = _ratingRepo.GetAllByGuestId(guest.Id);
             guest.Rating = ratings.Average(x => x.Overall);
             _guestRepo.Update(guest);
         }

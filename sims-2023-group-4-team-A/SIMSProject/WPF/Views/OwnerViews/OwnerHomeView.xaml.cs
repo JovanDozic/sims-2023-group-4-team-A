@@ -44,6 +44,7 @@ namespace SIMSProject.WPF.Views.OwnerViews
         private void DgrReservations_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             BtnRateGuest.IsEnabled = _viewModel.IsGuestRatingEnabled();
+            BtnViewOwnerRating.IsEnabled = _viewModel.IsOwnerRatingEnabled();
         }
 
         private void BtnRegisterAccommodation_Click(object sender, RoutedEventArgs e)
@@ -61,6 +62,13 @@ namespace SIMSProject.WPF.Views.OwnerViews
             BtnRateGuest.IsEnabled = false;
             _viewModel.LoadReservations();
             DgrReservations.Items.Refresh();
+            DgrReservations.SelectedItem = null;
+        }
+
+        private void BtnViewOwnerRating_Click(object sender, RoutedEventArgs e)
+        {
+            OwnerRatingView window = new(_user, _viewModel.SelectedReservation);
+            window.ShowDialog();
         }
     }
 }

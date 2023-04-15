@@ -45,5 +45,13 @@ namespace SIMSProject.Repositories.UserRepositories
             _fileHandler.Save(owners);
             _owners = owners;
         }
+
+        public void Update(Owner owner)
+        {
+            Owner ownerToUpdate = GetById(owner.Id) ?? throw new System.Exception("Updating owner failed!");
+            int index = _owners.IndexOf(ownerToUpdate);
+            _owners[index] = owner;
+            _fileHandler.Save(_owners);
+        }
     }
 }
