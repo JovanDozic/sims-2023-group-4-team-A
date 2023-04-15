@@ -35,7 +35,7 @@
             <Button x:Name="MultiPartRequestBTN" Content="Zahtevi za&#xa;složene ture&#xa;Ctrl+Q"/>
             <Button x:Name="StatisticsBTN" Content="Statistika o&#xa;turama Ctrl+S"/>
             <Button x:Name="RequestStatBTN" Content="Statistika o&#xa;zahtevima za ture&#xa;Ctrl+S+R"/>
-            <Button x:Name="ReviewBTN" Content="Recenzije Ctrl+G"/>
+            <Button x:Name="ReviewBTN" Content="Recenzije Ctrl+G" Click="ReviewBTN_Click"/>
         </StackPanel>
         <Frame x:Name="frame" NavigationUIVisibility="Hidden">
         </Frame>
