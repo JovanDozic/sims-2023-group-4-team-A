@@ -1,18 +1,19 @@
 ﻿using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.FileHandler;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace SIMSProject.Repositories.AccommodationRepositories
 {
-    public class GuestRatingRepo : IGuestRatingRepo
+    public class OwnerRatingRepo : IOwnerRatingRepo
     {
-        private readonly GuestRatingFileHandler _fileHandler;
+        private readonly OwnerRatingFileHandler _fileHandler;
         private readonly IAccommodationReservationRepo _reservationRepo;
-        private List<GuestRating> _ratings;
+        private List<OwnerRating> _ratings;
 
-        public GuestRatingRepo(IAccommodationReservationRepo reservationRepo)
+        public OwnerRatingRepo(IAccommodationReservationRepo reservationRepo)
         {
             _fileHandler = new();
             _ratings = new();
@@ -27,33 +28,33 @@ namespace SIMSProject.Repositories.AccommodationRepositories
             MapAccommodationReservations();
         }
 
-        public List<GuestRating> GetAll()
+        public List<OwnerRating> GetAll()
         {
             return _ratings;
         }
 
-        public GuestRating GetById(int ratingId)
+        public List<OwnerRating> GetAllByOwnerId(int ownerId)
+        {
+            return _ratings.FindAll(x => x.Reservation.Accommodation.Owner.Id == ownerId);
+        }
+
+        public OwnerRating GetById(int ratingId)
         {
             return _ratings.Find(x => x.Id == ratingId);
         }
 
-        public List<GuestRating> GetAllByGuestId(int guestId)
+        public double GetOverallByOwnerId(int ownerId)
         {
-            return _ratings.FindAll(x => x.Reservation.Guest.Id == guestId);
-        }
-
-        public double GetOverallByGuestId(int guestId)
-        {
-            var ratings = GetAllByGuestId(guestId);
+            var ratings = GetAllByOwnerId(ownerId);
             return ratings.Count > 0 ? ratings.Average(x => x.Overall) : 0;
         }
 
         public int NextId()
         {
-            return _ratings.Count > 0 ? _ratings.Max(x => x.Id) + 1 : 1;
+            return _ratings.Count > 0 ? _ratings.Max(x => x.Id) : 1;
         }
 
-        public GuestRating Save(GuestRating rating)
+        public OwnerRating Save(OwnerRating rating)
         {
             rating.Id = NextId();
             _ratings.Add(rating);
@@ -61,7 +62,7 @@ namespace SIMSProject.Repositories.AccommodationRepositories
             return rating;
         }
 
-        public void SaveAll(List<GuestRating> ratings)
+        public void SaveAll(List<OwnerRating> ratings)
         {
             _fileHandler.Save(ratings);
             _ratings = ratings;
@@ -73,6 +74,11 @@ namespace SIMSProject.Repositories.AccommodationRepositories
             {
                 rating.Reservation = _reservationRepo.GetById(rating.Reservation.Id);
             }
+        }
+
+        public OwnerRating GetByReservationId(int reservationId)
+        {
+            return _ratings.Find(x => x.Reservation.Id == reservationId);
         }
     }
 }

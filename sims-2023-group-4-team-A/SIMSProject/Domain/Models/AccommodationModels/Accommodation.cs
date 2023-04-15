@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SIMSProject.Domain.Models.AccommodationModels
 {
-    public class Accommodation : ISerializable
+    public class Accommodation : ImageSerializer, ISerializable
     {
         public int Id { get; set; }
         public Owner Owner { get; set; } = new();
@@ -19,21 +19,6 @@ namespace SIMSProject.Domain.Models.AccommodationModels
 
         public Accommodation()
         {
-        }
-
-        public Accommodation(int ownerId, string name, Location location, AccommodationType type, int maxGuestNumber,
-            int minReservationDays, int cancellationThreshold, string imageURLsCSV)
-        {
-            Owner.Id = ownerId;
-            Name = name;
-            Location = location;
-            Type = type;
-            MaxGuestNumber = maxGuestNumber;
-            MinReservationDays = minReservationDays;
-            CancellationThreshold = cancellationThreshold;
-            ImageURLs = new List<string>();
-            ImageURLsCSV = imageURLsCSV;
-            ImageURLsFromCSV(ImageURLsCSV);
         }
 
         public static AccommodationType GetType(string type)
@@ -56,35 +41,9 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             };
         }
 
-        public void ImageURLsToCSV()
-        {
-            if (ImageURLs.Count > 0)
-            {
-                ImageURLsCSV = string.Empty;
-                foreach (var imageURL in ImageURLs)
-                {
-                    ImageURLsCSV += imageURL + ",";
-                }
-
-                ImageURLsCSV = ImageURLsCSV.Remove(ImageURLsCSV.Length - 1);
-            }
-        }
-
-        public void ImageURLsFromCSV(string value)
-        {
-            var imageURLs = value.Split(',');
-            foreach (var imageURL in imageURLs)
-            {
-                if (imageURL != string.Empty)
-                {
-                    ImageURLs.Add(imageURL);
-                }
-            }
-        }
-
         public string[] ToCSV()
         {
-            ImageURLsToCSV();
+            ImageURLsCSV = ImageURLsToCSV(ImageURLs);
             string[] csvValues =
             {
                 Id.ToString(),
@@ -112,7 +71,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             MinReservationDays = int.Parse(values[i++]);
             CancellationThreshold = int.Parse(values[i++]);
             ImageURLsCSV = values[i++];
-            ImageURLsFromCSV(ImageURLsCSV);
+            ImageURLs = ImageURLsFromCSV(ImageURLsCSV);
         }
 
         public override string? ToString()
