@@ -61,13 +61,9 @@ namespace SIMSProject.Model.DAO
             List<TourGuest> tourGuests = tourGuestFileHandler.Load();
             KeyPointFileHandler keyPointFileHandler = new();
             List<KeyPoint> keyPoints = keyPointFileHandler.Load();
-            TourFileHandler tourFileHandler = new();
-            List<Tour> tours = tourFileHandler.Load();
-
 
             foreach (TourAppointment appointment in _tourAppointments)
             {
-                AssociateTour(appointment, tours);
                 AssociateCurrenKeyPoint(appointment, keyPoints);
                 AssociateGuests(appointment, guests, tourGuests);
             }
@@ -89,11 +85,6 @@ namespace SIMSProject.Model.DAO
                 return;
 
             appointment.CurrentKeyPoint = keyPoints.Find(x => x.Id == appointment.CurrentKeyPointId) ?? throw new SystemException("Error!No matching key point!");
-        }
-
-        private static void AssociateTour(TourAppointment appointment, List<Tour> tours)
-        {
-            appointment.Tour = tours.Find(x => x.Id == appointment.TourId) ?? throw new SystemException("Error!No matching tour!");
         }
 
         public List<TourAppointment> GetAllByTourId(int tourId)
@@ -156,7 +147,6 @@ namespace SIMSProject.Model.DAO
         public TourAppointment InitializeTour(TourAppointment appointment, Tour tour) //servis
         {
             TourAppointment? oldAppointment = _tourAppointments.Find(x => x.Id ==  appointment.Id) ?? throw new SystemException("Error!Can't find appointment!");
-            oldAppointment.Tour = tour;
             oldAppointment.TourId = tour.Id;
             oldAppointment.AvailableSpots = tour.MaxGuestNumber;
             _fileHandler.Save(_tourAppointments);

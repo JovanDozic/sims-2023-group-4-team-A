@@ -21,19 +21,25 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     /// </summary>
     public partial class DetailedTourWindow : Window
     {
-        private  TourAppointmentsViewModel _appointments { get; set; }
+        private  AppointmentsViewModel _viewModel { get; set; }
         public DetailedTourWindow(Tour tour)
         {
             InitializeComponent();
-            _appointments = new(tour);
-            DataContext = _appointments;
+            _viewModel = new(tour);
+            _viewModel.GetAllAppointments();
+            DataContext = _viewModel;
             
         }
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
-            _appointments.CancelAppointment();
+            _viewModel.CancelAppointment();
             LbAppointments.Items.Refresh();
+        }
+
+        private void LbAppointments_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CancelBtn.IsEnabled = _viewModel.SelectedAppointment.TourStatus == Status.INACTIVE ? true : false;
         }
     }
 }

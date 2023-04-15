@@ -7,6 +7,7 @@ using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.Domain.Models;
 using SIMSProject.FileHandler.UserFileHandler;
+using SIMSProject.Domain.RepositoryInterfaces;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
@@ -14,12 +15,21 @@ namespace SIMSProject.Repositories.TourRepositories
     {
         private readonly TourFileHandler _fileHandler;
         private List<Tour> _tours;
+        private readonly ITourKeyPointRepo _tourKeyPointRepo;
+        private readonly IKeyPointRepo _keyPointRepo;
+        private readonly ILocationRepo _locationRepo;
+        private readonly ITourAppointmentRepo _tourAppointmentRepo;
 
-        public TourRepo()
+        public TourRepo(ITourKeyPointRepo tourKeyPointRepo, IKeyPointRepo keyPointRepo, ILocationRepo locationRepo, ITourAppointmentRepo tourAppointmentRepo)
         {
             _fileHandler = new TourFileHandler();
             _tours = _fileHandler.Load();
-            AssociateTours();
+            _keyPointRepo = keyPointRepo;
+            _locationRepo = locationRepo;
+            _tourKeyPointRepo = tourKeyPointRepo;
+            _tourAppointmentRepo = tourAppointmentRepo;
+
+            MapTours();
         }
 
         public int NextId()
@@ -40,68 +50,47 @@ namespace SIMSProject.Repositories.TourRepositories
         public Tour Save(Tour tour)
         {
             tour.Id = NextId();
-            SaveAppointments(tour);
             _tours.Add(tour);
             _fileHandler.Save(_tours);
             return tour;
         }
-        private static void SaveAppointments(Tour tour)
-        {
-            foreach (var appointment in tour.Appointments)
-            {
-                appointment.TourId = tour.Id;
-            }
-        }
-
         public void SaveAll(List<Tour> tours)
         {
             _fileHandler.Save(tours);
             _tours = tours;
         }
 
-        private void AssociateTours()
+        private void MapTours()
         {
-            GuideFileHandler guideFileHandler = new();
-            List<Guide> guides = guideFileHandler.Load();
-            LocationFileHandler tourLocationFileHandler = new();
-            List<Location> tourLocations = tourLocationFileHandler.Load();
-            TourAppointmentFileHandler tourAppointmentFileHandler = new();
-            List<TourAppointment> tourDates = tourAppointmentFileHandler.Load();
-            TourKeyPointFileHandler tourKeyPointFileHandler = new();
-            KeyPointFileHandler keyPointFileHandler = new();
-            List<TourKeyPoint> tourKeyPoints = tourKeyPointFileHandler.Load();
-            List<KeyPoint> keyPoints = keyPointFileHandler.Load();
-
             foreach (var tour in _tours)
             {
-                AssociateGuide(tour, guides);
-                AssociateLocation(tour, tourLocations);
-                AssociateAppointments(tour, tourDates);
-                AssociateKeyPoints(tour, tourKeyPoints, keyPoints);
+                MapLocation(tour);
+                MapKeyPoints(tour);
+                MapAppointemnts(tour);
             }
         }
 
-        private static void AssociateGuide(Tour tour, List<Guide> guides)
+        private void MapAppointemnts(Tour tour)
         {
-            tour.Guide = guides.Find(x => x.Id == tour.GuideId) ?? throw new SystemException("Error!No matching guide!");
+            foreach(var appointment in _tourAppointmentRepo.GetAll())
+            {
+                if(appointment.TourId == tour.Id)
+                    tour.Appointments.Add(appointment);
+            }
         }
 
-        private static void AssociateLocation(Tour tour, List<Location> tourLocations)
+
+        private  void MapLocation(Tour tour)
         {
-            tour.Location = tourLocations.Find(x => x.Id == tour.LocationId) ?? throw new SystemException("Error!No matching location!");
+            tour.Location = _locationRepo.GetAll().Find(x => x.Id == tour.LocationId) ?? throw new SystemException("Error!No matching location!");
         }
 
-        private static void AssociateAppointments(Tour tour, List<TourAppointment> tourDates)
+        private  void MapKeyPoints(Tour tour)
         {
-            tour.Appointments.AddRange(tourDates.FindAll(x => x.TourId == tour.Id));
-        }
-
-        private static void AssociateKeyPoints(Tour tour, List<TourKeyPoint> tourKeyPoints, List<KeyPoint> keyPoints)
-        {
-            List<TourKeyPoint> pairs = tourKeyPoints.FindAll(x => x.TourId == tour.Id);
+            List<TourKeyPoint> pairs = _tourKeyPointRepo.GetAll().FindAll(x => x.TourId == tour.Id);
             foreach (var pair in pairs)
             {
-                KeyPoint? matchingKeyPoint = keyPoints.Find(x => x.Id == pair.KeyPointId) ?? throw new SystemException("Error!No matching key point!");
+                KeyPoint? matchingKeyPoint = _keyPointRepo.GetAll().Find(x => x.Id == pair.KeyPointId) ?? throw new SystemException("Error!No matching key point!");
                 tour.KeyPoints.Add(matchingKeyPoint);
             }
         }
@@ -128,7 +117,7 @@ namespace SIMSProject.Repositories.TourRepositories
 
         public List<Tour> FindTodaysTours()
         {
-            return _tours.FindAll(x => x.Appointments.Any(x => x.Date.Date == DateTime.Today.Date));
+            return _tours.FindAll(x => x.Appointments.Any(x => (DateTime.Compare(x.Date.Date, DateTime.Now.Date) == 0 || x.TourStatus == Status.ACTIVE)));
         }
         public List<Tour> GetToursWithSameLocation(Tour selectedTour)
         {

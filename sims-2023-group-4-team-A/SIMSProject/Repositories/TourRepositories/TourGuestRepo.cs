@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
+using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
@@ -16,13 +17,17 @@ namespace SIMSProject.Repositories.TourRepositories
     {
         private readonly TourGuestFileHandler _fileHandler;
         private List<TourGuest> _tourGuests;
+        private readonly IKeyPointRepo _keyPointRepo;
+        private readonly IGuestRepo _guestRepo;
 
-        public TourGuestRepo()
+        public TourGuestRepo(IKeyPointRepo keyPointRepo, IGuestRepo guestRepo)
         {
             _fileHandler = new TourGuestFileHandler();
             _tourGuests = _fileHandler.Load();
+            _keyPointRepo = keyPointRepo;
+            _guestRepo = guestRepo;
 
-            AssociateTourGuests();
+            MapTourGuests();
         }
 
         public List<TourGuest> GetAll()
@@ -43,41 +48,28 @@ namespace SIMSProject.Repositories.TourRepositories
             _tourGuests = tourGuests;
         }
 
-        private void AssociateTourGuests()
+        private void MapTourGuests()
         {
-            KeyPointFileHandler keyPointFileHandler = new();
-            List<KeyPoint> keyPoints = keyPointFileHandler.Load();
-            TourAppointmentFileHandler dateHandler = new();
-            List<TourAppointment> appointments = dateHandler.Load();
-            GuestFileHandler guestFileHandler = new();
-            List<Guest> tourGuests = guestFileHandler.Load();
-
             foreach (TourGuest tourGuest in _tourGuests)
             {
-                AssociateAppointment(tourGuest, appointments);
-                AssociateJoinedKeyPoint(tourGuest, keyPoints);
-                AssociateGuest(tourGuests, tourGuest);
-
+                MapKeyPoint(tourGuest);
+                MapGuest(tourGuest);
             }
         }
 
-        private static void AssociateGuest(List<Guest> tourGuests, TourGuest tourGuest)
+        private  void MapGuest(TourGuest tourGuest)
         {
-            tourGuest.Guest = tourGuests.Find(x => x.Id == tourGuest.GuestId) ?? throw new System.Exception("Error!No matching guest!");
+            tourGuest.Guest = _guestRepo.GetAll().Find(x => x.Id == tourGuest.GuestId) ?? throw new System.Exception("Error!No matching guest!");
         }
 
-        private static void AssociateJoinedKeyPoint(TourGuest tourGuest, List<KeyPoint> keyPoints)
+        private  void MapKeyPoint(TourGuest tourGuest)
         {
             if (tourGuest.JoinedKeyPointId == -1)
                 return;
 
-            tourGuest.JoinedKeyPoint = keyPoints.Find(x => x.Id == tourGuest.JoinedKeyPointId) ?? throw new System.Exception("Error!No matching keyPoint!");
+            tourGuest.JoinedKeyPoint = _keyPointRepo.GetAll().Find(x => x.Id == tourGuest.JoinedKeyPointId) ?? throw new System.Exception("Error!No matching keyPoint!");
         }
 
-        private static void AssociateAppointment(TourGuest tourGuest, List<TourAppointment> appointments)
-        {
-            tourGuest.Appointment = appointments.Find(x => x.Id == tourGuest.AppointmentId) ?? throw new System.Exception("Error!No matching appointment!");
-        }
         public List<TourGuest> GetGuests(int tourAppointmentId)
         {
             return _tourGuests.FindAll(x => x.AppointmentId == tourAppointmentId);

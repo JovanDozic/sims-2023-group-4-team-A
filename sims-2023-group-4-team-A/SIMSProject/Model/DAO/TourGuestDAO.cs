@@ -46,14 +46,11 @@ namespace SIMSProject.Model.DAO
         {
             KeyPointFileHandler keyPointFileHandler = new();
             List<KeyPoint> keyPoints = keyPointFileHandler.Load();
-            TourAppointmentFileHandler dateHandler = new();
-            List<TourAppointment> appointments = dateHandler.Load();
             GuestFileHandler guestFileHandler = new();
             List<Guest> tourGuests = guestFileHandler.Load();
 
             foreach (TourGuest tourGuest in _tourGuests)
             {
-                AssociateAppointment(tourGuest, appointments);
                 AssociateJoinedKeyPoint(tourGuest, keyPoints);
                 AssociateGuest(tourGuests, tourGuest);
 
@@ -73,10 +70,6 @@ namespace SIMSProject.Model.DAO
             tourGuest.JoinedKeyPoint = keyPoints.Find(x => x.Id == tourGuest.JoinedKeyPointId) ?? throw new System.Exception("Error!No matching keyPoint!");
         }
 
-        private static void AssociateAppointment(TourGuest tourGuest, List<TourAppointment> appointments)
-        {
-            tourGuest.Appointment = appointments.Find(x => x.Id == tourGuest.AppointmentId) ?? throw new System.Exception("Error!No matching appointment!");
-        }
 
         public void SignUpGuest(int guestId, int tourAppointmentId) //servis
         {

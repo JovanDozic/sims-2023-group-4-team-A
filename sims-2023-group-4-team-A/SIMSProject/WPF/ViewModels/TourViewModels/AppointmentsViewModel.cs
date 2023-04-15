@@ -60,14 +60,17 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             _tourGuestService = Injector.GetService<TourGuestService>();
             _tourService = Injector.GetService<TourService>();
 
-            Appointments = new(_tourAppointmentService.GetAllByTourId(tour.Id));
+            Appointments = new(_tourAppointmentService.GetTodays(tour));
             Tour = new(tour);
             Appointment = new();
             KeyPoints = Tour.KeyPointsToString();
-
         }
 
-
+        public void GetAllAppointments()
+        {
+            Appointments.Clear();
+            Appointments = new(_tourAppointmentService.GetAllByTourId(Tour.Id));
+        }
         public void AddGuests()
         {
             Guests = new(_tourGuestService.GetGuests(SelectedAppointment));
@@ -80,8 +83,10 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
                 MessageBox.Show("Greška! Možete otkazati termin najkasnije 48 sati pred početak!");
                 return;
             }
+
             List<TourGuest> guests = _tourGuestService.GetGuests(SelectedAppointment);
             _voucherService.GiveVouchers(guests, ObtainingReason.APPOINTMENTCANCELED);
+
             MessageBox.Show("Uspešno ste otkazali termin.");
         }
 
@@ -105,30 +110,26 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
 
         public void GoNext()
         {
-            if (Tour.GetTour().KeyPoints.Last().Id == Appointment.CurrentKeyPointId)
+            if (Tour.Tour.KeyPoints.Last().Id == Appointment.CurrentKeyPointId)
             {
                 MessageBox.Show("Došli ste do kraja, završite turu!");
                 return;
             }
 
             KeyPoint Next = _tourService.GetNextKeyPoint(Appointment.TourAppointment);
-            Appointment.TourAppointment = _tourAppointmentService.GoToNextKeyPoint(Appointment.Id, Next);
+            Appointment.TourAppointment = _tourAppointmentService.AdvanceNext(Appointment.Id, Next);
         }
 
         public void EndAppointment()
         {
-            _tourService.EndTourAppointment(Tour.Id, Appointment.Id);
             _tourAppointmentService.StopLiveTracking(Appointment.Id);
             MessageBox.Show("Tura završena.");
         }
 
         public void SignUpGuest()
         {
-            _tourGuestService.SignUpGuest(SelectedGuest.GuestId, Appointment.Id);
-            MessageBox.Show("Gost prijavljen!");
+                _tourGuestService.SignUpGuest(SelectedGuest.GuestId, Appointment.Id);
+                MessageBox.Show("Gost prijavljen!");
         }
-
-
-
     }
 }

@@ -1,5 +1,6 @@
 ﻿using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Domain.RepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.FileHandler;
 using SIMSProject.Model;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
@@ -16,13 +18,15 @@ namespace SIMSProject.Repositories.TourRepositories
     {
         private readonly KeyPointFileHandler _fileHandler;
         private List<KeyPoint> _keyPoints;
+        private readonly ILocationRepo _locationrepo;
 
-        public KeyPointRepo()
+        public KeyPointRepo(ILocationRepo locationRepo)
         {
             _fileHandler = new KeyPointFileHandler();
             _keyPoints = _fileHandler.Load();
+            _locationrepo = locationRepo;
 
-            AssociateKeyPoints();
+            MapKeyPoints();
         }
 
         public int NextId()
@@ -49,37 +53,12 @@ namespace SIMSProject.Repositories.TourRepositories
             _keyPoints = keyPoints;
         }
 
-        private void AssociateKeyPoints()
+        private void MapKeyPoints()
         {
-            LocationFileHandler tourLocationFileHandler = new();
-            List<Location> toursLocations = tourLocationFileHandler.Load();
-            TourFileHandler tourFileHandler = new();
-            List<Tour> tours = tourFileHandler.Load();
-            TourKeyPointFileHandler tourKeyPointFileHandler = new();
-            List<TourKeyPoint> tourKeyPoints = tourKeyPointFileHandler.Load();
-
             foreach (var keyPoint in _keyPoints)
             {
-                AssociateLocation(keyPoint, toursLocations);
-                AssociateTours(keyPoint, tours, tourKeyPoints);
+                keyPoint.Location = _locationrepo.GetAll().Find(x => x.Id == keyPoint.LocationId) ?? throw new SystemException("Error!No matching location!");
             }
         }
-
-        private static void AssociateLocation(KeyPoint keyPoint, List<Location> toursLocations)
-        {
-            keyPoint.Location = toursLocations.Find(x => x.Id == keyPoint.LocationId) ?? throw new SystemException("Error!No matching location!");
-        }
-
-        private static void AssociateTours(KeyPoint keyPoint, List<Tour> tours, List<TourKeyPoint> tourKeyPoints)
-        {
-            List<TourKeyPoint> pairs = tourKeyPoints.FindAll(x => x.KeyPointId == keyPoint.Id);
-            foreach (var pair in pairs)
-            {
-                Tour? matchingTour = tours.Find(x => x.Id == pair.TourId) ?? throw new SystemException("Error!No matching tour!");
-                keyPoint.Tours.Add(matchingTour);
-            }
-        }
-
-
     }
 }

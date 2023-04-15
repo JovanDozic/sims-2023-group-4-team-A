@@ -26,12 +26,18 @@ namespace SIMSProject.Application1.Services.TourServices
                _repo.Save(appointment, tour);
             }
         }
+
+        public List<TourAppointment> GetTodays(Tour tour)
+        {
+            return _repo.FindTodaysAppointmentsByTour(tour.Id);
+        }
+
         public List<TourAppointment> GetAllByTourId(int tourId)
         {
             return _repo.GetAll().FindAll(x => x.TourId == tourId && DateTime.Compare(x.Date, DateTime.Now) > 0);
         }
 
-        public TourAppointment GoToNextKeyPoint(int appointmentId, KeyPoint nextKeyPoint)
+        public TourAppointment AdvanceNext(int appointmentId, KeyPoint nextKeyPoint)
         {
             TourAppointment? appointment = _repo.GetById(appointmentId) ?? throw new ArgumentException("Error!Can't find appointment!");
             appointment.CurrentKeyPoint = nextKeyPoint;
@@ -85,7 +91,6 @@ namespace SIMSProject.Application1.Services.TourServices
         public TourAppointment InitializeTour(TourAppointment appointment, Tour tour)
         {
             TourAppointment? oldAppointment = _repo.GetAll().Find(x => x.Id == appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
-            oldAppointment.Tour = tour;
             oldAppointment.TourId = tour.Id;
             oldAppointment.AvailableSpots = tour.MaxGuestNumber;
             _repo.SaveAll(_repo.GetAll());

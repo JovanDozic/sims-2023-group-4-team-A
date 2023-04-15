@@ -28,19 +28,16 @@ namespace SIMSProject.Domain.Models.TourModels
         public Language TourLanguage { get; set; }
         public int MaxGuestNumber { get; set; }
         public int Duration { get; set; }
-
-        public Guide Guide { get; set; } = new();
         public Location Location { get; set; } = new();
+        public List<TourAppointment> Appointments { get; set; } = new();
         public List<KeyPoint> KeyPoints { get; set; } = new List<KeyPoint>();
-        public List<TourAppointment> Appointments { get; set; } = new List<TourAppointment>();
         public List<string> Images { get; set; } = new List<string>();
 
         public Tour() { }
 
-        public Tour(string name, Guide guide, Location location, string description, Language tourLanguage, int maxGuestNumber, int duration, int locationId, int guideId)
+        public Tour(string name, Location location, string description, Language tourLanguage, int maxGuestNumber, int duration, int locationId, int guideId)
         {
             Name = name;
-            Guide = guide;
             Location = location;
             Description = description;
             Duration = duration;

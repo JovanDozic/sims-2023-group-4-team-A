@@ -83,15 +83,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             }
         }
 
-        public Tour Tour
-        {
-            get => _tourAppointment.Tour;
-            set
-            {
-                _tourAppointment.Tour = value;
-                OnPropertyChanged(nameof(Tour));
-            }
-        }
         public KeyPoint CurrentKeyPoint
         {
             get => _tourAppointment.CurrentKeyPoint;

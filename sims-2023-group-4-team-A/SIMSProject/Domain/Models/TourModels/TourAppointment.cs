@@ -15,9 +15,8 @@ namespace SIMSProject.Domain.Models.TourModels
         public int CurrentKeyPointId { get; set; }
         public int TourId { get; set; }
         public DateTime Date { get; set; }
-        public Status TourStatus { get; set; }
+        public Status TourStatus { get; set; } = Status.INACTIVE;
         public int AvailableSpots { get; set; }
-        public Tour Tour { get; set; } = new();
         public KeyPoint CurrentKeyPoint { get; set; } = new();
         public List<Guest> Guests { get; set; } = new();
         public TourAppointment() { }

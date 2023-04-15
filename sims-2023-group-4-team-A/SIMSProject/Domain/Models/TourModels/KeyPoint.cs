@@ -13,10 +13,9 @@ namespace SIMSProject.Domain.Models.TourModels
         public string Description { get; set; } = string.Empty;
         public int LocationId { get; set; }
         public Location Location { get; set; } = new();
-        public List<Tour> Tours { get; set; } = new List<Tour>();
+
         public KeyPoint()
         {
-
         }
         public KeyPoint(int id, string description, Location location, int locationId)
         {

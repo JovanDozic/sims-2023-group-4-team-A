@@ -12,10 +12,12 @@ namespace SIMSProject.Application1.Services.TourServices
     public class TourService
     {
         private readonly ITourRepo _repo;
+        private readonly ITourAppointmentRepo _appointmentRepo;
 
-        public TourService(ITourRepo repo)
+        public TourService(ITourRepo repo, ITourAppointmentRepo appointmentRepo)
         {
             _repo = repo;
+            _appointmentRepo = appointmentRepo;
         }
 
         public List<Tour> GetTours()
@@ -58,18 +60,5 @@ namespace SIMSProject.Application1.Services.TourServices
             return _repo.GetById(appointment.TourId)?.KeyPoints.Last();
         }
 
-        public void EndTourAppointment(int tourId, int appointmentId)
-        {
-            var toEnd = _repo.GetById(tourId);
-            if (toEnd == null)
-            {
-                return;
-            }
-
-            TourAppointment? appointmentToEnd = toEnd.Appointments.Find(x => x.Id == appointmentId);
-            if (appointmentToEnd == null) return;
-            appointmentToEnd.TourStatus = Status.COMPLETED;
-            _repo.SaveAll(_repo.GetAll());
-        }
     }
 }

@@ -12,7 +12,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
 {
     public class BaseTourViewModel : ViewModelBase
     {
-        protected  Tour _tour;
+        protected Tour _tour;
 
         public Tour Tour
         {
@@ -137,21 +137,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             }
         }
 
-        public Guide Guide
-        {
-            get => _tour.Guide;
-            set
-            {
-                if (_tour.Guide != value)
-                {
-                    _tour.Guide = value;
-                    _tour.GuideId = value.Id;
-                    OnPropertyChanged(nameof(Guide));
-                }
-            }
-
-        }
-
         public Location Location
         {
             get { return _tour.Location; }
@@ -166,32 +151,54 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
 
             }
         }
+        
 
+        private ObservableCollection<KeyPoint> _keyPoints = new();
         public ObservableCollection<KeyPoint> KeyPoints
         {
-            get => new(_tour.KeyPoints);
-            set { _tour.KeyPoints = value.ToList(); OnPropertyChanged(nameof(KeyPoints)); }
+            get => _keyPoints;
+            set 
+            {   
+                if(value != _keyPoints)
+                {
+                    _keyPoints = value;
+                    _tour.KeyPoints = _keyPoints.ToList();
+                    OnPropertyChanged(nameof(KeyPoints));
+                }
+            }
         }
 
+        private ObservableCollection<TourAppointment> _appointments = new();
         public ObservableCollection<TourAppointment> Appointments
         {
-            get => new(_tour.Appointments);
-            set { _tour.Appointments = value.ToList(); OnPropertyChanged(nameof(Appointments)); }
+            get => _appointments;
+            set 
+            {       
+                if(value != _appointments)
+                {
+                    _appointments = value;
+                    OnPropertyChanged(nameof(Appointments));
+                }
+            }
         }
 
+        private ObservableCollection<string> _images = new();
         public ObservableCollection<string> Images
         {
-            get => new(_tour.Images);
-            set { _tour.Images = value.ToList(); OnPropertyChanged(nameof(Images)); }
+            get => _images;
+            set
+            {
+                if(value != _images)
+                {
+                    _images = value;
+                    _tour.Images = _images.ToList();
+                    OnPropertyChanged(nameof(Images));
+                }
+            }
         }
         public BaseTourViewModel(Tour tour)
         {
             _tour = tour;
-        }
-
-        public Tour GetTour()
-        {
-            return _tour;
         }
 
         public string KeyPointsToString()

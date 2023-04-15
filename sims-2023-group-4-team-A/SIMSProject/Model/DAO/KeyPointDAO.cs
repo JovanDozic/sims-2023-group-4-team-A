@@ -60,31 +60,16 @@ namespace SIMSProject.Model.DAO
         {
             LocationFileHandler tourLocationFileHandler = new();
             List<Location> toursLocations = tourLocationFileHandler.Load();
-            TourFileHandler tourFileHandler = new();
-            List<Tour> tours = tourFileHandler.Load();
-            TourKeyPointFileHandler tourKeyPointFileHandler = new();
-            List<TourKeyPoint> tourKeyPoints = tourKeyPointFileHandler.Load();
 
             foreach (var keyPoint in _keyPoints)
             {
                 AssociateLocation(keyPoint, toursLocations);
-                AssociateTours(keyPoint, tours, tourKeyPoints);
             }
         }
 
         private static void AssociateLocation(KeyPoint keyPoint, List<Location> toursLocations)
         {
             keyPoint.Location = toursLocations.Find(x => x.Id == keyPoint.LocationId) ?? throw new SystemException("Error!No matching location!");
-        }
-
-        private static void AssociateTours(KeyPoint keyPoint, List<Tour> tours, List<TourKeyPoint> tourKeyPoints)
-        {
-            List<TourKeyPoint> pairs = tourKeyPoints.FindAll(x => x.KeyPointId == keyPoint.Id);
-            foreach (var pair in pairs)
-            {
-                Tour? matchingTour = tours.Find(x => x.Id == pair.TourId) ?? throw new SystemException("Error!No matching tour!");
-                keyPoint.Tours.Add(matchingTour);
-            }
         }
 
         // [OBSERVERS]

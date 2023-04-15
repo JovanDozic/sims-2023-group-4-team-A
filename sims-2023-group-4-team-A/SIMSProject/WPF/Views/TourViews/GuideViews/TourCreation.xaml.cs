@@ -35,11 +35,13 @@ namespace SIMSProject.View.GuideViews
         private void AddKeyPoint_Click(object sender, RoutedEventArgs e)
         {
             _viewModel.AddKeyPoint();
+            LbKeyPoints.Items.Refresh();
         }
 
         private void AddDate_Click(object sender, RoutedEventArgs e)
         {
             _viewModel.Appointments.Add(new(CreateDate(), -1, _viewModel.MaxGuestNumber, -1));
+            LbAppointments.Items.Refresh();
         }
 
         private DateTime CreateDate()
@@ -75,6 +77,7 @@ namespace SIMSProject.View.GuideViews
         private void BTNUploadFiles_Click(object sender, RoutedEventArgs e)
         {
             _viewModel.Images.Add(ImageURLs.Text);
+            LbImages.Items.Refresh();
             _imageAdded = true;
         }
     }

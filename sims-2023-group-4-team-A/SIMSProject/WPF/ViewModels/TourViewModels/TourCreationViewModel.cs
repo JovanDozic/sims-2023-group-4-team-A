@@ -9,6 +9,7 @@ using SIMSProject.View.GuideViews;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels
@@ -62,17 +63,15 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             _locationService = Injector.GetService<LocationService>();
             _keyPointService = Injector.GetService<KeyPointService>();
 
-            Guide = guide;
             AllLocations = new(_locationService.FindAll());
         }
 
         public void CreateTour()
         {
             _tourService.CreateTour(_tour);
-            _tourAppointmentService.CreateAppointments(_tour.Appointments, _tour);
+            _tourAppointmentService.CreateAppointments(Appointments.ToList(), _tour);
             _tourKeyPointService.CreateNewPairs(_tour);
             MessageBox.Show("Tura uspešno kreirana.");
-
         }
 
         public bool IsValid()

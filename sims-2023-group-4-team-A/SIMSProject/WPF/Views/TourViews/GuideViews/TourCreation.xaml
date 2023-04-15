@@ -75,7 +75,8 @@
                 VerticalContentAlignment="Center"
                 Click="AddKeyPoint_Click" FontSize="18"
                 />
-        <ListBox Grid.Row="4" Grid.RowSpan="2" 
+        <ListBox x:Name="LbKeyPoints"
+                 Grid.Row="4" Grid.RowSpan="2" 
                  Width="450" Height="141" 
                  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"
                  ItemsSource="{Binding Path=KeyPoints, UpdateSourceTrigger=PropertyChanged}"/>
@@ -106,7 +107,8 @@
                 Grid.Row="1" Grid.Column="1" 
                 Margin="352,19,40,55"
                 Click="AddDate_Click"/>
-        <ListBox Grid.Row="1" Grid.Column="1" 
+        <ListBox x:Name="LbAppointments"
+                 Grid.Row="1" Grid.Column="1" 
                  Width="283" Height="99" 
                  Margin="10,61,127,35" Grid.RowSpan="2"
                  ItemsSource="{Binding Path=Appointments, UpdateSourceTrigger=PropertyChanged}"/>
@@ -147,7 +149,8 @@
                  Grid.Column="2" 
                  Width="270" Height="42"
                  GotFocus="ImageURLs_GotFocus"/>
-        <ListBox Grid.Row="3" Grid.Column="2" 
+        <ListBox x:Name="LbImages"
+                 Grid.Row="3" Grid.Column="2" 
                  Grid.RowSpan="3" 
                  Width="270" Height="218"
                  ItemsSource="{Binding Path=Images, UpdateSourceTrigger=PropertyChanged}"/>

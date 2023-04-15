@@ -71,12 +71,8 @@ namespace SIMSProject.Model.DAO
 
         private void AssociateTours()
         {
-            GuideFileHandler guideFileHandler = new();
-            List<Guide> guides = guideFileHandler.Load();
             LocationFileHandler tourLocationFileHandler = new();
             List<Location> tourLocations = tourLocationFileHandler.Load();
-            TourAppointmentFileHandler tourAppointmentFileHandler = new();
-            List<TourAppointment> tourDates = tourAppointmentFileHandler.Load();
             TourKeyPointFileHandler tourKeyPointFileHandler = new();
             KeyPointFileHandler keyPointFileHandler = new();
             List<TourKeyPoint> tourKeyPoints = tourKeyPointFileHandler.Load();
@@ -84,27 +80,15 @@ namespace SIMSProject.Model.DAO
 
             foreach (var tour in _tours)
             {
-                AssociateGuide(tour, guides);
                 AssociateLocation(tour, tourLocations);
-                AssociateAppointments(tour, tourDates);
                 AssociateKeyPoints(tour, tourKeyPoints, keyPoints);
 
             }
         }
 
-        private static void AssociateGuide(Tour tour, List<Guide> guides)
-        {
-            tour.Guide = guides.Find(x => x.Id == tour.GuideId) ?? throw new SystemException("Error!No matching guide!");
-        }
-
         private static void AssociateLocation(Tour tour, List<Location> tourLocations)
         {
             tour.Location = tourLocations.Find(x => x.Id == tour.LocationId) ?? throw new SystemException("Error!No matching location!");
-        }
-
-        private static void AssociateAppointments(Tour tour, List<TourAppointment> tourDates)
-        {
-            tour.Appointments.AddRange(tourDates.FindAll(x => x.TourId == tour.Id));
         }
 
         private static void AssociateKeyPoints(Tour tour, List<TourKeyPoint> tourKeyPoints, List<KeyPoint> keyPoints)
@@ -139,7 +123,7 @@ namespace SIMSProject.Model.DAO
 
         public List<Tour> FindTodaysTours()
         {
-            return _tours.FindAll(x => x.Appointments.Any(x => x.Date.Date == DateTime.Today.Date));
+            return null;
         }
 
         public KeyPoint GoToNextKeyPoint(TourAppointment appointment) //servis
@@ -164,22 +148,6 @@ namespace SIMSProject.Model.DAO
         public KeyPoint GetLastKeyPoint(TourAppointment appointment)
         {
             return FindById(appointment.TourId)?.KeyPoints.Last();
-        }
-
-        public void EndTourAppointment(int tourId, int appointmentId) //servis
-        {
-            var toEnd = FindById(tourId);
-            if (toEnd == null)
-            {
-                return;
-            }
-
-
-            TourAppointment? appointmentToEnd = toEnd.Appointments.Find(x => x.Id == appointmentId);
-            if (appointmentToEnd == null) return;
-            appointmentToEnd.TourStatus = Status.COMPLETED;
-            _fileHandler.Save(_tours);
-            NotifyObservers();
         }
 
         public List<Tour> GetToursWithSameLocation(Tour selectedTour)

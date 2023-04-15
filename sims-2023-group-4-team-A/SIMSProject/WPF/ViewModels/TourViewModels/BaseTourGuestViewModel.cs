@@ -70,15 +70,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
                 OnPropertyChanged(nameof(Guest));
             }
         }
-        public TourAppointment Appointment
-        {
-            get => _tourGuest.Appointment;
-            set
-            {
-                _tourGuest.Appointment = value;
-                OnPropertyChanged(nameof(Appointment));
-            }
-        }
 
         public KeyPoint JoinedKeyPoint
         {

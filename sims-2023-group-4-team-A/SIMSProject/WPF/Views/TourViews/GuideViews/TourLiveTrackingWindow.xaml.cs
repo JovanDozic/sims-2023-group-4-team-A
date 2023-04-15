@@ -52,5 +52,10 @@ namespace SIMSProject.View.GuideViews
             _viewModel.SignUpGuest();
             LbGuests.Items.Refresh();
         }
+
+        private void LbGuests_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            Sign_guestBTN.IsEnabled = _viewModel.SelectedGuest.GuestStatus == GuestAttendance.ABSENT ? true : false;
+        }
     }
 }

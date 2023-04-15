@@ -52,19 +52,18 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
 
         public void GoNext()
         {
-            if (Tour.GetTour().KeyPoints.Last().Id == Appointment.CurrentKeyPointId)
+            if (Tour.Tour.KeyPoints.Last().Id == Appointment.CurrentKeyPointId)
             {
                 MessageBox.Show("Došli ste do kraja, završite turu!");
                 return;
             }
 
             KeyPoint Next = _tourService.GetNextKeyPoint(Appointment.TourAppointment);
-            Appointment.TourAppointment = _tourAppointmentService.GoToNextKeyPoint(Appointment.Id, Next);
+            Appointment.TourAppointment = _tourAppointmentService.AdvanceNext(Appointment.Id, Next);
         }
 
         public void EndAppointment()
         {
-            _tourService.EndTourAppointment(Tour.Id, Appointment.Id);
             _tourAppointmentService.StopLiveTracking(Appointment.Id);
             MessageBox.Show("Tura završena.");
         }
