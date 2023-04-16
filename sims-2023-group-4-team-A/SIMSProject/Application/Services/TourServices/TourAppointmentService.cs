@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMSProject.Application1.Services.TourServices
+namespace SIMSProject.Application.Services.TourServices
 {
     public class TourAppointmentService
     {
@@ -34,14 +34,13 @@ namespace SIMSProject.Application1.Services.TourServices
 
         public List<TourAppointment> GetAllByTourId(int tourId)
         {
-            return _repo.GetAll().FindAll(x => x.TourId == tourId && DateTime.Compare(x.Date, DateTime.Now) > 0);
+            return _repo.GetAll().FindAll(x => x.Tour.Id == tourId && DateTime.Compare(x.Date, DateTime.Now) > 0);
         }
 
         public TourAppointment AdvanceNext(int appointmentId, KeyPoint nextKeyPoint)
         {
             TourAppointment? appointment = _repo.GetById(appointmentId) ?? throw new ArgumentException("Error!Can't find appointment!");
             appointment.CurrentKeyPoint = nextKeyPoint;
-            appointment.CurrentKeyPointId = nextKeyPoint.Id;
             _repo.SaveAll(_repo.GetAll());
             return appointment;
         }
@@ -67,7 +66,7 @@ namespace SIMSProject.Application1.Services.TourServices
 
         public TourAppointment GetActiveByTour(Tour tour)
         {
-            return _repo.GetAll().Find(x => x.TourStatus == Status.ACTIVE && x.TourId == tour.Id);
+            return _repo.GetAll().Find(x => x.TourStatus == Status.ACTIVE && x.Tour.Id == tour.Id);
         }
 
         public TourAppointment Activate(TourAppointment appointment, Tour tour)
@@ -76,7 +75,6 @@ namespace SIMSProject.Application1.Services.TourServices
 
             oldAppointment.TourStatus = Status.ACTIVE;
             oldAppointment.CurrentKeyPoint = tour.KeyPoints.First();
-            oldAppointment.CurrentKeyPointId = tour.KeyPoints.First().Id;
             _repo.SaveAll(_repo.GetAll());
             return oldAppointment;
         }
@@ -91,7 +89,7 @@ namespace SIMSProject.Application1.Services.TourServices
         public TourAppointment InitializeTour(TourAppointment appointment, Tour tour)
         {
             TourAppointment? oldAppointment = _repo.GetAll().Find(x => x.Id == appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
-            oldAppointment.TourId = tour.Id;
+            oldAppointment.Tour = tour;
             oldAppointment.AvailableSpots = tour.MaxGuestNumber;
             _repo.SaveAll(_repo.GetAll());
             return oldAppointment;

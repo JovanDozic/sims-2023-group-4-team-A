@@ -12,11 +12,11 @@ namespace SIMSProject.Domain.Models.TourModels
     public class TourAppointment : ISerializable
     {
         public int Id { get; set; }
-        public int CurrentKeyPointId { get; set; }
-        public int TourId { get; set; }
         public DateTime Date { get; set; }
         public Status TourStatus { get; set; } = Status.INACTIVE;
         public int AvailableSpots { get; set; }
+
+        public Tour Tour { get; set; } = new();
         public KeyPoint CurrentKeyPoint { get; set; } = new();
         public List<Guest> Guests { get; set; } = new();
         public TourAppointment() { }
@@ -29,9 +29,9 @@ namespace SIMSProject.Domain.Models.TourModels
             }
 
             Date = date;
-            TourId = tourId;
+            Tour.Id = tourId;
             AvailableSpots = availableSpots;
-            CurrentKeyPointId = currentKeyPointId;
+            CurrentKeyPoint.Id = currentKeyPointId;
         }
 
         private static bool IsPastToday(DateTime date)
@@ -49,10 +49,10 @@ namespace SIMSProject.Domain.Models.TourModels
             string[] csvValues =
                 { Id.ToString(),
                 Date.ToString("dd.MM.yyyy HH:mm:ss"),
-                TourId.ToString(),
+                Tour.Id.ToString(),
                 TourStatus.ToString(),
                 AvailableSpots.ToString(),
-                CurrentKeyPointId.ToString() };
+                CurrentKeyPoint.Id.ToString() };
             return csvValues;
         }
 
@@ -60,10 +60,10 @@ namespace SIMSProject.Domain.Models.TourModels
         {
             Id = Convert.ToInt32(values[0]);
             Date = DateTime.Parse(values[1]);
-            TourId = Convert.ToInt32(values[2]);
+            Tour.Id = Convert.ToInt32(values[2]);
             TourStatus = (Status)Enum.Parse(typeof(Status), values[3]);
             AvailableSpots = Convert.ToInt32(values[4]);
-            CurrentKeyPointId = Convert.ToInt32(values[5]);
+            CurrentKeyPoint.Id = Convert.ToInt32(values[5]);
         }
     }
 }

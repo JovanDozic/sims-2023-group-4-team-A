@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
-using SIMSProject.Controller;
 using SIMSProject.FileHandler;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Model;
@@ -20,31 +19,29 @@ namespace SIMSProject.Domain.Models.TourModels
     public class Tour : ISerializable
     {
         public int Id { get; set; }
-        public int GuideId { get; set; }
-        public int LocationId { get; set; }
-
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public Language TourLanguage { get; set; }
         public int MaxGuestNumber { get; set; }
         public int Duration { get; set; }
         public Location Location { get; set; } = new();
+        public Guide Guide { get; set; } = new();
         public List<TourAppointment> Appointments { get; set; } = new();
         public List<KeyPoint> KeyPoints { get; set; } = new List<KeyPoint>();
         public List<string> Images { get; set; } = new List<string>();
 
         public Tour() { }
 
-        public Tour(string name, Location location, string description, Language tourLanguage, int maxGuestNumber, int duration, int locationId, int guideId)
+        public Tour(string name, int locationId, string description, Language tourLanguage, int maxGuestNumber, int duration, int guideId)
         {
             Name = name;
-            Location = location;
+            Location.Id = locationId;
             Description = description;
             Duration = duration;
             TourLanguage = tourLanguage;
             MaxGuestNumber = maxGuestNumber;
-            LocationId = locationId;
-            GuideId = guideId;
+            Location.Id = locationId;
+            Guide.Id = guideId;
         }
 
         public string CreateImageURLs()
@@ -87,8 +84,8 @@ namespace SIMSProject.Domain.Models.TourModels
                 TourLanguage.ToString(),
                 MaxGuestNumber.ToString(),
                 Duration.ToString(),
-                LocationId.ToString(),
-                GuideId.ToString(),
+                Location.Id.ToString(),
+                Guide.Id.ToString(),
                 CreateImageURLs()};
             return csvValues;
         }
@@ -101,8 +98,8 @@ namespace SIMSProject.Domain.Models.TourModels
             TourLanguage = (Language)Enum.Parse(typeof(Language), values[3]);
             MaxGuestNumber = Convert.ToInt32(values[4]);
             Duration = Convert.ToInt32(values[5]);
-            LocationId = Convert.ToInt32(values[6]);
-            GuideId = Convert.ToInt32(values[7]);
+            Location.Id = Convert.ToInt32(values[6]);
+            Guide.Id = Convert.ToInt32(values[7]);
             Images.AddRange(values[8].Split(','));
         }
     }

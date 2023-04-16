@@ -60,11 +60,7 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
                         ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
                     guideWindow.Show();
                     break;
-                case UserRole.Guest or UserRole.SuperGuest:
-                    GuestInitialWindow guestWindow = new(user as Guest
-                        ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
-                    guestWindow.Show();
-                    break;
+                
             }
         }
 

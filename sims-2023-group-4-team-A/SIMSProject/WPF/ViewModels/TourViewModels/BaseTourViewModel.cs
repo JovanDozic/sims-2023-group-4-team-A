@@ -31,29 +31,15 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             get { return _tour.Id; }
         }
 
-        public int GuideId
+        public Guide Guide
         {
-            get => _tour.GuideId;
+            get => _tour.Guide;
             set
             {
-                if (_tour.GuideId != value)
+                if (_tour.Guide != value)
                 {
-                    _tour.GuideId = value;
-                    OnPropertyChanged(nameof(GuideId));
-                }
-
-            }
-        }
-
-        public int LocationId
-        {
-            get => _tour.LocationId;
-            set
-            {
-                if (value != _tour.LocationId)
-                {
-                    _tour.LocationId = value;
-                    OnPropertyChanged(nameof(LocationId));
+                    _tour.Guide = value;
+                    OnPropertyChanged(nameof(Guide));
                 }
 
             }
@@ -145,7 +131,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
                 if (_tour.Location != value)
                 {
                     _tour.Location = value;
-                    LocationId = value.Id;
+                    Location.Id = value.Id;
                     OnPropertyChanged(nameof(Location));
                 }
 

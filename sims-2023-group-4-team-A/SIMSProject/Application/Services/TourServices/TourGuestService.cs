@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMSProject.Application1.Services.TourServices
+namespace SIMSProject.Application.Services.TourServices
 {
     public class TourGuestService
     {
@@ -20,7 +20,7 @@ namespace SIMSProject.Application1.Services.TourServices
 
         public void SignUpGuest(int guestId, int tourAppointmentId)
         {
-            TourGuest? tourGuest = _repo.GetAll().Find(x => x.GuestId == guestId && x.AppointmentId == tourAppointmentId);
+            TourGuest? tourGuest = _repo.GetAll().Find(x => x.Guest.Id == guestId && x.Appointment.Id == tourAppointmentId);
             if (tourGuest == null) return;
 
             tourGuest.GuestStatus = GuestAttendance.PENDING;
@@ -28,11 +28,10 @@ namespace SIMSProject.Application1.Services.TourServices
         }
         public void MakeGuestPresent(int guestId, int tourAppointmentId, KeyPoint currentKeyPoint)
         {
-            TourGuest? tourGuest = _repo.GetAll().Find(x => x.GuestId == guestId && x.AppointmentId == tourAppointmentId);
+            TourGuest? tourGuest = _repo.GetAll().Find(x => x.Guest.Id == guestId && x.Appointment.Id == tourAppointmentId);
             if (tourGuest == null) return;
 
             tourGuest.JoinedKeyPoint = currentKeyPoint;
-            tourGuest.JoinedKeyPointId = currentKeyPoint.Id;
         }
 
         public List<TourGuest> GetGuests(TourAppointment appointment)

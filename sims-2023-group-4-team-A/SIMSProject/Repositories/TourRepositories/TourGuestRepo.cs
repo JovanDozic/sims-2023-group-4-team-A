@@ -59,20 +59,20 @@ namespace SIMSProject.Repositories.TourRepositories
 
         private  void MapGuest(TourGuest tourGuest)
         {
-            tourGuest.Guest = _guestRepo.GetAll().Find(x => x.Id == tourGuest.GuestId) ?? throw new System.Exception("Error!No matching guest!");
+            tourGuest.Guest = _guestRepo.GetAll().Find(x => x.Id == tourGuest.Guest.Id) ?? throw new System.Exception("Error!No matching guest!");
         }
 
         private  void MapKeyPoint(TourGuest tourGuest)
         {
-            if (tourGuest.JoinedKeyPointId == -1)
+            if (tourGuest.JoinedKeyPoint.Id == -1)
                 return;
 
-            tourGuest.JoinedKeyPoint = _keyPointRepo.GetAll().Find(x => x.Id == tourGuest.JoinedKeyPointId) ?? throw new System.Exception("Error!No matching keyPoint!");
+            tourGuest.JoinedKeyPoint = _keyPointRepo.GetAll().Find(x => x.Id == tourGuest.JoinedKeyPoint.Id) ?? throw new System.Exception("Error!No matching keyPoint!");
         }
 
         public List<TourGuest> GetGuests(int tourAppointmentId)
         {
-            return _tourGuests.FindAll(x => x.AppointmentId == tourAppointmentId);
+            return _tourGuests.FindAll(x => x.Appointment.Id == tourAppointmentId);
         }
     }
 }

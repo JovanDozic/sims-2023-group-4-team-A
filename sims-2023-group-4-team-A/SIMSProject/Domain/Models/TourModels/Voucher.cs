@@ -1,4 +1,5 @@
-﻿using SIMSProject.Serializer;
+﻿using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,14 +13,14 @@ namespace SIMSProject.Domain.Models.TourModels
 
     public class Voucher : ISerializable
     {
-        public int Id;
-        public int GuestId;
-        public ObtainingReason Reason;
-        public DateTime Expiration;
+        public int Id { get; set; }
+        public Guest Guest { get; set; } = new();
+        public ObtainingReason Reason { get; set; }
+        public DateTime Expiration { get; set; }
 
         public Voucher(int guestId, ObtainingReason reason)
         {
-            GuestId = guestId;
+            Guest.Id = guestId;
             Reason = reason;
             Expiration = CalculateExpirationDate(reason);
         }
@@ -50,15 +51,14 @@ namespace SIMSProject.Domain.Models.TourModels
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), GuestId.ToString(), Reason.ToString(), Expiration.ToString() };
+            string[] csvValues = { Id.ToString(), Guest.Id.ToString(), Reason.ToString(), Expiration.ToString() };
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
-
             Id = Convert.ToInt32(values[0]);
-            GuestId = Convert.ToInt32(values[1]);
+            Guest.Id = Convert.ToInt32(values[1]);
             Reason = (ObtainingReason)Enum.Parse(typeof(ObtainingReason), values[2]);
             Expiration = DateTime.Parse(values[3]);
         }

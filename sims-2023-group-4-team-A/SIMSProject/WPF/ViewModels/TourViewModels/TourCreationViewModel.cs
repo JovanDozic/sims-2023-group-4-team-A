@@ -1,11 +1,9 @@
 ﻿using SIMSProject.Application.Services;
 using SIMSProject.Application.Services.TourServices;
-using SIMSProject.Application1.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.Model.DAO;
 using SIMSProject.View.GuideViews;
 using System;
 using System.Collections.Generic;
@@ -62,9 +60,9 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
                 if (_tour.Location != value)
                 {
                     _tour.Location = value;
-                    LocationId = value.Id;
+                    Location.Id = value.Id;
                     Keys.Clear();
-                    foreach (var point in _keyPointService.FindAll().FindAll(x => x.LocationId == _tour.LocationId))
+                    foreach (var point in _keyPointService.FindAll().FindAll(x => x.Location.Id == _tour.Location.Id))
                     {
                         Keys.Add(point);
                     }

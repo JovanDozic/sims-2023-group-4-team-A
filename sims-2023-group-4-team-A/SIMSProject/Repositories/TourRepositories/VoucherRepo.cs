@@ -25,7 +25,7 @@ namespace SIMSProject.Repositories.TourRepositories
         public List<Voucher> GetAll() { return _vouchers; }
         public List<Voucher> GetVouchersByGuestId(int guestId)
         {
-            return GetAll().FindAll(x => x.GuestId == guestId && DateTime.Compare(x.Expiration, DateTime.Now) > 0);
+            return GetAll().FindAll(x => x.Guest.Id == guestId && DateTime.Compare(x.Expiration, DateTime.Now) > 0);
         }
         public Voucher GetById(int id)
         {

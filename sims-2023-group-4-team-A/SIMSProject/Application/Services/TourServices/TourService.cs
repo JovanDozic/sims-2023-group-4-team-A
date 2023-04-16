@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMSProject.Application1.Services.TourServices
+namespace SIMSProject.Application.Services.TourServices
 {
     public class TourService
     {
@@ -27,7 +27,16 @@ namespace SIMSProject.Application1.Services.TourServices
 
         public List<Tour> GetTodaysTours()
         {
-            return _repo.FindTodaysTours();
+            List<TourAppointment> appointments = _appointmentRepo.FindTodaysAppointments();
+            List<Tour> todays = new();
+            foreach (var appointment in appointments)
+            {
+                if (todays.Any(x => x.Id == appointment.Tour.Id))
+                    continue;
+                todays.Add(appointment.Tour);
+            }
+
+            return todays;
         }
 
 
@@ -38,13 +47,13 @@ namespace SIMSProject.Application1.Services.TourServices
 
         public KeyPoint GetNextKeyPoint(TourAppointment appointment)
         {
-            var currentTour = _repo.GetById(appointment.TourId);
+            var currentTour = _repo.GetById(appointment.Tour.Id);
             if (currentTour == null)
             {
                 return null;
             }
 
-            var currentIndex = currentTour.KeyPoints.FindIndex(x => x.Id == appointment.CurrentKeyPointId);
+            var currentIndex = currentTour.KeyPoints.FindIndex(x => x.Id == appointment.CurrentKeyPoint.Id);
             var indexOutOfRange = currentIndex < 0 || currentIndex >= currentTour.KeyPoints.Count - 1;
 
             if (indexOutOfRange)
@@ -57,7 +66,7 @@ namespace SIMSProject.Application1.Services.TourServices
 
         public KeyPoint GetLastKeyPoint(TourAppointment appointment)
         {
-            return _repo.GetById(appointment.TourId)?.KeyPoints.Last();
+            return _repo.GetById(appointment.Tour.Id)?.KeyPoints.Last();
         }
 
     }

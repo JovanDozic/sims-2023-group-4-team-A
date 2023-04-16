@@ -30,9 +30,9 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         {
             get => _tourAppointment.Id;
         }
-        public int TourId
+        public Tour Tour
         {
-            get => _tourAppointment.TourId;
+            get => _tourAppointment.Tour;
         }
         public DateTime Date
         {
@@ -64,15 +64,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             };
         }
 
-        public int CurrentKeyPointId
-        {
-            get => _tourAppointment.CurrentKeyPointId;
-            set
-            {
-                _tourAppointment.CurrentKeyPointId = value;
-                OnPropertyChanged(nameof(CurrentKeyPointId));
-            }
-        }
         public int AvailableSpots
         {
             get => _tourAppointment.AvailableSpots;

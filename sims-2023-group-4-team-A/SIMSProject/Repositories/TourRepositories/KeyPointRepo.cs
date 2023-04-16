@@ -57,7 +57,7 @@ namespace SIMSProject.Repositories.TourRepositories
         {
             foreach (var keyPoint in _keyPoints)
             {
-                keyPoint.Location = _locationrepo.GetAll().Find(x => x.Id == keyPoint.LocationId) ?? throw new SystemException("Error!No matching location!");
+                keyPoint.Location = _locationrepo.GetAll().Find(x => x.Id == keyPoint.Location.Id) ?? throw new SystemException("Error!No matching location!");
             }
         }
     }

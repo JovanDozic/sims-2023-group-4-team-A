@@ -8,33 +8,15 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
     public class BaseTourGuestViewModel : ViewModelBase
     {
         private readonly TourGuest _tourGuest;
-        public int AppointmentId
+        public TourAppointment Appointment
         {
-            get => _tourGuest.AppointmentId;
+            get => _tourGuest.Appointment;
 
             set
             {
-                _tourGuest.AppointmentId = value;
-                OnPropertyChanged(nameof(AppointmentId));
+                _tourGuest.Appointment = value;
+                OnPropertyChanged(nameof(Appointment));
 
-            }
-        }
-        public int GuestId
-        {
-            get => _tourGuest.GuestId;
-            set
-            {
-                _tourGuest.GuestId = value;
-                OnPropertyChanged(nameof(GuestId));
-            }
-        }
-        public int JoinedKeyPointId
-        {
-            get => _tourGuest.JoinedKeyPointId;
-            set
-            {
-                _tourGuest.JoinedKeyPointId = value;
-                OnPropertyChanged(nameof(JoinedKeyPointId));
             }
         }
         public string GuestStatus

@@ -21,18 +21,20 @@ namespace SIMSProject.Repositories.TourRepositories
         private readonly IKeyPointRepo _keyPointRepo;
         private readonly IGuestRepo _guestRepo;
         private readonly ITourGuestRepo _tourGuestRepo;
+        private readonly ITourRepo  _tourRepo;
 
 
-        public TourAppointmentRepo(IKeyPointRepo keyPointRepo, IGuestRepo guestRepo, ITourGuestRepo tourGuestRepo)
+
+        public TourAppointmentRepo(IKeyPointRepo keyPointRepo, IGuestRepo guestRepo, ITourGuestRepo tourGuestRepo, ITourRepo tourRepo)
         {
             _fileHandler = new();
             _tourAppointments = _fileHandler.Load();
             _keyPointRepo = keyPointRepo;
             _guestRepo = guestRepo;
             _tourGuestRepo = tourGuestRepo;
+            _tourRepo = tourRepo;
 
             MapAppointments();
-
         }
 
         public int NextId() { return _tourAppointments.Max(x => x.Id) + 1; }
@@ -45,7 +47,7 @@ namespace SIMSProject.Repositories.TourRepositories
         public TourAppointment Save(TourAppointment appointment, Tour tour)
         {
             appointment.Id = NextId();
-            appointment.TourId = tour.Id;
+            appointment.Tour.Id = tour.Id;
             _tourAppointments.Add(appointment);
             _fileHandler.Save(_tourAppointments);
             return appointment;
@@ -57,41 +59,45 @@ namespace SIMSProject.Repositories.TourRepositories
             _tourAppointments = appointments;
         }
 
-
         private void MapAppointments()
         {
             foreach (TourAppointment appointment in _tourAppointments)
             {
                 MapCurrentKeyPoint(appointment);
                 MapGuests(appointment);
+                MapTour(appointment);
             }
         }
-
+        private void MapTour(TourAppointment appointment)
+        {
+            appointment.Tour = _tourRepo.GetById(appointment.Tour.Id) ?? throw new Exception("Error! No matching tour.") ;
+        }
+        
         private void MapGuests(TourAppointment appointment)
         {
-            List<TourGuest> pairs = _tourGuestRepo.GetAll().FindAll(x => x.AppointmentId == appointment.Id);
+            List<TourGuest> pairs = _tourGuestRepo.GetAll().FindAll(x => x.Appointment.Id == appointment.Id);
             foreach (var pair in pairs)
             {
-                Guest? matchingGuest = _guestRepo.GetAll().Find(x => x.Id == pair.GuestId) ?? throw new SystemException("Error!No matching guest!");
+                Guest? matchingGuest = _guestRepo.GetAll().Find(x => x.Id == pair.Guest.Id) ?? throw new SystemException("Error!No matching guest!");
                 appointment.Guests.Add(matchingGuest);
             }
         }
 
         private void MapCurrentKeyPoint(TourAppointment appointment)
         {
-            if (appointment.CurrentKeyPointId == -1)
+            if (appointment.CurrentKeyPoint.Id == -1)
                 return;
 
-            appointment.CurrentKeyPoint = _keyPointRepo.GetAll().Find(x => x.Id == appointment.CurrentKeyPointId) ?? throw new SystemException("Error!No matching key point!");
+            appointment.CurrentKeyPoint = _keyPointRepo.GetAll().Find(x => x.Id == appointment.CurrentKeyPoint.Id) ?? throw new SystemException("Error!No matching key point!");
         }
 
         public List<TourAppointment> GetAllByTourId(int tourId)
         {
-            return GetAll().FindAll(x => x.TourId == tourId && DateTime.Compare(x.Date, DateTime.Now) > 0);
+            return GetAll().FindAll(x => x.Tour.Id == tourId && DateTime.Compare(x.Date, DateTime.Now) > 0);
         }
         public List<TourAppointment> FindTodaysAppointmentsByTour(int tourId)
         {
-            return _tourAppointments.FindAll(x => x.TourId == tourId && (DateTime.Compare(x.Date.Date, DateTime.Now.Date) == 0 || x.TourStatus == Status.ACTIVE));
+            return _tourAppointments.FindAll(x => x.Tour.Id == tourId && (DateTime.Compare(x.Date.Date, DateTime.Now.Date) == 0 || x.TourStatus == Status.ACTIVE));
         }
 
         public List<TourAppointment> FindTodaysAppointments()

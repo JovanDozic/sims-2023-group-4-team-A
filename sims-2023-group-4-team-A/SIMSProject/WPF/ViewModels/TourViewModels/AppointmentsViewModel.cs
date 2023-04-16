@@ -1,4 +1,4 @@
-﻿using SIMSProject.Application1.Services.TourServices;
+﻿using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
 using System;
@@ -110,7 +110,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
 
         public void GoNext()
         {
-            if (Tour.Tour.KeyPoints.Last().Id == Appointment.CurrentKeyPointId)
+            if (Tour.Tour.KeyPoints.Last().Id == Appointment.CurrentKeyPoint.Id)
             {
                 MessageBox.Show("Došli ste do kraja, završite turu!");
                 return;
@@ -128,7 +128,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
 
         public void SignUpGuest()
         {
-                _tourGuestService.SignUpGuest(SelectedGuest.GuestId, Appointment.Id);
+                _tourGuestService.SignUpGuest(SelectedGuest.Guest.Id, Appointment.Id);
                 MessageBox.Show("Gost prijavljen!");
         }
     }

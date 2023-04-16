@@ -3,7 +3,6 @@ using SIMSProject.Application.Services;
 using SIMSProject.Application.Services.AccommodationServices;
 using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Application.Services.UserServices;
-using SIMSProject.Application1.Services.TourServices;
 using SIMSProject.Domain.RepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
@@ -67,15 +66,16 @@ namespace SIMSProject.Domain.Injectors
                 provider => new TourRepo(
                     provider.GetService<ITourKeyPointRepo>() ?? throw new Exception("Dependency Injection Failed: ITourKeyPointRepo not found."),
                     provider.GetService<IKeyPointRepo>() ?? throw new Exception("Dependency Injection Failed: IKEyPointRepo not found"),
-                    provider.GetService<ILocationRepo>() ?? throw new Exception("Dependency Injection Failed: ILocationRepo not fount"),
-                    provider.GetService<ITourAppointmentRepo>() ?? throw new Exception("Dependency Injection Failed: ITourAppointemntRepo not found")
+                    provider.GetService<ILocationRepo>() ?? throw new Exception("Dependency Injection Failed: ILocationRepo not fount")
+                    //provider.GetService<ITourAppointmentRepo>() ?? throw new Exception("Dependency Injection Failed: ITourAppointemntRepo not found")
                     )
                 );
             services.AddSingleton<ITourAppointmentRepo, TourAppointmentRepo>(
                 provider => new TourAppointmentRepo(
                     provider.GetService<IKeyPointRepo>() ?? throw new Exception("Dependency Injection Failed: IKEyPointRepo not found"),
                     provider.GetService<IGuestRepo>() ?? throw new Exception("Dependency Injection Failed: IGuestRepo not found"),
-                    provider.GetService<ITourGuestRepo>() ?? throw new Exception("Dependency Injection Failed: ITourGuestRepo not found")
+                    provider.GetService<ITourGuestRepo>() ?? throw new Exception("Dependency Injection Failed: ITourGuestRepo not found"),
+                    provider.GetService<ITourRepo>() ?? throw new Exception("Dependency Injection Failed: ITourRepo not fount")
                     ));
 
 

@@ -11,18 +11,16 @@ namespace SIMSProject.Domain.Models.TourModels
     {
         public int Id { get; set; }
         public string Description { get; set; } = string.Empty;
-        public int LocationId { get; set; }
         public Location Location { get; set; } = new();
 
         public KeyPoint()
         {
         }
-        public KeyPoint(int id, string description, Location location, int locationId)
+        public KeyPoint(int id, string description, int locationId)
         {
             Id = id;
             Description = description;
-            Location = location;
-            LocationId = locationId;
+            Location.Id = locationId;
         }
 
         public override string ToString()
@@ -31,7 +29,7 @@ namespace SIMSProject.Domain.Models.TourModels
         }
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Description, LocationId.ToString() };
+            string[] csvValues = { Id.ToString(), Description, Location.Id.ToString() };
             return csvValues;
         }
 
@@ -39,7 +37,7 @@ namespace SIMSProject.Domain.Models.TourModels
         {
             Id = Convert.ToInt32(values[0]);
             Description = values[1];
-            LocationId = Convert.ToInt32(values[2]);
+            Location.Id = Convert.ToInt32(values[2]);
         }
     }
 }

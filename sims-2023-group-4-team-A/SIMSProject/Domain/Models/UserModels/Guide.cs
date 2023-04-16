@@ -11,7 +11,6 @@ namespace SIMSProject.Domain.Models.UserModels
     {
         public double Rating { get; set; }
         public List<Tour> Tours { get; set; } = new();
-        public List<TourReservation> TourReservations { get; set; } = new();
         public List<AccommodationReservation> AccommodationReservations { get; set; } = new();
 
         public Guide()

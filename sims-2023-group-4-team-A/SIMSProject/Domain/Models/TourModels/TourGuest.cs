@@ -13,12 +13,8 @@ namespace SIMSProject.Domain.Models.TourModels
     public enum GuestAttendance { ABSENT = 0, PENDING, PRESENT }
     public class TourGuest: ISerializable
     {
-        public int AppointmentId { get; set; }
-        public int GuestId { get; set; }
-        public int JoinedKeyPointId { get; set; }
-
+        public TourAppointment Appointment { get; set; } = new();
         public GuestAttendance GuestStatus { get; set; }
-
         public Guest Guest { get; set; } = new(); 
         public KeyPoint JoinedKeyPoint { get; set; } = new();
 
@@ -26,9 +22,9 @@ namespace SIMSProject.Domain.Models.TourModels
 
         public TourGuest(int tourDateId, int guestId, int keypoint)
         {
-            AppointmentId = tourDateId;
-            GuestId = guestId;
-            JoinedKeyPointId = keypoint;
+            Appointment.Id = tourDateId;
+            Guest.Id = guestId;
+            JoinedKeyPoint.Id = keypoint;
         }
         public override string ToString()
         {
@@ -37,16 +33,16 @@ namespace SIMSProject.Domain.Models.TourModels
 
         public string[] ToCSV()
         {
-            string[] csvValues = { AppointmentId.ToString(), GuestId.ToString(), GuestStatus.ToString(), JoinedKeyPointId.ToString() };
+            string[] csvValues = { Appointment.Id.ToString(), Guest.Id.ToString(), GuestStatus.ToString(), JoinedKeyPoint.Id.ToString() };
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
-            AppointmentId = Convert.ToInt32(values[0]);
-            GuestId = Convert.ToInt32(values[1]);
+            Appointment.Id = Convert.ToInt32(values[0]);
+            Guest.Id = Convert.ToInt32(values[1]);
             GuestStatus = (GuestAttendance)Enum.Parse(typeof(GuestAttendance), values[2]);
-            JoinedKeyPointId = Convert.ToInt32(values[3]);
+            JoinedKeyPoint.Id = Convert.ToInt32(values[3]);
         }
     }
 }
