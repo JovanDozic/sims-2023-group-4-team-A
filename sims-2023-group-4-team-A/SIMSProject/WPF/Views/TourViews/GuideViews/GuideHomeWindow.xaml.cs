@@ -1,29 +1,30 @@
-﻿using SIMSProject.Controller;
+﻿using SIMSProject.Application.Services;
+using SIMSProject.Controller;
+using SIMSProject.Domain.Injectors;
+using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.Views.TourViews.GuideViews;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading;
 using System.Windows;
+using System.Windows.Documents;
 
 namespace SIMSProject.View.GuideViews
 {
     /// <summary>
-    /// Interaction logic for GuideInitialWindow.xaml
+    /// Interaction logic for GuideHomeWindow.xaml
     /// </summary>
-    public partial class GuideInitialWindow : Window
+    public partial class GuideHomeWindow : Window
     {
 
-        public static LocationController LocationController { get; set; } = new();
-        public static KeyPointController KeyPointController { get; set; } = new();
-
         public Guide Guide { get; set; } = new();
-
-
-        public GuideInitialWindow(Guide guide)
+        public GuideHomeWindow(Guide guide)
         {
             InitializeComponent();
             this.Guide = guide;
-
             frame.Content = new AllToursPage();
 
         }

@@ -1,6 +1,4 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
-using SIMSProject.FileHandler.CSVManager;
-using SIMSProject.Model.DAO;
 using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
