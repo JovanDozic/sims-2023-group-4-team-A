@@ -109,12 +109,22 @@
             </DataGrid>
         </StackPanel>
 
-        <TextBlock Grid.Column="0" Grid.Row="2"
-                   FontSize="16" VerticalAlignment="Center"
-                   Margin="20,0,20,0">
-            <Hyperlink Click="LogOut_Click">Log out</Hyperlink>
-        </TextBlock>
-        
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="2">
+            <TextBlock Width="100"
+                       FontSize="16" 
+                       VerticalAlignment="Center"
+                       Margin="20,0,0,0">
+            <Hyperlink Click="LogOut_Click">Odjava</Hyperlink>
+            </TextBlock>
+
+            <TextBlock Width="100"
+                       FontSize="16" 
+                       VerticalAlignment="Center"
+                       Margin="20,0,0,0">
+            <Hyperlink Click="OwnerInfo_Click">Nalog</Hyperlink>
+            </TextBlock>
+        </StackPanel>
+
 
     </Grid>
 </Window>

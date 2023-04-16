@@ -28,5 +28,10 @@ namespace SIMSProject.Application.Services.AccommodationServices
             _repo.Save(accommodation);
         }
 
+        public int CountAllByOwnerId(int ownerId)
+        {
+            return _repo.GetAllByOwnerId(ownerId).Count;
+        }
+
     }
 }
