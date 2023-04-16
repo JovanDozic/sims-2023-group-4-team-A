@@ -25,42 +25,46 @@ namespace SIMSProject.WPF.Views.Guest1
     {
         private readonly User User = new();
         private readonly ReschedulingRequestViewModel _reschedulingRequestViewModel;
-        public AccommodationReservation AccommodationReservation { get; set; }
+        private AccommodationReservation _accommodationReservation { get; set; }
         public MovingReservations(AccommodationReservation accommodationReservation)
         {
             InitializeComponent();
+            _accommodationReservation = accommodationReservation;
             User = new();
-            _reschedulingRequestViewModel = new(User);
-            DataContext = _reschedulingRequestViewModel;
-            AccommodationReservation = accommodationReservation;
+            _reschedulingRequestViewModel = new(User, _accommodationReservation);
+            DataContext = _reschedulingRequestViewModel;            
             ShowNameAndDate();
         }
 
         public void ShowNameAndDate()
         {
-            NameBlock.Text = AccommodationReservation.Accommodation.Name;
-            DateBlock.Text = AccommodationReservation.StartDate.ToString("dd/MM/yyyy.") + " - " 
-                + AccommodationReservation.EndDate.ToString("dd/MM/yyyy.");
+            NameBlock.Text = _reschedulingRequestViewModel.DisplayName();
+            DateBlock.Text = _reschedulingRequestViewModel.DisplayDate();
         }
 
         private void StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (DateFrom.SelectedDate.HasValue && DateFrom.SelectedDate.Value != DateTime.MinValue)
+            {
+                DateTime date = DateFrom.SelectedDate.Value.AddDays(_reschedulingRequestViewModel.AddDays());
+                DateTo.SelectedDate = date;
+            }
 
-            DateTime date = DateFrom.SelectedDate.Value.AddDays(AccommodationReservation.NumberOfDays);
-            DateTo.SelectedDate = date;
         }
         private void EndDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-
-            DateTime date = DateTo.SelectedDate.Value.AddDays(-AccommodationReservation.NumberOfDays);
-            DateFrom.SelectedDate = date;
+            if (DateTo.SelectedDate.HasValue && DateTo.SelectedDate.Value != DateTime.MinValue)
+            {
+                DateTime date = DateTo.SelectedDate.Value.AddDays(_reschedulingRequestViewModel.SubDays());
+                DateFrom.SelectedDate = date;
+            }
         }
         private void DatePicker1_Loaded(object sender, RoutedEventArgs e)
         {
             DatePicker datePicker = sender as DatePicker;
             if (datePicker != null)
             {
-                datePicker.DisplayDateStart = DateTime.Today;
+                datePicker.DisplayDateStart = DateTime.Today.AddDays(1);
             }
         }
         private void DatePicker2_Loaded(object sender, RoutedEventArgs e)
@@ -68,7 +72,7 @@ namespace SIMSProject.WPF.Views.Guest1
             DatePicker datePicker = sender as DatePicker;
             if (datePicker != null)
             {
-                datePicker.DisplayDateStart = DateTime.Today.AddDays(AccommodationReservation.NumberOfDays);
+                datePicker.DisplayDateStart = DateTime.Today.AddDays(_reschedulingRequestViewModel.AddDays() + 1);
             }
         }
 
@@ -80,6 +84,8 @@ namespace SIMSProject.WPF.Views.Guest1
         private void Button_Click_SendRequest(object sender, RoutedEventArgs e)
         {
             _reschedulingRequestViewModel.SendRequest();
+            MessageBox.Show("Zahtev uspešno poslat!");
+            Close();
         }
     }
 }

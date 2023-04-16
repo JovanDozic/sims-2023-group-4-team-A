@@ -75,10 +75,15 @@ namespace SIMSProject.WPF.Views.Guest1
         {
             if (!_accommodationReservationViewModel.IsSelected())
             {
-                MessageBox.Show("Morate da odaberete smestaj!");
+                MessageBox.Show("Morate da odaberete rezervaciju!");
                 return;
             }
-            var window = new MovingReservations(_accommodationReservationViewModel.GetSelectedReservation());
+            if(_accommodationReservationViewModel.SelectedReservation.StartDate <= DateTime.Today)
+            {
+                MessageBox.Show("Nije moguce pomeriti izabranu rezervaciju!");
+                return;
+            }
+            var window = new MovingReservations(_accommodationReservationViewModel.SelectedReservation);
             window.Show();
 
         }

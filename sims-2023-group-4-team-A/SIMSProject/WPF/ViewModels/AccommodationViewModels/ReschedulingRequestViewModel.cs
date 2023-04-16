@@ -16,6 +16,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private ReschedulingRequest _request = new();
         private ReschedulingRequestService _service;
         private ReschedulingRequest _selectedRequest = new();
+        private AccommodationReservationViewModel _accommodationReservationViewModel;
 
         public ObservableCollection<ReschedulingRequest> Requests { get; set; } = new();
         public ReschedulingRequest SelectedRequest
@@ -80,12 +81,14 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             }
         }
 
-        public ReschedulingRequestViewModel(User user)
+        public ReschedulingRequestViewModel(User user, AccommodationReservation reservation)
         {
             _user = user;
             _service = Injector.GetService<ReschedulingRequestService>();
-
+            _accommodationReservationViewModel = new(_user);
             Requests = new ObservableCollection<ReschedulingRequest>(_service.GetAllByOwnerId(_user.Id));
+            Reservation = reservation;
+            NewStartDate = DateTime.Today.AddDays(1);
         }
 
         public bool IsDateRangeAvailable()
@@ -113,6 +116,27 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         public void SendRequest()
         {
             _service.SaveRequest(_request);
+        }
+        public AccommodationReservation LoadReservation()
+        {
+            return _accommodationReservationViewModel.SelectedReservation;
+        }
+        public int AddDays()
+        {
+            return Reservation.NumberOfDays;
+        }
+        public int SubDays()
+        {
+            return -Reservation.NumberOfDays;
+        }
+        public string DisplayName()
+        {
+            return Reservation.Accommodation.Name;
+        }
+        public string DisplayDate()
+        {
+            return Reservation.StartDate.ToString("dd/MM/yyyy.") + " - "
+                + Reservation.EndDate.ToString("dd/MM/yyyy.");
         }
     }
 }

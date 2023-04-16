@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,12 +10,13 @@ namespace SIMSProject.WPF.Views.OwnerViews
     {
         private readonly User _user;
         private readonly ReschedulingRequestViewModel _viewModel;
+        private AccommodationReservation _accommodationReservation;
 
         public ReschedulingRequestsView(User user)
         {
             InitializeComponent();
             _user = user;
-            _viewModel = new(_user);
+            _viewModel = new(_user, _accommodationReservation);
             DataContext = _viewModel;
         }
 

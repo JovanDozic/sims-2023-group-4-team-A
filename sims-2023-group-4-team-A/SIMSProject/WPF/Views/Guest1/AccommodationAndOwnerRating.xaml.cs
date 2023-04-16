@@ -60,6 +60,11 @@ namespace SIMSProject.WPF.Views.Guest1
 
         private void Button_Click_Rate(object sender, RoutedEventArgs e)
         {
+            if(!_ownerRatingViewModel.IsSelected())
+            {
+                MessageBox.Show("Morate da izaberete rezervaciju!");
+                return;
+            }
             _ownerRatingViewModel.RateOwnerAndAccommodation();
             MessageBox.Show("Ocena uspešno ostavljena!", "Vlasnik i smeštaj ocenjeni", MessageBoxButton.OK, MessageBoxImage.Information);
             Close();
