@@ -7,12 +7,14 @@ using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.Domain.Models;
 using SIMSProject.FileHandler.UserFileHandler;
+using System.Windows;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
     public class TourRepo: ITourRepo
     {
         private readonly TourFileHandler _fileHandler;
+        
         private List<Tour> _tours;
 
         public TourRepo()
@@ -83,12 +85,12 @@ namespace SIMSProject.Repositories.TourRepositories
 
         private static void AssociateGuide(Tour tour, List<Guide> guides)
         {
-            tour.Guide = guides.Find(x => x.Id == tour.GuideId) ?? throw new SystemException("Error!No matching guide!");
+            tour.Guide = guides.Find(x => x.Id == tour.GuideId) ?? throw new SystemException("Error! No matching guide!");
         }
 
         private static void AssociateLocation(Tour tour, List<Location> tourLocations)
         {
-            tour.Location = tourLocations.Find(x => x.Id == tour.LocationId) ?? throw new SystemException("Error!No matching location!");
+            tour.Location = tourLocations.Find(x => x.Id == tour.LocationId) ?? throw new SystemException("Error! No matching location!");
         }
 
         private static void AssociateAppointments(Tour tour, List<TourAppointment> tourDates)

@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.AccommodationModels;
-using SIMSProject.Model;
 using SIMSProject.Serializer;
-using SIMSProject.Domain.Models.TourModels;
 
 
 namespace SIMSProject.Domain.Models.UserModels

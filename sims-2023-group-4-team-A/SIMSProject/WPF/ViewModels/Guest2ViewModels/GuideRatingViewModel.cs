@@ -2,31 +2,23 @@
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.Model;
-//using SIMSProject.Model.UserModel;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
 {
-    public class GuideRatingViewModel : INotifyPropertyChanged
+    public class GuideRatingViewModel : ViewModelBase
     {
         private readonly User _user;
         private GuideRating _rating = new();
         private GuideRatingService _ratingService;
-        public TourAppointment TourAppointment { get; set; }
         public TourReservation TourReservation
         {
             get => _rating.TourReservation;
             set
             {
-                if(_rating.TourReservation == value) return;
+                if (_rating.TourReservation == value) return;
                 _rating.TourReservation = value;
+                _rating.TourReservation.Id = value.Id;
                 OnPropertyChanged();
             }
         }
@@ -36,7 +28,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             get => _rating.GuideKnowledge;
             set
             {
-                if( _rating.GuideKnowledge == value || value is < 1 or > 5) return;
+                if (_rating.GuideKnowledge == value || value is < 1 or > 5) return;
                 _rating.GuideKnowledge = value;
                 OnPropertyChanged();
             }
@@ -72,16 +64,28 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 OnPropertyChanged();
             }
         }
-        public double Overall
+
+        public List<string> ImageURLs
         {
-            get => _rating.Overall;
+            get => _rating.ImageURLs;
             set
             {
-                if (value == _rating.Overall) return;
-                _rating.Overall = value;
+                if (_rating.ImageURLs == value) return;
+                _rating.ImageURLs = value;
                 OnPropertyChanged();
             }
         }
+        public string ImageURLsCSV
+        {
+            get => _rating.ImageURLsCSV;
+            set
+            {
+                if(_rating.ImageURLsCSV == value) return;
+                _rating.ImageURLsCSV = value;
+                OnPropertyChanged();
+            }
+        }
+        
         public string Comment
         {
             get => _rating.Comment;
@@ -92,18 +96,24 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 OnPropertyChanged();
             }
         }
-        public GuideRatingViewModel(User user, TourAppointment tourAppointment)
+        public GuideRatingViewModel(User user, TourReservation tourReservation)
         {
             _user = user;
             _ratingService = Injector.GetService<GuideRatingService>();
-            TourAppointment = tourAppointment;
+            TourReservation = tourReservation;
             
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        public void AddImageToGuideRating(string imageUrl)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            ImageURLs.Add(imageUrl);
+        }
+
+        public void LeaveRating(int guideId)
+        {
+            //TourReservation.TourAppointment.Tour.GuideId = TourReservation.TourAppointment.Tour.Guide.Id;
+            TourReservation.GuideRated = true;
+            _ratingService.LeaveRating(_rating, guideId);
         }
     }
 }

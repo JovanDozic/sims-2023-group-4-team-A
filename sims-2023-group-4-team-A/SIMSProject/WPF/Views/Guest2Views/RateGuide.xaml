@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMSProject.WPF.Views"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
         Title="RateGuide" Height="520" Width="1280">
     <Grid>
         <Grid.RowDefinitions>
@@ -32,15 +31,15 @@
         <Label Grid.Row="1" Grid.Column="2" Content="Vodič: " FontWeight="Bold" FontSize="28" HorizontalAlignment="Right"/>
         <TextBlock Grid.Row="1" Grid.Column="3"/>
         <Label Grid.Row="2" Grid.Column="2" Content="Znanje vodiča (1-5): " FontSize="28" HorizontalAlignment="Right"/>
-        <TextBox Grid.Row="2" Grid.Column="3" Width="50" HorizontalAlignment="Left" Foreground="#ffff44"/>
+        <TextBox Text="{Binding Path=GuideKnowledge, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="2" Grid.Column="3" Width="50" HorizontalAlignment="Left" FontSize="28"/>
         <Label Grid.Row="3" Grid.Column="2" Content="Jezik vodiča (1-5): " FontSize="28" HorizontalAlignment="Right"/>
-        <TextBox Grid.Row="3" Grid.Column="3" Width="50" HorizontalAlignment="Left"/>
+        <TextBox Text="{Binding Path=LanguageProficiency, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="3" Grid.Column="3" Width="50" HorizontalAlignment="Left" FontSize="28"/>
         <Label Grid.Row="4" Grid.Column="2" Content="Zanimljivost ture (1-5): " FontSize="28" HorizontalAlignment="Right"/>
-        <TextBox Grid.Row="4" Grid.Column="3" Width="50" HorizontalAlignment="Left"/>
+        <TextBox Text="{Binding Path=TourEntertainmentRating, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="4" Grid.Column="3" Width="50" HorizontalAlignment="Left" FontSize="28"/>
         <Label Grid.Row="5" Grid.Column="2" Content="Kvalitet usluge (1-5): " FontSize="28" HorizontalAlignment="Right"/>
-        <TextBox Grid.Row="5" Grid.Column="3" Width="50" HorizontalAlignment="Left"/>
+        <TextBox Text="{Binding Path=OrganizationQualityRating, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="5" Grid.Column="3" Width="50" HorizontalAlignment="Left" FontSize="28"/>
         <Label Grid.Row="6" Grid.Column="2" Content="Dodatni komentar: " FontSize="28" HorizontalAlignment="Right"/>
-        <TextBox Grid.Row="6" Grid.Column="3"/>
+        <TextBox Text="{Binding Path=Comment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="6" Grid.Column="3"/>
         <Label Grid.Row="7" Grid.Column="2" Content="Dodaj slike: " FontSize="28" HorizontalAlignment="Right"/>
 
         <Grid Grid.Row="7" Grid.Column="3">
@@ -48,11 +47,11 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0"/>
-            <Button Grid.Column="1" Content="+" FontSize="28"/>
+            <TextBox x:Name="TbImageURL" Grid.Column="0"/>
+            <Button x:Name="BtnAddImage" Grid.Column="1" Content="+" FontSize="28" Click="BtnAddImage_Click"/>
         </Grid>
 
-        <Button Content="Oceni" Grid.Column="4" Grid.Row="8" Width="200" Height="60" FontFamily="Calibri" FontSize="32" FontWeight="Bold"/>
+        <Button x:Name="BtnRate" Content="Oceni" Grid.Column="4" Grid.Row="8" Width="200" Height="60" FontFamily="Calibri" FontSize="32" FontWeight="Bold" Click="BTNRate_Click"/>
 
     </Grid>
 </Window>

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SIMSProject.Observer;
-using SIMSProject.Application1.Services.TourServices;
+using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Models.TourModels;
 
 namespace SIMSProject.Controller

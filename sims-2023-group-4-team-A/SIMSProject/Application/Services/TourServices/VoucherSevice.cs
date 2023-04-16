@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMSProject.Application1.Services.TourServices
+namespace SIMSProject.Application.Services.TourServices
 {
     public class VoucherSevice
     {
@@ -28,8 +28,12 @@ namespace SIMSProject.Application1.Services.TourServices
         {
             foreach (var guest in guests)
             {
-                _repo.Save(new(guest.GuestId, reason));
+                _repo.Save(new(guest.GuestId, reason, false));
             }
+        }
+        public List<Voucher> GetVouchersByGuestId(int guestId)
+        {
+            return _repo.GetVouchersByGuestId(guestId);
         }
     }
 }

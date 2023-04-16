@@ -2,6 +2,7 @@
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Model;
+using SIMSProject.WPF.ViewModels.Guest2ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,20 +23,16 @@ namespace SIMSProject.View.Guest2
     /// <summary>
     /// Interaction logic for VouchersDisplay.xaml
     /// </summary>
-    public partial class VouchersDisplay : Window
+    public partial class VouchersDisplay : Page
     {
         public Guest User = new();
-        public Voucher Voucher { get; set; }
-        public VoucherController VoucherController = new();
-
-        public ObservableCollection<Voucher> Vouchers { get; set; } = new ObservableCollection<Voucher>();
+        private VouchersViewModel _vouchersViewModel { get; set; }
         public VouchersDisplay(Guest user)
         {
             InitializeComponent();
-
-            this.DataContext = this;
             User = user;
-            Vouchers = new ObservableCollection<Voucher>(VoucherController.GetVouchersByGuestId(User.Id));
+            _vouchersViewModel = new(User);
+            this.DataContext = _vouchersViewModel;
         }
     }
 }

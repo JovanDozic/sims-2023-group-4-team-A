@@ -1,30 +1,13 @@
 ﻿using SIMSProject.Controller;
-using SIMSProject.Controller.UserController;
 using SIMSProject.Domain.Models.TourModels;
-using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.Model;
-using SIMSProject.Domain.Models.TourModels;
-using SIMSProject.Model.DAO.UserModelDAO;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using SIMSProject.Model;
 
 namespace SIMSProject.View.Guest2
 {
@@ -117,7 +100,7 @@ namespace SIMSProject.View.Guest2
         }
         private void ReserveTour(TourReservation tourReservation, TourAppointment tourDate, int guestsForReservation)
         {
-            tourReservation.TourDateId = tourDate.TourId;
+            tourReservation.TourAppointment.Id = tourDate.TourId;
             tourReservation.GuestId = User.Id;
             tourReservation.GuestNumber = guestsForReservation;
             TourReservationController.Create(tourReservation);

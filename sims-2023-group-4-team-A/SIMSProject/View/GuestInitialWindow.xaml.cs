@@ -2,6 +2,7 @@
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.View.Guest1;
 using SIMSProject.View.Guest2;
+using SIMSProject.WPF.Views.Guest2Views;
 
 namespace SIMSProject.View
 {
@@ -23,8 +24,10 @@ namespace SIMSProject.View
 
         private void OpenTours_Click(object sender, RoutedEventArgs e)
         {
-            ShowAndSearchTours window = new(User);
+            //ShowAndSearchTours window = new(User);
+            Guest2HomeView window = new(User);
             window.Show();
+            Close();
         }
     }
 }

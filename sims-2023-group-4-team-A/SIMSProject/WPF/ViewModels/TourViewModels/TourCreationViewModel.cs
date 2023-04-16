@@ -1,6 +1,5 @@
 ﻿using SIMSProject.Application.Services;
 using SIMSProject.Application.Services.TourServices;
-using SIMSProject.Application1.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;

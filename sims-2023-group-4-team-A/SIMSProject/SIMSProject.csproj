@@ -65,6 +65,7 @@
   <ItemGroup>
     <Folder Include="Model\UserModel\" />
     <Folder Include="Properties\" />
+    <Folder Include="View\Guest2\" />
     <Folder Include="View\OwnerViews\" />
   </ItemGroup>
 

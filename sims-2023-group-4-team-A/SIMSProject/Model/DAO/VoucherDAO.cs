@@ -70,7 +70,7 @@ namespace SIMSProject.Model.DAO
         {
             foreach (var guest in guests)
             {
-                Save(new(guest.GuestId, reason));
+                Save(new(guest.GuestId, reason, false));
             }
         }
 

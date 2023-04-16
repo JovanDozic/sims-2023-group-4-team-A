@@ -1,29 +1,16 @@
 ﻿using SIMSProject.Controller;
-using SIMSProject.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Collections;
-using System.Diagnostics;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.Domain.Models;
-using SIMSProject.View.Guest2;
-//using SIMSProject.Model.UserModel;
-using SIMSProject.WPF.Views.Guest2Views;
+using SIMSProject.WPF.ViewModels.TourViewModels;
 
 namespace SIMSProject.View.Guest2
 {
@@ -32,7 +19,7 @@ namespace SIMSProject.View.Guest2
     /// </summary>
     /// 
 
-    public partial class ShowAndSearchTours : Window, INotifyPropertyChanged
+    public partial class ShowAndSearchTours : Page, INotifyPropertyChanged
     {
         public Guest User = new();
         public Tour Tour { get; set; } = new();
@@ -65,40 +52,41 @@ namespace SIMSProject.View.Guest2
                 }
             }
         }
-        public ObservableCollection<Tour> Tours { get; set; }
+        public ObservableCollection<Tour> Tours { get; set; } = new();
 
-        private readonly TourController TourController;
-        private readonly LocationController TourLocationController = new();
+        //private readonly TourController TourController;
+        //private readonly LocationController TourLocationController = new();
+
         private readonly VoucherController VoucherController = new();
-
-
+        private ToursViewModel _tourViewModel { get; set; }
 
         public ShowAndSearchTours(Guest user)
         {
             InitializeComponent();
-            this.DataContext = this;
             User = user;
-            
-            TourController = new TourController();
+            _tourViewModel = new ToursViewModel();
+            this.DataContext = _tourViewModel;
+
             VoucherController.DeleteExpired();
-            Tours = new ObservableCollection<Tour>(TourController.GetAll());
 
-            List<Location> tourLocations = TourLocationController.GetAll();
+            //TourController = new TourController();
+            //Tours = new ObservableCollection<Tour>(TourController.GetAll());
 
-            foreach (var tour in Tours)
-            {
-                tour.Location = tourLocations.Find(x => x.Id == tour.LocationId);
-            }
-            
+            //Tours = new ObservableCollection<Tour>(_tourViewModel.Tours); RANDOM LINIJA PROBA
+
+            //List<Location> tourLocations = TourLocationController.GetAll();
+            //foreach (var tour in Tours)
+            //{
+            //    tour.Location = tourLocations.Find(x => x.Id == tour.LocationId);
+            //}
         }
 
         private void Search_Click(object sender, RoutedEventArgs e)
         {
             Tours.Clear();
             foreach (var tour in new ObservableCollection<Tour>
-                (TourController.GetAll()))
-                     Tours.Add(tour);
-            
+                (_tourViewModel.Tours))
+                Tours.Add(tour);
 
             String locationAndLanguage = LocationAndLanguageSearch.Text;
             if (locationAndLanguage == "Lokacija jezik") locationAndLanguage = string.Empty;
@@ -152,9 +140,9 @@ namespace SIMSProject.View.Guest2
 
         private void Reserve_Click(object sender, RoutedEventArgs e)
         {
-            if(SelectedTour != null) 
+            if(_tourViewModel.SelectedTour != null)
             {
-                TourReservationCreation tourReservationCreation = new TourReservationCreation(User, SelectedTour);
+                TourReservationCreation tourReservationCreation = new TourReservationCreation(User, _tourViewModel.SelectedTour);
                 tourReservationCreation.Show();
             }
             else
@@ -162,17 +150,5 @@ namespace SIMSProject.View.Guest2
                 MessageBox.Show("Odaberite turu koju zelite da rezervisete!");
             }
         }
-
-        private void Vouchers_Click(object sender, RoutedEventArgs e)
-        {
-            VouchersDisplay vouchersDisplay = new VouchersDisplay(User);
-            vouchersDisplay.Show();
-        }
-        private void Reservations_Click(object sender, RoutedEventArgs e)
-        {
-            TourReservations tourReservations = new TourReservations(User);
-            tourReservations.Show();
-        }
-
     }
 }

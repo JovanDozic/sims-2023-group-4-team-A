@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMSProject.Application1.Services.TourServices
+namespace SIMSProject.Application.Services.TourServices
 {
     public class TourService
     {

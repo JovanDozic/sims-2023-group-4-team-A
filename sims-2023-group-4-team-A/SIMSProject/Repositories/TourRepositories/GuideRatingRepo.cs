@@ -12,12 +12,15 @@ namespace SIMSProject.Repositories.TourRepositories
     internal class GuideRatingRepo : IGuideRatingRepo
     {
         public readonly GuideRatingFileHandler _fileHandler;
+        private readonly ITourReservationRepo _reservationRepo;
         private List<GuideRating> _guideRatings;
 
-        public GuideRatingRepo()
+        public GuideRatingRepo(ITourReservationRepo reservationRepo)
         {
             _fileHandler = new GuideRatingFileHandler();
             _guideRatings = _fileHandler.Load();
+            _reservationRepo = reservationRepo;
+            MapTourReservations();
         }
 
         public List<GuideRating> GetAll()
@@ -27,7 +30,7 @@ namespace SIMSProject.Repositories.TourRepositories
 
         public List<GuideRating> GetByGuideId(int guideId)
         {
-            throw new NotImplementedException();
+            return _guideRatings.FindAll(x=>x.TourReservation.TourAppointment.Tour.GuideId == guideId);
         }
 
         public int NextId()
@@ -47,6 +50,14 @@ namespace SIMSProject.Repositories.TourRepositories
         {
             _fileHandler.Save(guideRatings);
             _guideRatings = guideRatings;
+        }
+
+        private void MapTourReservations()
+        {
+            foreach (var guideRating in _guideRatings)
+            {
+                guideRating.TourReservation = _reservationRepo.GetById(guideRating.TourReservation.Id);
+            }
         }
     }
 }

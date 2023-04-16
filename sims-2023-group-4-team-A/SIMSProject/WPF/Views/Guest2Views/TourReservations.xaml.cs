@@ -1,44 +1,44 @@
-﻿using SIMSProject.Domain.Models.TourModels;
-using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.Model;
-//using SIMSProject.Model.UserModel;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.ViewModels.Guest2ViewModels;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SIMSProject.WPF.Views.Guest2Views
 {
     /// <summary>
     /// Interaction logic for TourReservations.xaml
     /// </summary>
-    public partial class TourReservations : Window
+    public partial class TourReservations : Page
     {
         public Guest User = new();
-        public TourAppointment SelectedTourAppointment { get; set; } = new TourAppointment();
-        public ObservableCollection<TourAppointment> TourAppointments { get; set; }
+        private readonly TourReservationsViewModel _tourReservationsViewModel;
         public TourReservations(Guest user)
         {
             InitializeComponent();
-            this.DataContext = this;
-            User =user;
-
+            User = user;
+            _tourReservationsViewModel = new(User);
+            _tourReservationsViewModel.LoadReservationsByGuestId(User.Id);
+            this.DataContext = _tourReservationsViewModel;
         }
 
         private void RateGuide_Click(object sender, RoutedEventArgs e)
         {
-            RateGuide rateGuide = new RateGuide(User, SelectedTourAppointment);
-            rateGuide.Show();
+            RateGuide rateGuide = new RateGuide(User, _tourReservationsViewModel.SelectedTourReservation, _tourReservationsViewModel.GetGuideId());
+            rateGuide.ShowDialog();
+            _tourReservationsViewModel.LoadReservationsByGuestId(User.Id);
+            DgrReservations.SelectedItem = null;
+            DgrReservations.Items.Refresh();
+        }
+
+        private void SetButtonState(object sender, bool state)
+        {
+            if (sender is not Button button) return;
+            button.IsEnabled = state;
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetButtonState(BTNRateGuide, _tourReservationsViewModel.IsRatingEnabled());
         }
     }
 }

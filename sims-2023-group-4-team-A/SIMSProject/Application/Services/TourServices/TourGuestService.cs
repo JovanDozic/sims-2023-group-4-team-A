@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMSProject.Application1.Services.TourServices
+namespace SIMSProject.Application.Services.TourServices
 {
     public class TourGuestService
     {
@@ -38,6 +38,10 @@ namespace SIMSProject.Application1.Services.TourServices
         public List<TourGuest> GetGuests(TourAppointment appointment)
         {
             return _repo.GetGuests(appointment.Id);
+        }
+        public TourGuest GetGuest(TourAppointment appointment, int guestId)
+        {
+            return GetGuests(appointment).Find(x=>x.GuestId == guestId);
         }
     }
 }
