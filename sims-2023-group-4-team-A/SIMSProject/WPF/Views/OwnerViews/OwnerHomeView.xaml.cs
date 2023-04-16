@@ -17,8 +17,6 @@ namespace SIMSProject.WPF.Views.OwnerViews
             _user = user;
             _viewModel = new(_user);
             DataContext = _viewModel;
-
-            // TODO: call unrated guest check
         }
 
         private void LogOut_Click(object sender, RoutedEventArgs e)
@@ -69,6 +67,22 @@ namespace SIMSProject.WPF.Views.OwnerViews
         {
             OwnerRatingView window = new(_user, _viewModel.SelectedReservation);
             window.ShowDialog();
+        }
+
+        private void OwnerInfo_Click(object sender, RoutedEventArgs e)
+        {
+            var popupWindow = new Window
+            {
+                Title = "Status vlasnika",
+                Top = 375,
+                Left = 275,
+                Height = 200,
+                Width = 350,
+                ResizeMode = ResizeMode.NoResize,
+                WindowStyle = WindowStyle.SingleBorderWindow,
+                Content = new OwnerAccountPopupView(_user)
+            };
+            popupWindow.ShowDialog();
         }
     }
 }

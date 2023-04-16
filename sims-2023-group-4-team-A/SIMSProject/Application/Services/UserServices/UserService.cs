@@ -1,6 +1,5 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
-using SIMSProject.Model;
 using System;
 using System.Linq;
 using SIMSProject.Domain.Models;
@@ -18,46 +17,24 @@ namespace SIMSProject.Application.Services.UserServices
 
         public object? GetUser(string username, string password)
         {
-            var user = GetByUsername(username) as User;
+            if (GetByUsername(username) is not User user) throw new Exception("Korisnik ne postoji!");
 
-            if (user == null) throw new Exception("Korisnik ne postoji!");
             if (user.Password != password) throw new Exception("Pogrešna šifra!");
 
-            switch (user.Role)
+            return user.Role switch
             {
-                case UserRole.Owner or UserRole.SuperOwner:
-                    return user as User;
-                case UserRole.Guide or UserRole.SuperGuide:
-                    return user as Guide;
-                case UserRole.Guest or UserRole.SuperGuest:
-                    return user as Guest;
-            }
-            return null;
+                UserRole.Owner or UserRole.SuperOwner => user,
+                UserRole.Guide or UserRole.SuperGuide => user as Guide,
+                UserRole.Guest or UserRole.SuperGuest => user as Guest,
+                _ => null,
+            };
         }
-
 
         public object? GetByUsername(string username)
         {
-            var owner = _repo.GetAllOwners().FirstOrDefault(x => x.Username == username);
-            if (owner != null)
-            {
-                return owner;
-            }
-
-            var guest = _repo.GetAllGuests().FirstOrDefault(x => x.Username == username);
-            if (guest != null)
-            {
-                return guest;
-            }
-
-            var guide = _repo.GetAllGuides().FirstOrDefault(x => x.Username == username);
-            if (guide != null)
-            {
-                return guide;
-            }
-
-            return null;
+            return _repo.GetAllOwners().FirstOrDefault(x => x.Username == username) as object
+                ?? _repo.GetAllGuests().FirstOrDefault(x => x.Username == username) as object
+                ?? _repo.GetAllGuides().FirstOrDefault(x => x.Username == username);
         }
-
     }
 }

@@ -1,4 +1,5 @@
-﻿using SIMSProject.Domain.Models.AccommodationModels;
+﻿using SIMSProject.Domain.Models;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
 using System;
@@ -63,7 +64,7 @@ namespace SIMSProject.WPF.ViewModels.OwnerViewModels
             if (SelectedReservation == null) return false;
             if (SelectedReservation.GuestRated || 
                 DateTime.Now < SelectedReservation.EndDate || 
-                DateTime.Now > SelectedReservation.EndDate.AddDays(5))
+                DateTime.Now > SelectedReservation.EndDate.AddDays(Consts.GuestRatingDeadline))
             {
                 return false;
             }

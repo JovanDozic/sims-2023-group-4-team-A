@@ -1,7 +1,9 @@
-﻿using SIMSProject.Domain.Models.AccommodationModels;
+﻿using SIMSProject.Domain.Models;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SIMSProject.Application.Services.AccommodationServices
@@ -36,6 +38,38 @@ namespace SIMSProject.Application.Services.AccommodationServices
             var ratings = _ratingRepo.GetAllByOwnerId(owner.Id);
             owner.Rating = ratings.Average(x => x.Overall);
             _ownerRepo.Update(owner);
+        }
+
+        public List<OwnerRating> GetAllByOwnerId(int ownerId)
+        {
+            return _ratingRepo.GetAllByOwnerId(ownerId);
+        }
+
+        public int CountAllByOwnerId(int ownerId)
+        {
+            return _ratingRepo.GetAllByOwnerId(ownerId).Count;
+        }
+
+        public User UpdateOwnerInfo(User user)
+        {
+            if (user is not Owner owner) return null;
+
+            UpdateOwnerTotalRating(owner);
+            owner.Role = IsSuperOwner(owner) ? UserRole.SuperOwner : UserRole.Owner;
+            _ownerRepo.Update(owner);
+
+            return owner;
+        }
+
+        public bool IsSuperOwner(Owner owner)
+        {
+            return CountAllByOwnerId(owner.Id) >= Consts.SuperOwnerMinimumRatingCount && owner.Rating >= Consts.SuperOwnerMinimumRating;
+        }
+
+        public bool IsSuperOwner(User user)
+        {
+            if (user is not Owner owner) return false;
+            return CountAllByOwnerId(owner.Id) >= Consts.SuperOwnerMinimumRatingCount && owner.Rating >= Consts.SuperOwnerMinimumRating;
         }
     }
 }

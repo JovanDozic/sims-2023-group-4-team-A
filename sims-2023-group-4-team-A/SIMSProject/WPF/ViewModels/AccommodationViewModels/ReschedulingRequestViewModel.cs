@@ -28,16 +28,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
-        public AccommodationReservation Reservation
-        {
-            get => _request.Reservation;
-            set 
-            {
-                if (value == _request.Reservation) return;
-                _request.Reservation = value;
-                OnPropertyChanged();
-            }
-        }
         public DateTime NewStartDate
         {
             get => _request.NewStartDate;
@@ -84,7 +74,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             _user = user;
             _service = Injector.GetService<ReschedulingRequestService>();
-
             Requests = new ObservableCollection<ReschedulingRequest>(_service.GetAllByOwnerId(_user.Id));
         }
 
