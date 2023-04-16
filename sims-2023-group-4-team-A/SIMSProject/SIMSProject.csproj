@@ -64,6 +64,8 @@
 
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="View\Guest2\" />
+    <Folder Include="View\OwnerViews\" />
   </ItemGroup>
 
 </Project>

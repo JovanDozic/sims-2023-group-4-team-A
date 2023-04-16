@@ -28,8 +28,12 @@ namespace SIMSProject.Application.Services.TourServices
         {
             foreach (var guest in guests)
             {
-                _repo.Save(new(guest.Guest.Id, reason));
+                _repo.Save(new(guest.Guest.Id, reason, false));
             }
+        }
+        public List<Voucher> GetVouchersByGuestId(int guestId)
+        {
+            return _repo.GetVouchersByGuestId(guestId);
         }
     }
 }

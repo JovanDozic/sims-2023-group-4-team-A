@@ -17,12 +17,14 @@ namespace SIMSProject.Domain.Models.TourModels
         public Guest Guest { get; set; } = new();
         public ObtainingReason Reason { get; set; }
         public DateTime Expiration { get; set; }
+        public bool Used { get; set; } = false;
 
-        public Voucher(int guestId, ObtainingReason reason)
+        public Voucher(int guestId, ObtainingReason reason, bool used)
         {
             Guest.Id = guestId;
             Reason = reason;
             Expiration = CalculateExpirationDate(reason);
+            Used = used;
         }
 
         public Voucher()
@@ -42,7 +44,6 @@ namespace SIMSProject.Domain.Models.TourModels
             }
             throw new ArgumentException("Reason not acceptable.");
         }
-
         public string FormattedDate => $"{Expiration:dd/MM/yyyy.}";
         public override string ToString()
         {
@@ -61,6 +62,7 @@ namespace SIMSProject.Domain.Models.TourModels
             Guest.Id = Convert.ToInt32(values[1]);
             Reason = (ObtainingReason)Enum.Parse(typeof(ObtainingReason), values[2]);
             Expiration = DateTime.Parse(values[3]);
+            Used = bool.Parse(values[4]);
         }
     }
 }

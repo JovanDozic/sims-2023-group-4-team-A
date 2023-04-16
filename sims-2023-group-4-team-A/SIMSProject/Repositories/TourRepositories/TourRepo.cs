@@ -8,12 +8,14 @@ using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.Domain.Models;
 using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.Domain.RepositoryInterfaces;
+using System.Windows;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
     public class TourRepo: ITourRepo
     {
         private readonly TourFileHandler _fileHandler;
+        
         private List<Tour> _tours;
         private readonly ITourKeyPointRepo _tourKeyPointRepo;
         private readonly IKeyPointRepo _keyPointRepo;
