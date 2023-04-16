@@ -29,6 +29,10 @@ namespace SIMSProject.WPF.Views
             {
                 BtnSignIn_Click(sender, e);
             }
+            if (Keyboard.IsKeyDown(Key.Escape))
+            {
+                Close();
+            }
         }
 
         private void BtnGoToOwner_Click(object? sender, RoutedEventArgs? e)

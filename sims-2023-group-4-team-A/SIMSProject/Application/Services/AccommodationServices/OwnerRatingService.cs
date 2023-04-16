@@ -36,7 +36,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
         public void UpdateOwnerTotalRating(Owner owner)
         {
             var ratings = _ratingRepo.GetAllByOwnerId(owner.Id);
-            owner.Rating = ratings.Average(x => x.Overall);
+            owner.Rating = ratings.Count > 0 ? ratings.Average(x => x.Overall) : 0;
             _ownerRepo.Update(owner);
         }
 
