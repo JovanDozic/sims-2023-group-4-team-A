@@ -14,22 +14,14 @@ namespace SIMSProject.WPF.ViewModels.OwnerViewModels
         private int _totalRatings = 0;
 
         public string DisplayRole => User.GetRole(_user.Role);
-        public string DisplayRating
-        {
-            get
-            {
-                if (_user is Owner owner)
-                    return owner.Rating.ToString("N2");
-                return "0";
-            }
-        }
+        public string DisplayRating => (_user is Owner owner) ? owner.Rating.ToString("N2") : "<null>";
         public string DisplayTotalInfo => $"{_totalAccommodations} Smeštaja - {_totalRatings} Ocena";
         public string DisplayRemaining
         {
             get
             {
-                if (_user.Role == UserRole.Owner && _totalRatings < Constants.SuperOwnerMinimumRatings)
-                    return $"Nedostaje vam još {Constants.SuperOwnerMinimumRatings - _totalRatings} ocena do statusa Super Vlasnik!";
+                if (_user.Role == UserRole.Owner && _totalRatings < Consts.SuperOwnerMinimumRatingCount)
+                    return $"Nedostaje vam još {Consts.SuperOwnerMinimumRatingCount - _totalRatings} ocena do statusa Super Vlasnik!";
                 else if (_user.Role == UserRole.Owner)
                     return "Potrebna vam je ocena veća od 4.5 za status Super Vlasnik";
                 return string.Empty;
@@ -53,7 +45,7 @@ namespace SIMSProject.WPF.ViewModels.OwnerViewModels
 
         public bool IsSuperOwner()
         {
-            return _user.Role == UserRole.SuperOwner;
+            return _ratingService.IsSuperOwner(_user);
         }
     }
 }

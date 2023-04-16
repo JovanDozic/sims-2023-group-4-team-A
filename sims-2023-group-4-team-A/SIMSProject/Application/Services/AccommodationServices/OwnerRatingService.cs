@@ -5,7 +5,6 @@ using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 
 namespace SIMSProject.Application.Services.AccommodationServices
 {
@@ -54,16 +53,23 @@ namespace SIMSProject.Application.Services.AccommodationServices
         public User UpdateOwnerInfo(User user)
         {
             if (user is not Owner owner) return null;
+
             UpdateOwnerTotalRating(owner);
-
-            if (CountAllByOwnerId(user.Id) >= Constants.SuperOwnerMinimumRatings && owner.Rating >= 4.5)
-                owner.Role = UserRole.SuperOwner;
-            else 
-                owner.Role = UserRole.Owner;
-
+            owner.Role = IsSuperOwner(owner) ? UserRole.SuperOwner : UserRole.Owner;
             _ownerRepo.Update(owner);
 
             return owner;
+        }
+
+        public bool IsSuperOwner(Owner owner)
+        {
+            return CountAllByOwnerId(owner.Id) >= Consts.SuperOwnerMinimumRatingCount && owner.Rating >= Consts.SuperOwnerMinimumRating;
+        }
+
+        public bool IsSuperOwner(User user)
+        {
+            if (user is not Owner owner) return false;
+            return CountAllByOwnerId(owner.Id) >= Consts.SuperOwnerMinimumRatingCount && owner.Rating >= Consts.SuperOwnerMinimumRating;
         }
     }
 }

@@ -17,8 +17,6 @@ namespace SIMSProject.WPF.Views.OwnerViews
             _user = user;
             _viewModel = new(_user);
             DataContext = _viewModel;
-
-            // TODO: call unrated guest check
         }
 
         private void LogOut_Click(object sender, RoutedEventArgs e)

@@ -3,9 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Icon="../../../Resources/Images/Stars.png"
         Title="OwnerInitialWindow" Height="500" Width="1100">
+
+    <Window.Resources>
+        <converters:AccommodationTypeConverter x:Key="TypeConverter" />
+    </Window.Resources>
+    
     <Grid Margin="20">
 
         <Grid.ColumnDefinitions>
@@ -15,7 +21,7 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>   
+        <Grid.RowDefinitions>
             <RowDefinition Height="5*" />
             <RowDefinition />
             <RowDefinition />
@@ -77,7 +83,7 @@
                     <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
                     <DataGridTextColumn Header="Ime" Binding="{Binding Name}" />
                     <DataGridTextColumn Header="Lokacija" Binding="{Binding Location}" />
-                    <DataGridTextColumn Header="Tip" Binding="{Binding Type}" />
+                    <DataGridTextColumn Header="Tip" Binding="{Binding Type, Converter={StaticResource TypeConverter}}"  />
                     <DataGridTextColumn Header="Maksimalan br. gostiju" Binding="{Binding MaxGuestNumber}" />
                     <DataGridTextColumn Header="Minimalan br. dana" Binding="{Binding MinReservationDays}" />
                     <DataGridTextColumn Header="Granica otkazivanja" Binding="{Binding CancellationThreshold}" />

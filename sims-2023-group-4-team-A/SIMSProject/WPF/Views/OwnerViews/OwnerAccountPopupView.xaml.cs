@@ -22,8 +22,8 @@ namespace SIMSProject.WPF.Views.OwnerViews
 
         public void SetIcon()
         {
-            IconFlag.Visibility = !_viewModel.IsSuperOwner() ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
-            IconGreenFlag.Visibility = _viewModel.IsSuperOwner() ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            IconFlag.Visibility = !_viewModel.IsSuperOwner() ? Visibility.Visible : Visibility.Collapsed;
+            IconGreenFlag.Visibility = _viewModel.IsSuperOwner() ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }
