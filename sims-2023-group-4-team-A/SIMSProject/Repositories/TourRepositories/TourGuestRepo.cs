@@ -19,13 +19,15 @@ namespace SIMSProject.Repositories.TourRepositories
         private List<TourGuest> _tourGuests;
         private readonly IKeyPointRepo _keyPointRepo;
         private readonly IGuestRepo _guestRepo;
+        private readonly ITourAppointmentRepo _tourAppointmentRepo;
 
-        public TourGuestRepo(IKeyPointRepo keyPointRepo, IGuestRepo guestRepo)
+        public TourGuestRepo(IKeyPointRepo keyPointRepo, IGuestRepo guestRepo, ITourAppointmentRepo tourAppointmentRepo)
         {
             _fileHandler = new TourGuestFileHandler();
             _tourGuests = _fileHandler.Load();
             _keyPointRepo = keyPointRepo;
             _guestRepo = guestRepo;
+            _tourAppointmentRepo = tourAppointmentRepo;
 
             MapTourGuests();
         }
@@ -54,7 +56,13 @@ namespace SIMSProject.Repositories.TourRepositories
             {
                 MapKeyPoint(tourGuest);
                 MapGuest(tourGuest);
+                MapTourAppointemnt(tourGuest);
             }
+        }
+
+        private void MapTourAppointemnt(TourGuest tourGuest)
+        {
+            tourGuest.TourAppointment = _tourAppointmentRepo.GetAll().Find(x => x.Id == tourGuest.TourAppointment.Id) ?? throw new Exception("Error! No matching appointment.");
         }
 
         private  void MapGuest(TourGuest tourGuest)
@@ -64,15 +72,15 @@ namespace SIMSProject.Repositories.TourRepositories
 
         private  void MapKeyPoint(TourGuest tourGuest)
         {
-            if (tourGuest.JoinedKeyPoint.Id == -1)
+            if (tourGuest.JoiningPoint.Id == -1)
                 return;
 
-            tourGuest.JoinedKeyPoint = _keyPointRepo.GetAll().Find(x => x.Id == tourGuest.JoinedKeyPoint.Id) ?? throw new System.Exception("Error!No matching keyPoint!");
+            tourGuest.JoiningPoint = _keyPointRepo.GetAll().Find(x => x.Id == tourGuest.JoiningPoint.Id) ?? throw new System.Exception("Error!No matching keyPoint!");
         }
 
         public List<TourGuest> GetGuests(int tourAppointmentId)
         {
-            return _tourGuests.FindAll(x => x.TourAppointmentId == tourAppointmentId);
+            return _tourGuests.FindAll(x => x.TourAppointment.Id == tourAppointmentId);
         }
     }
 }

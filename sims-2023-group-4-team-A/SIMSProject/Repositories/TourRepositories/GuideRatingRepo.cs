@@ -33,6 +33,11 @@ namespace SIMSProject.Repositories.TourRepositories
             return _guideRatings.FindAll(x=>x.TourReservation.TourAppointment.Tour.Guide.Id == guideId);
         }
 
+        public GuideRating GetById(int id)
+        {
+            return _guideRatings.Find(x => x.Id ==  id) ?? throw new ArgumentException("Rating could not be found");
+        }
+
         public int NextId()
         {
             return _guideRatings.Count > 0 ? _guideRatings.Max(x => x.Id) + 1 : 1;

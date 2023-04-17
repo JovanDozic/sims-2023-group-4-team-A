@@ -83,15 +83,15 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
                 OnPropertyChanged(nameof(CurrentKeyPoint));
             }
         }
-        public List<Guest> Guests
-        {
-            get => _tourAppointment.Guests;
+        public List<Guest> Guests = new();
+        
+           /* get => _tourAppointment.Guests;
             set
             {
                 _tourAppointment.Guests = value;
                 OnPropertyChanged(nameof(Guests));
-            }
-        }
+            }*/
+        
 
         public BaseAppointmentViewModel()
         {

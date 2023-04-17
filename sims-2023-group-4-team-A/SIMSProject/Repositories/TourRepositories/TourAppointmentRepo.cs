@@ -19,20 +19,16 @@ namespace SIMSProject.Repositories.TourRepositories
         private readonly TourAppointmentFileHandler _fileHandler;
         private List<TourAppointment> _tourAppointments;
         private readonly IKeyPointRepo _keyPointRepo;
-        private readonly IGuestRepo _guestRepo;
         private readonly IGuideRepo _guideRepo;
-        private readonly ITourGuestRepo _tourGuestRepo;
         private readonly ITourRepo  _tourRepo;
 
 
 
-        public TourAppointmentRepo(IKeyPointRepo keyPointRepo, IGuestRepo guestRepo, ITourGuestRepo tourGuestRepo, ITourRepo tourRepo, IGuideRepo guideRepo)
+        public TourAppointmentRepo(IKeyPointRepo keyPointRepo, ITourRepo tourRepo, IGuideRepo guideRepo)
         {
             _fileHandler = new();
             _tourAppointments = _fileHandler.Load();
             _keyPointRepo = keyPointRepo;
-            _guestRepo = guestRepo;
-            _tourGuestRepo = tourGuestRepo;
             _tourRepo = tourRepo;
             _guideRepo = guideRepo;
 
@@ -66,7 +62,6 @@ namespace SIMSProject.Repositories.TourRepositories
             foreach (TourAppointment appointment in _tourAppointments)
             {
                 MapCurrentKeyPoint(appointment);
-                MapGuests(appointment);
                 MapTour(appointment);
                 MapGuide(appointment);
             }
@@ -80,17 +75,6 @@ namespace SIMSProject.Repositories.TourRepositories
         {
             appointment.Guide = _guideRepo.GetById(appointment.Guide.Id) ?? throw new Exception("Error! No matching guide.");
         }
-        
-        private void MapGuests(TourAppointment appointment)
-        {
-            List<TourGuest> pairs = _tourGuestRepo.GetAll().FindAll(x => x.TourAppointmentId == appointment.Id);
-            foreach (var pair in pairs)
-            {
-                Guest? matchingGuest = _guestRepo.GetAll().Find(x => x.Id == pair.Guest.Id) ?? throw new SystemException("Error!No matching guest!");
-                appointment.Guests.Add(matchingGuest);
-            }
-        }
-
         private void MapCurrentKeyPoint(TourAppointment appointment)
         {
             if (appointment.CurrentKeyPoint.Id == -1)

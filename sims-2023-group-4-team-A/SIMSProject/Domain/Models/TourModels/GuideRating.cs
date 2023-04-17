@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text;
 
 namespace SIMSProject.Domain.Models.TourModels
 {
@@ -77,5 +78,18 @@ namespace SIMSProject.Domain.Models.TourModels
             ImageURLsCSV = values[10];
             ImageURLs = ImageURLsFromCSV(ImageURLsCSV);
         }
+
+
+        public string QAsToString()
+        {
+            var builder = new StringBuilder();
+            builder.Append($"{nameof(GuideKnowledge)}:             {GuideKnowledge}\n");
+            builder.Append($"{nameof(LanguageProficiency)}:        {LanguageProficiency}\n");
+            builder.Append($"{nameof(TourEntertainmentRating)}:    {TourEntertainmentRating}\n");
+            builder.Append($"{nameof(OrganizationQualityRating)}:  {OrganizationQualityRating}\n");
+            return builder.ToString();
+        }
+
+
     }
 }

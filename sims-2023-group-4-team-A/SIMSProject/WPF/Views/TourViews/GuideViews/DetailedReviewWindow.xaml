@@ -20,6 +20,7 @@
         <TextBlock x:Name="userInfoTB"
                    Grid.Row="0" Grid.Column="0"
                    Height="52" Width="191"
+                   Text="{Binding Path=Rating.User.Guest.Username}"
                    FontSize="20" Margin="28,11,106,179"/>
         <TextBlock Grid.Row="0" Grid.Column="0"
                    Height="24" Width="90"
@@ -27,40 +28,49 @@
                    Text="Priključio se: " Margin="28,74,207,152"/>
         <TextBlock x:Name="joinmentPointTB"
                    Grid.Row="0" Grid.Column="0"
-                   Height="24" Width="90"
-                   FontSize="16" Margin="122,74,113,153"/>
+                   Height="24"
+                   Text="{Binding Path=Rating.User.JoiningPoint}"
+                   FontSize="16" Margin="122,74,272,152" Grid.ColumnSpan="2"/>
         <TextBlock Grid.Row="0" Grid.Column="1"
                    Text="Ocenjeno:"
                    Width="75" Height="24"
                    FontSize="16" Margin="125,11,125,215"/>
         <TextBlock x:Name="gradingDateTB"
+                   Text="{Binding Path=Rating.Rating.RatingDate}"
                    Grid.Row="0" Grid.Column="1"
                    Width="110" Height="24"
                    FontSize="16" Margin="200,11,15,215"/>
-        <Button Grid.Column="1" Grid.Row="1"
+        <Button x:Name="btnReport"
+                Grid.Column="1" Grid.Row="1"
                 Width="120"
                 Height="70"
                 FontSize="24"
+                Click="btnReport_Click"
                 Content="Prijavi&#xa;Ctrl+P" Margin="170,156,35,15"/>
         <TextBlock x:Name="questionsTB"
                    Grid.Column="0" Grid.Row="0"
                    FontSize="20"
-                   Height="105" Width="250" Margin="28,106,48,58"/>
+                   HorizontalAlignment="Left"
+                   Grid.ColumnSpan="2"
+                   Text="{Binding Path=QAs}" Width="350" Margin="28,106,0,24"/>
         <TextBlock x:Name="commentTB"
+                   Text="{Binding Path=Rating.Rating.Comment}"
                    Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2"
-                   Margin="28,219,27,191"
-                   Width="595" Height="90"
-                   FontSize="24"
+                   Margin="28,235,27,185"
+                   Width="595" Height="80"
+                   FontSize="20"
                    ScrollViewer.VerticalScrollBarVisibility="Auto"/>
         <Border Grid.Column="1"
                 Grid.Row="0"
                 Width="64" Height="64" Margin="230,64,28,122" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="5,5,5,5" CornerRadius="8,8,8,8">
             <TextBlock x:Name="gradeTB"
                    FontSize="45" FontWeight="Bold"
-                   IsEnabled="False" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                   Text="{Binding Path=Rating.Rating.Overall}"
+                   IsEnabled="False" 
+                   TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
         <cstm:ImageSlideShow x:Name="cstmImages"
             Grid.Column="0" Grid.Row="1"
-            Margin="22,75,23,15"/>
+            Margin="28,75,23,15"/>
     </Grid>
 </Window>

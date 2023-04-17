@@ -28,5 +28,11 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
             InitializeComponent();
             this.DataContext = viewModel;
         }
+
+        private void dgrGrades_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var window = new DetailedReviewWindow(viewModel.AppointmentRating);
+            window.Show();
+        }
     }
 }

@@ -18,7 +18,6 @@ namespace SIMSProject.Domain.Models.TourModels
         public Tour Tour { get; set; } = new();
         public KeyPoint CurrentKeyPoint { get; set; } = new();
         public Guide Guide { get; set; } = new();
-        public List<Guest> Guests { get; set; } = new();
         public TourAppointment() { }
 
         public TourAppointment(DateTime date, int tourId, int availableSpots, int currentKeyPointId, int guideId)

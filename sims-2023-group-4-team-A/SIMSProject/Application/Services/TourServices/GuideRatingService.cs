@@ -44,6 +44,13 @@ namespace SIMSProject.Application.Services.TourServices
         }
 
 
+        public void ReportReview(int id)
+        {
+            GuideRating review = _ratingRepo.GetById(id);
+            review.Reported = true;
+            _ratingRepo.SaveAll(_ratingRepo.GetAll());
+        }
+
         public List<TourAppontmentRatingDTO> MapRatingsByTour(int tourId)
         {
             List<TourAppontmentRatingDTO> tourRatings = new();
@@ -51,7 +58,7 @@ namespace SIMSProject.Application.Services.TourServices
 
             foreach(var rating in _ratingRepo.GetAll())
             {
-                TourGuest? guest = users.Find(x => rating.TourReservation.TourAppointment.Id == x.TourAppointmentId && _tourAppointmentRepo.GetById(x.TourAppointmentId).Tour.Id == tourId);
+                TourGuest? guest = users.Find(x => rating.TourReservation.TourAppointment.Id == x.TourAppointment.Id && x.TourAppointment.Tour.Id == tourId);
                 if(guest == null) continue;
 
                 tourRatings.Add(new(rating, guest));

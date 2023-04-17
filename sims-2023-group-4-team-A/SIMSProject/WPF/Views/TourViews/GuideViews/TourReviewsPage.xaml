@@ -45,12 +45,13 @@
                       AutoGenerateColumns="False"
                       CanUserAddRows="False"
                       SelectedItem="{Binding Path=AppointmentRating, UpdateSourceTrigger=PropertyChanged}"
+                      MouseDoubleClick="dgrGrades_MouseDoubleClick"
                       Margin="0,20,0,0">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Ime i prezime" Width="3*"/>
                     <DataGridTextColumn Header="Korisničko ime" Binding="{Binding Path=User.Guest.Username, UpdateSourceTrigger=PropertyChanged}" Width="3*"/>
-                    <DataGridTextColumn Header="Termin" Binding="{Binding Path=User.Appointment.Date, UpdateSourceTrigger=PropertyChanged}" Width="2*"/>
-                    <DataGridTextColumn Header="Ocena" Binding="{Binding Path=Raiting.Overall,UpdateSourceTrigger=PropertyChanged}" Width="2*"/>
+                    <DataGridTextColumn Header="Termin" Binding="{Binding Path=User.TourAppointment.Date, UpdateSourceTrigger=PropertyChanged}" Width="2*"/>
+                    <DataGridTextColumn Header="Ocena" Binding="{Binding Path=Rating.Overall,UpdateSourceTrigger=PropertyChanged}" Width="2*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

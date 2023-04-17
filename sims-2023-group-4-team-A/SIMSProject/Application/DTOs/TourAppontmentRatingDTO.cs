@@ -10,7 +10,7 @@ namespace SIMSProject.Application.DTOs
 {
     public class TourAppontmentRatingDTO
     {
-        public GuideRating Raiting { get; set; }
+        public GuideRating Rating { get; set; }
         public TourGuest User { get; set; }
 
         public TourAppontmentRatingDTO()
@@ -19,7 +19,7 @@ namespace SIMSProject.Application.DTOs
         public TourAppontmentRatingDTO(GuideRating rating, TourGuest guest)
         {
             User = guest;
-            Raiting = rating;
+            Rating = rating;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SIMSProject.Application.DTOs;
+using SIMSProject.WPF.ViewModels.TourViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,25 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     /// </summary>
     public partial class DetailedReviewWindow : Window
     {
-        public DetailedReviewWindow()
+        private AppointmentRatingViewModel viewModel { get; set; }
+        public DetailedReviewWindow(TourAppontmentRatingDTO rating)
         {
             InitializeComponent();
+            viewModel = new(rating);
+            this.DataContext = viewModel;
+
+            AddImages();
+        }
+
+
+        private void AddImages()
+        {
+            cstmImages.AddImages(viewModel.Rating.Rating.ImageURLs);
+        }
+
+        private void btnReport_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.ReportReview();
         }
     }
 }
