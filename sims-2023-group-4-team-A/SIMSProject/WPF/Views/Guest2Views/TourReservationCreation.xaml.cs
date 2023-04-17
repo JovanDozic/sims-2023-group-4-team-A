@@ -1,5 +1,4 @@
-﻿using SIMSProject.Controller;
-using SIMSProject.Domain.Models.TourModels;
+﻿using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.UserModels;
 using System.Collections.Generic;
@@ -8,6 +7,12 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using SIMSProject.WPF.ViewModels.Guest2ViewModels;
+using SIMSProject.WPF.ViewModels.TourViewModels;
+using SIMSProject.Application.Services.TourServices;
+using SIMSProject.Domain.Injectors;
+using SIMSProject.Application.Services;
+using System.Linq;
 
 namespace SIMSProject.View.Guest2
 {
@@ -17,10 +22,11 @@ namespace SIMSProject.View.Guest2
     public partial class TourReservationCreation : Window, INotifyPropertyChanged
     {
         public Guest User = new();
+        public TourGuest TourGuest = new();
         public Tour Tour { get; set; }
         public Tour AlternativeTour { get; set; }
         public TourAppointment AlternativeTourDate { get; set; } = new();
-        public TourAppointment   SelectedTourDate { get; set; }
+        public TourAppointment   SelectedAppointment { get; set; }
         public TourReservation NewTourReservation { get; set; } = new();
         public Voucher SelectedVoucher { get; set; }
 
@@ -51,17 +57,20 @@ namespace SIMSProject.View.Guest2
                 }
             }
         }
-
-        public TourReservationController TourReservationController = new();
-        public TourController TourController = new();
-        public LocationController TourLocationController = new();
-        public TourAppointmentController TourDateController = new();
-        public VoucherController VoucherController = new();
-
-
+        
         public ObservableCollection<Tour> AlternativeTours { get; set; }
-        public List<TourAppointment> CBTourDates { get; set; } = new();
+        public ObservableCollection<TourAppointment> CBTourDates { get; set; } = new();
         public ObservableCollection<Voucher> CBVoucherDates { get; set; } = new();
+
+        private VouchersViewModel _vouchersViewModel { get; set; }
+        private TourAppointmentsViewModel _tourAppointmentsViewModel { get; set; }
+
+        ////////////SERVISI
+        private readonly TourReservationService _tourReservationService;
+        private readonly TourAppointmentService _tourAppointmentService;
+        private readonly LocationService _locationService;
+        private readonly TourService _tourService;
+        private readonly TourGuestService _tourGuestService;
 
         public TourReservationCreation(Guest user, Tour selectedTour)
         {
@@ -69,19 +78,27 @@ namespace SIMSProject.View.Guest2
             DataContext = this;
             User = user;
             Tour = selectedTour;
-            ShowDetails(Tour);
+            _tourAppointmentsViewModel = new(selectedTour);
+            //DataContext = _tourAppointmentsViewModel;
+            _vouchersViewModel = new(user);
+            
+            _tourReservationService = Injector.GetService<TourReservationService>();
+            _tourAppointmentService = Injector.GetService<TourAppointmentService>();
+            _locationService = Injector.GetService<LocationService>();
+            _tourService = Injector.GetService<TourService>();
+            _tourGuestService = Injector.GetService<TourGuestService>();
 
-            AlternativeTours = new ObservableCollection<Tour>(TourController.GetToursWithSameLocation(Tour));
-            List<Location> tourLocations = TourLocationController.GetAll();
+            AlternativeTours = new ObservableCollection<Tour>(_tourService.GetToursWithSameLocation(Tour));
+            List<Location> tourLocations = _locationService.FindAll();
 
             foreach (var tour in AlternativeTours)
             {
                 tour.Location = tourLocations.Find(x => x.Id == tour.LocationId);
             }
 
-            CBTourDates = TourDateController.GetAllByTourId(Tour.Id);
-            CBVoucherDates = new ObservableCollection<Voucher>(VoucherController.GetVouchersByGuestId(User.Id));
-
+            CBTourDates = _tourAppointmentsViewModel.GetAllInactiveAppointments(Tour);
+            CBVoucherDates = new ObservableCollection<Voucher>(_vouchersViewModel.Vouchers);
+            ShowDetails(Tour);
         }
 
         private void ShowDetails(Tour tour)
@@ -103,65 +120,79 @@ namespace SIMSProject.View.Guest2
             tourReservation.TourAppointment.Id = tourDate.TourId;
             tourReservation.GuestId = User.Id;
             tourReservation.GuestNumber = guestsForReservation;
-            TourReservationController.Create(tourReservation);
+            _tourReservationService.Save(tourReservation);
             tourDate.AvailableSpots -= guestsForReservation;
-            TourDateController.UpdateAvailableSpots(tourDate);
+            _tourAppointmentService.UpdateAvailableSpots(tourDate);
             return;
         }
 
+        private void MakeTourGuest(TourGuest tourGuest, TourAppointment tourAppointment)
+        {
+            TourGuest.AppointmentId = tourAppointment.Id;
+            tourGuest.GuestId = User.Id;
+            tourGuest.JoinedKeyPointId = -1;
+            _tourGuestService.Save(tourGuest);
+            return;
+        }
         private void UseVoucher()
         {
-            if(CBSelectedVoucher != null)
-            {
-                VoucherController.Delete(SelectedVoucher);
-            }
-
+            if (SelectedVoucher == null) return;
+            SelectedVoucher.Used = true;
+            _vouchersViewModel.Update(SelectedVoucher);
+            NewTourReservation.VoucherUsed = true;
+            _tourReservationService.Update(NewTourReservation);
         }
         private void Reservation_Click(object sender, RoutedEventArgs e)
         {
-            GuestsForReservation = NumGuests.Value;
-            if (SelectedTourDate == null) return;
-            if (SelectedTourDate.AvailableSpots == 0)
+            if (SelectedAppointment.AvailableSpots == 0)
             {
-                
-                LBLAlternativneTure.Visibility = Visibility.Visible;
-                AlternativeGrid.Visibility = Visibility.Visible;
-                if (AlternativeTour == null)
-                {
-                    MessageBox.Show("Na odabranoj turi nema vise slobodnih mesta. \nIzaberite drugi datum, neku od ponudjenih alternativnih tura ili odustanite. \n");
-                    return;
-                }
-                    
-                if (GuestsForReservation > AlternativeTourDate.AvailableSpots)
-                {
-                    MessageBox.Show("Nema dovoljno slobodnih mesta na turi.\nNa turi ima " + AlternativeTourDate.AvailableSpots + " mesta.\n" +
+                bool isAvailable = CheckAvailabilityAndShowAlternatives(AlternativeTour, AlternativeTourDate);
+                if (!isAvailable) return;
+            }
+
+            bool spotsAvailable = CheckAvailableSpots(SelectedAppointment, GuestsForReservation);
+            if (!spotsAvailable) return;
+            ReserveTour(NewTourReservation, SelectedAppointment, GuestsForReservation);
+            UseVoucher();
+            MakeTourGuest(TourGuest, SelectedAppointment);
+            MessageBox.Show("Rezervacija za " + GuestsForReservation + " osoba uspesna!");
+            Close();
+        }
+        private bool CheckAvailabilityAndShowAlternatives(Tour alternativeTour, TourAppointment alternativeTourDate)
+        {
+            LBLAlternativneTure.Visibility = Visibility.Visible;
+            AlternativeGrid.Visibility = Visibility.Visible;
+
+            if (alternativeTour == null)
+            {
+                MessageBox.Show("Na odabranoj turi nema vise slobodnih mesta. \nIzaberite drugi datum, neku od ponudjenih alternativnih tura ili odustanite. \n");
+                return false;
+            }
+            if (GuestsForReservation > alternativeTourDate.AvailableSpots)
+            {
+                MessageBox.Show("Nema dovoljno slobodnih mesta na turi.\nNa turi ima " + alternativeTourDate.AvailableSpots + " mesta.\n" +
                     "Izaberite neku od alternativnih tura ili promenite broj gostiju.");
-                    return;
-                }
-                else
-                {
-                    ReserveTour(NewTourReservation, AlternativeTourDate, GuestsForReservation);
-                    MessageBox.Show("Rezervacija za " + GuestsForReservation + " osoba uspesna!");
-                    Close();
-                    return;
-                }
-            }else if (GuestsForReservation > SelectedTourDate.AvailableSpots)
+                return false;
+            }
+            ReserveTour(NewTourReservation, alternativeTourDate, GuestsForReservation);
+            UseVoucher();
+            MakeTourGuest(TourGuest, alternativeTourDate);
+            MessageBox.Show("Rezervacija za " + GuestsForReservation + " osoba uspesna!");
+            Close();
+            return true;
+        }
+
+        private bool CheckAvailableSpots(TourAppointment selectedAppointment, int guestsForReservation)
+        {
+            if (guestsForReservation > selectedAppointment.AvailableSpots)
             {
-                MessageBox.Show("Nema dovoljno slobodnih mesta na turi.\nNa turi ima " + SelectedTourDate.AvailableSpots + " mesta.\n" +
+                MessageBox.Show("Nema dovoljno slobodnih mesta na turi.\nNa turi ima " + selectedAppointment.AvailableSpots + " mesta.\n" +
                     "Izaberite drugi datum, neku od alternativnih tura ili promenite broj gostiju.");
                 LBLAlternativneTure.Visibility = Visibility.Visible;
                 AlternativeGrid.Visibility = Visibility.Visible;
-                return;
+                return false;
             }
-            else
-            {
-                ReserveTour(NewTourReservation, SelectedTourDate, GuestsForReservation);
-                UseVoucher();
-                MessageBox.Show("Rezervacija za " + GuestsForReservation + " osoba uspesna!");
-                Close();
-                return;
-            }
-
+            return true;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -177,16 +208,17 @@ namespace SIMSProject.View.Guest2
 
         private void AlternativeGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Tour = AlternativeTour;
             ShowDetails(AlternativeTour);
 
-            AlternativeTours = new ObservableCollection<Tour>(TourController.GetToursWithSameLocation(AlternativeTour));
-            List<Location> tourLocations = TourLocationController.GetAll();
+            AlternativeTours = new ObservableCollection<Tour>(_tourService.GetToursWithSameLocation(AlternativeTour));
+            List<Location> tourLocations = _locationService.FindAll();
 
             foreach (var tour in AlternativeTours)
             {
                 tour.Location = tourLocations.Find(x => x.Id == tour.LocationId);
             }
-            CBSelectedTourDates.ItemsSource = TourDateController.GetAllByTourId(AlternativeTour.Id);
+            CBSelectedTourDates.ItemsSource = _tourAppointmentsViewModel.GetAllInactiveAppointments(AlternativeTour);
         }
 
         private void imagesGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)

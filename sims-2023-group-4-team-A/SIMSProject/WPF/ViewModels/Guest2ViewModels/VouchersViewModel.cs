@@ -5,6 +5,7 @@ using SIMSProject.Domain.Models.UserModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,5 +32,10 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             _voucherService=Injector.GetService<VoucherSevice>();
             Vouchers = new(_voucherService.GetVouchersByGuestId(user.Id));
         }
+        public void Update(Voucher voucher)
+        {
+            _voucherService.Update(voucher);
+        }
+
     }
 }

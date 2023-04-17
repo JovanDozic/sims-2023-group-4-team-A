@@ -1,7 +1,10 @@
 ﻿using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
+using System.Collections.Generic;
+using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels
 {
@@ -34,6 +37,15 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         {
             Tours.Clear();
             Tours = new(_tourService.GetTodaysTours());
+        }
+
+        public void Search(string locationAndLanguage, int searchDuration, int searchMaxGuests)
+        {
+            _tourService.SearchTours(locationAndLanguage, searchDuration, searchMaxGuests, Tours);
+        }
+        public bool IsSelected()
+        {
+            return SelectedTour != null;
         }
     }
 }

@@ -25,9 +25,9 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="50"/>
                 <DataGridTextColumn Binding="{Binding TourAppointment.Tour.Name}" Header="Naziv" Width="*"/>
-                <DataGridTextColumn Binding="{Binding TourAppointment.Tour.Location}" Header="Lokacija" Width="*"/>
                 <DataGridTextColumn Binding="{Binding TourAppointment.Date}" Header="Termin" Width="*"/>
                 <DataGridTextColumn Binding="{Binding TourAppointment.TourStatus}" Header="Status ture" Width="*"/>
+                <DataGridTextColumn Binding="{Binding TourAppointment.CurrentKeyPoint}" Header="Kljucna tacka" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 

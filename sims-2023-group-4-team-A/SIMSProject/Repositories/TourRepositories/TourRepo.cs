@@ -7,7 +7,7 @@ using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.Domain.Models;
 using SIMSProject.FileHandler.UserFileHandler;
-using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
@@ -26,7 +26,7 @@ namespace SIMSProject.Repositories.TourRepositories
 
         public int NextId()
         {
-                return _tours.Count > 0 ?_tours.Max(x => x.Id) + 1 : 1;
+            return _tours.Count > 0 ?_tours.Max(x => x.Id) + 1 : 1;
         }
 
         public List<Tour> GetAll()
@@ -108,26 +108,6 @@ namespace SIMSProject.Repositories.TourRepositories
             }
         }
 
-        public List<Tour> SearchLocations(string locationId)
-        {
-            return _tours.Where(tour => tour.LocationId.Equals(locationId)).ToList();
-        }
-
-        public List<Tour> SearchDurations(string duration)
-        {
-            return _tours.Where(tour => tour.Duration.Equals(duration)).ToList();
-        }
-
-        public List<Tour> SearchLanguages(string language)
-        {
-            return _tours.Where(tour => tour.TourLanguage.Equals(language)).ToList();
-        }
-
-        public List<Tour> SearchMaxGuests(string maxGuests)
-        {
-            return _tours.Where(tour => tour.MaxGuestNumber.Equals(maxGuests)).ToList();
-        }
-
         public List<Tour> FindTodaysTours()
         {
             return _tours.FindAll(x => x.Appointments.Any(x => x.Date.Date == DateTime.Today.Date));
@@ -137,6 +117,29 @@ namespace SIMSProject.Repositories.TourRepositories
             return _tours.FindAll(x => x.LocationId == selectedTour.LocationId && x.Id != selectedTour.Id);
         }
 
+        public void SearchTours(string locationAndLanguage, int searchDuration, int searchMaxGuests, ObservableCollection<Tour> tours)
+        {
+            tours.Clear();
+            foreach (var tour in new ObservableCollection<Tour>
+                (GetAll()))
+                tours.Add(tour);
 
+            if (locationAndLanguage == "Lokacija jezik") locationAndLanguage = string.Empty;
+            string[] searchValues = locationAndLanguage.Split(" ");
+
+            List<Tour> searchResults = tours.ToList();
+
+            // Removing all by location and language
+            foreach (string value in searchValues)
+                searchResults.RemoveAll(x => !x.ToStringSearch().ToLower().Contains(value.ToLower()));
+
+            // Removing by numbers
+            if (searchDuration > 0) searchResults.RemoveAll(x => x.Duration != searchDuration);
+            if (searchMaxGuests > 0) searchResults.RemoveAll(x => x.MaxGuestNumber < searchMaxGuests);
+
+            tours.Clear();
+            foreach (var searchResult in searchResults)
+                tours.Add(searchResult);
+        }
     }
 }

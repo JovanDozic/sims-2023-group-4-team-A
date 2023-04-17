@@ -3,6 +3,7 @@ using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.Repositories.TourRepositories;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,6 @@ namespace SIMSProject.Application.Services.TourServices
         {
             return _repo.FindTodaysTours();
         }
-
 
         public void CreateTour(Tour tour)
         {
@@ -70,6 +70,14 @@ namespace SIMSProject.Application.Services.TourServices
             if (appointmentToEnd == null) return;
             appointmentToEnd.TourStatus = Status.COMPLETED;
             _repo.SaveAll(_repo.GetAll());
+        }
+        public void SearchTours(string locationAndLanguage, int searchDuration, int searchMaxGuests, ObservableCollection<Tour> tours)
+        {
+            _repo.SearchTours(locationAndLanguage, searchDuration, searchMaxGuests, tours);
+        }
+        public List<Tour> GetToursWithSameLocation(Tour selectedTour)
+        {
+            return _repo.GetToursWithSameLocation(selectedTour);
         }
     }
 }

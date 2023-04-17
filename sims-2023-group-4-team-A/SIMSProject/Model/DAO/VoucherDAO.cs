@@ -52,7 +52,9 @@ namespace SIMSProject.Model.DAO
 
         public void Delete(Voucher voucher) //servis
         {
-            _vouchers.Remove(voucher);
+            Voucher voucherToDelete = _vouchers.Find(x=> x.Id == voucher.Id);
+            voucher.Used = true;
+            //_vouchers.Remove(voucher);
             _fileHandler.Save(_vouchers);
             NotifyObservers();
         }

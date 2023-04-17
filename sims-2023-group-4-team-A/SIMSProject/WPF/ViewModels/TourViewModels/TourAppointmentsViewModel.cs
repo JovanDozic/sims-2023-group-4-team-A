@@ -1,12 +1,8 @@
 ﻿using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels
@@ -18,7 +14,17 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         private readonly TourGuestService _tourGuestService;
 
         public BaseTourViewModel Tour { get; set; }
-        public ObservableCollection<TourAppointment> Appointments { get; set; }
+        private ObservableCollection<TourAppointment> _appointments;
+        public ObservableCollection<TourAppointment> Appointments
+        {
+            get => _appointments;
+            set
+            {
+                if(_appointments == value) return;
+                _appointments = value;
+                OnPropertyChanged();
+            }
+        }
 
         private TourAppointment _selectedAppointment = new();
         public TourAppointment SelectedAppointment
@@ -43,6 +49,10 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             Appointments = new(_tourAppointmentService.GetAllByTourId(tour.Id));
             Tour = new(tour);
         }
+        public ObservableCollection<TourAppointment> GetAllInactiveAppointments(Tour tour)
+        {
+            return Appointments = new(_tourAppointmentService.GetAllInactive(tour.Id));
+        }
 
         public void CancelAppointment()
         {
@@ -55,7 +65,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             _voucherService.GiveVouchers(guests, ObtainingReason.APPOINTMENTCANCELED);
             MessageBox.Show("Uspešno ste otkazali termin.");
         }
-
+        
         public void StartIfActivated()
         {
             TourAppointment? active = _tourAppointmentService.GetActiveByTour(Tour.Tour);

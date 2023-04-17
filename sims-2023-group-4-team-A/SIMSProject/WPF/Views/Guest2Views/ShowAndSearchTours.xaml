@@ -16,9 +16,9 @@
             <TextBox x:Name="LocationAndLanguageSearch" Width="120" Height="30" Text="Lokacija jezik" 
                      Foreground="Gray" GotFocus="TextSearch_GotFocus" LostFocus="TextSearch_LostFocus"/>
             <Label Content="   Trajanje ture: " Height="30"/>
-            <custom:NumericTextBox x:Name="DurationSearch" Value="{Binding DurationSearchBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <custom:NumericTextBox x:Name="DurationSearch"/>
             <Label Content="   Broj ljudi: " Height="30"/>
-            <custom:NumericTextBox x:Name="GuestSearch" Value="{Binding MaxGuestSearchBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <custom:NumericTextBox x:Name="GuestSearch"/>
             <TextBlock Width="50"/>
             <Button  Height="30" Width ="100" Click="Search_Click" Content="Pretrazi" Background="Gray"/>
             <Button x:Name="BtnReserve" Height="30" Width ="100" Click="Reserve_Click"  Content="Rezervisi" Background="Gray"/>

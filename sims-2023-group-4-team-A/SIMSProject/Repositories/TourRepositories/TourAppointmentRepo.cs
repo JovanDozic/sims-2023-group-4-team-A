@@ -101,6 +101,10 @@ namespace SIMSProject.Repositories.TourRepositories
         {
             return GetAll().FindAll(x => x.TourId == tourId && DateTime.Compare(x.Date, DateTime.Now) > 0);
         }
+        public List<TourAppointment> FindTodaysAppointmentsByTour(int tourId)
+        {
+            return _tourAppointments.FindAll(x => x.Tour.Id == tourId && (DateTime.Compare(x.Date.Date, DateTime.Now.Date) == 0 || x.TourStatus == Status.ACTIVE));
+        }
         public List<TourAppointment> FindTodaysAppointments(int TourId)
         {
             return _tourAppointments.FindAll(x => x.TourId == TourId && x.Date.Date == DateTime.Now.Date);

@@ -60,14 +60,18 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             _tourGuestService = Injector.GetService<TourGuestService>();
             _tourService = Injector.GetService<TourService>();
 
-            Appointments = new(_tourAppointmentService.GetAllByTourId(tour.Id));
+            Appointments = new(_tourAppointmentService.GetTodays(tour));
             Tour = new(tour);
             Appointment = new();
             KeyPoints = Tour.KeyPointsToString();
 
         }
 
-
+        public ObservableCollection<TourAppointment> GetAllAppointments()
+        {
+            Appointments.Clear();
+            return Appointments = new(_tourAppointmentService.GetAllByTourId(Tour.Id));
+        }
         public void AddGuests()
         {
             Guests = new(_tourGuestService.GetGuests(SelectedAppointment));

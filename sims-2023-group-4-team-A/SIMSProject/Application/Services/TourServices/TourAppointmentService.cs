@@ -26,11 +26,18 @@ namespace SIMSProject.Application.Services.TourServices
                _repo.Save(appointment, tour);
             }
         }
+        public List<TourAppointment> GetTodays(Tour tour)
+        {
+            return _repo.FindTodaysAppointmentsByTour(tour.Id);
+        }
         public List<TourAppointment> GetAllByTourId(int tourId)
         {
             return _repo.GetAll().FindAll(x => x.TourId == tourId && DateTime.Compare(x.Date, DateTime.Now) > 0);
         }
-
+        public List<TourAppointment> GetAllInactive(int tourId)
+        {
+            return GetAllByTourId(tourId).FindAll(x => x.TourStatus == Status.INACTIVE);
+        }
         public TourAppointment GoToNextKeyPoint(int appointmentId, KeyPoint nextKeyPoint)
         {
             TourAppointment? appointment = _repo.GetById(appointmentId) ?? throw new ArgumentException("Error!Can't find appointment!");
