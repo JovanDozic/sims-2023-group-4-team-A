@@ -12,6 +12,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
     {
         private readonly User _user;
         private readonly AccommodationReservationService _reservationService;
+        private readonly ReschedulingRequestService _reservationRequestService;
         public ObservableCollection<AccommodationReservation> Reservations { get; set; } = new();
         private AccommodationReservation _selectedReservation;
         public AccommodationReservation SelectedReservation
@@ -38,6 +39,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             _user = user;
             _reservationService = Injector.GetService<AccommodationReservationService>();
+            _reservationRequestService = Injector.GetService<ReschedulingRequestService>();
             Reservations = LoadNotCanceledReservations();
         }
 
@@ -51,6 +53,10 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             SelectedReservation.Canceled = true;
         }
 
+        public bool IsReservationInPast()
+        {
+            return SelectedReservation.StartDate <= DateTime.Today;
+        }
         public bool IsSelected()
         {
             return SelectedReservation != null;
@@ -61,6 +67,10 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             return DateTime.Today < SelectedReservation.StartDate.AddHours(-24);
                
         }
+        public bool IsReservationOnStandBy()
+        {
+            return _reservationRequestService.CheckIfMatches(SelectedReservation);
+        }
 
         public ObservableCollection<AccommodationReservation> LoadReservations()
         {
@@ -70,7 +80,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             return new ObservableCollection<AccommodationReservation>(_reservationService.GetAll().Where(r => !r.Canceled));
         }
-
         public ObservableCollection<AccommodationReservation> LoadReservationsByAccommodation(Accommodation accommodation)
         {
             return new ObservableCollection<AccommodationReservation>(_reservationService.GetAllByAccommodationId(accommodation.Id));

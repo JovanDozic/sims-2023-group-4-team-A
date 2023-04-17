@@ -16,7 +16,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private OwnerRatingService _ratingService;
         private AccommodationReservationService _reservationService;
         private Accommodation _accommodation = new();
-
         public ObservableCollection<AccommodationReservation> Reservations { get; set; } = new();
         public object ReservationsCombo { get; private set; }
         private string _ownerNameTB;
@@ -30,7 +29,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
-
         public AccommodationReservation SelectedReservation
         {
             get => _rating.Reservation;
@@ -77,7 +75,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             }
         }
 
-
         public int CleanlinessRating
         {
             get => _rating.CleanlinessRating;
@@ -88,7 +85,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
-
         public int OwnerCorrectness
         {
             get => _rating.OwnerCorrectness;
@@ -139,7 +135,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
-
         public List<string> ImageURLs
         {
             get => _rating.ImageURLs;
@@ -164,8 +159,8 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             _user = user;
             _ratingService = Injector.GetService<OwnerRatingService>();
-            Reservation = reservation;
             _reservationService = Injector.GetService<AccommodationReservationService>();
+            Reservation = reservation;
             //LoadRating();
         }
 
@@ -173,7 +168,11 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             foreach (var reservation in _reservationService.GetAll())
             {
-                if (reservation.EndDate < DateTime.Today && !reservation.Canceled && reservation.Guest.Id == _user.Id && !reservation.OwnerRated)
+                if (reservation.EndDate < DateTime.Today &&
+                    reservation.EndDate.AddDays(5) >= DateTime.Today &&
+                    !reservation.Canceled &&
+                    reservation.Guest.Id == _user.Id &&
+                    !reservation.OwnerRated)     
                 {
                     reservation.ReservationDetails = string.Format("{0} ({1} - {2})", reservation.Accommodation.Name, reservation.StartDate.ToShortDateString(), reservation.EndDate.ToShortDateString());
                     Reservations.Add(reservation);
@@ -181,7 +180,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             }
             ReservationsCombo = Reservations;
         }
-
         public string GetOwnerUsername()
         {
             SelectedReservation.Accommodation.Owner = _ratingService.GetOwnerById(SelectedReservation.Accommodation.Owner.Id);
@@ -192,7 +190,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             return SelectedReservation != null;
         }
-
         public void UploadImage(string imageUrl)
         {
             ImageURLs.Add(imageUrl);
@@ -201,9 +198,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             SelectedReservation.OwnerRated = true;
             _ratingService.LeaveRating(_rating);
-
         }
-
         public void LoadRating()
         {
             Rating = _ratingService.GetByReservationId(Reservation.Id);

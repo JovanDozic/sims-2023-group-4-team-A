@@ -17,8 +17,8 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private ReschedulingRequestService _service;
         private ReschedulingRequest _selectedRequest = new();
         private AccommodationReservationViewModel _accommodationReservationViewModel;
-
         public ObservableCollection<ReschedulingRequest> Requests { get; set; } = new();
+        public object RequestsCombo { get; private set; }
         public ReschedulingRequest SelectedRequest
         {
             get => _selectedRequest;
@@ -112,7 +112,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             return Requests[e.Row.GetIndex()].Status == ReschedulingRequestStatus.Waiting;
         }
-
         public void SendRequest()
         {
             _service.SaveRequest(_request);
@@ -137,6 +136,25 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             return Reservation.StartDate.ToString("dd/MM/yyyy.") + " - "
                 + Reservation.EndDate.ToString("dd/MM/yyyy.");
+        }
+        public void AddRequestsToCombo()
+        {
+            foreach(var req in _service.GetAll())
+            {
+                
+                req.RequestDetails = String.Format("{0}, ({1} - {2})", req.Reservation.Accommodation.Name,
+                    req.Reservation.StartDate.ToShortDateString(), req.Reservation.EndDate.ToShortDateString());
+                Requests.Add(req);
+            }
+            RequestsCombo = Requests;
+        }
+        public bool IsSelected()
+        {
+            return SelectedRequest != null;
+        }
+        public string GetRequestStatus()
+        {
+            return SelectedRequest.Status.ToString();
         }
     }
 }

@@ -35,7 +35,7 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Label Content="Pomeranje rezervacija" FontSize="40"
+            <Label FontWeight="Bold" Content="Pomeranje rezervacija" FontSize="40"
                    HorizontalAlignment="Left" Margin="243,17,0,3"></Label>
             <Button Content="Nazad" FontSize="20" Grid.Column="1" Width="120" Margin="14,40,13,36" Click="Button_Click_Close"/>
 

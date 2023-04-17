@@ -32,5 +32,11 @@ namespace SIMSProject.View
             var window = new AccommodationAndOwnerRating(User);
             window.Show();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            var window = new ReservationReqeusts(User);
+            window.Show();
+        }
     }
 }

@@ -29,16 +29,13 @@ namespace SIMSProject.WPF.Views.Guest1
     {
         private readonly User _user;
         private readonly AccommodationReservationViewModel _accommodationReservationViewModel;
-        public AccommodationReservation SelectedReservation { get; set; } = null;
         public AccommodationReservationList()
         {
             InitializeComponent();
-
             _accommodationReservationViewModel = new(_user);
             DataContext = _accommodationReservationViewModel;
             
         }
-
         private void Button_Click_Cancellation(object sender, RoutedEventArgs e)
         {
             if (!_accommodationReservationViewModel.IsSelected())
@@ -65,27 +62,30 @@ namespace SIMSProject.WPF.Views.Guest1
                 Close();
             }
         }
-
         private void Button_Click_Close(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_Reschedule(object sender, RoutedEventArgs e)
         {
             if (!_accommodationReservationViewModel.IsSelected())
             {
                 MessageBox.Show("Morate da odaberete rezervaciju!");
                 return;
             }
-            if(_accommodationReservationViewModel.SelectedReservation.StartDate <= DateTime.Today)
+            if(_accommodationReservationViewModel.IsReservationInPast())
             {
-                MessageBox.Show("Nije moguce pomeriti izabranu rezervaciju!");
+                MessageBox.Show("Nije moguće pomeriti izabranu rezervaciju!");
+                return;
+            }
+            if (_accommodationReservationViewModel.IsReservationOnStandBy())
+            {
+                MessageBox.Show("Zahtev za ovu rezervaciju je već poslat!");
                 return;
             }
             var window = new MovingReservations(_accommodationReservationViewModel.SelectedReservation);
             window.Show();
-
         }
     }
 }

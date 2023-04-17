@@ -41,7 +41,6 @@ namespace SIMSProject.WPF.Views.Guest1
             NameBlock.Text = _reschedulingRequestViewModel.DisplayName();
             DateBlock.Text = _reschedulingRequestViewModel.DisplayDate();
         }
-
         private void StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             if (DateFrom.SelectedDate.HasValue && DateFrom.SelectedDate.Value != DateTime.MinValue)
@@ -49,7 +48,6 @@ namespace SIMSProject.WPF.Views.Guest1
                 DateTime date = DateFrom.SelectedDate.Value.AddDays(_reschedulingRequestViewModel.AddDays());
                 DateTo.SelectedDate = date;
             }
-
         }
         private void EndDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -75,12 +73,10 @@ namespace SIMSProject.WPF.Views.Guest1
                 datePicker.DisplayDateStart = DateTime.Today.AddDays(_reschedulingRequestViewModel.AddDays() + 1);
             }
         }
-
         private void Button_Click_Close(object sender, RoutedEventArgs e)
         {
             Close();
         }
-
         private void Button_Click_SendRequest(object sender, RoutedEventArgs e)
         {
             _reschedulingRequestViewModel.SendRequest();

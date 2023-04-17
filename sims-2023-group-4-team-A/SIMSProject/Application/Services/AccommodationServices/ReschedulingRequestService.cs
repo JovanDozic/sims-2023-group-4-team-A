@@ -4,6 +4,7 @@ using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SIMSProject.Application.Services.AccommodationServices
 {
@@ -54,6 +55,21 @@ namespace SIMSProject.Application.Services.AccommodationServices
         public void SaveRequest(ReschedulingRequest request)
         {
             _requestRepo.Save(request);
+        }
+
+        public bool CheckIfMatches(AccommodationReservation reservation)
+        {
+            return GetAllOnStandBy().Any(r => r.Id == reservation.Id);
+        }
+    
+        public List<AccommodationReservation> GetAllOnStandBy()
+        {
+            return _requestRepo.GetAll().Where(req => req.Status == ReschedulingRequestStatus.Waiting).Select(req => req.Reservation).ToList();
+        }
+
+        public List<ReschedulingRequest> GetAll()
+        {
+            return _requestRepo.GetAll();
         }
     }
 }

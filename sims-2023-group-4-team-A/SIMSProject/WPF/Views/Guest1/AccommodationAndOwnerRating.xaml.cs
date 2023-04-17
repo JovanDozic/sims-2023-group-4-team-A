@@ -47,10 +47,8 @@ namespace SIMSProject.WPF.Views.Guest1
             if (_ownerRatingViewModel.IsSelected())
             {
                 OwnerNameTextBlock.Text = _ownerRatingViewModel.GetOwnerUsername(); 
-            }
-            
+            }  
         }
-
         private void Button_Click_Upload(object sender, RoutedEventArgs e)
         {
             _ownerRatingViewModel.UploadImage(ImageUrlTB.Text);
