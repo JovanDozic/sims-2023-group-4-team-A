@@ -21,12 +21,12 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     /// </summary>
     public partial class DetailedReviewWindow : Window
     {
-        private AppointmentRatingViewModel viewModel { get; set; }
+        private AppointmentRatingViewModel ViewModel { get; set; }
         public DetailedReviewWindow(TourAppontmentRatingDTO rating)
         {
             InitializeComponent();
-            viewModel = new(rating);
-            this.DataContext = viewModel;
+            ViewModel = new(rating);
+            this.DataContext = ViewModel;
 
             AddImages();
         }
@@ -34,12 +34,12 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
 
         private void AddImages()
         {
-            cstmImages.AddImages(viewModel.Rating.Rating.ImageURLs);
+            cstmImages.AddImages(ViewModel.Rating.Rating.ImageURLs);
         }
 
         private void btnReport_Click(object sender, RoutedEventArgs e)
         {
-            viewModel.ReportReview();
+            ViewModel.ReportReview();
         }
     }
 }

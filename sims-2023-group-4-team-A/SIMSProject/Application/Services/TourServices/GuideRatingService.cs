@@ -56,13 +56,14 @@ namespace SIMSProject.Application.Services.TourServices
             List<TourAppontmentRatingDTO> tourRatings = new();
             List<TourGuest> users = _tourGuestRepo.GetAll();
 
-            foreach(var rating in _ratingRepo.GetAll())
-            {
-                TourGuest? guest = users.Find(x => rating.TourReservation.TourAppointment.Id == x.TourAppointment.Id && x.TourAppointment.Tour.Id == tourId);
-                if(guest == null) continue;
+            tourRatings = _ratingRepo.GetAll()
+                .SelectMany(rating => users, (rating, guest) => new { rating, guest })
+                .Where(x => x.rating.TourReservation.TourAppointment.Id == x.guest.TourAppointment.Id
+                    && x.guest.TourAppointment.Tour.Id == tourId
+                    && x.guest.Guest.Id == x.rating.TourReservation.GuestId)
+                .Select(x => new TourAppontmentRatingDTO(x.rating, x.guest))
+                .ToList();
 
-                tourRatings.Add(new(rating, guest));
-            }
             return tourRatings;
         }
     }

@@ -54,7 +54,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         public TourRatingsViewModel()
         {
             _tourService = Injector.GetService<TourService>();
-            Ratings = new(_tourService.GetRetings());
+            Ratings = new(_tourService.GetRatings());
         }
     }
 }

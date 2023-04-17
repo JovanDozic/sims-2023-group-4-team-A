@@ -42,7 +42,7 @@ namespace SIMSProject.Application.Services.TourServices
             return todays;
         }
 
-        public List<TourRatingDTO> GetRetings()
+        public List<TourRatingDTO> GetRatings()
         {
             List<TourRatingDTO> tourRatings = new();
 

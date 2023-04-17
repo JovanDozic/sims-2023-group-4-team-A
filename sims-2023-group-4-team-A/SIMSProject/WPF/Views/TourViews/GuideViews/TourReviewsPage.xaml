@@ -27,9 +27,9 @@
                       CanUserAddRows="False"
                       AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Naziv" Binding="{Binding Tour.Name}" Width="4*"/>
-                    <DataGridTextColumn Header="Lokacija" Binding="{Binding Tour.Location}" Width="4*"/>
-                    <DataGridTextColumn Header="Ocena" Binding="{Binding OverallRating}" Width="2*"/>
+                    <DataGridTextColumn Header="Naziv" Binding="{Binding Tour.Name}" Width="4*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Lokacija" Binding="{Binding Tour.Location}" Width="4*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Ocena" Binding="{Binding OverallRating}" Width="2*" IsReadOnly="True"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
