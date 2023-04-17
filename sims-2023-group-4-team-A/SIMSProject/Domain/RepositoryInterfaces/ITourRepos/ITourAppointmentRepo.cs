@@ -15,7 +15,7 @@ namespace SIMSProject.Domain.RepositoryInterfaces.ITourRepos
         public TourAppointment Save(TourAppointment appointment, Tour tour);
         public void SaveAll(List<TourAppointment> appointments);
         public List<TourAppointment> GetAllByTourId(int tourId);
-        public List<TourAppointment> FindTodaysAppointmentsByTour(int TourId);
-        public List<TourAppointment> FindTodaysAppointments();
+        public List<TourAppointment> GetTodaysAppointmentsByTour(int TourId);
+        public List<TourAppointment> GedTodaysAppointments();
     }
 }

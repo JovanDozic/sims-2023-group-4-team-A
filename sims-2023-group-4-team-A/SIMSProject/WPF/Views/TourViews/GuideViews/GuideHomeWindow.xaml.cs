@@ -46,8 +46,7 @@ namespace SIMSProject.View.GuideViews
 
         private void ReviewBTN_Click(object sender, RoutedEventArgs e)
         {
-            var window = new DetailedReviewWindow();
-            window.Show();
+            frame.Content = new TourReviewsPage();   
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using SIMSProject.Domain.Models.TourModels;
+﻿using SIMSProject.Application.DTOs;
+using SIMSProject.Domain.Injectors;
+using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.Repositories.TourRepositories;
 using System;
@@ -13,11 +15,13 @@ namespace SIMSProject.Application.Services.TourServices
     {
         private readonly ITourRepo _repo;
         private readonly ITourAppointmentRepo _appointmentRepo;
+        private readonly GuideRatingService _guideRatingService;
 
         public TourService(ITourRepo repo, ITourAppointmentRepo appointmentRepo)
         {
             _repo = repo;
             _appointmentRepo = appointmentRepo;
+            _guideRatingService = Injector.GetService<GuideRatingService>();
         }
 
         public List<Tour> GetTours()
@@ -27,7 +31,7 @@ namespace SIMSProject.Application.Services.TourServices
 
         public List<Tour> GetTodaysTours()
         {
-            List<TourAppointment> appointments = _appointmentRepo.FindTodaysAppointments();
+            List<TourAppointment> appointments = _appointmentRepo.GedTodaysAppointments();
             List<Tour> todays = new();
             foreach (var appointment in appointments)
             {
@@ -35,8 +39,21 @@ namespace SIMSProject.Application.Services.TourServices
                     continue;
                 todays.Add(appointment.Tour);
             }
-
             return todays;
+        }
+
+        public List<TourRatingDTO> GetRetings()
+        {
+            List<TourRatingDTO> tourRatings = new();
+
+            foreach(var tour in _repo.GetAll())
+            {
+                List<TourAppontmentRatingDTO> ratings = _guideRatingService.MapRatingsByTour(tour.Id);
+                if (ratings.Count == 0) continue;
+                tourRatings.Add(new(tour, ratings));
+            }
+
+            return tourRatings;
         }
 
 

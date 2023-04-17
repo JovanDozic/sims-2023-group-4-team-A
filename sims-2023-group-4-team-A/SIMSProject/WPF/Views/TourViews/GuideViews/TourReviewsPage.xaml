@@ -17,15 +17,19 @@
                      FontSize="28" 
                      Margin="82.5,50,0,0"
                      HorizontalAlignment="Left"/>
-            <DataGrid Width="800" Height="225"
+            <DataGrid x:Name="dgrRatings"
+                      Width="800" Height="225"
                       FontSize="28"
+                      ItemsSource="{Binding Path=Ratings, UpdateSourceTrigger=PropertyChanged}"
+                      SelectionMode="Single"
+                      SelectedItem="{Binding Path=SelectedRating, UpdateSourceTrigger=PropertyChanged}"
                       Margin="0,20,0,0"
                       CanUserAddRows="False"
                       AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Naziv" Width="4*"/>
-                    <DataGridTextColumn Header="Lokacija" Width="4*"/>
-                    <DataGridTextColumn Header="Ocena" Width="2*"/>
+                    <DataGridTextColumn Header="Naziv" Binding="{Binding Tour.Name}" Width="4*"/>
+                    <DataGridTextColumn Header="Lokacija" Binding="{Binding Tour.Location}" Width="4*"/>
+                    <DataGridTextColumn Header="Ocena" Binding="{Binding OverallRating}" Width="2*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
@@ -33,14 +37,20 @@
             <ComboBox Width="230" Height="42" 
                       Margin="82.5,10,0,0"
                       HorizontalAlignment="Left"/>
-            <DataGrid Height="149" Width="800" 
+            <DataGrid x:Name="dgrGrades"
+                      Height="149" Width="800" 
                       FontSize="28"
+                      ItemsSource="{Binding Path=SelectedRating.Ratings, UpdateSourceTrigger=PropertyChanged}"
+                      SelectionMode="Single"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      SelectedItem="{Binding Path=AppointmentRating, UpdateSourceTrigger=PropertyChanged}"
                       Margin="0,20,0,0">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Ime i prezime" Width="3*"/>
-                    <DataGridTextColumn Header="Korisničko ime" Width="3*"/>
-                    <DataGridTextColumn Header="Termin" Width="2*"/>
-                    <DataGridTextColumn Header="Ocena" Width="2*"/>
+                    <DataGridTextColumn Header="Korisničko ime" Binding="{Binding Path=User.Guest.Username, UpdateSourceTrigger=PropertyChanged}" Width="3*"/>
+                    <DataGridTextColumn Header="Termin" Binding="{Binding Path=User.Appointment.Date, UpdateSourceTrigger=PropertyChanged}" Width="2*"/>
+                    <DataGridTextColumn Header="Ocena" Binding="{Binding Path=Raiting.Overall,UpdateSourceTrigger=PropertyChanged}" Width="2*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

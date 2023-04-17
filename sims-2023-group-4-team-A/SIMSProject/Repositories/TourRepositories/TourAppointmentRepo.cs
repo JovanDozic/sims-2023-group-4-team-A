@@ -20,12 +20,13 @@ namespace SIMSProject.Repositories.TourRepositories
         private List<TourAppointment> _tourAppointments;
         private readonly IKeyPointRepo _keyPointRepo;
         private readonly IGuestRepo _guestRepo;
+        private readonly IGuideRepo _guideRepo;
         private readonly ITourGuestRepo _tourGuestRepo;
         private readonly ITourRepo  _tourRepo;
 
 
 
-        public TourAppointmentRepo(IKeyPointRepo keyPointRepo, IGuestRepo guestRepo, ITourGuestRepo tourGuestRepo, ITourRepo tourRepo)
+        public TourAppointmentRepo(IKeyPointRepo keyPointRepo, IGuestRepo guestRepo, ITourGuestRepo tourGuestRepo, ITourRepo tourRepo, IGuideRepo guideRepo)
         {
             _fileHandler = new();
             _tourAppointments = _fileHandler.Load();
@@ -33,6 +34,7 @@ namespace SIMSProject.Repositories.TourRepositories
             _guestRepo = guestRepo;
             _tourGuestRepo = tourGuestRepo;
             _tourRepo = tourRepo;
+            _guideRepo = guideRepo;
 
             MapAppointments();
         }
@@ -66,16 +68,22 @@ namespace SIMSProject.Repositories.TourRepositories
                 MapCurrentKeyPoint(appointment);
                 MapGuests(appointment);
                 MapTour(appointment);
+                MapGuide(appointment);
             }
         }
         private void MapTour(TourAppointment appointment)
         {
             appointment.Tour = _tourRepo.GetById(appointment.Tour.Id) ?? throw new Exception("Error! No matching tour.") ;
         }
+
+        private void MapGuide(TourAppointment appointment)
+        {
+            appointment.Guide = _guideRepo.GetById(appointment.Guide.Id) ?? throw new Exception("Error! No matching guide.");
+        }
         
         private void MapGuests(TourAppointment appointment)
         {
-            List<TourGuest> pairs = _tourGuestRepo.GetAll().FindAll(x => x.Appointment.Id == appointment.Id);
+            List<TourGuest> pairs = _tourGuestRepo.GetAll().FindAll(x => x.TourAppointmentId == appointment.Id);
             foreach (var pair in pairs)
             {
                 Guest? matchingGuest = _guestRepo.GetAll().Find(x => x.Id == pair.Guest.Id) ?? throw new SystemException("Error!No matching guest!");
@@ -95,12 +103,12 @@ namespace SIMSProject.Repositories.TourRepositories
         {
             return GetAll().FindAll(x => x.Tour.Id == tourId && DateTime.Compare(x.Date, DateTime.Now) > 0);
         }
-        public List<TourAppointment> FindTodaysAppointmentsByTour(int tourId)
+        public List<TourAppointment> GetTodaysAppointmentsByTour(int tourId)
         {
             return _tourAppointments.FindAll(x => x.Tour.Id == tourId && (DateTime.Compare(x.Date.Date, DateTime.Now.Date) == 0 || x.TourStatus == Status.ACTIVE));
         }
 
-        public List<TourAppointment> FindTodaysAppointments()
+        public List<TourAppointment> GedTodaysAppointments()
         {
             return _tourAppointments.FindAll(x => (DateTime.Compare(x.Date.Date, DateTime.Now.Date) == 0 || x.TourStatus == Status.ACTIVE));
         }

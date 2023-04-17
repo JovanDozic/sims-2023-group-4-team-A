@@ -14,6 +14,7 @@ namespace SIMSProject.Domain.Models.TourModels
         public int TourEntertainmentRating { get; set; } = 1;
         public int OrganizationQualityRating { get; set; } = 1;
         public DateTime RatingDate { get; set; } = DateTime.Now;
+        public bool Reported { get; set; } = false;
         public double Overall
         {
             get
@@ -55,6 +56,7 @@ namespace SIMSProject.Domain.Models.TourModels
                 Overall.ToString(CultureInfo.CurrentCulture),
                 Comment,
                 RatingDate.ToString(),
+                Reported.ToString(),
                 ImageURLsCSV
             };
             return csvValues;
@@ -71,7 +73,8 @@ namespace SIMSProject.Domain.Models.TourModels
             Overall = double.Parse(values[6]);
             Comment = values[7];
             RatingDate = DateTime.Parse(values[8]);
-            ImageURLsCSV = values[9];
+            Reported = bool.Parse(values[9]);
+            ImageURLsCSV = values[10];
             ImageURLs = ImageURLsFromCSV(ImageURLsCSV);
         }
     }

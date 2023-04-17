@@ -29,7 +29,7 @@ namespace SIMSProject.Application.Services.TourServices
 
         public List<TourAppointment> GetTodays(Tour tour)
         {
-            return _repo.FindTodaysAppointmentsByTour(tour.Id);
+            return _repo.GetTodaysAppointmentsByTour(tour.Id);
         }
 
         public List<TourAppointment> GetAllByTourId(int tourId)

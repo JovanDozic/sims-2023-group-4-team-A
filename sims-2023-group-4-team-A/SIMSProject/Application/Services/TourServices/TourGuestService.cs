@@ -20,7 +20,7 @@ namespace SIMSProject.Application.Services.TourServices
 
         public void SignUpGuest(int guestId, int tourAppointmentId)
         {
-            TourGuest? tourGuest = _repo.GetAll().Find(x => x.Guest.Id == guestId && x.Appointment.Id == tourAppointmentId);
+            TourGuest? tourGuest = _repo.GetAll().Find(x => x.Guest.Id == guestId && x.TourAppointmentId == tourAppointmentId);
             if (tourGuest == null) return;
 
             tourGuest.GuestStatus = GuestAttendance.PENDING;
@@ -28,7 +28,7 @@ namespace SIMSProject.Application.Services.TourServices
         }
         public void MakeGuestPresent(int guestId, int tourAppointmentId, KeyPoint currentKeyPoint)
         {
-            TourGuest? tourGuest = _repo.GetAll().Find(x => x.Guest.Id == guestId && x.Appointment.Id == tourAppointmentId);
+            TourGuest? tourGuest = _repo.GetAll().Find(x => x.Guest.Id == guestId && x.TourAppointmentId == tourAppointmentId);
             if (tourGuest == null) return;
 
             tourGuest.JoinedKeyPoint = currentKeyPoint;

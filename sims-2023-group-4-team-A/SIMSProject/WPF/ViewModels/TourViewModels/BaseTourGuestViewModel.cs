@@ -8,14 +8,14 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
     public class BaseTourGuestViewModel : ViewModelBase
     {
         private readonly TourGuest _tourGuest;
-        public TourAppointment Appointment
+        public int AppointmentId
         {
-            get => _tourGuest.Appointment;
+            get => _tourGuest.TourAppointmentId;
 
             set
             {
-                _tourGuest.Appointment = value;
-                OnPropertyChanged(nameof(Appointment));
+                _tourGuest.TourAppointmentId = value;
+                OnPropertyChanged(nameof(AppointmentId));
 
             }
         }

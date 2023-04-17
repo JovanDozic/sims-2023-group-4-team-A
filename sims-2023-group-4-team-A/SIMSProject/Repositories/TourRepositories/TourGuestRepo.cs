@@ -72,7 +72,7 @@ namespace SIMSProject.Repositories.TourRepositories
 
         public List<TourGuest> GetGuests(int tourAppointmentId)
         {
-            return _tourGuests.FindAll(x => x.Appointment.Id == tourAppointmentId);
+            return _tourGuests.FindAll(x => x.TourAppointmentId == tourAppointmentId);
         }
     }
 }

@@ -129,7 +129,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
 
             int seconds = 0;
             DateTime newDate = new(SelectedAppointment.Year, SelectedAppointment.Month, SelectedAppointment.Day, Hours, Minutes, seconds);
-            Appointments.Add(new(newDate, -1, MaxGuestNumber, -1));
+            Appointments.Add(new(newDate, -1, MaxGuestNumber, -1, Guide.Id));
         }
     }
 }

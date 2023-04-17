@@ -13,7 +13,7 @@ namespace SIMSProject.Domain.Models.TourModels
     public enum GuestAttendance { ABSENT = 0, PENDING, PRESENT }
     public class TourGuest: ISerializable
     {
-        public TourAppointment Appointment { get; set; } = new();
+        public int TourAppointmentId { get; set; }
         public GuestAttendance GuestStatus { get; set; }
         public Guest Guest { get; set; } = new(); 
         public KeyPoint JoinedKeyPoint { get; set; } = new();
@@ -22,7 +22,7 @@ namespace SIMSProject.Domain.Models.TourModels
 
         public TourGuest(int tourDateId, int guestId, int keypoint)
         {
-            Appointment.Id = tourDateId;
+            TourAppointmentId = tourDateId;
             Guest.Id = guestId;
             JoinedKeyPoint.Id = keypoint;
         }
@@ -33,13 +33,13 @@ namespace SIMSProject.Domain.Models.TourModels
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Appointment.Id.ToString(), Guest.Id.ToString(), GuestStatus.ToString(), JoinedKeyPoint.Id.ToString() };
+            string[] csvValues = { TourAppointmentId.ToString(), Guest.Id.ToString(), GuestStatus.ToString(), JoinedKeyPoint.Id.ToString() };
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
-            Appointment.Id = Convert.ToInt32(values[0]);
+            TourAppointmentId = Convert.ToInt32(values[0]);
             Guest.Id = Convert.ToInt32(values[1]);
             GuestStatus = (GuestAttendance)Enum.Parse(typeof(GuestAttendance), values[2]);
             JoinedKeyPoint.Id = Convert.ToInt32(values[3]);

@@ -15,19 +15,20 @@ namespace SIMSProject.Domain.Models.TourModels
         public DateTime Date { get; set; }
         public Status TourStatus { get; set; } = Status.INACTIVE;
         public int AvailableSpots { get; set; }
-
         public Tour Tour { get; set; } = new();
         public KeyPoint CurrentKeyPoint { get; set; } = new();
+        public Guide Guide { get; set; } = new();
         public List<Guest> Guests { get; set; } = new();
         public TourAppointment() { }
 
-        public TourAppointment(DateTime date, int tourId, int availableSpots, int currentKeyPointId)
+        public TourAppointment(DateTime date, int tourId, int availableSpots, int currentKeyPointId, int guideId)
         {
             if (IsPastToday(date))
             {
                 throw new ArgumentException("Error! Invalid date.");
             }
 
+            Guide.Id = guideId;
             Date = date;
             Tour.Id = tourId;
             AvailableSpots = availableSpots;
@@ -50,6 +51,7 @@ namespace SIMSProject.Domain.Models.TourModels
                 { Id.ToString(),
                 Date.ToString("dd.MM.yyyy HH:mm:ss"),
                 Tour.Id.ToString(),
+                Guide.Id.ToString(),
                 TourStatus.ToString(),
                 AvailableSpots.ToString(),
                 CurrentKeyPoint.Id.ToString() };
@@ -61,9 +63,10 @@ namespace SIMSProject.Domain.Models.TourModels
             Id = Convert.ToInt32(values[0]);
             Date = DateTime.Parse(values[1]);
             Tour.Id = Convert.ToInt32(values[2]);
-            TourStatus = (Status)Enum.Parse(typeof(Status), values[3]);
-            AvailableSpots = Convert.ToInt32(values[4]);
-            CurrentKeyPoint.Id = Convert.ToInt32(values[5]);
+            Guide.Id = Convert.ToInt32(values[3]);
+            TourStatus = (Status)Enum.Parse(typeof(Status), values[4]);
+            AvailableSpots = Convert.ToInt32(values[5]);
+            CurrentKeyPoint.Id = Convert.ToInt32(values[6]);
         }
     }
 }
