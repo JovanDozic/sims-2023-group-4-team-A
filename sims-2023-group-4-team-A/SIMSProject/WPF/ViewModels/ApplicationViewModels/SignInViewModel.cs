@@ -7,6 +7,7 @@ using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.Models;
 using SIMSProject.WPF.Views.OwnerViews;
 using SIMSProject.Application.Services.UserServices;
+using SIMSProject.Application.Services.AccommodationServices;
 
 namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
 {
@@ -14,6 +15,7 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
     {
         private string _username = string.Empty;
         private readonly UserService _userService;
+        private readonly OwnerRatingService _ownerRatingService;
 
         public string Username
         {
@@ -29,6 +31,7 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
         public SignInViewModel()
         {
             _userService = Injector.GetService<UserService>();
+            _ownerRatingService = Injector.GetService<OwnerRatingService>();
         }
 
         public bool SignIn(string password)
@@ -53,7 +56,10 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
             switch (user.Role)
             {
                 case UserRole.Owner or UserRole.SuperOwner:
-                    OwnerHomeView ownerWindow = new(user as User
+
+                    user = _ownerRatingService.UpdateOwnerInfo(user);
+
+                    OwnerHomeView ownerWindow = new(user
                         ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
                     ownerWindow.Show();
                     break;

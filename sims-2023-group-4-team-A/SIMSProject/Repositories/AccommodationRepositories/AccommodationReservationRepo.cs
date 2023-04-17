@@ -2,6 +2,7 @@
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using SIMSProject.FileHandler;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -61,7 +62,7 @@ namespace SIMSProject.Repositories.AccommodationRepositories
 
         public void Update(AccommodationReservation reservation)
         {
-            AccommodationReservation reservationToUpdate = GetById(reservation.Id) ?? throw new System.Exception("Updating accommodation reservation failed!");
+            AccommodationReservation reservationToUpdate = GetById(reservation.Id) ?? throw new Exception("Updating accommodation reservation failed!");
             int index = _reservations.IndexOf(reservationToUpdate);
             _reservations[index] = reservation;
             _fileHandler.Save(_reservations);

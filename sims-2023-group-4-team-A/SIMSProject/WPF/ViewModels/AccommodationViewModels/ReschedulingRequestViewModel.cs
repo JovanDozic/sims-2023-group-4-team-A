@@ -29,16 +29,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
-        public AccommodationReservation Reservation
-        {
-            get => _request.Reservation;
-            set 
-            {
-                if (value == _request.Reservation) return;
-                _request.Reservation = value;
-                OnPropertyChanged();
-            }
-        }
         public DateTime NewStartDate
         {
             get => _request.NewStartDate;

@@ -15,7 +15,7 @@ namespace SIMSProject.WPF.Views
             DataContext = _signInViewModel;
 
             // TODO: remove this before committing to develop
-            // BtnGoToOwner_Click(null, null);
+            //BtnGoToOwner_Click(null, null);
         }
 
         private void BtnSignIn_Click(object sender, RoutedEventArgs e)
@@ -28,6 +28,10 @@ namespace SIMSProject.WPF.Views
             if (Keyboard.IsKeyDown(Key.Enter))
             {
                 BtnSignIn_Click(sender, e);
+            }
+            if (Keyboard.IsKeyDown(Key.Escape))
+            {
+                Close();
             }
         }
 
