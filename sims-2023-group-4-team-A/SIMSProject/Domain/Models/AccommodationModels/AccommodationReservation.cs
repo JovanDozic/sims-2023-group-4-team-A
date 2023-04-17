@@ -14,6 +14,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public int NumberOfDays { get; set; }
         public int GuestNumber { get; set; }
         public bool GuestRated { get; set; } = false;
+        public bool RateGuestNotifSent { get; set; } = false;
         public bool OwnerRated { get; set; } = false;
         public bool Canceled { get; set; } = false;
 
@@ -45,6 +46,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
                 NumberOfDays.ToString(),
                 GuestNumber.ToString(),
                 GuestRated.ToString(),
+                RateGuestNotifSent.ToString(),
                 OwnerRated.ToString(),
                 Canceled.ToString()
             };
@@ -61,8 +63,9 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             NumberOfDays = int.Parse(values[5]);
             GuestNumber = int.Parse(values[6]);
             GuestRated = bool.Parse(values[7]);
-            OwnerRated = bool.Parse(values[8]);
-            Canceled = bool.Parse(values[9]);
+            RateGuestNotifSent = bool.Parse(values[8]);
+            OwnerRated = bool.Parse(values[9]);
+            Canceled = bool.Parse(values[10]);
         }
 
         public override string? ToString()

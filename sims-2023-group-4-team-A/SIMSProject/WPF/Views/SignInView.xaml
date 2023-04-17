@@ -41,6 +41,7 @@
                 Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top"
                 Width="120" Height="35" Click="BtnSignIn_Click" />
 
+        <!-- NOTE: Direct login buttons WILL NOT be implemented in final app. Just for testing. -->
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />

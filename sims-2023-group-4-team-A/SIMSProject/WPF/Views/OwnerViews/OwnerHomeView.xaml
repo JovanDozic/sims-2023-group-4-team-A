@@ -31,7 +31,7 @@
                 Width="150" Height="40"
                 HorizontalContentAlignment="Center"
                 VerticalAlignment="Center" Click="BtnRegisterAccommodation_Click">
-            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+            <StackPanel Orientation="Horizontal">
                 <Image Source="../../../Resources/Images/Add.png" Width="20" Height="20" Margin="0,0,5,0" />
                 <TextBlock Margin="5,2,0,0" Text="Registruj smeštaj" />
             </StackPanel>
@@ -42,7 +42,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalAlignment="Center"
                 IsEnabled="False" Click="BtnRateGuest_Click">
-            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+            <StackPanel Orientation="Horizontal">
                 <Image Source="../../../Resources/Images/Rating.png" Width="20" Height="20" Margin="0,0,5,0" />
                 <TextBlock Margin="5,2,0,0" Text="Oceni gosta" />
             </StackPanel>
@@ -53,7 +53,7 @@
             HorizontalContentAlignment="Center"
             VerticalAlignment="Center"
             IsEnabled="False" Click="BtnViewOwnerRating_Click" Margin="45,0,45,0">
-            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+            <StackPanel Orientation="Horizontal">
                 <Image Source="/Resources/Images/lookupitem.png" Width="20" Height="20" Margin="0,0,5,0" />
                 <TextBlock Margin="8,0,0,0" Text="Pregled ocene od gosta" TextWrapping="Wrap" Width="80" />
             </StackPanel>
@@ -130,6 +130,17 @@
             <Hyperlink Click="OwnerInfo_Click">Nalog</Hyperlink>
             </TextBlock>
         </StackPanel>
+
+        <Button x:Name="BtnNotifications" Grid.Column="3" Grid.Row="2"
+                Width="150" Height="40"
+                HorizontalContentAlignment="Center"
+                VerticalAlignment="Center"
+                Click="BtnNotifications_Click">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../../../Resources/Images/NotificationAlert.png" Width="20" Height="20" Margin="0,0,5,0" />
+                <TextBlock Margin="5,2,0,0" Text="Obaveštenja" />
+            </StackPanel>
+        </Button>
 
 
     </Grid>

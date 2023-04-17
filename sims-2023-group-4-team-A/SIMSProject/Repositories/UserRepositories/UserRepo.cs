@@ -1,4 +1,5 @@
-﻿using SIMSProject.Domain.Models.UserModels;
+﻿using SIMSProject.Domain.Models;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using SIMSProject.FileHandler.UserFileHandler;
@@ -40,6 +41,16 @@ namespace SIMSProject.Repositories.UserRepositories
                     return x;
                 }
             ).ToList());
+        }
+
+        public User GetByIdAndRole(int id, UserRole role)
+        {
+            return role switch
+            {
+                UserRole.Owner or UserRole.SuperOwner => GetAllOwners().Find(x => x.Id == id),
+                UserRole.Guest or UserRole.SuperGuest => GetAllGuests().Find(x => x.Id == id),
+                _ => GetAllGuides().Find(x => x.Id == id)
+            };
         }
 
         public List<Guest> GetAllGuests()
