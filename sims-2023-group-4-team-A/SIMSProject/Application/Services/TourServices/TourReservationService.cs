@@ -20,5 +20,13 @@ namespace SIMSProject.Application.Services.TourServices
         {
             return _tourReservationRepo.GetAllByGuestId(guestId);
         }
+        public TourReservation Save(TourReservation tourReservation)
+        {
+            return _tourReservationRepo.Save(tourReservation);
+        }
+        public void Update(TourReservation tourReservation)
+        {
+            _tourReservationRepo.Update(tourReservation);
+        }
     }
 }

@@ -7,6 +7,7 @@ using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.Models;
 using SIMSProject.WPF.Views.OwnerViews;
 using SIMSProject.Application.Services.UserServices;
+using SIMSProject.WPF.Views.Guest2Views;
 
 namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
 {
@@ -60,6 +61,14 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
                         ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
                     guideWindow.Show();
                     break;
+                case UserRole.Guest or UserRole.SuperGuest:
+                    {
+                        Guest2HomeView guest2HomeView = new(user as Guest);
+                        guest2HomeView.Show();
+                        break;
+                    }
+                   
+
                 
             }
         }

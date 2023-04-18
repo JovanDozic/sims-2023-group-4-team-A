@@ -1,12 +1,7 @@
 ﻿using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.FileHandler;
 using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.Observer;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
@@ -62,7 +57,7 @@ namespace SIMSProject.Repositories.TourRepositories
 
         private void MapTourAppointemnt(TourGuest tourGuest)
         {
-            tourGuest.TourAppointment = _tourAppointmentRepo.GetAll().Find(x => x.Id == tourGuest.TourAppointment.Id) ?? throw new Exception("Error! No matching appointment.");
+            tourGuest.TourAppointment = _tourAppointmentRepo.GetAll().Find(x => x.Id == tourGuest.TourAppointment.Id) ?? throw new System.Exception("Error! No matching appointment.");
         }
 
         private  void MapGuest(TourGuest tourGuest)

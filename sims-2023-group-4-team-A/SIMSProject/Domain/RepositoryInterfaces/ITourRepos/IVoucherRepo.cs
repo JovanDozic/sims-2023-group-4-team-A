@@ -15,5 +15,6 @@ namespace SIMSProject.Domain.RepositoryInterfaces.ITourRepos
         public Voucher GetById(int id);
         public Voucher Save(Voucher voucher);
         public void SaveAll(List<Voucher> appointments);
+        public void Update(Voucher voucher);
     }
 }

@@ -42,5 +42,9 @@ namespace SIMSProject.Application.Services.TourServices
         {
             return GetGuests(appointment).Find(x=>x.Guest.Id == guestId);
         }
+        public TourGuest Save(TourGuest tourGuest)
+        {
+            return _repo.Save(tourGuest);
+        }
     }
 }

@@ -36,7 +36,10 @@ namespace SIMSProject.Application.Services.TourServices
         {
             return _repo.GetAll().FindAll(x => x.Tour.Id == tourId && DateTime.Compare(x.Date, DateTime.Now) > 0);
         }
-
+        public List<TourAppointment> GetAllInactive(int tourId)
+        {
+            return GetAllByTourId(tourId).FindAll(x => x.TourStatus == Status.INACTIVE);
+        }
         public TourAppointment AdvanceNext(int appointmentId, KeyPoint nextKeyPoint)
         {
             TourAppointment? appointment = _repo.GetById(appointmentId) ?? throw new ArgumentException("Error!Can't find appointment!");

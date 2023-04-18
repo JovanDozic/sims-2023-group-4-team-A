@@ -9,6 +9,7 @@ using SIMSProject.Domain.Models;
 using SIMSProject.FileHandler.UserFileHandler;
 using SIMSProject.Domain.RepositoryInterfaces;
 using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
@@ -20,23 +21,20 @@ namespace SIMSProject.Repositories.TourRepositories
         private readonly ITourKeyPointRepo _tourKeyPointRepo;
         private readonly IKeyPointRepo _keyPointRepo;
         private readonly ILocationRepo _locationRepo;
-        //private readonly ITourAppointmentRepo _tourAppointmentRepo;
 
-        public TourRepo(ITourKeyPointRepo tourKeyPointRepo, IKeyPointRepo keyPointRepo, ILocationRepo locationRepo /*ITourAppointmentRepo tourAppointmentRepo*/)
+        public TourRepo(ITourKeyPointRepo tourKeyPointRepo, IKeyPointRepo keyPointRepo, ILocationRepo locationRepo)
         {
             _fileHandler = new TourFileHandler();
             _tours = _fileHandler.Load();
             _keyPointRepo = keyPointRepo;
             _locationRepo = locationRepo;
             _tourKeyPointRepo = tourKeyPointRepo;
-            //_tourAppointmentRepo = tourAppointmentRepo;
-
             MapTours();
         }
 
         public int NextId()
         {
-                return _tours.Count > 0 ?_tours.Max(x => x.Id) + 1 : 1;
+            return _tours.Count > 0 ?_tours.Max(x => x.Id) + 1 : 1;
         }
 
         public List<Tour> GetAll()
@@ -68,19 +66,8 @@ namespace SIMSProject.Repositories.TourRepositories
             {
                 MapLocation(tour);
                 MapKeyPoints(tour);
-                //MapAppointemnts(tour);
             }
         }
-
-        //private void MapAppointemnts(Tour tour)
-        //{
-        //    foreach(var appointment in _tourAppointmentRepo.GetAll())
-        //    {
-        //        if(appointment.Tour.Id == tour.Id)
-        //            tour.Appointments.Add(appointment);
-        //    }
-        //}
-
 
         private  void MapLocation(Tour tour)
         {
@@ -97,35 +84,34 @@ namespace SIMSProject.Repositories.TourRepositories
             }
         }
 
-        public List<Tour> SearchLocations(string locationId)
-        {
-            return _tours.Where(tour => tour.Location.Id.Equals(locationId)).ToList();
-        }
-
-        public List<Tour> SearchDurations(string duration)
-        {
-            return _tours.Where(tour => tour.Duration.Equals(duration)).ToList();
-        }
-
-        public List<Tour> SearchLanguages(string language)
-        {
-            return _tours.Where(tour => tour.TourLanguage.Equals(language)).ToList();
-        }
-
-        public List<Tour> SearchMaxGuests(string maxGuests)
-        {
-            return _tours.Where(tour => tour.MaxGuestNumber.Equals(maxGuests)).ToList();
-        }
-
-        public List<Tour> FindTodaysTours()
-        {
-            return _tours.FindAll(x => x.Appointments.Any(x => (DateTime.Compare(x.Date.Date, DateTime.Now.Date) == 0 || x.TourStatus == Status.ACTIVE)));
-        }
         public List<Tour> GetToursWithSameLocation(Tour selectedTour)
         {
             return _tours.FindAll(x => x.Location.Id == selectedTour.Location.Id && x.Id != selectedTour.Id);
         }
 
+        public void SearchTours(string locationAndLanguage, int searchDuration, int searchMaxGuests, ObservableCollection<Tour> tours)
+        {
+            tours.Clear();
+            foreach (var tour in new ObservableCollection<Tour>
+                (GetAll()))
+                tours.Add(tour);
 
+            if (locationAndLanguage == "Lokacija jezik") locationAndLanguage = string.Empty;
+            string[] searchValues = locationAndLanguage.Split(" ");
+
+            List<Tour> searchResults = tours.ToList();
+
+            // Removing all by location and language
+            foreach (string value in searchValues)
+                searchResults.RemoveAll(x => !x.ToStringSearch().ToLower().Contains(value.ToLower()));
+
+            // Removing by numbers
+            if (searchDuration > 0) searchResults.RemoveAll(x => x.Duration != searchDuration);
+            if (searchMaxGuests > 0) searchResults.RemoveAll(x => x.MaxGuestNumber < searchMaxGuests);
+
+            tours.Clear();
+            foreach (var searchResult in searchResults)
+                tours.Add(searchResult);
+        }
     }
 }

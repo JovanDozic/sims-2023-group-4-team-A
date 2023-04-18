@@ -5,6 +5,7 @@ using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.Repositories.TourRepositories;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,7 +57,6 @@ namespace SIMSProject.Application.Services.TourServices
             return tourRatings;
         }
 
-
         public void CreateTour(Tour tour)
         {
             _repo.Save(tour);
@@ -86,5 +86,9 @@ namespace SIMSProject.Application.Services.TourServices
             return _repo.GetById(appointment.Tour.Id)?.KeyPoints.Last();
         }
 
+        public List<Tour> GetToursWithSameLocation(Tour tour)
+        {
+            return _repo.GetToursWithSameLocation(tour);
+        }
     }
 }

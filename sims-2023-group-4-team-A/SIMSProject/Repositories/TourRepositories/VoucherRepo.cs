@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.FileHandler;
 using System;
@@ -31,7 +32,6 @@ namespace SIMSProject.Repositories.TourRepositories
         {
             return _vouchers.Find(x => x.Id == id);
         }
-
         public Voucher Save(Voucher voucher)
         {
             voucher.Id = NextId();
@@ -45,6 +45,14 @@ namespace SIMSProject.Repositories.TourRepositories
         {
             _fileHandler.Save(appointments);
             _vouchers = appointments;
+        }
+
+        public void Update(Voucher voucher)
+        {
+            Voucher voucherToUpdate = GetById(voucher.Id) ?? throw new Exception("Updating voucher failed!");
+            int index = _vouchers.IndexOf(voucherToUpdate);
+            _vouchers[index] = voucher;
+            _fileHandler.Save(_vouchers);
         }
     }
 }

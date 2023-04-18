@@ -35,5 +35,9 @@ namespace SIMSProject.Application.Services.TourServices
         {
             return _repo.GetVouchersByGuestId(guestId);
         }
+        public void Update(Voucher voucher)
+        {
+            _repo.Update(voucher);
+        }
     }
 }
