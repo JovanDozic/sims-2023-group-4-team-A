@@ -18,7 +18,6 @@ namespace SIMSProject.Application.Services.TourServices
             _repo = repo;
         }
 
-
         public void CreateAppointments(List<TourAppointment> tourAppointments, Tour tour)
         {
             foreach(var appointment in tourAppointments)
@@ -88,16 +87,6 @@ namespace SIMSProject.Application.Services.TourServices
             toEnd.TourStatus = Status.COMPLETED;
             _repo.SaveAll(_repo.GetAll());
         }
-
-        public TourAppointment InitializeTour(TourAppointment appointment, Tour tour)
-        {
-            TourAppointment? oldAppointment = _repo.GetAll().Find(x => x.Id == appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
-            oldAppointment.Tour = tour;
-            oldAppointment.AvailableSpots = tour.MaxGuestNumber;
-            _repo.SaveAll(_repo.GetAll());
-            return oldAppointment;
-        }
-
         public void UpdateAvailableSpots(TourAppointment appointment)
         {
             TourAppointment? oldAppointment = _repo.GetAll().Find(x => x.Id == appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");

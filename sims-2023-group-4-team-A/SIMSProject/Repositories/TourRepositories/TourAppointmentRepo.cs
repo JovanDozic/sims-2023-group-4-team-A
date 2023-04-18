@@ -45,7 +45,7 @@ namespace SIMSProject.Repositories.TourRepositories
         public TourAppointment Save(TourAppointment appointment, Tour tour)
         {
             appointment.Id = NextId();
-            appointment.Tour.Id = tour.Id;
+            appointment.Tour = tour;
             _tourAppointments.Add(appointment);
             _fileHandler.Save(_tourAppointments);
             return appointment;
