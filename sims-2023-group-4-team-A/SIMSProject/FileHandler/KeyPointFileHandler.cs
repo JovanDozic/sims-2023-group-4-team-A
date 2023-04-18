@@ -1,5 +1,4 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
-using SIMSProject.Model;
 using SIMSProject.Serializer;
 using System.Collections.Generic;
 

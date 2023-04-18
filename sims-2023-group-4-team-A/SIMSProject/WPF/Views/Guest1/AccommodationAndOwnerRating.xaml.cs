@@ -1,25 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using SIMSProject.Model;
-using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.Models.AccommodationModels;
-
-
-using SIMSProject.Controller;
-using System.Collections.ObjectModel;
-using SIMSProject.Controller.UserController;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
 
 

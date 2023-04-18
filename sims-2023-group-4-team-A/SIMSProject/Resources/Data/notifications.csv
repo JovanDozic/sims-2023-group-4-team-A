@@ -1,5 +1,5 @@
-1|1|Super Vlasnik|Naslov 1|Opis 1|17.4.2023. 16:01:00||False
-2|1|Super Vlasnik|Naslov 22|Opis 22|17.4.2023. 16:02:00||False
+1|1|Super Vlasnik|Naslov 1|Opis 1|17.4.2023. 16:01:00||True
+2|1|Super Vlasnik|Naslov 22|Opis 22|17.4.2023. 16:02:00||True
 3|1|Super Vlasnik|Naslov 333|Opis 333|17.4.2023. 16:12:00|23.4.2023. 16:12:00|False
 4|1|Super Vlasnik|Naslov 4444|Opis 4444|17.4.2023. 16:14:00||True
 5|1|Super Vlasnik|Naslov 333|Opis 333|10.4.2023. 16:12:00|15.4.2023. 16:12:00|True
@@ -13,3 +13,4 @@
 13|1|Super Vlasnik|Ocenite gosta!|Gost anja je 25.03.2023 napustio smeštaj Riverside Apartman. Ostavite ocenu!|17.4.2023. 18:21:22|30.3.2023. 00:00:00|True
 14|1|Super Vlasnik|Ocenite gosta!|Gost marko je 13.04.2023 napustio smeštaj Riverside Apartman. Ostavite ocenu!|17.4.2023. 18:21:22|18.4.2023. 00:00:00|False
 15|1|Super Vlasnik|Ocenite gosta!|Gost marko je 29.03.2023 napustio smeštaj Ledena Koliba. Ostavite ocenu!|17.4.2023. 18:21:22|3.4.2023. 00:00:00|True
+16|1|Super Vlasnik|Otkazana rezervacija|Gost anja je otkazao rezervaciju 11(02.05.2023. - 03.05.2023.)|18.4.2023. 19:32:19||True
