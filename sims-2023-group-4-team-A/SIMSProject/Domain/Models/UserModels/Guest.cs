@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using SIMSProject.Model;
+using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Serializer;
+
 
 namespace SIMSProject.Domain.Models.UserModels
 {
     public class Guest : User, ISerializable
     {
         public double Rating { get; set; }
-        public List<TourReservation> TourReservations { get; set; } = new();
         public List<Voucher> Vouchers { get; set; } = new();
 
         public Guest()
@@ -22,7 +22,6 @@ namespace SIMSProject.Domain.Models.UserModels
             Password = password;
             Role = UserRole.Guest;
             Rating = rating;
-            TourReservations = new List<TourReservation>();
             Vouchers = new List<Voucher>();
         }
 

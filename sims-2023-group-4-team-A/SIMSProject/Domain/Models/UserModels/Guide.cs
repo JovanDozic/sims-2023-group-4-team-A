@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.AccommodationModels;
-using SIMSProject.Model;
 using SIMSProject.Serializer;
+
 
 namespace SIMSProject.Domain.Models.UserModels
 {
@@ -10,7 +11,6 @@ namespace SIMSProject.Domain.Models.UserModels
     {
         public double Rating { get; set; }
         public List<Tour> Tours { get; set; } = new();
-        public List<TourReservation> TourReservations { get; set; } = new();
         public List<AccommodationReservation> AccommodationReservations { get; set; } = new();
 
         public Guide()

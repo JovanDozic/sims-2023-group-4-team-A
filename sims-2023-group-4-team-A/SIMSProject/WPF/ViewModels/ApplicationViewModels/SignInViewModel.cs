@@ -64,7 +64,7 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
                     ownerWindow.Show();
                     break;
                 case UserRole.Guide or UserRole.SuperGuide:
-                    GuideInitialWindow guideWindow = new(user as Guide
+                    GuideHomeWindow guideWindow = new(user as Guide
                         ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
                     guideWindow.Show();
                     break;

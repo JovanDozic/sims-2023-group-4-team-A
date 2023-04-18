@@ -1,31 +1,27 @@
-﻿using SIMSProject.Model;
+﻿using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Serializer;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SIMSProject.FileHandler
 {
     public class TourKeyPointFileHandler
     {
         private const string FilePath = "../../../Resources/Data/tourkeypoints.csv";
-        private readonly Serializer<TourKeyPoint> serializer;
-
+        private readonly Serializer<TourKeyPoint> _serializer;
         public TourKeyPointFileHandler()
         {
-            serializer = new Serializer<TourKeyPoint>();
+            _serializer = new Serializer<TourKeyPoint>();
         }
 
         public List<TourKeyPoint> Load()
         {
-            return serializer.FromCSV(FilePath);
+            return _serializer.FromCSV(FilePath);
         }
 
         public void Save(List<TourKeyPoint> tourkeypoints)
         {
-            serializer.ToCSV(FilePath, tourkeypoints);
+            _serializer.ToCSV(FilePath, tourkeypoints);
         }
+
     }
 }

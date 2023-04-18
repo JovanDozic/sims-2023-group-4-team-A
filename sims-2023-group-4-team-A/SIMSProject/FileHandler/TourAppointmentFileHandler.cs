@@ -1,31 +1,28 @@
-﻿using SIMSProject.Model;
+﻿using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Serializer;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace SIMSProject.FileHandler
 {
     public class TourAppointmentFileHandler
     {
         private const string FilePath = "../../../Resources/Data/tourAppointments.csv";
-        private readonly Serializer<TourAppointment> serializer;
+        private readonly Serializer<TourAppointment> _serializer;
 
         public TourAppointmentFileHandler()
         {
-            serializer = new Serializer<TourAppointment>();
+            _serializer = new Serializer<TourAppointment>();
         }
 
         public List<TourAppointment> Load()
         {
-            return serializer.FromCSV(FilePath);
+            return _serializer.FromCSV(FilePath);
         }
 
         public void Save(List<TourAppointment> tourAppointments)
         {
-            serializer.ToCSV(FilePath, tourAppointments);
+            _serializer.ToCSV(FilePath, tourAppointments);
         }
     }
 }

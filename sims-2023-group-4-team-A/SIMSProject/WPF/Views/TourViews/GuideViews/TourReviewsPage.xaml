@@ -1,0 +1,60 @@
+﻿<Page x:Class="SIMSProject.WPF.Views.TourViews.GuideViews.TourReviewsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMSProject.WPF.Views.TourViews.GuideViews"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="965"
+      Title="Reviews">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <TextBox Width="230" Height="40" 
+                     FontSize="28" 
+                     Margin="82.5,50,0,0"
+                     HorizontalAlignment="Left"/>
+            <DataGrid x:Name="dgrRatings"
+                      Width="800" Height="225"
+                      FontSize="28"
+                      ItemsSource="{Binding Path=Ratings, UpdateSourceTrigger=PropertyChanged}"
+                      SelectionMode="Single"
+                      SelectedItem="{Binding Path=SelectedRating, UpdateSourceTrigger=PropertyChanged}"
+                      Margin="0,20,0,0"
+                      CanUserAddRows="False"
+                      AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Naziv" Binding="{Binding Tour.Name}" Width="4*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Lokacija" Binding="{Binding Tour.Location}" Width="4*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Ocena" Binding="{Binding OverallRating}" Width="2*" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <ComboBox Width="230" Height="42" 
+                      Margin="82.5,10,0,0"
+                      HorizontalAlignment="Left"/>
+            <DataGrid x:Name="dgrGrades"
+                      Height="149" Width="800" 
+                      FontSize="28"
+                      ItemsSource="{Binding Path=SelectedRating.Ratings, UpdateSourceTrigger=PropertyChanged}"
+                      SelectionMode="Single"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      SelectedItem="{Binding Path=AppointmentRating, UpdateSourceTrigger=PropertyChanged}"
+                      MouseDoubleClick="dgrGrades_MouseDoubleClick"
+                      Margin="0,20,0,0"
+                      IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Ime i prezime" Width="3*"/>
+                    <DataGridTextColumn Header="Korisničko ime" Binding="{Binding Path=User.Guest.Username, UpdateSourceTrigger=PropertyChanged}" Width="3*"/>
+                    <DataGridTextColumn Header="Termin" Binding="{Binding Path=User.TourAppointment.Date, UpdateSourceTrigger=PropertyChanged}" Width="2*"/>
+                    <DataGridTextColumn Header="Ocena" Binding="{Binding Path=Rating.Overall,UpdateSourceTrigger=PropertyChanged}" Width="2*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Page>

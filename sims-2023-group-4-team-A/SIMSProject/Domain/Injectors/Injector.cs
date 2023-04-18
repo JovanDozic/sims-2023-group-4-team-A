@@ -1,12 +1,15 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SIMSProject.Application.Services;
 using SIMSProject.Application.Services.AccommodationServices;
+using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Application.Services.UserServices;
 using SIMSProject.Domain.RepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
+using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using SIMSProject.Repositories;
 using SIMSProject.Repositories.AccommodationRepositories;
+using SIMSProject.Repositories.TourRepositories;
 using SIMSProject.Repositories.UserRepositories;
 using System;
 
@@ -21,6 +24,7 @@ namespace SIMSProject.Domain.Injectors
             // Repository Injections
             services.AddSingleton<IOwnerRepo, OwnerRepo>();
             services.AddSingleton<IGuestRepo, GuestRepo>();
+            services.AddSingleton<IGuideRepo, GuideRepo>();
             services.AddSingleton<ILocationRepo, LocationRepo>();
             services.AddScoped<INotificationRepo, NotificationRepo>();
             services.AddSingleton<IUserRepo, UserRepo>(
@@ -58,6 +62,48 @@ namespace SIMSProject.Domain.Injectors
                 )
             );
 
+            services.AddSingleton<IKeyPointRepo, KeyPointRepo>(
+               provider => new KeyPointRepo(
+                   provider.GetService<ILocationRepo>() ?? throw new Exception("Dependency Injection Failed: ILocationRepo not found")
+                   )
+               );
+            services.AddSingleton<ITourKeyPointRepo, TourKeyPointRepo>();
+            services.AddSingleton<ITourGuestRepo, TourGuestRepo>(
+                provider => new TourGuestRepo(
+                    provider.GetService<IKeyPointRepo>() ?? throw new Exception("Dependency Injection Failed: IKEyPointRepo not found"),
+                    provider.GetService<IGuestRepo>() ?? throw new Exception("Dependency Injection Failed: IGuestRepo not found"),
+                    provider.GetService<ITourAppointmentRepo>() ?? throw new Exception("Dependency Injection Failed: ITourAppointemntRepo not found")
+                    )
+                );
+            
+            services.AddSingleton<IVoucherRepo, VoucherRepo>();
+            services.AddSingleton<ITourRepo, TourRepo>(
+                provider => new TourRepo(
+                    provider.GetService<ITourKeyPointRepo>() ?? throw new Exception("Dependency Injection Failed: ITourKeyPointRepo not found."),
+                    provider.GetService<IKeyPointRepo>() ?? throw new Exception("Dependency Injection Failed: IKEyPointRepo not found"),
+                    provider.GetService<ILocationRepo>() ?? throw new Exception("Dependency Injection Failed: ILocationRepo not fount")
+                    )
+                );
+            services.AddSingleton<ITourAppointmentRepo, TourAppointmentRepo>(
+                provider => new TourAppointmentRepo(
+                    provider.GetService<IKeyPointRepo>() ?? throw new Exception("Dependency Injection Failed: IKEyPointRepo not found"),
+                    provider.GetService<ITourRepo>() ?? throw new Exception("Dependency Injection Failed: ITourRepo not fount"),
+                    provider.GetService<IGuideRepo>() ?? throw new Exception("Dependency Injection Failed: IGuideRepo not fount") 
+                    ));
+
+            services.AddSingleton<ITourReservationRepo, TourReservationRepo>(
+                provider => new TourReservationRepo(
+                    provider.GetService<ITourAppointmentRepo>() ?? throw new Exception("Dependency Injection Failed: ITourAppointmentRepo not found.")
+                )
+            );
+            services.AddSingleton<IGuideRatingRepo, GuideRatingRepo>(
+                provider => new GuideRatingRepo(
+                    provider.GetService<ITourReservationRepo>() ?? throw new Exception("Dependency Injection Failed: ITourReservationRepo not found.")
+                )
+            );
+
+
+
             // Service Injections
             services.AddScoped<UserService>();
             services.AddScoped<AccommodationService>();
@@ -68,6 +114,15 @@ namespace SIMSProject.Domain.Injectors
             services.AddScoped<OwnerRatingService>();
             services.AddScoped<ReschedulingRequestService>();
 
+            services.AddScoped<TourService>();
+            services.AddTransient<TourAppointmentService>();
+            services.AddScoped<TourGuestService>();
+            services.AddScoped<TourKeyPointService>();
+            services.AddScoped<VoucherSevice>();
+            services.AddScoped<KeyPointService>();
+            services.AddScoped<TourReservationService>();
+            services.AddScoped<GuideRatingService>();
+            
             // Try if service no work!
             //services.AddScoped<ServiceName>(
             //    provider => new ServiceName(
