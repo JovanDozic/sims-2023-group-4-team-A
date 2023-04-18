@@ -1,5 +1,7 @@
-﻿using SIMSProject.Application.Services.AccommodationServices;
+﻿using SIMSProject.Application.Services;
+using SIMSProject.Application.Services.AccommodationServices;
 using SIMSProject.Domain.Injectors;
+using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using System;
@@ -30,6 +32,8 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             _reservationService.UpdateReservation(SelectedReservation);
         }
+        private readonly NotificationService _notificationService;
+        public ObservableCollection<AccommodationReservation> Reservations = new();
 
         public AccommodationReservation GetSelectedReservation()
         {
@@ -41,6 +45,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _reservationService = Injector.GetService<AccommodationReservationService>();
             _reservationRequestService = Injector.GetService<ReschedulingRequestService>();
             Reservations = LoadNotCanceledReservations();
+            _notificationService = Injector.GetService<NotificationService>();
         }
 
         public string GetMessage()
@@ -71,6 +76,8 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             return _reservationRequestService.CheckIfMatches(SelectedReservation);
         }
+
+        
 
         public ObservableCollection<AccommodationReservation> LoadReservations()
         {

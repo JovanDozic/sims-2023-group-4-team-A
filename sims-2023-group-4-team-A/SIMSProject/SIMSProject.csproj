@@ -16,6 +16,9 @@
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\home.png" />
     <None Remove="Resources\Images\lookupitem.png" />
+    <None Remove="Resources\Images\NotificationAlert.png" />
+    <None Remove="Resources\Images\NotificationAlertNoColor.png" />
+    <None Remove="Resources\Images\open.png" />
     <None Remove="Resources\Images\rating.png" />
     <None Remove="Resources\Images\stars.png" />
     <None Remove="Resources\Images\statusInformation.png" />
@@ -44,6 +47,9 @@
     </Resource>
     <Resource Include="Resources\Images\home.png" />
     <Resource Include="Resources\Images\lookupitem.png" />
+    <Resource Include="Resources\Images\NotificationAlert.png" />
+    <Resource Include="Resources\Images\NotificationAlertNoColor.png" />
+    <Resource Include="Resources\Images\open.png" />
     <Resource Include="Resources\Images\rating.png" />
     <Resource Include="Resources\Images\stars.png" />
     <Resource Include="Resources\Images\statusInformation.png" />

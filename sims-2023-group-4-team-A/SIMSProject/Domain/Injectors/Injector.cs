@@ -22,6 +22,7 @@ namespace SIMSProject.Domain.Injectors
             services.AddSingleton<IOwnerRepo, OwnerRepo>();
             services.AddSingleton<IGuestRepo, GuestRepo>();
             services.AddSingleton<ILocationRepo, LocationRepo>();
+            services.AddScoped<INotificationRepo, NotificationRepo>();
             services.AddSingleton<IUserRepo, UserRepo>(
                 provider => new UserRepo(
                     provider.GetService<IOwnerRepo>() ?? throw new Exception("Dependency Injection Failed: IOwnerRepo not found."),
@@ -62,6 +63,7 @@ namespace SIMSProject.Domain.Injectors
             services.AddScoped<AccommodationService>();
             services.AddScoped<AccommodationReservationService>();
             services.AddScoped<LocationService>();
+            services.AddScoped<NotificationService>();
             services.AddScoped<GuestRatingService>();
             services.AddScoped<OwnerRatingService>();
             services.AddScoped<ReschedulingRequestService>();
