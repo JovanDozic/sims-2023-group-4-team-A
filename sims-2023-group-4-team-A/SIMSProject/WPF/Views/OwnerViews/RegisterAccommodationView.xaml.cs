@@ -31,5 +31,10 @@ namespace SIMSProject.View.OwnerViews
             TbImageUrl.Text = string.Empty;
             DgrImageUrLs.Items.Refresh();
         }
+
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

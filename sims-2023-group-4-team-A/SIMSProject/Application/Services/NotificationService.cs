@@ -35,5 +35,10 @@ namespace SIMSProject.Application.Services
             notification.IsRead = true;
             _repo.Update(notification);
         }
+
+        public bool AnyUnreadNotifications(User user)
+        {
+            return _repo.GetAllUnreadByUser(user).Count > 0;
+        }
     }
 }

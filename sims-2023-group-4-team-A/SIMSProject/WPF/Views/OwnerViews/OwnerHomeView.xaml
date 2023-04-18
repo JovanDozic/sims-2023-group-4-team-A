@@ -137,7 +137,7 @@
                 VerticalAlignment="Center"
                 Click="BtnNotifications_Click">
             <StackPanel Orientation="Horizontal">
-                <Image Source="../../../Resources/Images/NotificationAlert.png" Width="20" Height="20" Margin="0,0,5,0" />
+                <Image Source="{Binding NotificationIconSource}" Width="20" Height="20" Margin="0,0,5,0" />
                 <TextBlock Margin="5,2,0,0" Text="Obaveštenja" />
             </StackPanel>
         </Button>

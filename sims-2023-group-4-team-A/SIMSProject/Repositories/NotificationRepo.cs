@@ -6,7 +6,6 @@ using SIMSProject.FileHandler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 
 namespace SIMSProject.Repositories
 {
@@ -90,6 +89,16 @@ namespace SIMSProject.Repositories
         private void MarkExpiredAsRead()
         {
             _notifications.ForEach(n => n.IsRead |= n.ExpirationDate?.Date < DateTime.Now.Date);
+            /* 
+             * Equivalent condition:
+             * n.IsRead = n.IsRead | n.ExpirationDate?.Date < DateTime.Now.Date
+             * 
+             * Note:
+             * Since ExpirationDate can be null, the "?" operator returns null instead of accessing the ".Date" value (which would cause the program to crash).
+             * Comparing with null always returns False.
+             * Therefore, for null ExpirationDate, the condition (IsRead "or" False) returns whichever value IsRead had before.
+             * For non-null values, the expression is compared and the value is assigned normally.
+             */
             SaveAll(_notifications);
         }
     }
