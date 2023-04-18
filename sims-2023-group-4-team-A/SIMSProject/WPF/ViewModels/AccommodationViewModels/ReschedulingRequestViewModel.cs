@@ -130,14 +130,9 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             return _accommodationReservationViewModel.SelectedReservation;
         }
 
-        public int AddDays()
+        public int GetDaysNumber()
         {
             return Reservation.NumberOfDays;
-        }
-
-        public int SubDays()
-        {
-            return -Reservation.NumberOfDays;
         }
 
         public string DisplayName()
@@ -164,7 +159,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                     req.Reservation.StartDate.ToShortDateString(), req.Reservation.EndDate.ToShortDateString());
                 Requests.Add(req);
             }
-            MessageBox.Show(Requests.Count.ToString());
             RequestsCombo = Requests;
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
 
@@ -11,11 +12,11 @@ namespace SIMSProject.WPF.Views.Guest1
         private readonly User User = new();
         private readonly ReschedulingRequestViewModel _reschedulingRequestViewModel;
 
-        public MovingReservations()
+        public MovingReservations(AccommodationReservation accommodationReservation)
         {
             InitializeComponent();
             User = new();
-            _reschedulingRequestViewModel = new(User, new());
+            _reschedulingRequestViewModel = new(User, accommodationReservation);
             DataContext = _reschedulingRequestViewModel;            
             ShowNameAndDate();
         }
@@ -28,19 +29,19 @@ namespace SIMSProject.WPF.Views.Guest1
 
         private void StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
+            
             if (DateFrom.SelectedDate.HasValue && DateFrom.SelectedDate.Value != DateTime.MinValue)
             {
-                DateTime date = DateFrom.SelectedDate.Value.AddDays(_reschedulingRequestViewModel.AddDays());
-                DateTo.SelectedDate = date;
+                DateTo.SelectedDate = DateFrom.SelectedDate.Value.AddDays(_reschedulingRequestViewModel.GetDaysNumber());
             }
         }
 
         private void EndDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
+            
             if (DateTo.SelectedDate.HasValue && DateTo.SelectedDate.Value != DateTime.MinValue)
             {
-                DateTime date = DateTo.SelectedDate.Value.AddDays(_reschedulingRequestViewModel.SubDays());
-                DateFrom.SelectedDate = date;
+                DateFrom.SelectedDate = DateTo.SelectedDate.Value.AddDays(-_reschedulingRequestViewModel.GetDaysNumber());
             }
         }
 
@@ -58,7 +59,7 @@ namespace SIMSProject.WPF.Views.Guest1
             DatePicker datePicker = sender as DatePicker;
             if (datePicker != null)
             {
-                datePicker.DisplayDateStart = DateTime.Today.AddDays(_reschedulingRequestViewModel.AddDays() + 1);
+                datePicker.DisplayDateStart = DateTime.Today.AddDays(_reschedulingRequestViewModel.GetDaysNumber() + 1);
             }
         }
 
