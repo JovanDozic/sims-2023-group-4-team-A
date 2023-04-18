@@ -35,6 +35,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
 
         public void ReportReview()
         {
+            Rating.Rating.Reported = true;
             _service.ReportReview(Rating.Rating.Id);
         }
     }

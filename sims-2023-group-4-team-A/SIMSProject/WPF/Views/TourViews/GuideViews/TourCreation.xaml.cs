@@ -12,34 +12,34 @@ namespace SIMSProject.View.GuideViews
     public partial class TourCreation : Window
     {
         private bool _imageAdded;
-        private TourCreationViewModel _viewModel { get; set; }
+        private TourCreationViewModel ViewModel { get; set; }
 
         public TourCreation(Guide guide)
         {
             InitializeComponent();
-            _viewModel = new();
-            this.DataContext = _viewModel;
+            ViewModel = new(guide);
+            this.DataContext = ViewModel;
         }
 
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
-            if (_viewModel.IsNotValid())
+            if (ViewModel.IsNotValid())
             {
                 MessageBox.Show("Ne valja");
                 return;
             }
-            _viewModel.CreateTour();
+            ViewModel.CreateTour();
             Close();
         }
         private void AddKeyPoint_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.AddKeyPoint();
+            ViewModel.AddKeyPoint();
             LbKeyPoints.Items.Refresh();
         }
 
         private void AddDate_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.AddAppointment();
+            ViewModel.AddAppointment();
             LbAppointments.Items.Refresh();
         }
 
@@ -57,7 +57,7 @@ namespace SIMSProject.View.GuideViews
         }
         private void BTNUploadFiles_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.Images.Add(ImageURLs.Text);
+            ViewModel.Images.Add(ImageURLs.Text);
             LbImages.Items.Refresh();
             _imageAdded = true;
         }

@@ -11,13 +11,13 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     /// </summary>
     public partial class LiveTrackAppointmentSelectionWindow : Window
     {
-        //private TourAppointmentsViewModel _viewModel { get; set; }
+        //private TourAppointmentsViewModel ViewModel { get; set; }
         private AppointmentsViewModel _baViewModel { get; set; }
         public LiveTrackAppointmentSelectionWindow(Tour tour)
         {
             InitializeComponent();
-            //_viewModel = new(tour);
-            //this.DataContext = _viewModel;
+            //ViewModel = new(tour);
+            //this.DataContext = ViewModel;
 
 
             _baViewModel = new AppointmentsViewModel(tour);
@@ -26,8 +26,8 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
 
         private void StartTrackingBTN_Click(object sender, RoutedEventArgs e)
         {
-            //_viewModel.StartIfActivated();
-            //var window = new TourLiveTrackingWindow(_viewModel.SelectedAppointment, _viewModel.Tour.Tour);
+            //ViewModel.StartIfActivated();
+            //var window = new TourLiveTrackingWindow(ViewModel.SelectedAppointment, ViewModel.Tour.Tour);
             _baViewModel.StartIfActivated();
             LbAppointments.Items.Refresh();
             var window = new TourLiveTrackingWindow(_baViewModel.SelectedAppointment, _baViewModel.Tour.Tour, _baViewModel);

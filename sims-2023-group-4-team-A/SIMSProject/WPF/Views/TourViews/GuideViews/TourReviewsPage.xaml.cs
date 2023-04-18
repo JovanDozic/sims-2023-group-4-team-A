@@ -21,18 +21,18 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     /// </summary>
     public partial class TourReviewsPage : Page
     {
-        private TourRatingsViewModel viewModel { get; set; } = new();
+        private TourRatingsViewModel ViewModel { get; set; } = new();
 
         public TourReviewsPage()
         {
             InitializeComponent();
-            this.DataContext = viewModel;
+            this.DataContext = ViewModel;
         }
 
         private void dgrGrades_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var window = new DetailedReviewWindow(viewModel.AppointmentRating);
-            window.Show();
+            var window = new DetailedReviewWindow(ViewModel.AppointmentRating);
+            window.ShowDialog();
         }
     }
 }

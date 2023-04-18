@@ -28,9 +28,9 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
             ViewModel = new(rating);
             this.DataContext = ViewModel;
 
+            btnIsEnabled();
             AddImages();
         }
-
 
         private void AddImages()
         {
@@ -40,6 +40,17 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
         private void btnReport_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.ReportReview();
+            btnIsEnabled();
+        }
+        private void btnIsEnabled()
+        {
+            btnReport.IsEnabled = !ViewModel.Rating.Rating.Reported;
+
+            switch (btnReport.IsEnabled)
+            {
+                case true: btnReport.Content = "Prijavi\nCtrl+P"; break;
+                case false: btnReport.Content = "Recenzija\nprijavljena"; break;
+            }
         }
     }
 }

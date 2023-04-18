@@ -152,14 +152,16 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             }
         }
 
+
+        private List<TourAppointment> _appointments = new();
         public List<TourAppointment> Appointments
         {
-            get => _tour.Appointments;
+            get => _appointments;
             set 
             {       
-                if(value != _tour.Appointments)
+                if(value != _appointments)
                 {
-                    _tour.Appointments = value;
+                    _appointments = value;
                     OnPropertyChanged(nameof(Appointments));
                 }
             }

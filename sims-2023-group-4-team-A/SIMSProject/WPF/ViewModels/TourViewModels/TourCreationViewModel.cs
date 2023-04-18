@@ -76,8 +76,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         public ObservableCollection<KeyPoint> Keys { get; set; } = new();
         public KeyPoint? SelectedKeyPoint { get; set; }
         public DateTime SelectedAppointment { get; set; } = DateTime.Now;
-
-        public TourCreationViewModel() : base(new())
+        public TourCreationViewModel(Guide guide) : base(new())
         {
             TourLanguages = new()
             {
@@ -94,6 +93,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             _keyPointService = Injector.GetService<KeyPointService>();
 
             AllLocations = new(_locationService.FindAll());
+            Guide = guide;
         }
 
         public void CreateTour()
