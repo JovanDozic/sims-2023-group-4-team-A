@@ -33,7 +33,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _reservationService.UpdateReservation(SelectedReservation);
         }
         private readonly NotificationService _notificationService;
-        public ObservableCollection<AccommodationReservation> Reservations = new();
+        //public ObservableCollection<AccommodationReservation> Reservations = new();
 
         public AccommodationReservation GetSelectedReservation()
         {
@@ -44,13 +44,24 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _user = user;
             _reservationService = Injector.GetService<AccommodationReservationService>();
             _reservationRequestService = Injector.GetService<ReschedulingRequestService>();
-            Reservations = LoadNotCanceledReservations();
+            Reservations = LoadUnCanceledReservations();
             _notificationService = Injector.GetService<NotificationService>();
         }
 
-        public string GetMessage()
+        public void SendNotification()
         {
-            return $"Gost {SelectedReservation.Guest.Username} je otkazao rezervaciju {SelectedReservation.Accommodation.Name}({SelectedReservation.StartDate.ToString("dd.MM.yyyy.")} - {SelectedReservation.EndDate.ToString("dd.MM.yyyy.")})";
+            _notificationService.CreateNotification(AddNotification(SelectedReservation));
+        }
+        public Notification AddNotification(AccommodationReservation reservation) 
+        {
+            return new Notification(
+                reservation.Accommodation.Owner,
+                "Otkazana rezervacija",
+                GetMessage(reservation));
+        }
+        public string GetMessage(AccommodationReservation reservation)
+        {
+            return $"Gost {reservation.Guest.Username} je otkazao rezervaciju {reservation.Accommodation.Name}({reservation.StartDate.ToString("dd.MM.yyyy.")} - {reservation.EndDate.ToString("dd.MM.yyyy.")})";
         }
 
         public void CancelReservation()
@@ -77,15 +88,13 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             return _reservationRequestService.CheckIfMatches(SelectedReservation);
         }
 
-        
-
         public ObservableCollection<AccommodationReservation> LoadReservations()
         {
             return new ObservableCollection<AccommodationReservation>(_reservationService.GetAll());
         }
-        public ObservableCollection<AccommodationReservation> LoadNotCanceledReservations()
+        public ObservableCollection<AccommodationReservation> LoadUnCanceledReservations()
         {
-            return new ObservableCollection<AccommodationReservation>(_reservationService.GetAll().Where(r => !r.Canceled));
+            return new ObservableCollection<AccommodationReservation>(_reservationService.GetAllUncancelled(_user));
         }
         public ObservableCollection<AccommodationReservation> LoadReservationsByAccommodation(Accommodation accommodation)
         {

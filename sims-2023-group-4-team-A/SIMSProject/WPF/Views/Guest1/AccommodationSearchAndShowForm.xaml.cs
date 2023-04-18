@@ -145,7 +145,7 @@ namespace SIMSProject.WPF.Views.Guest1
 
         private void Button_Click_Reservations(object sender, RoutedEventArgs e)
         {
-            var openReservations = new AccommodationReservationList();
+            var openReservations = new AccommodationReservationList(User);
             openReservations.Show();
         }
     }

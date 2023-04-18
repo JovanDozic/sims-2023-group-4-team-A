@@ -6,6 +6,8 @@ using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Model;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
@@ -86,7 +88,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _user = user;
             _service = Injector.GetService<ReschedulingRequestService>();
             _accommodationReservationViewModel = new(_user);
-            Requests = new ObservableCollection<ReschedulingRequest>(_service.GetAllByOwnerId(_user.Id));
+            Requests = new ObservableCollection<ReschedulingRequest>();
             Reservation = reservation;
             NewStartDate = DateTime.Today.AddDays(1);
         }
@@ -139,13 +141,18 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         }
         public void AddRequestsToCombo()
         {
-            foreach(var req in _service.GetAll())
+            foreach(var req in _service.GetAllByGuestId(_user.Id))
             {
-                
+                if (req.Reservation == null)
+                {
+                    continue;
+                }
+
                 req.RequestDetails = String.Format("{0}, ({1} - {2})", req.Reservation.Accommodation.Name,
                     req.Reservation.StartDate.ToShortDateString(), req.Reservation.EndDate.ToShortDateString());
                 Requests.Add(req);
             }
+            MessageBox.Show(Requests.Count.ToString());
             RequestsCombo = Requests;
         }
         public bool IsSelected()

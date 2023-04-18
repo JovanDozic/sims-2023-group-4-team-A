@@ -74,7 +74,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
-
         public int CleanlinessRating
         {
             get => _rating.CleanlinessRating;
@@ -182,7 +181,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         }
         public string GetOwnerUsername()
         {
-            SelectedReservation.Accommodation.Owner = _ratingService.GetOwnerById(SelectedReservation.Accommodation.Owner.Id);
             return SelectedReservation.Accommodation.Owner.Username;
         }
 

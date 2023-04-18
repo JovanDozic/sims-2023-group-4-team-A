@@ -67,6 +67,10 @@ namespace SIMSProject.Application.Services.AccommodationServices
             return _requestRepo.GetAll().Where(req => req.Status == ReschedulingRequestStatus.Waiting).Select(req => req.Reservation).ToList();
         }
 
+        public List<ReschedulingRequest> GetAllByGuestId(int id)
+        {
+            return _requestRepo.GetAllByGuestId(id);
+        }
         public List<ReschedulingRequest> GetAll()
         {
             return _requestRepo.GetAll();

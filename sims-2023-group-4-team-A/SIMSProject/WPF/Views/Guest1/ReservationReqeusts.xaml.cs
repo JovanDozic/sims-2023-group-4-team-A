@@ -25,10 +25,10 @@ namespace SIMSProject.WPF.Views.Guest1
         private readonly ReschedulingRequestViewModel _reschedulingRequestViewModel;
         private readonly User _user;
         private AccommodationReservation _accommodationReservation { get; set; }
-        public ReservationReqeusts(User _user)
+        public ReservationReqeusts(User user)
         {
             InitializeComponent();
-            _user = new User();
+            _user = user;
             _reschedulingRequestViewModel = new(_user, _accommodationReservation);
             DataContext = _reschedulingRequestViewModel;
             _reschedulingRequestViewModel.AddRequestsToCombo();

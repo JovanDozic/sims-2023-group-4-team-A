@@ -29,9 +29,10 @@ namespace SIMSProject.WPF.Views.Guest1
     {
         private readonly User _user;
         private readonly AccommodationReservationViewModel _accommodationReservationViewModel;
-        public AccommodationReservationList()
+        public AccommodationReservationList(User user)
         {
             InitializeComponent();
+            _user = user;
             _accommodationReservationViewModel = new(_user);
             DataContext = _accommodationReservationViewModel;
             
@@ -56,8 +57,7 @@ namespace SIMSProject.WPF.Views.Guest1
             {
                 _accommodationReservationViewModel.CancelReservation();
                 _accommodationReservationViewModel.Update();
-                var message = _accommodationReservationViewModel.GetMessage();
-                //TODO: Add notification
+                _accommodationReservationViewModel.SendNotification();
                 MessageBox.Show("Rezervacija je otkazana!");
                 Close();
             }
