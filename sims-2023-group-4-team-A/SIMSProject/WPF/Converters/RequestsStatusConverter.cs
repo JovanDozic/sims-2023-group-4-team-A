@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using SIMSProject.Domain.Models;
-using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Model;
 
 namespace SIMSProject.WPF.Converters
 {
-    internal class RequestsStatusConverter: IValueConverter
+    internal class RequestsStatusConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

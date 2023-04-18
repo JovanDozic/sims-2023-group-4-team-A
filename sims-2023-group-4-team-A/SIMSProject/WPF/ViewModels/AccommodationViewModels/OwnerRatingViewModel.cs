@@ -17,8 +17,8 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private AccommodationReservationService _reservationService;
         private Accommodation _accommodation = new();
         public ObservableCollection<AccommodationReservation> Reservations { get; set; } = new();
-        public object ReservationsCombo { get; private set; }
-        private string _ownerNameTB;
+        public object ReservationsCombo { get; private set; } = new();
+        private string _ownerNameTB = string.Empty;
         public string OwnerNameTextBlock
         {
             get => _ownerNameTB;
@@ -160,7 +160,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _ratingService = Injector.GetService<OwnerRatingService>();
             _reservationService = Injector.GetService<AccommodationReservationService>();
             Reservation = reservation;
-            //LoadRating();
+            LoadRating();
         }
 
         public void AddReservationsToCombo()
@@ -199,6 +199,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         }
         public void LoadRating()
         {
+            if (Reservation == null) return;
             Rating = _ratingService.GetByReservationId(Reservation.Id);
         }
     }

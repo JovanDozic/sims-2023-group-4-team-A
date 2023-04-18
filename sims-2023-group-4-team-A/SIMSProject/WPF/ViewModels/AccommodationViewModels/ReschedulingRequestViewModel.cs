@@ -20,7 +20,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private ReschedulingRequest _selectedRequest = new();
         private AccommodationReservationViewModel _accommodationReservationViewModel;
         public ObservableCollection<ReschedulingRequest> Requests { get; set; } = new();
-        public object RequestsCombo { get; private set; }
+        public object RequestsCombo { get; private set; } = new();
         public AccommodationReservation Reservation
         {
             get => _request.Reservation;
@@ -88,9 +88,14 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _user = user;
             _service = Injector.GetService<ReschedulingRequestService>();
             _accommodationReservationViewModel = new(_user);
-            Requests = new ObservableCollection<ReschedulingRequest>();
+            Requests = new();
             Reservation = reservation;
             NewStartDate = DateTime.Today.AddDays(1);
+        }
+
+        public void LoadRequestsByOwner()
+        {
+            Requests = new(_service.GetAllByOwnerId(_user.Id ));
         }
 
         public bool IsDateRangeAvailable()
@@ -114,31 +119,38 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             return Requests[e.Row.GetIndex()].Status == ReschedulingRequestStatus.Waiting;
         }
+
         public void SendRequest()
         {
             _service.SaveRequest(_request);
         }
+
         public AccommodationReservation LoadReservation()
         {
             return _accommodationReservationViewModel.SelectedReservation;
         }
+
         public int AddDays()
         {
             return Reservation.NumberOfDays;
         }
+
         public int SubDays()
         {
             return -Reservation.NumberOfDays;
         }
+
         public string DisplayName()
         {
             return Reservation.Accommodation.Name;
         }
+
         public string DisplayDate()
         {
             return Reservation.StartDate.ToString("dd/MM/yyyy.") + " - "
                 + Reservation.EndDate.ToString("dd/MM/yyyy.");
         }
+
         public void AddRequestsToCombo()
         {
             foreach(var req in _service.GetAllByGuestId(_user.Id))
@@ -155,6 +167,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             MessageBox.Show(Requests.Count.ToString());
             RequestsCombo = Requests;
         }
+
         public bool IsSelected()
         {
             return SelectedRequest != null;

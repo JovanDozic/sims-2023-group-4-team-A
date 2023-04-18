@@ -10,14 +10,15 @@ namespace SIMSProject.WPF.Views.OwnerViews
     {
         private readonly User _user;
         private readonly ReschedulingRequestViewModel _viewModel;
-        private AccommodationReservation _accommodationReservation;
 
         public ReschedulingRequestsView(User user)
         {
             InitializeComponent();
             _user = user;
-            _viewModel = new(_user, _accommodationReservation);
+            _viewModel = new(_user, new());
             DataContext = _viewModel;
+
+            _viewModel.LoadRequestsByOwner();
         }
 
         private void SetButtonState(object sender, bool enabled)

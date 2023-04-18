@@ -76,7 +76,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
 
         public override string? ToString()
         {
-            return Type + ": " + Name + " (" + Location + ")";
+            return GetType(Type) + ": " + Name + " (" + Location + ")";
         }
     }
 }
