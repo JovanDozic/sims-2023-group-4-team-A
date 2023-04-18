@@ -17,19 +17,9 @@
     }
     public enum ReschedulingRequestStatus
     {
-        Waiting = 0,
+        None = 0,
+        Waiting,
         Accepted,
         Rejected
     }
-
-    public enum NotificationAction
-    {
-        None = 0,
-        YesNo,
-        Ok,
-        RateGuest,  // Yes or no
-        RateOwner   // Yes or no
-    }
-
-    
 }

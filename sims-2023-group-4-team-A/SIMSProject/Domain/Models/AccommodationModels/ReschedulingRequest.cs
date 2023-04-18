@@ -12,8 +12,8 @@ namespace SIMSProject.Model
         public DateTime NewStartDate { get; set; }
         public DateTime NewEndDate { get; set; }
         public string OwnerComment { get; set; } = string.Empty;
-        public ReschedulingRequestStatus Status { get; set; }
-        public string RequestDetails { get; set; }
+        public ReschedulingRequestStatus Status { get; set; } = ReschedulingRequestStatus.None;
+        public string RequestDetails { get; set; } = string.Empty;
 
         public static ReschedulingRequestStatus GetStatus(string status)
         {
@@ -21,7 +21,8 @@ namespace SIMSProject.Model
             {
                 "Na čekanju" => ReschedulingRequestStatus.Waiting,
                 "Odobren" => ReschedulingRequestStatus.Accepted,
-                _ => ReschedulingRequestStatus.Rejected
+                "Odbijen" => ReschedulingRequestStatus.Rejected,
+                _ => ReschedulingRequestStatus.None,
             };
         }
 
@@ -31,7 +32,8 @@ namespace SIMSProject.Model
             {
                 ReschedulingRequestStatus.Waiting => "Na čekanju",
                 ReschedulingRequestStatus.Accepted => "Odobren",
-                _ => "Odbijen"
+                ReschedulingRequestStatus.Rejected => "Odbijen",
+                _ => ""
             };
         }
 
