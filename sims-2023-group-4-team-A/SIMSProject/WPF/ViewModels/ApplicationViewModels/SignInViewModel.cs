@@ -8,6 +8,7 @@ using SIMSProject.Domain.Models;
 using SIMSProject.WPF.Views.OwnerViews;
 using SIMSProject.Application.Services.UserServices;
 using SIMSProject.Application.Services.AccommodationServices;
+using SIMSProject.WPF.Views;
 
 namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
 {

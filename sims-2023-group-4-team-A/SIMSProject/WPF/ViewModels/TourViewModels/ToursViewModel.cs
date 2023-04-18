@@ -5,12 +5,14 @@ using System.Collections.Generic;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using SIMSProject.Domain.Models.UserModels;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels
 {
     public class ToursViewModel: ViewModelBase
     {
         private readonly TourService _tourService;
+        private readonly TourGuestService _tourGuestService;
         public ObservableCollection<Tour> Tours { get; set; }
 
         private Tour _tour = new();
@@ -30,6 +32,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         public ToursViewModel()
         {
             _tourService = Injector.GetService<TourService>();
+            _tourGuestService = Injector.GetService<TourGuestService>();
             Tours = new(_tourService.GetTours());
         }
 
@@ -47,6 +50,15 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         public bool IsSelected()
         {
             return SelectedTour != null;
+        }
+        public List<TourGuest> GetPendingTourGuests(User user)
+        {
+            return _tourGuestService.GetAllPendingByUser(user);
+        }
+        public void ConfirmTourGuestAttendance(TourGuest tourGuest)
+        {
+            _tourGuestService.MakeGuestPresent(tourGuest);
+
         }
     }
 }

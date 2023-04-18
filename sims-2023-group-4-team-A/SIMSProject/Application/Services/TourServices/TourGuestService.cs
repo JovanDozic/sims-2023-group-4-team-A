@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.Repositories.TourRepositories;
 using System;
@@ -26,12 +27,12 @@ namespace SIMSProject.Application.Services.TourServices
             tourGuest.GuestStatus = GuestAttendance.PENDING;
             _repo.SaveAll(_repo.GetAll());
         }
-        public void MakeGuestPresent(int guestId, int tourAppointmentId, KeyPoint currentKeyPoint)
-        {
-            TourGuest? tourGuest = _repo.GetAll().Find(x => x.Guest.Id == guestId && x.TourAppointment.Id == tourAppointmentId);
-            if (tourGuest == null) return;
 
-            tourGuest.JoiningPoint = currentKeyPoint;
+        public void MakeGuestPresent(TourGuest tourGuest)
+        {
+            tourGuest.JoiningPoint = tourGuest.TourAppointment.CurrentKeyPoint;
+            tourGuest.GuestStatus = GuestAttendance.PRESENT;
+            _repo.SaveAll(_repo.GetAll());
         }
 
         public List<TourGuest> GetGuests(TourAppointment appointment)
@@ -45,6 +46,11 @@ namespace SIMSProject.Application.Services.TourServices
         public TourGuest Save(TourGuest tourGuest)
         {
             return _repo.Save(tourGuest);
+        }
+        
+        public List<TourGuest> GetAllPendingByUser(User user)
+        {
+            return _repo.GetAll().FindAll(x => x.Guest.Id == user.Id && x.GuestStatus == GuestAttendance.PENDING);
         }
     }
 }

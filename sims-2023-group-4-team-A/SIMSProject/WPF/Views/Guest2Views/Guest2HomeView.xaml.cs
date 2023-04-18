@@ -28,7 +28,6 @@ namespace SIMSProject.WPF.Views.Guest2Views
             User = user;
             SelectedTab.Content = new ShowAndSearchTours(User);
         }
-
         private void LogOut_Click(object sender, RoutedEventArgs e)
         {
             User = new Guest(0, "<null>", "<null>");
@@ -50,6 +49,11 @@ namespace SIMSProject.WPF.Views.Guest2Views
         private void MyReservations_Click(object sender, RoutedEventArgs e)
         {
             SelectedTab.Content = new TourReservations(User);
+        }
+
+        private void Notifications_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedTab.Content = new Guest2NotificationView(User);
         }
     }
 }

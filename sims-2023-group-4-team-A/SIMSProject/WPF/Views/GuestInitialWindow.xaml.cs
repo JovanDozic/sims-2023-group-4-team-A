@@ -1,10 +1,9 @@
 ﻿using System.Windows;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.Views.Guest1;
-using SIMSProject.View.Guest2;
 using SIMSProject.WPF.Views.Guest2Views;
 
-namespace SIMSProject.View
+namespace SIMSProject.WPF.Views
 {
     public partial class GuestInitialWindow : Window
     {

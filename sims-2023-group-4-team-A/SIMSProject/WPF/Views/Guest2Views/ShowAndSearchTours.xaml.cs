@@ -25,6 +25,21 @@ namespace SIMSProject.View.Guest2
             _user = user;
             _tourViewModel = new ToursViewModel();
             this.DataContext = _tourViewModel;
+            CheckPending();
+        }
+
+        private void CheckPending()
+        {
+            foreach (var tourGuest in _tourViewModel.GetPendingTourGuests(_user))
+            {
+                if(MessageBox.Show("Potvrdite prisustvo na " + tourGuest.TourAppointment.Tour.Name
+                    + " turi, u terminu " + tourGuest.TourAppointment.Date.ToString() + ".",
+                    "Potvrdite prisustvo",
+                    MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    _tourViewModel.ConfirmTourGuestAttendance(tourGuest);
+                }
+            }
         }
 
         private void Search_Click(object sender, RoutedEventArgs e)

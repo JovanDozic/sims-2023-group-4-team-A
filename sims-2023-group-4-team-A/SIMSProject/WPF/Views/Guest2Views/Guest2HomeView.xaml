@@ -54,7 +54,7 @@
                 <Button Click="MyReservations_Click" Content="Moje rezervacije" FontSize="32" Grid.Column="2" Background="White" BorderThickness="0" Height="60" Cursor="Hand"/>
                 <Button Content="Zahtevi za ture" FontSize="32" Grid.Column="3" Background="White"  BorderThickness="0" Height="60" Cursor="Hand"/>
                 <Button Click="Vouchers_Click" Content="Vaučeri" FontSize="32" Grid.Column="4" Background="White"  BorderThickness="0" Height="60" Cursor="Hand"/>
-                <Button Content="Obaveštenja" FontSize="32" Grid.Column="5" Background="White" BorderThickness="0" Height="60" Cursor="Hand"/>
+                <Button Click="Notifications_Click" Content="Obaveštenja" FontSize="32" Grid.Column="5" Background="White" BorderThickness="0" Height="60" Cursor="Hand"/>
             </Grid>
         </Grid>
 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
+using System;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
@@ -77,5 +78,6 @@ namespace SIMSProject.Repositories.TourRepositories
         {
             return _tourGuests.FindAll(x => x.TourAppointment.Id == tourAppointmentId);
         }
+        
     }
 }

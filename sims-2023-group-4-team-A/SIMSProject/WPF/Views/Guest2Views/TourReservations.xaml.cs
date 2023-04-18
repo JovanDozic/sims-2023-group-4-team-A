@@ -29,7 +29,10 @@ namespace SIMSProject.WPF.Views.Guest2Views
             DgrReservations.SelectedItem = null;
             DgrReservations.Items.Refresh();
         }
-
+        private void ShowKeyPoint_Click(object sender, RoutedEventArgs e)
+        {
+            new ShowKeyPoint(User, _tourReservationsViewModel.SelectedTourReservation).Show();
+        }
         private void SetButtonState(object sender, bool state)
         {
             if (sender is not Button button) return;
@@ -39,6 +42,9 @@ namespace SIMSProject.WPF.Views.Guest2Views
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SetButtonState(BTNRateGuide, _tourReservationsViewModel.IsRatingEnabled());
+            SetButtonState(BTNShowKeyPoint, _tourReservationsViewModel.IsTourActive());
         }
+
+        
     }
 }

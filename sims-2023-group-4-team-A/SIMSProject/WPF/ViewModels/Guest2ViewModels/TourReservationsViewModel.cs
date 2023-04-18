@@ -2,6 +2,7 @@
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
+using System;
 using System.Collections.ObjectModel;
 
 namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
@@ -33,6 +34,29 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 OnPropertyChanged(nameof(SelectedTourReservation));
             }
         }
+        private TourReservation _tourReservation = new();
+        public TourReservation TourReservation
+        {
+            get => _tourReservation;
+            set
+            {
+                if (value == _tourReservation) return;
+                _tourReservation = value;
+                OnPropertyChanged(nameof(TourReservation));
+            }
+        }
+        public DateTime Date
+        {
+            get => _selectedTourReservation.TourAppointment.Date;
+            set
+            {
+                if (value != _selectedTourReservation.TourAppointment.Date)
+                {
+                    _selectedTourReservation.TourAppointment.Date = value;
+                    OnPropertyChanged(nameof(Date));
+                }
+            }
+        }
         public TourReservationsViewModel(User user)
         {
             _user = user;
@@ -53,16 +77,23 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         public bool IsRatingEnabled()
         {
             if (SelectedTourReservation == null) return false;
-            if (SelectedTourReservation.TourAppointment.TourStatus == Status.COMPLETED && SelectedTourReservation.GuideRated == false)
+            var tourGuest = _tourGuestService.GetGuest(SelectedTourReservation.TourAppointment, _user.Id);
+            if (SelectedTourReservation.TourAppointment.TourStatus == Status.COMPLETED && SelectedTourReservation.GuideRated == false && tourGuest.GuestStatus == GuestAttendance.PRESENT)
             {
-                var tourGuest = _tourGuestService.GetGuest(SelectedTourReservation.TourAppointment, _user.Id);
-                if (tourGuest.GuestStatus == GuestAttendance.PRESENT)
-                {
-                    return true;
-                }
+                return true;
             }
             return false;
         }
-
+        
+        public bool IsTourActive()
+        {
+            if (SelectedTourReservation == null) return false;
+            if (SelectedTourReservation.TourAppointment.TourStatus == Status.ACTIVE) return true;
+            return false;
+        }
+        public void GetDetails(TourReservation tourReservation)
+        {
+            TourReservation = tourReservation;
+        }
     }
 }
