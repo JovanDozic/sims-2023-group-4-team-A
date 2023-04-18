@@ -17,6 +17,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public bool RateGuestNotifSent { get; set; } = false;
         public bool OwnerRated { get; set; } = false;
         public bool Canceled { get; set; } = false;
+        public string ReservationDetails { get; set; }
 
         public AccommodationReservation()
         {

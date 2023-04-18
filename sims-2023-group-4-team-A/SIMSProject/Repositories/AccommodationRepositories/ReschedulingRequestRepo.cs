@@ -39,7 +39,7 @@ namespace SIMSProject.Repositories.AccommodationRepositories
 
         public List<ReschedulingRequest> GetAllByOwnerId(int ownerId)
         {
-            return _requests.FindAll(x => x.Reservation.Accommodation.Owner.Id == ownerId);
+            return _requests.FindAll(x => x.Reservation != null && x.Reservation.Accommodation.Owner.Id == ownerId);
         }
 
         public int NextId()
@@ -75,6 +75,12 @@ namespace SIMSProject.Repositories.AccommodationRepositories
             {
                 request.Reservation = _reservationRepo.GetById(request.Reservation.Id);
             }
+        }
+
+        public List<ReschedulingRequest> GetAllByGuestId(int guestId)
+        {
+            return _requests.FindAll(x => x.Reservation != null && x.Reservation.Guest.Id == guestId);
+
         }
     }
 }

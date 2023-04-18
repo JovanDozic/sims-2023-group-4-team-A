@@ -46,5 +46,10 @@ namespace SIMSProject.Domain.Models.UserModels
             Role = GetRole(values[3]);
             Rating = double.Parse(values[4]);
         }
+
+        public override string? ToString()
+        {
+            return Username;
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.View.Guest1;
+using SIMSProject.WPF.Views.Guest1;
 using SIMSProject.View.Guest2;
 
 namespace SIMSProject.View
@@ -24,6 +24,18 @@ namespace SIMSProject.View
         private void OpenTours_Click(object sender, RoutedEventArgs e)
         {
             ShowAndSearchTours window = new(User);
+            window.Show();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new AccommodationAndOwnerRating(User);
+            window.Show();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            var window = new ReservationReqeusts(User);
             window.Show();
         }
     }

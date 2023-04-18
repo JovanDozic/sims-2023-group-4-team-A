@@ -14,13 +14,13 @@ using System.Windows.Shapes;
 using SIMSProject.Observer;
 using SIMSProject.Controller;
 using System.Collections.ObjectModel;
-using SIMSProject.View.Guest1;
+using SIMSProject.WPF.Views.Guest1;
 using System.Runtime.CompilerServices;
 using System.ComponentModel;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.Models.AccommodationModels;
 
-namespace SIMSProject.View.Guest1
+namespace SIMSProject.WPF.Views.Guest1
 {
     /// <summary>
     /// Interaction logic for AccommodationSearchAndShowForm.xaml
@@ -145,7 +145,7 @@ namespace SIMSProject.View.Guest1
 
         private void Button_Click_Reservations(object sender, RoutedEventArgs e)
         {
-            var openReservations = new AccommodationReservationList();
+            var openReservations = new AccommodationReservationList(User);
             openReservations.Show();
         }
     }

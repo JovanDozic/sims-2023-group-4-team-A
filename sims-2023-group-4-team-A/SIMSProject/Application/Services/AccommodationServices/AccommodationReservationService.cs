@@ -1,9 +1,11 @@
 ﻿using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
 namespace SIMSProject.Application.Services.AccommodationServices
@@ -20,15 +22,23 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
             UpdatePassedReservationNotifications();
         }
-
         public List<AccommodationReservation> GetAll()
         {
             return _repo.GetAll();
+        }
+        public List<AccommodationReservation> GetAllUncancelled(User user)
+        {
+            return _repo.GetAll().Where(r => !r.Canceled && r.Guest.Id == user.Id).ToList();
         }
 
         public List<AccommodationReservation> GetAllByAccommodationId(int accommodationId)
         {
             return _repo.GetAllByAccommodationId(accommodationId);
+        }
+
+        public void UpdateReservation(AccommodationReservation selectedReservation)
+        {
+            _repo.Update(selectedReservation);
         }
 
         private void UpdatePassedReservationNotifications()

@@ -13,6 +13,7 @@ namespace SIMSProject.Model
         public DateTime NewEndDate { get; set; }
         public string OwnerComment { get; set; } = string.Empty;
         public ReschedulingRequestStatus Status { get; set; }
+        public string RequestDetails { get; set; }
 
         public static ReschedulingRequestStatus GetStatus(string status)
         {

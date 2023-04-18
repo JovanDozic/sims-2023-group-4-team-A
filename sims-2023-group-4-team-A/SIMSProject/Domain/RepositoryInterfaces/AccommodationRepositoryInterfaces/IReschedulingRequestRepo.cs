@@ -9,6 +9,7 @@ namespace SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfa
         public ReschedulingRequest GetById(int requestId);
         public List<ReschedulingRequest> GetAllByOwnerId(int ownerId);
         public List<ReschedulingRequest> GetAll();
+        public List<ReschedulingRequest> GetAllByGuestId(int guestId);
         public int NextId();
         public ReschedulingRequest Save(ReschedulingRequest request);
         public void SaveAll(List<ReschedulingRequest> requests);

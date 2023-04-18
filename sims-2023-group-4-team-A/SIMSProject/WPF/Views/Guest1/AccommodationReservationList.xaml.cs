@@ -1,0 +1,91 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using SIMSProject.Model;
+using SIMSProject.Observer;
+using SIMSProject.Controller;
+using SIMSProject.Domain.Models.AccommodationModels;
+using SIMSProject.WPF.Views.Guest1;
+using SIMSProject.WPF.ViewModels.AccommodationViewModels;
+using SIMSProject.Domain.Models.UserModels;
+
+namespace SIMSProject.WPF.Views.Guest1
+{
+    /// <summary>
+    /// Interaction logic for AccommodationReservationList.xaml
+    /// </summary>
+    public partial class AccommodationReservationList : Window
+    {
+        private readonly User _user;
+        private readonly AccommodationReservationViewModel _accommodationReservationViewModel;
+        public AccommodationReservationList(User user)
+        {
+            InitializeComponent();
+            _user = user;
+            _accommodationReservationViewModel = new(_user);
+            DataContext = _accommodationReservationViewModel;
+            
+        }
+        private void Button_Click_Cancellation(object sender, RoutedEventArgs e)
+        {
+            if (!_accommodationReservationViewModel.IsSelected())
+            {
+                MessageBox.Show("Morate da odaberete rezervaciju!");
+                return;
+            }
+
+            if (!_accommodationReservationViewModel.IsDateValid())
+            {
+                MessageBox.Show("Rezervaciju je moguće otkazati najkasnije 24h pre dolaska.");
+                return;
+            }
+
+            MessageBoxResult result = MessageBox.Show("Da li ste sigurni da želite da otkažete rezervaciju?", "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                _accommodationReservationViewModel.CancelReservation();
+                _accommodationReservationViewModel.Update();
+                _accommodationReservationViewModel.SendNotification();
+                MessageBox.Show("Rezervacija je otkazana!");
+                Close();
+            }
+        }
+        private void Button_Click_Close(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Button_Click_Reschedule(object sender, RoutedEventArgs e)
+        {
+            if (!_accommodationReservationViewModel.IsSelected())
+            {
+                MessageBox.Show("Morate da odaberete rezervaciju!");
+                return;
+            }
+            if(_accommodationReservationViewModel.IsReservationInPast())
+            {
+                MessageBox.Show("Nije moguće pomeriti izabranu rezervaciju!");
+                return;
+            }
+            if (_accommodationReservationViewModel.IsReservationOnStandBy())
+            {
+                MessageBox.Show("Zahtev za ovu rezervaciju je već poslat!");
+                return;
+            }
+            var window = new MovingReservations(_accommodationReservationViewModel.SelectedReservation);
+            window.Show();
+        }
+    }
+}

@@ -4,12 +4,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" Icon="../../../Resources/Images/Stars.png"
-        Title="Gost" Height="450" Width="800">
+        Title="Gost" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
     <Grid>
 
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            
+        </Grid.ColumnDefinitions>
 
-            <Button Width="160" Height="40" Margin="30" HorizontalContentAlignment="Left"
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        
+
+            <Button  Width="160" Height="40" Margin="30" HorizontalContentAlignment="Left"
                     Click="OpenAccommodations_Click">
                 <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                     <Image Source="../../../Resources/Images/home.png" Width="20" Height="20" Margin="0,0,5,0" />
@@ -17,7 +30,11 @@
                 </StackPanel>
             </Button>
 
-            <Button Width="160" Height="40" Margin="30" HorizontalContentAlignment="Left"
+        <Button Grid.Column="1" Width="160" Height="40" Content="Ocenjivanje smeštaja" Click="Button_Click"></Button>
+        <Button Grid.Column="2" Width="160" Height="40" Content="Zahtevi za pomeranje"
+                VerticalAlignment="Center" HorizontalAlignment="Center" Click="Button_Click_1"></Button>
+
+            <Button Grid.Row="1" Width="160" Height="40" Margin="30" HorizontalContentAlignment="Left"
                     Click="OpenTours_Click">
                 <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                     <Image Source="../../../Resources/Images/checkboxlist.png" Width="20" Height="20" Margin="0,0,5,0" />
@@ -25,7 +42,6 @@
                 </StackPanel>
             </Button>
 
-        </StackPanel>
 
     </Grid>
 </Window>

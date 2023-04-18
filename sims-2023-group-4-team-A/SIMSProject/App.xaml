@@ -12,6 +12,19 @@
             <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#99ff0000"></TextBlock>
         </StackPanel>
     </ControlTemplate>
+        <Style TargetType="Button" x:Key="SideMenuButton">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="TextElement.FontFamily" Value="Candara Light"/>
+            <Setter Property="TextBlock.Foreground" Value="LightGray"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF212734"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
     
 </Application>
