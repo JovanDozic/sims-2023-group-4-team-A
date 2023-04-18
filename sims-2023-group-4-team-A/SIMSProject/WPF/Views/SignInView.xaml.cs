@@ -41,13 +41,16 @@ namespace SIMSProject.WPF.Views
             Close();
         }
 
-        private void BtnGoToGuest_Click(object sender, RoutedEventArgs e)
+        private void BtnGoToGuest1_Click(object sender, RoutedEventArgs e)
         {
             _signInViewModel.DirectSignIn("marko", "marko");
             Close();
-            // Or use this:
-            // _signInViewModel.DirectSignIn("anja", "anja");
-            // Close();
+        }
+
+        private void BtnGoToGuest2_Click(object sender, RoutedEventArgs e)
+        {
+            _signInViewModel.DirectSignIn("anja", "anja");
+            Close();
         }
 
         private void BtnGoToGuide_Click(object sender, RoutedEventArgs e)

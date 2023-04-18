@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" KeyDown="Window_KeyDown"
-        Title="Sign in" Height="300" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Sign in" Height="300" Width="600" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
 
         <Grid.RowDefinitions>
@@ -47,19 +47,24 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
             <Button x:Name="BtnGoToOwner" Content="Go to owner" Margin="5,9,5,9"
                     FontSize="16"
                     Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"
                     Width="120" Height="35" BorderBrush="#FFDADADA" Background="#FFFBFBFB" Click="BtnGoToOwner_Click" />
-            <Button x:Name="BtnGoToGuest" Content="Go to guest" Margin="5,9,5,9"
+            <Button x:Name="BtnGoToGuest1" Content="Go to guest 1" Margin="5,9,5,9"
                     FontSize="16"
                     Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
-                    Width="120" Height="35" BorderBrush="#FFDADADA" Background="#FFFBFBFB" Click="BtnGoToGuest_Click" />
-            <Button x:Name="BtnGoToGuide" Content="Go to guide" Margin="5,9,5,9"
+                    Width="120" Height="35" BorderBrush="#FFDADADA" Background="#FFFBFBFB" Click="BtnGoToGuest1_Click" />
+            <Button x:Name="BtnGoToGuest2" Content="Go to guest 2" Margin="5,9,5,9"
                     FontSize="16"
                     Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Width="120" Height="35" BorderBrush="#FFDADADA" Background="#FFFBFBFB" Click="BtnGoToGuest2_Click" />
+            <Button x:Name="BtnGoToGuide" Content="Go to guide" Margin="5,9,5,9"
+                    FontSize="16"
+                    Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"
                     Width="120" Height="35" BorderBrush="#FFDADADA" Background="#FFFBFBFB" Click="BtnGoToGuide_Click" />
         </Grid>
 

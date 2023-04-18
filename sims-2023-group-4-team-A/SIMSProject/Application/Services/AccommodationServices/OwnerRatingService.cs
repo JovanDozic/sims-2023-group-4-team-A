@@ -71,6 +71,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
             if (user is not Owner owner) return false;
             return CountAllByOwnerId(owner.Id) >= Consts.SuperOwnerMinimumRatingCount && owner.Rating >= Consts.SuperOwnerMinimumRating;
         }
+
         public Owner GetOwnerById(int ownerId)
         {
             return _ownerRepo.GetById(ownerId);
