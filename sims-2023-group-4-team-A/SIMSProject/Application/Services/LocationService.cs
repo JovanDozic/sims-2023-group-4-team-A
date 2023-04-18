@@ -1,5 +1,7 @@
 ﻿using SIMSProject.Domain.Models;
 using SIMSProject.Domain.RepositoryInterfaces;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace SIMSProject.Application.Services
 {
@@ -10,6 +12,11 @@ namespace SIMSProject.Application.Services
         public LocationService(ILocationRepo repo)
         {
             _repo = repo;
+        }
+
+        public List<Location> FindAll()
+        {
+            return _repo.GetAll();
         }
 
         public Location GetLocation(string city, string country)

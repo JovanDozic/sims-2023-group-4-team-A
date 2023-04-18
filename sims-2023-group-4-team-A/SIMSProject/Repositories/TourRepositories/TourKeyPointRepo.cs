@@ -1,20 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
 using SIMSProject.FileHandler;
 using SIMSProject.Observer;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SIMSProject.Model.DAO
+namespace SIMSProject.Repositories.TourRepositories
 {
-    public class TourKeyPointDAO : ISubject
+    public class TourKeyPointRepo: ITourKeyPointRepo
     {
-        private readonly List<IObserver> _observers;
         private readonly TourKeyPointFileHandler _fileHandler;
         private List<TourKeyPoint> _tourKeyPoints;
 
-        public TourKeyPointDAO()
+        public TourKeyPointRepo()
         {
             _fileHandler = new TourKeyPointFileHandler();
             _tourKeyPoints = _fileHandler.Load();
-            _observers = new List<IObserver>();
         }
 
         public List<TourKeyPoint> GetAll()
@@ -26,7 +30,6 @@ namespace SIMSProject.Model.DAO
         {
             _tourKeyPoints.Add(tourKeyPoint);
             _fileHandler.Save(_tourKeyPoints);
-            NotifyObservers();
             return tourKeyPoint;
         }
 
@@ -34,26 +37,6 @@ namespace SIMSProject.Model.DAO
         {
             _fileHandler.Save(tourKeyPoints);
             _tourKeyPoints = tourKeyPoints;
-            NotifyObservers();
-        }
-
-        // [OBSERVERS]
-        public void NotifyObservers()
-        {
-            foreach (var observer in _observers)
-            {
-                observer.Update();
-            }
-        }
-
-        public void Subscribe(IObserver observer)
-        {
-            _observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            _observers.Remove(observer);
         }
     }
 }
