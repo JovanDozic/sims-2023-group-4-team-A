@@ -1,4 +1,6 @@
-﻿using SIMSProject.Domain.Models;
+﻿using SIMSProject.Application.Services;
+using SIMSProject.Domain.Injectors;
+using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
@@ -12,8 +14,10 @@ namespace SIMSProject.WPF.ViewModels.OwnerViewModels
         private readonly User _user;
         public readonly AccommodationViewModel _accommodationViewModel;
         private readonly AccommodationReservationViewModel _reservationViewModel;
+        private readonly NotificationService _notificationService;
         private ObservableCollection<Accommodation> _accommodations = new();
         private ObservableCollection<AccommodationReservation> _selectedAccommodationReservations = new();
+        private string _notificationIconSource = string.Empty;
 
         public Accommodation SelectedAccommodation { get; set; } = new();
         public AccommodationReservation SelectedReservation { get; set; } = new();
@@ -37,14 +41,27 @@ namespace SIMSProject.WPF.ViewModels.OwnerViewModels
                 OnPropertyChanged();
             }
         }
+        public string NotificationIconSource
+        {
+            get => _notificationIconSource;
+            set
+            {
+                if (_notificationIconSource == value) return;
+                _notificationIconSource = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public OwnerHomeViewModel(User user)
         {
             _user = user;
             _accommodationViewModel = new(_user);
             _reservationViewModel = new(_user);
+            _notificationService = Injector.GetService<NotificationService>();
 
             LoadAccommodations();
+            SetNotificationIcon();
         }
 
         public void LoadReservations()
@@ -57,6 +74,12 @@ namespace SIMSProject.WPF.ViewModels.OwnerViewModels
         {
             if (Accommodations == null) return;
             Accommodations = _accommodationViewModel.LoadAccommodationsByOwner();
+        }
+
+        public void SetNotificationIcon()
+        {
+            if (_notificationService.AnyUnreadNotifications(_user)) NotificationIconSource = "../../../Resources/Images/NotificationAlert.png";
+            else NotificationIconSource = "../../../Resources/Images/NotificationAlertNoColor.png";
         }
 
         public bool IsGuestRatingEnabled()

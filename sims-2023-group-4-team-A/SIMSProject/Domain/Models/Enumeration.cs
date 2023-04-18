@@ -21,4 +21,15 @@
         Accepted,
         Rejected
     }
+
+    public enum NotificationAction
+    {
+        None = 0,
+        YesNo,
+        Ok,
+        RateGuest,  // Yes or no
+        RateOwner   // Yes or no
+    }
+
+    
 }

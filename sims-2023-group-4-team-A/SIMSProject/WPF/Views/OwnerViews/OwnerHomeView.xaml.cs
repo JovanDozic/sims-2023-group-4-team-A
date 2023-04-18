@@ -84,5 +84,21 @@ namespace SIMSProject.WPF.Views.OwnerViews
             };
             popupWindow.ShowDialog();
         }
+
+        private void BtnNotifications_Click(object sender, RoutedEventArgs e)
+        {
+            var popupWindow = new Window
+            {
+                Title = "Obaveštenja",
+                Height = 450,
+                Width = 600,
+                Top = (SystemParameters.FullPrimaryScreenHeight - 450) / 2,
+                Left = (SystemParameters.FullPrimaryScreenWidth - 600) / 2,
+                ResizeMode = ResizeMode.NoResize,
+                WindowStyle = WindowStyle.SingleBorderWindow,
+                Content = new OwnerNotificationView(_user)
+            };
+            popupWindow.ShowDialog();
+        }
     }
 }

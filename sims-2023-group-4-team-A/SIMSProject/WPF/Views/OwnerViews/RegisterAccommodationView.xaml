@@ -164,7 +164,7 @@
         <Button x:Name="BtnCancel" 
                 Grid.Row="9" Grid.ColumnSpan="2" IsCancel="True"
                 Content="Otkaži" FontSize="16" Padding="15,3,15,3" Width="100" Height="35"
-                Margin="150,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                Margin="150,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="BtnCancel_Click"/>
 
     </Grid>
 </Window>
