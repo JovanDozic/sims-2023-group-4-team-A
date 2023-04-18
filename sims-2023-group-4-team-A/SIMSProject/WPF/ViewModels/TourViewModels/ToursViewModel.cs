@@ -41,7 +41,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
 
         public void Search(string locationAndLanguage, int searchDuration, int searchMaxGuests)
         {
-           // _tourService.SearchTours(locationAndLanguage, searchDuration, searchMaxGuests, Tours);
+           _tourService.SearchTours(locationAndLanguage, searchDuration, searchMaxGuests, Tours);
         }
 
         public bool IsSelected()

@@ -52,7 +52,7 @@ namespace SIMSProject.Domain.Models.TourModels
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Guest.Id.ToString(), Reason.ToString(), Expiration.ToString() };
+            string[] csvValues = { Id.ToString(), Guest.Id.ToString(), Reason.ToString(), Expiration.ToString(), Used.ToString() };
             return csvValues;
         }
 
