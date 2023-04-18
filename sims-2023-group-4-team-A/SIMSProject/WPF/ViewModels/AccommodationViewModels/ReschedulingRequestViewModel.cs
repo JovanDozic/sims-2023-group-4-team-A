@@ -19,6 +19,16 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private AccommodationReservationViewModel _accommodationReservationViewModel;
         public ObservableCollection<ReschedulingRequest> Requests { get; set; } = new();
         public object RequestsCombo { get; private set; }
+        public AccommodationReservation Reservation
+        {
+            get => _request.Reservation;
+            set
+            {
+                if (_request.Reservation == value) return;
+                _request.Reservation = value;
+                OnPropertyChanged();
+            }
+        }
         public ReschedulingRequest SelectedRequest
         {
             get => _selectedRequest;
@@ -142,9 +152,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             return SelectedRequest != null;
         }
-        public string GetRequestStatus()
-        {
-            return SelectedRequest.Status.ToString();
-        }
+        
     }
 }

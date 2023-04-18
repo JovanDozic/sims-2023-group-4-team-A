@@ -38,7 +38,7 @@ namespace SIMSProject.WPF.Views.Guest1
         {
             if (_reschedulingRequestViewModel.IsSelected())
             {
-                RequestStatusTB.Text = _reschedulingRequestViewModel.GetRequestStatus();
+                //RequestStatusTB.Text = _reschedulingRequestViewModel.GetRequestStatus().Status.ToString();
                 CommentTB.Text = _reschedulingRequestViewModel.SelectedRequest.OwnerComment;
             }
         }
