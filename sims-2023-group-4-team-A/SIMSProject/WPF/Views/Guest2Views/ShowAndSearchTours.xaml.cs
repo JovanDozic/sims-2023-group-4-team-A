@@ -20,16 +20,12 @@ namespace SIMSProject.View.Guest2
         public int DurationSearchBox;
         public int MaxGuestSearchBox;
         
-        private readonly VoucherController VoucherController = new();
-
         public ShowAndSearchTours(Guest user)
         {
             InitializeComponent();
             _user = user;
             _tourViewModel = new ToursViewModel();
             this.DataContext = _tourViewModel;
-
-            VoucherController.DeleteExpired();
         }
 
         private void Search_Click(object sender, RoutedEventArgs e)

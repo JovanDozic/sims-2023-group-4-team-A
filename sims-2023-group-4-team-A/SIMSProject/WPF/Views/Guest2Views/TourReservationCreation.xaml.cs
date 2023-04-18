@@ -117,7 +117,7 @@ namespace SIMSProject.View.Guest2
         }
         private void ReserveTour(TourReservation tourReservation, TourAppointment tourDate, int guestsForReservation)
         {
-            tourReservation.TourAppointment.Id = tourDate.TourId;
+            tourReservation.TourAppointment.Id = tourDate.Id;
             tourReservation.GuestId = User.Id;
             tourReservation.GuestNumber = guestsForReservation;
             _tourReservationService.Save(tourReservation);
