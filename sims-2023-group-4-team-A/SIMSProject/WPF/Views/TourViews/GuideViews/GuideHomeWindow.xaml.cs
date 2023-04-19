@@ -3,6 +3,7 @@ using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.Views;
 using SIMSProject.WPF.Views.TourViews.GuideViews;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -47,6 +48,13 @@ namespace SIMSProject.View.GuideViews
         private void ReviewBTN_Click(object sender, RoutedEventArgs e)
         {
             frame.Content = new TourReviewsPage();   
+        }
+
+        private void Sign_outBTN_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new SignInView();
+            window.Show();
+            this.Close();
         }
     }
 }
