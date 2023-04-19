@@ -165,17 +165,26 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             foreach (var reservation in _reservationService.GetAll())
             {
-                if (reservation.EndDate < DateTime.Today &&
-                    reservation.EndDate.AddDays(5) >= DateTime.Today &&
-                    !reservation.Canceled &&
-                    reservation.Guest.Id == _user.Id &&
-                    !reservation.OwnerRated)     
+                if (IsRatingPossible(reservation, _user))     
                 {
-                    reservation.ReservationDetails = string.Format("{0} ({1} - {2})", reservation.Accommodation.Name, reservation.StartDate.ToShortDateString(), reservation.EndDate.ToShortDateString());
+                    SetReservationDetails(reservation);
                     Reservations.Add(reservation);
                 }
             }
             ReservationsCombo = Reservations;
+        }
+
+        public void SetReservationDetails(AccommodationReservation reservation)
+        {
+            reservation.ReservationDetails = string.Format("{0} ({1} - {2})", reservation.Accommodation.Name, reservation.StartDate.ToShortDateString(), reservation.EndDate.ToShortDateString());
+        }
+        public bool IsRatingPossible(AccommodationReservation reservation, User user)
+        {
+            return (reservation.EndDate < DateTime.Today &&
+                    reservation.EndDate.AddDays(5) >= DateTime.Today &&
+                    !reservation.Canceled &&
+                    reservation.Guest.Id == user.Id &&
+                    !reservation.OwnerRated);        
         }
 
         public string GetOwnerUsername()
