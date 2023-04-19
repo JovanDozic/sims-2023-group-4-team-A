@@ -34,6 +34,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
         public List<AccommodationReservation> GetAllByAccommodationId(int accommodationId)
         {
+            _repo.Load();
             return _repo.GetAllByAccommodationId(accommodationId);
         }
 

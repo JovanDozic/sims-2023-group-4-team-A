@@ -2,6 +2,7 @@
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using SIMSProject.FileHandlers.AccommodationFileHandlers;
+using SIMSProject.Repositories.UserRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,16 @@ namespace SIMSProject.Repositories.AccommodationRepositories
         public AccommodationReservationRepo(IAccommodationRepo accommodationRepo, IGuestRepo guestRepo)
         {
             _fileHandler = new();
-            _reservations = _fileHandler.Load();
+            _reservations = new();
             _accommodationRepo = accommodationRepo;
             _guestRepo = guestRepo;
+
+            Load();
+        }
+
+        public void Load()
+        {
+            _reservations = _fileHandler.Load();
 
             MapAccommodations();
             MapGuests();
@@ -40,6 +48,7 @@ namespace SIMSProject.Repositories.AccommodationRepositories
         {
             return _reservations.Find(x => x.Id == reservationId);
         }
+
 
         public int NextId()
         {

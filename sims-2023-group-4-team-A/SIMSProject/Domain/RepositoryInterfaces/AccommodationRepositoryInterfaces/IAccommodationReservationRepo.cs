@@ -5,6 +5,7 @@ namespace SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfa
 {
     public interface IAccommodationReservationRepo
     {
+        public void Load();
         public AccommodationReservation GetById(int reservationId);
         public List<AccommodationReservation> GetAllByAccommodationId(int accommodationId);
         public List<AccommodationReservation> GetAll();

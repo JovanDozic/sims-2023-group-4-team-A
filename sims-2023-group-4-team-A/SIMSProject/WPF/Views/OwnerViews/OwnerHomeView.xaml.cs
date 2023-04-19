@@ -31,6 +31,7 @@ namespace SIMSProject.WPF.Views.OwnerViews
         {
             ReschedulingRequestsView window = new(_user);
             window.ShowDialog();
+            _viewModel.LoadReservations();
         }
 
         private void DgrAccommodations_SelectionChanged(object sender, SelectionChangedEventArgs e)

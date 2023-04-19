@@ -100,6 +100,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
         public ObservableCollection<AccommodationReservation> LoadReservationsByAccommodation(Accommodation accommodation)
         {
+
             return new ObservableCollection<AccommodationReservation>(_reservationService.GetAllByAccommodationId(accommodation.Id));
         }
     }
