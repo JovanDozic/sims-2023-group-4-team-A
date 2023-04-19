@@ -32,12 +32,15 @@ namespace SIMSProject.View.Guest2
         {
             foreach (var tourGuest in _tourViewModel.GetPendingTourGuests(_user))
             {
-                if(MessageBox.Show("Potvrdite prisustvo na " + tourGuest.TourAppointment.Tour.Name
+                if(tourGuest.TourAppointment.TourStatus == Domain.Models.TourModels.Status.ACTIVE)
+                {
+                    if (MessageBox.Show("Potvrdite prisustvo na " + tourGuest.TourAppointment.Tour.Name
                     + " turi, u terminu " + tourGuest.TourAppointment.Date.ToString() + ".",
                     "Potvrdite prisustvo",
                     MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    _tourViewModel.ConfirmTourGuestAttendance(tourGuest);
+                    {
+                        _tourViewModel.ConfirmTourGuestAttendance(tourGuest);
+                    }
                 }
             }
         }
