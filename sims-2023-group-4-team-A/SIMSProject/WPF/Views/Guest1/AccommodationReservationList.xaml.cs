@@ -84,7 +84,7 @@ namespace SIMSProject.WPF.Views.Guest1
                 MessageBox.Show("Zahtev za ovu rezervaciju je već poslat!");
                 return;
             }
-            var window = new MovingReservations();
+            var window = new MovingReservations(_accommodationReservationViewModel.SelectedReservation);
             window.Show();
         }
     }

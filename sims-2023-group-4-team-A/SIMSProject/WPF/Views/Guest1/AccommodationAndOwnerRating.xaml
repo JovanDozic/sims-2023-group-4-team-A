@@ -42,10 +42,10 @@
                       DisplayMemberPath="ReservationDetails"
                       Grid.Row="2" Height="45" Width="397" 
                       VerticalAlignment="Center"
-                      HorizontalAlignment="Left"
-                      SelectionChanged="ReservationsCombo_SelectionChanged">
+                      HorizontalAlignment="Left">
             </ComboBox>
             <TextBlock Grid.Row="2" Height="50" Width="350" Grid.Column="2" x:Name="OwnerNameTextBlock"
+                       Text="{Binding SelectedReservation.Accommodation.Owner.Username}"
                        HorizontalAlignment="Left" VerticalAlignment="Center"
                        FontSize="30" FontWeight="Bold" FontStyle="Italic"></TextBlock>
             <Label Grid.Row="3" Content="Cistoća:" HorizontalAlignment="Left" VerticalAlignment="Bottom"

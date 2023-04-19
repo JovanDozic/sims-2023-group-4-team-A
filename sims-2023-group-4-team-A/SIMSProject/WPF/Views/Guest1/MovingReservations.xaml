@@ -44,7 +44,7 @@
         <Label Content="Izabrani smestaj:" Grid.Row="1" HorizontalAlignment="Center"
                VerticalAlignment="Center" FontSize="30"></Label>
         <TextBlock x:Name="NameBlock" Grid.Row="2"
-                   Text="{Binding Reservation,UpdateSourceTrigger=PropertyChanged}"
+                   Text="{Binding Reservation.Accommodation.Name,UpdateSourceTrigger=PropertyChanged}"
                    VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="30"
                    FontWeight="Bold" FontStyle="Italic"></TextBlock>
 
@@ -53,6 +53,7 @@
         <TextBlock x:Name="DateBlock"
                    FontSize="30" FontWeight="Bold"
                    FontStyle="Italic"
+                   Text="{Binding DisplayDate}"
                    Grid.Row="2" Grid.Column="1"></TextBlock>
 
         <Label Grid.ColumnSpan="2" Content="Unesite novo vreme rezervacije:"

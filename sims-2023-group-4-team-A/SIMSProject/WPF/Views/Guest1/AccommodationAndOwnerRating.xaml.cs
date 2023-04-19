@@ -22,15 +22,8 @@ namespace SIMSProject.WPF.Views.Guest1
             _ownerRatingViewModel = new(User, _accommodationReservation);
             DataContext = _ownerRatingViewModel;
             _ownerRatingViewModel.AddReservationsToCombo();
-           
         }
-        private void ReservationsCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (_ownerRatingViewModel.IsSelected())
-            {
-                OwnerNameTextBlock.Text = _ownerRatingViewModel.GetOwnerUsername(); 
-            }  
-        }
+        
         private void Button_Click_Upload(object sender, RoutedEventArgs e)
         {
             _ownerRatingViewModel.UploadImage(ImageUrlTB.Text);

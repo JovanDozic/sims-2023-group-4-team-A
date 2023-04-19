@@ -20,7 +20,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
         public ObservableCollection<ReschedulingRequest> Requests { get; set; } = new();
         public object RequestsCombo { get; private set; } = new();
-
+        public string DisplayDate { get; set; } = string.Empty;
         public AccommodationReservation Reservation
         {
             get => _request.Reservation;
@@ -91,6 +91,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             Requests = new();
             Reservation = reservation;
             NewStartDate = DateTime.Today.AddDays(1);
+            DisplayDate = GetDateRange();
         }
 
         public void LoadRequestsByOwner()
@@ -131,14 +132,9 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             return _accommodationReservationViewModel.SelectedReservation;
         }
 
-        public int AddDays()
+        public int GetDaysNumber()
         {
             return Reservation.NumberOfDays;
-        }
-
-        public int SubDays()
-        {
-            return -Reservation.NumberOfDays;
         }
 
         public string DisplayName()
@@ -146,10 +142,17 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             return Reservation.Accommodation.Name;
         }
 
-        public string DisplayDate()
+        public string GetDateRange()
         {
-            return Reservation.StartDate.ToString("dd/MM/yyyy.") + " - "
-                + Reservation.EndDate.ToString("dd/MM/yyyy.");
+            if (Reservation != null)
+            {
+                return Reservation.StartDate.ToString("dd/MM/yyyy.") + " - "
+                    + Reservation.EndDate.ToString("dd/MM/yyyy.");
+            }
+            else
+            {
+                return "";
+            }
         }
 
         public void AddRequestsToCombo()
@@ -167,7 +170,38 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             }
             RequestsCombo = Requests;
         }
+        public DateTime? GetUpdatedEndDate(DateTime? selectedStartDate)
+        {
+            if (selectedStartDate.HasValue && selectedStartDate.Value != DateTime.MinValue)
+            {
+                return selectedStartDate.Value.AddDays(Reservation.NumberOfDays);
+            }
 
+            return null;
+        }
+        public DateTime? GetUpdatedStartDate(DateTime? selectedEndDate)
+        {
+            if (selectedEndDate.HasValue && selectedEndDate.Value != DateTime.MinValue)
+            {
+                return selectedEndDate.Value.AddDays(-Reservation.NumberOfDays);
+            }
+
+            return null;
+        }
+        public void LoadFirstDatePicker(object sender)
+        {
+            if (sender is DatePicker datePicker)
+            {
+                datePicker.DisplayDateStart = DateTime.Today.AddDays(1);
+            }
+        }
+        public void LoadSecondDatePicker(object sender)
+        {
+            if (sender is DatePicker datePicker)
+            {
+                datePicker.DisplayDateStart = DateTime.Today.AddDays(Reservation.NumberOfDays + 1);
+            }
+        }
         public bool IsSelected()
         {
             return SelectedRequest != null;
