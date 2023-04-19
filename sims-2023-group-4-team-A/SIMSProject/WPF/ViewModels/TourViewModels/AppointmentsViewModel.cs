@@ -1,22 +1,22 @@
-﻿using SIMSProject.Application.Services.TourServices;
+﻿using SIMSProject.Application.Services;
+using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
-using System;
+using SIMSProject.Domain.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels
 {
-    public class AppointmentsViewModel: ViewModelBase
+    public class AppointmentsViewModel : ViewModelBase
     {
         private readonly TourAppointmentService _tourAppointmentService;
         private readonly VoucherSevice _voucherService;
         private readonly TourGuestService _tourGuestService;
         private readonly TourService _tourService;
+        private readonly NotificationService _notificationService;
 
         public BaseTourViewModel Tour { get; set; }
         public BaseAppointmentViewModel Appointment { get; set; }
@@ -59,6 +59,8 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             _voucherService = Injector.GetService<VoucherSevice>();
             _tourGuestService = Injector.GetService<TourGuestService>();
             _tourService = Injector.GetService<TourService>();
+            _notificationService = Injector.GetService<NotificationService>();
+
 
             Appointments = new(_tourAppointmentService.GetTodays(tour));
             Tour = new(tour);
@@ -128,8 +130,14 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
 
         public void SignUpGuest()
         {
-                _tourGuestService.SignUpGuest(SelectedGuest.Guest.Id, Appointment.Id);
-                MessageBox.Show("Gost prijavljen!");
+            _tourGuestService.SignUpGuest(SelectedGuest.Guest.Id, Appointment.Id);
+
+            string title = "Potvrda prisustva";
+            string description = $"{Appointment.TourAppointment.Guide} želi da potvrdi vaše prisustvo na turi:{Appointment.TourAppointment.Date}";
+
+            var notification = new Notification(SelectedGuest.Guest, title, description, null);
+            _notificationService.CreateNotification(notification);
+            MessageBox.Show("Gost prijavljen!");
         }
     }
 }
