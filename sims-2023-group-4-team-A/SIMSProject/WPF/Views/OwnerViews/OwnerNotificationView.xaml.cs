@@ -35,10 +35,5 @@ namespace SIMSProject.WPF.Views.OwnerViews
         {
             BtnOpenNotification.IsEnabled = _viewModel.SelectedNotification != null;
         }
-
-        private void DgrNotifications_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            BtnOpenNotification_Click(sender, e);
-        }
     }
 }

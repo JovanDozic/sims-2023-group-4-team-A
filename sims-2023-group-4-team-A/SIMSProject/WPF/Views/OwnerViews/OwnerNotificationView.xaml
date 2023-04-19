@@ -24,8 +24,7 @@
                   SelectedItem="{Binding SelectedNotification}"
                   AutoGenerateColumns="False"
                   Height="250" Margin="20,0,20,0"
-                  IsReadOnly="True" SelectionChanged="DgrNotifications_SelectionChanged"
-                  MouseDoubleClick="DgrNotifications_MouseDoubleClick">
+                  IsReadOnly="True" SelectionChanged="DgrNotifications_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="30" />
                 <DataGridTextColumn Header="Naslov" Binding="{Binding Title}" />
