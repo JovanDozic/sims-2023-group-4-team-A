@@ -1,6 +1,4 @@
-﻿using SIMSProject.Model;
-
-namespace SIMSProject.Domain.Models.UserModels
+﻿namespace SIMSProject.Domain.Models.UserModels
 {
     public class User
     {
@@ -11,7 +9,6 @@ namespace SIMSProject.Domain.Models.UserModels
 
         public User()
         {
-
         }
 
         public static UserRole GetRole(string role)

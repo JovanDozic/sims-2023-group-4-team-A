@@ -6,8 +6,6 @@ using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Model;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
@@ -19,8 +17,10 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private ReschedulingRequestService _service;
         private ReschedulingRequest _selectedRequest = new();
         private AccommodationReservationViewModel _accommodationReservationViewModel;
+
         public ObservableCollection<ReschedulingRequest> Requests { get; set; } = new();
         public object RequestsCombo { get; private set; } = new();
+
         public AccommodationReservation Reservation
         {
             get => _request.Reservation;
@@ -122,6 +122,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
         public void SendRequest()
         {
+            _request.Status = ReschedulingRequestStatus.Waiting;
             _service.SaveRequest(_request);
         }
 
@@ -160,11 +161,10 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                     continue;
                 }
 
-                req.RequestDetails = String.Format("{0}, ({1} - {2})", req.Reservation.Accommodation.Name,
+                req.RequestDetails = string.Format("{0}, ({1} - {2})", req.Reservation.Accommodation.Name,
                     req.Reservation.StartDate.ToShortDateString(), req.Reservation.EndDate.ToShortDateString());
                 Requests.Add(req);
             }
-            MessageBox.Show(Requests.Count.ToString());
             RequestsCombo = Requests;
         }
 
@@ -172,6 +172,5 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             return SelectedRequest != null;
         }
-        
     }
 }

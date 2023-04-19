@@ -10,8 +10,6 @@ namespace SIMSProject.WPF.Views.OwnerViews
         private User _user;
         private readonly GuestRatingViewModel _viewModel;
 
-        public GuestRating GuestRating { get; set; } = new();
-
         public RateGuestView(User user, AccommodationReservation reservation)
         {
             InitializeComponent();

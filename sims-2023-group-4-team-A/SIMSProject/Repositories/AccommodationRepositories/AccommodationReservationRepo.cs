@@ -1,7 +1,7 @@
 ﻿using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
-using SIMSProject.FileHandler;
+using SIMSProject.FileHandlers.AccommodationFileHandlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

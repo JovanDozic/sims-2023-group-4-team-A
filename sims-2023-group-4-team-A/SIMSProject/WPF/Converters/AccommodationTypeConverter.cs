@@ -21,5 +21,4 @@ namespace SIMSProject.WPF.Converters
             return null;
         }
     }
-
 }

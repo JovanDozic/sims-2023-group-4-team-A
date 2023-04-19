@@ -4,7 +4,6 @@ using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Serializer;
 
-
 namespace SIMSProject.Domain.Models.UserModels
 {
     public class Guide : User, ISerializable
@@ -27,11 +26,6 @@ namespace SIMSProject.Domain.Models.UserModels
             Rating = rating;
         }
 
-        public override string ToString()
-        {
-            return $"{Username}";
-        }
-
         public string[] ToCSV()
         {
             string[] csvValues =
@@ -52,6 +46,10 @@ namespace SIMSProject.Domain.Models.UserModels
             Password = values[2];
             Role = GetRole(values[3]);
             Rating = double.Parse(values[4]);
+        }
+        public override string ToString()
+        {
+            return $"{Username}";
         }
     }
 }

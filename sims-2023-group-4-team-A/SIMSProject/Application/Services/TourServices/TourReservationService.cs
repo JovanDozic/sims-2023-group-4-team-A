@@ -1,5 +1,5 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
-using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
+using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

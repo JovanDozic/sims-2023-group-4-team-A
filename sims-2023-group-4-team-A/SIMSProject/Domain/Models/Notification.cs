@@ -14,7 +14,9 @@ namespace SIMSProject.Domain.Models
         public DateTime? ExpirationDate { get; set; } = null;
         public bool IsRead { get; set; }
 
-        public Notification() { }
+        public Notification() 
+        { 
+        }
 
         public Notification(User user, string title, string description, DateTime? expirationDate = null)
         {
@@ -53,6 +55,5 @@ namespace SIMSProject.Domain.Models
             ExpirationDate = DateTime.TryParse(values[i++], out DateTime result) ? result : null;
             IsRead = bool.Parse(values[i++]);
         }
-
     }
 }

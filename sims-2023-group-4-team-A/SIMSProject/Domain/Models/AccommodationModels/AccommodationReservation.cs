@@ -14,10 +14,10 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public int NumberOfDays { get; set; }
         public int GuestNumber { get; set; }
         public bool GuestRated { get; set; } = false;
-        public bool RateGuestNotifSent { get; set; } = false;
+        public bool RateGuestNotificationSent { get; set; } = false;
         public bool OwnerRated { get; set; } = false;
         public bool Canceled { get; set; } = false;
-        public string ReservationDetails { get; set; }
+        public string ReservationDetails { get; set; } = string.Empty;
 
         public AccommodationReservation()
         {
@@ -47,7 +47,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
                 NumberOfDays.ToString(),
                 GuestNumber.ToString(),
                 GuestRated.ToString(),
-                RateGuestNotifSent.ToString(),
+                RateGuestNotificationSent.ToString(),
                 OwnerRated.ToString(),
                 Canceled.ToString()
             };
@@ -64,14 +64,16 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             NumberOfDays = int.Parse(values[5]);
             GuestNumber = int.Parse(values[6]);
             GuestRated = bool.Parse(values[7]);
-            RateGuestNotifSent = bool.Parse(values[8]);
+            RateGuestNotificationSent = bool.Parse(values[8]);
             OwnerRated = bool.Parse(values[9]);
             Canceled = bool.Parse(values[10]);
         }
 
         public override string? ToString()
         {
-            return "Rezervacija (id: " + Id + ") od <" + StartDate.ToString("dd.MM.yy") + "> do <" + EndDate.ToString("dd.MM.yy") + "> za gosta <" + Guest.Id + ">" + "(gost " + (GuestRated ? "je" : "nije") + " ocenjen)";
+            return $"Rezervacija (id: {Id}) " +
+                   $"od <{StartDate:dd.MM.yy}> do <{EndDate:dd.MM.yy}> " +
+                   $"za gosta <{Guest.Id}> (gost {(GuestRated ? "je" : "nije")} ocenjen)";
         }
     }
 }

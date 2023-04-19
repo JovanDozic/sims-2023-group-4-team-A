@@ -12,6 +12,5 @@ namespace SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfa
         public int NextId();
         public Accommodation Save(Accommodation accommodation);
         public void SaveAll(List<Accommodation> accommodations);
-
     }
 }

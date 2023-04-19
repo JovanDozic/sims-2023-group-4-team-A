@@ -1,11 +1,9 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
-using SIMSProject.FileHandler.UserFileHandler;
+using SIMSProject.FileHandlers.UserFileHandler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SIMSProject.Repositories.UserRepositories
 {
@@ -19,6 +17,7 @@ namespace SIMSProject.Repositories.UserRepositories
             _fileHandler = new GuideFileHandler();
             _guides = _fileHandler.Load();
         }
+
         public List<Guide> GetAll()
         {
             return _guides;

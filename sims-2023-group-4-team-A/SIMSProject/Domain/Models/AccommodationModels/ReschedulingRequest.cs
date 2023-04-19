@@ -33,7 +33,7 @@ namespace SIMSProject.Model
                 ReschedulingRequestStatus.Waiting => "Na čekanju",
                 ReschedulingRequestStatus.Accepted => "Odobren",
                 ReschedulingRequestStatus.Rejected => "Odbijen",
-                _ => ""
+                _ => string.Empty
             };
         }
 

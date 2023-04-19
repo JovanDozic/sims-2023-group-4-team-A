@@ -52,7 +52,6 @@ namespace SIMSProject.WPF.ViewModels.OwnerViewModels
             }
         }
 
-
         public OwnerHomeViewModel(User user)
         {
             _user = user;
@@ -101,6 +100,5 @@ namespace SIMSProject.WPF.ViewModels.OwnerViewModels
             else if (!SelectedReservation.OwnerRated) return false;
             return true;
         }
-
     }
 }

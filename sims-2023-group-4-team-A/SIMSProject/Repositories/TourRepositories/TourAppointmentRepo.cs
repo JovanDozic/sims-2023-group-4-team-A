@@ -1,7 +1,6 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
-using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
-using SIMSProject.FileHandler;
-using SIMSProject.FileHandler.UserFileHandler;
+using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
+using SIMSProject.FileHandlers.UserFileHandler;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Observer;
 using System;
@@ -11,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
+using SIMSProject.FileHandlers.TourFileHandlers;
 
 namespace SIMSProject.Repositories.TourRepositories
 {

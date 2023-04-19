@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using SIMSProject.Domain.Models.AccommodationModels;
-using SIMSProject.FileHandler;
+using SIMSProject.FileHandlers;
 using SIMSProject.Domain.Models;
 using SIMSProject.Observer;
+using SIMSProject.FileHandlers.AccommodationFileHandlers;
 
 namespace SIMSProject.Model.DAO
 {
