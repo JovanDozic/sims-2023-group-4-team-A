@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Serializer;
 
-
 namespace SIMSProject.Domain.Models.UserModels
 {
     public class Guest : User, ISerializable
@@ -23,11 +22,6 @@ namespace SIMSProject.Domain.Models.UserModels
             Role = UserRole.Guest;
             Rating = rating;
             Vouchers = new List<Voucher>();
-        }
-
-        public override string ToString()
-        {
-            return $"{Username}";
         }
 
         public string[] ToCSV()
@@ -50,6 +44,11 @@ namespace SIMSProject.Domain.Models.UserModels
             Password = values[2];
             Role = GetRole(values[3]);
             Rating = double.Parse(values[4]);
+        }
+
+        public override string ToString()
+        {
+            return $"{Username}";
         }
     }
 }

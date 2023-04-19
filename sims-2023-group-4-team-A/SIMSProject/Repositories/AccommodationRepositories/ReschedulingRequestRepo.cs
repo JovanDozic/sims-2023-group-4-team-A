@@ -1,5 +1,6 @@
 ﻿using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
-using SIMSProject.FileHandler;
+using SIMSProject.FileHandlers;
+using SIMSProject.FileHandlers.AccommodationFileHandlers;
 using SIMSProject.Model;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,7 +81,6 @@ namespace SIMSProject.Repositories.AccommodationRepositories
         public List<ReschedulingRequest> GetAllByGuestId(int guestId)
         {
             return _requests.FindAll(x => x.Reservation != null && x.Reservation.Guest.Id == guestId);
-
         }
     }
 }

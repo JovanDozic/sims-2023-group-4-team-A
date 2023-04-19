@@ -21,10 +21,12 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
             UpdatePassedReservationNotifications();
         }
+
         public List<AccommodationReservation> GetAll()
         {
             return _repo.GetAll();
         }
+
         public List<AccommodationReservation> GetAllUncancelled(User user)
         {
             return _repo.GetAll().Where(r => !r.Canceled && r.Guest.Id == user.Id).ToList();
@@ -42,19 +44,16 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
         private void UpdatePassedReservationNotifications()
         {
-            var reservations = GetAll();
-            foreach (var reservation in reservations)
-            {
-                if (reservation.EndDate < DateTime.Now && !reservation.RateGuestNotifSent)
+            foreach (var reservation in GetAll())
+                if (reservation.EndDate < DateTime.Now && !reservation.RateGuestNotificationSent)
                 {
                     _notificationService.CreateNotification(PrepareNotification(reservation));
-                    reservation.RateGuestNotifSent = true;
+                    reservation.RateGuestNotificationSent = true;
                 }
-            }
-            _repo.SaveAll(reservations);
+            _repo.SaveAll(GetAll());
         }
 
-        private Notification PrepareNotification(AccommodationReservation reservation)
+        private static Notification PrepareNotification(AccommodationReservation reservation)
         {
             return new Notification(
                 reservation.Accommodation.Owner,

@@ -1,6 +1,7 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
-using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
-using SIMSProject.FileHandler;
+using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
+using SIMSProject.FileHandlers.TourFileHandlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace SIMSProject.Repositories.TourRepositories
             return _guideRatings;
         }
 
-        public List<GuideRating> GetByGuideId(int guideId)
+        public List<GuideRating> GetAllByGuideId(int guideId)
         {
             return _guideRatings.FindAll(x=>x.TourReservation.TourAppointment.Tour.Guide.Id == guideId);
         }
@@ -36,6 +37,12 @@ namespace SIMSProject.Repositories.TourRepositories
         public GuideRating GetById(int id)
         {
             return _guideRatings.Find(x => x.Id ==  id) ?? throw new ArgumentException("Rating could not be found");
+        }
+
+        public double GetOverallByGuideId(int guideId)
+        {
+            var ratings = GetAllByGuideId(guideId);
+            return ratings.Count > 0 ? ratings.Average(x => x.Overall) : 0;
         }
 
         public int NextId()

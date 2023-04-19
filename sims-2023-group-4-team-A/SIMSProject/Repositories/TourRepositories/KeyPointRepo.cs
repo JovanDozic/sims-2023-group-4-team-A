@@ -1,8 +1,8 @@
 ﻿using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.RepositoryInterfaces;
-using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
-using SIMSProject.FileHandler;
+using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
+using SIMSProject.FileHandlers.TourFileHandlers;
 using SIMSProject.Model;
 using SIMSProject.Observer;
 using System;

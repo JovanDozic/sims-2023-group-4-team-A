@@ -2,7 +2,7 @@
 using SIMSProject.Domain.RepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
-using SIMSProject.FileHandler;
+using SIMSProject.FileHandlers.AccommodationFileHandlers;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -68,18 +68,12 @@ namespace SIMSProject.Repositories.AccommodationRepositories
 
         private void MapOwners()
         {
-            foreach (var accommodation in _accommodations)
-            {
-                accommodation.Owner = _ownerRepo.GetById(accommodation.Owner.Id);
-            }
+            _accommodations.ForEach(a => a.Owner = _ownerRepo.GetById(a.Owner.Id));
         }
 
         private void MapLocations()
         {
-            foreach (var accommodation in _accommodations)
-            {
-                accommodation.Location = _locationRepo.GetById(accommodation.Location.Id);
-            }
+            _accommodations.ForEach(a => a.Location = _locationRepo.GetById(a.Location.Id));
         }
     }
 }

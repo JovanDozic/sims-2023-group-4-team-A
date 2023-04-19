@@ -61,21 +61,10 @@ namespace SIMSProject.Application.Services.AccommodationServices
             return owner;
         }
 
-        public bool IsSuperOwner(Owner owner)
-        {
-            return CountAllByOwnerId(owner.Id) >= Consts.SuperOwnerMinimumRatingCount && owner.Rating >= Consts.SuperOwnerMinimumRating;
-        }
-
         public bool IsSuperOwner(User user)
         {
             if (user is not Owner owner) return false;
             return CountAllByOwnerId(owner.Id) >= Consts.SuperOwnerMinimumRatingCount && owner.Rating >= Consts.SuperOwnerMinimumRating;
         }
-
-        public Owner GetOwnerById(int ownerId)
-        {
-            return _ownerRepo.GetById(ownerId);
-        }
-       
     }
 }

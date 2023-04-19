@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using SIMSProject.Domain.Models.AccommodationModels;
-using SIMSProject.Model;
 using SIMSProject.Serializer;
 
 namespace SIMSProject.Domain.Models.UserModels
@@ -13,7 +12,6 @@ namespace SIMSProject.Domain.Models.UserModels
 
         public Owner()
         {
-
         }
 
         public Owner(int id, string username, string password, double rating = 0)

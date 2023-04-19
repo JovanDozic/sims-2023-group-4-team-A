@@ -1,5 +1,4 @@
-﻿using SIMSProject.Domain.Models;
-using SIMSProject.Domain.Models.UserModels;
+﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.OwnerViewModels;
 using System.Windows;
 using System.Windows.Controls;

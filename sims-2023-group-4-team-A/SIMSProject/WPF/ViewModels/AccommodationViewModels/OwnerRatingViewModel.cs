@@ -5,7 +5,6 @@ using SIMSProject.Domain.Models.UserModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 {
@@ -16,9 +15,12 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private OwnerRatingService _ratingService;
         private AccommodationReservationService _reservationService;
         private Accommodation _accommodation = new();
+        private string _selectedImageFile = string.Empty;
+        private string _ownerNameTB = string.Empty;
+
         public ObservableCollection<AccommodationReservation> Reservations { get; set; } = new();
         public object ReservationsCombo { get; private set; } = new();
-        private string _ownerNameTB = string.Empty;
+
         public string OwnerNameTextBlock
         {
             get => _ownerNameTB;
@@ -39,9 +41,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
-
-        private string _selectedImageFile = string.Empty;
-
         public OwnerRating Rating
         {
             get => _rating;
@@ -52,7 +51,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
-
         public AccommodationReservation Reservation
         {
             get => _rating.Reservation;
@@ -63,7 +61,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
-
         public string ImageURLsCSV
         {
             get => _rating.ImageURLsCSV;
@@ -154,6 +151,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
+        
         public OwnerRatingViewModel(User user, AccommodationReservation reservation)
         {
             _user = user;
@@ -179,6 +177,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             }
             ReservationsCombo = Reservations;
         }
+
         public string GetOwnerUsername()
         {
             return SelectedReservation.Accommodation.Owner.Username;
@@ -188,15 +187,18 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             return SelectedReservation != null;
         }
+
         public void UploadImage(string imageUrl)
         {
             ImageURLs.Add(imageUrl);
         }
+
         public void RateOwnerAndAccommodation()
         {
             SelectedReservation.OwnerRated = true;
             _ratingService.LeaveRating(_rating);
         }
+
         public void LoadRating()
         {
             if (Reservation == null) return;

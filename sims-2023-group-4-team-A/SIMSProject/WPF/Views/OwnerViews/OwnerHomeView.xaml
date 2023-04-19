@@ -11,7 +11,7 @@
     <Window.Resources>
         <converters:AccommodationTypeConverter x:Key="TypeConverter" />
     </Window.Resources>
-    
+
     <Grid Margin="20">
 
         <Grid.ColumnDefinitions>

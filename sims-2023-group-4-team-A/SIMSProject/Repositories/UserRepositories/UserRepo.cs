@@ -1,8 +1,8 @@
 ﻿using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
+using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
-using SIMSProject.FileHandler.UserFileHandler;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,15 +11,24 @@ namespace SIMSProject.Repositories.UserRepositories
     public class UserRepo : IUserRepo
     {
         private readonly IOwnerRepo _ownerRepo;
-        // TODO: IOwnerRatingRepo
-        // TODO: private readonly IGuideRepo _guideRepo;
+        private readonly IOwnerRatingRepo _ownerRatingRepo;
+        
+        private readonly IGuideRepo _guideRepo;
+        private readonly IGuideRatingRepo _guideRatingRepo;
+
         private readonly IGuestRepo _guestRepo;
         private readonly IGuestRatingRepo _guestRatingRepo;
 
-        public UserRepo(IOwnerRepo ownerRepo, /* TODO: Implement IGuideRepo */ IGuestRepo guestRepo, IGuestRatingRepo guestRatingRepo)
+        public UserRepo(IOwnerRepo ownerRepo, IOwnerRatingRepo ownerRatingRepo, 
+                        IGuideRepo guideRepo, IGuideRatingRepo guideRatingRepo,
+                        IGuestRepo guestRepo, IGuestRatingRepo guestRatingRepo)
         {
             _ownerRepo = ownerRepo;
-            // TODO: IOwnerRatingRepo
+            _ownerRatingRepo = ownerRatingRepo;
+
+            _guideRepo = guideRepo;
+            _guideRatingRepo = guideRatingRepo;
+
             _guestRepo = guestRepo;
             _guestRatingRepo = guestRatingRepo;
 
@@ -30,9 +39,16 @@ namespace SIMSProject.Repositories.UserRepositories
         {
             _ownerRepo.SaveAll(GetAllOwners().Select(x =>
                 {
-                    // TODO: Calculate Owner rating
+                    x.Rating = _ownerRatingRepo.GetOverallByOwnerId(x.Id);
                     return x;
                 }
+            ).ToList());
+
+            _guideRepo.SaveAll(GetAllGuides().Select(x =>
+            {
+                x.Rating = _guideRatingRepo.GetOverallByGuideId(x.Id);
+                return x;
+            }
             ).ToList());
 
             _guestRepo.SaveAll(GetAllGuests().Select(x =>
@@ -60,8 +76,7 @@ namespace SIMSProject.Repositories.UserRepositories
 
         public List<Guide> GetAllGuides()
         {
-            // TODO: Fix this
-            return new GuideFileHandler().Load();
+            return _guideRepo.GetAll();
         }
 
         public List<Owner> GetAllOwners()
@@ -76,8 +91,7 @@ namespace SIMSProject.Repositories.UserRepositories
 
         public Guide? GetGuideById(int id)
         {
-            // TODO: Fix this
-            return new GuideFileHandler().Load().Find(x => x.Id == id);
+            return _guideRepo.GetById(id);
         }
 
         public Owner? GetOwnerById(int id)

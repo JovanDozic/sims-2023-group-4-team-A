@@ -57,7 +57,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
 
         public override string? ToString()
         {
-            return "Ocena za vlasnika <" + Id + ">: " + Overall + " (" + Comment + "), " + ImageURLs.Count + " slike";
+            return $"Ocena za vlasnika <{Id}>: {Overall} ({Comment}), {ImageURLs.Count} slike";
         }
     }
 }

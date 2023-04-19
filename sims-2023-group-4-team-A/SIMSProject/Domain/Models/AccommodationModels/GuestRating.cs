@@ -17,7 +17,6 @@ namespace SIMSProject.Domain.Models.AccommodationModels
 
         public GuestRating()
         {
-
         }
 
         private double CalculateOverall()

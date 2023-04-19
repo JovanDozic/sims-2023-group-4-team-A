@@ -181,7 +181,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             ImageURLs.Add(imageUrl);
         }
-
     }
 }
 

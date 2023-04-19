@@ -71,9 +71,5 @@ namespace SIMSProject.Application.Services.AccommodationServices
         {
             return _requestRepo.GetAllByGuestId(id);
         }
-        public List<ReschedulingRequest> GetAll()
-        {
-            return _requestRepo.GetAll();
-        }
     }
 }

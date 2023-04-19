@@ -1,7 +1,7 @@
 ﻿using SIMSProject.Application.DTOs;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.Domain.RepositoryInterfaces.ITourRepos;
+using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +38,7 @@ namespace SIMSProject.Application.Services.TourServices
         }
         public void UpdateGuideTotalRating(int guideId)
         {
-            var ratings = _ratingRepo.GetByGuideId(guideId);
+            var ratings = _ratingRepo.GetAllByGuideId(guideId);
             GetById(guideId).Rating = ratings.Average(x => x.Overall);
             _guideRepo.Update(GetById(guideId));
         }

@@ -105,6 +105,5 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             Reservation.GuestRated = true;
             _ratingService.LeaveRating(_rating);
         }
-
     }
 }

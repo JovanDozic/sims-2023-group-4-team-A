@@ -9,13 +9,13 @@
 
   <ItemGroup>
     <Compile Remove="Properties\**" />
-    <Compile Remove="View\OwnerViews\**" />
+    <Compile Remove="View\**" />
     <EmbeddedResource Remove="Properties\**" />
-    <EmbeddedResource Remove="View\OwnerViews\**" />
+    <EmbeddedResource Remove="View\**" />
     <None Remove="Properties\**" />
-    <None Remove="View\OwnerViews\**" />
+    <None Remove="View\**" />
     <Page Remove="Properties\**" />
-    <Page Remove="View\OwnerViews\**" />
+    <Page Remove="View\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -87,7 +87,6 @@
 
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="View\" />
   </ItemGroup>
 
 </Project>
