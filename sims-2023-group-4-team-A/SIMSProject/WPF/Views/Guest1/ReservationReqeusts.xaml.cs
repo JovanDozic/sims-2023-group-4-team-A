@@ -33,14 +33,6 @@ namespace SIMSProject.WPF.Views.Guest1
             DataContext = _reschedulingRequestViewModel;
             _reschedulingRequestViewModel.AddRequestsToCombo();
         }
-
-        private void RequestsCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (_reschedulingRequestViewModel.IsSelected())
-            {
-                //RequestStatusTB.Text = _reschedulingRequestViewModel.GetRequestStatus().Status.ToString();
-                CommentTB.Text = _reschedulingRequestViewModel.SelectedRequest.OwnerComment;
-            }
-        }
+ 
     }
 }

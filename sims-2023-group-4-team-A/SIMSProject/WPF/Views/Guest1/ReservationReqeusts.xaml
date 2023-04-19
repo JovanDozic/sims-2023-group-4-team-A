@@ -44,7 +44,7 @@
                   FontSize="30"
                   VerticalAlignment="Top" Height="55"
                   ItemsSource="{Binding Requests}"
-                  SelectedItem="{Binding SelectedRequest}" SelectionChanged="RequestsCombo_SelectionChanged"></ComboBox>
+                  SelectedItem="{Binding SelectedRequest}"></ComboBox>
         <TextBlock x:Name="RequestStatusTB"
                    Grid.Row="2"
                    Text ="{Binding SelectedRequest.Status, Converter={StaticResource TypeConverter}}"
