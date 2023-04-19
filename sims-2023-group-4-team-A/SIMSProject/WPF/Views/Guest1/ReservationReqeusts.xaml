@@ -58,6 +58,7 @@
                HorizontalAlignment="Left" Margin="75,0,0,0"></Label>
         <TextBox x:Name="CommentTB" Grid.Row="3"
                  FontSize="30"
+                 Text="{Binding SelectedRequest.OwnerComment}"
                  Grid.ColumnSpan="2" Margin="75,100,174,50" Grid.RowSpan="2"
                  IsReadOnly="True"></TextBox>
     </Grid>
