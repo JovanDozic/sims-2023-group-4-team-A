@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SIMSProject.FileHandler;
+using SIMSProject.Domain.Models;
+using SIMSProject.FileHandlers;
 using SIMSProject.Observer;
 
 namespace SIMSProject.Model.DAO

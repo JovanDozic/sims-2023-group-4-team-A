@@ -8,11 +8,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Properties\**" />
+    <Compile Remove="View\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <EmbeddedResource Remove="View\**" />
+    <None Remove="Properties\**" />
+    <None Remove="View\**" />
+    <Page Remove="Properties\**" />
+    <Page Remove="View\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\checkboxlist.png" />
+    <None Remove="Resources\Images\checkmark.png" />
+    <None Remove="Resources\Images\close.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\home.png" />
+    <None Remove="Resources\Images\lookupitem.png" />
+    <None Remove="Resources\Images\NotificationAlert.png" />
+    <None Remove="Resources\Images\NotificationAlertNoColor.png" />
+    <None Remove="Resources\Images\open.png" />
     <None Remove="Resources\Images\rating.png" />
     <None Remove="Resources\Images\stars.png" />
     <None Remove="Resources\Images\statusInformation.png" />
@@ -20,6 +37,7 @@
     <None Remove="WPF\Views\Guest1\burger.png" />
     <None Remove="WPF\Views\Guest1\chevron-left.png" />
     <None Remove="WPF\Views\Guest1\home.png" />
+    <None Remove="WPF\Views\Guest1\Icons\plus.png" />
     <None Remove="WPF\Views\Guest1\logo5.png" />
     <None Remove="WPF\Views\Guest1\notification.png" />
     <None Remove="WPF\Views\Guest1\user.png" />
@@ -29,8 +47,20 @@
     <Resource Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Images\checkboxlist.png" />
+    <Resource Include="Resources\Images\checkboxlist.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\checkmark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\home.png" />
+    <Resource Include="Resources\Images\lookupitem.png" />
+    <Resource Include="Resources\Images\NotificationAlert.png" />
+    <Resource Include="Resources\Images\NotificationAlertNoColor.png" />
+    <Resource Include="Resources\Images\open.png" />
     <Resource Include="Resources\Images\rating.png" />
     <Resource Include="Resources\Images\stars.png" />
     <Resource Include="Resources\Images\statusInformation.png" />
@@ -43,35 +73,19 @@
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WPF\Views\Guest1\burger.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="WPF\Views\Guest1\chevron-left.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="WPF\Views\Guest1\home.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="WPF\Views\Guest1\logo5.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="WPF\Views\Guest1\notification.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="WPF\Views\Guest1\user.png">
+    <Content Include="WPF\Views\Guest1\Icons\plus.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageReference Include="MaterialDesignInXamlToolkitAddOns" Version="0.0.6" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Services\" />
-    <Folder Include="Domain\RepositoryInterfaces\" />
-    <Folder Include="Repositories\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 
