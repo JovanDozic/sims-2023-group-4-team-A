@@ -37,9 +37,23 @@
     <None Remove="WPF\Views\Guest1\burger.png" />
     <None Remove="WPF\Views\Guest1\chevron-left.png" />
     <None Remove="WPF\Views\Guest1\home.png" />
-    <None Remove="WPF\Views\Guest1\Icons\plus.png" />
+    <None Remove="WPF\Views\Guest1\MainView\Icons\burger.png" />
+    <None Remove="WPF\Views\Guest1\MainView\Icons\chevron-left.png" />
+    <None Remove="WPF\Views\Guest1\MainView\Icons\home.png" />
+    <None Remove="WPF\Views\Guest1\MainView\Icons\logo5.png" />
+    <None Remove="WPF\Views\Guest1\MainView\Icons\notification.png" />
+    <None Remove="WPF\Views\Guest1\MainView\Icons\plus.png" />
     <None Remove="WPF\Views\Guest1\logo5.png" />
+    <None Remove="WPF\Views\Guest1\MainView\Icons\user.png" />
     <None Remove="WPF\Views\Guest1\notification.png" />
+    <None Remove="WPF\Views\Guest1\Pages\Icons\burger.png" />
+    <None Remove="WPF\Views\Guest1\Pages\Icons\chevron-left-black.png" />
+    <None Remove="WPF\Views\Guest1\Pages\Icons\chevron-left.png" />
+    <None Remove="WPF\Views\Guest1\Pages\Icons\home.png" />
+    <None Remove="WPF\Views\Guest1\Pages\Icons\logo5.png" />
+    <None Remove="WPF\Views\Guest1\Pages\Icons\notification.png" />
+    <None Remove="WPF\Views\Guest1\Pages\Icons\plus.png" />
+    <None Remove="WPF\Views\Guest1\Pages\Icons\user.png" />
     <None Remove="WPF\Views\Guest1\user.png" />
   </ItemGroup>
 
@@ -73,7 +87,49 @@
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WPF\Views\Guest1\Icons\plus.png">
+    <Content Include="WPF\Views\Guest1\MainView\Icons\burger.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WPF\Views\Guest1\MainView\Icons\chevron-left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WPF\Views\Guest1\MainView\Icons\home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WPF\Views\Guest1\MainView\Icons\logo5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WPF\Views\Guest1\MainView\Icons\notification.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WPF\Views\Guest1\MainView\Icons\plus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WPF\Views\Guest1\MainView\Icons\user.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WPF\Views\Guest1\Pages\Icons\burger.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WPF\Views\Guest1\Pages\Icons\chevron-left-black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WPF\Views\Guest1\Pages\Icons\chevron-left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WPF\Views\Guest1\Pages\Icons\home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WPF\Views\Guest1\Pages\Icons\logo5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WPF\Views\Guest1\Pages\Icons\notification.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WPF\Views\Guest1\Pages\Icons\plus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WPF\Views\Guest1\Pages\Icons\user.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest1"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
         mc:Ignorable="d"
         Title="Main" Height="768" Width="1024">
     <Grid MouseLeftButtonDown="BG_PreviewMouseLeftButtonDown">
@@ -50,14 +51,13 @@
             <Image Source="Icons/logo5.png"></Image>
             <Label Grid.Column="1" FontFamily="Arial"  Foreground="White" Content="Smeštarko" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="40"></Label>
             <Button Grid.Column="6" BorderThickness="1" BorderBrush="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="50" Background="#0c669f">
-                <Image Source="notification.png"></Image>
+                <Image Source="Icons/notification.png"></Image>
             </Button>
-            <Button Grid.Column="2" Click="Button_Click_1"></Button>
             <Button Click="Button_Click_Home" BorderThickness="0" BorderBrush="Transparent" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="50" Background="#0c669f">
-                <Image Source="home.png"></Image>
+                <Image Source="Icons/home.png"></Image>
             </Button>
             <ToggleButton x:Name="ButtonMenu" BorderThickness="0" BorderBrush="Transparent" Grid.Column="8" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="50" Background="#0c669f">
-                <Image Source="burger.png" />
+                <Image Source="Icons/burger.png" />
                 <ToggleButton.Triggers>
                     <EventTrigger RoutedEvent="ToggleButton.Checked">
                         <BeginStoryboard>
@@ -116,52 +116,53 @@
                         <RowDefinition Height="45"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <Label Foreground="White" Content="Korisnicko ime" Grid.Row="1" FontSize="22" FontWeight="Bold" Margin="5,6,0,0"></Label>
-                    <Label Foreground="White" Content="Status: Gost" Grid.Row="2" FontSize="18" FontWeight="Bold" Margin="5,0,0,4"></Label>
-                    <Button x:Name="ButtonCloseMenu" Width="50" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.ColumnSpan="2"></Button>
-                    <Image Source="Icons/user.png" VerticalAlignment="Top" Margin="10,10,16,0" Grid.Column="1" Height="35" Grid.Row="1"/>
+                    <Label Foreground="White" Content="Korisnicko ime" FontSize="22" FontWeight="Bold" Margin="26,13,107,38" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+                    <Label Foreground="White" Content="Status: Gost" FontSize="18" FontWeight="Bold" Margin="26,7,102,-4" Grid.ColumnSpan="2" Grid.Row="1"/>
+                    <Image Source="Icons/user.png" VerticalAlignment="Top" Margin="13,20,13,0" Grid.Column="1" Height="35" Grid.RowSpan="2"/>
                 </Grid>
 
                 <Separator Width="315" FontWeight="Bold" Background="#BDC3C3" HorizontalAlignment="Stretch"></Separator>
 
-                <ListView x:Name="ListViewMenu" Background="#063e77"  ScrollViewer.HorizontalScrollBarVisibility="Disabled"  BorderBrush="Transparent" Margin="0,0,0,0">
-                    <ListViewItem x:Name="ItemHome" Height="60">
+                <ListView x:Name="ListViewMenu" Background="#063e77" 
+                          SelectionChanged="ListViewMenu_SelectionChanged"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"  BorderBrush="Transparent" Margin="0,0,0,0">
+                    <ListViewItem x:Name="ItemAllAccommodations" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontSize="22" Foreground="White" Text="Svi smeštaji u ponudi" VerticalAlignment="Center" Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
 
-                    <ListViewItem x:Name="ItemPatients" Height="60">
+                    <ListViewItem x:Name="ItemReservations" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Lista rezervacija" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
 
-                    <ListViewItem x:Name="ItemDoctors" Height="60">
+                    <ListViewItem x:Name="ItemRating" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontSize="22" Foreground="White" Text="Ocenjivanje vlasnika i smeštaja" VerticalAlignment="Center" Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
 
-                    <ListViewItem x:Name="ItemAppointments" Height="60">
+                    <ListViewItem x:Name="ItemSearch" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Bilo kada/Bilo gde" FontSize="22" Foreground="White" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
 
-                    <ListViewItem x:Name="ItemReport" Height="60">
+                    <ListViewItem x:Name="ItemForums" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Forumi" FontSize="22" Foreground="White" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
 
-                    <ListViewItem x:Name="ItemAccount" Height="60">
+                    <ListViewItem x:Name="ItemStatistics" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Statistika" FontSize="22" Foreground="White"  VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
 
-                    <ListViewItem x:Name="ItemFeedback" Height="60">
+                    <ListViewItem x:Name="ItemReport" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Izveštaj o rezervacijama" FontSize="22" Foreground="White" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
@@ -172,9 +173,9 @@
                         <ColumnDefinition Width="2.2*"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Image Source="Icons/chevron-left.png" Grid.ColumnSpan="2" Margin="182,44,91,24"></Image>
+                    <Image Source="Icons/chevron-left.png" Margin="184,56,89,12" RenderTransformOrigin="1.057,0.493" Grid.ColumnSpan="2"/>
 
-                    <Button Click="Button_Click_Close" Margin="0,0,13,25" FontSize="20" Foreground="White" Content="Odjavi se" BorderThickness="0" BorderBrush="Transparent" Background="#063e77" Height="30" Width="93" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="1"/>
+                    <Button Click="Button_Click_Close" Margin="0,0,10,25" FontSize="20" Foreground="White" Content="Odjavi se" BorderThickness="0" BorderBrush="Transparent" Background="#063e77" Height="30" Width="89" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.ColumnSpan="2"/>
                 </Grid>
             </StackPanel>
 

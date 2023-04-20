@@ -71,9 +71,9 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             return SelectedReservation.StartDate <= DateTime.Today;
         }
 
-        public bool IsSelected()
+        public bool IsNotSelected()
         {
-            return SelectedReservation != null;
+            return SelectedReservation == null || SelectedReservation.StartDate == DateTime.MinValue || SelectedReservation.EndDate == DateTime.MinValue;
             
         }
 

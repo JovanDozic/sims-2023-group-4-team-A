@@ -39,7 +39,7 @@ namespace SIMSProject.WPF.Views.Guest1
         }
         private void Button_Click_Cancellation(object sender, RoutedEventArgs e)
         {
-            if (!_accommodationReservationViewModel.IsSelected())
+            if (_accommodationReservationViewModel.IsNotSelected())
             {
                 MessageBox.Show("Morate da odaberete rezervaciju!");
                 return;
@@ -69,7 +69,7 @@ namespace SIMSProject.WPF.Views.Guest1
 
         private void Button_Click_Reschedule(object sender, RoutedEventArgs e)
         {
-            if (!_accommodationReservationViewModel.IsSelected())
+            if (_accommodationReservationViewModel.IsNotSelected())
             {
                 MessageBox.Show("Morate da odaberete rezervaciju!");
                 return;
