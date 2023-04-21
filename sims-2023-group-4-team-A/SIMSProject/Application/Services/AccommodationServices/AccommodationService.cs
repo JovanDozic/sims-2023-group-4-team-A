@@ -22,6 +22,10 @@ namespace SIMSProject.Application.Services.AccommodationServices
         {
             return _repo.GetAllByOwnerId(ownerId);
         }
+        public List<Accommodation> GetAll()
+        {
+            return _repo.GetAll();
+        }
 
         public void RegisterAccommodation(Accommodation accommodation)
         {

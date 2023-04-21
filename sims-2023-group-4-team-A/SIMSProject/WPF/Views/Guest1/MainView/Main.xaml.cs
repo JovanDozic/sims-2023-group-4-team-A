@@ -31,11 +31,16 @@ namespace SIMSProject.WPF.Views.Guest1
             InitializeComponent();
             _user = user;
             OpenMainPage();
+            SetUsername();
         }
      
         public void OpenMainPage()
         {
             MainWind.Content = new MainPage();
+        }
+        public void SetUsername()
+        {
+            UserTB.Text = _user.Username;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -81,9 +86,10 @@ namespace SIMSProject.WPF.Views.Guest1
                 ListViewItem selectedItem = e.AddedItems[0] as ListViewItem;
                 switch (selectedItem.Name)
                 {
-                   // case "ItemAllAccommodations":
-                     //   MainWind.Navigate(new AllAccommodationsPage());
-                       // break;
+                    case "ItemAllAccommodations":
+                        MainWind.Navigate(new AccommodationList(_user));
+                        ListViewMenu.SelectedItem = null;
+                        break;
                     case "ItemReservations":
                         MainWind.Navigate(new ReservationList(_user));
                         ListViewMenu.SelectedItem = null;

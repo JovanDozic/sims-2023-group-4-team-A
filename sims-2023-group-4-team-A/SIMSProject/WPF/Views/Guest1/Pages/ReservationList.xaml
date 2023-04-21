@@ -34,17 +34,17 @@
                FontWeight="Bold"
                Content="Prikaz Vaših Rezervacija" Margin="73,10,475,0" Grid.ColumnSpan="2" Height="50" VerticalAlignment="Top"></Label>
 
-        <DataGrid IsReadOnly="True" ItemsSource="{Binding Reservations, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" FontSize="20" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" Width="926" Height="410"
+        <DataGrid IsReadOnly="True" ItemsSource="{Binding Reservations, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" FontSize="20" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" Width="952" Height="410"
                   SelectedItem="{Binding SelectedReservation}"
                   BorderBrush="Transparent"
-                  BorderThickness="0" Margin="73,30,0,0" Grid.RowSpan="2" SelectionChanged="DataGrid_SelectionChanged">
+                  BorderThickness="0" Margin="62,30,0,0" Grid.RowSpan="2" SelectionChanged="DataGrid_SelectionChanged">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv smeštaja" Width="320" Binding="{Binding Accommodation.Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Datum dolaska" Width="180" Binding="{Binding StartDate, StringFormat={}{0:dd.MM.yyyy.}}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Datum odlaska" Width="180" Binding="{Binding EndDate, StringFormat={}{0:dd.MM.yyyy.}}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Broj dana" Width="120" Binding="{Binding NumberOfDays}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Broj gostiju" Width="120" Binding="{Binding GuestNumber}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Broj dana" Width="130" Binding="{Binding NumberOfDays}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Broj gostiju" Width="130" Binding="{Binding GuestNumber}"></DataGridTextColumn>
 
             </DataGrid.Columns>
 

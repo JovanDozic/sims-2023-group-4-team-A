@@ -17,8 +17,19 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private AccommodationService _accommodationService;
         private LocationService _locationService;
         private string _selectedImageFile = string.Empty;
-
+        private Accommodation _selectedAccommodation;
+        public ObservableCollection<Accommodation> Accommodations { get; set; } = new();
         public ObservableCollection<string> AccommodationTypeSource { get; set; }
+        public Accommodation SelectedAccommodation
+        {
+            get => _selectedAccommodation;
+            set
+            {
+                if (value == _selectedAccommodation) return;
+                _selectedAccommodation = value;
+                OnPropertyChanged();
+            }
+        }
         public Accommodation Accommodation
         {
             get => _accommodation;
@@ -155,6 +166,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _user = user;
             _accommodationService = Injector.GetService<AccommodationService>();
             _locationService = Injector.GetService<LocationService>();
+            Accommodations = LoadAllAccommodations();
 
             AccommodationTypeSource = new ObservableCollection<string>
             {
@@ -162,6 +174,14 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 Accommodation.GetType(AccommodationType.House),
                 Accommodation.GetType(AccommodationType.Hut)
             };
+        }
+        public bool IsNotSelected()
+        {
+            return SelectedAccommodation == null;
+        }
+        public ObservableCollection<Accommodation> LoadAllAccommodations()
+        {
+            return new ObservableCollection<Accommodation>(_accommodationService.GetAll());
         }
 
         public ObservableCollection<Accommodation> LoadAccommodationsByOwner()

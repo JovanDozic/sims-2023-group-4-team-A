@@ -37,10 +37,12 @@
     <None Remove="WPF\Views\Guest1\burger.png" />
     <None Remove="WPF\Views\Guest1\chevron-left.png" />
     <None Remove="WPF\Views\Guest1\home.png" />
+    <None Remove="WPF\Views\Guest1\MainView\Icons\account.png" />
     <None Remove="WPF\Views\Guest1\MainView\Icons\burger.png" />
     <None Remove="WPF\Views\Guest1\MainView\Icons\chevron-left.png" />
     <None Remove="WPF\Views\Guest1\MainView\Icons\home.png" />
     <None Remove="WPF\Views\Guest1\MainView\Icons\logo5.png" />
+    <None Remove="WPF\Views\Guest1\MainView\Icons\menu.png" />
     <None Remove="WPF\Views\Guest1\MainView\Icons\notification.png" />
     <None Remove="WPF\Views\Guest1\MainView\Icons\plus.png" />
     <None Remove="WPF\Views\Guest1\logo5.png" />
@@ -87,6 +89,9 @@
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="WPF\Views\Guest1\MainView\Icons\account.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="WPF\Views\Guest1\MainView\Icons\burger.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -97,6 +102,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="WPF\Views\Guest1\MainView\Icons\logo5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WPF\Views\Guest1\MainView\Icons\menu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="WPF\Views\Guest1\MainView\Icons\notification.png">
