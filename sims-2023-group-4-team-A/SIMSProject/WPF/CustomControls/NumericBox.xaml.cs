@@ -21,7 +21,7 @@ namespace SIMSProject.WPF.CustomControls
     public partial class NumericBox : UserControl
     {
         public static readonly DependencyProperty ValueProperty =
-              DependencyProperty.Register(nameof(Value), typeof(int), typeof(NumericTextBox), new FrameworkPropertyMetadata(0));
+              DependencyProperty.Register(nameof(Value), typeof(int), typeof(NumericBox), new FrameworkPropertyMetadata(0));
 
         public int Value
         {

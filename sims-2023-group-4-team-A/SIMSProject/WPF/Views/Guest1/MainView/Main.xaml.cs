@@ -18,7 +18,7 @@ using SIMSProject.WPF.Views;
 using SIMSProject.WPF.Views.Guest1.Pages;
 using SIMSProject.Domain.Models.UserModels;
 
-namespace SIMSProject.WPF.Views.Guest1
+namespace SIMSProject.WPF.Views.Guest1.MainView
 {
     /// <summary>
     /// Interaction logic for Main.xaml
@@ -36,7 +36,7 @@ namespace SIMSProject.WPF.Views.Guest1
      
         public void OpenMainPage()
         {
-            MainWind.Content = new MainPage();
+            MainWind.Content = new MainPage(_user);
         }
         public void SetUsername()
         {
@@ -53,7 +53,7 @@ namespace SIMSProject.WPF.Views.Guest1
         }
         private void Button_Click_Home(object sender, RoutedEventArgs e)
         {
-            MainWind.Content = new MainPage();
+            MainWind.Content = new MainPage(_user);
             if(ButtonMenu.IsChecked == true)
             {
                 ButtonMenu.IsChecked = false;

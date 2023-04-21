@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.ViewModels.AccommodationViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +15,46 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SIMSProject.WPF.Views.Guest1
+namespace SIMSProject.WPF.Views.Guest1.MainView
 {
     /// <summary>
     /// Interaction logic for MainPage.xaml
     /// </summary>
     public partial class MainPage : UserControl
     {
-        public MainPage()
+        private readonly User _user = new();
+        private readonly AccommodationViewModel _accommodationViewModel;
+        public MainPage(User user)
         {
             InitializeComponent();
+            user = _user;
+            _accommodationViewModel = new AccommodationViewModel(user);
+            DataContext = _accommodationViewModel;
+        }
+
+        private void Button_Click_Search(object sender, RoutedEventArgs e)
+        {
+
+            _accommodationViewModel.Search(Search1.Text, _accommodationViewModel.MinReservationDays, _accommodationViewModel.MaxGuestNumber);
+        }
+        private void TextSearch_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox? textbox = sender as TextBox;
+            if (textbox is null) return;
+            textbox.Foreground = new SolidColorBrush(Colors.Black);
+            if (textbox.Text == "Naziv/Tip/Lokacija") textbox.Text = string.Empty;
+        }
+
+        private void TextSearch_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox? textbox = sender as TextBox;
+            if (textbox is null) return;
+            if (textbox.Text == string.Empty)
+            {
+                textbox.Foreground = new SolidColorBrush(Colors.Gray);
+                textbox.Text = "Naziv/Tip/Lokacija";
+
+            }
         }
     }
 }

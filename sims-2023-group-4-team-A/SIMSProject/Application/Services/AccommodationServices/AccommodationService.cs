@@ -1,6 +1,8 @@
 ﻿using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace SIMSProject.Application.Services.AccommodationServices
 {
@@ -36,6 +38,27 @@ namespace SIMSProject.Application.Services.AccommodationServices
         {
             return _repo.GetAllByOwnerId(ownerId).Count;
         }
+        public void Search(ObservableCollection<Accommodation> accommodations, string nameTypeLocation, int durationSearch, int maxGuestsSearch)
+        {
+            accommodations.Clear();
+            foreach(var acc in new ObservableCollection<Accommodation>(_repo.GetAll()))
+                accommodations.Add(acc);
 
+            if (nameTypeLocation == "Naziv/Tip/Lokacija") nameTypeLocation = string.Empty;
+            string[] searchValues = nameTypeLocation.Split(" ");
+            List<Accommodation> searchResults = accommodations.ToList();
+
+            foreach (string value in searchValues)
+                searchResults.RemoveAll(x => !x.ToString().ToLower().Contains(value.ToLower()));
+
+            // Removing by numbers
+            if (durationSearch > 0) searchResults.RemoveAll(x => x.MinReservationDays > durationSearch);
+            if (maxGuestsSearch > 0) searchResults.RemoveAll(x => x.MaxGuestNumber < maxGuestsSearch);
+
+            accommodations.Clear();
+            foreach (var searchResult in searchResults)
+                accommodations.Add(searchResult);
+        }
+     
     }
 }

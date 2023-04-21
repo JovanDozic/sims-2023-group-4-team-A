@@ -10,6 +10,7 @@ using SIMSProject.Application.Services.UserServices;
 using SIMSProject.Application.Services.AccommodationServices;
 using SIMSProject.WPF.Views;
 using SIMSProject.WPF.Views.Guest1;
+using SIMSProject.WPF.Views.Guest1.MainView;
 
 namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
 {
