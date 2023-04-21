@@ -3,6 +3,7 @@ using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Documents;
@@ -16,6 +17,8 @@ namespace SIMSProject.Application.Services.TourServices
         private readonly IGuideRepo _guideRepo;
         private readonly ITourGuestRepo _tourGuestRepo;
         private readonly ITourAppointmentRepo _tourAppointmentRepo;
+
+
         public GuideRatingService(IGuideRatingRepo ratingRepo, IGuideRepo guideRepo, ITourReservationRepo tourReservationRepo, ITourGuestRepo tourGuestRepo, ITourAppointmentRepo tourAppointmentRepo)
         {
             _ratingRepo = ratingRepo;
@@ -65,6 +68,27 @@ namespace SIMSProject.Application.Services.TourServices
                 .ToList();
 
             return tourRatings;
+        }
+
+        public List<TourStatisticsDTO> GetMostFisitedTour(int? targetYear = null)
+        {
+            var mostVisitedTours = _tourReservationRepo.GetAll()
+                .Where(tr => tr.TourAppointment != null 
+                && tr.TourAppointment.TourStatus == Status.COMPLETED 
+                && (targetYear == null || tr.TourAppointment.Date.Year == targetYear.Value))
+                .Join(_tourGuestRepo.GetAll(), tr => tr.TourAppointment.Id, tg => tg.TourAppointment.Id, (tr, tg) => new { tr.TourAppointment.Tour, GuesStatus = tg.GuestStatus })
+                .GroupBy(joined => joined.Tour)
+                .Select(group => new TourStatisticsDTO
+                {
+                    Tour = group.Key,
+                    TotalAppointments = group.Count(),
+                    TotalGuests = group.Sum
+                    (g => _tourReservationRepo.GetAll().First(tr => tr.TourAppointment.Tour.Id == group.Key.Id).GuestNumber)
+                })
+                .OrderByDescending(result => result.TotalAppointments)
+                .ToList();
+
+            return mostVisitedTours;
         }
     }
 }

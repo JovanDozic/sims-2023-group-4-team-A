@@ -56,5 +56,10 @@ namespace SIMSProject.View.GuideViews
             window.Show();
             this.Close();
         }
+
+        private void StatisticsBTN_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new TourStatisticsPage();
+        }
     }
 }

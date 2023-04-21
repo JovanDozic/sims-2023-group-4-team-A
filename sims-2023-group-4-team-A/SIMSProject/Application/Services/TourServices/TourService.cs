@@ -43,6 +43,12 @@ namespace SIMSProject.Application.Services.TourServices
             return todays;
         }
 
+
+        public TourStatisticsDTO GetMostVisitedTour()
+        {
+            return _guideRatingService.GetMostFisitedTour().FirstOrDefault();
+        }
+
         public List<TourRatingDTO> GetRatings()
         {
             List<TourRatingDTO> tourRatings = new();

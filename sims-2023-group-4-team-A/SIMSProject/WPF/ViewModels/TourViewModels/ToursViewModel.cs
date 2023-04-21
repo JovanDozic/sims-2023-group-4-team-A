@@ -6,6 +6,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.Application.DTOs;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels
 {
@@ -29,6 +30,18 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             }
         }
 
+        private TourStatisticsDTO _tourStatistics = new();
+        public TourStatisticsDTO TourStatistics
+        {
+            get => _tourStatistics;
+            set
+            {
+                if (value == _tourStatistics) return;
+                _tourStatistics = value;
+                OnPropertyChanged(nameof(TourStatistics));
+            }
+        }
+
         public ToursViewModel()
         {
             _tourService = Injector.GetService<TourService>();
@@ -40,6 +53,12 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         {
             Tours.Clear();
             Tours = new(_tourService.GetTodaysTours());
+        }
+
+
+        public void GetStatistics()
+        {
+            TourStatistics = _tourService.GetMostVisitedTour();
         }
 
         public void Search(string locationAndLanguage, int searchDuration, int searchMaxGuests)
@@ -60,5 +79,9 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             _tourGuestService.MakeGuestPresent(tourGuest);
 
         }
+
+
+
+
     }
 }
