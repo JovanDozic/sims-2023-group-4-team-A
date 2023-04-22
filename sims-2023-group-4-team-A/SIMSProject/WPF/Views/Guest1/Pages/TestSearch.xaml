@@ -1,0 +1,28 @@
+﻿<Page x:Class="SIMSProject.WPF.Views.Guest1.Pages.TestSearch"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest1.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="1024"
+      Title="TestSearch">
+
+    <Grid>
+        <DataGrid FontSize="20" Margin="76,183,39,236"
+                   ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}"
+                               SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"
+                   SelectedItem="{Binding SelectedAccommodation}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naziv" Width="190" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Lokacija" Width="190" Binding="{Binding Location}" />
+                <DataGridTextColumn Header="Tip" Width="130" Binding="{Binding Type}" />
+                <DataGridTextColumn Header="Broj gostiju" Width="100" Binding="{Binding MaxGuestNumber}" />
+                <DataGridTextColumn Header="Broj dana za rezervaciju" Width="160" Binding="{Binding MinReservationDays}" />
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+    </Grid>
+</Page>

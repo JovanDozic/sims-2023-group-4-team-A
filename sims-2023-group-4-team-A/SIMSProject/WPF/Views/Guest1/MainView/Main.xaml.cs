@@ -36,24 +36,15 @@ namespace SIMSProject.WPF.Views.Guest1.MainView
      
         public void OpenMainPage()
         {
-            MainWind.Content = new MainPage(_user);
+            MainWind.Navigate(new MainPage(_user));
         }
         public void SetUsername()
         {
             UserTB.Text = _user.Username;
         }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            MainWind.Content = new Probna();
-            if (ButtonMenu.IsChecked == true)
-            {
-                ButtonMenu.IsChecked = false;
-            }
-        }
         private void Button_Click_Home(object sender, RoutedEventArgs e)
         {
-            MainWind.Content = new MainPage(_user);
+            MainWind.Navigate(new MainPage(_user));
             if(ButtonMenu.IsChecked == true)
             {
                 ButtonMenu.IsChecked = false;

@@ -189,9 +189,10 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _accommodationService.ReloadAccommodations();
             return new ObservableCollection<Accommodation>(_accommodationService.GetAllByOwnerId(_user.Id));
         }
-        public void Search(string nameTypeLocation,int duration, int maxGuests)
+        public ObservableCollection<Accommodation> Search(string nameTypeLocation,int duration, int maxGuests)
         {
             _accommodationService.Search(Accommodations,nameTypeLocation, duration, maxGuests);
+            return Accommodations;
         }
 
         public void RegisterAccommodation()

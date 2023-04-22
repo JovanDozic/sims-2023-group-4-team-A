@@ -1,5 +1,6 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
+using SIMSProject.WPF.Views.Guest1.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace SIMSProject.WPF.Views.Guest1.MainView
     /// <summary>
     /// Interaction logic for MainPage.xaml
     /// </summary>
-    public partial class MainPage : UserControl
+    public partial class MainPage : Page
     {
         private readonly User _user = new();
         private readonly AccommodationViewModel _accommodationViewModel;
@@ -34,8 +35,12 @@ namespace SIMSProject.WPF.Views.Guest1.MainView
 
         private void Button_Click_Search(object sender, RoutedEventArgs e)
         {
-
-            _accommodationViewModel.Search(Search1.Text, _accommodationViewModel.MinReservationDays, _accommodationViewModel.MaxGuestNumber);
+            
+            var searchResults = _accommodationViewModel.Search(Search1.Text, _accommodationViewModel.MinReservationDays, _accommodationViewModel.MaxGuestNumber);
+            
+            var searchPage = new TestSearch(searchResults);
+            NavigationService.Navigate(searchPage);
+            
         }
         private void TextSearch_GotFocus(object sender, RoutedEventArgs e)
         {

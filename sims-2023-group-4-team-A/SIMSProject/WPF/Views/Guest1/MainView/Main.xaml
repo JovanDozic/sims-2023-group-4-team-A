@@ -21,8 +21,6 @@
         <Frame Background="#F2DDF2" x:Name="MainWind" Grid.Row="1" NavigationUIVisibility="Hidden" >
 
         </Frame>
-
-
         <Grid Grid.Row="1" x:Name="OverlayPanel" Visibility="Collapsed">
             <Grid Background="#000000" Opacity="0.6"></Grid>
         </Grid>
