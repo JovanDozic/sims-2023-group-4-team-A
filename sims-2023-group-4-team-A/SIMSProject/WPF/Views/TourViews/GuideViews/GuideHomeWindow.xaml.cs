@@ -25,7 +25,7 @@ namespace SIMSProject.View.GuideViews
         {
             InitializeComponent();
             this.Guide = guide;
-            frame.Content = new AllToursPage();
+            mainFrame.Content = new AllToursPage();
 
         }
 
@@ -37,17 +37,17 @@ namespace SIMSProject.View.GuideViews
 
         private void TodaysBTN_Click(object sender, RoutedEventArgs e)
         {
-            frame.Content = new TodaysToursPage();
+            mainFrame.Content = new TodaysToursPage();
         }
 
         private void AllBTN_Click(object sender, RoutedEventArgs e)
         {
-            frame.Content = new AllToursPage();
+            mainFrame.Content = new AllToursPage();
         }
 
         private void ReviewBTN_Click(object sender, RoutedEventArgs e)
         {
-            frame.Content = new TourReviewsPage();   
+            mainFrame.Content = new TourReviewsPage();   
         }
 
         private void Sign_outBTN_Click(object sender, RoutedEventArgs e)
@@ -59,7 +59,7 @@ namespace SIMSProject.View.GuideViews
 
         private void StatisticsBTN_Click(object sender, RoutedEventArgs e)
         {
-            frame.Content = new TourStatisticsPage();
+            mainFrame.Content = new TourStatisticsPage();
         }
     }
 }

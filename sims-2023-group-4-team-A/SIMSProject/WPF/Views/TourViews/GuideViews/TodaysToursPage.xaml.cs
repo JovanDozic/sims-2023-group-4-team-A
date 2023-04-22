@@ -21,17 +21,17 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     /// </summary>
     public partial class TodaysToursPage : Page
     {
-        private ToursViewModel _vewModel { get; set; }
+        private ToursViewModel ViewModel { get; set; }
         public TodaysToursPage()
         {
             InitializeComponent();
-            _vewModel = new();
-            _vewModel.GetTodaysTours();
-            this.DataContext = _vewModel;
+            ViewModel = new();
+            ViewModel.GetTodaysTours();
+            this.DataContext = ViewModel;
         }
         private void CheckAppointmentsBTN_Click(object sender, RoutedEventArgs e)
         {
-            var window = new LiveTrackAppointmentSelectionWindow(_vewModel.SelectedTour);
+            var window = new LiveTrackAppointmentSelectionWindow(ViewModel.SelectedTour);
             window.Show();
         }
     }

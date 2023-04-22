@@ -37,7 +37,7 @@
             <Button x:Name="RequestStatBTN" Content="Statistika o&#xa;zahtevima za ture&#xa;Ctrl+S+R"/>
             <Button x:Name="ReviewBTN" Content="Recenzije Ctrl+G" Click="ReviewBTN_Click"/>
         </StackPanel>
-        <Frame x:Name="frame" NavigationUIVisibility="Hidden">
+        <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden">
         </Frame>
     </DockPanel>
 </Window>

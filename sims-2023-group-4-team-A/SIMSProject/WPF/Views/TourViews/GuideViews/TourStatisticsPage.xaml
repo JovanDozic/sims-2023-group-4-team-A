@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.TourViews.GuideViews"
+      xmlns:viewModel="clr-namespace:SIMSProject.WPF.ViewModels.TourViewModels"
       mc:Ignorable="d" 
        d:DesignHeight="600" d:DesignWidth="965"
       Title="Statistics">
@@ -14,7 +15,7 @@
             <Button x:Name="BtnNext"
                     Height="36" Width="45"/>
             <Label 
-                   Margin="365,0,0,0"
+                   Margin="325,0,0,0"
                    Content="Statistika"
                    FontSize="28"
                    FontWeight="Bold"
@@ -42,14 +43,20 @@
                    Content="Prikaži najposećeniju turu:"/>
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="20,0,0,0" VerticalAlignment="Center">
                 <RadioButton x:Name="rdbAll" Content="Za sva vremena" 
-                             FontSize="21" 
+                             FontSize="21"
+                             Command="{Binding Path=GetStatisticsCommand}"
                              VerticalContentAlignment="Center"/>
                 <RadioButton x:Name="rdbYear" 
                              Margin="20,0,0,0"
+                             Command="{Binding Path=GetStatisticsCommand1}"
                              VerticalContentAlignment="Center"/>
-                <TextBox x:Name="tbYear" 
+                <TextBox x:Name="tbYear"
+                         Text="{Binding DesiredYear, Mode=TwoWay}"
                          Margin="10,0,0,0"
-                         Width="250" Height="40"/>
+                         FontSize="21"
+                         VerticalContentAlignment="Center"
+                         Width="250" Height="40"
+                         />
             </StackPanel>
             <Grid Margin="20,0,20,0" Grid.Row="2" DataContext="{Binding TourStatistics}">
                 <Grid.ColumnDefinitions>
@@ -68,9 +75,9 @@
                 <TextBlock Grid.Column="2" Grid.Row="0" FontSize="21"
                                Text="Trajanje" />
                 <TextBlock Grid.Column="3" Grid.Row="0" FontSize="21"
-                               Text="Ukupno gostiju" />
-                <TextBlock Grid.Column="4" Grid.Row="0" FontSize="21"
                                Text="Odrađenih tura" />
+                <TextBlock Grid.Column="4" Grid.Row="0" FontSize="21"
+                               Text="Ukupno gostiju" />
 
                 <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Tour.Name,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" FontSize="21"/>
                 <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding Tour.Duration,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" FontSize="21"/>

@@ -81,7 +81,7 @@ namespace SIMSProject.Application.Services.TourServices
                 .Select(group => new TourStatisticsDTO
                 {
                     Tour = group.Key,
-                    TotalAppointments = group.Count(),
+                    TotalAppointments = group.Distinct().Count(),
                     TotalGuests = group.Sum
                     (g => _tourReservationRepo.GetAll().First(tr => tr.TourAppointment.Tour.Id == group.Key.Id).GuestNumber)
                 })

@@ -44,9 +44,9 @@ namespace SIMSProject.Application.Services.TourServices
         }
 
 
-        public TourStatisticsDTO GetMostVisitedTour()
+        public TourStatisticsDTO GetMostVisitedTour(int? desiredYear)
         {
-            return _guideRatingService.GetMostFisitedTour().FirstOrDefault();
+            return _guideRatingService.GetMostFisitedTour(desiredYear).FirstOrDefault();
         }
 
         public List<TourRatingDTO> GetRatings()
