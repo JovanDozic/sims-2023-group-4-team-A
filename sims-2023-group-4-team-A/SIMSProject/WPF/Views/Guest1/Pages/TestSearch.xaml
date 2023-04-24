@@ -9,8 +9,9 @@
       Title="TestSearch">
 
     <Grid>
-        <DataGrid FontSize="20" Margin="76,183,39,236"
-                   ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}"
+        <DataGrid FontSize="20" Margin="76,183,39,98"
+                  x:Name="SearchGrid"
+                   ItemsSource="{Binding Path=Accommodations, UpdateSourceTrigger=PropertyChanged}"
                                SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"
                    SelectedItem="{Binding SelectedAccommodation}">
             <DataGrid.Columns>

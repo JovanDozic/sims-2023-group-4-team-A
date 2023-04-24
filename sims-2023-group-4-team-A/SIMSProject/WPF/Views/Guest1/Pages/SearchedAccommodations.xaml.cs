@@ -1,9 +1,6 @@
-﻿using SIMSProject.Domain.Models.AccommodationModels;
-using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.WPF.ViewModels.AccommodationViewModels;
+﻿using SIMSProject.WPF.ViewModels.AccommodationViewModels;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,17 +17,21 @@ using System.Windows.Shapes;
 namespace SIMSProject.WPF.Views.Guest1.Pages
 {
     /// <summary>
-    /// Interaction logic for TestSearch.xaml
+    /// Interaction logic for SearchedAccommodations.xaml
     /// </summary>
-    public partial class TestSearch : Page
+    public partial class SearchedAccommodations : Page
     {
-        private readonly User _user = new();
         private AccommodationViewModel _accommodationViewModel;
-        public TestSearch(AccommodationViewModel accommodationViewModel)
+        public SearchedAccommodations(AccommodationViewModel accommodationViewModel)
         {
             InitializeComponent();
             _accommodationViewModel = accommodationViewModel;
             DataContext = _accommodationViewModel;
+        }
+
+        private void Button_Click_Close(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

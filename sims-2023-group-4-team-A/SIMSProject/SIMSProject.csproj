@@ -52,6 +52,7 @@
     <None Remove="WPF\Views\Guest1\Pages\Icons\chevron-left-black.png" />
     <None Remove="WPF\Views\Guest1\Pages\Icons\chevron-left.png" />
     <None Remove="WPF\Views\Guest1\Pages\Icons\home.png" />
+    <None Remove="WPF\Views\Guest1\Pages\Icons\location.png" />
     <None Remove="WPF\Views\Guest1\Pages\Icons\logo5.png" />
     <None Remove="WPF\Views\Guest1\Pages\Icons\notification.png" />
     <None Remove="WPF\Views\Guest1\Pages\Icons\plus.png" />
@@ -126,6 +127,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="WPF\Views\Guest1\Pages\Icons\home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WPF\Views\Guest1\Pages\Icons\location.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="WPF\Views\Guest1\Pages\Icons\logo5.png">

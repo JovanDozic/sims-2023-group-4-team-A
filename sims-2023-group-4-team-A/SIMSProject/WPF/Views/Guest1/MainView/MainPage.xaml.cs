@@ -28,17 +28,16 @@ namespace SIMSProject.WPF.Views.Guest1.MainView
         public MainPage(User user)
         {
             InitializeComponent();
-            user = _user;
-            _accommodationViewModel = new AccommodationViewModel(user);
+            _user = user;
+            _accommodationViewModel = new AccommodationViewModel(_user);
             DataContext = _accommodationViewModel;
         }
 
         private void Button_Click_Search(object sender, RoutedEventArgs e)
         {
-            
-            var searchResults = _accommodationViewModel.Search(Search1.Text, _accommodationViewModel.MinReservationDays, _accommodationViewModel.MaxGuestNumber);
-            
-            var searchPage = new TestSearch(searchResults);
+            _accommodationViewModel.Search(Search1.Text, _accommodationViewModel.MinReservationDays, _accommodationViewModel.MaxGuestNumber);         
+            var searchPage = new SearchedAccommodations(_accommodationViewModel);
+            searchPage.SearchedAccLW.Items.Clear();
             NavigationService.Navigate(searchPage);
             
         }

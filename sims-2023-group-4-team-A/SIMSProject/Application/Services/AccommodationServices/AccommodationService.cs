@@ -55,6 +55,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
             if (durationSearch > 0) searchResults.RemoveAll(x => x.MinReservationDays > durationSearch);
             if (maxGuestsSearch > 0) searchResults.RemoveAll(x => x.MaxGuestNumber < maxGuestsSearch);
 
+
             accommodations.Clear();
             foreach (var searchResult in searchResults)
                 accommodations.Add(searchResult);
