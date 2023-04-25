@@ -8,6 +8,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         Title="Main" Height="768" Width="1024">
     <Grid MouseLeftButtonDown="BG_PreviewMouseLeftButtonDown">
         <Grid.ColumnDefinitions>
@@ -53,7 +54,11 @@
             <Button Click="Button_Click_Home" BorderThickness="0" BorderBrush="Transparent" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="50" Background="#0c669f">
                 <Image Source="Icons/home.png"></Image>
             </Button>
-            <ToggleButton x:Name="ButtonMenu" BorderThickness="0" BorderBrush="Transparent" Grid.Column="8" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="50" Background="#0c669f">
+            
+            <ToggleButton x:Name="ButtonMenu" BorderThickness="0"
+                          BorderBrush="Transparent" Grid.Column="8" 
+                          HorizontalAlignment="Center" VerticalAlignment="Center"
+                          Height="50" Width="50" Background="#0c669f">
                 <Image Source="Icons/menu.png" Width="38" />
                 <ToggleButton.Triggers>
                     <EventTrigger RoutedEvent="ToggleButton.Checked">

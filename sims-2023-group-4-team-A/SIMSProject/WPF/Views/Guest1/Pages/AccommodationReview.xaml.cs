@@ -17,12 +17,12 @@ using System.Windows.Shapes;
 namespace SIMSProject.WPF.Views.Guest1.Pages
 {
     /// <summary>
-    /// Interaction logic for SearchedAccommodations.xaml
+    /// Interaction logic for AccommodationReview.xaml
     /// </summary>
-    public partial class SearchedAccommodations : Page
+    public partial class AccommodationReview : Page
     {
         private AccommodationViewModel _accommodationViewModel;
-        public SearchedAccommodations(AccommodationViewModel accommodationViewModel)
+        public AccommodationReview(AccommodationViewModel accommodationViewModel)
         {
             InitializeComponent();
             _accommodationViewModel = accommodationViewModel;
@@ -32,14 +32,6 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
         private void Button_Click_Close(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
-        }
-
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if(SearchedAccLW.SelectedItem != null)
-            {
-                NavigationService.Navigate(new AccommodationReview(_accommodationViewModel));
-            }
         }
     }
 }

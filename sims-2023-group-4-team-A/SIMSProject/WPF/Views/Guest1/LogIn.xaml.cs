@@ -32,5 +32,10 @@ namespace SIMSProject.WPF.Views.Guest1
         {
             if (_signInViewModel.GuestSignIn(PasswordTxt.Password)) Close();
         }
+
+        private void Button_Click_Close(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

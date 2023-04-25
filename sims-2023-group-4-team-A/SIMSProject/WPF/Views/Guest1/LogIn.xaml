@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest1"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
+        WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         Title="LogIn" Height="768" Width="1024">
     <Grid Margin="190,29,192,65">
@@ -56,5 +58,11 @@
                 BorderThickness="0"
                 Width="180"
                 Height="45"></Button>
+        <Button Background="Transparent" 
+                BorderBrush="Transparent"
+                BorderThickness="0" Margin="792,-30,-192,93"
+                Click="Button_Click_Close">
+            <Image Source="close.png"></Image>
+        </Button>
     </Grid>
 </Window>
