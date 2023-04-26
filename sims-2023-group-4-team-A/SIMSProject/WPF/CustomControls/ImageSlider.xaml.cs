@@ -21,52 +21,7 @@ namespace SIMSProject.WPF.CustomControls
     /// </summary>
     public partial class ImageSlider : UserControl
     {
-        public static readonly DependencyProperty AccommodationViewModelProperty =
-            DependencyProperty.Register(nameof(AccommodationViewModel), typeof(AccommodationViewModel), typeof(ImageSlider));
-
-        public AccommodationViewModel AccommodationViewModel
-        {
-            get { return (AccommodationViewModel)GetValue(AccommodationViewModelProperty); }
-            set { SetValue(AccommodationViewModelProperty, value); }
-        }
-
-        private int _currentIndex = 0;
-
-        public ImageSlider()
-        {
-            InitializeComponent();
-            DataContext = this;
-        }
-
-        
-
-        private void UpdateImage()
-        {
-            if (AccommodationViewModel.SelectedAccommodationImages.Count > 0)
-            {
-                var uri = new Uri(AccommodationViewModel.SelectedAccommodationImages[_currentIndex]);
-                var bitmap = new BitmapImage(uri);
-                ImageControl.Source = bitmap;
-            }
-        }
-
-        private void PreviousButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (AccommodationViewModel.SelectedAccommodationImages.Count > 0)
-            {
-                _currentIndex = (_currentIndex + AccommodationViewModel.SelectedAccommodationImages.Count - 1) % AccommodationViewModel.SelectedAccommodationImages.Count;
-                UpdateImage();
-            }
-        }
-
-        private void NextButton_Click(object sender, RoutedEventArgs e)
-        {
-                if (AccommodationViewModel.SelectedAccommodationImages.Count > 0)
-                {
-                    _currentIndex = (_currentIndex + 1) % AccommodationViewModel.SelectedAccommodationImages.Count;
-                    UpdateImage();
-                }           
-        }
+       
     }
 
 

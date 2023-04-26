@@ -12,9 +12,9 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="0" Content="&#8249;" Click="PreviousButton_Click" Grid.ColumnSpan="2" Margin="0,162,749,0" Height="63" VerticalAlignment="Top"/>
+        <Button Grid.Column="0" Content="&#8249;"  Grid.ColumnSpan="2" Margin="0,162,749,0" Height="63" VerticalAlignment="Top"/>
         <Image Grid.Column="1" x:Name="ImageControl" Stretch="UniformToFill"/>
-        <Button Grid.Column="1" Content="&#8250;" Click="NextButton_Click" Margin="755,162,0,225"/>
+        <Button Grid.Column="1" Content="&#8250;"  Margin="755,162,0,225"/>
 
     </Grid>
 </UserControl>
