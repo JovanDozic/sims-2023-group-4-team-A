@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1024"
       Title="SearchedAccommodations">
-    
+
     <Page.Resources>
         <converters:AccommodationTypeConverter x:Key="TypeConverter" />
         <converters:CsvToImageConverter x:Key="CsvToImageConverter"/>
@@ -29,13 +29,14 @@
                FontSize="30"
                FontWeight="Bold"
                VerticalAlignment="Center" Margin="75,0,73,0"/>
-            <Image Grid.Column="2" Source="Icons/chevron-left-black.png" Margin="15,38,146,30"/>
+            <Image Grid.Column="2" Source="Icons/chevron-left-black.png" Margin="92,10,76,59"/>
             <Button Content="Nazad" 
                     Background="Transparent"
                     BorderBrush="Transparent"
+                    VerticalAlignment="Top"
                     FontWeight="Bold"
                     BorderThickness="0"
-                    FontSize="20" Grid.Column="2" Margin="42,38,77,36" Click="Button_Click_Close"/>
+                    FontSize="20" Grid.Column="2" Margin="122,10,10,0" Click="Button_Click_Close"/>
         </Grid>
 
         <ListView x:Name="SearchedAccLW" Grid.Row="1" Margin="75,0,43,0"

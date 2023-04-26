@@ -3,11 +3,14 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest1.Pages"
+      xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest1.Pages" xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1024"
       Title="AccommodationList">
-
+    <Page.Resources>
+        <converters:AccommodationTypeConverter x:Key="TypeConverter" />
+        <converters:CsvToImageConverter x:Key="CsvToImageConverter"/>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -29,7 +32,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv" Width="280" Binding="{Binding Name}" />
                 <DataGridTextColumn Header="Lokacija" Width="270" Binding="{Binding Location}" />
-                <DataGridTextColumn Header="Tip" Width="150" Binding="{Binding Type}" />
+                <DataGridTextColumn Header="Tip" Width="150" Binding="{Binding Type, Converter={StaticResource TypeConverter}}" />
                 <DataGridTextColumn Header="Broj gostiju" Width="140" Binding="{Binding MaxGuestNumber}" />
                 <DataGridTextColumn Header="Broj dana" Width="130" Binding="{Binding MinReservationDays}" />
 
@@ -41,7 +44,7 @@
                 Width="356" Height="50" Content="Prikazi"
                 FontSize="30"
                 IsEnabled="False"
-                x:Name="ButtonShow">
+                x:Name="ButtonShow" Click="ButtonShow_Click">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Template">

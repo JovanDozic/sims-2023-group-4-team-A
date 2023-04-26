@@ -23,13 +23,13 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
     /// </summary>
     public partial class MovingReservation : Page
     {
-        private readonly User User = new();
+        private readonly User _user = new();
         private readonly ReschedulingRequestViewModel _reschedulingRequestViewModel;
-        public MovingReservation(AccommodationReservation accommodationReservation)
+        public MovingReservation(AccommodationReservation accommodationReservation, User user)
         {
             InitializeComponent();
-            User = new();
-            _reschedulingRequestViewModel = new(User, accommodationReservation);
+            _user = user;
+            _reschedulingRequestViewModel = new(_user, accommodationReservation);
             DataContext = _reschedulingRequestViewModel;
         }
         private void StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -61,6 +61,7 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
         {
             _reschedulingRequestViewModel.SendRequest();
             MessageBox.Show("Zahtev uspešno poslat!");
+            NavigationService.Navigate(new ReservationList(_user));
             //TODO zatvoriti prozor
         }
     }

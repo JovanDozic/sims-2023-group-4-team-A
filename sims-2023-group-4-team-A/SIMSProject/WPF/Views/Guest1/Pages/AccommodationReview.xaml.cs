@@ -27,11 +27,16 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             InitializeComponent();
             _accommodationViewModel = accommodationViewModel;
             DataContext = _accommodationViewModel;
+            AddImages();
         }
 
         private void Button_Click_Close(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+        private void AddImages()
+        {
+            imageSlider.AddImages(_accommodationViewModel.SelectedAccommodation.ImageURLs);
         }
     }
 }

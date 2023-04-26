@@ -8,7 +8,7 @@
       d:DesignHeight="680" d:DesignWidth="1024"
       Title="MovingReservation">
 
-    <Grid HorizontalAlignment="Center" Width="952" Margin="0,0,0,32">
+    <Grid HorizontalAlignment="Center" Width="964" Margin="0,0,0,32">
 
 
         <Grid.ColumnDefinitions>
@@ -39,13 +39,13 @@
 
             <Label FontWeight="Bold" Content="Pomeranje rezervacija" FontSize="40"
                    HorizontalAlignment="Left" Margin="243,17,0,3"></Label>
-            <Image Grid.Column="1" Source="Icons/chevron-left-black.png" Margin="76,38,111,30" Grid.ColumnSpan="2"/>
+            <Image Grid.Column="2" Source="Icons/chevron-left-black.png" Margin="51,14,44,69"/>
             <Button Content="Nazad" 
                     Background="Transparent"
                     BorderBrush="Transparent"
                     FontWeight="Bold"
                     BorderThickness="0"
-                    FontSize="20" Grid.Column="2" Margin="0,40,44,36" Click="Button_Click_Close"/>
+                    FontSize="20" Grid.Column="2" Margin="79,10,-19,70" Click="Button_Click_Close"/>
 
         </Grid>
 
@@ -64,7 +64,7 @@
                    FontSize="30" FontWeight="Bold"
                    FontStyle="Italic"
                    Text="{Binding DisplayDate}"
-                   Grid.Row="2" Grid.Column="1" Margin="77,0,56,0"></TextBlock>
+                   Grid.Row="2" Grid.Column="1" Margin="77,0,22,0"></TextBlock>
 
         <Label Grid.ColumnSpan="2" Content="Unesite novo vreme rezervacije:"
                Grid.Row="3" VerticalAlignment="Center"

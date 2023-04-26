@@ -7,6 +7,7 @@ using SIMSProject.Domain.Models.UserModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 {
@@ -48,6 +49,18 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 if (_accommodation == value) return;
                 _accommodation = value;
                 OnPropertyChanged();
+                SelectedAccommodationImages = new ObservableCollection<string>(SelectedAccommodation.ImageURLs.SelectMany(x => x.Split(',').Select(y => y.Trim())));
+
+            }
+        }
+        private ObservableCollection<string> _selectedAccommodationImages;
+        public ObservableCollection<string> SelectedAccommodationImages
+        {
+            get => _selectedAccommodationImages;
+            set
+            {
+                _selectedAccommodationImages = value;
+                OnPropertyChanged(nameof(SelectedAccommodationImages));
             }
         }
         public int Id

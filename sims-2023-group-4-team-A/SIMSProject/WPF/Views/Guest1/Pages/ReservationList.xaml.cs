@@ -62,7 +62,7 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
                     MessageBox.Show("Zahtev za ovu rezervaciju je već poslat!");
                     return;
                 }        
-                 var movingReservationsPage = new MovingReservation(_accommodationReservationViewModel.SelectedReservation);
+                 var movingReservationsPage = new MovingReservation(_accommodationReservationViewModel.SelectedReservation, _user);
                  NavigationService.Navigate(movingReservationsPage);
         }
 

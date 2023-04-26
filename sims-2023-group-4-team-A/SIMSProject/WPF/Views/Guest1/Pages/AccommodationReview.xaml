@@ -3,8 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest1.Pages" xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
+      xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest1.Pages" xmlns:converters="clr-namespace:SIMSProject.WPF.Converters" xmlns:custom="clr-namespace:SIMSProject.WPF.CustomControls"
       mc:Ignorable="d" 
+      x:Name="accommodationReview"
       d:DesignHeight="768" d:DesignWidth="1024"
       Title="AccommodationReview">
 
@@ -18,18 +19,18 @@
 
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="230"></RowDefinition>
+            <RowDefinition Height="200"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="100"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Grid>
+        <Grid Margin="0,-31,0,10">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Grid Margin="82,0,0,20">
+            <Grid Margin="82,-20,-80,20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition Width="30"></ColumnDefinition>
@@ -37,51 +38,52 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock FontSize="30" Text="{Binding SelectedAccommodation.Name}" FontWeight="Bold"
-                           VerticalAlignment="Bottom"></TextBlock>
-                <Image Grid.Column="1" Source="Icons/chevron-left-black.png" Margin="24,40,83,27" Grid.ColumnSpan="2" >
-                </Image>
+                           VerticalAlignment="Top" Margin="0,55,0,10"></TextBlock>
+                <Image Grid.Column="1" Source="Icons/chevron-left-black.png" Margin="23,61,77,18" Grid.ColumnSpan="2" />
                 <Button Content="Nazad" 
                     Background="Transparent"
                     BorderBrush="Transparent"
+                    VerticalAlignment="Top"
                     FontWeight="Bold"
                     BorderThickness="0"
-                    FontSize="20" Grid.Column="2" Margin="0,32,0,19" Click="Button_Click_Close"/>
+                    FontSize="20" Grid.Column="2" Margin="23,59,10,0" Click="Button_Click_Close" Height="32"/>
             </Grid>
-            <Grid Grid.Row="1" Margin="82,0,82,0">
+            <Grid Margin="82,90,64,0" Grid.RowSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Orientation="Vertical">
-                    <TextBlock FontWeight="Bold" Foreground="#626161" Text="{Binding SelectedAccommodation.Location}" Margin="0,0,0,5" FontSize="25"></TextBlock>
+                    <TextBlock FontWeight="Bold" Foreground="#626161" Text="{Binding SelectedAccommodation.Location}" Margin="0,7,0,3" FontSize="25"></TextBlock>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Tip: " FontSize="25" Foreground="#626161"></TextBlock>
-                        <TextBlock Foreground="#626161" FontWeight="Bold" Text="{Binding SelectedAccommodation.Type, Converter={StaticResource TypeConverter}}" Margin="0,0,0,5" FontSize="25"></TextBlock>
+                        <TextBlock Foreground="#626161" FontWeight="Bold" Text="{Binding SelectedAccommodation.Type, Converter={StaticResource TypeConverter}}" Margin="0,0,0,3" FontSize="25"></TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Foreground="#626161" FontSize="25" Text="Ocena:"></TextBlock>
+                        <TextBlock Foreground="#626161" FontSize="25" Text="Ocena:" Margin="0,0,0,3"></TextBlock>
                         <TextBlock FontSize="25" ></TextBlock>
                     </StackPanel>
                 </StackPanel>
 
-                <StackPanel Grid.Column="1">
-                    <StackPanel Orientation="Horizontal">
+                <StackPanel Grid.Column="1" HorizontalAlignment="Left" Width="315" Margin="50,0,0,0">
+                    <StackPanel Orientation="Horizontal" Width="309">
                         <TextBlock Text="Maksimalan broj gostiju:  "
-                                   FontSize="25" Margin="0,0,0,5"></TextBlock>
-                        <TextBlock FontWeight="Bold" Text="{Binding SelectedAccommodation.MaxGuestNumber}" FontSize="25"></TextBlock>
+                                   FontSize="25" Margin="0,0,0,5" Width="275"></TextBlock>
+                        <TextBlock FontWeight="Bold" Text="{Binding SelectedAccommodation.MaxGuestNumber}" FontSize="25" Width="35"></TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Minimalan broj dana:  " FontSize="25"></TextBlock>
-                        <TextBlock FontWeight="Bold" Text="{Binding SelectedAccommodation.MinReservationDays}" FontSize="25"></TextBlock>
+                        <TextBlock FontWeight="Bold" Text="{Binding SelectedAccommodation.MinReservationDays}" FontSize="25" Width="100"></TextBlock>
                     </StackPanel>
                 </StackPanel>
             </Grid>
         </Grid>
 
+        <custom:ImageSlideShow x:Name="imageSlider" Margin="65,177,65,77" Grid.RowSpan="3"/>
         <Button Content="Rezervacija" Background="#0c669f"
                 Foreground="White" FontSize="30" Grid.Row="2" HorizontalAlignment="Center"
-                VerticalAlignment="Center" Width="241" Height="52">
+                VerticalAlignment="Top" Width="240" Height="52" Margin="0,38,0,0">
 
         </Button>
 

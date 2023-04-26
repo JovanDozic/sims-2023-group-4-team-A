@@ -36,5 +36,10 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
         {
             ButtonShow.IsEnabled = !_accommodationViewModel.IsNotSelected();
         }
+
+        private void ButtonShow_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AccommodationReview(_accommodationViewModel));
+        }
     }
 }
