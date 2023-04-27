@@ -80,7 +80,7 @@
             </Grid>
         </Grid>
 
-        <custom:ImageSlideShow x:Name="imageSlider" Margin="65,177,65,77" Grid.RowSpan="3"/>
+        <custom:ImageSlider x:Name="imageSlider" Height="500" Margin="-30,184,-22,84" Grid.RowSpan="3" />
         <Button Content="Rezervacija" Background="#0c669f"
                 Foreground="White" FontSize="30" Grid.Row="2" HorizontalAlignment="Center"
                 VerticalAlignment="Top" Width="240" Height="52" Margin="0,38,0,0">
