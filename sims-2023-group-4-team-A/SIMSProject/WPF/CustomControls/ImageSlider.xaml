@@ -12,9 +12,13 @@
             <ColumnDefinition Width="700" />
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="LeftButton" VerticalAlignment="Center" Grid.Column="0" Content="&#8249;" Click="Button_Click_Previous" Height="50" Width="80"/>
+        <Button Background="#0c669f" x:Name="LeftButton" VerticalAlignment="Center" Click="Button_Click_Previous" Height="50" Margin="41,0,0,0">
+            <Image Source="../Views/Guest1/Icons/chevron-left-black.png"></Image>
+        </Button>
         <Image Grid.Column="1" x:Name="ImageControl" Stretch="UniformToFill" HorizontalAlignment="Left" Width="auto"/>
-        <Button x:Name="RightButton" VerticalAlignment="Center" Grid.Column="2" Content="&#8250;" Click="Button_Click_Next" Height="50" Width="80"/>
+        <Button Background="#0c669f" x:Name="RightButton" VerticalAlignment="Center" Grid.Column="2" Click="Button_Click_Next" Height="50" Margin="0,0,42,0">
+            <Image Source="../Views/Guest1/Icons/chevron-right-black.png"></Image>
+        </Button>
 
     </Grid>
 </UserControl>

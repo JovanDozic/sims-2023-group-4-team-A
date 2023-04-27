@@ -17,31 +17,22 @@ using System.Windows.Shapes;
 namespace SIMSProject.WPF.Views.Guest1.Pages
 {
     /// <summary>
-    /// Interaction logic for AccommodationReview.xaml
+    /// Interaction logic for AccommodationReservation.xaml
     /// </summary>
-    public partial class AccommodationReview : Page
+    public partial class AccommodationReservationView : Page
     {
         private AccommodationViewModel _accommodationViewModel;
-        public AccommodationReview(AccommodationViewModel accommodationViewModel)
+
+        public AccommodationReservationView(AccommodationViewModel accommodationViewModel)
         {
             InitializeComponent();
             _accommodationViewModel = accommodationViewModel;
             DataContext = _accommodationViewModel;
-            AddImages();
         }
 
         private void Button_Click_Close(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
-        }
-        private void AddImages()
-        {
-            imageSlider.AddImages(_accommodationViewModel.SelectedAccommodation.ImageURLs);
-        }
-
-        private void Button_Click_Reservation(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new AccommodationReservationView(_accommodationViewModel));
         }
     }
 }

@@ -29,7 +29,7 @@ namespace SIMSProject.WPF.CustomControls
             InitializeComponent();
             currentIndex = 0;
             LeftButton.IsEnabled = false;
-            RightButton.IsEnabled = true;
+            RightButton.IsEnabled = false;
 
             LeftButton.Click += Button_Click_Previous;
             RightButton.Click += Button_Click_Next;

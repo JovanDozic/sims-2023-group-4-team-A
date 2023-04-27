@@ -41,7 +41,7 @@
         </DataGrid>
 
         <Button Grid.Row="2"
-                Width="356" Height="50" Content="Prikazi"
+                Width="356" Height="50" Content="Prikaži"
                 FontSize="30"
                 IsEnabled="False"
                 x:Name="ButtonShow" Click="ButtonShow_Click">

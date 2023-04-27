@@ -39,7 +39,7 @@
 
             <Label FontWeight="Bold" Content="Pomeranje rezervacija" FontSize="40"
                    HorizontalAlignment="Left" Margin="243,17,0,3"></Label>
-            <Image Grid.Column="2" Source="Icons/chevron-left-black.png" Margin="51,14,44,69"/>
+            <Image Grid.Column="2" Source="../Icons/chevron-left-black.png" Margin="51,14,44,69"/>
             <Button Content="Nazad" 
                     Background="Transparent"
                     BorderBrush="Transparent"

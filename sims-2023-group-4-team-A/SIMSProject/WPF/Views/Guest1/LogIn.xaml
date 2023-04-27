@@ -26,7 +26,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Image Source="MainView/Icons/logo5.png" Grid.ColumnSpan="2" Margin="60,0,440,0"/>
+            <Image Source="Icons/logo.png" Grid.ColumnSpan="2" Margin="60,0,440,0"/>
             <Label Grid.Column="1" Content="Smeštarko"
                    FontSize="70" Margin="29,0,65,0"
                    Foreground="#0c669f"></Label>
@@ -62,7 +62,7 @@
                 BorderBrush="Transparent"
                 BorderThickness="0" Margin="792,-30,-192,93"
                 Click="Button_Click_Close">
-            <Image Source="close.png"></Image>
+            <Image Source="Icons/close.png"></Image>
         </Button>
     </Grid>
 </Window>

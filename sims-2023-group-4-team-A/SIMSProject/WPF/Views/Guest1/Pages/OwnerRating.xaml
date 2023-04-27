@@ -76,7 +76,7 @@
 
                 <TextBox x:Name="ImageUrlTB" FontSize="20" Grid.ColumnSpan="2" Margin="0,10,146,18"/>
                 <Button Grid.Column="1" Margin="13,10,24,18" Click="Button_Click_Upload">
-                    <Image Source="Icons/plus.png"></Image>
+                    <Image Source="../Icons/plus.png"></Image>
                 </Button>
                 <ListBox x:Name="ImagesList"
                          ItemsSource="{Binding ImageURLs, UpdateSourceTrigger=PropertyChanged}"
