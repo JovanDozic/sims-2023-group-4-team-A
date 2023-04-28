@@ -1,4 +1,6 @@
-﻿namespace SIMSProject.Domain.Models.UserModels
+﻿using System;
+
+namespace SIMSProject.Domain.Models.UserModels
 {
     public class User
     {
@@ -6,6 +8,7 @@
         public string Username { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public UserRole Role { get; set; }
+        public DateTime Birthday { get; set; }
 
         public User()
         {

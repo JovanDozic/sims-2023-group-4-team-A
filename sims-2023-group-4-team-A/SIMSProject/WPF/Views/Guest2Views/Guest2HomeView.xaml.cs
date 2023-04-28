@@ -30,7 +30,7 @@ namespace SIMSProject.WPF.Views.Guest2Views
         }
         private void LogOut_Click(object sender, RoutedEventArgs e)
         {
-            User = new Guest(0, "<null>", "<null>");
+            User = new Guest(0, "<null>", "<null>", DateTime.Now);
             SignInView window = new();
             window.Show();
             Close();
