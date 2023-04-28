@@ -60,7 +60,7 @@
                FontSize="28" Margin="86,9,-86,91" Grid.RowSpan="2"></Label>
         <custom:NumericBoxRating Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" Margin="125,87,285,0" Grid.RowSpan="2"></custom:NumericBoxRating>
 
-        <Button Content="Prikaži" Grid.Row="5" Margin="354,10,354,0" Width="317" Height="49" FontSize="28" VerticalAlignment="Top" Grid.ColumnSpan="2" >
+        <Button Content="Prikaži" Grid.Row="5" Click="Button_Click_Reservation" Margin="354,10,354,0" Width="317" Height="49" FontSize="28" VerticalAlignment="Top" Grid.ColumnSpan="2" >
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Template">

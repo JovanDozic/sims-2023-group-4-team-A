@@ -1,0 +1,74 @@
+﻿<Page x:Class="SIMSProject.WPF.Views.Guest1.Pages.AlternativeReservationDates"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest1.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="1024"
+      Title="AlternativeReservationDates">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="450"></RowDefinition>
+            <RowDefinition Height="120"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Image Source="../Icons/chevron-left-black.png" Margin="924,13,73,33" />
+        <Button Content="Nazad" 
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    VerticalAlignment="Top"
+                    FontWeight="Bold"
+                    BorderThickness="0"
+                    FontSize="20" Margin="951,7,10,0" Click="Button_Click_Close" Height="34"/>
+
+        <Label FontWeight="Bold" Content="Smeštaj nije slobodan u izabranom periodu"
+               FontSize="30" Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+
+        <Label Content="U tabeli su prikazani alternativni termini"
+               FontSize="25" Grid.Row="1" HorizontalAlignment="Center"
+               VerticalAlignment="Bottom" Foreground="Gray"></Label>
+
+        <DataGrid Grid.Row="2" FontSize="25" Margin="261,10,261,29">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="250" Header="Datum dolaska" FontSize="25"></DataGridTextColumn>
+                <DataGridTextColumn Width="250" Header="Datum odlaska" FontSize="25"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Grid.Row="3" FontSize="25" Content="Rezerviši" Height="51" Width="287" Margin="368,10,369,59">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              RecognizesAccessKey="False"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="Background" Value="Gray"/>
+                                            <Setter Property="Cursor" Value="Arrow"/>
+                                            <Setter Property="IsHitTestVisible" Value="False"/>
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="True">
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="Background" Value="#0c669f"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+    </Grid>
+</Page>

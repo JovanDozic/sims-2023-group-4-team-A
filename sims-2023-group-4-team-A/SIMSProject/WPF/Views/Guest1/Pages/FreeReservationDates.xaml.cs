@@ -1,5 +1,4 @@
-﻿using SIMSProject.WPF.ViewModels.AccommodationViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,27 +16,18 @@ using System.Windows.Shapes;
 namespace SIMSProject.WPF.Views.Guest1.Pages
 {
     /// <summary>
-    /// Interaction logic for AccommodationReservation.xaml
+    /// Interaction logic for FreeReservationDates.xaml
     /// </summary>
-    public partial class AccommodationReservationView : Page
+    public partial class FreeReservationDates : Page
     {
-        private AccommodationViewModel _accommodationViewModel;
-
-        public AccommodationReservationView(AccommodationViewModel accommodationViewModel)
+        public FreeReservationDates()
         {
             InitializeComponent();
-            _accommodationViewModel = accommodationViewModel;
-            DataContext = _accommodationViewModel;
         }
 
         private void Button_Click_Close(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
-        }
-
-        private void Button_Click_Reservation(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new AlternativeReservationDates());
         }
     }
 }
