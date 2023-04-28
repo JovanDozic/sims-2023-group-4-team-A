@@ -71,9 +71,26 @@ namespace SIMSProject.Application.Services.TourServices
             return tourRatings;
         }
 
+
+        public VoucherUsageDTO DetermineVoucherUsageByTour(int tourId)
+        {
+            return GetCompletedReservationsByTour(tourId)
+               .Join(GetPresentGuests(),
+               tr => new { KeyOne = tr.TourAppointment.Id, KeyTwo = tr.GuestId },
+               tg => new { KeyOne = tg.TourAppointment.Id, KeyTwo = tg.Guest.Id },
+               (tr, tg) => new { tr.VoucherUsed, tr.GuestNumber })
+               .GroupBy(x => 1)
+               .Select(group => new {
+                   used = group.Sum(x => x.VoucherUsed ? x.GuestNumber : 0),
+                   unused = group.Sum(x => !x.VoucherUsed ? x.GuestNumber: 0)
+               })
+               .Select(x => new VoucherUsageDTO(x.used, x.unused))
+               .FirstOrDefault();
+        }
+
         public GuestAgeGroupsDTO DetermineAgeGroups(int tourId)
         {
-            var ageGroups = GetCompletedReservationsByTour(tourId)
+            return GetCompletedReservationsByTour(tourId)
                .Join(GetPresentGuests(),
                tr => new { KeyOne = tr.TourAppointment.Id, KeyTwo = tr.GuestId },
                tg => new { KeyOne = tg.TourAppointment.Id, KeyTwo = tg.Guest.Id },
@@ -85,8 +102,6 @@ namespace SIMSProject.Application.Services.TourServices
                    Adults = group.Sum(x => (x.Date - x.Birthday > TimeSpan.FromDays(365 * 18) && x.Date - x.Birthday <= TimeSpan.FromDays(365 * 50)) ? x.GuestNumber : 0),
                    Seniors = group.Sum(x => (x.Date - x.Birthday > TimeSpan.FromDays(365 * 50)) ? x.GuestNumber : 0)
                }).FirstOrDefault();
-
-            return ageGroups;
         }
         private IEnumerable<TourReservation> GetCompletedReservationsByTour(int tourId)
         {

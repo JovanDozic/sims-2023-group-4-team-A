@@ -43,6 +43,17 @@ namespace SIMSProject.Application.Services.TourServices
                 .Select(x => x.Tour).Distinct().ToList();  
         }
 
+
+        public Dictionary<int, VoucherUsageDTO> MapToursVoucherUsage()
+        {
+            Dictionary<int, VoucherUsageDTO> dictionary = new();
+            foreach (var finished in GetToursWithFinishedAppointments())
+            {
+                dictionary.TryAdd(finished.Id, _guideRatingService.DetermineVoucherUsageByTour(finished.Id));
+            }
+            return dictionary;
+        }
+
         public Dictionary<int, GuestAgeGroupsDTO> MapToursGuestAgeGroups()
         {
             Dictionary<int, GuestAgeGroupsDTO> dictionary = new();

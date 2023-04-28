@@ -101,9 +101,11 @@
                            HorizontalAlignment="Center"
                            Text="Bez vaučera"/>
                 <TextBox Grid.Row="1" Grid.Column="0"
+                         Text="{Binding Path=VoucherUsage.Used, UpdateSourceTrigger=PropertyChanged}"
                          IsReadOnly="True"
                          />
                 <TextBox Grid.Row="1" Grid.Column="1"
+                         Text="{Binding Path=VoucherUsage.Unused, UpdateSourceTrigger=PropertyChanged}"
                          IsReadOnly="True"
                          />
                 <TextBlock Grid.Row="2" Grid.ColumnSpan="2"

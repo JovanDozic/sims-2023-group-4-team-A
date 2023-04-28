@@ -29,7 +29,8 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
                 if(value != _tour)
                 {
                     _tour = value;
-                    GuestAgeGroups = _dictionary.GetValueOrDefault(_tour.Id);
+                    GuestAgeGroups = _ageGroupDictionary.GetValueOrDefault(_tour.Id);
+                    VoucherUsage = _voucherDictionary.GetValueOrDefault(_tour.Id);
                     OnPropertyChanged(nameof(SelectedTour));
                 }
             }
@@ -59,14 +60,31 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             }
         }
 
-        private Dictionary<int, GuestAgeGroupsDTO> _dictionary { get; set; }
+        private VoucherUsageDTO _voucherUsage = new();
+        public VoucherUsageDTO VoucherUsage
+        {
+            get => _voucherUsage;
+            set
+            {
+                if(value == _voucherUsage) return;
+                _voucherUsage = value;
+                OnPropertyChanged(nameof(VoucherUsage));
+            }
+        }
+
+
+
+
+        private Dictionary<int, GuestAgeGroupsDTO> _ageGroupDictionary { get; set; }
+        private Dictionary<int, VoucherUsageDTO> _voucherDictionary { get; set; }
 
        
         public void GetFinishedTours()
         {
             Tours.Clear();
             Tours = new(_tourService.GetToursWithFinishedAppointments());
-            _dictionary = _tourService.MapToursGuestAgeGroups();
+            _ageGroupDictionary = _tourService.MapToursGuestAgeGroups();
+            _voucherDictionary = _tourService.MapToursVoucherUsage();
         }
 
         public void GetTodaysTours()
