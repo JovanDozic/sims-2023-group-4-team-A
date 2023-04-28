@@ -1,13 +1,10 @@
 ﻿using SIMSProject.Application.DTOs;
-using SIMSProject.Application.DTOs.TourDTOs;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Documents;
 
 namespace SIMSProject.Application.Services.TourServices
 {
@@ -69,72 +66,6 @@ namespace SIMSProject.Application.Services.TourServices
                 .ToList();
 
             return tourRatings;
-        }
-
-
-        public VoucherUsageDTO DetermineVoucherUsageByTour(int tourId)
-        {
-            return GetCompletedReservationsByTour(tourId)
-               .Join(GetPresentGuests(),
-               tr => new { KeyOne = tr.TourAppointment.Id, KeyTwo = tr.GuestId },
-               tg => new { KeyOne = tg.TourAppointment.Id, KeyTwo = tg.Guest.Id },
-               (tr, tg) => new { tr.VoucherUsed, tr.GuestNumber })
-               .GroupBy(x => 1)
-               .Select(group => new {
-                   used = group.Sum(x => x.VoucherUsed ? x.GuestNumber : 0),
-                   unused = group.Sum(x => !x.VoucherUsed ? x.GuestNumber: 0)
-               })
-               .Select(x => new VoucherUsageDTO(x.used, x.unused))
-               .FirstOrDefault();
-        }
-
-        public GuestAgeGroupsDTO DetermineAgeGroups(int tourId)
-        {
-            return GetCompletedReservationsByTour(tourId)
-               .Join(GetPresentGuests(),
-               tr => new { KeyOne = tr.TourAppointment.Id, KeyTwo = tr.GuestId },
-               tg => new { KeyOne = tg.TourAppointment.Id, KeyTwo = tg.Guest.Id },
-               (tr, tg) => new { tg.Guest.Birthday, tg.TourAppointment.Date, tr.GuestNumber })
-               .GroupBy(x => 1)
-               .Select(group => new GuestAgeGroupsDTO
-               {
-                   Minors = group.Sum(x => (x.Date - x.Birthday <= TimeSpan.FromDays(365 * 18)) ? x.GuestNumber : 0),
-                   Adults = group.Sum(x => (x.Date - x.Birthday > TimeSpan.FromDays(365 * 18) && x.Date - x.Birthday <= TimeSpan.FromDays(365 * 50)) ? x.GuestNumber : 0),
-                   Seniors = group.Sum(x => (x.Date - x.Birthday > TimeSpan.FromDays(365 * 50)) ? x.GuestNumber : 0)
-               }).FirstOrDefault();
-        }
-        private IEnumerable<TourReservation> GetCompletedReservationsByTour(int tourId)
-        {
-            return _tourReservationRepo.GetAll()
-                            .Where(tr => tr.TourAppointment != null
-                            && tr.TourAppointment.TourStatus == Status.COMPLETED
-                            && tr.TourAppointment.Tour.Id == tourId);
-        }
-
-        private List<TourGuest> GetPresentGuests()
-        {
-            return _tourGuestRepo.GetAll().FindAll(x => x.GuestStatus == GuestAttendance.PRESENT);
-        }
-
-        public TourStatisticsDTO GetMostFisitedTour(int? targetYear = null)
-        {
-            var mostVisitedTours = _tourReservationRepo.GetAll()
-                .Where(tr => tr.TourAppointment != null
-                && tr.TourAppointment.TourStatus == Status.COMPLETED
-                && (targetYear == null || tr.TourAppointment.Date.Year == targetYear.Value))
-                .Join(GetPresentGuests(),
-               tr => new { KeyOne = tr.TourAppointment.Id, KeyTwo = tr.GuestId },
-               tg => new { KeyOne = tg.TourAppointment.Id, KeyTwo = tg.Guest.Id },
-               (tr, tg) => new { tr.TourAppointment.Tour, tr.GuestNumber, tr.TourAppointment })
-                .GroupBy(joined => joined.Tour)
-                .Select(group => new TourStatisticsDTO
-                {
-                    Tour = group.Key,
-                    TotalAppointments = group.DistinctBy(x => x.TourAppointment).Count(),
-                    TotalGuests = group.Sum(x => x.GuestNumber)
-                })
-                .OrderByDescending(result => result.TotalGuests);
-            return mostVisitedTours.FirstOrDefault();
         }
     }
 }

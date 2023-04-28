@@ -18,12 +18,14 @@ namespace SIMSProject.Application.Services.TourServices
         private readonly ITourRepo _repo;
         private readonly ITourAppointmentRepo _appointmentRepo;
         private readonly GuideRatingService _guideRatingService;
+        private readonly TourStatisticsService _tourStatisticsService;
 
         public TourService(ITourRepo repo, ITourAppointmentRepo appointmentRepo)
         {
             _repo = repo;
             _appointmentRepo = appointmentRepo;
             _guideRatingService = Injector.GetService<GuideRatingService>();
+            _tourStatisticsService = Injector.GetService<TourStatisticsService>();
         }
 
         public List<Tour> GetTours()
@@ -49,7 +51,7 @@ namespace SIMSProject.Application.Services.TourServices
             Dictionary<int, VoucherUsageDTO> dictionary = new();
             foreach (var finished in GetToursWithFinishedAppointments())
             {
-                dictionary.TryAdd(finished.Id, _guideRatingService.DetermineVoucherUsageByTour(finished.Id));
+                dictionary.TryAdd(finished.Id, _tourStatisticsService.GetVoucherUsageByTour(finished.Id));
             }
             return dictionary;
         }
@@ -59,13 +61,13 @@ namespace SIMSProject.Application.Services.TourServices
             Dictionary<int, GuestAgeGroupsDTO> dictionary = new();
             foreach(var finished in GetToursWithFinishedAppointments())
             {
-                dictionary.TryAdd(finished.Id, _guideRatingService.DetermineAgeGroups(finished.Id));
+                dictionary.TryAdd(finished.Id, _tourStatisticsService.SumGuestByAgeGroup(finished.Id));
             }
             return dictionary;
         }
         public TourStatisticsDTO GetMostVisitedTour(int? desiredYear)
         {
-            return _guideRatingService.GetMostFisitedTour(desiredYear);
+            return _tourStatisticsService.GetMostVisitedTour(desiredYear);
         }
 
         public List<TourRatingDTO> GetRatings()

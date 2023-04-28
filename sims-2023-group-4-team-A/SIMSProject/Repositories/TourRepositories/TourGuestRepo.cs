@@ -86,6 +86,10 @@ namespace SIMSProject.Repositories.TourRepositories
         {
             return _tourGuests.FindAll(x => x.TourAppointment.Id == tourAppointmentId);
         }
-        
+
+        public List<TourGuest> GetPresentGuests()
+        {
+            return GetAll().FindAll(x => x.GuestStatus == GuestAttendance.PRESENT);
+        }
     }
 }
