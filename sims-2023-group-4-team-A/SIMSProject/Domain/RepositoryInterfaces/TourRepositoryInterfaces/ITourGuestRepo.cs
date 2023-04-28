@@ -9,5 +9,6 @@ namespace SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces
         public TourGuest Save(TourGuest tourGuest);
         public void SaveAll(List<TourGuest> tourGuests);
         public List<TourGuest> GetGuests(int tourAppointmentId);
+        public TourGuest? GetTourGuest(TourGuest tourGuest);
     }
 }

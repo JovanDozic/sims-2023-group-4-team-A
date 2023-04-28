@@ -30,13 +30,15 @@
                   FontSize="24"
                   Margin="20,20,20,0"
                   CanUserAddRows="False"
-                  AutoGenerateColumns="False">
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv ture" Width="2*"/>
-                <DataGridTextColumn Header="Lokacija" Width="1*"/>
-                <DataGridTextColumn Header="Jezik" Width="1*"/>
-                <DataGridTextColumn Header="Trajanje(h)" Width="1*"/>
-                <DataGridTextColumn Header="Maks. gostiju" Width="1*"/>
+                <DataGridTextColumn Header="Naziv ture" Width="2*" Binding="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Lokacija" Width="1*" Binding="{Binding Path=Location, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Jezik" Width="1*" Binding="{Binding Path=TourLanguage, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Trajanje(h)" Width="1*" Binding="{Binding Path=Duration, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Maks. gostiju" Width="1*" Binding="{Binding Path=MaxGuestNumber, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Row="2">

@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Application.DTOs;
+using SIMSProject.Application.DTOs.TourDTOs;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
@@ -26,7 +27,7 @@ namespace SIMSProject.Application.Services.TourServices
             _guideRepo = guideRepo;
             _tourGuestRepo = tourGuestRepo;
             _tourAppointmentRepo = tourAppointmentRepo;
-        
+
         }
         public void LeaveRating(GuideRating guideRating, int guideId)
         {
@@ -54,6 +55,9 @@ namespace SIMSProject.Application.Services.TourServices
             _ratingRepo.SaveAll(_ratingRepo.GetAll());
         }
 
+
+
+
         public List<TourAppontmentRatingDTO> MapRatingsByTour(int tourId)
         {
             List<TourAppontmentRatingDTO> tourRatings = new();
@@ -70,11 +74,30 @@ namespace SIMSProject.Application.Services.TourServices
             return tourRatings;
         }
 
+
+        public GuestAgeGroupsDTO DetermineAgeGroups(int tourId)
+        {
+            var ageGroups = _tourReservationRepo.GetAll()
+                .Where(tr => tr.TourAppointment != null
+                && tr.TourAppointment.TourStatus == Status.COMPLETED
+                && tr.TourAppointment.Tour.Id == tourId)
+               .Join(_tourGuestRepo.GetAll(), tr => tr.TourAppointment.Id, tg => tg.TourAppointment.Id, (tr, tg) => new { tg.Guest.Birthday, tg.TourAppointment.Date, tr.GuestNumber })
+               .GroupBy(x => 1)
+               .Select(group => new GuestAgeGroupsDTO
+               {
+                   Minors = group.Sum(x => (x.Date - x.Birthday <= TimeSpan.FromDays(365 * 18)) ? x.GuestNumber : 0),
+                   Adults = group.Sum(x => (x.Date - x.Birthday > TimeSpan.FromDays(365 * 18) && x.Date - x.Birthday <= TimeSpan.FromDays(365 * 50)) ? x.GuestNumber : 0),
+                   Seniors = group.Sum(x => (x.Date - x.Birthday > TimeSpan.FromDays(365 * 50)) ? x.GuestNumber : 0)
+               }).FirstOrDefault();
+
+            return ageGroups;
+        }
+
         public List<TourStatisticsDTO> GetMostFisitedTour(int? targetYear = null)
         {
             var mostVisitedTours = _tourReservationRepo.GetAll()
-                .Where(tr => tr.TourAppointment != null 
-                && tr.TourAppointment.TourStatus == Status.COMPLETED 
+                .Where(tr => tr.TourAppointment != null
+                && tr.TourAppointment.TourStatus == Status.COMPLETED
                 && (targetYear == null || tr.TourAppointment.Date.Year == targetYear.Value))
                 .Join(_tourGuestRepo.GetAll(), tr => tr.TourAppointment.Id, tg => tg.TourAppointment.Id, (tr, tg) => new { tr.TourAppointment.Tour, GuesStatus = tg.GuestStatus })
                 .GroupBy(joined => joined.Tour)

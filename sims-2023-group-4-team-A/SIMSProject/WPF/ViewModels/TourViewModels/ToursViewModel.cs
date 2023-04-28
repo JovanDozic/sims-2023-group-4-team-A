@@ -46,6 +46,11 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         }
 
        
+        public void GetFinishedTours()
+        {
+            Tours.Clear();
+            Tours = new(_tourService.GetToursWithFinishedAppointments());
+        }
 
         public void GetTodaysTours()
         {

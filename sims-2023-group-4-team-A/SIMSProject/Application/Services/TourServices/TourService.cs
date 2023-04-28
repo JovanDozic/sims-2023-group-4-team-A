@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Application.DTOs;
+using SIMSProject.Application.DTOs.TourDTOs;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
@@ -32,18 +33,25 @@ namespace SIMSProject.Application.Services.TourServices
 
         public List<Tour> GetTodaysTours()
         {
-            List<TourAppointment> appointments = _appointmentRepo.GedTodaysAppointments();
-            List<Tour> todays = new();
-            foreach (var appointment in appointments)
-            {
-                if (todays.Any(x => x.Id == appointment.Tour.Id))
-                    continue;
-                todays.Add(appointment.Tour);
-            }
-            return todays;
+            return _appointmentRepo.GedTodaysAppointments().Select(x => x.Tour).Distinct().ToList();
         }
 
+        public List<Tour> GetToursWithFinishedAppointments()
+        {
+            return _appointmentRepo.GetAll()
+                .Where(x => x.TourStatus == Status.COMPLETED)
+                .Select(x => x.Tour).Distinct().ToList();  
+        }
 
+        public Dictionary<int, GuestAgeGroupsDTO> MapToursGuestAgeGroups()
+        {
+            Dictionary<int, GuestAgeGroupsDTO> dictionary = new();
+            foreach(var finished in GetToursWithFinishedAppointments())
+            {
+                dictionary.TryAdd(finished.Id, _guideRatingService.DetermineAgeGroups(finished.Id));
+            }
+            return dictionary;
+        }
         public TourStatisticsDTO GetMostVisitedTour(int? desiredYear)
         {
             return _guideRatingService.GetMostFisitedTour(desiredYear).FirstOrDefault();
