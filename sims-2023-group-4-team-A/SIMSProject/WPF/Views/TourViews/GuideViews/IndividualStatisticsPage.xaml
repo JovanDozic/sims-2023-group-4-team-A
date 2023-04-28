@@ -71,12 +71,15 @@
                            FontSize="20"
                            Text="Prikaz broja gostiju&#xa;po starosnim kateogorijama" Margin="0,0,0,-20"/>
                 <TextBox Grid.Row="1" Grid.Column="0"
+                         Text="{Binding Path=GuestAgeGroups.Minors, UpdateSourceTrigger=PropertyChanged}"
                          IsReadOnly="True"
                          />
                 <TextBox Grid.Row="1" Grid.Column="1"
+                         Text="{Binding Path=GuestAgeGroups.Adults, UpdateSourceTrigger=PropertyChanged}"
                          IsReadOnly="True"
                          />
                 <TextBox Grid.Row="1" Grid.Column="2"
+                         Text="{Binding Path=GuestAgeGroups.Seniors, UpdateSourceTrigger=PropertyChanged}"
                          IsReadOnly="True"
                          />
             </Grid>

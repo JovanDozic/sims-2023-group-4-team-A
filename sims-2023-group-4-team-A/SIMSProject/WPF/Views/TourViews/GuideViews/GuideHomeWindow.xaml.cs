@@ -59,7 +59,7 @@ namespace SIMSProject.View.GuideViews
 
         private void StatisticsBTN_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.Content = new IndividualStatisticsPage();
+            mainFrame.Content = new TourStatisticsPage();
         }
     }
 }

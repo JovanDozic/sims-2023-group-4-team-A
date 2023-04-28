@@ -55,9 +55,6 @@ namespace SIMSProject.Application.Services.TourServices
             _ratingRepo.SaveAll(_ratingRepo.GetAll());
         }
 
-
-
-
         public List<TourAppontmentRatingDTO> MapRatingsByTour(int tourId)
         {
             List<TourAppontmentRatingDTO> tourRatings = new();
@@ -74,14 +71,13 @@ namespace SIMSProject.Application.Services.TourServices
             return tourRatings;
         }
 
-
         public GuestAgeGroupsDTO DetermineAgeGroups(int tourId)
         {
-            var ageGroups = _tourReservationRepo.GetAll()
-                .Where(tr => tr.TourAppointment != null
-                && tr.TourAppointment.TourStatus == Status.COMPLETED
-                && tr.TourAppointment.Tour.Id == tourId)
-               .Join(_tourGuestRepo.GetAll(), tr => tr.TourAppointment.Id, tg => tg.TourAppointment.Id, (tr, tg) => new { tg.Guest.Birthday, tg.TourAppointment.Date, tr.GuestNumber })
+            var ageGroups = GetCompletedReservationsByTour(tourId)
+               .Join(GetPresentGuests(),
+               tr => new { KeyOne = tr.TourAppointment.Id, KeyTwo = tr.GuestId },
+               tg => new { KeyOne = tg.TourAppointment.Id, KeyTwo = tg.Guest.Id },
+               (tr, tg) => new { tg.Guest.Birthday, tg.TourAppointment.Date, tr.GuestNumber })
                .GroupBy(x => 1)
                .Select(group => new GuestAgeGroupsDTO
                {
@@ -92,26 +88,38 @@ namespace SIMSProject.Application.Services.TourServices
 
             return ageGroups;
         }
+        private IEnumerable<TourReservation> GetCompletedReservationsByTour(int tourId)
+        {
+            return _tourReservationRepo.GetAll()
+                            .Where(tr => tr.TourAppointment != null
+                            && tr.TourAppointment.TourStatus == Status.COMPLETED
+                            && tr.TourAppointment.Tour.Id == tourId);
+        }
 
-        public List<TourStatisticsDTO> GetMostFisitedTour(int? targetYear = null)
+        private List<TourGuest> GetPresentGuests()
+        {
+            return _tourGuestRepo.GetAll().FindAll(x => x.GuestStatus == GuestAttendance.PRESENT);
+        }
+
+        public TourStatisticsDTO GetMostFisitedTour(int? targetYear = null)
         {
             var mostVisitedTours = _tourReservationRepo.GetAll()
                 .Where(tr => tr.TourAppointment != null
                 && tr.TourAppointment.TourStatus == Status.COMPLETED
                 && (targetYear == null || tr.TourAppointment.Date.Year == targetYear.Value))
-                .Join(_tourGuestRepo.GetAll(), tr => tr.TourAppointment.Id, tg => tg.TourAppointment.Id, (tr, tg) => new { tr.TourAppointment.Tour, GuesStatus = tg.GuestStatus })
+                .Join(GetPresentGuests(),
+               tr => new { KeyOne = tr.TourAppointment.Id, KeyTwo = tr.GuestId },
+               tg => new { KeyOne = tg.TourAppointment.Id, KeyTwo = tg.Guest.Id },
+               (tr, tg) => new { tr.TourAppointment.Tour, tr.GuestNumber, tr.TourAppointment })
                 .GroupBy(joined => joined.Tour)
                 .Select(group => new TourStatisticsDTO
                 {
                     Tour = group.Key,
-                    TotalAppointments = group.Distinct().Count(),
-                    TotalGuests = group.Sum
-                    (g => _tourReservationRepo.GetAll().First(tr => tr.TourAppointment.Tour.Id == group.Key.Id).GuestNumber)
+                    TotalAppointments = group.DistinctBy(x => x.TourAppointment).Count(),
+                    TotalGuests = group.Sum(x => x.GuestNumber)
                 })
-                .OrderByDescending(result => result.TotalAppointments)
-                .ToList();
-
-            return mostVisitedTours;
+                .OrderByDescending(result => result.TotalGuests);
+            return mostVisitedTours.FirstOrDefault();
         }
     }
 }

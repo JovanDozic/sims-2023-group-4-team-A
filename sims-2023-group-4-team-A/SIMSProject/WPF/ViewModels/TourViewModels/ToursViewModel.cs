@@ -10,6 +10,7 @@ using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Application.DTOs;
 using System.Windows.Input;
 using System.Windows.Controls;
+using SIMSProject.Application.DTOs.TourDTOs;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels
 {
@@ -28,6 +29,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
                 if(value != _tour)
                 {
                     _tour = value;
+                    GuestAgeGroups = _dictionary.GetValueOrDefault(_tour.Id);
                     OnPropertyChanged(nameof(SelectedTour));
                 }
             }
@@ -45,11 +47,26 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             }
         }
 
+        private GuestAgeGroupsDTO _guestAgeGroups = new();
+        public GuestAgeGroupsDTO GuestAgeGroups
+        {
+            get => _guestAgeGroups;
+            set
+            {
+                if(value == _guestAgeGroups) return;
+                _guestAgeGroups = value;
+                OnPropertyChanged(nameof(GuestAgeGroups));
+            }
+        }
+
+        private Dictionary<int, GuestAgeGroupsDTO> _dictionary { get; set; }
+
        
         public void GetFinishedTours()
         {
             Tours.Clear();
             Tours = new(_tourService.GetToursWithFinishedAppointments());
+            _dictionary = _tourService.MapToursGuestAgeGroups();
         }
 
         public void GetTodaysTours()
