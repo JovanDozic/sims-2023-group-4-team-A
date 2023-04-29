@@ -20,7 +20,7 @@ namespace SIMSProject.Domain.Models.TourModels
         {
             get
             {
-                return (GuideKnowledge + LanguageProficiency + TourEntertainmentRating + OrganizationQualityRating) / (double)4;
+                return Math.Round((GuideKnowledge + LanguageProficiency + TourEntertainmentRating + OrganizationQualityRating) / (double)4, 2);
             }
             set { }
         }

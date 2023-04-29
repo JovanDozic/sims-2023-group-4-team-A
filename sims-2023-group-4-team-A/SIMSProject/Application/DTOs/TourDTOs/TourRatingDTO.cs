@@ -24,7 +24,7 @@ namespace SIMSProject.Application.DTOs
         }
         private double CalcuateRating()
         {
-            return (double) Ratings.Sum(x => x.Rating.Overall) / Ratings.Count;
+            return Math.Round(Ratings.Sum(x => x.Rating.Overall) / Ratings.Count, 2);
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using SIMSProject.Domain.Models;
 
-namespace SIMSProject.WPF.ViewModels.TourViewModels
+namespace SIMSProject.WPF.ViewModels.TourViewModels.BaseViewModels
 {
     public class BaseTourViewModel : ViewModelBase
     {
@@ -18,7 +18,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             get => _tour;
             set
             {
-                if(value != _tour)
+                if (value != _tour)
                 {
                     _tour = value;
                     OnPropertyChanged(nameof(Tour));
@@ -136,14 +136,14 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
 
             }
         }
-        
+
 
         public List<KeyPoint> KeyPoints
         {
             get => _tour.KeyPoints;
-            set 
-            {   
-                if(value != _tour.KeyPoints)
+            set
+            {
+                if (value != _tour.KeyPoints)
                 {
                     _tour.KeyPoints = value;
                     OnPropertyChanged(nameof(KeyPoints));
@@ -156,9 +156,9 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         public List<TourAppointment> Appointments
         {
             get => _appointments;
-            set 
-            {       
-                if(value != _appointments)
+            set
+            {
+                if (value != _appointments)
                 {
                     _appointments = value;
                     OnPropertyChanged(nameof(Appointments));
@@ -171,7 +171,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             get => _tour.Images;
             set
             {
-                if(value != _tour.Images)
+                if (value != _tour.Images)
                 {
                     _tour.Images = value;
                     OnPropertyChanged(nameof(Images));

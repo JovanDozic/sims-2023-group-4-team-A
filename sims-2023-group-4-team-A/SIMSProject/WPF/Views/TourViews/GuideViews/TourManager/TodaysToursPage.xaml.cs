@@ -1,4 +1,5 @@
 ﻿using SIMSProject.WPF.ViewModels.TourViewModels;
+using SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +22,10 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     /// </summary>
     public partial class TodaysToursPage : Page
     {
-        private ToursViewModel ViewModel { get; set; }
+        private TourManagerViewModel ViewModel { get; set; } = new();
         public TodaysToursPage()
         {
             InitializeComponent();
-            ViewModel = new();
             ViewModel.GetTodaysTours();
             this.DataContext = ViewModel;
         }

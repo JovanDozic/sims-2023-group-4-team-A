@@ -1,6 +1,7 @@
 ﻿using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.WPF.ViewModels.TourViewModels.BaseViewModels;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;

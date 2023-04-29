@@ -7,13 +7,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using SIMSProject.WPF.ViewModels.TourViewModels.BaseViewModels;
 
-namespace SIMSProject.WPF.ViewModels.TourViewModels
+namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
 {
-    public class AppointmentsViewModel : ViewModelBase
+    public class TourLiveTrackViewModel : ViewModelBase
     {
         private readonly TourAppointmentService _tourAppointmentService;
-        private readonly VoucherSevice _voucherService;
         private readonly TourGuestService _tourGuestService;
         private readonly TourService _tourService;
         private readonly NotificationService _notificationService;
@@ -35,8 +35,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
                 }
             }
         }
-        public ObservableCollection<TourAppointment> Appointments { get; set; }
-
         private TourAppointment _selectedAppointment = new();
         public TourAppointment SelectedAppointment
         {
@@ -53,45 +51,22 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         }
         public string KeyPoints { get; set; } = string.Empty;
 
-        public AppointmentsViewModel(Tour tour)
+        public TourLiveTrackViewModel(Tour tour)
         {
             _tourAppointmentService = Injector.GetService<TourAppointmentService>();
-            _voucherService = Injector.GetService<VoucherSevice>();
             _tourGuestService = Injector.GetService<TourGuestService>();
             _tourService = Injector.GetService<TourService>();
             _notificationService = Injector.GetService<NotificationService>();
 
-
-            Appointments = new(_tourAppointmentService.GetTodays(tour));
             Tour = new(tour);
             Appointment = new();
             KeyPoints = Tour.KeyPointsToString();
         }
 
-        public void GetAllAppointments()
-        {
-            Appointments.Clear();
-            Appointments = new(_tourAppointmentService.GetAllByTourId(Tour.Id));
-        }
         public void AddGuests()
         {
             Guests = new(_tourGuestService.GetGuests(SelectedAppointment));
         }
-
-        public void CancelAppointment()
-        {
-            if (!_tourAppointmentService.CancelAppointment(SelectedAppointment))
-            {
-                MessageBox.Show("Greška! Možete otkazati termin najkasnije 48 sati pred početak!");
-                return;
-            }
-
-            List<TourGuest> guests = _tourGuestService.GetGuests(SelectedAppointment);
-            _voucherService.GiveVouchers(guests, ObtainingReason.APPOINTMENTCANCELED);
-
-            MessageBox.Show("Uspešno ste otkazali termin.");
-        }
-
         public void StartIfActivated()
         {
             TourAppointment? active = _tourAppointmentService.GetActiveByTour(Tour.Tour);

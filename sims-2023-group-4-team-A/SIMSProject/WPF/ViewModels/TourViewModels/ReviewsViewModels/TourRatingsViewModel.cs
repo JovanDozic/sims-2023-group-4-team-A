@@ -8,20 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMSProject.WPF.ViewModels.TourViewModels
+namespace SIMSProject.WPF.ViewModels.TourViewModels.ReviewsViewModels
 {
-    public class TourRatingsViewModel: ViewModelBase
+    public class TourRatingsViewModel : ViewModelBase
     {
-        private readonly TourService  _tourService;
-        
-        
+        private readonly TourService _tourService;
+
         private ObservableCollection<TourRatingDTO> _ratings = new();
         public ObservableCollection<TourRatingDTO> Ratings
         {
             get => _ratings;
             set
             {
-                if(value == _ratings) return;
+                if (value == _ratings) return;
                 _ratings = value;
                 OnPropertyChanged(nameof(Ratings));
             }
@@ -33,7 +32,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             get => _selectedRating;
             set
             {
-                if(value == _selectedRating) return;
+                if (value == _selectedRating) return;
                 _selectedRating = value;
                 OnPropertyChanged(nameof(SelectedRating));
             }
@@ -45,7 +44,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             get => _appointmentRating;
             set
             {
-                if(value == _appointmentRating) return;
+                if (value == _appointmentRating) return;
                 _appointmentRating = value;
                 OnPropertyChanged(nameof(AppointmentRating));
             }

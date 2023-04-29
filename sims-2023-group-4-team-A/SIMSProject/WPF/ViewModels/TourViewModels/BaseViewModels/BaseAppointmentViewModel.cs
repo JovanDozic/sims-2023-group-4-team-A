@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMSProject.WPF.ViewModels.TourViewModels
+namespace SIMSProject.WPF.ViewModels.TourViewModels.BaseViewModels
 {
     public class BaseAppointmentViewModel : ViewModelBase
     {
@@ -84,18 +84,18 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             }
         }
         public List<Guest> Guests = new();
-        
-           /* get => _tourAppointment.Guests;
-            set
-            {
-                _tourAppointment.Guests = value;
-                OnPropertyChanged(nameof(Guests));
-            }*/
-        
+
+        /* get => _tourAppointment.Guests;
+         set
+         {
+             _tourAppointment.Guests = value;
+             OnPropertyChanged(nameof(Guests));
+         }*/
+
 
         public BaseAppointmentViewModel()
         {
-            
+
         }
         public BaseAppointmentViewModel(TourAppointment appointment)
         {

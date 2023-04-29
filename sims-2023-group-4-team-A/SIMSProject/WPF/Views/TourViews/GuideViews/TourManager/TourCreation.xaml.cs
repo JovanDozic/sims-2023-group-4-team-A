@@ -1,5 +1,5 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.WPF.ViewModels.TourViewModels;
+using SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels;
 using System;
 using System.Windows;
 

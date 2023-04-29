@@ -3,7 +3,7 @@ using SIMSProject.Domain.Models.UserModels;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace SIMSProject.WPF.ViewModels.TourViewModels
+namespace SIMSProject.WPF.ViewModels.TourViewModels.BaseViewModels
 {
     public class BaseTourGuestViewModel : ViewModelBase
     {

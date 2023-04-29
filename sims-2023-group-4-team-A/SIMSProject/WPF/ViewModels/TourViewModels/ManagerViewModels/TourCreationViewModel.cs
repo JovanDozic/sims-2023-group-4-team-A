@@ -5,13 +5,14 @@ using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.View.GuideViews;
+using SIMSProject.WPF.ViewModels.TourViewModels.BaseViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 
-namespace SIMSProject.WPF.ViewModels.TourViewModels
+namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
 {
     public class TourCreationViewModel : BaseTourViewModel
     {
@@ -28,12 +29,12 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             get => hours;
             set
             {
-                if(hours != value && (value >= 0 && value <= 24))
+                if (hours != value && value >= 0 && value <= 24)
                 {
                     hours = value;
                     OnPropertyChanged(nameof(Hours));
                 }
-                
+
             }
         }
 
@@ -43,7 +44,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             get => minutes;
             set
             {
-                if (minutes != value && (value >=0 && value <= 60))
+                if (minutes != value && value >= 0 && value <= 60)
                 {
                     minutes = value;
                     OnPropertyChanged(nameof(Hours));
@@ -121,7 +122,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
 
         public void AddAppointment()
         {
-            if(MaxGuestNumber <= 0)
+            if (MaxGuestNumber <= 0)
             {
                 MessageBox.Show("Morate uneti broj gostiju  na turi!");
                 return;

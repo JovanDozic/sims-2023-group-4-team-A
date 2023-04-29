@@ -1,4 +1,5 @@
 ﻿using SIMSProject.WPF.ViewModels.TourViewModels;
+using SIMSProject.WPF.ViewModels.TourViewModels.StatisticsViewModels;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -9,11 +10,11 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     /// </summary>
     public partial class TourStatisticsPage : Page
     {
-        private ToursViewModel ViewModel { get; set; }
+        private TourStatisticsViewModel ViewModel { get; set; }
         public TourStatisticsPage()
         {
             InitializeComponent();
-            ViewModel = new ToursViewModel();
+            ViewModel = new TourStatisticsViewModel();
             this.DataContext = ViewModel;
 
         }

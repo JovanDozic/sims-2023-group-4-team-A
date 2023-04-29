@@ -1,18 +1,8 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
-using SIMSProject.WPF.ViewModels.TourViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels;
+using SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SIMSProject.WPF.Views.TourViews.GuideViews
 {
@@ -21,14 +11,13 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     /// </summary>
     public partial class DetailedTourWindow : Window
     {
-        private  AppointmentsViewModel ViewModel { get; set; }
-        public DetailedTourWindow(Tour tour)
+        private TourManagerViewModel ViewModel { get; set; } = new();
+        public DetailedTourWindow(TourManagerViewModel viewModel)
         {
             InitializeComponent();
-            ViewModel = new(tour);
+            ViewModel = viewModel;
             ViewModel.GetAllAppointments();
-            DataContext = ViewModel;
-            
+            this.DataContext = ViewModel;
         }
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)

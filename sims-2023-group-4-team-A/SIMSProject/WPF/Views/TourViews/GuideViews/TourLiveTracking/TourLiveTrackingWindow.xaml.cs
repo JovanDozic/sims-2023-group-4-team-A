@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using SIMSProject.Domain.Models.TourModels;
-using SIMSProject.WPF.ViewModels.TourViewModels;
+using SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels;
 
 namespace SIMSProject.View.GuideViews
 {
@@ -9,8 +9,8 @@ namespace SIMSProject.View.GuideViews
     /// </summary>
     public partial class TourLiveTrackingWindow : Window
     {
-        private AppointmentsViewModel ViewModel { get; set; }
-        public TourLiveTrackingWindow(AppointmentsViewModel viewModel)
+        private TourLiveTrackViewModel ViewModel { get; set; }
+        public TourLiveTrackingWindow(TourLiveTrackViewModel viewModel)
         {
             InitializeComponent();
             ViewModel = viewModel;
