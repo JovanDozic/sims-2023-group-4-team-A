@@ -33,11 +33,11 @@
             <Button x:Name="TodaysBTN" Content="Današnje ture &#xa;Ctrl+T" Click="TodaysBTN_Click"/>
             <Button x:Name="RequestBTN" Content="Zahtevi za ture &#xa;Ctrl+R"/>
             <Button x:Name="MultiPartRequestBTN" Content="Zahtevi za&#xa;složene ture&#xa;Ctrl+Q"/>
-            <Button x:Name="StatisticsBTN" Content="Statistika o&#xa;turama Ctrl+S"/>
+            <Button x:Name="StatisticsBTN" Content="Statistika o&#xa;turama Ctrl+S" Click="StatisticsBTN_Click"/>
             <Button x:Name="RequestStatBTN" Content="Statistika o&#xa;zahtevima za ture&#xa;Ctrl+S+R"/>
             <Button x:Name="ReviewBTN" Content="Recenzije Ctrl+G" Click="ReviewBTN_Click"/>
         </StackPanel>
-        <Frame x:Name="frame" NavigationUIVisibility="Hidden">
+        <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden">
         </Frame>
     </DockPanel>
 </Window>

@@ -5,7 +5,6 @@ using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Documents;
 
 namespace SIMSProject.Application.Services.TourServices
 {
@@ -16,6 +15,8 @@ namespace SIMSProject.Application.Services.TourServices
         private readonly IGuideRepo _guideRepo;
         private readonly ITourGuestRepo _tourGuestRepo;
         private readonly ITourAppointmentRepo _tourAppointmentRepo;
+
+
         public GuideRatingService(IGuideRatingRepo ratingRepo, IGuideRepo guideRepo, ITourReservationRepo tourReservationRepo, ITourGuestRepo tourGuestRepo, ITourAppointmentRepo tourAppointmentRepo)
         {
             _ratingRepo = ratingRepo;
@@ -23,7 +24,7 @@ namespace SIMSProject.Application.Services.TourServices
             _guideRepo = guideRepo;
             _tourGuestRepo = tourGuestRepo;
             _tourAppointmentRepo = tourAppointmentRepo;
-        
+
         }
         public void LeaveRating(GuideRating guideRating, int guideId)
         {

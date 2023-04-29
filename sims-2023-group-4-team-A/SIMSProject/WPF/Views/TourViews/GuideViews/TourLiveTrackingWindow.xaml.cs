@@ -9,53 +9,44 @@ namespace SIMSProject.View.GuideViews
     /// </summary>
     public partial class TourLiveTrackingWindow : Window
     {
-        //private LiveTrackViewModel ViewModel { get; set; }
-        private AppointmentsViewModel _viewModel { get; set; }
-        
-        public TourLiveTrackingWindow(TourAppointment appointment, Tour tour, AppointmentsViewModel viewModel)
+        private AppointmentsViewModel ViewModel { get; set; }
+        public TourLiveTrackingWindow(AppointmentsViewModel viewModel)
         {
             InitializeComponent();
-            //ViewModel = new(tour, appointment);
-            //this.DataContext = ViewModel;
-            _viewModel = viewModel;
-            _viewModel.AddGuests();
-            this.DataContext = _viewModel;
+            ViewModel = viewModel;
+            ViewModel.AddGuests();
+            this.DataContext = ViewModel;
         }
 
         private void NextBTN_Click(object sender, RoutedEventArgs e)
         {
-            //ViewModel.GoNext();
-            //CurrentKeyPointTB.Text = ViewModel.Appointment.CurrentKeyPoint.ToString();
-            _viewModel.GoNext();
+            ViewModel.GoNext();
             LbGuests.Items.Refresh();
-            CurrentKeyPointTB.Text = _viewModel.Appointment.CurrentKeyPoint.ToString();
+            CurrentKeyPointTB.Text = ViewModel.Appointment.CurrentKeyPoint.ToString();
             
         }
 
         private void PauseBTN_Click(object sender, RoutedEventArgs e)
         {
-            //CurrentKeyPointTB.Text = ViewModel.Appointment.CurrentKeyPoint.ToString();
-            CurrentKeyPointTB.Text = _viewModel.Appointment.CurrentKeyPoint.ToString();
+            CurrentKeyPointTB.Text = ViewModel.Appointment.CurrentKeyPoint.ToString();
             Close();
         }
 
         private void CloseBTN_Click(object sender, RoutedEventArgs e)
         {
-            //ViewModel.EndAppointment();
-            _viewModel.EndAppointment();
+            ViewModel.EndAppointment();
             Close();
         }
 
         private void Sign_guestBTN_Click(object sender, RoutedEventArgs e)
         {
-            //ViewModel.SignUpGuest();
-            _viewModel.SignUpGuest();
+            ViewModel.SignUpGuest();
             LbGuests.Items.Refresh();
         }
 
         private void LbGuests_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            Sign_guestBTN.IsEnabled = _viewModel.SelectedGuest.GuestStatus == GuestAttendance.ABSENT ? true : false;
+            Sign_guestBTN.IsEnabled = ViewModel.SelectedGuest.GuestStatus == GuestAttendance.ABSENT;
         }
     }
 }

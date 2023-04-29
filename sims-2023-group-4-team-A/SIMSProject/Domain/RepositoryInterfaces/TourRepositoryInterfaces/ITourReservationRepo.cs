@@ -12,5 +12,7 @@ namespace SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces
         public TourReservation Save(TourReservation tourReservation);
         public void SaveAll(List<TourReservation> tourReservations);
         public void Update (TourReservation tourReservation);
+        public IEnumerable<TourReservation> GetCompletedReservationsByTour(int tourId);
+        public IEnumerable<TourReservation> GetCompletedReservations(int? targetYear);
     }
 }

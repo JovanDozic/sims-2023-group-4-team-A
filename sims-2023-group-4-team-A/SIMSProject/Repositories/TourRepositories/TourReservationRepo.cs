@@ -34,6 +34,21 @@ namespace SIMSProject.Repositories.TourRepositories
             return _tourReservations.Find(x => x.Id == reservationId);
         }
 
+        public IEnumerable<TourReservation> GetCompletedReservations(int? targetYear)
+        {
+            return GetAll()
+                   .Where(tr => tr.TourAppointment.TourStatus == Status.COMPLETED
+                    && (targetYear == null || tr.TourAppointment.Date.Year == targetYear.Value));
+        }
+
+        public IEnumerable<TourReservation> GetCompletedReservationsByTour(int tourId)
+        {
+            return GetAll()
+                   .Where(tr => tr.TourAppointment != null
+                   && tr.TourAppointment.TourStatus == Status.COMPLETED
+                   && tr.TourAppointment.Tour.Id == tourId);
+        }
+
         public int NextId()
         {
             return _tourReservations.Count > 0 ? _tourReservations.Max(x => x.Id) + 1 : 1;
@@ -55,7 +70,7 @@ namespace SIMSProject.Repositories.TourRepositories
 
         public void Update(TourReservation tourReservation)
         {
-            TourReservation tourReservationToUpdate = GetById(tourReservation.Id) ?? throw new Exception ("Updating tour reservation failed!");
+            TourReservation tourReservationToUpdate = GetById(tourReservation.Id) ?? throw new Exception("Updating tour reservation failed!");
             int index = _tourReservations.IndexOf(tourReservationToUpdate);
             _tourReservations[index] = tourReservation;
             _fileHandler.Save(_tourReservations);
