@@ -1,4 +1,8 @@
-﻿using System;
+﻿using SIMSProject.Domain.Models.AccommodationModels;
+using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.ViewModels.AccommodationViewModels;
+using SIMSProject.WPF.ViewModels.Guest1ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,14 +24,32 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
     /// </summary>
     public partial class FreeReservationDates : Page
     {
-        public FreeReservationDates()
+        private readonly User _user = new();
+        private AccommodationReservationViewModel _accommodationReservationViewModel;
+        private ReservationViewModel _reservationViewModel;
+        public FreeReservationDates(ReservationViewModel reservationViewModel)
         {
             InitializeComponent();
+            _reservationViewModel = reservationViewModel;
+            DataContext = _reservationViewModel;
+            
         }
 
         private void Button_Click_Close(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void Button_Click_Confirm(object sender, RoutedEventArgs e)
+        {
+            _reservationViewModel.SaveReservation();
+            MessageBox.Show("Uspesno rezervisano");
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (_reservationViewModel.IsSelected())
+                ReservationButton.IsEnabled = true;
         }
     }
 }

@@ -32,14 +32,16 @@
                FontSize="25" Grid.Row="1" HorizontalAlignment="Center"
                VerticalAlignment="Bottom" Foreground="Gray"></Label>
 
-        <DataGrid Grid.Row="2" FontSize="25" Margin="261,10,261,29">
+        <DataGrid  ItemsSource="{Binding AlternativeRanges}" SelectedItem="{Binding SelectedRange}" AutoGenerateColumns="False" IsReadOnly="True"  Grid.Row="2" FontSize="25" Margin="261,10,261,29" SelectionChanged="DataGrid_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="250" Header="Datum dolaska" FontSize="25"></DataGridTextColumn>
-                <DataGridTextColumn Width="250" Header="Datum odlaska" FontSize="25"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding StartDate, StringFormat={}{0:dd.MM.yyyy.}}" Width="250" Header="Datum dolaska" FontSize="25"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding EndDate, StringFormat={}{0:dd.MM.yyyy.}}" Width="250" Header="Datum odlaska" FontSize="25"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Grid.Row="3" FontSize="25" Content="Rezerviši" Height="51" Width="287" Margin="368,10,369,59">
+        <Button Grid.Row="3" FontSize="25" Content="Rezerviši"
+                IsEnabled="False" x:Name="ReservationButton"
+                Height="51" Width="287" Margin="368,10,369,59" Click="Button_Click_Confirm">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Template">

@@ -36,7 +36,7 @@ namespace SIMSProject.WPF.Views.Guest1.MainView
         private void Button_Click_Search(object sender, RoutedEventArgs e)
         {
             _accommodationViewModel.Search(Search1.Text, _accommodationViewModel.MinReservationDays, _accommodationViewModel.MaxGuestNumber);         
-            var searchPage = new SearchedAccommodations(_accommodationViewModel);
+            var searchPage = new SearchedAccommodations(_accommodationViewModel, _user);
             searchPage.SearchedAccLW.Items.Clear();
             NavigationService.Navigate(searchPage);
             

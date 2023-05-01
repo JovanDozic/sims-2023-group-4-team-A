@@ -39,7 +39,7 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
 
         private void ButtonShow_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AccommodationReview(_accommodationViewModel));
+            NavigationService.Navigate(new AccommodationReview(_accommodationViewModel, _user));
         }
     }
 }

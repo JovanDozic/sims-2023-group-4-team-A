@@ -4,6 +4,7 @@ using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,6 +18,8 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private Accommodation _accommodation = new();
         private AccommodationService _accommodationService;
         private LocationService _locationService;
+        private AccommodationReservationService _accommodationReservationService;
+        private AccommodationReservationViewModel _accommodationReservationViewModel;
         private string _selectedImageFile = string.Empty;
         private Accommodation _selectedAccommodation;
         private ObservableCollection<Accommodation> _accommodations;
@@ -178,8 +181,9 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _user = user;
             _accommodationService = Injector.GetService<AccommodationService>();
             _locationService = Injector.GetService<LocationService>();
+            _accommodationReservationService = Injector.GetService<AccommodationReservationService>();
+            _accommodationReservationViewModel = new(_user);
             Accommodations = LoadAllAccommodations();
-
             AccommodationTypeSource = new ObservableCollection<string>
             {
                 Accommodation.GetType(AccommodationType.Apartment),
@@ -211,6 +215,41 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _accommodation.Location = _locationService.GetLocation(LocationCity, LocationCountry);
             _accommodation.Owner = _user as Owner ?? throw new Exception("Greška prilikom registrovanja: Vlasnik nije inicijalizovan.");
             _accommodationService.RegisterAccommodation(_accommodation);
+        }
+
+        public bool IsDateInPast(DateTime dateBegin, DateTime dateEnd)
+        {
+            return dateBegin >= dateEnd;
+        }
+        public bool IsNumberOfDaysValid(int numberOfDays, TimeSpan duration)
+        {
+            return numberOfDays >= SelectedAccommodation.MinReservationDays && numberOfDays <= duration.Days;
+        }
+        public bool IsAccommodationFree(DateTime dateBegin, DateTime dateEnd)
+        {
+            return _accommodationService.CheckReservations(_accommodationReservationService.GetAll(), dateBegin, dateEnd, SelectedAccommodation.Id) != null;
+        }
+        public bool IsGuestsNumberValid(int guestsNumber)
+        {
+            return guestsNumber <= SelectedAccommodation.MaxGuestNumber;
+        }
+        public List<DateRange> GetReservedDates()
+        {
+            List<DateRange> dateRanges = new List<DateRange>();
+            foreach (var reservation in RemoveCancelled(_accommodationReservationService.GetAllByAccommodationId(SelectedAccommodation.Id)))
+            {
+                dateRanges.Add(new DateRange(reservation.StartDate, reservation.EndDate));
+            }
+            return dateRanges;
+        }
+        public List<AccommodationReservation> RemoveCancelled(List<AccommodationReservation> reservedAccommodations)
+        {
+            reservedAccommodations.RemoveAll(reserved => reserved.Canceled);
+            return reservedAccommodations;
+        }
+        public bool IsCanceled(DateTime dateBegin, DateTime dateEnd)
+        {
+            return _accommodationService.CheckReservations(_accommodationReservationService.GetAll(), dateBegin, dateEnd, SelectedAccommodation.Id).Canceled;
         }
 
         public void UploadImageToAccommodation(string imageUrl)

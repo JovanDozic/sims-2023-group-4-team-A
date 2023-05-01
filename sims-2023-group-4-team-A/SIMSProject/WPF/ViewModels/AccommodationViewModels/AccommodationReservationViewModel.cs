@@ -4,7 +4,9 @@ using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.Model;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
@@ -16,8 +18,12 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private readonly ReschedulingRequestService _reservationRequestService;
         private readonly NotificationService _notificationService;
         private AccommodationReservation _selectedReservation = new();
+        private AccommodationReservation _accommodationReservation = new();
 
         public ObservableCollection<AccommodationReservation> Reservations { get; set; } = new();
+        public ObservableCollection<DateRange> DateRanges { get; set; } = new();
+        public ObservableCollection<DateRange> AlternativeRanges { get; set; } = new();
+
         public AccommodationReservation SelectedReservation
         {
             get => _selectedReservation;
@@ -25,6 +31,62 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             {
                 if (value == _selectedReservation) return;
                 _selectedReservation = value;
+                OnPropertyChanged();
+            }
+        }
+        public AccommodationReservation AccommodationReservation
+        {
+            get => _accommodationReservation;
+            set
+            {
+                if (_accommodationReservation == value) return;
+                _accommodationReservation = value;
+                OnPropertyChanged();
+            }
+        }
+        public int GuestsNumber
+        {
+            get => _accommodationReservation.GuestNumber;
+
+            set
+            {
+                if (value != _accommodationReservation.GuestNumber && value >= 1)
+                {
+                    _accommodationReservation.GuestNumber = value;
+                    OnPropertyChanged(nameof(GuestsNumber));
+                }
+            }
+        }
+        public int NumberOfDays
+        {
+            get => _accommodationReservation.NumberOfDays;
+
+            set
+            {
+                if (value != _accommodationReservation.NumberOfDays && value >= 1)
+                {
+                    _accommodationReservation.NumberOfDays = value;
+                    OnPropertyChanged(nameof(NumberOfDays));
+                }
+            }
+        }
+        public DateTime DateBegin
+        {
+            get => _accommodationReservation.StartDate;
+            set
+            {
+                if (_accommodationReservation.StartDate == value) return;
+                _accommodationReservation.StartDate = value;
+                OnPropertyChanged();
+            }
+        }
+        public DateTime DateEnd
+        {
+            get => _accommodationReservation.EndDate;
+            set
+            {
+                if (_accommodationReservation.EndDate == value) return;
+                _accommodationReservation.EndDate = value;
                 OnPropertyChanged();
             }
         }
@@ -36,8 +98,14 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _reservationRequestService = Injector.GetService<ReschedulingRequestService>();
             Reservations = LoadUnCanceledReservations();
             _notificationService = Injector.GetService<NotificationService>();
+            DateBegin = DateTime.Now;
+            DateEnd = DateTime.Now.AddDays(1);
         }
 
+        public void SaveReservation()
+        {
+            _reservationService.SaveReservation(SelectedReservation);
+        }
         public void Update()
         {
             _reservationService.UpdateReservation(SelectedReservation);
@@ -88,6 +156,18 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             return _reservationRequestService.CheckIfMatches(SelectedReservation);
         }
 
+       
+        public List<DateRange> GetReservationDates(List<AccommodationReservation> reservations)
+        {
+            List<DateRange> dateRanges = new List<DateRange>();
+
+            foreach (AccommodationReservation reservation in reservations)
+            {
+                dateRanges.Add(new DateRange(reservation.StartDate, reservation.EndDate));
+            }
+            return dateRanges;
+        }
+
         public ObservableCollection<AccommodationReservation> LoadReservations()
         {
             return new ObservableCollection<AccommodationReservation>(_reservationService.GetAll());
@@ -103,5 +183,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
             return new ObservableCollection<AccommodationReservation>(_reservationService.GetAllByAccommodationId(accommodation.Id));
         }
+
     }
 }

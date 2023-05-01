@@ -1,4 +1,5 @@
-﻿using SIMSProject.WPF.ViewModels.AccommodationViewModels;
+﻿using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.ViewModels.AccommodationViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +23,11 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
     public partial class AccommodationReview : Page
     {
         private AccommodationViewModel _accommodationViewModel;
-        public AccommodationReview(AccommodationViewModel accommodationViewModel)
+        private readonly User _user = new();
+        public AccommodationReview(AccommodationViewModel accommodationViewModel, User user)
         {
             InitializeComponent();
+            _user = user;
             _accommodationViewModel = accommodationViewModel;
             DataContext = _accommodationViewModel;
             AddImages();
@@ -41,7 +44,7 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
 
         private void Button_Click_Reservation(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AccommodationReservationView(_accommodationViewModel));
+            NavigationService.Navigate(new AccommodationReservationView(_accommodationViewModel, _user));
         }
     }
 }

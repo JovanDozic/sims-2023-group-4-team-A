@@ -1,4 +1,5 @@
-﻿using SIMSProject.WPF.ViewModels.AccommodationViewModels;
+﻿using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.ViewModels.AccommodationViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +23,11 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
     public partial class SearchedAccommodations : Page
     {
         private AccommodationViewModel _accommodationViewModel;
-        public SearchedAccommodations(AccommodationViewModel accommodationViewModel)
+        private readonly User _user = new();
+        public SearchedAccommodations(AccommodationViewModel accommodationViewModel, User user)
         {
             InitializeComponent();
+            _user = user;
             _accommodationViewModel = accommodationViewModel;
             DataContext = _accommodationViewModel;
         }
@@ -38,7 +41,7 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
         {
             if(SearchedAccLW.SelectedItem != null)
             {
-                NavigationService.Navigate(new AccommodationReview(_accommodationViewModel));
+                NavigationService.Navigate(new AccommodationReview(_accommodationViewModel, _user));
             }
         }
     }

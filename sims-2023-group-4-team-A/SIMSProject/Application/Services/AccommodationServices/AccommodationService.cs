@@ -1,5 +1,8 @@
-﻿using SIMSProject.Domain.Models.AccommodationModels;
+﻿using SIMSProject.Domain.Injectors;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
+using SIMSProject.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,10 +12,12 @@ namespace SIMSProject.Application.Services.AccommodationServices
     public class AccommodationService
     {
         private readonly IAccommodationRepo _repo;
+        private readonly AccommodationReservationService _accommodationReservationService;
 
         public AccommodationService(IAccommodationRepo repo)
         {
             _repo = repo;
+            _accommodationReservationService = Injector.GetService<AccommodationReservationService>();
         }
 
         public void ReloadAccommodations()
@@ -60,6 +65,12 @@ namespace SIMSProject.Application.Services.AccommodationServices
             foreach (var searchResult in searchResults)
                 accommodations.Add(searchResult);
         }
-     
+        public AccommodationReservation CheckReservations(List<AccommodationReservation> reservations, DateTime startDate, DateTime endDate, int accommodationId)
+        {
+            var conflictingReservation = reservations.FirstOrDefault(r => r.Accommodation.Id == accommodationId && (startDate < r.EndDate && r.StartDate < endDate));
+
+            return conflictingReservation; //if return value is null it means that accommodation is free in specific date range
+        }
+       
     }
 }

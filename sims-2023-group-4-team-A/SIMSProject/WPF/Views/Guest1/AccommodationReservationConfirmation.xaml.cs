@@ -34,34 +34,8 @@ namespace SIMSProject.WPF.Views.Guest1
         public string FormattedDateRange => $"{DateRange[0]:dd/MM/yyyy} - {DateRange[1]:dd/MM/yyyy}";
         public DateTime StartDate { get; set; } = DateTime.Now;
         public DateTime EndDate { get; set; } = DateTime.Now;
-        private int _guestsNumber = 1;
-        public int GuestsNumber
-        {
-            get => _guestsNumber;
-
-            set
-            {
-                if (value != _guestsNumber && value >= 1)
-                {
-                    _guestsNumber = value;
-                    OnPropertyChanged(nameof(GuestsNumber));
-                }
-            }
-        }
-        private int _numberOfDays = 1;
-        public int NumberOfDays
-        {
-            get => _numberOfDays;
-
-            set
-            {
-                if (value != _numberOfDays && value >= 1)
-                {
-                    _numberOfDays = value;
-                    OnPropertyChanged(nameof(NumberOfDays));
-                }
-            }
-        }
+        public int GuestsNumber { get; set; } = 1;
+        public int NumberOfDays { get; set; } = 1;
 
         public AccommodationReservationConfirmation(Guest user, Accommodation accommodation)
         {

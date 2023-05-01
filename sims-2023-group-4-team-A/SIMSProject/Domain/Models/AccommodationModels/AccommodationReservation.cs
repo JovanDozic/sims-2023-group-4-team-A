@@ -11,8 +11,8 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public Guest Guest { get; set; } = new();
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public int NumberOfDays { get; set; }
-        public int GuestNumber { get; set; }
+        public int NumberOfDays { get; set; } = 1;
+        public int GuestNumber { get; set; } = 1;
         public bool GuestRated { get; set; } = false;
         public bool RateGuestNotificationSent { get; set; } = false;
         public bool OwnerRated { get; set; } = false;
