@@ -57,19 +57,11 @@
         </StackPanel>
 
 
-        <ScrollViewer Grid.Row="1">
-            <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Accs}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Accommodation Name" Binding="{Binding Name}"/>
-                </DataGrid.Columns>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name}" Margin="10"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </DataGrid>
+        <ScrollViewer Grid.Row="1"
+                      HorizontalScrollBarVisibility="Hidden"
+                      VerticalScrollBarVisibility="Hidden">
+            <Frame Source="{Binding FrameViewSource, UpdateSourceTrigger=PropertyChanged}" 
+                   NavigationUIVisibility="Hidden"/>
         </ScrollViewer>
 
         <Grid Grid.Row="2" Margin="7,0,7,0">
@@ -81,29 +73,34 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Margin="10" Width="60" Height="60"
-                     Style="{StaticResource NavBarBtnStyle}">
-                <Image Source="../../../Resources/Icons/bell.png" Style="{StaticResource IconRenderStyle}"/>
+            <Button x:Name="NavBtnNotifications" Grid.Column="0" Margin="10" Width="60" Height="60"
+                    Style="{StaticResource NavBarBtnStyle}"
+                    Click="NavBtn_Click">
+                <Image x:Name="NavBtnNotificationsIcon" Source="../../../Resources/Icons/bell.png" Style="{StaticResource IconRenderStyle}"/>
             </Button>
 
-            <Button Grid.Column="1" Margin="10" Width="60" Height="60"
-                     Style="{StaticResource NavBarBtnStyle}">
-                <Image Source="../../../Resources/Icons/bed.png" Style="{StaticResource IconRenderStyle}"/>
+            <Button x:Name="NavBtnAccommodations" Grid.Column="1" Margin="10" Width="60" Height="60"
+                    Style="{StaticResource NavBarBtnStyle}"
+                    Click="NavBtn_Click">
+                <Image x:Name="NavBtnAccommodationsIcon" Source="../../../Resources/Icons/bed.png" Style="{StaticResource IconRenderStyle}"/>
             </Button>
 
-            <Button Grid.Column="2" Margin="10" Width="60" Height="60"
-                     Style="{StaticResource NavBarBtnStyle}">
-                <Image Source="../../../Resources/Icons/home-fill.png" Style="{StaticResource IconRenderStyle}"/>
+            <Button x:Name="NavBtnHome" Grid.Column="2" Margin="10" Width="60" Height="60"
+                    Style="{StaticResource NavBarBtnStyle}"
+                    Click="NavBtn_Click">
+                <Image x:Name="NavBtnHomeIcon" Source="../../../Resources/Icons/home-fill.png" Style="{StaticResource IconRenderStyle}"/>
             </Button>
 
-            <Button Grid.Column="3" Margin="10" Width="60" Height="60"
-                     Style="{StaticResource NavBarBtnStyle}">
-                <Image Source="../../../Resources/Icons/forum.png" Style="{StaticResource IconRenderStyle}"/>
+            <Button x:Name="NavBtnForums" Grid.Column="3" Margin="10" Width="60" Height="60"
+                    Style="{StaticResource NavBarBtnStyle}"
+                    Click="NavBtn_Click">
+                <Image x:Name="NavBtnForumsIcon" Source="../../../Resources/Icons/forum.png" Style="{StaticResource IconRenderStyle}"/>
             </Button>
 
-            <Button Grid.Column="4" Margin="10" Width="60" Height="60"
-                     Style="{StaticResource NavBarBtnStyle}">
-                <Image Source="../../../Resources/Icons/user.png" Style="{StaticResource IconRenderStyle}"/>
+            <Button x:Name="NavBtnAccount" Grid.Column="4" Margin="10" Width="60" Height="60"
+                    Style="{StaticResource NavBarBtnStyle}"
+                    Click="NavBtn_Click">
+                <Image x:Name="NavBtnAccountIcon" Source="../../../Resources/Icons/user.png" Style="{StaticResource IconRenderStyle}"/>
             </Button>
 
         </Grid>

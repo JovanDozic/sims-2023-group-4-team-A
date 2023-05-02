@@ -1,73 +1,139 @@
-﻿using SIMSProject.Application.Services.AccommodationServices;
-using SIMSProject.Domain.Models.AccommodationModels;
-using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
-using SIMSProject.Repositories;
-using SIMSProject.Repositories.AccommodationRepositories;
-using SIMSProject.Repositories.UserRepositories;
-using SIMSProject.WPF.ViewModels;
+﻿using SIMSProject.View.Guest2;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SIMSProject.WPF.Views.OwnerViews
 {
-    /// <summary>
-    /// Interaction logic for OwnerView.xaml
-    /// </summary>
     public partial class OwnerView : Window, INotifyPropertyChanged
     {
 
-        private ObservableCollection<Accommodation> _accs = new();
-
-        public ObservableCollection<Accommodation> Accs
+        private string _frameViewSource = "OwnerAccommodationViews/OwnerMyAccommodationsView.xaml";
+        public string FrameViewSource
         {
-            get => _accs;
+            get => _frameViewSource;
             set
             {
-                if (value == _accs) return;
-                _accs = value;
-                OnPropertyChanged();
+                if (value == _frameViewSource) return;
+                _frameViewSource = value;
+                OnPropertyChanged(nameof(FrameViewSource));
             }
         }
-
-        public readonly AccommodationService AccService;
 
 
         public OwnerView()
         {
             InitializeComponent();
             DataContext = this;
-            AccService = new(new AccommodationRepo(new LocationRepo(), new OwnerRepo()));
-            Accs = new(AccService.GetAllByOwnerId(1));
-
-            foreach (var ac in AccService.GetAllByOwnerId(1))
-            {
-                Accs.Add(ac);
-                Accs.Add(ac);
-                Accs.Add(ac);
-                Accs.Add(ac);
-            }
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        private void EnableNavBtn(object sender)
+        {
+            if (sender is not Button button || FindVisualChild<Image>(button) is not Image img) return;
+            var filledSource = img.Source?.ToString();
+            var index = filledSource?.IndexOf("Resources") ?? -1;
+            if (index >= 0 && filledSource is not null) 
+                img.Source = new BitmapImage(new Uri($"../../../{filledSource[index..].Replace(".png", "-fill.png")}", UriKind.Relative));
+        }
 
+        private void DisableNavBtn(object sender)
+        {
+            if (sender is not Button button || FindVisualChild<Image>(button) is not Image img) return;
+            var filledSource = img.Source?.ToString();
+            var index = filledSource?.IndexOf("Resources") ?? -1;
+            if (index >= 0 && filledSource is not null)
+                img.Source = new BitmapImage(new Uri($"../../../{filledSource[index..].Replace("-fill", "")}", UriKind.Relative));
+        }
+
+        private void DisableOtherNavBtns(object sender)
+        {
+            if (sender is not Button button) return;
+
+            if (button.Name != "NavBtnNotifications") DisableNavBtn(NavBtnNotifications);
+            if (button.Name != "NavBtnAccommodations") DisableNavBtn(NavBtnAccommodations);
+            if (button.Name != "NavBtnHome") DisableNavBtn(NavBtnHome);
+            if (button.Name != "NavBtnForums") DisableNavBtn(NavBtnForums);
+            if (button.Name != "NavBtnAccount") DisableNavBtn(NavBtnAccount);
+
+        }
+
+        private void NavBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is not Button button) return;
+            switch (button.Name)
+            {
+                case "NavBtnNotifications":
+                    FrameViewSource = "OwnerNotificationViews/OwnerNotificationsView.xaml";
+                    EnableNavBtn(sender);
+                    DisableOtherNavBtns(sender);
+                    break;
+
+                case "NavBtnAccommodations":
+                    FrameViewSource = "OwnerAccommodationViews/OwnerMyAccommodationsView.xaml";
+                    EnableNavBtn(sender);
+                    DisableOtherNavBtns(sender);
+
+                    break;
+
+                case "NavBtnHome":
+                    FrameViewSource = "";
+                    EnableNavBtn(sender);
+                    DisableOtherNavBtns(sender);
+
+                    break;
+
+                case "NavBtnForums":
+                    FrameViewSource = "OwnerForumViews/OwnerAllForumsView.xaml";
+                    EnableNavBtn(sender);
+                    DisableOtherNavBtns(sender);
+
+                    break;
+
+                case "NavBtnAccount":
+                    FrameViewSource = "OwnerAccountViews/OwnerAccountView.xaml";
+                    EnableNavBtn(sender);
+                    DisableOtherNavBtns(sender);
+
+                    break;
+
+            }
+
+
+
+        }
+
+        public static T FindVisualChild<T>(DependencyObject parent) where T : DependencyObject
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild(parent, i);
+                if (child != null && child is T)
+                {
+                    return (T)child;
+                }
+                else
+                {
+                    T found = FindVisualChild<T>(child);
+                    if (found != null)
+                        return found;
+                }
+            }
+            return null;
+        }
+
+
+
+
+        public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
 
     }
 }
