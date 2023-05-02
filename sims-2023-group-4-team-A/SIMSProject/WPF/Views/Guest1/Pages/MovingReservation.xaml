@@ -49,10 +49,10 @@
 
         </Grid>
 
-        <Label Content="Izabrani smestaj:" Grid.Row="1" HorizontalAlignment="Left"
+        <Label Content="Izabrani smeštaj:" Grid.Row="1" HorizontalAlignment="Left"
                VerticalAlignment="Center" FontSize="30" Margin="46,0,0,0"></Label>
         <TextBlock x:Name="NameBlock" Grid.Row="2"
-                   Width="380"
+                   Width="426"
                    Text="{Binding Reservation.Accommodation.Name,UpdateSourceTrigger=PropertyChanged}"
                    VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="30"
                    FontWeight="Bold" FontStyle="Italic" Margin="46,0,0,0"></TextBlock>
@@ -88,7 +88,7 @@
                     HorizontalAlignment="Left"
                     FontSize="34" Height="52" Margin="77,83,0,0" Grid.RowSpan="2" Grid.Column="1"/>
 
-        <Button FontSize="30" Content="Posalji zahtev" Grid.Row="6" Grid.ColumnSpan="2" Height="53"
+        <Button FontSize="30" Content="Pošalji zahtev" Grid.Row="6" Grid.ColumnSpan="2" Height="53"
                 Width="300" VerticalAlignment="Bottom" 
                 HorizontalAlignment="Center"
                 Background="#0c669f"

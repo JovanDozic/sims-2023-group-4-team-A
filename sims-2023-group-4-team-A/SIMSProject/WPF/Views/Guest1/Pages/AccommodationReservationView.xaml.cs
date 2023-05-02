@@ -45,6 +45,10 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
 
         private void Button_Click_Reservation(object sender, RoutedEventArgs e)
         {
+            DateValidation.Text = " ";
+            DurationValidation.Text = " ";
+            DaysValidation.Text = " ";
+            GuestsValidation.Text = " ";
             DateTime dateBegin = DateBeginBox.SelectedDate ?? DateTime.MinValue;
             DateTime dateEnd = DateEndBox.SelectedDate ?? DateTime.MinValue;
             int NumberOfDays = DaysNum.Value;
@@ -53,45 +57,60 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
 
             if (!_accommodationViewModel.IsDateInPast(dateBegin, dateEnd))
             {
-                if(_accommodationViewModel.IsNumberOfDaysValid(NumberOfDays, duration))
+                if (_accommodationViewModel.IsNumberOfDaysValid(NumberOfDays))
                 {
-                    if(_accommodationViewModel.IsGuestsNumberValid(GuestsNumber))
+                    if (_accommodationViewModel.IsNumberOfDaysGreaterThanDuration(NumberOfDays, duration))
                     {
-                        if (_accommodationViewModel.IsAccommodationFree(dateBegin, dateEnd))
+                        if (_accommodationViewModel.IsGuestsNumberValid(GuestsNumber))
                         {
-                            if (_accommodationViewModel.IsCanceled(dateBegin, dateEnd))
+                            if (_accommodationViewModel.IsAccommodationFree(dateBegin, dateEnd))
                             {
-                                NavigationService.Navigate(new FreeReservationDates(_reservationViewModel));
+                                if (_accommodationViewModel.IsCanceled(dateBegin, dateEnd))
+                                {
+                                    NavigationService.Navigate(new FreeReservationDates(_reservationViewModel));
+                                }
+                                else
+                                {
+                                    NavigationService.Navigate(new AlternativeReservationDates(_reservationViewModel));
+                                }
                             }
                             else
                             {
-                                NavigationService.Navigate(new AlternativeReservationDates(_reservationViewModel));
+                                NavigationService.Navigate(new FreeReservationDates(_reservationViewModel));
                             }
                         }
                         else
-                        {
-                            NavigationService.Navigate(new FreeReservationDates(_reservationViewModel));
-                        }
+                            GuestsValidation.Text = _accommodationViewModel.GetGuestsMessage();
                     }
                     else
-                        MessageBox.Show("Broj gostiju nije prihvatljiv!");
-                    
+                        DurationValidation.Text = _accommodationViewModel.GetDaysDurationMessage();
                 }
                 else
-                    MessageBox.Show("Broj dana nije prihvatljiv!");
+                    DaysValidation.Text = _accommodationViewModel.GetDaysMessage();
             }
             else
-                MessageBox.Show("Datum odlaska mora biti veći od datuma dolaska");
-
+                DateValidation.Text = _accommodationViewModel.GetDateMessage();
         }
 
-        private void DatePicker_Loaded(object sender, RoutedEventArgs e)
+        private void DatePickerStart_Loaded(object sender, RoutedEventArgs e)
         {
                 DatePicker datePicker = sender as DatePicker;
                 if (datePicker != null)
                 {
+                    datePicker.SelectedDate = DateTime.Today;
                     datePicker.DisplayDateStart = DateTime.Today;
                 }     
         }
+
+        private void DatePickerEnd_Loaded(object sender, RoutedEventArgs e)
+        {
+            DatePicker datePicker = sender as DatePicker;
+            if (datePicker != null)
+            {
+                datePicker.SelectedDate = DateTime.Today.AddDays(1);
+                datePicker.DisplayDateStart = DateTime.Today.AddDays(1);
+            }
+        }
+
     }
 }

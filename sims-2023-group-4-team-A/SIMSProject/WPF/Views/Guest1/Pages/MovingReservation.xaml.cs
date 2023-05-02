@@ -62,7 +62,6 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             _reschedulingRequestViewModel.SendRequest();
             MessageBox.Show("Zahtev uspešno poslat!");
             NavigationService.Navigate(new ReservationList(_user));
-            //TODO zatvoriti prozor
         }
     }
 }

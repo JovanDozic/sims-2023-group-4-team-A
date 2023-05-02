@@ -46,20 +46,20 @@
 
             </Grid.ColumnDefinitions>
 
-            <Image Source="../Icons/logo.png"></Image>
+            <Image Source="../Icons/logo.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
             <Label Grid.Column="1" FontFamily="Arial"  Foreground="White" Content="Smeštarko" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="40"></Label>
             <Button Grid.Column="6" BorderThickness="1" BorderBrush="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="50" Background="#0c669f">
-                <Image Source="../Icons/notification.png"></Image>
+                <Image Source="../Icons/notification.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
             </Button>
             <Button Click="Button_Click_Home" BorderThickness="0" BorderBrush="Transparent" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="50" Background="#0c669f">
-                <Image Source="../Icons/home.png"></Image>
+                <Image Source="../Icons/home.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
             </Button>
             
             <ToggleButton x:Name="ButtonMenu" BorderThickness="0"
                           BorderBrush="Transparent" Grid.Column="8" 
                           HorizontalAlignment="Center" VerticalAlignment="Center"
                           Height="50" Width="50" Background="#0c669f">
-                <Image Source="../Icons/menu.png" Width="38" />
+                <Image Source="../Icons/menu.png" Width="38" RenderOptions.BitmapScalingMode="HighQuality" />
                 <ToggleButton.Triggers>
                     <EventTrigger RoutedEvent="ToggleButton.Checked">
                         <BeginStoryboard>
@@ -126,7 +126,7 @@
                                FontSize="22" FontWeight="Bold"
                                x:Name="UserTB" Margin="108,0,108,0" Grid.Row="1" Grid.ColumnSpan="2"/>
                     <Label Foreground="White" Content="Status: Gost" FontSize="18" FontWeight="Bold" Margin="108,38,108,-30" Grid.Row="1" Grid.ColumnSpan="2"/>
-                    <Image Source="../Icons/account.png" VerticalAlignment="Top" Margin="136,4,19,0" Height="49" Grid.RowSpan="2"/>
+                    <Image Source="../Icons/account.png" VerticalAlignment="Top" Margin="136,4,19,0" Height="49" Grid.RowSpan="2" RenderOptions.BitmapScalingMode="HighQuality"/>
                 </Grid>
 
                 <Separator Width="315" FontWeight="Bold" Background="#BDC3C3" HorizontalAlignment="Stretch"></Separator>
@@ -181,7 +181,7 @@
                         <ColumnDefinition Width="2.2*"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Image Source="../Icons/chevron-left.png" Margin="193,64,87,16" RenderTransformOrigin="1.057,0.493" Grid.ColumnSpan="2"/>
+                    <Image Source="../Icons/chevron-left.png" Margin="193,64,87,16" RenderTransformOrigin="1.057,0.493" Grid.ColumnSpan="2" RenderOptions.BitmapScalingMode="HighQuality"/>
 
                     <Button Click="Button_Click_Close" Margin="0,0,10,25" FontSize="20" Foreground="White" Content="Odjavi se" BorderThickness="0" BorderBrush="Transparent" Background="#063e77" Height="30" Width="89" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.ColumnSpan="2"/>
                 </Grid>

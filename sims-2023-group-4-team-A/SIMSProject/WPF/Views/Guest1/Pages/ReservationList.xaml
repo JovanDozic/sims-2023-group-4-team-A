@@ -16,7 +16,7 @@
         </Style>
     </Page.Resources>
 
-    <Grid Margin="-52,0,0,0">
+    <Grid Margin="-52,0,0,-43">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
@@ -34,10 +34,10 @@
                FontWeight="Bold"
                Content="Prikaz Vaših Rezervacija" Margin="73,10,475,0" Grid.ColumnSpan="2" Height="50" VerticalAlignment="Top"></Label>
 
-        <DataGrid IsReadOnly="True" ItemsSource="{Binding Reservations, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" FontSize="20" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" Width="952" Height="410"
+        <DataGrid IsReadOnly="True" ItemsSource="{Binding Reservations, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" FontSize="20" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" Width="949" Height="446"
                   SelectedItem="{Binding SelectedReservation}"
                   BorderBrush="Transparent"
-                  BorderThickness="0" Margin="62,30,0,0" Grid.RowSpan="2" SelectionChanged="DataGrid_SelectionChanged">
+                  BorderThickness="0" Margin="73,10,0,0" Grid.RowSpan="3" SelectionChanged="DataGrid_SelectionChanged">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv smeštaja" Width="320" Binding="{Binding Accommodation.Name}"></DataGridTextColumn>
@@ -54,7 +54,7 @@
                 x:Name="CancelButton"
                 Click="Button_Click_Cancellation"
                 IsEnabled="False"
-                Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="55" Width="317">
+                Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="55" Width="318">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Template">

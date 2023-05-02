@@ -31,7 +31,7 @@
                    FontSize="70" Margin="29,0,65,0"
                    Foreground="#0c669f"></Label>
         </Grid>
-        <Label Content="Korisnicko ime:"
+        <Label Content="Korisničko ime:"
                Grid.Row="1"
                FontSize="30" Margin="150,47,258,0"
                Foreground="#0c669f"/>

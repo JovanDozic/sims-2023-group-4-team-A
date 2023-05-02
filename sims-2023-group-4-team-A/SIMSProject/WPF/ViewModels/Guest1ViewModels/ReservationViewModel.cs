@@ -22,11 +22,9 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
         private readonly AccommodationReservationService _reservationService;
         private AccommodationViewModel _accommodationViewModel;
         private AccommodationReservationViewModel _accommodationReservationViewModel;
-        //private AccommodationReservation _accommodationReservation = new();
         public Accommodation SelectedAccommodation { get; set; } = new();
         public ObservableCollection<DateRange> DateRanges { get; set; } = new();
-        public ObservableCollection<DateRange> AlternativeRanges { get; set; } = new();
-        
+        public ObservableCollection<DateRange> AlternativeRanges { get; set; } = new();  
         public DateRange SelectedRange { get; set; } = new();
         
         public int GuestsNumber
@@ -84,9 +82,7 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
             _accommodationViewModel = accommodationViewModel;
             _accommodationReservationViewModel = accommodationReservationViewModel;
             SelectedAccommodation = _accommodationViewModel.SelectedAccommodation;
-            //SelectedReservation = _accommodationReservationViewModel.SelectedReservation;
-            DateRanges = _accommodationReservationViewModel.DateRanges;
-            AlternativeRanges = _accommodationReservationViewModel.AlternativeRanges;
+
 
             _reservationService = Injector.GetService<AccommodationReservationService>();
         }
@@ -114,8 +110,8 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
         {
             AlternativeRanges.Clear();
             DateTime today = DateTime.Today;
-            DateTime startDate = DateBegin.AddDays(-1);
-            DateTime endDate = DateEnd.AddDays(1);
+            DateTime startDate = DateBegin;
+            DateTime endDate = DateEnd;
 
             int maxExtends = 7; //range extends max to 7 days
             int extendCount = 0;

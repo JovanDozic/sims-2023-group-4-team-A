@@ -26,7 +26,7 @@
         <DataGrid HorizontalAlignment="Center" Grid.Row="1" FontSize="20" Margin="0,10,0,10"
                    ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}"
                                SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"
-                   SelectedItem="{Binding SelectedAccommodation}" Width="980" SelectionChanged="DataGrid_SelectionChanged"
+                   SelectedItem="{Binding SelectedAccommodation}" Width="979" SelectionChanged="DataGrid_SelectionChanged"
                   BorderBrush="Transparent"
                   BorderThickness="0">
             <DataGrid.Columns>

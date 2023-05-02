@@ -2,6 +2,7 @@
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
 using SIMSProject.WPF.ViewModels.Guest1ViewModels;
+using SIMSProject.WPF.Views.Guest1.MainView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +44,8 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
         private void Button_Click_Confirm(object sender, RoutedEventArgs e)
         {
             _reservationViewModel.SaveReservation();
-            MessageBox.Show("Uspesno rezervisano");
+            MessageBox.Show("Uspešno rezervisano");
+            NavigationService.Navigate(new MainPage(_user));
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -41,7 +41,6 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             ImageUrlTB.Text = string.Empty;
             ImagesList.Items.Refresh();
         }
-
         private void Button_Click_Rate(object sender, RoutedEventArgs e)
         {
             _ownerRatingViewModel.RateOwnerAndAccommodation();
@@ -49,10 +48,10 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             NavigationService.GoBack();
 
         }
-
         private void ReservationsCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ButtonRate.IsEnabled = _ownerRatingViewModel.IsSelected();
+            SelectionValidation.Text = " ";
         }
     }
 }

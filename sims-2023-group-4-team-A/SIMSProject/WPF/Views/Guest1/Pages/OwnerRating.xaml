@@ -48,6 +48,7 @@
                        Text="{Binding SelectedReservation.Accommodation.Owner.Username}"
                        HorizontalAlignment="Left" VerticalAlignment="Center"
                        FontSize="30" FontWeight="Bold" FontStyle="Italic"></TextBlock>
+            <TextBlock Text="Niste odabrali smeštaj" x:Name="SelectionValidation" Grid.Row="2" Width="374" Foreground="Red" FontSize="18" Margin="0,72,76,61" Grid.RowSpan="2"></TextBlock>
             <Label Grid.Row="3" Content="Cistoća:" HorizontalAlignment="Left" VerticalAlignment="Bottom"
                    FontSize="30"></Label>
             <custom:NumericBoxRating FontSize="30" Grid.Row="3" HorizontalAlignment="Left"  Grid.RowSpan="2" Margin="43,61,0,32"

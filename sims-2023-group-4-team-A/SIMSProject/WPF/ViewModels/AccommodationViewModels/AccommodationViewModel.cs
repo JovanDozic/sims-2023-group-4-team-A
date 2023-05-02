@@ -216,14 +216,34 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _accommodation.Owner = _user as Owner ?? throw new Exception("Greška prilikom registrovanja: Vlasnik nije inicijalizovan.");
             _accommodationService.RegisterAccommodation(_accommodation);
         }
+        public string GetDateMessage()
+        {
+            return "Datum odlaska mora biti veći od datuma dolaska";
+        }
 
+        public string GetDaysMessage()
+        {
+            return $"Minimalan broj dana je {SelectedAccommodation.MinReservationDays}";
+        }
+        public string GetDaysDurationMessage()
+        {
+            return "Broj dana se ne poklapa sa opsegom datuma";
+        }
+        public string GetGuestsMessage()
+        {
+            return $"Maksimalan broj gostiju je {SelectedAccommodation.MaxGuestNumber}";
+        }
         public bool IsDateInPast(DateTime dateBegin, DateTime dateEnd)
         {
             return dateBegin >= dateEnd;
         }
-        public bool IsNumberOfDaysValid(int numberOfDays, TimeSpan duration)
+        public bool IsNumberOfDaysValid(int numberOfDays)
         {
-            return numberOfDays >= SelectedAccommodation.MinReservationDays && numberOfDays <= duration.Days;
+            return numberOfDays >= SelectedAccommodation.MinReservationDays;
+        }
+        public bool IsNumberOfDaysGreaterThanDuration(int numberOfDays, TimeSpan duration)
+        {
+            return numberOfDays <= duration.Days;
         }
         public bool IsAccommodationFree(DateTime dateBegin, DateTime dateEnd)
         {
