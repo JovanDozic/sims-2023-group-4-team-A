@@ -19,6 +19,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Icons\bed-fill.png" />
+    <None Remove="Resources\Icons\bed.png" />
+    <None Remove="Resources\Icons\bell-fill.png" />
+    <None Remove="Resources\Icons\bell.png" />
+    <None Remove="Resources\Icons\bookbnb.png" />
+    <None Remove="Resources\Icons\forum-fill.png" />
+    <None Remove="Resources\Icons\forum.png" />
+    <None Remove="Resources\Icons\home-fill.png" />
+    <None Remove="Resources\Icons\home.png" />
+    <None Remove="Resources\Icons\user-fill.png" />
+    <None Remove="Resources\Icons\user.png" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\checkboxlist.png" />
     <None Remove="Resources\Images\checkmark.png" />
@@ -44,6 +55,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Icons\bed-fill.png" />
+    <Resource Include="Resources\Icons\bed.png" />
+    <Resource Include="Resources\Icons\bell-fill.png" />
+    <Resource Include="Resources\Icons\bell.png" />
+    <Resource Include="Resources\Icons\bookbnb.png" />
+    <Resource Include="Resources\Icons\forum-fill.png" />
+    <Resource Include="Resources\Icons\forum.png" />
+    <Resource Include="Resources\Icons\home-fill.png" />
+    <Resource Include="Resources\Icons\home.png" />
+    <Resource Include="Resources\Icons\user-fill.png" />
+    <Resource Include="Resources\Icons\user.png" />
     <Resource Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
