@@ -39,7 +39,7 @@
                     FontSize="20" Grid.Column="2" Margin="122,10,10,0" Click="Button_Click_Close"/>
         </Grid>
 
-        <ListView x:Name="SearchedAccLW" Grid.Row="1" Margin="75,0,43,0"
+        <ListView x:Name="SearchedAccLW" Grid.Row="1" Margin="53,0,0,0"
                   ItemsSource="{Binding Path=Accommodations, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedAccommodation}"
                   Background="Transparent"

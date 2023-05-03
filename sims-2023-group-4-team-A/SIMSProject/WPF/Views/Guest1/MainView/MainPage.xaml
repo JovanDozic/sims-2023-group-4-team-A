@@ -18,7 +18,7 @@
 
             <Label Content="Pretraga smeštaja" FontSize="30"
                    FontWeight="Bold" Margin="0,-6,0,0"></Label>
-            <Label Foreground="#777773" Content="Naziv, tip, lokacija, broj gostiju, broj dana" FontSize="25" Margin="0,36,0,9" Grid.RowSpan="2"/>
+            <Label Foreground="#777773" Content="Smeštaj možete naći po nazivu, tipu ili lokaciji" FontSize="25" Margin="0,36,0,9" Grid.RowSpan="2"/>
         </Grid>
         <Grid HorizontalAlignment="Center" Margin="0,20,0,0" Height="250">
             <Grid.ColumnDefinitions>

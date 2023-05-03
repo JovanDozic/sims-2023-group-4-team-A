@@ -98,6 +98,8 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _reservationRequestService = Injector.GetService<ReschedulingRequestService>();
             Reservations = LoadUnCanceledReservations();
             _notificationService = Injector.GetService<NotificationService>();
+            DateBegin = DateTime.Today.Date;
+            DateEnd = DateTime.Today.Date.AddDays(1);
         }
 
         public void SaveReservation()

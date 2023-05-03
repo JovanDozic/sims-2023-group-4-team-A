@@ -245,9 +245,9 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             return numberOfDays <= duration.Days;
         }
-        public bool IsAccommodationFree(DateTime dateBegin, DateTime dateEnd)
+        public bool IsAccommodationOccupied(DateTime dateBegin, DateTime dateEnd)
         {
-            return _accommodationService.CheckReservations(_accommodationReservationService.GetAll(), dateBegin, dateEnd, SelectedAccommodation.Id) != null;
+            return _accommodationService.CheckReservations(_accommodationReservationService.GetAll(), dateBegin, dateEnd, SelectedAccommodation.Id).Count != 0;
         }
         public bool IsGuestsNumberValid(int guestsNumber)
         {
@@ -269,7 +269,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         }
         public bool IsCanceled(DateTime dateBegin, DateTime dateEnd)
         {
-            return _accommodationService.CheckReservations(_accommodationReservationService.GetAll(), dateBegin, dateEnd, SelectedAccommodation.Id).Canceled;
+            return _accommodationService.CheckReservations(_accommodationReservationService.GetAll(), dateBegin, dateEnd, SelectedAccommodation.Id).All(r => r.Canceled);
         }
 
         public void UploadImageToAccommodation(string imageUrl)

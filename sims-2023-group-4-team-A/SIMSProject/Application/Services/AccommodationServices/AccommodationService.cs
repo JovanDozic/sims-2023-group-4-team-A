@@ -65,11 +65,11 @@ namespace SIMSProject.Application.Services.AccommodationServices
             foreach (var searchResult in searchResults)
                 accommodations.Add(searchResult);
         }
-        public AccommodationReservation CheckReservations(List<AccommodationReservation> reservations, DateTime startDate, DateTime endDate, int accommodationId)
+        public List<AccommodationReservation> CheckReservations(List<AccommodationReservation> reservations, DateTime startDate, DateTime endDate, int accommodationId)
         {
-            var conflictingReservation = reservations.FirstOrDefault(r => r.Accommodation.Id == accommodationId && (startDate < r.EndDate && r.StartDate < endDate));
+            var conflictingReservation = reservations.FindAll(r => r.Accommodation.Id == accommodationId && (startDate < r.EndDate && r.StartDate < endDate));
 
-            return conflictingReservation; //if return value is null it means that accommodation is free in specific date range
+            return conflictingReservation; 
         }
        
     }

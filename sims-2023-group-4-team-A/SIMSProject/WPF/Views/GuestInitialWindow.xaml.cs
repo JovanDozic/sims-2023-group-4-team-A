@@ -15,26 +15,12 @@ namespace SIMSProject.WPF.Views
             InitializeComponent();
             User = user;
         }
-
-        private void OpenAccommodations_Click(object sender, RoutedEventArgs e)
-        {
-            AccommodationSearchAndShowForm window = new(User);
-            window.Show();
-        }
-
         private void OpenTours_Click(object sender, RoutedEventArgs e)
         {
             Guest2HomeView window = new(User);
             window.Show();
             Close();
         }
-
-        private void Button_Click_Rating(object sender, RoutedEventArgs e)
-        {
-            var window = new AccommodationAndOwnerRating(User);
-            window.Show();
-        }
-
         private void Button_Click_Requests(object sender, RoutedEventArgs e)
         {
             var window = new ReservationReqeusts(User);

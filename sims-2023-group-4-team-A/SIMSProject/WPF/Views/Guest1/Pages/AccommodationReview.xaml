@@ -69,11 +69,11 @@
                 <StackPanel Grid.Column="1" HorizontalAlignment="Left" Width="339" Margin="34,0,0,0">
                     <StackPanel Orientation="Horizontal" Width="357">
                         <TextBlock Text="Maksimalan broj gostiju: "
-                                   FontSize="25" Width="295"/>
+                                   FontSize="25" Width="287"/>
                         <TextBlock FontWeight="Bold" Text="{Binding SelectedAccommodation.MaxGuestNumber}" FontSize="25" Width="55"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Minimalan broj dana: " FontSize="25" Width="266" Height="36"/>
+                        <TextBlock Text="Minimalan broj dana: " FontSize="25" Width="259" Height="36"/>
                         <TextBlock FontWeight="Bold" Text="{Binding SelectedAccommodation.MinReservationDays}" FontSize="25" Width="75" Margin="5"/>
                     </StackPanel>
                 </StackPanel>

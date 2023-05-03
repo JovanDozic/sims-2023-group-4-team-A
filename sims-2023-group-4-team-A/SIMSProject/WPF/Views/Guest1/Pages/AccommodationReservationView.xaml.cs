@@ -63,7 +63,7 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
                     {
                         if (_accommodationViewModel.IsGuestsNumberValid(GuestsNumber))
                         {
-                            if (_accommodationViewModel.IsAccommodationFree(dateBegin, dateEnd))
+                            if (_accommodationViewModel.IsAccommodationOccupied(dateBegin, dateEnd))
                             {
                                 if (_accommodationViewModel.IsCanceled(dateBegin, dateEnd))
                                 {
@@ -97,7 +97,7 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
                 DatePicker datePicker = sender as DatePicker;
                 if (datePicker != null)
                 {
-                    datePicker.SelectedDate = DateTime.Today;
+                    datePicker.SelectedDate = null;
                     datePicker.DisplayDateStart = DateTime.Today;
                 }     
         }
@@ -107,7 +107,7 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             DatePicker datePicker = sender as DatePicker;
             if (datePicker != null)
             {
-                datePicker.SelectedDate = DateTime.Today.AddDays(1);
+                datePicker.SelectedDate = null;
                 datePicker.DisplayDateStart = DateTime.Today.AddDays(1);
             }
         }
