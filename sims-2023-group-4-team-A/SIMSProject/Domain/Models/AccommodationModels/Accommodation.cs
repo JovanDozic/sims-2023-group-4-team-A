@@ -1,6 +1,7 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Serializer;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SIMSProject.Domain.Models.AccommodationModels
 {
@@ -16,6 +17,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public int CancellationThreshold { get; set; } = 1;
         public List<string> ImageURLs { get; set; } = new();
         public string ImageURLsCSV { get; set; } = string.Empty;
+        public string FeaturedImage { get; set; } = string.Empty;
 
         public Accommodation()
         {
@@ -72,6 +74,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             CancellationThreshold = int.Parse(values[i++]);
             ImageURLsCSV = values[i++];
             ImageURLs = ImageURLsFromCSV(ImageURLsCSV);
+            FeaturedImage = ImageURLs.Count > 0 ? ImageURLs.First() : string.Empty;
         }
 
         public override string? ToString()

@@ -28,6 +28,7 @@
     <None Remove="Resources\Icons\forum.png" />
     <None Remove="Resources\Icons\home-fill.png" />
     <None Remove="Resources\Icons\home.png" />
+    <None Remove="Resources\Icons\plus.png" />
     <None Remove="Resources\Icons\user-fill.png" />
     <None Remove="Resources\Icons\user.png" />
     <None Remove="Resources\Images\add.png" />
@@ -55,6 +56,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Icons\bed-fill.png" />
     <Resource Include="Resources\Icons\bed.png" />
     <Resource Include="Resources\Icons\bell-fill.png" />
@@ -64,6 +78,9 @@
     <Resource Include="Resources\Icons\forum.png" />
     <Resource Include="Resources\Icons\home-fill.png" />
     <Resource Include="Resources\Icons\home.png" />
+    <Resource Include="Resources\Icons\plus.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Icons\user-fill.png" />
     <Resource Include="Resources\Icons\user.png" />
     <Resource Include="Resources\Images\add.png">
@@ -101,6 +118,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageReference Include="MaterialDesignInXamlToolkitAddOns" Version="0.0.6" />
@@ -108,7 +132,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

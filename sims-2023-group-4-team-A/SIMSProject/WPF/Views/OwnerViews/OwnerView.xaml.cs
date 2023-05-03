@@ -1,5 +1,10 @@
-﻿using SIMSProject.View.Guest2;
+﻿using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews;
+using SIMSProject.WPF.Views.OwnerViews.OwnerAccountViews;
+using SIMSProject.WPF.Views.OwnerViews.OwnerForumViews;
+using SIMSProject.WPF.Views.OwnerViews.OwnerNotificationViews;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -11,36 +16,28 @@ namespace SIMSProject.WPF.Views.OwnerViews
 {
     public partial class OwnerView : Window, INotifyPropertyChanged
     {
-
-        private string _frameViewSource = "OwnerAccommodationViews/OwnerMyAccommodationsView.xaml";
-        public string FrameViewSource
-        {
-            get => _frameViewSource;
-            set
-            {
-                if (value == _frameViewSource) return;
-                _frameViewSource = value;
-                OnPropertyChanged(nameof(FrameViewSource));
-            }
-        }
+        private User _user = new();
 
 
-        public OwnerView()
+        public OwnerView(User user)
         {
             InitializeComponent();
             DataContext = this;
+            _user = user;
+
+            NavBtn_Click(NavBtnAccommodations, null);
         }
 
-        private void EnableNavBtn(object sender)
+        private void EnableNavButton(object sender)
         {
             if (sender is not Button button || FindVisualChild<Image>(button) is not Image img) return;
             var filledSource = img.Source?.ToString();
             var index = filledSource?.IndexOf("Resources") ?? -1;
-            if (index >= 0 && filledSource is not null) 
+            if (index >= 0 && filledSource is not null)
                 img.Source = new BitmapImage(new Uri($"../../../{filledSource[index..].Replace(".png", "-fill.png")}", UriKind.Relative));
         }
 
-        private void DisableNavBtn(object sender)
+        private void DisableNavButton(object sender)
         {
             if (sender is not Button button || FindVisualChild<Image>(button) is not Image img) return;
             var filledSource = img.Source?.ToString();
@@ -49,72 +46,43 @@ namespace SIMSProject.WPF.Views.OwnerViews
                 img.Source = new BitmapImage(new Uri($"../../../{filledSource[index..].Replace("-fill", "")}", UriKind.Relative));
         }
 
-        private void DisableOtherNavBtns(object sender)
+        private void UpdateNotificationButtons(object sender)
         {
             if (sender is not Button button) return;
 
-            if (button.Name != "NavBtnNotifications") DisableNavBtn(NavBtnNotifications);
-            if (button.Name != "NavBtnAccommodations") DisableNavBtn(NavBtnAccommodations);
-            if (button.Name != "NavBtnHome") DisableNavBtn(NavBtnHome);
-            if (button.Name != "NavBtnForums") DisableNavBtn(NavBtnForums);
-            if (button.Name != "NavBtnAccount") DisableNavBtn(NavBtnAccount);
+            EnableNavButton(sender);
 
+            if (button.Name != "NavBtnNotifications") DisableNavButton(NavBtnNotifications);
+            if (button.Name != "NavBtnAccommodations") DisableNavButton(NavBtnAccommodations);
+            if (button.Name != "NavBtnHome") DisableNavButton(NavBtnHome);
+            if (button.Name != "NavBtnForums") DisableNavButton(NavBtnForums);
+            if (button.Name != "NavBtnAccount") DisableNavButton(NavBtnAccount);
         }
 
         private void NavBtn_Click(object sender, RoutedEventArgs e)
         {
             if (sender is not Button button) return;
-            switch (button.Name)
-            {
-                case "NavBtnNotifications":
-                    FrameViewSource = "OwnerNotificationViews/OwnerNotificationsView.xaml";
-                    EnableNavBtn(sender);
-                    DisableOtherNavBtns(sender);
-                    break;
 
-                case "NavBtnAccommodations":
-                    FrameViewSource = "OwnerAccommodationViews/OwnerMyAccommodationsView.xaml";
-                    EnableNavBtn(sender);
-                    DisableOtherNavBtns(sender);
-
-                    break;
-
-                case "NavBtnHome":
-                    FrameViewSource = "";
-                    EnableNavBtn(sender);
-                    DisableOtherNavBtns(sender);
-
-                    break;
-
-                case "NavBtnForums":
-                    FrameViewSource = "OwnerForumViews/OwnerAllForumsView.xaml";
-                    EnableNavBtn(sender);
-                    DisableOtherNavBtns(sender);
-
-                    break;
-
-                case "NavBtnAccount":
-                    FrameViewSource = "OwnerAccountViews/OwnerAccountView.xaml";
-                    EnableNavBtn(sender);
-                    DisableOtherNavBtns(sender);
-
-                    break;
-
-            }
-
-
-
+            MainFrame.Navigate(
+                button.Name switch
+                {
+                    "NavBtnNotifications" => new OwnerNotificationsView(),
+                    "NavBtnAccommodations" => new OwnerMyAccommodationsView(_user),
+                    "NavBtnHome" => new OwnerHomeView(),
+                    "NavBtnForums" => new OwnerAllForumsView(),
+                    _ => new OwnerAccountView(),
+                }
+            );
+            
+            UpdateNotificationButtons(sender);
         }
 
-        public static T FindVisualChild<T>(DependencyObject parent) where T : DependencyObject
+        public static T FindVisualChild<T>(DependencyObject? parent) where T : DependencyObject
         {
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
             {
                 DependencyObject child = VisualTreeHelper.GetChild(parent, i);
-                if (child != null && child is T)
-                {
-                    return (T)child;
-                }
+                if (child is not null and T) return (T)child;
                 else
                 {
                     T found = FindVisualChild<T>(child);

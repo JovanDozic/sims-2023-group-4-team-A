@@ -58,8 +58,11 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
             {
                 case UserRole.Owner or UserRole.SuperOwner:
                     user = _ownerRatingService.UpdateOwnerInfo(user);
-                    OwnerHomeView ownerWindow = new(user
-                        ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
+                    //OwnerHomeViewOld ownerWindow = new(user
+                    //    ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
+                    //ownerWindow.Show();
+                    
+                    OwnerView ownerWindow = new(user ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
                     ownerWindow.Show();
                     break;
                 case UserRole.Guide or UserRole.SuperGuide:

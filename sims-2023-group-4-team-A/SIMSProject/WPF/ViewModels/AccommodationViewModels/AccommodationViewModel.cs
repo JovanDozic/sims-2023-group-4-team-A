@@ -17,7 +17,8 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private AccommodationService _accommodationService;
         private LocationService _locationService;
         private string _selectedImageFile = string.Empty;
-
+        private ObservableCollection<Accommodation> _accommodations = new();
+        
         public ObservableCollection<string> AccommodationTypeSource { get; set; }
         public Accommodation Accommodation
         {
@@ -139,6 +140,16 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
+        public string FeaturedImage
+        {
+            get => Accommodation.FeaturedImage;
+            set
+            {
+                if (Accommodation.FeaturedImage == value) return;
+                Accommodation.FeaturedImage = value;
+                OnPropertyChanged();
+            }
+        }
         public string SelectedImageFile
         {
             get => _selectedImageFile;
@@ -146,6 +157,16 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             {
                 if (_selectedImageFile == value) return;
                 _selectedImageFile = value;
+                OnPropertyChanged();
+            }
+        }
+        public ObservableCollection<Accommodation> Accommodations
+        {
+            get => _accommodations;
+            set
+            {
+                if (value == _accommodations) return;
+                _accommodations = value;
                 OnPropertyChanged();
             }
         }
@@ -167,7 +188,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         public ObservableCollection<Accommodation> LoadAccommodationsByOwner()
         {
             _accommodationService.ReloadAccommodations();
-            return new ObservableCollection<Accommodation>(_accommodationService.GetAllByOwnerId(_user.Id));
+            return Accommodations = new(_accommodationService.GetAllByOwnerId(_user.Id));
         }
 
         public void RegisterAccommodation()

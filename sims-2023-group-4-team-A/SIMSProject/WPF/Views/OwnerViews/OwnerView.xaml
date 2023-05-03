@@ -32,12 +32,6 @@
             </Setter>
         </Style>
 
-
-        <Style x:Key="IconRenderStyle" TargetType="{x:Type Image}">
-            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
-        </Style>
-
-
     </Window.Resources>
 
     <Grid>
@@ -60,8 +54,9 @@
         <ScrollViewer Grid.Row="1"
                       HorizontalScrollBarVisibility="Hidden"
                       VerticalScrollBarVisibility="Hidden">
-            <Frame Source="{Binding FrameViewSource, UpdateSourceTrigger=PropertyChanged}" 
-                   NavigationUIVisibility="Hidden"/>
+            <Frame x:Name="MainFrame" Source="{Binding FrameViewSource, UpdateSourceTrigger=PropertyChanged}"
+                   NavigationUIVisibility="Hidden"
+                   Padding="20,10,20,0"/>
         </ScrollViewer>
 
         <Grid Grid.Row="2" Margin="7,0,7,0">
