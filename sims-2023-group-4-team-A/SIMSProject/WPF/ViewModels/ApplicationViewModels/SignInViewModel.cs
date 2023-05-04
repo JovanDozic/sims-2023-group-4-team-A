@@ -61,9 +61,14 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
                     //OwnerHomeViewOld ownerWindow = new(user
                     //    ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
                     //ownerWindow.Show();
-                    
-                    OwnerView ownerWindow = new(user ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
+
+                    //OwnerView ownerWindow = new(user ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
+                    //ownerWindow.Show();
+
+                    OwnerWindow ownerWindow = new(user);
                     ownerWindow.Show();
+
+
                     break;
                 case UserRole.Guide or UserRole.SuperGuide:
                     GuideHomeWindow guideWindow = new(user as Guide

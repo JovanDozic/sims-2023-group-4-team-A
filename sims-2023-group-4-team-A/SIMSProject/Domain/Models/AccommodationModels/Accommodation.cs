@@ -18,6 +18,8 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public List<string> ImageURLs { get; set; } = new();
         public string ImageURLsCSV { get; set; } = string.Empty;
         public string FeaturedImage { get; set; } = string.Empty;
+        public string Description { get; set; } = "Default description space";
+        public bool IsInRenovation { get; set; } = false;
 
         public Accommodation()
         {

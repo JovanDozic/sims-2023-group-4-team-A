@@ -1,0 +1,133 @@
+﻿<Page x:Class="SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews.OwnerRegisterAccommodationView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
+      mc:Ignorable="d" 
+      Height="auto" d:DesignWidth="430"
+      Title="Register Accommodation">
+
+    <Grid Margin="20,10,20,0">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+
+        <Button x:Name="BtnBack" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                Background="Transparent" BorderBrush="Transparent" BorderThickness="0"
+                Click="BtnBack_Click" Margin="-10,0,-10,0"
+                Style="{StaticResource NoHoverButtonStyle}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Resources/Icons/back.png" Width="30" Height="30" Margin="0,0,5,0" 
+                       Style="{StaticResource IconRenderStyle}"/>
+                <TextBlock Text="Nazad" VerticalAlignment="Center" FontSize="12.5" Margin="0,0,0,0"/>
+            </StackPanel>
+        </Button>
+
+        <Label Content="Registruj smeštaj" Grid.Row="1"
+               FontSize="22.5" FontWeight="SemiBold"
+               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+        <ScrollViewer Grid.Row="2" 
+                      HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+
+            <Grid Height="auto" Margin="0,0,0,50">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Name -->
+                <Label Grid.Row="0" Grid.Column="0" Content="Ime" Style="{StaticResource MobileTextBoxLabel}" />
+                <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource MobileTextBoxInput}" />
+
+                <!-- Location -->
+                <Label Grid.Row="2" Grid.Column="0" Content="Lokacija" Style="{StaticResource MobileTextBoxLabel}" />
+                <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource MobileTextBoxInput}" />
+
+                <!-- Type -->
+                <Label Grid.Row="4" Grid.Column="0" Content="Tip" Style="{StaticResource MobileTextBoxLabel}" />
+                <ComboBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource MobileComboBoxInput}">
+                    <ComboBoxItem Content="Type A"/>
+                    <ComboBoxItem Content="Type B"/>
+                    <ComboBoxItem Content="Type C"/>
+                </ComboBox>
+
+                <!-- MaxNum -->
+                <Label Grid.Row="6" Grid.Column="0" Content="Maksimalan broj gostiju" Style="{StaticResource MobileTextBoxLabel}" />
+                <TextBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource MobileTextBoxInput}" />
+
+                <!-- MinNum -->
+                <Label Grid.Row="8" Grid.Column="0" Content="Minimalan broj dana za rezervaciju" Style="{StaticResource MobileTextBoxLabel}" />
+                <TextBox Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource MobileTextBoxInput}" />
+
+                <!-- CancelNum -->
+                <Label Grid.Row="10" Grid.Column="0" Content="Otkazni rok" Style="{StaticResource MobileTextBoxLabel}" />
+                <TextBox Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource MobileTextBoxInput}" />
+
+                <!-- Description -->
+                <Label Grid.Row="12" Grid.Column="0" Content="Opis" Style="{StaticResource MobileTextBoxLabel}" />
+                <TextBox Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource MobileTextBoxInput}" />
+
+                <!-- Images -->
+                <Label Grid.Row="14" Grid.Column="0" Content="Dodaj slike" Style="{StaticResource MobileTextBoxLabel}" />
+                <Border Grid.Row="15" Grid.Column="0" Grid.ColumnSpan="2"
+                        BorderBrush="Black" BorderThickness="2.5">
+                    <Image Height="250" Source="C:\Users\j.dozic\OneDrive - Pionir Internacional d.o.o\Desktop\IMG_5997.jpg"
+                           Stretch="UniformToFill"/>
+                </Border>
+                <Button Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="2" 
+                        Margin="0,15,0,0"
+                        Style="{StaticResource MobileActionSingleButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resources/Icons/image.png" Height="22.5" Margin="0,0,10,0" 
+                       Style="{StaticResource IconRenderStyle}"/>
+                        <TextBlock Text="Izaberi slike" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                    </StackPanel>
+
+                </Button>
+
+                <!-- Register Button -->
+                <Button Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="2"
+                        Margin="0,50,0,0"
+                        Style="{StaticResource MobileActionSingleButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resources/Icons/plus.png" Height="17.5" Margin="0,0,10,0" 
+                       Style="{StaticResource IconRenderStyle}"/>
+                        <TextBlock Text="Dodaj smeštaj" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                    </StackPanel>
+
+                </Button>
+            </Grid>
+        </ScrollViewer>
+
+
+
+
+    </Grid>
+</Page>

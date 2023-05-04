@@ -4,7 +4,6 @@ using SIMSProject.WPF.Views.OwnerViews.OwnerAccountViews;
 using SIMSProject.WPF.Views.OwnerViews.OwnerForumViews;
 using SIMSProject.WPF.Views.OwnerViews.OwnerNotificationViews;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -14,7 +13,7 @@ using System.Windows.Media.Imaging;
 
 namespace SIMSProject.WPF.Views.OwnerViews
 {
-    public partial class OwnerView : Window, INotifyPropertyChanged
+    public partial class OwnerView : Page, INotifyPropertyChanged
     {
         private User _user = new();
 
@@ -101,7 +100,6 @@ namespace SIMSProject.WPF.Views.OwnerViews
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
 
     }
 }

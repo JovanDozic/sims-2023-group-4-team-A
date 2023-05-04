@@ -2,6 +2,7 @@
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -53,7 +54,12 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
             // TODO: Execute search
         }
 
-
+        private void BtnAddAccommodation_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            OwnerRegisterAccommodationView addAccommodationView = new();
+            OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow;
+            ownerWindow.SwitchToPage(addAccommodationView);
+        }
 
 
 
@@ -63,5 +69,7 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        
     }
 }
