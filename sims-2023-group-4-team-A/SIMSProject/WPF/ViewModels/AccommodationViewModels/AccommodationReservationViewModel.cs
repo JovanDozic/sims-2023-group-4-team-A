@@ -8,6 +8,7 @@ using SIMSProject.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 {
@@ -16,6 +17,8 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private readonly User _user;
         private readonly AccommodationReservationService _reservationService;
         private readonly ReschedulingRequestService _reservationRequestService;
+        private readonly GuestRatingService _guestRatingService;
+        private GuestRatingViewModel _guestRatingViewModel;
         private readonly NotificationService _notificationService;
         private AccommodationReservation _selectedReservation = new();
         private AccommodationReservation _accommodationReservation = new();
@@ -23,6 +26,13 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         public ObservableCollection<AccommodationReservation> Reservations { get; set; } = new();
         public ObservableCollection<DateRange> DateRanges { get; set; } = new();
         public ObservableCollection<DateRange> AlternativeRanges { get; set; } = new();
+        public object AccommodationsCombo { get; private set; } = new();
+        private double _overall;
+        public double OverallRating
+        {
+            get { return _overall; }
+            set { _overall = value; OnPropertyChanged(nameof(OverallRating)); }
+        }
 
         public AccommodationReservation SelectedReservation
         {
@@ -96,10 +106,42 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _user = user;
             _reservationService = Injector.GetService<AccommodationReservationService>();
             _reservationRequestService = Injector.GetService<ReschedulingRequestService>();
-            Reservations = LoadUnCanceledReservations();
+            _guestRatingService = Injector.GetService<GuestRatingService>();
             _notificationService = Injector.GetService<NotificationService>();
+            Reservations = LoadUnCanceledReservations();
             DateBegin = DateTime.Today.Date;
             DateEnd = DateTime.Today.Date.AddDays(1);
+        }
+
+        public void AddReservationsToCombo()
+        {
+            Reservations.Clear();
+            foreach (var reservation in _reservationService.GetAll())
+            {
+                if (reservation.Guest.Id == _user.Id && reservation.OwnerRated && reservation.GuestRated && !reservation.Canceled)
+                {
+                    SetReservationDetails(reservation);
+                    Reservations.Add(reservation);
+                }
+                AccommodationsCombo = Reservations;
+            }
+        }
+
+        public void GetOverallRating()
+        {
+            if (SelectedReservation != null)
+            {
+                var rating = _guestRatingService.GetAll().FirstOrDefault(r => r.Reservation.Id == SelectedReservation.Id);
+                if (rating != null)
+                {
+                    OverallRating = rating.Overall;
+                }
+            }
+        }
+
+        public void SetReservationDetails(AccommodationReservation reservation)
+        {
+            reservation.ReservationDetails = string.Format("{0} ({1} - {2})", reservation.Accommodation.Name, reservation.StartDate.ToShortDateString(), reservation.EndDate.ToShortDateString());
         }
 
         public void SaveReservation()

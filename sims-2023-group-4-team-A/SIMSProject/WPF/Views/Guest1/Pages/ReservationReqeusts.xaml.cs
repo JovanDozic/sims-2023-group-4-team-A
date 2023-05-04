@@ -20,7 +20,7 @@ namespace SIMSProject.WPF.Views.Guest1
     /// <summary>
     /// Interaction logic for ReservationReqeusts.xaml
     /// </summary>
-    public partial class ReservationReqeusts : Window
+    public partial class ReservationReqeusts : Page
     {
         private readonly ReschedulingRequestViewModel _reschedulingRequestViewModel;
         private readonly User _user;

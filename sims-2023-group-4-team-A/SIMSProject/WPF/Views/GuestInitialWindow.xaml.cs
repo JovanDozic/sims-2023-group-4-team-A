@@ -21,11 +21,6 @@ namespace SIMSProject.WPF.Views
             window.Show();
             Close();
         }
-        private void Button_Click_Requests(object sender, RoutedEventArgs e)
-        {
-            var window = new ReservationReqeusts(User);
-            window.Show();
-        }
 
         private void Button_Click_LogOut(object sender, RoutedEventArgs e)
         {

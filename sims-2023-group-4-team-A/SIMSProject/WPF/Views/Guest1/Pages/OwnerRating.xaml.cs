@@ -53,5 +53,10 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             ButtonRate.IsEnabled = _ownerRatingViewModel.IsSelected();
             SelectionValidation.Text = " ";
         }
+
+        private void Button_Click_Renovation(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new RenovationSuggestion());
+        }
     }
 }

@@ -22,9 +22,40 @@
         <Frame Background="#F2DDF2" x:Name="MainWind" Grid.Row="1" NavigationUIVisibility="Hidden" >
 
         </Frame>
+        <Grid x:Name="GridNotification" Margin="541,88,133,476"
+              Background="#6aa2d2" Grid.RowSpan="2"
+              Width="0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Content="Obaveštenja" Foreground="White"
+                   VerticalAlignment="Center" FontSize="25"
+                   FontWeight="Bold" Margin="10,0,0,0"></Label>
+            <Separator Background="White" Margin="2,25,3,129" Grid.RowSpan="2"/>
+
+            <ListView x:Name="ListViewNotification" Grid.Row="1" Margin="10,0,10,0"
+                      Background="Transparent"
+                      BorderBrush="Transparent"
+                      BorderThickness="0"
+                      SelectionChanged="ListViewNotification_SelectionChanged"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListViewItem x:Name="ItemRatings" Height="72">
+                    <Label Foreground="White" FontWeight="Bold" Content="Ocene vlasnika" FontSize="20"></Label>
+                </ListViewItem>
+                <ListViewItem x:Name="ItemRequests" Height="71">
+                    <Label Foreground="White" FontWeight="Bold" Content="Zahtevi za pomeranje rezervacija" FontSize="20"></Label>
+                </ListViewItem>
+            </ListView>
+
+        </Grid>
+
         <Grid Grid.Row="1" x:Name="OverlayPanel" Visibility="Collapsed">
             <Grid Background="#000000" Opacity="0.6"></Grid>
         </Grid>
+
 
         <Grid Grid.Row="0" Background="#0c669f">
 
@@ -48,17 +79,47 @@
 
             <Image Source="../Icons/logo.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
             <Label Grid.Column="1" FontFamily="Arial"  Foreground="White" Content="Smeštarko" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="40"></Label>
-            <Button Grid.Column="6" BorderThickness="1" BorderBrush="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="50" Background="#0c669f">
+            <ToggleButton x:Name="ButtonNotification" Grid.Column="6" BorderThickness="1" BorderBrush="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center"
+                          Height="50" Width="50" Background="#0c669f"
+                          Click="Button_Click_Notification">
                 <Image Source="../Icons/notification.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-            </Button>
+                <ToggleButton.Triggers>
+                    <EventTrigger RoutedEvent="ToggleButton.Checked">
+                        <BeginStoryboard>
+                            <Storyboard>
+
+                                <DoubleAnimation
+                                    Storyboard.TargetName="GridNotification"
+                                    Storyboard.TargetProperty="Width"
+                                    From="0" To="350"
+                                    Duration="0:0:0.3" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+
+                    <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                        <BeginStoryboard>
+                            <Storyboard>
+
+                                <DoubleAnimation
+                                    Storyboard.TargetName="GridNotification"
+                                    Storyboard.TargetProperty="Width"
+                                    From="350" To="0"
+                                    Duration="0:0:0.3" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </ToggleButton.Triggers>
+            </ToggleButton>
             <Button Click="Button_Click_Home" BorderThickness="0" BorderBrush="Transparent" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="50" Background="#0c669f">
                 <Image Source="../Icons/home.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
             </Button>
-            
+
             <ToggleButton x:Name="ButtonMenu" BorderThickness="0"
                           BorderBrush="Transparent" Grid.Column="8" 
                           HorizontalAlignment="Center" VerticalAlignment="Center"
-                          Height="50" Width="50" Background="#0c669f">
+                          Height="50" Width="50" Background="#0c669f"
+                          Click="Button_Click_Menu">
                 <Image Source="../Icons/menu.png" Width="38" RenderOptions.BitmapScalingMode="HighQuality" />
                 <ToggleButton.Triggers>
                     <EventTrigger RoutedEvent="ToggleButton.Checked">

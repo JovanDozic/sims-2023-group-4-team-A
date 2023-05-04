@@ -32,7 +32,7 @@
 
         <Button Grid.Column="1" Width="160" Height="40" Content="Ocenjivanje smeštaja"></Button>
         <Button Grid.Column="2" Width="160" Height="40" Content="Zahtevi za pomeranje"
-                VerticalAlignment="Center" HorizontalAlignment="Center" Click="Button_Click_Requests"></Button>
+                VerticalAlignment="Center" HorizontalAlignment="Center"></Button>
 
         <Button Grid.Row="1" Width="160" Height="40" Margin="30" HorizontalContentAlignment="Left"
                     Click="OpenTours_Click">

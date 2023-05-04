@@ -49,6 +49,10 @@ namespace SIMSProject.WPF.Views.Guest1.MainView
             {
                 ButtonMenu.IsChecked = false;
             }
+            if(ButtonNotification.IsChecked == true)
+            {
+                ButtonNotification.IsChecked = false;
+            }
         }
         private void Button_Click_Close(object sender, RoutedEventArgs e)
         {
@@ -61,6 +65,7 @@ namespace SIMSProject.WPF.Views.Guest1.MainView
         private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             ButtonMenu.IsChecked = false;
+            ButtonNotification.IsChecked = false;
         }
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -104,6 +109,46 @@ namespace SIMSProject.WPF.Views.Guest1.MainView
                 }
 
 
+            }
+        }
+
+        private void Button_Click_Menu(object sender, RoutedEventArgs e)
+        {
+            if(ButtonNotification.IsChecked == true)
+            {
+                ButtonNotification.IsChecked = false;
+            }
+        }
+
+        private void Button_Click_Notification(object sender, RoutedEventArgs e)
+        {
+            if(ButtonMenu.IsChecked == true)
+            {
+                ButtonMenu.IsChecked = false;
+            }
+        }
+
+        private void ListViewNotification_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ButtonNotification.IsChecked == true)
+            {
+                ButtonNotification.IsChecked = false;
+            }
+
+            if (ListViewNotification.SelectedItem != null)
+            {
+                ListViewItem selectedItem = e.AddedItems[0] as ListViewItem;
+                switch (selectedItem.Name)
+                {
+                    case "ItemRatings":
+                        MainWind.Navigate(new GuestRatings(_user));
+                        ListViewNotification.SelectedItem = null;
+                        break;
+                    case "ItemRequests":
+                        MainWind.Navigate(new ReservationReqeusts(_user));
+                        ListViewNotification.SelectedItem = null;
+                        break;
+                }
             }
         }
     }
