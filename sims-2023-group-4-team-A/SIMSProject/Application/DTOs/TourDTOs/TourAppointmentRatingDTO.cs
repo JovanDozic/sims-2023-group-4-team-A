@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace SIMSProject.Application.DTOs
 {
-    public class TourAppontmentRatingDTO
+    public class TourAppointmentRatingDTO
     {
         public GuideRating Rating { get; set; } = new();
         public TourGuest User { get; set; } = new();
 
-        public TourAppontmentRatingDTO()
+        public TourAppointmentRatingDTO()
         {
         }
-        public TourAppontmentRatingDTO(GuideRating rating, TourGuest guest)
+        public TourAppointmentRatingDTO(GuideRating rating, TourGuest guest)
         {
             User = guest;
             Rating = rating;

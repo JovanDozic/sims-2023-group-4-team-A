@@ -9,8 +9,8 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ReviewsViewModels
     {
         private readonly GuideRatingService _service;
 
-        private TourAppontmentRatingDTO _rating = new();
-        public TourAppontmentRatingDTO Rating
+        private TourAppointmentRatingDTO _rating = new();
+        public TourAppointmentRatingDTO Rating
         {
             get => _rating;
             set
@@ -50,7 +50,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ReviewsViewModels
         public string RatingDate { get => Rating.Rating.RatingDateToString(); }
         public string QAs { get => Rating.Rating.QAsToString(); }
 
-        public AppointmentRatingViewModel(TourAppontmentRatingDTO rating)
+        public AppointmentRatingViewModel(TourAppointmentRatingDTO rating)
         {
             Rating = rating;
             ReportingEnabled = !Rating.Rating.Reported;
@@ -59,18 +59,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ReviewsViewModels
 
             ReportCommand = new RelayCommand(ReportExecuted, ReportCanExecute);
         }
-
-        public  readonly RoutedCommand ReportRoutedCommand = new(
-            "ReportReview", 
-            typeof(AppointmentRatingViewModel),
-            new InputGestureCollection()
-            {
-                new KeyGesture(Key.P, ModifierKeys.Control)
-            }
-            );
-
-
-
         public ICommand ReportCommand { get; private set; }
 
         public void ReportExecuted()

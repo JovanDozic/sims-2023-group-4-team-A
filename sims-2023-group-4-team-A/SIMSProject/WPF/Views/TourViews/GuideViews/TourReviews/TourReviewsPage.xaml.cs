@@ -34,5 +34,15 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
             var window = new DetailedReviewWindow(ViewModel.AppointmentRating);
             window.ShowDialog();
         }
+
+        private void tbSearch_LostFocus(object sender, RoutedEventArgs e)
+        {
+            tbSearch.Text = "Pretraži po nazivu ture";
+        }
+
+        private void tbSearch_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbSearch.Text = string.Empty;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using SIMSProject.Domain.Models.TourModels;
+﻿using SIMSProject.Application.DTOs;
+using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
 using SIMSProject.FileHandlers.TourFileHandlers;
@@ -70,6 +71,10 @@ namespace SIMSProject.Repositories.TourRepositories
             {
                 guideRating.TourReservation = _reservationRepo.GetById(guideRating.TourReservation.Id);
             }
+        }
+        public List<DateTime> GetRatedDatesByTour(TourRatingDTO tourRating)
+        {
+            return tourRating.Ratings.Select(x => x.User.TourAppointment.Date).Distinct().ToList();
         }
     }
 }

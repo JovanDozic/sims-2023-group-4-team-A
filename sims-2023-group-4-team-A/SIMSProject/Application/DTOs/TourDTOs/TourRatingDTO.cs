@@ -10,13 +10,13 @@ namespace SIMSProject.Application.DTOs
     public class TourRatingDTO
     {
         public Tour Tour { get; set; } = new();
-        public List<TourAppontmentRatingDTO> Ratings { get; set; } = new();
+        public List<TourAppointmentRatingDTO> Ratings { get; set; } = new();
         public double OverallRating { get; set; }
         
         public TourRatingDTO()
         {
         }
-        public TourRatingDTO(Tour tour, List<TourAppontmentRatingDTO> ratings)
+        public TourRatingDTO(Tour tour, List<TourAppointmentRatingDTO> ratings)
         {
             Tour = tour;
             Ratings = ratings;

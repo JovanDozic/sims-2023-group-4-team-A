@@ -22,7 +22,7 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     public partial class DetailedReviewWindow : Window
     {
         private AppointmentRatingViewModel ViewModel { get; set; }
-        public DetailedReviewWindow(TourAppontmentRatingDTO rating)
+        public DetailedReviewWindow(TourAppointmentRatingDTO rating)
         {
             InitializeComponent();
             ViewModel = new(rating);

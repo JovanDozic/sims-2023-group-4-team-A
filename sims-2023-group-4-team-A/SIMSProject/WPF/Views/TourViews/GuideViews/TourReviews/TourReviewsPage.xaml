@@ -7,14 +7,22 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="965"
       Title="Reviews">
+    <Page.InputBindings>
+        <KeyBinding Key="Return" Command="{Binding SearchRatingsCommand}"/>
+        <KeyBinding Gesture="Ctrl+S" Command="{Binding GetAppointemntsCommand}"/>
+    </Page.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="6*"/>
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
-            <TextBox Width="230" Height="40" 
-                     FontSize="28" 
+            <TextBox x:Name="tbSearch"
+                     Text="{Binding Path=SearchText, UpdateSourceTrigger=PropertyChanged}"
+                     Width="275" Height="40" 
+                     FontSize="24" Foreground="Silver"
+                     ToolTip="Pritisnite Enter za pretragu"
+                     Focusable="True" LostFocus="tbSearch_LostFocus" GotFocus="tbSearch_GotFocus" 
                      Margin="82.5,50,0,0"
                      HorizontalAlignment="Left"/>
             <DataGrid x:Name="dgrRatings"
@@ -34,13 +42,18 @@
             </DataGrid>
         </StackPanel>
         <StackPanel Grid.Row="1">
-            <ComboBox Width="230" Height="42" 
+            <ComboBox x:Name="cbAppointmentsDates"
+                      Width="230" Height="42" 
+                      FontSize="24"
+                      ToolTip="Pritisnite Ctrl+S za prikaz recenzija vezanih za dati termin"
+                      ItemsSource="{Binding Path=RatedDates, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding Path=SelectedDate, UpdateSourceTrigger=PropertyChanged}"
                       Margin="82.5,10,0,0"
                       HorizontalAlignment="Left"/>
             <DataGrid x:Name="dgrGrades"
                       Height="149" Width="800" 
                       FontSize="28"
-                      ItemsSource="{Binding Path=SelectedRating.Ratings, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding Path=AppointmentRatings, UpdateSourceTrigger=PropertyChanged}"
                       SelectionMode="Single"
                       AutoGenerateColumns="False"
                       CanUserAddRows="False"
