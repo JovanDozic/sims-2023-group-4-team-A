@@ -23,10 +23,10 @@ namespace SIMSProject.WPF.Views.Guest1.MainView
     /// <summary>
     /// Interaction logic for Main.xaml
     /// </summary>
-    public partial class Main : Window
+    public partial class MainWindow : Window
     {
         private readonly User _user;
-        public Main(User user)
+        public MainWindow(User user)
         {
             InitializeComponent();
             _user = user;
@@ -56,7 +56,7 @@ namespace SIMSProject.WPF.Views.Guest1.MainView
         }
         private void Button_Click_Close(object sender, RoutedEventArgs e)
         {
-            var open = new LogIn();
+            var open = new SignInView();
             Close();
             open.Show();
             

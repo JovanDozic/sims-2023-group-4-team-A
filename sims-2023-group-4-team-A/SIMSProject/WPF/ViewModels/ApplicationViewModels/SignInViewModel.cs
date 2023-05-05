@@ -43,7 +43,14 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
             {
                 User? user = _userService.GetUser(Username, password) as User
                              ?? throw new Exception("Dogodila se greška prilikom logovanja.");
-                OpenWindow(user);
+                if (user.Username.Equals("marko") && user.Password.Equals("marko"))
+                {
+                    OpenGuestWindow(user);
+                }
+                else
+                {
+                    OpenWindow(user);
+                }
                 return true;
             }
             catch (Exception ex)
@@ -51,6 +58,7 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
                 MessageBox.Show(ex.Message, "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
+
         }
         public bool GuestSignIn(string password)
         {
@@ -70,7 +78,7 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
 
         private void OpenGuestWindow(User user)
         {
-            Main guestWind = new(user as Guest ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
+            MainWindow guestWind = new(user as Guest ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
             guestWind.Show();
         }
 
