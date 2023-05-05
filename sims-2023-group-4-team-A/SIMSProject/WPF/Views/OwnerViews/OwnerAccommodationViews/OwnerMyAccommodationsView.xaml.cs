@@ -59,7 +59,7 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
 
         private void BtnAddAccommodation_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            OwnerRegisterAccommodationView addAccommodationView = new();
+            OwnerRegisterAccommodationView addAccommodationView = new(_user);
             OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow;
             ownerWindow.SwitchToPage(addAccommodationView);
         }

@@ -10,7 +10,6 @@
         <Style x:Key="SliderButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Height" Value="40"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -25,26 +24,29 @@
     <Grid>
 
         <Button Grid.Column="0" Style="{StaticResource SliderButtonStyle}" Click="OnPreviousButtonClick"
-                HorizontalAlignment="Left" Panel.ZIndex="100" Background="#ffffff">
-            <Image Source="/Resources/Icons/left.png" 
+                HorizontalAlignment="Left" Panel.ZIndex="100">
+            <Grid Height="{Binding Path=Height, ElementName=image}" Width="175" Background="Transparent">
+                <Image Source="/Resources/Icons/left.png" 
                    Height="40" 
                    Width="40" 
                    HorizontalAlignment="Left"
                    Style="{StaticResource IconRenderStyle}"/>
+            </Grid>
         </Button>
 
         <Image x:Name="image" Stretch="Uniform"
                Height="{Binding Path=Height, RelativeSource={RelativeSource AncestorType=UserControl}}"
-               Width="{Binding Path=Width, RelativeSource={RelativeSource AncestorType=UserControl}}"
-               />
+               Width="{Binding Path=Width, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
 
         <Button Grid.Column="0" Style="{StaticResource SliderButtonStyle}" Click="OnNextButtonClick"
-                HorizontalAlignment="Right" Panel.ZIndex="100" Background="#ffffff">
-            <Image Source="/Resources/Icons/right.png" 
+                HorizontalAlignment="Right" Panel.ZIndex="100">
+            <Grid Height="{Binding Path=Height, ElementName=image}" Width="175" Background="Transparent">
+                <Image Source="/Resources/Icons/right.png" 
                    Height="40" 
                    Width="40" 
                    HorizontalAlignment="Right"
                    Style="{StaticResource IconRenderStyle}"/>
+            </Grid>
         </Button>
         
     </Grid>

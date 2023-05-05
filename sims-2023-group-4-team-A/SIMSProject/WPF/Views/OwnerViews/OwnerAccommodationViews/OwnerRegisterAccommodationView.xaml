@@ -5,10 +5,17 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
       xmlns:cstm="clr-namespace:SIMSProject.WPF.CustomControls"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
       Height="auto" d:DesignWidth="430"
       Title="Register Accommodation">
 
+    <Page.Resources>
+        
+
+    </Page.Resources>
+    
+    
     <Grid Margin="20,10,20,0">
 
         <Grid.RowDefinitions>
@@ -16,7 +23,6 @@
             <RowDefinition Height="60"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
 
         <Button x:Name="BtnBack" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center"
                 Background="Transparent" BorderBrush="Transparent" BorderThickness="0"
@@ -37,10 +43,6 @@
                       HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
 
             <Grid Height="auto" Margin="0,0,0,50">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -64,50 +66,91 @@
                 </Grid.RowDefinitions>
 
                 <!-- Name -->
-                <Label Grid.Row="0" Grid.Column="0" Content="Ime" Style="{StaticResource MobileTextBoxLabel}" />
-                <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource MobileTextBoxInput}" />
+                <Label Grid.Row="0" Content="Ime" Style="{StaticResource MobileTextBoxLabel}" />
+                <!--<TextBox Grid.Row="1" Style="{StaticResource MobileTextBoxInput}" />-->
+                <Border Grid.Row="1" BorderBrush="Black" BorderThickness="2.5">
+                    <xctk:WatermarkTextBox Watermark="Moj smeštaj" 
+                                           Style="{StaticResource MobileWatermarkTextBoxInput}"
+                                           Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                </Border>
 
                 <!-- Location -->
-                <Label Grid.Row="2" Grid.Column="0" Content="Lokacija" Style="{StaticResource MobileTextBoxLabel}" />
-                <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource MobileTextBoxInput}" />
-
+                <Label Grid.Row="2" Content="Lokacija" Style="{StaticResource MobileTextBoxLabel}" />
+                <Border Grid.Row="3" BorderBrush="Black" BorderThickness="2.5">
+                    <xctk:WatermarkTextBox Watermark="Grad, Država" 
+                                           Style="{StaticResource MobileWatermarkTextBoxInput}" />
+                </Border>
+                
                 <!-- Type -->
-                <Label Grid.Row="4" Grid.Column="0" Content="Tip" Style="{StaticResource MobileTextBoxLabel}" />
-                <ComboBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource MobileComboBoxInput}">
+                <Label Grid.Row="4" Content="Tip" Style="{StaticResource MobileTextBoxLabel}" />
+                <!--<ComboBox Grid.Row="5" Style="{StaticResource MobileComboBoxInput}" Text="Izaberi" IsEditable="True" IsReadOnly="False">
                     <ComboBoxItem Content="Type A"/>
                     <ComboBoxItem Content="Type B"/>
                     <ComboBoxItem Content="Type C"/>
-                </ComboBox>
+                </ComboBox>-->
+                <Grid Grid.Row="5" >
+                    <ComboBox x:Name="CbType" Style="{StaticResource MobileComboBoxInput}" >
+                        <ComboBoxItem Content="Type A"/>
+                        <ComboBoxItem Content="Type B"/>
+                        <ComboBoxItem Content="Type C"/>
+                    </ComboBox>
+                    <TextBlock Text="Izaberite..." IsHitTestVisible="False" 
+                               FontSize="20" FontFamily="Open Sans" VerticalAlignment="Center" 
+                               Margin="17.5,0,0,0" Foreground="Gray">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=CbType, Path=SelectedItem}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
 
                 <!-- MaxNum -->
-                <Label Grid.Row="6" Grid.Column="0" Content="Maksimalan broj gostiju" Style="{StaticResource MobileTextBoxLabel}" />
-                <TextBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource MobileTextBoxInput}" />
-
+                <Label Grid.Row="6" Content="Maksimalan broj gostiju" Style="{StaticResource MobileTextBoxLabel}" />
+                <Border Grid.Row="7" BorderBrush="Black" BorderThickness="2.5">
+                    <xctk:WatermarkTextBox Watermark="2" 
+                                           Style="{StaticResource MobileWatermarkTextBoxInput}" />
+                </Border>
+                
                 <!-- MinNum -->
-                <Label Grid.Row="8" Grid.Column="0" Content="Minimalan broj dana za rezervaciju" Style="{StaticResource MobileTextBoxLabel}" />
-                <TextBox Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource MobileTextBoxInput}" />
+                <Label Grid.Row="8" Content="Minimalan broj dana za rezervaciju" Style="{StaticResource MobileTextBoxLabel}" />
+                <Border Grid.Row="9" BorderBrush="Black" BorderThickness="2.5">
+                    <xctk:WatermarkTextBox Watermark="1" 
+                                           Style="{StaticResource MobileWatermarkTextBoxInput}" />
+                </Border>
 
                 <!-- CancelNum -->
-                <Label Grid.Row="10" Grid.Column="0" Content="Otkazni rok" Style="{StaticResource MobileTextBoxLabel}" />
-                <TextBox Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource MobileTextBoxInput}" />
-
+                <Label Grid.Row="10" Content="Otkazni rok" Style="{StaticResource MobileTextBoxLabel}" />
+                <Border Grid.Row="11" BorderBrush="Black" BorderThickness="2.5">
+                    <xctk:WatermarkTextBox Watermark="1" 
+                                           Style="{StaticResource MobileWatermarkTextBoxInput}" />
+                </Border>
+                
                 <!-- Description -->
-                <Label Grid.Row="12" Grid.Column="0" Content="Opis" Style="{StaticResource MobileTextBoxLabel}" />
-                <TextBox Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource MobileTextBoxInput}" />
+                <Label Grid.Row="12" Content="Opis" Style="{StaticResource MobileTextBoxLabel}" />
+                <Border Grid.Row="13" BorderBrush="Black" BorderThickness="2.5">
+                    <xctk:WatermarkTextBox Watermark="Smeštaj sa pogledom na..." 
+                                           Style="{StaticResource MobileWatermarkTextBoxInput}" />
+                </Border>
 
                 <!-- Images -->
-                <Label Grid.Row="14" Grid.Column="0" Content="Dodaj slike" Style="{StaticResource MobileTextBoxLabel}" />
-                <Border Grid.Row="15" Grid.Column="0" Grid.ColumnSpan="2"
+                <Label Grid.Row="14" Content="Dodaj slike" Style="{StaticResource MobileTextBoxLabel}" />
+                <Border Grid.Row="15" 
                         BorderBrush="Black" BorderThickness="2.5">
                     <!--<Image Height="250" Source="C:\Users\j.dozic\OneDrive - Pionir Internacional d.o.o\Desktop\IMG_5997.jpg"
                            Stretch="UniformToFill"/>-->
                     <cstm:MobileImageSlider Height="275" ImageSource="{Binding ImageSources}"/>
                 </Border>
-                
-                
-                <Button Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="2" 
+
+
+                <Button x:Name="BtnUploadImages" Grid.Row="16"
                         Margin="0,15,0,0"
-                        Style="{StaticResource MobileActionSingleButtonStyle}">
+                        Style="{StaticResource MobileActionSingleButtonStyle}" Click="BtnUploadImages_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Resources/Icons/image.png" Height="22.5" Margin="0,0,10,0" 
                        Style="{StaticResource IconRenderStyle}"/>
@@ -117,9 +160,9 @@
                 </Button>
 
                 <!-- Register Button -->
-                <Button Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="2"
+                <Button x:Name="BtnRegister" Grid.Row="17" 
                         Margin="0,50,0,0"
-                        Style="{StaticResource MobileActionSingleButtonStyle}">
+                        Style="{StaticResource MobileActionSingleButtonStyle}" Click="BtnRegister_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Resources/Icons/plus.png" Height="17.5" Margin="0,0,10,0" 
                        Style="{StaticResource IconRenderStyle}"/>

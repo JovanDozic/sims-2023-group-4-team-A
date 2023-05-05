@@ -1,4 +1,5 @@
-﻿using SIMSProject.Serializer;
+﻿using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.ViewModels.AccommodationViewModels;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -7,33 +8,18 @@ using System.Windows.Controls;
 
 namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
 {
-    public partial class OwnerRegisterAccommodationView : Page, INotifyPropertyChanged
+    public partial class OwnerRegisterAccommodationView : Page
     {
+        private User _user;
+        private readonly AccommodationViewModel _viewModel;
 
-        private List<string> _images = new();
-        public List<string> ImageSources
-        {
-            get => _images;
-            set
-            {
-                if (value == _images) return;
-                _images = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public OwnerRegisterAccommodationView()
+        public OwnerRegisterAccommodationView(User user)
         {
             InitializeComponent();
+            _user = user;
 
-
-            ImageSources.Add("https://i.ibb.co/tp345Vc/img1.jpg");
-            ImageSources.Add("https://i.ibb.co/nPxQb8T/img2.jpg");
-            ImageSources.Add("https://i.ibb.co/F33nHYg/img3.jpg");
-            DataContext = this;
-
-
-
+            _viewModel = new(_user);
+            DataContext = _viewModel;
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
@@ -41,13 +27,14 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
             NavigationService?.GoBack();
         }
 
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        private void BtnRegister_Click(object sender, RoutedEventArgs e)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            MessageBox.Show(_viewModel.Accommodation.Name);
         }
 
+        private void BtnUploadImages_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 }

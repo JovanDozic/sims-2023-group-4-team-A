@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:SIMSProject"
              StartupUri="WPF/Views/SignInView.xaml"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:cntrl="clr-namespace:SIMSProject.WPF.CustomControls;assembly=SIMSProject.WPF.CustomControls">
     <Application.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
@@ -33,11 +34,11 @@
             <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
         </Style>
 
+
         <Style TargetType="TextBox" x:Key="MobileTextBoxInput">
             <Setter Property="Height" Value="50"/>
             <Setter Property="Padding" Value="15,-1,0,0"/>
             <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Foreground" Value="Gray"/>
             <Setter Property="FontFamily" Value="Open Sans"/>
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="BorderThickness" Value="2.5"/>
@@ -53,6 +54,16 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <Style TargetType="xctk:WatermarkTextBox" x:Key="MobileWatermarkTextBoxInput">
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Padding" Value="15,0,0,0"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontFamily" Value="Open Sans"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
 
         <Style x:Key="NoHoverButtonStyle" TargetType="{x:Type Button}">
