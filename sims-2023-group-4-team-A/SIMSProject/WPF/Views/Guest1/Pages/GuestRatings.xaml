@@ -10,9 +10,9 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="170"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="140"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="200"></RowDefinition>
             <RowDefinition Height="200"></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -30,7 +30,7 @@
                FontSize="28" HorizontalAlignment="Center"></Label>
         <ComboBox  x:Name="AccommodationsCombo" Grid.Row="2"
                    VerticalAlignment="Top"
-                   FontSize="25"
+                   FontSize="28"
                    ItemsSource="{Binding Reservations}"
                    SelectedItem="{Binding SelectedReservation}"
                    DisplayMemberPath="ReservationDetails"
@@ -49,12 +49,16 @@
         <Label Grid.Row="3" Content="Vlasnik Vam je dao ocenu "
                FontSize="28" FontWeight="Bold" HorizontalAlignment="Left" Margin="318,4,0,130" Grid.ColumnSpan="2"></Label>
         <TextBlock TextAlignment="Right" Grid.Row="3" FontSize="28" FontWeight="Bold"
-                   Text="{Binding OverallRating}" Margin="150,9,307,152" Grid.Column="1"/>
-        <Label Grid.Row="3" Content="/5" x:Name="OutOfFive" Visibility="Hidden" FontSize="28" FontWeight="Bold" Width="70" Margin="205,3,237,154" Grid.Column="1"/>
+                   Text="{Binding OverallRating}" Margin="150,9,315,152" Grid.Column="1"/>
+        <Label Grid.Row="3" Content="/5" x:Name="OutOfFive"  FontSize="28" FontWeight="Bold" Margin="195,3,266,154" Grid.Column="1"/>
 
-        <Button x:Name="Details" Visibility="Hidden"
+        <Button x:Name="Details" Content="Detaljnije" FontSize="25"
+                BorderBrush="Transparent"
+                Background="Transparent"
+                BorderThickness="0" Visibility="Hidden"
                 Click="Button_Click_Details"
-                Height="51" Width="259" Grid.Row="3" Grid.ColumnSpan="2" Margin="380,100,385,49"></Button>
+                Height="51" Grid.Row="3" Grid.ColumnSpan="2" Margin="434,100,470,49"/>
+        <Image x:Name="RightArrow" Visibility="Hidden" Grid.Row="3" Source="../Icons/chevron-right-black.png" Margin="29,104,438,48" Grid.Column="1"/>
 
     </Grid>
 </Page>

@@ -39,6 +39,7 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             {
                 Details.Visibility = Visibility.Visible;
                 OutOfFive.Visibility = Visibility.Visible;
+                RightArrow.Visibility = Visibility.Visible;
             }
         }
 

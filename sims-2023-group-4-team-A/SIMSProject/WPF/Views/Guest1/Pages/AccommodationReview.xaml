@@ -61,8 +61,8 @@
                         <TextBlock Foreground="#626161" FontWeight="Bold" Text="{Binding SelectedAccommodation.Type, Converter={StaticResource TypeConverter}}" Margin="0,0,0,3" FontSize="25"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Height="35">
-                        <TextBlock Foreground="#626161" FontSize="25" Text="Ocena:" Margin="0,0,0,5"/>
-                        <TextBlock FontSize="25" />
+                        <TextBlock Foreground="#626161" FontSize="25" Text="Ocena:" Margin="0,0,0,5" Width="83"/>
+                        <TextBlock FontSize="25" Text="4.2" Foreground="#626161" FontWeight="Bold"/>
                     </StackPanel>
                 </StackPanel>
 
