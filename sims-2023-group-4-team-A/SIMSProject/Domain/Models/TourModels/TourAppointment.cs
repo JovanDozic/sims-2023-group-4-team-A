@@ -46,14 +46,16 @@ namespace SIMSProject.Domain.Models.TourModels
 
         public string[] ToCSV()
         {
-            string[] csvValues =
-                { Id.ToString(),
+            string[] csvValues =    
+            {
+                Id.ToString(),
                 Date.ToString("dd.MM.yyyy HH:mm:ss"),
                 Tour.Id.ToString(),
                 Guide.Id.ToString(),
                 TourStatus.ToString(),
                 AvailableSpots.ToString(),
-                CurrentKeyPoint.Id.ToString() };
+                CurrentKeyPoint.Id.ToString()
+            };
             return csvValues;
         }
 

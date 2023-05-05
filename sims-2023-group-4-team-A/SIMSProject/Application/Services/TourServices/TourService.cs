@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Application.DTOs;
+using SIMSProject.Application.DTOs.TourDTOs;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
@@ -17,12 +18,14 @@ namespace SIMSProject.Application.Services.TourServices
         private readonly ITourRepo _repo;
         private readonly ITourAppointmentRepo _appointmentRepo;
         private readonly GuideRatingService _guideRatingService;
+        private readonly TourStatisticsService _tourStatisticsService;
 
         public TourService(ITourRepo repo, ITourAppointmentRepo appointmentRepo)
         {
             _repo = repo;
             _appointmentRepo = appointmentRepo;
             _guideRatingService = Injector.GetService<GuideRatingService>();
+            _tourStatisticsService = Injector.GetService<TourStatisticsService>();
         }
 
         public List<Tour> GetTours()
@@ -32,15 +35,39 @@ namespace SIMSProject.Application.Services.TourServices
 
         public List<Tour> GetTodaysTours()
         {
-            List<TourAppointment> appointments = _appointmentRepo.GedTodaysAppointments();
-            List<Tour> todays = new();
-            foreach (var appointment in appointments)
+            return _appointmentRepo.GedTodaysAppointments().Select(x => x.Tour).Distinct().ToList();
+        }
+
+        public List<Tour> GetToursWithFinishedAppointments()
+        {
+            return _appointmentRepo.GetAll()
+                .Where(x => x.TourStatus == Status.COMPLETED)
+                .Select(x => x.Tour).Distinct().ToList();  
+        }
+
+
+        public Dictionary<int, VoucherUsageDTO> MapToursVoucherUsage()
+        {
+            Dictionary<int, VoucherUsageDTO> dictionary = new();
+            foreach (var finished in GetToursWithFinishedAppointments())
             {
-                if (todays.Any(x => x.Id == appointment.Tour.Id))
-                    continue;
-                todays.Add(appointment.Tour);
+                dictionary.TryAdd(finished.Id, _tourStatisticsService.GetVoucherUsageByTour(finished.Id));
             }
-            return todays;
+            return dictionary;
+        }
+
+        public Dictionary<int, GuestAgeGroupsDTO> MapToursGuestAgeGroups()
+        {
+            Dictionary<int, GuestAgeGroupsDTO> dictionary = new();
+            foreach(var finished in GetToursWithFinishedAppointments())
+            {
+                dictionary.TryAdd(finished.Id, _tourStatisticsService.SumGuestByAgeGroup(finished.Id));
+            }
+            return dictionary;
+        }
+        public TourStatisticsDTO GetMostVisitedTour(int? desiredYear)
+        {
+            return _tourStatisticsService.GetMostVisitedTour(desiredYear);
         }
 
         public List<TourRatingDTO> GetRatings()

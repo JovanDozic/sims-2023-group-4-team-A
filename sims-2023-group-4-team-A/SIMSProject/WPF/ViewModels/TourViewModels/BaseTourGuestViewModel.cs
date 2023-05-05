@@ -53,12 +53,12 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             }
         }
 
-        public KeyPoint JoinedKeyPoint
+        public KeyPoint JoiningKeyPoint
         {
             get => _tourGuest.JoiningPoint; set
             {
                 _tourGuest.JoiningPoint = value;
-                OnPropertyChanged(nameof(JoinedKeyPoint));
+                OnPropertyChanged(nameof(JoiningKeyPoint));
             }
         }
 

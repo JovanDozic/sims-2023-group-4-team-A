@@ -35,9 +35,17 @@ namespace SIMSProject.Repositories.TourRepositories
 
         public TourGuest Save(TourGuest tourGuest)
         {
+            TourGuest? old = GetTourGuest(tourGuest);
+            if (old != null) return null;
+
             _tourGuests.Add(tourGuest);
             _fileHandler.Save(_tourGuests);
             return tourGuest;
+        }
+
+        public TourGuest? GetTourGuest(TourGuest tourGuest)
+        {
+            return GetAll().Find(x => x.TourAppointment.Id == tourGuest.TourAppointment.Id && x.Guest.Id == tourGuest.Guest.Id);
         }
 
         public void SaveAll(List<TourGuest> tourGuests)
@@ -78,6 +86,10 @@ namespace SIMSProject.Repositories.TourRepositories
         {
             return _tourGuests.FindAll(x => x.TourAppointment.Id == tourAppointmentId);
         }
-        
+
+        public List<TourGuest> GetPresentGuests()
+        {
+            return GetAll().FindAll(x => x.GuestStatus == GuestAttendance.PRESENT);
+        }
     }
 }

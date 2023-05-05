@@ -98,16 +98,14 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             if (active == null)
             {
                 SelectedAppointment = _tourAppointmentService.Activate(SelectedAppointment, Tour.Tour);
+                return;
             }
             else if (active.Id != SelectedAppointment.Id)
             {
                 MessageBox.Show("Već postoji aktivna tura!");
                 return;
             }
-            else
-            {
-                SelectedAppointment = active;
-            }
+            SelectedAppointment = active;
         }
 
         public void GoNext()

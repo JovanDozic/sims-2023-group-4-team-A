@@ -14,13 +14,14 @@ namespace SIMSProject.Domain.Models.UserModels
         {
         }
 
-        public Owner(int id, string username, string password, double rating = 0)
+        public Owner(int id, string username, string password,DateTime birthday ,double rating = 0)
         {
             Id = id;
             Username = username;
             Password = password;
             Role = UserRole.Owner;
             Rating = rating;
+            Birthday = birthday;
         }
 
         public string[] ToCSV()
@@ -31,7 +32,8 @@ namespace SIMSProject.Domain.Models.UserModels
                 Username,
                 Password,
                 GetRole(Role),
-                Math.Round(Rating, 2).ToString()
+                Math.Round(Rating, 2).ToString(),
+                Birthday.ToString()
             };
             return csvValues;
         }
@@ -43,6 +45,7 @@ namespace SIMSProject.Domain.Models.UserModels
             Password = values[2];
             Role = GetRole(values[3]);
             Rating = double.Parse(values[4]);
+            Birthday = DateTime.Parse(values[5]);
         }
 
         public override string? ToString()

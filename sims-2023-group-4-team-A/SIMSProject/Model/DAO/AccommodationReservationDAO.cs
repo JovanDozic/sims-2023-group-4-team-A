@@ -6,6 +6,7 @@ using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Observer;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.FileHandlers.AccommodationFileHandlers;
+using System;
 
 namespace SIMSProject.Model.DAO
 {
@@ -27,7 +28,7 @@ namespace SIMSProject.Model.DAO
             {
                 reservation.Accommodation = _accommodations.Find(x => x.Id == reservation.Accommodation.Id) ??
                                             new Accommodation();
-                reservation.Guest = _guests.Find(x => x.Id == reservation.Guest.Id) ?? new Guest(101, "null", "null");
+                reservation.Guest = _guests.Find(x => x.Id == reservation.Guest.Id) ?? new Guest(101, "null", "null", DateTime.Now);
             }
         }
 
