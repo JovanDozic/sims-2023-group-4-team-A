@@ -52,7 +52,9 @@
                    Text="{Binding OverallRating}" Margin="150,9,307,152" Grid.Column="1"/>
         <Label Grid.Row="3" Content="/5" x:Name="OutOfFive" Visibility="Hidden" FontSize="28" FontWeight="Bold" Width="70" Margin="205,3,237,154" Grid.Column="1"/>
 
-        <Button x:Name="Details" Visibility="Hidden" Height="51" Width="259" Grid.Row="3" Grid.ColumnSpan="2" Margin="380,100,385,49"></Button>
+        <Button x:Name="Details" Visibility="Hidden"
+                Click="Button_Click_Details"
+                Height="51" Width="259" Grid.Row="3" Grid.ColumnSpan="2" Margin="380,100,385,49"></Button>
 
     </Grid>
 </Page>

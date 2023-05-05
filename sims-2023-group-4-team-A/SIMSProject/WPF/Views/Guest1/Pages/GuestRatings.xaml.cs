@@ -41,5 +41,10 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
                 OutOfFive.Visibility = Visibility.Visible;
             }
         }
+
+        private void Button_Click_Details(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new RatingDetails(_user, _accommodationReservationViewModel.SelectedReservation));
+        }
     }
 }

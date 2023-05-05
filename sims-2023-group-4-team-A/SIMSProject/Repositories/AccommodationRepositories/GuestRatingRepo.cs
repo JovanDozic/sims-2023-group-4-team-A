@@ -74,5 +74,10 @@ namespace SIMSProject.Repositories.AccommodationRepositories
                 rating.Reservation = _reservationRepo.GetById(rating.Reservation.Id);
             }
         }
+
+        public GuestRating GetByReservationId(int reservationId)
+        {
+            return _ratings.Find(x => x.Reservation.Id == reservationId);
+        }
     }
 }

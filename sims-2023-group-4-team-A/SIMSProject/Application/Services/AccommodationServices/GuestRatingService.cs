@@ -34,6 +34,11 @@ namespace SIMSProject.Application.Services.AccommodationServices
             _guestRepo.Update(guest);
         }
 
+        public GuestRating GetByReservationId(int reservationId)
+        {
+            return _ratingRepo.GetByReservationId(reservationId);
+        }
+
         public List<GuestRating> GetAll()
         {
             return _ratingRepo.GetAll();

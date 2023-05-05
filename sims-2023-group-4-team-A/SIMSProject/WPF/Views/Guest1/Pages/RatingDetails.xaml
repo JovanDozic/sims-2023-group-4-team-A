@@ -1,0 +1,88 @@
+﻿<Page x:Class="SIMSProject.WPF.Views.Guest1.Pages.RatingDetails"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest1.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="668" d:DesignWidth="1024"
+      Title="RatingDetails">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="200"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Ocene po kategorijama" FontSize="32"
+               Grid.ColumnSpan="2" HorizontalAlignment="Center"
+               FontWeight="Bold"></Label>
+
+
+        <Label Content="Čistoća:" FontSize="25" Grid.Row="1"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Center"></Label>
+        <TextBox Grid.Row="2" Text="{Binding Rating.CleanlinessRating}"
+                 Height="40" FontSize="25" IsReadOnly="True"
+                 Width="120" TextAlignment="Center"></TextBox>
+
+        <Label Content="Poštovanje pravila:" FontSize="25" Grid.Row="1" Grid.Column="1"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Center"></Label>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Rating.ComplianceWithRules}"
+                 Height="40" FontSize="25" IsReadOnly="True"
+                 Width="120" TextAlignment="Center"></TextBox>
+
+        <Label Content="Urednost plaćanja:" FontSize="25" Grid.Row="3"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Center"></Label>
+        <TextBox Grid.Row="4" Text="{Binding Rating.PaymentAndBilling}"
+                 Height="40" FontSize="25" IsReadOnly="True"
+                 Width="120" TextAlignment="Center"></TextBox>
+
+        <Label Content="Komunikacija gosta:" FontSize="25" Grid.Row="3" Grid.Column="1"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Center"></Label>
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Rating.CommunicationRating}"
+                 Height="40" FontSize="25" IsReadOnly="True"
+                 Width="120" TextAlignment="Center"></TextBox>
+
+        <Label Content="Preporuka drugim vlasnicima:"
+               FontSize="25"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Center"
+               Grid.Row="5"></Label>
+        <TextBox Grid.Row="6" Text="{Binding Rating.Recommendation}"
+                 Height="40" FontSize="25" IsReadOnly="True"
+                 Width="120" TextAlignment="Center"></TextBox>
+
+        <Label Content="Prosečna ocena:"
+               Grid.Row="5" Grid.Column="1"
+               FontSize="25" FontWeight="Bold"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Center"></Label>
+        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Rating.Overall}"
+                 Height="40" FontSize="25" FontWeight="Bold" IsReadOnly="True"
+                 Width="120" TextAlignment="Center"></TextBox>
+
+        <Label Content="Komentar:" Grid.Row="7"
+               FontSize="25"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Center"></Label>
+
+        <TextBox Text="{Binding Rating.Comment}" IsReadOnly="True" Grid.Row="8" Grid.ColumnSpan="2" FontSize="25" Margin="149,0,116,0" Height="156" VerticalAlignment="Top"></TextBox>
+
+    </Grid>
+</Page>
