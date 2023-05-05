@@ -1,5 +1,6 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -14,7 +15,7 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
 
         private AccommodationViewModel _viewModel;
 
-        
+       
 
 
         public OwnerMyAccommodationsView(User user)
@@ -26,6 +27,8 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
             DataContext = _viewModel;
 
             _viewModel.LoadAccommodationsByOwner();
+
+
 
         }
 

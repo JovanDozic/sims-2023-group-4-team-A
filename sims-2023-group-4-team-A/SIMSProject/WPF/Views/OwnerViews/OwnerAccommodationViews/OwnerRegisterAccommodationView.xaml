@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
+      xmlns:cstm="clr-namespace:SIMSProject.WPF.CustomControls"
       mc:Ignorable="d" 
       Height="auto" d:DesignWidth="430"
       Title="Register Accommodation">
@@ -98,9 +99,12 @@
                 <Label Grid.Row="14" Grid.Column="0" Content="Dodaj slike" Style="{StaticResource MobileTextBoxLabel}" />
                 <Border Grid.Row="15" Grid.Column="0" Grid.ColumnSpan="2"
                         BorderBrush="Black" BorderThickness="2.5">
-                    <Image Height="250" Source="C:\Users\j.dozic\OneDrive - Pionir Internacional d.o.o\Desktop\IMG_5997.jpg"
-                           Stretch="UniformToFill"/>
+                    <!--<Image Height="250" Source="C:\Users\j.dozic\OneDrive - Pionir Internacional d.o.o\Desktop\IMG_5997.jpg"
+                           Stretch="UniformToFill"/>-->
+                    <cstm:MobileImageSlider Height="275" ImageSource="{Binding ImageSources}"/>
                 </Border>
+                
+                
                 <Button Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="2" 
                         Margin="0,15,0,0"
                         Style="{StaticResource MobileActionSingleButtonStyle}">
