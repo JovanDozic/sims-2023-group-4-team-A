@@ -1,0 +1,127 @@
+﻿using SIMSProject.Application.Services;
+using SIMSProject.Application.Services.TourServices;
+using SIMSProject.Domain.Injectors;
+using SIMSProject.Domain.Models;
+using SIMSProject.Domain.Models.AccommodationModels;
+using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Domain.Models.UserModels;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+
+namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
+{
+    public class CustomTourRequestViewModel : ViewModelBase
+    {
+        private Guest _user;
+        private CustomTourRequest _customTourRequest = new();
+        private CustomTourRequestService _customTourRequestService;
+        private LocationService _locationService;
+        public ObservableCollection<Location> AllLocations { get; set; } = new();
+        public List<string> TourLanguages { get; set; }
+
+        public CustomTourRequest CustomTourRequest
+        {
+            get => _customTourRequest;
+            set
+            {
+                if( _customTourRequest == value) return;
+                _customTourRequest = value;
+                OnPropertyChanged();
+            }
+        }
+        public Location Location
+        {
+            get => _customTourRequest.Location;
+            set
+            {
+                if (_customTourRequest.Location == value) return;
+                _customTourRequest.Location = value;
+                OnPropertyChanged();
+            }
+        }
+        public string Description
+        {
+            get => _customTourRequest.Description;
+            set
+            {
+                if(_customTourRequest.Description == value) return;
+                _customTourRequest.Description = value;
+                OnPropertyChanged();
+            }
+        }
+        public string TourLanguage
+        {
+            get => _customTourRequest.TourLanguage;
+            set
+            {
+                if(_customTourRequest.TourLanguage ==  value) return;
+                _customTourRequest.TourLanguage = value;
+                OnPropertyChanged();
+            }
+        }
+        public DateTime StartDate
+        {
+            get => _customTourRequest.StartDate;
+            set
+            {
+                if(_customTourRequest.StartDate == value) return;
+                _customTourRequest.StartDate = value;
+                OnPropertyChanged();
+            }
+        }
+        public DateTime EndDate
+        {
+            get => _customTourRequest.EndDate;
+            set
+            {
+                if (_customTourRequest.EndDate == value)  return;
+                _customTourRequest.EndDate = value;
+                OnPropertyChanged();
+            }
+        }
+        public int GuestCount
+        {
+            get => _customTourRequest.GuestCount;
+            set
+            {
+                if(_customTourRequest.GuestCount == value) return;
+                _customTourRequest.GuestCount = value;
+                OnPropertyChanged();
+            }
+        }
+        public CustomTourRequestViewModel(Guest user) 
+        {
+            TourLanguages = new()
+            {
+                "Srpski",
+                "Engleski",
+                "Francuski",
+                "Španski"
+            };
+            _user = user;
+            _customTourRequestService = Injector.GetService<CustomTourRequestService>();
+            _locationService = Injector.GetService<LocationService>();
+            AllLocations = new(_locationService.FindAll());
+        }
+        public void LoadDatePicker(object sender)
+        {
+            if (sender is DatePicker datePicker)
+            {
+                datePicker.DisplayDateStart = DateTime.Today.AddDays(1);
+            }
+        }
+        public void CreateRequest()
+        {
+            _customTourRequest.Guest.Id = _user.Id;
+            _customTourRequest.RequestCreateDate = DateTime.Now;
+            _customTourRequest.RequestStatus = RequestStatus.ONHOLD;
+            _customTourRequestService.Save(_customTourRequest);
+        }
+    }
+}

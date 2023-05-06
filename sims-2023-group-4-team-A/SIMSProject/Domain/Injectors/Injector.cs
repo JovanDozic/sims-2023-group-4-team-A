@@ -101,6 +101,12 @@ namespace SIMSProject.Domain.Injectors
                     provider.GetService<ITourReservationRepo>() ?? throw new Exception("Dependency Injection Failed: ITourReservationRepo not found.")
                 )
             );
+            services.AddSingleton<ICustomTourRequestRepo, CustomTourRequestRepo>(
+                provider => new CustomTourRequestRepo(
+                    provider.GetService<IGuestRepo>() ?? throw new Exception("Dependency Injection Failed: IGuestRepo not found."),
+                    provider.GetService<ILocationRepo>() ?? throw new Exception("Dependency Injection Failed: ILocationRepo not found.")
+                )
+            );
 
             // Service Injections
             services.AddScoped<UserService>();
@@ -120,6 +126,7 @@ namespace SIMSProject.Domain.Injectors
             services.AddScoped<TourReservationService>();
             services.AddScoped<GuideRatingService>();
             services.AddScoped<TourStatisticsService>();
+            services.AddScoped<CustomTourRequestService>();
 
             return services.BuildServiceProvider();
         }

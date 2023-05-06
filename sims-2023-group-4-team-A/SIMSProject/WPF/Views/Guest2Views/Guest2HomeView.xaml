@@ -7,19 +7,21 @@
         mc:Ignorable="d"
         Title="Guest2HomeView" Height="720" Width="1280"
         WindowStartupLocation="CenterScreen">
-    <Grid Background="#325267">
+    <Grid Background="#ebebeb">
         <Grid.RowDefinitions>
             <RowDefinition Height="200"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
+        <Border BorderThickness="2" BorderBrush="Black" Grid.Row="0"/>
+        <Border BorderThickness="2" BorderBrush="Black" Grid.Row="1"/>
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="120"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Border BorderThickness="2" BorderBrush="Black" Grid.Row="1"/>
-            <Grid Grid.Row="0">
+
+            <Grid Grid.Row="0" Background="#004e98">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="180"/>
@@ -28,38 +30,43 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="1">
-                    <Image Source="/Resources/Images/tripbooklogo.png"/>
+                    <Image Source="../../../Resources/Images/tripbooklogo.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="-67,-36,0,-36"/>
                 </Grid>
                 <Grid Grid.Column="2">
-                    <Label FontFamily="Calibri" FontSize="60" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontWeight="DemiBold" Foreground="White">TripBook</Label>
+                    <Label Foreground="#ebebeb" FontFamily="Calibri" FontSize="60" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontWeight="DemiBold" Margin="-47,0,0,0">TripBook</Label>
                 </Grid>
-                <Button Click="LogOut_Click" Grid.Column="3" Content="Odjavi se" FontSize="35" Height="60" Background="AliceBlue" HorizontalContentAlignment="Center" Cursor="Hand"></Button>
+                <Button Foreground="#141414"  Click="LogOut_Click" Grid.Column="3" Content="Odjavi se" FontWeight="Bold" FontSize="35" Height="60" Background="#ebebeb" BorderBrush="Transparent" HorizontalContentAlignment="Center" Cursor="Hand" HorizontalAlignment="Left" Margin="10,30,0,30" Width="206" Grid.ColumnSpan="2"/>
             </Grid>
 
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Background="#004e98">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="90"/>
-                    <ColumnDefinition Width="250"/>
-                    <ColumnDefinition Width="240"/>
-                    <ColumnDefinition Width="230"/>
-                    <ColumnDefinition Width="160"/>
-                    <ColumnDefinition Width="220"/>
-                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="270"/>
+                    <ColumnDefinition Width="260"/>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="210"/>
+                    <ColumnDefinition Width="70"/>
                 </Grid.ColumnDefinitions>
 
 
                 <Rectangle Name="B2" Grid.Row="1" Grid.Column="2" Fill="{x:Null}"/>
 
-                <Button Click="Homepage_Click" Content="Početna stranica" FontSize="32" Grid.Column="1" Background="White" BorderThickness="0" Height="60"  Cursor="Hand"/>
-                <Button Click="MyReservations_Click" Content="Moje rezervacije" FontSize="32" Grid.Column="2" Background="White" BorderThickness="0" Height="60" Cursor="Hand"/>
-                <Button Content="Zahtevi za ture" FontSize="32" Grid.Column="3" Background="White"  BorderThickness="0" Height="60" Cursor="Hand"/>
-                <Button Click="Vouchers_Click" Content="Vaučeri" FontSize="32" Grid.Column="4" Background="White"  BorderThickness="0" Height="60" Cursor="Hand"/>
-                <Button Click="Notifications_Click" Content="Obaveštenja" FontSize="32" Grid.Column="5" Background="White" BorderThickness="0" Height="60" Cursor="Hand"/>
+                <Button Foreground="White" Background="Transparent" Click="Homepage_Click" Content="Početna stranica" FontSize="30" Grid.Column="1"  FontWeight="Bold" Height="80" Cursor="Hand"/>
+                <Button Foreground="White"  Click="MyReservations_Click" Content="Moje rezervacije" FontSize="30" Grid.Column="2" Background="Transparent" FontWeight="Bold" Height="80" Cursor="Hand"/>
+                <Button Foreground="White"  Click="MyRequests_Click" Content="Zahtevi za ture" FontSize="30" Grid.Column="3" Background="Transparent"  FontWeight="Bold" Height="80" Cursor="Hand"/>
+                <Button Foreground="White"  Click="Vouchers_Click" Content="Vaučeri" FontSize="30" Grid.Column="4" Background="Transparent"  FontWeight="Bold" Height="80" Cursor="Hand"/>
+                <Button Foreground="White"  Click="Notifications_Click" Content="Obaveštenja" FontSize="30" Grid.Column="5" Background="Transparent"  FontWeight="Bold" Height="80" Cursor="Hand"/>
             </Grid>
         </Grid>
 
         <Grid Grid.Row="1">
-            <Frame x:Name="SelectedTab" NavigationUIVisibility="Hidden"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="70"/>
+            </Grid.ColumnDefinitions>
+            <Frame Grid.Column="1" x:Name="SelectedTab" NavigationUIVisibility="Hidden"/>
         </Grid>
     </Grid>
 </Window>
