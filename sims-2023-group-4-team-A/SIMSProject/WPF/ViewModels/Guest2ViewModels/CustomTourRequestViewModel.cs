@@ -90,11 +90,36 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             get => _customTourRequest.GuestCount;
             set
             {
-                if(_customTourRequest.GuestCount == value) return;
+                if(_customTourRequest.GuestCount == value || value < 1) return;
                 _customTourRequest.GuestCount = value;
                 OnPropertyChanged();
             }
         }
+        
+        private ObservableCollection<CustomTourRequest> _customTourRequests = new();
+        public ObservableCollection<CustomTourRequest> CustomTourRequests
+        {
+            get => _customTourRequests;
+            set
+            {
+                if(value == _customTourRequests) return;
+                _customTourRequests = value;
+                OnPropertyChanged();
+            }
+        }
+        public string DateRange { get; set; } = string.Empty;
+        //private ObservableCollection<string> _requestStatusSource = new();
+        //public ObservableCollection<string> RequestStatusSource
+        //{
+        //    get => _requestStatusSource;
+        //    set
+        //    {
+        //        if(value == _requestStatusSource) return;
+        //        _requestStatusSource = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
+
         public CustomTourRequestViewModel(Guest user) 
         {
             TourLanguages = new()
@@ -108,6 +133,14 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             _customTourRequestService = Injector.GetService<CustomTourRequestService>();
             _locationService = Injector.GetService<LocationService>();
             AllLocations = new(_locationService.FindAll());
+            LoadTourRequestsByGuestId(_user.Id);
+
+            //RequestStatusSource = new ObservableCollection<string>
+            //{
+            //    CustomTourRequest.GetStatus(RequestStatus.ONHOLD),
+            //    CustomTourRequest.GetStatus(RequestStatus.INVALID),
+            //    CustomTourRequest.GetStatus(RequestStatus.ACCEPTED)
+            //};
         }
         public void LoadDatePicker(object sender)
         {
@@ -123,5 +156,11 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             _customTourRequest.RequestStatus = RequestStatus.ONHOLD;
             _customTourRequestService.Save(_customTourRequest);
         }
+
+        public void LoadTourRequestsByGuestId(int guestId)
+        {
+            CustomTourRequests = new(_customTourRequestService.GetAllByGuestId(guestId));
+        }
+        
     }
 }

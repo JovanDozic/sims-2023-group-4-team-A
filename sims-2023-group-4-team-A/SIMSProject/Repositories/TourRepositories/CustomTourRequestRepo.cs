@@ -3,6 +3,7 @@ using SIMSProject.Domain.RepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using SIMSProject.FileHandlers.TourFileHandlers;
+using SIMSProject.WPF.Views.Guest2Views;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,6 +29,11 @@ namespace SIMSProject.Repositories.TourRepositories
         public List<CustomTourRequest> GetAll()
         {
             return _customTourRequests;
+        }
+
+        public List<CustomTourRequest> GetAllByGuestId(int guestId)
+        {
+            return _customTourRequests.FindAll(x => x.Guest.Id == guestId);
         }
 
         public int NextId()

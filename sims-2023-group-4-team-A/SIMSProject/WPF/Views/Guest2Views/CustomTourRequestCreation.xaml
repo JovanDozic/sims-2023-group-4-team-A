@@ -50,22 +50,22 @@
                   SelectedItem="{Binding Path= TourLanguage}"/>
         <Label Grid.Column="2" Grid.Row="6" Content="Vremenski opseg:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
         <Label Grid.Column="3" Grid.Row="6" Content="Od:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
-        <DatePicker Loaded="DatePicker_Loaded" x:Name="DateFrom" Grid.Row="6" Grid.Column="4"
+        <DatePicker Validation.ErrorTemplate="{x:Null}" Loaded="DatePicker_Loaded" x:Name="DateFrom" Grid.Row="6" Grid.Column="4"
             VerticalAlignment="Center"
             Width="150"
             SelectedDate="{Binding StartDate, Mode=TwoWay}"
             HorizontalAlignment="Left"
             FontSize="22"/>
         <Label Grid.Column="5" Grid.Row="6" Content="Do:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
-        <DatePicker Loaded="DatePicker_Loaded" x:Name="DateTo" Grid.Row="6" Grid.Column="6"
+        <DatePicker  Validation.ErrorTemplate="{x:Null}" Loaded="DatePicker_Loaded" x:Name="DateTo" Grid.Row="6" Grid.Column="6"
             VerticalAlignment="Center"
             Width="150"
             SelectedDate="{Binding EndDate, Mode=TwoWay}"
             HorizontalAlignment="Left"
             FontSize="22"/>
         <Label Grid.Column="2" Grid.Row="7" Content="Broj gostiju:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
-        <TextBox FontSize="30" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center" Width="50"
-                                     Text="{Binding Path=GuestsCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,0,145,0"></TextBox>
+
+        <custom:NumericBoxRating Value="{Binding GuestCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="GuestCount" Grid.Row="6" Grid.Column="3" Margin="32,22,85,14" Grid.RowSpan="2" Grid.ColumnSpan="2" />
         <Button Click="CreateRequest_Click" Background="#ff6700" Grid.Column="7" Grid.Row="8" Content="Kreiraj zahtev" FontSize="32" FontWeight="Bold" BorderBrush="Transparent" Margin="0,0,15,0"/>
     </Grid>
 </Page>

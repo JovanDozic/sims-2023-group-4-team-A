@@ -33,9 +33,9 @@
                     <Image Source="../../../Resources/Images/tripbooklogo.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="-67,-36,0,-36"/>
                 </Grid>
                 <Grid Grid.Column="2">
-                    <Label Foreground="#ebebeb" FontFamily="Calibri" FontSize="60" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontWeight="DemiBold" Margin="-47,0,0,0">TripBook</Label>
+                    <Label Foreground="#ebebeb" FontFamily="Calibri" FontSize="70" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontWeight="DemiBold" Margin="-47,0,0,0">TripBook</Label>
                 </Grid>
-                <Button Foreground="#141414"  Click="LogOut_Click" Grid.Column="3" Content="Odjavi se" FontWeight="Bold" FontSize="35" Height="60" Background="#ebebeb" BorderBrush="Transparent" HorizontalContentAlignment="Center" Cursor="Hand" HorizontalAlignment="Left" Margin="10,30,0,30" Width="206" Grid.ColumnSpan="2"/>
+                <Button Foreground="#141414" BorderBrush="#ff6700" BorderThickness="3" Click="LogOut_Click" Grid.Column="3" Content="Odjavi se" FontWeight="Bold" FontSize="35" Height="60" Background="#ebebeb" HorizontalContentAlignment="Center" Cursor="Hand" HorizontalAlignment="Left" Margin="10,30,0,30" Width="206" Grid.ColumnSpan="2"/>
             </Grid>
 
             <Grid Grid.Row="1" Background="#004e98">

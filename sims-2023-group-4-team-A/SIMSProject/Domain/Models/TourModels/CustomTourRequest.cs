@@ -36,7 +36,26 @@ namespace SIMSProject.Domain.Models.TourModels
             RequestCreateDate = requestCreateDate;
             RequestStatus = requestStatus;
         }
+        public string FormattedDateRange => $"{StartDate:dd/MM/yyyy}" + "-" + $"{EndDate:dd/MM/yyyy.}";
+        public static RequestStatus GetStatus(string status)
+        {
+            return status switch
+            {
+                "Na čekanju" => RequestStatus.ONHOLD,
+                "Nevažeći" => RequestStatus.INVALID,
+                _ => RequestStatus.ACCEPTED
+            };
+        }
 
+        public static string GetStatus(RequestStatus status)
+        {
+            return status switch
+            {
+                RequestStatus.ONHOLD => "Na čekanju",
+                RequestStatus.INVALID => "Nevažeći",
+                _ => "Prihvaćen"
+            };
+        }
         public string[] ToCSV()
         {
             string[] csvValues =

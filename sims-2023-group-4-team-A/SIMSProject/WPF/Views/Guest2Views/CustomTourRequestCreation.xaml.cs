@@ -30,6 +30,7 @@ namespace SIMSProject.WPF.Views.Guest2Views
             InitializeComponent();
             _user = user;
             _viewModel = new CustomTourRequestViewModel(_user);
+            //_viewModel.LoadTourRequestsByGuestId(_user.Id);
             this.DataContext = _viewModel;
         }
 
@@ -39,12 +40,19 @@ namespace SIMSProject.WPF.Views.Guest2Views
         }
         private void DatePicker_Loaded(object sender, RoutedEventArgs e)
         {
-            _viewModel.LoadDatePicker(sender);
+            //_viewModel.LoadDatePicker(sender);
+            DatePicker datePicker = sender as DatePicker;
+            if (datePicker != null)
+            {
+                datePicker.SelectedDate = null;
+                datePicker.DisplayDateStart = DateTime.Today;
+            }
         }
 
         private void CreateRequest_Click(object sender, RoutedEventArgs e)
         {
             _viewModel.CreateRequest();
         }
+
     }
 }

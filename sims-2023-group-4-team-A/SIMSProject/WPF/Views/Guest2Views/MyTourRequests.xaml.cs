@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.ViewModels.Guest2ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,16 +22,19 @@ namespace SIMSProject.WPF.Views.Guest2Views
     /// </summary>
     public partial class MyTourRequests : Page
     {
-        public Guest User = new();
+        public Guest _user = new();
+        private CustomTourRequestViewModel _viewModel;
         public MyTourRequests(Guest user)
         {
             InitializeComponent();
-            User = user;
+            _user = user;
+            _viewModel = new CustomTourRequestViewModel(_user);
+            this.DataContext = _viewModel;
         }
 
         private void NewRequest_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new CustomTourRequestCreation(User));
+            NavigationService.Navigate(new CustomTourRequestCreation(_user));
         }
     }
 }

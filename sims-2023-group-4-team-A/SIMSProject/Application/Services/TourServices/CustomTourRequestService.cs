@@ -1,5 +1,7 @@
-﻿using SIMSProject.Domain.Models.TourModels;
+﻿using Dynamitey.DynamicObjects;
+using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
+using System.Collections.Generic;
 
 namespace SIMSProject.Application.Services.TourServices
 {
@@ -14,6 +16,10 @@ namespace SIMSProject.Application.Services.TourServices
         public void Save(CustomTourRequest customTourRequest)
         {
             _customTourRequestRepo.Save(customTourRequest);
+        }
+        public List<CustomTourRequest> GetAllByGuestId(int guestId)
+        {
+            return _customTourRequestRepo.GetAllByGuestId(guestId);
         }
     }
 }
