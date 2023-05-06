@@ -1,6 +1,7 @@
 ﻿using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
+using SIMSProject.WPF.Views.Guest1.MainView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,15 +24,15 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
     /// </summary>
     public partial class OwnerRating : Page
     {
-        private readonly User User = new();
+        private readonly User _user = new();
         private readonly OwnerRatingViewModel _ownerRatingViewModel;
         private AccommodationReservation _accommodationReservation;
 
         public OwnerRating(User user)
         {
             InitializeComponent();
-            User = user;
-            _ownerRatingViewModel = new(User, _accommodationReservation);
+            _user = user;
+            _ownerRatingViewModel = new(_user, _accommodationReservation);
             DataContext = _ownerRatingViewModel;
             _ownerRatingViewModel.AddReservationsToCombo();
         }
@@ -45,7 +46,7 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
         {
             _ownerRatingViewModel.RateOwnerAndAccommodation();
             MessageBox.Show("Ocena uspešno ostavljena!", "Vlasnik i smeštaj ocenjeni", MessageBoxButton.OK, MessageBoxImage.Information);
-            NavigationService.GoBack();
+            NavigationService.Navigate(new MainPage(_user));
 
         }
         private void ReservationsCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
