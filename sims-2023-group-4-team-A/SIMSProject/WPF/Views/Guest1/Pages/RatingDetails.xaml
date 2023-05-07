@@ -88,7 +88,7 @@
                VerticalAlignment="Bottom"
                HorizontalAlignment="Center"></Label>
 
-        <TextBox Text="{Binding Rating.Comment}" IsReadOnly="True" Grid.Row="8" Grid.ColumnSpan="2" FontSize="25" Margin="149,10,141,0" Height="156" VerticalAlignment="Top"></TextBox>
+        <TextBox Text="{Binding Rating.Comment}" IsReadOnly="True" Grid.Row="8" Grid.ColumnSpan="2" FontSize="25" Margin="195,10,196,0" Height="156" VerticalAlignment="Top"></TextBox>
 
     </Grid>
 </Page>
