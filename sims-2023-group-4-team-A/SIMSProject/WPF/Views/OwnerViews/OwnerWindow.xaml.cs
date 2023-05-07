@@ -1,6 +1,8 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
+using System.Windows.Navigation;
 
 namespace SIMSProject.WPF.Views.OwnerViews
 {
@@ -21,5 +23,15 @@ namespace SIMSProject.WPF.Views.OwnerViews
             MainFrame.Navigate(page);
         }
 
+        private void MainFrame_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            // Start the fade animation
+            Storyboard storyboard = (Storyboard)FindResource("FadeAnimation");
+            storyboard.Begin(MainFrame);
+
+            // Prevent the default navigation behavior
+            //e.Cancel = true;
+            
+        }
     }
 }

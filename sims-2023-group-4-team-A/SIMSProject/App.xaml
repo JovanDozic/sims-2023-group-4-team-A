@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:SIMSProject"
              StartupUri="WPF/Views/SignInView.xaml"
-             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             xmlns:cntrl="clr-namespace:SIMSProject.WPF.CustomControls;assembly=SIMSProject.WPF.CustomControls">
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
+
     <Application.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -55,7 +55,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
         <Style TargetType="xctk:WatermarkTextBox" x:Key="MobileWatermarkTextBoxInput">
             <Setter Property="Height" Value="50"/>
             <Setter Property="Padding" Value="15,0,0,0"/>
@@ -64,7 +63,14 @@
             <Setter Property="FontFamily" Value="Open Sans"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
+
 
         <Style x:Key="NoHoverButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent"/>
@@ -76,12 +82,12 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        Padding="{TemplateBinding Padding}">
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"
-                                      RecognizesAccessKey="True"/>
+                                              VerticalAlignment="Center"
+                                              RecognizesAccessKey="True"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -101,18 +107,31 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        RecognizesAccessKey="True"/>
-                        </Border>
+                        <Grid>
+                            <Rectangle x:Name="Rectangle" Fill="#7FFFFFFF" Panel.ZIndex="10000"/>
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  RecognizesAccessKey="True"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Rectangle" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="True">
+                                <Setter TargetName="Rectangle" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+
+
 
 
 
@@ -134,7 +153,7 @@
                     <ColumnDefinition />
                     <ColumnDefinition Width="50" />
                 </Grid.ColumnDefinitions>
-                <Border x:Name="Border" Grid.ColumnSpan="2" CornerRadius="0" Background="White" BorderBrush="Black"  BorderThickness="0" />
+                <Border x:Name="Border" Grid.ColumnSpan="2" CornerRadius="0" Background="Transparent" BorderBrush="Black" BorderThickness="0"/>
                 <Image x:Name="Arrow" Grid.Column="1" Source="/Resources/Icons/down.png" Width="30" Height="30" Margin="5,0" Style="{StaticResource IconRenderStyle}"/>
             </Grid>
         </ControlTemplate>
@@ -144,50 +163,48 @@
             <Setter Property="Padding" Value="15,-1,0,0"/>
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="FontFamily" Value="Open Sans"/>
+            <Setter Property="Background" Value="White"/>
             <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="BorderThickness" Value="2.5"/>
+            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
-                        <Border BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                Background="{TemplateBinding Background}">
-                            <Grid>
-                                <ToggleButton x:Name="ToggleButton"
-                                              Grid.Column="2"
-                                              Focusable="false"
-                                              IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                              Template="{StaticResource ComboBoxToggleButton}"/>
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton"
+                                          Grid.Column="2"
+                                          Focusable="false"
+                                          IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                          Template="{StaticResource ComboBoxToggleButton}"/>
 
-                                <ContentPresenter x:Name="ContentSite"
-                                          Margin="15,0,0,0"
-                                          HorizontalAlignment="Left"
-                                          VerticalAlignment="Center"
-                                          Content="{TemplateBinding SelectionBoxItem}"
-                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                                          IsHitTestVisible="False" />
+                            <ContentPresenter x:Name="ContentSite"
+                                              Margin="15,0,0,0"
+                                              HorizontalAlignment="Left"
+                                              VerticalAlignment="Center"
+                                              Content="{TemplateBinding SelectionBoxItem}"
+                                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                              IsHitTestVisible="False" />
 
-                                <Popup x:Name="Popup"
-                                       Placement="Bottom"
-                                       HorizontalOffset="-2.5"
-                                       IsOpen="{TemplateBinding IsDropDownOpen}"
-                                       AllowsTransparency="True"
-                                       Focusable="False"
-                                       PopupAnimation="Fade" Width="376">
-                                    <Border x:Name="DropDownBorder"
-                                            SnapsToDevicePixels="True"
-                                            Background="White"
-                                            BorderBrush="Black"
-                                            BorderThickness="2.5">
-                                        <ScrollViewer>
-                                            <ItemsPresenter />
-                                        </ScrollViewer>
-                                    </Border>
-                                </Popup>
-                            </Grid>
-                        </Border>
+                            <Popup x:Name="Popup"
+                                   Placement="Bottom"
+                                   HorizontalOffset="-2.5"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   AllowsTransparency="True"
+                                   Focusable="False"
+                                   PopupAnimation="Fade"
+                                   Width="376">
+                                <Border x:Name="DropDownBorder"
+                                        SnapsToDevicePixels="True"
+                                        Background="White"
+                                        BorderBrush="Black"
+                                        BorderThickness="2.5">
+                                    <ScrollViewer>
+                                        <ItemsPresenter />
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="HasItems" Value="true">
                                 <Setter Property="ItemContainerStyle">
@@ -203,6 +220,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
 
 
     </Application.Resources>

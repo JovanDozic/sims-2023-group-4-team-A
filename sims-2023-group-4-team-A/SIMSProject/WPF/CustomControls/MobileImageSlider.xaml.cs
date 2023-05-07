@@ -44,7 +44,7 @@ namespace SIMSProject.WPF.CustomControls
             InitializeComponent();
         }
 
-        private void OnNextButtonClick(object sender, RoutedEventArgs e)
+        public void OnNextButtonClick(object sender, RoutedEventArgs e)
         {
             currentImageIndex++;
             if (currentImageIndex >= ImageSource.Count)
@@ -66,14 +66,13 @@ namespace SIMSProject.WPF.CustomControls
             UpdateCurrentImage();
         }
 
-        private void UpdateCurrentImage()
+        public void UpdateCurrentImage()
         {
             if (ImageSource != null && ImageSource.Count > 0)
             {
                 string imagePath = ImageSource[currentImageIndex];
                 BitmapImage bitmap = new BitmapImage(new System.Uri(imagePath));
                 image.Source = bitmap;
-                
             }
         }
 
@@ -86,23 +85,11 @@ namespace SIMSProject.WPF.CustomControls
                 currentImageIndex = 0;
                 UpdateCurrentImage();
             }
-            else if (e.Property == WidthProperty)
-            {
-                //imagesControl.Width = Width;
-            }
-            else if (e.Property == HeightProperty)
-            {
-                //imagesControl.Height = Height;
-            }
         }
 
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
-
-           // imagesControl.Width = Width;
-           // imagesControl.Height = Height;
-
             UpdateCurrentImage();
         }
     }

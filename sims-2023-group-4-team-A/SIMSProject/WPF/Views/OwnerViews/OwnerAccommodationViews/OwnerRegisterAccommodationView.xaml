@@ -6,16 +6,15 @@
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
       xmlns:cstm="clr-namespace:SIMSProject.WPF.CustomControls"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
       mc:Ignorable="d" 
       Height="auto" d:DesignWidth="430"
-      Title="Register Accommodation">
+      Title="Register Accommodation" Background="White">
 
     <Page.Resources>
-        
-
+        <converters:AccommodationTypeConverter x:Key="TypeConverter" />
     </Page.Resources>
-    
-    
+
     <Grid Margin="20,10,20,0">
 
         <Grid.RowDefinitions>
@@ -71,98 +70,106 @@
                 <Border Grid.Row="1" BorderBrush="Black" BorderThickness="2.5">
                     <xctk:WatermarkTextBox Watermark="Moj smeštaj" 
                                            Style="{StaticResource MobileWatermarkTextBoxInput}"
-                                           Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                           Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}" />
                 </Border>
 
                 <!-- Location -->
                 <Label Grid.Row="2" Content="Lokacija" Style="{StaticResource MobileTextBoxLabel}" />
                 <Border Grid.Row="3" BorderBrush="Black" BorderThickness="2.5">
                     <xctk:WatermarkTextBox Watermark="Grad, Država" 
-                                           Style="{StaticResource MobileWatermarkTextBoxInput}" />
+                                           Style="{StaticResource MobileWatermarkTextBoxInput}"
+                                           Text="{Binding FullLocation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
                 </Border>
-                
+
                 <!-- Type -->
                 <Label Grid.Row="4" Content="Tip" Style="{StaticResource MobileTextBoxLabel}" />
-                <!--<ComboBox Grid.Row="5" Style="{StaticResource MobileComboBoxInput}" Text="Izaberi" IsEditable="True" IsReadOnly="False">
-                    <ComboBoxItem Content="Type A"/>
-                    <ComboBoxItem Content="Type B"/>
-                    <ComboBoxItem Content="Type C"/>
-                </ComboBox>-->
-                <Grid Grid.Row="5" >
-                    <ComboBox x:Name="CbType" Style="{StaticResource MobileComboBoxInput}" >
-                        <ComboBoxItem Content="Type A"/>
-                        <ComboBoxItem Content="Type B"/>
-                        <ComboBoxItem Content="Type C"/>
-                    </ComboBox>
-                    <TextBlock Text="Izaberite..." IsHitTestVisible="False" 
-                               FontSize="20" FontFamily="Open Sans" VerticalAlignment="Center" 
-                               Margin="17.5,0,0,0" Foreground="Gray">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Visibility" Value="Hidden"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=CbType, Path=SelectedItem}" Value="{x:Null}">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                </Grid>
+                <Border Grid.Row="5" BorderBrush="Black" BorderThickness="2.5">
+                    <Grid>
+                        <ComboBox x:Name="CbType" Style="{StaticResource MobileComboBoxInput}" 
+                              ItemsSource="{Binding AccommodationTypeSource}"
+                              SelectedItem="{Binding Type, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource TypeConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <TextBlock Text="Izaberite..." IsHitTestVisible="False"
+                                   FontSize="20" FontFamily="Open Sans" VerticalAlignment="Center"
+                                   Margin="17.5,0,0,0" Foreground="Gray">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=CbType, Path=SelectedItem}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                </Border>
 
                 <!-- MaxNum -->
                 <Label Grid.Row="6" Content="Maksimalan broj gostiju" Style="{StaticResource MobileTextBoxLabel}" />
                 <Border Grid.Row="7" BorderBrush="Black" BorderThickness="2.5">
                     <xctk:WatermarkTextBox Watermark="2" 
-                                           Style="{StaticResource MobileWatermarkTextBoxInput}" />
+                                           Style="{StaticResource MobileWatermarkTextBoxInput}"
+                                           Text="{Binding MaxGuestNumberString, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
                 </Border>
-                
+
                 <!-- MinNum -->
                 <Label Grid.Row="8" Content="Minimalan broj dana za rezervaciju" Style="{StaticResource MobileTextBoxLabel}" />
                 <Border Grid.Row="9" BorderBrush="Black" BorderThickness="2.5">
                     <xctk:WatermarkTextBox Watermark="1" 
-                                           Style="{StaticResource MobileWatermarkTextBoxInput}" />
+                                           Style="{StaticResource MobileWatermarkTextBoxInput}"
+                                           Text="{Binding MinReservationDaysString, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
                 </Border>
 
                 <!-- CancelNum -->
                 <Label Grid.Row="10" Content="Otkazni rok" Style="{StaticResource MobileTextBoxLabel}" />
                 <Border Grid.Row="11" BorderBrush="Black" BorderThickness="2.5">
                     <xctk:WatermarkTextBox Watermark="1" 
-                                           Style="{StaticResource MobileWatermarkTextBoxInput}" />
+                                           Style="{StaticResource MobileWatermarkTextBoxInput}"
+                                           Text="{Binding CancellationThresholdString, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
                 </Border>
-                
+
                 <!-- Description -->
                 <Label Grid.Row="12" Content="Opis" Style="{StaticResource MobileTextBoxLabel}" />
                 <Border Grid.Row="13" BorderBrush="Black" BorderThickness="2.5">
                     <xctk:WatermarkTextBox Watermark="Smeštaj sa pogledom na..." 
-                                           Style="{StaticResource MobileWatermarkTextBoxInput}" />
+                                           Style="{StaticResource MobileWatermarkTextBoxInput}"
+                                           Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
                 </Border>
 
                 <!-- Images -->
                 <Label Grid.Row="14" Content="Dodaj slike" Style="{StaticResource MobileTextBoxLabel}" />
                 <Border Grid.Row="15" 
                         BorderBrush="Black" BorderThickness="2.5">
-                    <!--<Image Height="250" Source="C:\Users\j.dozic\OneDrive - Pionir Internacional d.o.o\Desktop\IMG_5997.jpg"
-                           Stretch="UniformToFill"/>-->
-                    <cstm:MobileImageSlider Height="275" ImageSource="{Binding ImageSources}"/>
+                    <cstm:MobileImageSlider x:Name="SliderImageURLs" 
+                                            Height="275" 
+                                            ImageSource="{Binding ImageURLs, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                            Margin="-2,0,2,0"/>
                 </Border>
-
 
                 <Button x:Name="BtnUploadImages" Grid.Row="16"
                         Margin="0,15,0,0"
-                        Style="{StaticResource MobileActionSingleButtonStyle}" Click="BtnUploadImages_Click">
+                        Style="{StaticResource MobileActionSingleButtonStyle}"
+                       Click="BtnUploadImages_Click">
+                    <!-- Command="{Binding UploadImageToAccommodationCommand}" -->
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Resources/Icons/image.png" Height="22.5" Margin="0,0,10,0" 
-                       Style="{StaticResource IconRenderStyle}"/>
+                               Style="{StaticResource IconRenderStyle}"/>
                         <TextBlock Text="Izaberi slike" VerticalAlignment="Center" Margin="0,0,0,0"/>
                     </StackPanel>
-
                 </Button>
 
                 <!-- Register Button -->
-                <Button x:Name="BtnRegister" Grid.Row="17" 
+                <Button x:Name="BtnRegister" Grid.Row="17" IsEnabled="{Binding CanRegisterAccommodation}"
                         Margin="0,50,0,0"
-                        Style="{StaticResource MobileActionSingleButtonStyle}" Click="BtnRegister_Click">
+                        Style="{StaticResource MobileActionSingleButtonStyle}"
+                        Command="{Binding RegisterAccommodationCommand}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Resources/Icons/plus.png" Height="17.5" Margin="0,0,10,0" 
                        Style="{StaticResource IconRenderStyle}"/>
@@ -172,9 +179,6 @@
                 </Button>
             </Grid>
         </ScrollViewer>
-
-
-
 
     </Grid>
 </Page>

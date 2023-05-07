@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
 namespace SIMSProject.WPF.Views.OwnerViews
@@ -101,5 +102,13 @@ namespace SIMSProject.WPF.Views.OwnerViews
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private void MainFrame_Navigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)
+        {
+            Storyboard storyboard = (Storyboard)FindResource("FadeAnimation");
+            storyboard.Begin(MainFrame);
+
+            // Prevent the default navigation behavior
+            //e.Cancel = true;
+        }
     }
 }

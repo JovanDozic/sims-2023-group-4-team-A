@@ -11,14 +11,14 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public Owner Owner { get; set; } = new();
         public string Name { get; set; } = string.Empty;
         public Location Location { get; set; } = new();
-        public AccommodationType Type { get; set; }
-        public int MaxGuestNumber { get; set; } = 1;
+        public AccommodationType Type { get; set; } = AccommodationType.None;
+        public int MaxGuestNumber { get; set; } = 2;
         public int MinReservationDays { get; set; } = 1;
         public int CancellationThreshold { get; set; } = 1;
         public List<string> ImageURLs { get; set; } = new();
         public string ImageURLsCSV { get; set; } = string.Empty;
         public string FeaturedImage { get; set; } = string.Empty;
-        public string Description { get; set; } = "Default description space";
+        public string Description { get; set; } = string.Empty;
         public bool IsInRenovation { get; set; } = false;
 
         public Accommodation()
@@ -31,7 +31,8 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             {
                 "Apartman" => AccommodationType.Apartment,
                 "Kuća" => AccommodationType.House,
-                _ => AccommodationType.Hut
+                "Koliba" => AccommodationType.Hut,
+                _ => AccommodationType.None
             };
         }
 
@@ -41,7 +42,8 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             {
                 AccommodationType.Apartment => "Apartman",
                 AccommodationType.House => "Kuća",
-                _ => "Koliba"
+                AccommodationType.Hut => "Koliba",
+                _ => string.Empty
             };
         }
 
@@ -58,7 +60,9 @@ namespace SIMSProject.Domain.Models.AccommodationModels
                 MaxGuestNumber.ToString(),
                 MinReservationDays.ToString(),
                 CancellationThreshold.ToString(),
-                ImageURLsCSV
+                ImageURLsCSV,
+                Description,
+                IsInRenovation.ToString()
             };
             return csvValues;
         }
@@ -77,6 +81,8 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             ImageURLsCSV = values[i++];
             ImageURLs = ImageURLsFromCSV(ImageURLsCSV);
             FeaturedImage = ImageURLs.Count > 0 ? ImageURLs.First() : string.Empty;
+            Description = values[i++];
+            IsInRenovation = bool.Parse(values[i++]);
         }
 
         public override string? ToString()

@@ -18,9 +18,9 @@ namespace SIMSProject.Application.Services
             return _repo.GetAll();
         }
 
-        public Location GetLocation(string city, string country)
+        public Location GetLocation(Location location)
         {
-            return _repo.GetByInfo(city, country) ?? _repo.Save(new Location(city, country));
+            return _repo.GetByInfo(location.City, location.Country) ?? _repo.Save(new Location(location.City, location.Country));
         }
     }
 }

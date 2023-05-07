@@ -9,7 +9,13 @@
         WindowStartupLocation="Manual"
         Left="1050"
         Top="40">
+    <Window.Resources>
+        <Storyboard x:Key="FadeAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                         From="0.0" To="1.0" Duration="0:0:0.5" />
+        </Storyboard>
+    </Window.Resources>
 
-    <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+    <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Navigating="MainFrame_Navigating"/>
 
 </Window>

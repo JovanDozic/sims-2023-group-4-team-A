@@ -37,18 +37,18 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
 
         public bool SignIn(string password)
         {
-            try
-            {
+            //try
+            //{
                 User? user = _userService.GetUser(Username, password) as User
                              ?? throw new Exception("Dogodila se greška prilikom logovanja.");
                 OpenWindow(user);
                 return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    return false;
+            //}
         }
 
         private void OpenWindow(User user)

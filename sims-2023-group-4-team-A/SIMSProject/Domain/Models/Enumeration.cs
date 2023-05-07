@@ -2,6 +2,7 @@
 {
     public enum AccommodationType
     {
+        None = -1,
         Apartment = 0,
         House,
         Hut

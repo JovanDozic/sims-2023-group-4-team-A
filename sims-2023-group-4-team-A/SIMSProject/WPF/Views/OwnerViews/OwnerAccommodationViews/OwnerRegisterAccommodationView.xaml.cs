@@ -1,14 +1,13 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.ViewModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
 {
-    public partial class OwnerRegisterAccommodationView : Page
+    public partial class OwnerRegisterAccommodationView : Page, INavigationService
     {
         private User _user;
         private readonly AccommodationViewModel _viewModel;
@@ -18,23 +17,26 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
             InitializeComponent();
             _user = user;
 
-            _viewModel = new(_user);
+            _viewModel = new(_user, this);
             DataContext = _viewModel;
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             NavigationService?.GoBack();
+            
         }
 
-        private void BtnRegister_Click(object sender, RoutedEventArgs e)
+        public void GoBack()
         {
-            MessageBox.Show(_viewModel.Accommodation.Name);
+            NavigationService?.GoBack();
         }
 
         private void BtnUploadImages_Click(object sender, RoutedEventArgs e)
         {
-
+            _viewModel.UploadImageToAccommodation();
+            SliderImageURLs.OnNextButtonClick(sender, e);
         }
     }
+
 }
