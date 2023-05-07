@@ -31,7 +31,7 @@
 
         <Storyboard x:Key="FadeAnimation">
             <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                         From="0.0" To="1.0" Duration="0:0:0.5" />
+                         From="0.0" To="1.0" Duration="0:0:0.25" />
         </Storyboard>
 
     </Page.Resources>

@@ -33,7 +33,7 @@ namespace SIMSProject.WPF.Views.OwnerViews
             if (sender is not Button button || FindVisualChild<Image>(button) is not Image img) return;
             var filledSource = img.Source?.ToString();
             var index = filledSource?.IndexOf("Resources") ?? -1;
-            if (index >= 0 && filledSource is not null)
+            if (index >= 0 && filledSource is not null && !filledSource.Contains("-fill.png"))
                 img.Source = new BitmapImage(new Uri($"../../../{filledSource[index..].Replace(".png", "-fill.png")}", UriKind.Relative));
         }
 
@@ -50,13 +50,13 @@ namespace SIMSProject.WPF.Views.OwnerViews
         {
             if (sender is not Button button) return;
 
-            EnableNavButton(sender);
-
             if (button.Name != "NavBtnNotifications") DisableNavButton(NavBtnNotifications);
             if (button.Name != "NavBtnAccommodations") DisableNavButton(NavBtnAccommodations);
             if (button.Name != "NavBtnHome") DisableNavButton(NavBtnHome);
             if (button.Name != "NavBtnForums") DisableNavButton(NavBtnForums);
             if (button.Name != "NavBtnAccount") DisableNavButton(NavBtnAccount);
+
+            EnableNavButton(sender);
         }
 
         private void NavBtn_Click(object sender, RoutedEventArgs e)

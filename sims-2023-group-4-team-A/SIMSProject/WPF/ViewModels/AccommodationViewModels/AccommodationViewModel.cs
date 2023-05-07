@@ -297,6 +297,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
             bool? result = openFileDialog.ShowDialog();
             if (result is not true || result is null) return;
+            if (ImageURLs.Find(x => x.Equals(openFileDialog.FileName)) != null) return;
             ImageURLs.Add(openFileDialog.FileName);
         }
 

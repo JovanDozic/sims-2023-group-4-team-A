@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
       mc:Ignorable="d" 
       d:DesignHeight="750" d:DesignWidth="390"
-      Title="My Accommodations">
+      Title="My Accommodations" Background="White">
 
     <Grid>
 
@@ -61,7 +61,9 @@
                         
                         <StackPanel Grid.Column="1" Orientation="Vertical" Margin="20,0,0,0">
                             
-                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="17.5" Margin="0,2.5,0,0"/>
+                            <TextBlock Text="{Binding Name}"
+                                       FontWeight="SemiBold" FontSize="17.5" TextWrapping="Wrap"
+                                       Margin="0,2.5,0,0"/>
 
                             <!-- TODO: Star controll instead of this under: -->
                             <StackPanel Orientation="Horizontal" Margin="0,2.5,0,0">
