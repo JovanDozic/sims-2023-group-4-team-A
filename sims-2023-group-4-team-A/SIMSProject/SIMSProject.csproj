@@ -29,7 +29,6 @@
     <None Remove="Resources\Images\NotificationAlertNoColor.png" />
     <None Remove="Resources\Images\open.png" />
     <None Remove="Resources\Images\rating.png" />
-    <None Remove="Resources\Images\right-arrow.png" />
     <None Remove="Resources\Images\stars.png" />
     <None Remove="Resources\Images\statusInformation.png" />
     <None Remove="Resources\Images\view.png" />
@@ -70,9 +69,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\Logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\right-arrow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\view.png">

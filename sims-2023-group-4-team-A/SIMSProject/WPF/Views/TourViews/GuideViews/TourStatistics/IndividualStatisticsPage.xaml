@@ -19,9 +19,6 @@
             <Button x:Name="BtnNext"
                     Height="36" Width="45"
                     Click="BtnNext_Click">
-                <StackPanel>
-                    <Image Source="../../../../../Resources/Images/left-arrow.png"/>
-                </StackPanel>
             </Button>
 
             <Label 

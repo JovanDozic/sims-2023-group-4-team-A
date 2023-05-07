@@ -16,26 +16,13 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
 {
     public class TourLiveTrackViewModel : ViewModelBase
     {
+        private readonly TourService _tourService;
         private readonly TourAppointmentService _tourAppointmentService;
         private readonly TourGuestService _tourGuestService;
-        private readonly TourService _tourService;
         private readonly NotificationService _notificationService;
 
-        public BaseTourViewModel Tour { get; set; }
         public BaseAppointmentViewModel Appointment { get; set; }
-        public ObservableCollection<TourGuest> Guests { get; set; } = new();
-
-        private ObservableCollection<TourAppointment> _appointments = new();
-        public ObservableCollection<TourAppointment> Appointments
-        {
-            get => _appointments;
-            set
-            {
-                if (_appointments == value) return;
-                _appointments = value;
-                OnPropertyChanged();
-            }
-        }
+        public ObservableCollection<TourGuest> Guests { get; set; }
 
         private TourGuest _selectedGuest = new();
         public TourGuest SelectedGuest
@@ -50,31 +37,16 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
                 }
             }
         }
-        private TourAppointment _selectedAppointment = new();
-        public TourAppointment SelectedAppointment
-        {
-            get => _selectedAppointment;
-            set
-            {
-                if (value != _selectedAppointment)
-                {
-                    _selectedAppointment = value;
-                    Appointment = new(_selectedAppointment);
-                    OnPropertyChanged(nameof(SelectedAppointment));
-                }
-            }
-        }
-        public string KeyPoints { get => Tour.KeyPointsToString(); }
-
-        public TourLiveTrackViewModel(Tour tour)
+        public string KeyPoints { get => Appointment.Tour.KeyPointsToString(); }
+        public TourLiveTrackViewModel(TourAppointment appointment)
         {
             _tourAppointmentService = Injector.GetService<TourAppointmentService>();
             _tourGuestService = Injector.GetService<TourGuestService>();
             _tourService = Injector.GetService<TourService>();
             _notificationService = Injector.GetService<NotificationService>();
 
-            Tour = new(tour);
-            Appointments = new(_tourAppointmentService.GetAllByTourId(tour.Id));
+            Appointment = new(appointment);
+            Guests = new(_tourGuestService.GetGuests(Appointment.TourAppointment));
 
             GoNextCommand = new RelayCommand(GoNextExecute, GoNextCanExecute);
             EndCommand = new RelayCommand(EndExecute, EndCanExecute);
@@ -82,31 +54,11 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
             SignUpCommand = new RelayCommand(SignUpExecute, SignUpCanExecute);
         }
 
-        public void AddGuests()
-        {
-            Guests = new(_tourGuestService.GetGuests(SelectedAppointment));
-        }
-        public void StartIfActivated()
-        {
-            TourAppointment? active = _tourAppointmentService.GetActiveByTour(Tour.Tour);
-            if (active == null)
-            {
-                SelectedAppointment = _tourAppointmentService.Activate(SelectedAppointment, Tour.Tour);
-                return;
-            }
-            else if (active.Id != SelectedAppointment.Id)
-            {
-                MessageBox.Show("Već postoji aktivna tura!");
-                return;
-            }
-            SelectedAppointment = active;
-        }
-
         #region GoNextCommand
         public ICommand GoNextCommand { get; set; }
         public bool GoNextCanExecute()
         {
-            bool reachedLast = Tour.Tour.KeyPoints.Last().Id == Appointment.CurrentKeyPoint.Id;
+            bool reachedLast = Appointment.Tour.KeyPoints.Last().Id == Appointment.CurrentKeyPoint.Id;
             return !reachedLast;
         }
         public void GoNextExecute()
@@ -151,7 +103,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
         public ICommand SignUpCommand { get; private set; }
         public bool SignUpCanExecute()
         {
-            return SelectedGuest.GuestStatus == GuestAttendance.ABSENT;
+            return SelectedGuest.GuestStatus == GuestAttendance.ABSENT && Guests.Count > 0;
         }
         public void SignUpExecute()
         {
