@@ -10,10 +10,13 @@
       Title="Statistics">
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal"
-                    Margin="20,0,0,0"
-                    Height="150">
+                    Margin="20,0,0,150">
             <Button x:Name="BtnNext"
-                    Height="36" Width="45"/>
+                    Height="36" Width="45"
+                    Click="BtnNext_Click"
+                    >
+                <Image Source="../../../../../Resources/Images/right-arrow.png"/>
+            </Button>
             <Label 
                    Margin="325,0,0,0"
                    Content="Statistika"
@@ -28,7 +31,8 @@
                     Height="37" Width="225"
                     Content="Detaljan prikaz"
                     HorizontalContentAlignment="Left"
-                    FontSize="25"/>
+                    FontSize="25"
+                    Click="BtnDetails_Click"/>
         </StackPanel>
         <Grid>
             <Grid.RowDefinitions>
@@ -48,7 +52,7 @@
                              VerticalContentAlignment="Center"/>
                 <RadioButton x:Name="rdbYear" 
                              Margin="20,0,0,0"
-                             Command="{Binding Path=GetStatisticsCommand1}"
+                             Command="{Binding Path=GetYearlyStatisticsCommand}"
                              VerticalContentAlignment="Center"/>
                 <TextBox x:Name="tbYear"
                          Text="{Binding DesiredYear, Mode=TwoWay}"
@@ -60,17 +64,17 @@
             </StackPanel>
             <Grid Margin="20,0,20,0" Grid.Row="2" DataContext="{Binding TourStatistics}">
                 <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" FontSize="21"
+                <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" FontSize="21"
                                Text="Naziv ture"/>
                 <TextBlock Grid.Column="2" Grid.Row="0" FontSize="21"
                                Text="Trajanje" />
@@ -78,7 +82,6 @@
                                Text="Odrađenih tura" />
                 <TextBlock Grid.Column="4" Grid.Row="0" FontSize="21"
                                Text="Ukupno gostiju" />
-
                 <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Tour.Name,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" FontSize="21"/>
                 <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding Tour.Duration,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" FontSize="21"/>
                 <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding TotalAppointments,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" FontSize="21"/>

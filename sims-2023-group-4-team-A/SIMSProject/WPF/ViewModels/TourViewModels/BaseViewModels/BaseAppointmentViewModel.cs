@@ -12,7 +12,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.BaseViewModels
 {
     public class BaseAppointmentViewModel : ViewModelBase
     {
-        private TourAppointment? _tourAppointment = new();
+        private TourAppointment _tourAppointment = new();
         public TourAppointment TourAppointment
         {
             get => _tourAppointment;
@@ -74,24 +74,24 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.BaseViewModels
             }
         }
 
+
+        public string KPString
+        {
+            get => CurrentKeyPoint.ToString();
+        }
+
         public KeyPoint CurrentKeyPoint
         {
             get => _tourAppointment.CurrentKeyPoint;
             set
             {
+                if (value == _tourAppointment.CurrentKeyPoint) return;
                 _tourAppointment.CurrentKeyPoint = value;
                 OnPropertyChanged(nameof(CurrentKeyPoint));
+                OnPropertyChanged(nameof(KPString));
             }
         }
         public List<Guest> Guests = new();
-
-        /* get => _tourAppointment.Guests;
-         set
-         {
-             _tourAppointment.Guests = value;
-             OnPropertyChanged(nameof(Guests));
-         }*/
-
 
         public BaseAppointmentViewModel()
         {

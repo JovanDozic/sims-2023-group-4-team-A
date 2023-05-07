@@ -25,7 +25,7 @@ namespace SIMSProject.Domain.Models.TourModels
 
         public override string ToString()
         {
-            return $"{Description} {Location}";
+            return  Description;
         }
         public string[] ToCSV()
         {

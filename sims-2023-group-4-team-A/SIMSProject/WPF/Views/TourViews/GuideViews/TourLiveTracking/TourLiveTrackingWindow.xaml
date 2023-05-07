@@ -4,8 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cstm="clr-namespace:SIMSProject.WPF.CustomControls"
+        xmlns:local="clr-namespace:SIMSProject.WPF.Converters"
         mc:Ignorable="d"
         Title="LiveTrackingWindow" Height="700" Width="1200" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <local:KeyPointConverter x:Key="KPConverter"></local:KeyPointConverter>
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding GoNextCommand}" Key="N" Modifiers="Shift"/>
+        <KeyBinding Command="{Binding EndCommand}" Key="C" Modifiers="Shift"/>
+        <KeyBinding Command="{Binding PauseCommand}" Key="P" Modifiers="Shift"/>
+        <KeyBinding Command="{Binding SignUpCommand}" Key="A" Modifiers="Shift"/>
+    </Window.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -30,7 +40,7 @@
                     FontSize="24"
                     Text="Trenutna ključna tačka:"/>
                 <TextBlock x:Name="CurrentKeyPointTB" 
-                           Text="{Binding Path=Appointment.CurrentKeyPoint, UpdateSourceTrigger=PropertyChanged}"
+                           Text="{Binding Path=Appointment.CurrentKeyPoint, Mode=OneWay, Converter={StaticResource KPConverter}, UpdateSourceTrigger=PropertyChanged}"
                            Height="36" Width="300"
                            FontSize="24"/>
             </StackPanel>
@@ -46,14 +56,14 @@
                         Width="150"
                         Content="Dalje&#xa;Shift+N"
                         FontSize="30"
-                        Click="NextBTN_Click"/>
+                        Command="{Binding Path=GoNextCommand}"/>
                 <Button x:Name="PauseBTN"
-                        Click="PauseBTN_Click"
+                        Command="{Binding PauseCommand}"
                         Content="Pauziraj&#xa;Shift+P"
                         FontSize="30"
                         Width="180"/>
                 <Button x:Name="CloseBTN"
-                        Click="CloseBTN_Click"
+                        Command="{Binding EndCommand}"
                         Content="Završi turu&#xa;Shift+C"
                         FontSize="30"
                         Width="197"/>
@@ -73,7 +83,6 @@
                 Width="342" Height="350"
                 ItemsSource="{Binding Path=Guests, UpdateSourceTrigger=PropertyChanged}"
                 SelectedItem="{Binding SelectedGuest, UpdateSourceTrigger=PropertyChanged}"
-                SelectionChanged="LbGuests_SelectionChanged"
                 FontSize="24"/>
             <Button x:Name="Sign_guestBTN" 
                     Margin="0,100,0,0"
@@ -81,7 +90,7 @@
                     FontSize="30"
                     Content="Dodaj gosta&#xa;Shift+A"
                     HorizontalContentAlignment="Center"
-                    Click="Sign_guestBTN_Click"/>
+                    Command="{Binding SignUpCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

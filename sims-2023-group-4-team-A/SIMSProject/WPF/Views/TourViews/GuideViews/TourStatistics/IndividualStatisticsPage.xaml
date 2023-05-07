@@ -15,10 +15,15 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0"  Orientation="Horizontal"
-                    Margin="20,0,0,0"
-                    >
+                    Margin="20,0,0,0">
             <Button x:Name="BtnNext"
-                    Height="36" Width="45"/>
+                    Height="36" Width="45"
+                    Click="BtnNext_Click">
+                <StackPanel>
+                    <Image Source="../../../../../Resources/Images/left-arrow.png"/>
+                </StackPanel>
+            </Button>
+
             <Label 
                    Margin="180,0,0,0"
                    Content="Statistika o pojedinačnim turama"
@@ -58,27 +63,33 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0" FontSize="28"
+                <TextBlock Grid.Row="0" Grid.Column="0" 
+                           FontSize="28"
                            HorizontalAlignment="Center"
                            Text="&#60; 18"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" FontSize="28"
+                <TextBlock Grid.Row="0" Grid.Column="1" 
+                           FontSize="28"
                            HorizontalAlignment="Center"
                            Text="18-50"/>
-                <TextBlock Grid.Row="0" Grid.Column="2" FontSize="28"
+                <TextBlock Grid.Row="0" Grid.Column="2" 
+                           FontSize="28"
                            HorizontalAlignment="Center"
                            Text="50 &#60;"/>
                 <TextBlock Grid.Row="2" Grid.ColumnSpan="3"
                            FontSize="20"
                            Text="Prikaz broja gostiju&#xa;po starosnim kateogorijama" Margin="0,0,0,-20"/>
                 <TextBox Grid.Row="1" Grid.Column="0"
+                         FontSize="22"
                          Text="{Binding Path=GuestAgeGroups.Minors, UpdateSourceTrigger=PropertyChanged}"
                          IsReadOnly="True"
                          />
                 <TextBox Grid.Row="1" Grid.Column="1"
+                         FontSize="22"
                          Text="{Binding Path=GuestAgeGroups.Adults, UpdateSourceTrigger=PropertyChanged}"
                          IsReadOnly="True"
                          />
                 <TextBox Grid.Row="1" Grid.Column="2"
+                         FontSize="22"
                          Text="{Binding Path=GuestAgeGroups.Seniors, UpdateSourceTrigger=PropertyChanged}"
                          IsReadOnly="True"
                          />
@@ -94,17 +105,21 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0" FontSize="28"
+                <TextBlock Grid.Row="0" Grid.Column="0" 
+                           FontSize="28"
                            HorizontalAlignment="Center"
                            Text="Sa vaučerom"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" FontSize="28"
+                <TextBlock Grid.Row="0" Grid.Column="1" 
+                           FontSize="28"
                            HorizontalAlignment="Center"
                            Text="Bez vaučera"/>
                 <TextBox Grid.Row="1" Grid.Column="0"
+                         FontSize="22"
                          Text="{Binding Path=VoucherUsage.Used, UpdateSourceTrigger=PropertyChanged}"
                          IsReadOnly="True"
                          />
                 <TextBox Grid.Row="1" Grid.Column="1"
+                         FontSize="22"
                          Text="{Binding Path=VoucherUsage.Unused, UpdateSourceTrigger=PropertyChanged}"
                          IsReadOnly="True"
                          />
@@ -112,7 +127,6 @@
                            FontSize="20"
                            Text="Odnos broja gostiju&#xa;došlih sa i bez vaučera" Margin="0,0,0,-20"/>
             </Grid>
-
         </Grid>
     </Grid>
 </Page>

@@ -16,12 +16,15 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
             InitializeComponent();
             ViewModel = new TourStatisticsViewModel();
             this.DataContext = ViewModel;
-
         }
 
-        //private void rdbYear_Checked(object sender, RoutedEventArgs e)
-        //{
-        //    ViewModel.GetStatistics(int.Parse(tbYear.Text));
-        //}
+        private void BtnNext_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new IndividualStatisticsPage());
+        }
+
+        private void BtnDetails_Click(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }

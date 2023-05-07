@@ -8,13 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Properties\**" />
     <Compile Remove="View\**" />
-    <EmbeddedResource Remove="Properties\**" />
     <EmbeddedResource Remove="View\**" />
-    <None Remove="Properties\**" />
     <None Remove="View\**" />
-    <Page Remove="Properties\**" />
     <Page Remove="View\**" />
   </ItemGroup>
 
@@ -26,11 +22,14 @@
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\home.png" />
+    <None Remove="Resources\Images\left-arrow.png" />
+    <None Remove="Resources\Images\Logo.png" />
     <None Remove="Resources\Images\lookupitem.png" />
     <None Remove="Resources\Images\NotificationAlert.png" />
     <None Remove="Resources\Images\NotificationAlertNoColor.png" />
     <None Remove="Resources\Images\open.png" />
     <None Remove="Resources\Images\rating.png" />
+    <None Remove="Resources\Images\right-arrow.png" />
     <None Remove="Resources\Images\stars.png" />
     <None Remove="Resources\Images\statusInformation.png" />
     <None Remove="Resources\Images\view.png" />
@@ -70,6 +69,12 @@
     <Content Include="Resources\Images\edit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\Logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\right-arrow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -83,10 +88,6 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageReference Include="MaterialDesignInXamlToolkitAddOns" Version="0.0.6" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

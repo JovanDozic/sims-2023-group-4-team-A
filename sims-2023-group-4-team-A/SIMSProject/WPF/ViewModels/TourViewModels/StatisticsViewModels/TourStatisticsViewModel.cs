@@ -65,7 +65,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.StatisticsViewModels
                 OnPropertyChanged(nameof(VoucherUsage));
             }
         }
-
         private Dictionary<int, GuestAgeGroupsDTO> AgeGroupDictionary { get; set; } = new();
         private Dictionary<int, VoucherUsageDTO> VoucherDictionary { get; set; } = new();
 
@@ -79,8 +78,9 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.StatisticsViewModels
         {
             Tours.Clear();
             Tours = new(_tourService.GetToursWithFinishedAppointments());
-            
         }
+
+        #region GetStatisticsCommand
         public ICommand GetStatisticsCommand { get; set; }
 
         private bool CanExecuteGetStatistics()
@@ -92,20 +92,23 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.StatisticsViewModels
         {
             GetStatistics();
         }
+        #endregion
 
+        #region GetYearlyStatisticsCommand
         public string DesiredYear { get; set; } = string.Empty;
 
-        public ICommand GetStatisticsCommand1 { get; set; }
+        public ICommand GetYearlyStatisticsCommand { get; set; }
 
-        private bool CanExecuteGetStatistics1()
+        private bool CanExecuteYearlyStatistics()
         {
             return DesiredYear.Length > 0;
         }
 
-        private void ExecuteGetStatistics1()
+        private void ExecuteYearlyStatistics()
         {
             GetStatistics(int.Parse(DesiredYear));
         }
+        #endregion
 
         public TourStatisticsViewModel()
         {
@@ -114,9 +117,8 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.StatisticsViewModels
             AgeGroupDictionary = _tourService.MapToursGuestAgeGroups();
             VoucherDictionary = _tourService.MapToursVoucherUsage();
 
-            /* Commands mapping*/
             GetStatisticsCommand = new RelayCommand(ExecuteGetStatistics, CanExecuteGetStatistics);
-            GetStatisticsCommand1 = new RelayCommand(ExecuteGetStatistics1, CanExecuteGetStatistics1);
+            GetYearlyStatisticsCommand = new RelayCommand(ExecuteYearlyStatistics, CanExecuteYearlyStatistics);
         }
     }
 }

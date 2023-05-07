@@ -32,5 +32,10 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
             ViewModel.GetFinishedTours();
             this.DataContext = ViewModel;
         }
+
+        private void BtnNext_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new TourStatisticsPage());
+        }
     }
 }
