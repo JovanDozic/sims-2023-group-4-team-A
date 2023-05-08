@@ -1,5 +1,6 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Serializer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,6 +21,9 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public string FeaturedImage { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public bool IsInRenovation { get; set; } = false;
+        public bool IsRecentlyRenovated { get; set; } = false;
+        public double Rating { get; set; } = 0;
+        public int NumberOfRatings { get; set; } = 0;
 
         public Accommodation()
         {
@@ -62,7 +66,10 @@ namespace SIMSProject.Domain.Models.AccommodationModels
                 CancellationThreshold.ToString(),
                 ImageURLsCSV,
                 Description,
-                IsInRenovation.ToString()
+                IsInRenovation.ToString(),
+                IsRecentlyRenovated.ToString(),
+                Math.Round(Rating, 2).ToString(),
+                NumberOfRatings.ToString(),
             };
             return csvValues;
         }
@@ -83,11 +90,16 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             FeaturedImage = ImageURLs.Count > 0 ? ImageURLs.First() : string.Empty;
             Description = values[i++];
             IsInRenovation = bool.Parse(values[i++]);
+            IsRecentlyRenovated = bool.Parse(values[i++]);
+            Rating = double.Parse(values[i++]);
+            NumberOfRatings = int.Parse(values[i++]);
         }
 
         public override string? ToString()
         {
             return $"{GetType(Type)}: {Name} ({Location})";
         }
+
+        public string ToStringSearchable { get => $"{Type} {Name} {Location} {GetType(Type)}"; }
     }
 }

@@ -12,11 +12,7 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
     public partial class OwnerMyAccommodationsView : Page, INotifyPropertyChanged
     {
         private User _user = new();
-
         private AccommodationViewModel _viewModel;
-
-       
-
 
         public OwnerMyAccommodationsView(User user)
         {
@@ -27,34 +23,6 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
             DataContext = _viewModel;
 
             _viewModel.LoadAccommodationsByOwner();
-
-
-
-        }
-
-
-
-
-
-        private void TbSearchInput_GotFocus(object sender, System.Windows.RoutedEventArgs e)
-        {
-            TbSearchInput.Text = string.Empty;
-            TbSearchInput.Foreground = new SolidColorBrush(Colors.Black);
-        }
-
-        private void TbSearchInput_LostFocus(object sender, System.Windows.RoutedEventArgs e)
-        {
-            if (TbSearchInput.Text != string.Empty) return;
-
-            TbSearchInput.Text = "Pretraga";
-            TbSearchInput.Foreground = new SolidColorBrush(Colors.Gray);
-
-
-        }
-
-        private void TbSearchInput_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            // TODO: Execute search
         }
 
         private void BtnAddAccommodation_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -64,11 +32,7 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
             ownerWindow?.SwitchToPage(addAccommodationView);
 
             LstAccommodations.Items.Refresh();
-
         }
-
-
-
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
@@ -76,6 +40,9 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        
+        private void TbSearchInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _viewModel.SearchAccommodations(TbSearchInput.Text);
+        }
     }
 }

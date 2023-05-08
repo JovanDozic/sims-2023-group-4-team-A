@@ -23,14 +23,12 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Button x:Name="BtnBack" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center"
-                Background="Transparent" BorderBrush="Transparent" BorderThickness="0"
-                Click="BtnBack_Click" Margin="-10,0,-10,0"
-                Style="{StaticResource NoHoverButtonStyle}">
+        <Button x:Name="BtnBack" Grid.Row="0" Click="BtnBack_Click"
+                Style="{StaticResource BackButtonStyle}">
             <StackPanel Orientation="Horizontal">
-                <Image Source="/Resources/Icons/back.png" Width="30" Height="30" Margin="0,0,5,0" 
-                       Style="{StaticResource IconRenderStyle}"/>
-                <TextBlock Text="Nazad" VerticalAlignment="Center" FontSize="12.5" Margin="0,0,0,0"/>
+                <Image Source="/Resources/Icons/back.png"
+                       Style="{StaticResource BackButtonIconStyle}"/>
+                <TextBlock Text="Nazad" Style="{StaticResource BackButtonTextStyle}"/>
             </StackPanel>
         </Button>
 
@@ -66,8 +64,7 @@
 
                 <!-- Name -->
                 <Label Grid.Row="0" Content="Ime" Style="{StaticResource MobileTextBoxLabel}" />
-                <!--<TextBox Grid.Row="1" Style="{StaticResource MobileTextBoxInput}" />-->
-                <Border Grid.Row="1" BorderBrush="Black" BorderThickness="2.5">
+                <Border Grid.Row="1" Style="{StaticResource MobileTextBoxInputBorder}">
                     <xctk:WatermarkTextBox Watermark="Moj smeštaj" 
                                            Style="{StaticResource MobileWatermarkTextBoxInput}"
                                            Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}" />
@@ -75,7 +72,7 @@
 
                 <!-- Location -->
                 <Label Grid.Row="2" Content="Lokacija" Style="{StaticResource MobileTextBoxLabel}" />
-                <Border Grid.Row="3" BorderBrush="Black" BorderThickness="2.5">
+                <Border Grid.Row="3" Style="{StaticResource MobileTextBoxInputBorder}">
                     <xctk:WatermarkTextBox Watermark="Grad, Država" 
                                            Style="{StaticResource MobileWatermarkTextBoxInput}"
                                            Text="{Binding FullLocation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
@@ -83,7 +80,7 @@
 
                 <!-- Type -->
                 <Label Grid.Row="4" Content="Tip" Style="{StaticResource MobileTextBoxLabel}" />
-                <Border Grid.Row="5" BorderBrush="Black" BorderThickness="2.5">
+                <Border Grid.Row="5" Style="{StaticResource MobileTextBoxInputBorder}">
                     <Grid>
                         <ComboBox x:Name="CbType" Style="{StaticResource MobileComboBoxInput}" 
                               ItemsSource="{Binding AccommodationTypeSource}"
@@ -113,7 +110,7 @@
 
                 <!-- MaxNum -->
                 <Label Grid.Row="6" Content="Maksimalan broj gostiju" Style="{StaticResource MobileTextBoxLabel}" />
-                <Border Grid.Row="7" BorderBrush="Black" BorderThickness="2.5">
+                <Border Grid.Row="7" Style="{StaticResource MobileTextBoxInputBorder}">
                     <xctk:WatermarkTextBox Watermark="2" 
                                            Style="{StaticResource MobileWatermarkTextBoxInput}"
                                            Text="{Binding MaxGuestNumberString, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
@@ -121,15 +118,32 @@
 
                 <!-- MinNum -->
                 <Label Grid.Row="8" Content="Minimalan broj dana za rezervaciju" Style="{StaticResource MobileTextBoxLabel}" />
-                <Border Grid.Row="9" BorderBrush="Black" BorderThickness="2.5">
+                <Border Grid.Row="9" Style="{StaticResource MobileTextBoxInputBorder}">
                     <xctk:WatermarkTextBox Watermark="1" 
                                            Style="{StaticResource MobileWatermarkTextBoxInput}"
                                            Text="{Binding MinReservationDaysString, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
                 </Border>
 
                 <!-- CancelNum -->
-                <Label Grid.Row="10" Content="Otkazni rok" Style="{StaticResource MobileTextBoxLabel}" />
-                <Border Grid.Row="11" BorderBrush="Black" BorderThickness="2.5">
+                <StackPanel Grid.Row="10" Orientation="Horizontal">
+                    <Label Content="Otkazni rok" Style="{StaticResource MobileTextBoxLabel}" />
+                    <Button x:Name="BtnCancellationHelp" Width="30" Height="17.5" Margin="0,5,0,0"
+                            Style="{StaticResource NoHoverButtonStyle}"
+                            Click="BtnCancellationHelp_Click">
+                        <Image Source="/Resources/Icons/help.png" Style="{StaticResource IconRenderStyle}"/>
+                    </Button>
+                </StackPanel>
+                <Popup x:Name="PopupCancellationHelp" 
+                       Placement="Bottom" 
+                       StaysOpen="False" 
+                       PlacementTarget="{Binding ElementName=BtnCancellationHelp}"
+                       VerticalOffset="-115" HorizontalOffset="-30">
+                    <Border Style="{StaticResource PopupBorderStyle}">
+                        <TextBlock Text="Označava najkasniji rok kada gost može da otkaže rezervaciju." 
+                                   Style="{StaticResource PopupTextStyle}"/>
+                    </Border>
+                </Popup>
+                <Border Grid.Row="11" Style="{StaticResource MobileTextBoxInputBorder}">
                     <xctk:WatermarkTextBox Watermark="1" 
                                            Style="{StaticResource MobileWatermarkTextBoxInput}"
                                            Text="{Binding CancellationThresholdString, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
@@ -137,7 +151,7 @@
 
                 <!-- Description -->
                 <Label Grid.Row="12" Content="Opis" Style="{StaticResource MobileTextBoxLabel}" />
-                <Border Grid.Row="13" BorderBrush="Black" BorderThickness="2.5">
+                <Border Grid.Row="13" Style="{StaticResource MobileTextBoxInputBorder}">
                     <xctk:WatermarkTextBox Watermark="Smeštaj sa pogledom na..." 
                                            Style="{StaticResource MobileWatermarkTextBoxInput}"
                                            Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
@@ -145,8 +159,7 @@
 
                 <!-- Images -->
                 <Label Grid.Row="14" Content="Dodaj slike" Style="{StaticResource MobileTextBoxLabel}" />
-                <Border Grid.Row="15" 
-                        BorderBrush="Black" BorderThickness="2.5">
+                <Border Grid.Row="15" Style="{StaticResource MobileTextBoxInputBorder}" Height="Auto">
                     <cstm:MobileImageSlider x:Name="SliderImageURLs" 
                                             Height="275" 
                                             ImageSource="{Binding ImageURLs, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
@@ -156,8 +169,7 @@
                 <Button x:Name="BtnUploadImages" Grid.Row="16"
                         Margin="0,15,0,0"
                         Style="{StaticResource MobileActionSingleButtonStyle}"
-                       Click="BtnUploadImages_Click">
-                    <!-- Command="{Binding UploadImageToAccommodationCommand}" -->
+                        Click="BtnUploadImages_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Resources/Icons/image.png" Height="22.5" Margin="0,0,10,0" 
                                Style="{StaticResource IconRenderStyle}"/>

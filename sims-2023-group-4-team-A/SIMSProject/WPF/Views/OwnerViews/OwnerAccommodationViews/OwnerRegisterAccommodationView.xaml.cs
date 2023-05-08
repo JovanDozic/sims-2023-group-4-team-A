@@ -37,6 +37,11 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
             _viewModel.UploadImageToAccommodation();
             SliderImageURLs.OnNextButtonClick(sender, e);
         }
+
+        private void BtnCancellationHelp_Click(object sender, RoutedEventArgs e)
+        {
+            PopupCancellationHelp.IsOpen = true;
+        }
     }
 
 }

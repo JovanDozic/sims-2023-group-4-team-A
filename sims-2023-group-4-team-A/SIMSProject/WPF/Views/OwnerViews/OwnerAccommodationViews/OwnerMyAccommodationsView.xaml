@@ -4,10 +4,16 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
+      xmlns:cstm="clr-namespace:SIMSProject.WPF.CustomControls"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
       d:DesignHeight="750" d:DesignWidth="390"
       Title="My Accommodations" Background="White">
 
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Page.Resources>
+    
     <Grid>
 
         <Grid.RowDefinitions>
@@ -35,10 +41,17 @@
             </Button>
         </Grid>
 
-        <TextBox x:Name="TbSearchInput" Grid.Row="1" Style="{StaticResource MobileTextBoxInput}"
+        <!--<TextBox x:Name="TbSearchInput" Grid.Row="1" Style="{StaticResource MobileTextBoxInput}"
                  Text="Pretraga" Foreground="Gray"
                  GotFocus="TbSearchInput_GotFocus" LostFocus="TbSearchInput_LostFocus"
-                 TextChanged="TbSearchInput_TextChanged"/>
+                 TextChanged="TbSearchInput_TextChanged"/>-->
+    
+        <Border Grid.Row="1" Style="{StaticResource MobileTextBoxInputBorder}">
+            <xctk:WatermarkTextBox Watermark="Pretraga" x:Name="TbSearchInput"
+                                   Style="{StaticResource MobileWatermarkTextBoxInput}"
+                                   TextChanged="TbSearchInput_TextChanged"/>
+        </Border>
+
 
         <ListView x:Name="LstAccommodations" Grid.Row="2" 
                   ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}"
@@ -65,26 +78,30 @@
                                        FontWeight="SemiBold" FontSize="17.5" TextWrapping="Wrap"
                                        Margin="0,2.5,0,0"/>
 
-                            <!-- TODO: Star controll instead of this under: -->
                             <StackPanel Orientation="Horizontal" Margin="0,2.5,0,0">
-                                <TextBlock Text="4.6" FontWeight="Bold" FontSize="18"
+                                <cstm:StarRating ControlHeight="20" Rating="{Binding Rating}" 
+                                                 HorizontalAlignment="Left" Margin="-5,0,0,0"/>
+                                <TextBlock Text="•  " Margin="5,0,0,0" FontSize="10"
                                            VerticalAlignment="Center"/>
-                                <TextBlock Text=" /5" Margin="0,0,0,0" FontSize="14"
+                                <TextBlock Text="{Binding NumberOfRatings}" FontSize="10"
                                            VerticalAlignment="Center"/>
-                                <TextBlock Text=" (" Margin="0,0,0,0" FontSize="14"
-                                           VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding RatingsCount}" FontSize="14"
-                                           VerticalAlignment="Center"/>
-                                <TextBlock Text=" ocena)" FontSize="14"
+                                <TextBlock Text=" ocena" FontSize="10"
                                            VerticalAlignment="Center"/>
                             </StackPanel>
-
+                          
                             <TextBlock Text="{Binding Location}" 
                                        Margin="0,2.5,0,0" FontSize="14"/>
                             <TextBlock Text="{Binding Description}" 
                                        TextWrapping="Wrap" FontSize="14" Margin="0,2.5,0,0"/>
-                            <TextBlock Text="{Binding IsInRenovation}" 
-                                       TextWrapping="Wrap" FontSize="14" Margin="0,2.5,0,0"/>
+                            
+                            <StackPanel Orientation="Horizontal" Margin="0,5"
+                                        Visibility="{Binding IsRecentlyRenovated, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <Image Source="/Resources/Icons/renovation-clock.png" 
+                                       Style="{StaticResource IconRenderStyle}"
+                                       Height="15"/>
+                                <TextBlock Text="Renoviranje u toku" Margin="5,0,0,0"
+                                           FontSize="14"/>
+                            </StackPanel>
                             
                         </StackPanel>
                         

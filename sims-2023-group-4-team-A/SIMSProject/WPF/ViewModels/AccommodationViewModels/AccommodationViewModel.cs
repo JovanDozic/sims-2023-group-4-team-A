@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
+using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Navigation;
 
@@ -211,6 +213,40 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
+        public double Rating
+        {
+            get => Accommodation.Rating;
+            set
+            {
+                if (value == Accommodation.Rating) return;
+                Accommodation.Rating = value;
+                OnPropertyChanged();
+            }
+        }
+        public int NumberOfRatings
+        {
+            get => Accommodation.NumberOfRatings;
+            set
+            {
+                if (value == Accommodation.NumberOfRatings) return;
+                Accommodation.NumberOfRatings = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool IsRecentlyRenovated
+        {
+            get => Accommodation.IsRecentlyRenovated;
+            set
+            {
+                if (value == Accommodation.IsRecentlyRenovated) return;
+                Accommodation.IsRecentlyRenovated = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+
+
         public ObservableCollection<Accommodation> Accommodations
         {
             get => _accommodations;
@@ -245,6 +281,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             RegisterAccommodationCommand = new(RegisterAccommodation, CanRegisterAccommodation);
             PrepareLocationCommand = new(PrepareLocation, CanPrepareLocation);
             UploadImageToAccommodationCommand = new(UploadImageToAccommodation, CanUploadIMageToAccommodation);
+
         }
 
         public ObservableCollection<Accommodation> LoadAccommodationsByOwner()
@@ -255,7 +292,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
         public void RegisterAccommodation()
         {
-            
             var result = MessageBox.Show("Da li ste sigurni da želite da registrujete smeštaj?", "Potvrdite registraciju", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
 
@@ -305,6 +341,14 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             return true;
         }
+
+        internal void SearchAccommodations(string text)
+        {
+            LoadAccommodationsByOwner();
+            var SearchResults = Accommodations.ToList();
+            SearchResults.RemoveAll(x => !x.ToStringSearchable.ToLower().Contains(text.ToLower()));
+            Accommodations = new(SearchResults);
+        } 
 
         public string this[string columnName]
         {
