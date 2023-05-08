@@ -31,46 +31,31 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             _accommodationReservationViewModel = new(_user);
             DataContext = _accommodationReservationViewModel;
 
-            }
-            private void Button_Click_Cancellation(object sender, RoutedEventArgs e)
-            {
-                if (!_accommodationReservationViewModel.IsDateValid())
-                {
-                    MessageBox.Show("Rezervaciju je moguće otkazati najkasnije 24h pre dolaska.");
-                    return;
-                }
-                MessageBoxResult result = MessageBox.Show("Da li ste sigurni da želite da otkažete rezervaciju?", "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        }
+        private void Button_Click_Cancellation(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Da li ste sigurni da želite da otkažete rezervaciju?", "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-                if (result == MessageBoxResult.Yes)
-                {
-                    _accommodationReservationViewModel.CancelReservation();
-                    _accommodationReservationViewModel.Update();
-                    _accommodationReservationViewModel.SendNotification();
-                    MessageBox.Show("Rezervacija je otkazana!");
-                    NavigationService.Navigate(new ReservationList(_user));
-                }
-            }
-          
-            private void Button_Click_Reschedule(object sender, RoutedEventArgs e)
+            if (result == MessageBoxResult.Yes)
             {
-                if (_accommodationReservationViewModel.IsReservationInPast())
-                {
-                    MessageBox.Show("Nije moguće pomeriti izabranu rezervaciju!");
-                    return;
-                }
-                if (_accommodationReservationViewModel.IsReservationOnStandBy())
-                {
-                    MessageBox.Show("Zahtev za ovu rezervaciju je već poslat!");
-                    return;
-                }        
-                 var movingReservationsPage = new MovingReservation(_accommodationReservationViewModel.SelectedReservation, _user);
-                 NavigationService.Navigate(movingReservationsPage);
+                _accommodationReservationViewModel.CancelReservation();
+                _accommodationReservationViewModel.Update();
+                _accommodationReservationViewModel.SendNotification();
+                MessageBox.Show("Rezervacija je otkazana!");
+                NavigationService.Navigate(new ReservationList(_user));
+            }
+        }
+
+        private void Button_Click_Reschedule(object sender, RoutedEventArgs e)
+        {
+            var movingReservationsPage = new MovingReservation(_accommodationReservationViewModel.SelectedReservation, _user);
+            NavigationService.Navigate(movingReservationsPage);
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MoveButton.IsEnabled = !_accommodationReservationViewModel.IsNotSelected();
-            CancelButton.IsEnabled = !_accommodationReservationViewModel.IsNotSelected();
+            MoveButton.IsEnabled = !_accommodationReservationViewModel.IsNotSelected() && !_accommodationReservationViewModel.IsReservationInPast() && !_accommodationReservationViewModel.IsReservationOnStandBy();
+            CancelButton.IsEnabled = !_accommodationReservationViewModel.IsNotSelected() && _accommodationReservationViewModel.IsDateValid();
         }
     }
     }

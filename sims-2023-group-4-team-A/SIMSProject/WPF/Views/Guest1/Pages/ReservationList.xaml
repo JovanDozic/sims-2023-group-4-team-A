@@ -37,6 +37,7 @@
         <DataGrid IsReadOnly="True" ItemsSource="{Binding Reservations, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" FontSize="20" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" Width="949" Height="446"
                   SelectedItem="{Binding SelectedReservation}"
                   BorderBrush="Transparent"
+                  SelectionMode="Single"
                   BorderThickness="0" Margin="73,10,0,0" Grid.RowSpan="3" SelectionChanged="DataGrid_SelectionChanged">
 
             <DataGrid.Columns>
