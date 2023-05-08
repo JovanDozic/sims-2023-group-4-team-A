@@ -18,6 +18,7 @@
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\checkboxlist.png" />
     <None Remove="Resources\Images\checkmark.png" />
+    <None Remove="Resources\Images\chevron-left-black.png" />
     <None Remove="Resources\Images\close.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
@@ -31,6 +32,7 @@
     <None Remove="Resources\Images\rating.png" />
     <None Remove="Resources\Images\stars.png" />
     <None Remove="Resources\Images\statusInformation.png" />
+    <None Remove="Resources\Images\tripbooklogo.png" />
     <None Remove="Resources\Images\view.png" />
     <None Remove="WPF\Views\Guest1\burger.png" />
     <None Remove="WPF\Views\Guest1\chevron-left.png" />
@@ -60,6 +62,7 @@
     <Resource Include="Resources\Images\checkmark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\chevron-left-black.png" />
     <Resource Include="Resources\Images\close.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -71,6 +74,7 @@
     <Resource Include="Resources\Images\rating.png" />
     <Resource Include="Resources\Images\stars.png" />
     <Resource Include="Resources\Images\statusInformation.png" />
+    <Resource Include="Resources\Images\tripbooklogo.png" />
     <Content Include="Resources\Images\delete.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

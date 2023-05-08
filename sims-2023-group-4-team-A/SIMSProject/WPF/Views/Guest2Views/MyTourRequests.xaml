@@ -1,0 +1,50 @@
+﻿<Page x:Class="SIMSProject.WPF.Views.Guest2Views.MyTourRequests"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest2Views"
+      mc:Ignorable="d" 
+      Width="1140" Height="520"
+      Title="MyTourRequests">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="170"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="65"/>
+            <RowDefinition Height="65"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="Zahtevi za obične ture: " FontSize="35" FontWeight="Bold" HorizontalAlignment="left" VerticalAlignment="Bottom"/>
+        <Button BorderBrush="#ff6700" BorderThickness="3" Background="#ebebeb" Grid.Column="2" Content="Statistika zahteva" Height="50" Width="285" FontSize="30" FontWeight="Bold" HorizontalAlignment="Left" Margin="70,5,0,5"/>
+        <DataGrid x:Name="DgrRequests" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" FontSize="25" FontWeight="DemiBold" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" Margin="0,0,15,0" ItemsSource="{Binding Path=CustomTourRequests, UpdateSourceTrigger=PropertyChanged}"
+                  >
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Location}" Header="Lokacija" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Description}" Header="Opis" Width="*"/>
+                <DataGridTextColumn Binding="{Binding TourLanguage}"  Header="Jezik" Width="110"/>
+                <DataGridTextColumn Binding="{Binding GuestCount}"  Header="Broj gostiju" Width="100"/>
+                <DataGridTextColumn Binding="{Binding FormattedDateRange}" Header="Opseg datuma" Width="280"/>
+                <DataGridTextColumn Binding="{Binding RequestStatus}"  Header="Status zahteva" Width="180"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Click="NewRequest_Click" Grid.Column="2" Grid.Row="2" Content="Nova obična tura"  Height="50" Width="285" FontSize="30" Background="#ff6700" FontWeight="Bold" HorizontalAlignment="Left" Margin="70,5,0,5"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="Zahtevi za složene ture: " FontSize="35" FontWeight="Bold" HorizontalAlignment="left" VerticalAlignment="Bottom"/>
+        <DataGrid x:Name="DgrComplexRequests" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" FontSize="25" FontWeight="DemiBold" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Width="100"/>
+                <DataGridTextColumn Header="Status zahteva"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button BorderBrush="#ff6700" BorderThickness="3" Background="#ebebeb" Grid.Column="1" Grid.Row="4" Height="50" Width="300" Content="Detalji" FontSize="30" FontWeight="Bold" />
+        <Button Background="#ff6700" Grid.Column="1" Grid.Row="5" Height="50" Width="300" Content="Nova složena tura" FontSize="30" FontWeight="Bold" />
+    </Grid>
+</Page>
