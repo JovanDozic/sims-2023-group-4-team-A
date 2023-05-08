@@ -21,6 +21,10 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
             UpdatePassedReservationNotifications();
         }
+        public void SaveReservation(AccommodationReservation reservation)
+        {
+            _repo.Save(reservation);
+        }
 
         public List<AccommodationReservation> GetAll()
         {

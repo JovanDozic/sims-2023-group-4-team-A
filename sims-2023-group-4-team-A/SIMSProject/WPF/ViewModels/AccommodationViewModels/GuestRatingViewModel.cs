@@ -2,6 +2,7 @@
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
+using System.Windows;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 {
@@ -10,7 +11,27 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private readonly User _user;
         private GuestRating _rating = new();
         private GuestRatingService _ratingService;
-
+        
+        public GuestRating Rating
+        {
+            get => _rating;
+            set
+            {
+                if (_rating == value) return;
+                _rating = value;
+                OnPropertyChanged();
+            }
+        }
+        public AccommodationReservation SelectedReservation
+        {
+            get => _rating.Reservation;
+            set
+            {
+                if (value == _rating.Reservation) return;
+                _rating.Reservation = value;
+                OnPropertyChanged();
+            }
+        }
         public AccommodationReservation Reservation
         {
             get => _rating.Reservation;
@@ -98,12 +119,18 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _user = user;
             _ratingService = Injector.GetService<GuestRatingService>();
             Reservation = reservation;
-        }
+            LoadRating();
+       }
 
         public void LeaveGuestRating()
         {
             Reservation.GuestRated = true;
             _ratingService.LeaveRating(_rating);
+        }
+        public void LoadRating()
+        {
+            if (Reservation == null) return;
+            Rating = _ratingService.GetByReservationId(Reservation.Id);
         }
     }
 }

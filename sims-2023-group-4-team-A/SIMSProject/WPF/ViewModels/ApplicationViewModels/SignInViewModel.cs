@@ -9,6 +9,8 @@ using SIMSProject.WPF.Views.OwnerViews;
 using SIMSProject.Application.Services.UserServices;
 using SIMSProject.Application.Services.AccommodationServices;
 using SIMSProject.WPF.Views;
+using SIMSProject.WPF.Views.Guest1;
+using SIMSProject.WPF.Views.Guest1.MainView;
 
 namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
 {
@@ -41,7 +43,14 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
             {
                 User? user = _userService.GetUser(Username, password) as User
                              ?? throw new Exception("Dogodila se greška prilikom logovanja.");
-                OpenWindow(user);
+                if (user.Username.Equals("marko") && user.Password.Equals("marko"))
+                {
+                    OpenGuestWindow(user);
+                }
+                else
+                {
+                    OpenWindow(user);
+                }
                 return true;
             }
             catch (Exception ex)
@@ -49,6 +58,28 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
                 MessageBox.Show(ex.Message, "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
+
+        }
+        public bool GuestSignIn(string password)
+        {
+            try
+            {
+                User? user = _userService.GetUser(Username, password) as User
+                             ?? throw new Exception("Dogodila se greška prilikom logovanja.");
+                OpenGuestWindow(user);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
+        private void OpenGuestWindow(User user)
+        {
+            MainWindow guestWind = new(user as Guest ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
+            guestWind.Show();
         }
 
         private void OpenWindow(User user)

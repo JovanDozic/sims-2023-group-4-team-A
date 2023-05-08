@@ -2,6 +2,7 @@
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SIMSProject.Application.Services.AccommodationServices
@@ -31,6 +32,16 @@ namespace SIMSProject.Application.Services.AccommodationServices
             var ratings = _ratingRepo.GetAllByGuestId(guest.Id);
             guest.Rating = ratings.Average(x => x.Overall);
             _guestRepo.Update(guest);
+        }
+
+        public GuestRating GetByReservationId(int reservationId)
+        {
+            return _ratingRepo.GetByReservationId(reservationId);
+        }
+
+        public List<GuestRating> GetAll()
+        {
+            return _ratingRepo.GetAll();
         }
     }
 }

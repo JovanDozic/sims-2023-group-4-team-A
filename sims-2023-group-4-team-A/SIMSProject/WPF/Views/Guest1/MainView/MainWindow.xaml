@@ -1,0 +1,254 @@
+﻿<Window x:Class="SIMSProject.WPF.Views.Guest1.MainView.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest1.MainView"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        mc:Ignorable="d"
+        ResizeMode="NoResize"
+        Title="Main" Height="768" Width="1024">
+    <Grid MouseLeftButtonDown="BG_PreviewMouseLeftButtonDown">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.13*"></RowDefinition>
+            <RowDefinition ></RowDefinition>
+        </Grid.RowDefinitions>
+        <Frame Background="#F2DDF2" x:Name="MainWind" Grid.Row="1" NavigationUIVisibility="Hidden" >
+
+        </Frame>
+        <Grid x:Name="GridNotification" Margin="541,88,133,476"
+              Background="#6aa2d2" Grid.RowSpan="2"
+              Width="0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Content="Obaveštenja" Foreground="White"
+                   VerticalAlignment="Center" FontSize="25"
+                   FontWeight="Bold" Margin="10,0,0,0"></Label>
+            <Separator Background="White" Margin="2,25,3,129" Grid.RowSpan="2"/>
+
+            <ListView x:Name="ListViewNotification" Grid.Row="1" Margin="10,0,10,0"
+                      Background="Transparent"
+                      BorderBrush="Transparent"
+                      BorderThickness="0"
+                      SelectionChanged="ListViewNotification_SelectionChanged"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListViewItem x:Name="ItemRatings" Height="72">
+                    <Label Foreground="White" FontWeight="Bold" Content="Ocene vlasnika" FontSize="20"></Label>
+                </ListViewItem>
+                <ListViewItem x:Name="ItemRequests" Height="71">
+                    <Label Foreground="White" FontWeight="Bold" Content="Zahtevi za pomeranje rezervacija" FontSize="20"></Label>
+                </ListViewItem>
+            </ListView>
+
+        </Grid>
+
+        <Grid Grid.Row="1" x:Name="OverlayPanel" Visibility="Collapsed">
+            <Grid Background="#000000" Opacity="0.6"></Grid>
+        </Grid>
+
+
+        <Grid Grid.Row="0" Background="#0c669f">
+
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="500"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+
+
+            </Grid.ColumnDefinitions>
+
+            <Image Source="../Icons/logo.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+            <Label Grid.Column="1" FontFamily="Arial"  Foreground="White" Content="Smeštarko" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="40"></Label>
+            <ToggleButton x:Name="ButtonNotification" Grid.Column="6" BorderThickness="1" BorderBrush="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center"
+                          Height="50" Width="50" Background="#0c669f"
+                          Click="Button_Click_Notification">
+                <Image Source="../Icons/notification.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                <ToggleButton.Triggers>
+                    <EventTrigger RoutedEvent="ToggleButton.Checked">
+                        <BeginStoryboard>
+                            <Storyboard>
+
+                                <DoubleAnimation
+                                    Storyboard.TargetName="GridNotification"
+                                    Storyboard.TargetProperty="Width"
+                                    From="0" To="350"
+                                    Duration="0:0:0.3" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+
+                    <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                        <BeginStoryboard>
+                            <Storyboard>
+
+                                <DoubleAnimation
+                                    Storyboard.TargetName="GridNotification"
+                                    Storyboard.TargetProperty="Width"
+                                    From="350" To="0"
+                                    Duration="0:0:0.3" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </ToggleButton.Triggers>
+            </ToggleButton>
+            <Button Click="Button_Click_Home" BorderThickness="0" BorderBrush="Transparent" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="50" Background="#0c669f">
+                <Image Source="../Icons/home.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+            </Button>
+
+            <ToggleButton x:Name="ButtonMenu" BorderThickness="0"
+                          BorderBrush="Transparent" Grid.Column="8" 
+                          HorizontalAlignment="Center" VerticalAlignment="Center"
+                          Height="50" Width="50" Background="#0c669f"
+                          Click="Button_Click_Menu">
+                <Image Source="../Icons/menu.png" Width="38" RenderOptions.BitmapScalingMode="HighQuality" />
+                <ToggleButton.Triggers>
+                    <EventTrigger RoutedEvent="ToggleButton.Checked">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ObjectAnimationUsingKeyFrames
+                                        Storyboard.TargetName="OverlayPanel"
+                                        Storyboard.TargetProperty="Visibility">
+                                    <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}" />
+                                </ObjectAnimationUsingKeyFrames>
+                                <DoubleAnimation
+                                    Storyboard.TargetName="GridMenu"
+                                    Storyboard.TargetProperty="Width"
+                                    From="0" To="340"
+                                    Duration="0:0:0.3" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+
+                    <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ObjectAnimationUsingKeyFrames
+                                        Storyboard.TargetName="OverlayPanel"
+                                        Storyboard.TargetProperty="Visibility">
+                                    <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Collapsed}" />
+                                </ObjectAnimationUsingKeyFrames>
+                                <DoubleAnimation
+                                    Storyboard.TargetName="GridMenu"
+                                    Storyboard.TargetProperty="Width"
+                                    From="340" To="0"
+                                    Duration="0:0:0.3" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </ToggleButton.Triggers>
+            </ToggleButton>
+
+
+        </Grid>
+
+
+        <Grid x:Name="GridMenu" Width="0" HorizontalAlignment="Right" Background="#063e77" Grid.Row="1">
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="2" ShadowDepth="1" Color="Gray"/>
+            </Grid.Effect>
+            <StackPanel>
+                <Grid Height="120">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.8*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45"></RowDefinition>
+                        <RowDefinition Height="45"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        TextAlignment="Center"
+                               VerticalAlignment="Center"
+                               Foreground="White"
+                               FontStyle="Italic"
+                               FontSize="22" FontWeight="Bold"
+                               x:Name="UserTB" Margin="108,0,108,0" Grid.Row="1" Grid.ColumnSpan="2"/>
+                    <Label Foreground="White" Content="Status: Gost" FontSize="18" FontWeight="Bold" Margin="108,38,108,-30" Grid.Row="1" Grid.ColumnSpan="2"/>
+                    <Image Source="../Icons/account.png" VerticalAlignment="Top" Margin="136,4,19,0" Height="49" Grid.RowSpan="2" RenderOptions.BitmapScalingMode="HighQuality"/>
+                </Grid>
+
+                <Separator Width="315" FontWeight="Bold" Background="#BDC3C3" HorizontalAlignment="Stretch"></Separator>
+
+                <ListView x:Name="ListViewMenu" Background="#063e77" 
+                          SelectionChanged="ListViewMenu_SelectionChanged"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"  BorderBrush="Transparent" Margin="0,0,0,0">
+                    <ListViewItem x:Name="ItemAllAccommodations" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="22" Foreground="White" Text="Svi smeštaji u ponudi" VerticalAlignment="Center" Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+
+                    <ListViewItem x:Name="ItemReservations" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Lista rezervacija" FontSize="22" Foreground="White" VerticalAlignment="Center" Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+
+                    <ListViewItem x:Name="ItemRating" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="22" Foreground="White" Text="Ocenjivanje vlasnika i smeštaja" VerticalAlignment="Center" Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+
+                    <ListViewItem x:Name="ItemSearch" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Bilo kada/Bilo gde" FontSize="22" Foreground="White" VerticalAlignment="Center"  Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+
+                    <ListViewItem x:Name="ItemForums" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Forumi" FontSize="22" Foreground="White" VerticalAlignment="Center"  Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+
+                    <ListViewItem x:Name="ItemStatistics" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Statistika" FontSize="22" Foreground="White"  VerticalAlignment="Center"  Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+
+                    <ListViewItem x:Name="ItemReport" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Izveštaj o rezervacijama" FontSize="22" Foreground="White" VerticalAlignment="Center"  Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+                <Grid Height="122">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.2*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="../Icons/chevron-left.png" Margin="193,64,87,16" RenderTransformOrigin="1.057,0.493" Grid.ColumnSpan="2" RenderOptions.BitmapScalingMode="HighQuality"/>
+
+                    <Button Click="Button_Click_Close" Margin="0,0,10,25" FontSize="20" Foreground="White" Content="Odjavi se" BorderThickness="0" BorderBrush="Transparent" Background="#063e77" Height="30" Width="89" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.ColumnSpan="2"/>
+                </Grid>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+
+</Window>
