@@ -2,16 +2,12 @@
 using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
-using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
@@ -134,6 +130,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             _locationService = Injector.GetService<LocationService>();
             AllLocations = new(_locationService.FindAll());
             LoadTourRequestsByGuestId(_user.Id);
+            CheckRequestValidity(CustomTourRequests.ToList());
 
             //RequestStatusSource = new ObservableCollection<string>
             //{
@@ -142,13 +139,14 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             //    CustomTourRequest.GetStatus(RequestStatus.ACCEPTED)
             //};
         }
-        public void LoadDatePicker(object sender)
-        {
-            if (sender is DatePicker datePicker)
-            {
-                datePicker.DisplayDateStart = DateTime.Today.AddDays(1);
-            }
-        }
+        //public void LoadDatePicker(object sender)
+        //{
+        //    if (sender is DatePicker datePicker)
+        //    {
+        //        datePicker.SelectedDate = DateTime.Today.AddDays(2);
+        //        datePicker.DisplayDateStart = DateTime.Today.AddDays(2);
+        //    }
+        //}
         public void CreateRequest()
         {
             _customTourRequest.Guest.Id = _user.Id;
@@ -161,6 +159,9 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         {
             CustomTourRequests = new(_customTourRequestService.GetAllByGuestId(guestId));
         }
-        
+        public void CheckRequestValidity(List<CustomTourRequest> customTourRequests)
+        {
+            _customTourRequestService.CheckRequestValidity(customTourRequests);
+        }
     }
 }
