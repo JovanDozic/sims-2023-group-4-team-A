@@ -20,7 +20,7 @@ namespace SIMSProject.Domain.Models.TourModels
         {
             get
             {
-                return (GuideKnowledge + LanguageProficiency + TourEntertainmentRating + OrganizationQualityRating) / (double)4;
+                return Math.Round((GuideKnowledge + LanguageProficiency + TourEntertainmentRating + OrganizationQualityRating) / (double)4, 2);
             }
             set { }
         }
@@ -80,16 +80,19 @@ namespace SIMSProject.Domain.Models.TourModels
         }
 
 
+        public string RatingDateToString()
+        {
+            return RatingDate.ToString("g");
+        }
+
         public string QAsToString()
         {
             var builder = new StringBuilder();
-            builder.Append($"{nameof(GuideKnowledge)}:             {GuideKnowledge}\n");
-            builder.Append($"{nameof(LanguageProficiency)}:        {LanguageProficiency}\n");
-            builder.Append($"{nameof(TourEntertainmentRating)}:    {TourEntertainmentRating}\n");
-            builder.Append($"{nameof(OrganizationQualityRating)}:  {OrganizationQualityRating}\n");
+            builder.Append($"Znanje vodiča:     {GuideKnowledge}\n");
+            builder.Append($"Poznavanje jezika: {LanguageProficiency}\n");
+            builder.Append($"Zanimljivost ture: {TourEntertainmentRating}\n");
+            builder.Append($"Organizacija:      {OrganizationQualityRating}\n");
             return builder.ToString();
         }
-
-
     }
 }

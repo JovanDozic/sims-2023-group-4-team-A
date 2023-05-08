@@ -76,12 +76,16 @@ namespace SIMSProject.Application.Services.TourServices
 
             foreach(var tour in _repo.GetAll())
             {
-                List<TourAppontmentRatingDTO> ratings = _guideRatingService.MapRatingsByTour(tour.Id);
+                List<TourAppointmentRatingDTO> ratings = _guideRatingService.MapRatingsByTour(tour.Id);
                 if (ratings.Count == 0) continue;
                 tourRatings.Add(new(tour, ratings));
             }
-
             return tourRatings;
+        }
+
+        public List<TourRatingDTO> SearchRatings(string tourName)
+        {
+            return _repo.SearchRatingsByTourName(GetRatings(), tourName);
         }
 
         public void CreateTour(Tour tour)
@@ -92,20 +96,9 @@ namespace SIMSProject.Application.Services.TourServices
         public KeyPoint GetNextKeyPoint(TourAppointment appointment)
         {
             var currentTour = _repo.GetById(appointment.Tour.Id);
-            if (currentTour == null)
-            {
-                return null;
-            }
-
-            var currentIndex = currentTour.KeyPoints.FindIndex(x => x.Id == appointment.CurrentKeyPoint.Id);
+            int currentIndex = _repo.GetCurrentKeyPointIndex(appointment, currentTour);
             var indexOutOfRange = currentIndex < 0 || currentIndex >= currentTour.KeyPoints.Count - 1;
-
-            if (indexOutOfRange)
-            {
-                return null;
-            }
-
-            return currentTour.KeyPoints[currentIndex + 1];
+            return indexOutOfRange ? null : currentTour.KeyPoints[currentIndex + 1];
         }
 
         public KeyPoint GetLastKeyPoint(TourAppointment appointment)
@@ -121,5 +114,11 @@ namespace SIMSProject.Application.Services.TourServices
         {
             _repo.SearchTours(locationAndLanguage, searchDuration, searchMaxGuests, tours);
         }
+
+        public List<DateTime> GetRatedDatesByTour(TourRatingDTO rating)
+        {
+            return _guideRatingService.GetRatedDatesByTourRating(rating);
+        }
+
     }
 }

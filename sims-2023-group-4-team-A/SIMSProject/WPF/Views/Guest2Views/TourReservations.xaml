@@ -5,25 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest2Views"
         mc:Ignorable="d"
-        Title="TourReservations" Height="520" Width="1280">
+        Title="TourReservations" Height="520" Width="1140">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition/>
             <RowDefinition Height="150"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="100"/>
-        </Grid.ColumnDefinitions>
-        <Label Foreground="White" Grid.Row="0" Grid.Column="2" Content="Moje rezervacije: " FontSize="40" FontWeight="Bold" HorizontalAlignment="left" VerticalAlignment="Bottom"/>
-        <DataGrid x:Name="DgrReservations" Grid.Row="1" Grid.Column="2" FontSize="28" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"
+        <Label Foreground="Black" Grid.Row="0" Grid.Column="2" Content="Moje rezervacije: " FontSize="40" FontWeight="Bold" HorizontalAlignment="left" VerticalAlignment="Bottom"/>
+        <DataGrid x:Name="DgrReservations" Grid.Row="1" Grid.Column="2" FontSize="32" FontWeight="DemiBold" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"
                   ItemsSource="{Binding Path=TourReservations, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedTourReservation, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="DataGrid_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="50"/>
                 <DataGridTextColumn Binding="{Binding TourAppointment.Tour.Name}" Header="Naziv" Width="*"/>
                 <DataGridTextColumn Binding="{Binding TourAppointment.Date}" Header="Termin" Width="*"/>
                 <DataGridTextColumn Binding="{Binding TourAppointment.Tour.Location}" Header="Lokacija" Width="*"/>
@@ -45,8 +38,8 @@
             <Label x:Name="LBLAttendance" Grid.ColumnSpan="2" Content="Ne možete oceniti ako niste bili!" FontSize="28" FontWeight="Bold" VerticalContentAlignment="Center" Foreground="Red" Visibility="Hidden"/>
             <Label x:Name="LBLChooseActive" Grid.ColumnSpan="2" Content="Izaberite aktivnu turu!" FontSize="28" FontWeight="Bold" VerticalContentAlignment="Center" Foreground="Red" Visibility="Hidden"/>
             <Label x:Name="LBLSelectTour" Grid.ColumnSpan="2" Content="Morate selektovati turu!" FontSize="28" FontWeight="Bold" VerticalContentAlignment="Center" Foreground="Red" Visibility="Hidden"/>
-            <Button x:Name="BTNRateGuide" Grid.Column="2" Height="50" Width="180" Content="Oceni turu" HorizontalAlignment="Left" FontSize="28" Click="RateGuide_Click"/>
-            <Button x:Name="BTNShowKeyPoint" Grid.Column="2" Height="50" Width="280" Content="Prikaži kljucnu tacku" HorizontalAlignment="Left" FontSize="28" Grid.ColumnSpan="2" Margin="210,50,0,50" Click="ShowKeyPoint_Click"/>
+            <Button x:Name="BTNRateGuide" Grid.Column="2" Width="265" Content="Oceni turu" HorizontalAlignment="Center" FontSize="28" FontWeight="DemiBold" Background="#ff6700" Click="RateGuide_Click" Margin="0,10,0,75"/>
+            <Button x:Name="BTNShowKeyPoint" Grid.Column="3" Width="265" Content="Prikaži kljucnu tacku" FontWeight="DemiBold" HorizontalAlignment="Left" FontSize="28" BorderBrush="#ff6700" BorderThickness="3" Margin="0,10,0,75" Click="ShowKeyPoint_Click"/>
         </Grid>
 
     </Grid>

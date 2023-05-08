@@ -8,13 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Properties\**" />
     <Compile Remove="View\**" />
-    <EmbeddedResource Remove="Properties\**" />
     <EmbeddedResource Remove="View\**" />
-    <None Remove="Properties\**" />
     <None Remove="View\**" />
-    <Page Remove="Properties\**" />
     <Page Remove="View\**" />
   </ItemGroup>
 
@@ -22,10 +18,13 @@
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\checkboxlist.png" />
     <None Remove="Resources\Images\checkmark.png" />
+    <None Remove="Resources\Images\chevron-left-black.png" />
     <None Remove="Resources\Images\close.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\home.png" />
+    <None Remove="Resources\Images\left-arrow.png" />
+    <None Remove="Resources\Images\Logo.png" />
     <None Remove="Resources\Images\lookupitem.png" />
     <None Remove="Resources\Images\NotificationAlert.png" />
     <None Remove="Resources\Images\NotificationAlertNoColor.png" />
@@ -33,6 +32,7 @@
     <None Remove="Resources\Images\rating.png" />
     <None Remove="Resources\Images\stars.png" />
     <None Remove="Resources\Images\statusInformation.png" />
+    <None Remove="Resources\Images\tripbooklogo.png" />
     <None Remove="Resources\Images\view.png" />
     <None Remove="WPF\Views\Guest1\burger.png" />
     <None Remove="WPF\Views\Guest1\chevron-left.png" />
@@ -62,6 +62,7 @@
     <Resource Include="Resources\Images\checkmark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\chevron-left-black.png" />
     <Resource Include="Resources\Images\close.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -73,10 +74,14 @@
     <Resource Include="Resources\Images\rating.png" />
     <Resource Include="Resources\Images\stars.png" />
     <Resource Include="Resources\Images\statusInformation.png" />
+    <Resource Include="Resources\Images\tripbooklogo.png" />
     <Content Include="Resources\Images\delete.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\view.png">
@@ -125,10 +130,6 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageReference Include="MaterialDesignInXamlToolkitAddOns" Version="0.0.6" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

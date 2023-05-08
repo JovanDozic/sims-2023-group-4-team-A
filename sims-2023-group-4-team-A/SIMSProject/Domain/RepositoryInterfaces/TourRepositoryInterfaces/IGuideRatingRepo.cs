@@ -1,4 +1,6 @@
-﻿using SIMSProject.Domain.Models.TourModels;
+﻿using SIMSProject.Application.DTOs;
+using SIMSProject.Domain.Models.TourModels;
+using System;
 using System.Collections.Generic;
 
 namespace SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces
@@ -12,5 +14,6 @@ namespace SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces
         public GuideRating Save(GuideRating guideRating);
         public void SaveAll(List<GuideRating> guideRatings);
         public GuideRating GetById(int id);
+        public List<DateTime> GetRatedDatesByTour(TourRatingDTO tourRating);
     }
 }

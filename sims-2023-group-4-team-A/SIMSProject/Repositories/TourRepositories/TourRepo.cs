@@ -10,6 +10,7 @@ using SIMSProject.Domain.RepositoryInterfaces;
 using System.Windows;
 using System.Collections.ObjectModel;
 using SIMSProject.FileHandlers.TourFileHandlers;
+using SIMSProject.Application.DTOs;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
@@ -112,6 +113,16 @@ namespace SIMSProject.Repositories.TourRepositories
             tours.Clear();
             foreach (var searchResult in searchResults)
                 tours.Add(searchResult);
+        }
+
+        public int GetCurrentKeyPointIndex(TourAppointment appointment, Tour currentTour)
+        {
+            return currentTour.KeyPoints.FindIndex(x => x.Id == appointment.CurrentKeyPoint.Id);
+        }
+
+        public List<TourRatingDTO> SearchRatingsByTourName(List<TourRatingDTO> ratings, string tourName)
+        {
+            return ratings.FindAll(x => x.Tour.Name == tourName || x.Tour.Name.ToLower().Contains(tourName.ToLower()));
         }
     }
 }

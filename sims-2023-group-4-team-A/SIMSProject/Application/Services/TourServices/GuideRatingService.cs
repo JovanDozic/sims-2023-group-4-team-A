@@ -3,6 +3,7 @@ using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -52,9 +53,9 @@ namespace SIMSProject.Application.Services.TourServices
             _ratingRepo.SaveAll(_ratingRepo.GetAll());
         }
 
-        public List<TourAppontmentRatingDTO> MapRatingsByTour(int tourId)
+        public List<TourAppointmentRatingDTO> MapRatingsByTour(int tourId)
         {
-            List<TourAppontmentRatingDTO> tourRatings = new();
+            List<TourAppointmentRatingDTO> tourRatings = new();
             List<TourGuest> users = _tourGuestRepo.GetAll();
 
             tourRatings = _ratingRepo.GetAll()
@@ -62,10 +63,16 @@ namespace SIMSProject.Application.Services.TourServices
                 .Where(x => x.rating.TourReservation.TourAppointment.Id == x.guest.TourAppointment.Id
                     && x.guest.TourAppointment.Tour.Id == tourId
                     && x.guest.Guest.Id == x.rating.TourReservation.GuestId)
-                .Select(x => new TourAppontmentRatingDTO(x.rating, x.guest))
+                .Select(x => new TourAppointmentRatingDTO(x.rating, x.guest))
                 .ToList();
 
             return tourRatings;
         }
+
+        public List<DateTime> GetRatedDatesByTourRating(TourRatingDTO tourRating)
+        {
+            return _ratingRepo.GetRatedDatesByTour(tourRating);
+        }
+
     }
 }

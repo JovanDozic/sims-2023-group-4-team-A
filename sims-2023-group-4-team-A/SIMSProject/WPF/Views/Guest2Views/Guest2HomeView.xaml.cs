@@ -55,5 +55,10 @@ namespace SIMSProject.WPF.Views.Guest2Views
         {
             SelectedTab.Content = new Guest2NotificationView(User);
         }
+
+        private void MyRequests_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedTab.Content = new MyTourRequests(User);
+        }
     }
 }

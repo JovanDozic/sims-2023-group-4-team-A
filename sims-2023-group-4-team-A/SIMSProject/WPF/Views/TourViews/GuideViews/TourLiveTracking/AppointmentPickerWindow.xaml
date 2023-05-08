@@ -1,0 +1,45 @@
+﻿<Window x:Class="SIMSProject.WPF.Views.TourViews.GuideViews.AppointmentPickerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMSProject.WPF.Views.TourViews.GuideViews"
+        mc:Ignorable="d"
+       Title="AppointmentSelection" Height="400" Width="500">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding LiveTrackCommand}" Key="S" Modifiers="Ctrl"/>
+    </Window.InputBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Content="Naziv ture"
+               FontSize="32"
+               FontWeight="Bold"
+               HorizontalContentAlignment="Center"
+               Width="488"
+               Height="74"/>
+        <ListBox x:Name="LbAppointments" 
+                 Grid.Row="1"
+                 ToolTip="Ctrl+S za praćenje uživo"
+                 GotFocus="LbAppointments_GotFocus"
+                 Width="350"
+                 Height="173"
+                 FontSize="24"
+                 SelectedItem="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                 ItemsSource="{Binding Path=Appointments, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+        </ListBox>
+        <Button x:Name="StartTrackingBTN"
+                Grid.Row="2"
+                Height="37"
+                Width="290"
+                FontSize="28"
+                FontWeight="Bold"
+                HorizontalContentAlignment="Center"
+                Content="Započni/Nastavi turu"
+                Command="{Binding LiveTrackCommand}"
+                Click="StartTrackingBTN_Click"/>
+    </Grid>
+</Window>
