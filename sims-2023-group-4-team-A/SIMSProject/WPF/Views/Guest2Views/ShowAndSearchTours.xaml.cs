@@ -19,7 +19,7 @@ namespace SIMSProject.View.Guest2
         public int DurationSearchBox;
         public int MaxGuestSearchBox;
         
-        public ShowAndSearchTours(Guest user)
+        public ShowAndSearchTours(Guest user, string location)
         {
             InitializeComponent();
             _user = user;

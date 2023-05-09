@@ -3,6 +3,7 @@ using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SIMSProject.Application.Services.TourServices
 {
@@ -33,11 +34,19 @@ namespace SIMSProject.Application.Services.TourServices
             }
             _customTourRequestRepo.SaveAll(_customTourRequestRepo.GetAll());
         }
-        //    public void MakeGuestPresent(TourGuest tourGuest)
-        //{
-        //    tourGuest.JoiningPoint = tourGuest.TourAppointment.CurrentKeyPoint;
-        //    tourGuest.GuestStatus = GuestAttendance.PRESENT;
-        //    _repo.SaveAll(_repo.GetAll());
-        //}
+
+        public double AcceptedRequestPercentageByGuestId(int guestId, int year)
+        {
+            double acceptedRequests = _customTourRequestRepo.GetAllAcceptedByGuestId(guestId).FindAll(x=>x.RequestCreateDate.Year==year).Count;
+            if (acceptedRequests == 0) return 0;
+            return (acceptedRequests /= _customTourRequestRepo.GetAllByGuestId(guestId).FindAll(x => x.RequestCreateDate.Year == year).Count)*100;
+        }
+        public double AverageGuestsInAcceptedRequests(int guestId, int year)
+        {
+            double acceptedRequests = _customTourRequestRepo.GetAllAcceptedByGuestId(guestId).FindAll(x => x.RequestCreateDate.Year == year).Count;
+            double guestcount = _customTourRequestRepo.GetAllAcceptedByGuestId(guestId).FindAll(x => x.RequestCreateDate.Year == year).Sum(x => x.GuestCount);
+            if(acceptedRequests == 0) return 0;
+            return guestcount/acceptedRequests;
+        }
     }
 }

@@ -24,7 +24,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Content="Zahtevi za obične ture: " FontSize="35" FontWeight="Bold" HorizontalAlignment="left" VerticalAlignment="Bottom"/>
-        <Button BorderBrush="#ff6700" BorderThickness="3" Background="#ebebeb" Grid.Column="2" Content="Statistika zahteva" Height="50" Width="285" FontSize="30" FontWeight="Bold" HorizontalAlignment="Left" Margin="70,5,0,5"/>
+        <Button Click="Statistics_Click" BorderBrush="#ff6700" BorderThickness="3" Background="#ebebeb" Grid.Column="2" Content="Statistika zahteva" Height="50" Width="285" FontSize="30" FontWeight="Bold" HorizontalAlignment="Left" Margin="70,5,0,5"/>
         <DataGrid x:Name="DgrRequests" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" FontSize="25" FontWeight="DemiBold" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" Margin="0,0,15,0" ItemsSource="{Binding Path=CustomTourRequests, UpdateSourceTrigger=PropertyChanged}"
                   >
             <DataGrid.Columns>
