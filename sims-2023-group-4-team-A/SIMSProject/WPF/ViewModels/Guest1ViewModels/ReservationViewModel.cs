@@ -166,7 +166,7 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
         public void SaveReservation()
         {
 
-            _reservationService.SaveReservation(new AccommodationReservation(_accommodationViewModel.SelectedAccommodation.Id, _user.Id, SelectedRange.StartDate, SelectedRange.EndDate, NumberOfDays, GuestsNumber, false));
+            _reservationService.SaveReservation(new AccommodationReservation(_accommodationViewModel.SelectedAccommodation.Id, _user.Id, SelectedRange.StartDate, SelectedRange.EndDate, NumberOfDays, GuestsNumber, false),_user);
         }
 
         public bool IsSelected()

@@ -146,7 +146,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
         public void SaveReservation()
         {
-            _reservationService.SaveReservation(SelectedReservation);
+            _reservationService.SaveReservation(SelectedReservation, _user);
         }
         public void Update()
         {
