@@ -13,10 +13,10 @@ namespace SIMSProject.WPF.CustomControls
         public static readonly DependencyProperty ImageSourceProperty =
             DependencyProperty.Register("ImageSource", typeof(List<string>), typeof(MobileImageSlider), new PropertyMetadata(null));
 
-        public static readonly DependencyProperty WidthProperty =
+        public static new readonly DependencyProperty WidthProperty =
             DependencyProperty.Register("Width", typeof(double), typeof(MobileImageSlider), new PropertyMetadata(double.NaN));
 
-        public static readonly DependencyProperty HeightProperty =
+        public static new readonly DependencyProperty HeightProperty =
             DependencyProperty.Register("Height", typeof(double), typeof(MobileImageSlider), new PropertyMetadata(double.NaN));
 
         public List<string> ImageSource
@@ -25,13 +25,13 @@ namespace SIMSProject.WPF.CustomControls
             set { SetValue(ImageSourceProperty, value); }
         }
 
-        public double Width
+        public new double Width
         {
             get { return (double)GetValue(WidthProperty); }
             set { SetValue(WidthProperty, value); }
         }
 
-        public double Height
+        public new double Height
         {
             get { return (double)GetValue(HeightProperty); }
             set { SetValue(HeightProperty, value); }

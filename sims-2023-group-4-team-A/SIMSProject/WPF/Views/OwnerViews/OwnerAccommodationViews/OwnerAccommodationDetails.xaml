@@ -8,26 +8,28 @@
       xmlns:cstm="clr-namespace:SIMSProject.WPF.CustomControls"
       xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
       mc:Ignorable="d" 
-      Height="1200" d:DesignWidth="430"
+      Height="Auto" d:DesignWidth="430"
       Title="Register Accommodation" Background="White">
 
     <Page.Resources>
         <converters:AccommodationTypeConverter x:Key="TypeConverter" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <Style x:Key="TouchFriendlyScrollBarStyle" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="30"/>
+        </Style>
     </Page.Resources>
 
     <Grid Margin="20,10,20,0">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="250"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <Button x:Name="BtnBack" Grid.Row="0"
-                Style="{StaticResource BackButtonStyle}">
+                Style="{StaticResource BackButtonStyle}"
+                Click="BtnBack_Click">
             <StackPanel Orientation="Horizontal">
                 <Image Source="/Resources/Icons/back.png"
                        Style="{StaticResource BackButtonIconStyle}"/>
@@ -35,63 +37,182 @@
             </StackPanel>
         </Button>
 
-        <!-- Images section -->
-        <cstm:MobileImageSlider x:Name="SliderImageURLs" Grid.Row="1"
-                                Margin="-2,0,2,0"/>
+        <ScrollViewer Grid.Row="1" 
+                      HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Hidden">
+            
+            <Grid Height="1200">
 
-        <!-- Details section -->
-        <StackPanel Orientation="Vertical" Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="250"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-            <TextBlock Text="Forest Kuća"
+                <!-- Images section -->
+                <cstm:MobileImageSlider x:Name="SliderImageURLs" Grid.Row="0"
+                                        ImageSource="{Binding Accommodation.ImageURLs, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+                <!-- Details section -->
+                <StackPanel Orientation="Vertical" Grid.Row="1" DataContext="{Binding Accommodation}"
+                    Margin="0,10">
+
+                    <TextBlock Text="{Binding Name}"
                        FontWeight="SemiBold" FontSize="30" TextWrapping="Wrap"
                        Margin="0,0,0,5"/>
 
-            <!-- TODO: Star controll instead of this under: -->
-            <StackPanel Orientation="Horizontal" Margin="0,5">
-                <TextBlock Text="4.6" FontWeight="Bold" FontSize="18"
+                    <StackPanel Orientation="Horizontal" Margin="0,2.5,0,0">
+                        <cstm:StarRating ControlHeight="20" Rating="{Binding Rating}" 
+                                 HorizontalAlignment="Left" Margin="-5,0,0,0"/>
+                        <TextBlock Text="•  " Margin="5,0,0,0" FontSize="10"
                            VerticalAlignment="Center"/>
-                <TextBlock Text=" /5" Margin="0,0,0,0" FontSize="14"
+                        <TextBlock Text="{Binding NumberOfRatings}" FontSize="10"
                            VerticalAlignment="Center"/>
-                <TextBlock Text=" (" Margin="5,0,0,0" FontSize="14"
+                        <TextBlock Text=" ocena" FontSize="10"
                            VerticalAlignment="Center"/>
-                <TextBlock Text="5" FontSize="14"
-                           VerticalAlignment="Center"/>
-                <TextBlock Text=" ocena)" FontSize="14"
-                           VerticalAlignment="Center"/>
-            </StackPanel>
-            
-            
+                    </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0,5">
-                <Image Source="/Resources/Icons/location.png" Style="{StaticResource IconRenderStyle}"
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <Image Source="/Resources/Icons/location.png" Style="{StaticResource IconRenderStyle}"
                        Height="20"/>
-                <TextBlock Text="Seul, Juzna Koreja" Margin="10,0,0,0"
+                        <TextBlock Text="{Binding Location}" Margin="10,0,0,0"
                            FontSize="14"/>
-            </StackPanel>
+                    </StackPanel>
 
-            <TextBlock Text="Smestaj sa pogledom na sumu" 
+                    <TextBlock Text="{Binding Description}" 
                        TextWrapping="Wrap" FontSize="14" Margin="0,5"/>
 
-            <StackPanel Orientation="Horizontal" Margin="0,5">
-                <Image Source="/Resources/Icons/renovation.png" Style="{StaticResource IconRenderStyle}"
+                    <StackPanel Orientation="Horizontal" Margin="0,5"
+                        Visibility="{Binding IsRecentlyRenovated, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Image Source="/Resources/Icons/renovation.png" Style="{StaticResource IconRenderStyle}"
                        Height="20"/>
-                <TextBlock Text="Ovaj smestaj je nedavno renoviran" Margin="10,0,0,0"
+                        <TextBlock Text="Ovaj smestaj je nedavno renoviran" Margin="10,0,0,0"
                            FontSize="14"/>
-            </StackPanel>
-     
-        </StackPanel>
+                    </StackPanel>
 
-        <!-- Reservations section -->
+                    <StackPanel Orientation="Horizontal" Margin="0,5"
+                        Visibility="{Binding IsInRenovation, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Image Source="/Resources/Icons/renovation-clock.png" Style="{StaticResource IconRenderStyle}"
+                       Height="20"/>
+                        <TextBlock Text="Renoviranje u toku" Margin="10,0,0,0"
+                           FontSize="14"/>
+                    </StackPanel>
+
+                </StackPanel>
+
+                <!-- Reservations section -->
+                <StackPanel Orientation="Vertical" Grid.Row="2"
+                    Margin="0,10">
+
+                    <TextBlock Text="Rezervacije"
+                       FontWeight="SemiBold" FontSize="30" TextWrapping="Wrap"
+                       Margin="0,0,0,5"/>
+
+                    <ListView x:Name="DgrReservations" 
+                              ItemsSource="{Binding Reservations}" 
+                              Height="Auto" 
+                              FontSize="18"
+                              MaxHeight="300"
+                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                              ScrollViewer.CanContentScroll="True"
+                              ScrollViewer.PanningMode="Both">
+                        <ListView.Resources>
+                            <Style TargetType="{x:Type ListView}">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Style>
+                            <Style TargetType="{x:Type GridViewColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                <Setter Property="Height" Value="35"/>
+                                <Setter Property="Background" Value="#10000000"/>
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="IsHitTestVisible" Value="False"/>
+                            </Style>
+                        </ListView.Resources>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="IsHitTestVisible" Value="False"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Gost" DisplayMemberBinding="{Binding Guest.Username}" Width="175"/>
+                                <GridViewColumn Header="Dolazak" DisplayMemberBinding="{Binding StartDate, StringFormat=\{0:dd.MMM.yy\}}" Width="120"/>
+                                <GridViewColumn Header="Odlazak" DisplayMemberBinding="{Binding EndDate, StringFormat=\{0:dd.MMM.yy\}}" Width="120"/>
+                                <GridViewColumn Header="Broj dana" DisplayMemberBinding="{Binding NumberOfDays}" Width="100"/>
+                                <GridViewColumn Header="Broj Gostiju" DisplayMemberBinding="{Binding Guest.Username}" Width="100"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button x:Name="BtnReschedulingRequests" Grid.Column="0"
+                                Margin="0,15,0,0" HorizontalAlignment="Left"
+                                Style="{StaticResource MobileActionHalfButtonStyle}">
+                            <TextBlock Text="Zahtevi za pomeranje" 
+                                       VerticalAlignment="Center" Margin="0,0,0,0"/>
+                        </Button>
+
+                        <Button x:Name="BtnAllReservations" Grid.Column="1"
+                                Margin="0,15,0,0" HorizontalAlignment="Right"
+                                Style="{StaticResource MobileActionHalfButtonStyle}">
+                            <TextBlock Text="Sve rezervacije" 
+                                       VerticalAlignment="Center" Margin="0,0,0,0"/>
+                        </Button>
+
+                    </Grid>
 
 
-        <!-- Ratings and reviews section -->
+                </StackPanel>
 
+                <!-- Ratings and reviews section -->
+                <StackPanel Orientation="Vertical" Grid.Row="3"
+                    Margin="0,10">
 
-        <!-- Statistics section -->
+                    <TextBlock Text="Ocene i recenzije"
+                       FontWeight="SemiBold" FontSize="30" TextWrapping="Wrap"
+                       Margin="0,0,0,5"/>
 
+                </StackPanel>
 
-        <!-- Renovations section -->
+                <!-- Statistics section -->
+                <StackPanel Orientation="Vertical" Grid.Row="4"
+                    Margin="0,10">
 
+                    <TextBlock Text="Statistika"
+                       FontWeight="SemiBold" FontSize="30" TextWrapping="Wrap"
+                       Margin="0,0,0,5"/>
+
+                </StackPanel>
+
+                <!-- Renovations section -->
+                <StackPanel Orientation="Vertical" Grid.Row="5"
+                    Margin="0,10">
+
+                    <TextBlock Text="Renoviranja"
+                       FontWeight="SemiBold" FontSize="30" TextWrapping="Wrap"
+                       Margin="0,0,0,5"/>
+
+                </StackPanel>
+                
+                <!-- Close accommodation -->
+                <TextBlock Text="Zatvori smeštaj" Grid.Row="6"
+                           VerticalAlignment="Center" HorizontalAlignment="Center"
+                           FontSize="15" TextWrapping="Wrap" Foreground="#cc0000"
+                           Margin="0,0,0,5"/>
+                
+            </Grid>
+        </ScrollViewer>
 
     </Grid>
 </Page>

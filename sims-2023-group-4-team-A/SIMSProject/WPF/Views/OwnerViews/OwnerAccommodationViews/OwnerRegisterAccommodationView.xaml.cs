@@ -24,7 +24,6 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             NavigationService?.GoBack();
-            
         }
 
         public void GoBack()

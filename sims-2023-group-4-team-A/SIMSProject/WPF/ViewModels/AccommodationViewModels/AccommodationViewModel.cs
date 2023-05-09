@@ -21,6 +21,8 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
     public class AccommodationViewModel : ViewModelBase, IDataErrorInfo
     {
         private User _user;
+        private INavigationService? _navigationService;
+
         private Accommodation _accommodation = new();
         private AccommodationService _accommodationService;
         private LocationService _locationService;
@@ -29,7 +31,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private string _maxGuestNumberString = string.Empty;
         private string _minReservationDaysString = string.Empty;
         private string _cancellationThresholdString = string.Empty;
-
         private ObservableCollection<Accommodation> _accommodations = new();
 
         public ObservableCollection<AccommodationType> AccommodationTypeSource { get; set; }
@@ -244,9 +245,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             }
         }
 
-
-
-
         public ObservableCollection<Accommodation> Accommodations
         {
             get => _accommodations;
@@ -258,11 +256,11 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             }
         }
 
+
+
         public RelayCommand RegisterAccommodationCommand { get; }
         public RelayCommand PrepareLocationCommand { get; }
         public RelayCommand UploadImageToAccommodationCommand { get; }
-
-        private INavigationService? _navigationService { get; set; }
 
         public AccommodationViewModel(User user, INavigationService? navigationService = null)
         {
@@ -281,7 +279,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             RegisterAccommodationCommand = new(RegisterAccommodation, CanRegisterAccommodation);
             PrepareLocationCommand = new(PrepareLocation, CanPrepareLocation);
             UploadImageToAccommodationCommand = new(UploadImageToAccommodation, CanUploadIMageToAccommodation);
-
         }
 
         public ObservableCollection<Accommodation> LoadAccommodationsByOwner()

@@ -34,7 +34,7 @@
             </Grid>
         </Button>
 
-        <Image x:Name="image" Stretch="Uniform"
+        <Image x:Name="image" Stretch="UniformToFill"
                Height="{Binding Path=Height, RelativeSource={RelativeSource AncestorType=UserControl}}"
                Width="{Binding Path=Width, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
 

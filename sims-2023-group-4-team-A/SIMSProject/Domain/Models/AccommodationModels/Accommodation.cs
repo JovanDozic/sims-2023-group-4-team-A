@@ -29,6 +29,26 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         {
         }
 
+        public Accommodation(Accommodation original)
+        {
+            Id = original.Id;
+            Owner = original.Owner;
+            Name = original.Name;
+            Location = original.Location;
+            Type = original.Type;
+            MaxGuestNumber = original.MaxGuestNumber;
+            MinReservationDays = original.MinReservationDays;
+            CancellationThreshold = original.CancellationThreshold;
+            ImageURLs = new List<string>(original.ImageURLs);
+            ImageURLsCSV = original.ImageURLsCSV;
+            FeaturedImage = original.FeaturedImage;
+            Description = original.Description;
+            IsInRenovation = original.IsInRenovation;
+            IsRecentlyRenovated = original.IsRecentlyRenovated;
+            Rating = original.Rating;
+            NumberOfRatings = original.NumberOfRatings;
+        }
+
         public static AccommodationType GetType(string type)
         {
             return type switch
