@@ -71,8 +71,8 @@
                   ItemsSource="{Binding Path=CustomTourRequests, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedRequest, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Lokacija" Width="250" Binding="{Binding Path=Location}"/>
-                <DataGridTextColumn Header="Opseg datuma" Width="300" Binding="{Binding Path=FormattedDateRange}"/>
+                <DataGridTextColumn Header="Lokacija" Width="250" Binding="{Binding Path=Location}" CanUserSort="False"/>
+                <DataGridTextColumn Header="Opseg datuma" Width="300" Binding="{Binding Path=FormattedDateRange}" CanUserSort="False"/>
                 <DataGridTextColumn Header="Gosti" Width="100" Binding="{Binding Path=GuestCount}"/>
                 <DataGridTextColumn Header="Jezik" Width="150" Binding="{Binding Path=TourLanguage}"/>
             </DataGrid.Columns>
@@ -82,7 +82,8 @@
                 HorizontalAlignment="Left"
                 Height="37" Width="220"
                 Content="Prihvati zahtev"
-                FontStyle="Normal" FontSize="24" FontWeight="Bold"/>
+                FontStyle="Normal" FontSize="24" FontWeight="Bold"
+                Click="btnAccept_Click"/>
         <Button x:Name="btnDemo"
                 Grid.Row="2"
                 HorizontalAlignment="Right"

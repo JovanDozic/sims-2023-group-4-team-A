@@ -21,10 +21,18 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews.CustomTourRequests
     /// </summary>
     public partial class CustomRequestsPage : Page
     {
+        private CustomTourRequestsViewModel ViewModel = new();
         public CustomRequestsPage()
         {
             InitializeComponent();
-            this.DataContext = new CustomTourRequestsViewModel();
+            this.DataContext = ViewModel;
+        }
+
+        private void btnAccept_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = new AcceptRequestViewModel(ViewModel.SelectedRequest);
+            var window = new AcceptRequestWindow(viewModel);
+            window.Show();
         }
     }
 }

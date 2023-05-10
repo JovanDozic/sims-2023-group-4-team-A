@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:sys="clr-namespace:System;assembly=mscorlib"
-      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest2Views"
       mc:Ignorable="d" 
@@ -52,16 +51,5 @@
         <TextBlock Grid.Row="5" Grid.Column="3" Text="{Binding UnacceptedPercentage}" FontSize="28" VerticalAlignment="Center" FontWeight="DemiBold"/>
         <Label Grid.Row="6" Grid.Column="2" FontSize="28" VerticalAlignment="Center" Content="Prosečan broj gostiju: " FontWeight="DemiBold"/>
         <TextBlock Grid.Row="6" Grid.Column="3" Text="{Binding AverageGuestPercentage}" FontSize="28" VerticalAlignment="Center" FontWeight="DemiBold"/>
-        <lvc:CartesianChart Grid.Row="4" Grid.Column="5" Grid.RowSpan="3">
-            <lvc:CartesianChart.Series>
-                <lvc:LineSeries Title="Podaci" Values="{Binding Data}" />
-            </lvc:CartesianChart.Series>
-        </lvc:CartesianChart>
-        <lvc:CartesianChart Grid.Row="4" Grid.Column="7" Grid.RowSpan="3">
-            <lvc:CartesianChart.Series>
-                <lvc:LineSeries Title="Podaci" Values="{Binding Data}" />
-            </lvc:CartesianChart.Series>
-        </lvc:CartesianChart>
-
     </Grid>
 </Page>

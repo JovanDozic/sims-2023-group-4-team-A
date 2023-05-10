@@ -109,6 +109,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
             _requestService = Injector.GetService<CustomTourRequestService>();
             CustomTourRequests = new(_requestService.GetAll());
             RequestsLocations = new(_requestService.GetRequestsLocations());
+            RequestsLanguages = new(_requestService.GetRequestsLanguages());
 
             FilterCommand = new RelayCommand(FilterExecute, FilterCanExecute);
         }
@@ -121,7 +122,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
         }
         public void FilterExecute()
         {
-            CustomTourRequests = new(_requestService.FilterRequests(SelectedLocation, SelectedLanguage.ToString(), NumberOfGuests, StartDate, EndDate));
+            CustomTourRequests = new(_requestService.FilterRequests(SelectedLocation, SelectedLanguage, NumberOfGuests, StartDate, EndDate));
         }
         #endregion
     }

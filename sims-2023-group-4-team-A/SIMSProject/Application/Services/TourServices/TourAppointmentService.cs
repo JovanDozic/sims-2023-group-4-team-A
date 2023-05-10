@@ -51,7 +51,6 @@ namespace SIMSProject.Application.Services.TourServices
         {
             return appointment.Date.AddHours(-48) > DateTime.Now;
         }
-
         public bool CancelAppointment(TourAppointment appointment)
         {
             TourAppointment? oldAppointment = _repo.GetById(appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
@@ -89,9 +88,14 @@ namespace SIMSProject.Application.Services.TourServices
         }
         public void UpdateAvailableSpots(TourAppointment appointment)
         {
-            TourAppointment? oldAppointment = _repo.GetAll().Find(x => x.Id == appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
+            TourAppointment? oldAppointment = _repo.GetById(appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
             oldAppointment.AvailableSpots = appointment.AvailableSpots;
             _repo.SaveAll(_repo.GetAll());
+        }
+
+        public List<DateTime> GetBusyDates()
+        {
+            return _repo.GetAll().Select(x => x.Date).Distinct().ToList();
         }
     }
 }

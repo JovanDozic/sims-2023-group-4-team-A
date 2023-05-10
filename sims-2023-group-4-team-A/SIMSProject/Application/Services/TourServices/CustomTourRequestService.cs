@@ -35,19 +35,19 @@ namespace SIMSProject.Application.Services.TourServices
             return _customTourRequestRepo.GetRequestsLocations();
         }
 
-        public List<string> GetRequestsLanguages()
+        public List<Language> GetRequestsLanguages()
         {
             return _customTourRequestRepo.GetRequestsLanguages();
         }
 
-        public List<CustomTourRequest> FilterRequests(Location location, string language, int numOfGuests, DateTime start, DateTime end)
+        public List<CustomTourRequest> FilterRequests(Location location, Language? language, int numOfGuests, DateTime start, DateTime end)
         {
             List<CustomTourRequest> requests = new(_customTourRequestRepo.GetAll());
-            if (location != null)
+            if (location.Id != 0)
             {
                 requests.RemoveAll(x => x.Location.Id != location.Id);
             }
-            if (language != string.Empty)
+            if (language != null)
             {
                 requests.RemoveAll(x => !x.TourLanguage.Equals(language));
             }
