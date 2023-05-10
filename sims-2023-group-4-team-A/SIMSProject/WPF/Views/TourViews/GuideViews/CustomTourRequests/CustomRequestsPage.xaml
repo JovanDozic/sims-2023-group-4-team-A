@@ -1,0 +1,93 @@
+﻿<Page x:Class="SIMSProject.WPF.Views.TourViews.GuideViews.CustomTourRequests.CustomRequestsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cstm="clr-namespace:SIMSProject.WPF.CustomControls"
+      xmlns:local="clr-namespace:SIMSProject.WPF.Views.TourViews.GuideViews.CustomTourRequests"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="965"
+      Title="CustomRequestsPage">
+    <Grid Width="800">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="250"/>
+            <RowDefinition Height="250"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <GroupBox  Grid.Row="0"
+                   Header="Filteri"
+                   FontSize="24"
+                   Height="182"
+                   Width="502"
+                   HorizontalAlignment="Left">
+            <WrapPanel FlowDirection="LeftToRight">
+                <ComboBox x:Name="cbLocations"
+                          Text="Lokacija"
+                          IsReadOnly="True"
+                          IsEditable="True"
+                          Focusable="True"
+                          Height="42" Width="181"
+                          Margin="10,10,0,0"
+                          ItemsSource="{Binding Path=RequestsLocations, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding Path=SelectedLocation, UpdateSourceTrigger=PropertyChanged}"/>
+                <DatePicker x:Name="dtRange"
+                            Height="42" Width="181"
+                            Margin="10,10,0,0"/>
+                <cstm:NumericTextBox 
+                          x:Name="nmNumOfGuests"
+                          HorizontalContentAlignment="Right"
+                          Height="48" Width="181"
+                          Margin="10,10,0,0"
+                          Value="{Binding Path=NumberOfGuests,UpdateSourceTrigger=PropertyChanged}"/>
+                <ComboBox x:Name="cbLanguage"
+                          Text="Jezik"
+                          IsEditable="True"
+                          IsReadOnly="True"
+                          Focusable="True"
+                          Height="42" Width="181"
+                          Margin="10,10,0,0"
+                          ItemsSource="{Binding Path=RequestsLanguages, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding Path=SelectedLanguage, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button x:Name="btnSearch"
+                        Height="32" Width="32"
+                        Margin="10,10,0,0"
+                        Focusable="True"
+                        ToolTip="Ctrl+S za filtriranje"
+                        />
+            </WrapPanel>
+        </GroupBox>
+        <DataGrid Grid.Row="1"
+                  Height="242"
+                  FontSize="24"
+                  CanUserAddRows="False"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding Path=CustomTourRequests, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=SelectedRequest, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Lokacija" Width="250" Binding="{Binding Path=Location}"/>
+                <DataGridTextColumn Header="Opseg datuma" Width="300" Binding="{Binding Path=FormattedDateRange}"/>
+                <DataGridTextColumn Header="Gosti" Width="100" Binding="{Binding Path=GuestCount}"/>
+                <DataGridTextColumn Header="Jezik" Width="150" Binding="{Binding Path=TourLanguage}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="btnAccept"
+                Grid.Row="2"
+                HorizontalAlignment="Left"
+                Height="37" Width="220"
+                Content="Prihvati zahtev"
+                FontStyle="Normal" FontSize="24" FontWeight="Bold"/>
+        <Button x:Name="btnDemo"
+                Grid.Row="2"
+                HorizontalAlignment="Right"
+                Height="37" Width="108"
+                Content="Demo"
+                FontStyle="Normal" FontSize="24" FontWeight="Bold"/>
+        <Calendar x:Name="cldRange"
+                  Grid.Row="0"
+                  HorizontalAlignment="Right"
+                  Margin="10,10,10,0"
+                  SelectionMode="SingleRange"
+                  />
+    </Grid>
+</Page>

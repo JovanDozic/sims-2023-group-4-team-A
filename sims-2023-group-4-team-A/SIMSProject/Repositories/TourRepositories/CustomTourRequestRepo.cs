@@ -1,4 +1,5 @@
-﻿using SIMSProject.Domain.Models.TourModels;
+﻿using SIMSProject.Domain.Models;
+using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.RepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
@@ -34,6 +35,16 @@ namespace SIMSProject.Repositories.TourRepositories
         public List<CustomTourRequest> GetAllByGuestId(int guestId)
         {
             return _customTourRequests.FindAll(x => x.Guest.Id == guestId);
+        }
+
+        public List<string> GetRequestsLanguages()
+        {
+            return _customTourRequests.Select(x => x.TourLanguage).Distinct().ToList();
+        }
+
+        public List<Location> GetRequestsLocations()
+        {
+            return _customTourRequests.Select(x => x.Location).Distinct().ToList();
         }
 
         public int NextId()

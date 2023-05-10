@@ -31,7 +31,7 @@
             </StackPanel.Resources>
             <Button x:Name="AllBTN" Content="Sve ture Ctrl+A" Click="AllBTN_Click"/>
             <Button x:Name="TodaysBTN" Content="Današnje ture &#xa;Ctrl+T" Click="TodaysBTN_Click"/>
-            <Button x:Name="RequestBTN" Content="Zahtevi za ture &#xa;Ctrl+R"/>
+            <Button x:Name="RequestBTN" Content="Zahtevi za ture &#xa;Ctrl+R" Click="RequestBTN_Click"/>
             <Button x:Name="MultiPartRequestBTN" Content="Zahtevi za&#xa;složene ture&#xa;Ctrl+Q"/>
             <Button x:Name="StatisticsBTN" Content="Statistika o&#xa;turama Ctrl+S" Click="StatisticsBTN_Click"/>
             <Button x:Name="RequestStatBTN" Content="Statistika o&#xa;zahtevima za ture&#xa;Ctrl+S+R"/>

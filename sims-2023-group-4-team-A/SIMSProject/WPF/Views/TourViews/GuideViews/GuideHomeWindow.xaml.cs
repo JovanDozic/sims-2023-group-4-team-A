@@ -5,6 +5,7 @@ using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.Views;
 using SIMSProject.WPF.Views.TourViews.GuideViews;
+using SIMSProject.WPF.Views.TourViews.GuideViews.CustomTourRequests;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -60,6 +61,11 @@ namespace SIMSProject.View.GuideViews
         private void StatisticsBTN_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.Content = new TourStatisticsPage();
+        }
+
+        private void RequestBTN_Click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.Content = new CustomRequestsPage();
         }
     }
 }

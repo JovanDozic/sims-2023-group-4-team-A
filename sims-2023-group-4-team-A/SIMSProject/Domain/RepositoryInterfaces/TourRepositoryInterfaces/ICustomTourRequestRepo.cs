@@ -1,4 +1,5 @@
-﻿using SIMSProject.Domain.Models.TourModels;
+﻿using SIMSProject.Domain.Models;
+using SIMSProject.Domain.Models.TourModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,7 @@ namespace SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces
         public List<CustomTourRequest> GetAllByGuestId(int guestId);
         public CustomTourRequest Save(CustomTourRequest customTourRequest);
         public void SaveAll(List<CustomTourRequest> customTourRequests);
+        public List<Location> GetRequestsLocations();
+        public List<string> GetRequestsLanguages();
     }
 }
