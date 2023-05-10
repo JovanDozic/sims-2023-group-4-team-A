@@ -11,12 +11,13 @@ namespace SIMSProject.Domain.Models.UserModels
         public List<Voucher> Vouchers { get; set; } = new();
         public int BonusPoints { get; set; } 
         public bool IsAwarded { get; set; } 
+        public DateTime? AwardDate { get; set; }
 
         public Guest()
         {
         }
 
-        public Guest(int id, string username, string password,DateTime birthday, double rating = 0, int bonus = 0, bool isAwarded = false)
+        public Guest(int id, string username, string password, DateTime birthday, double rating = 0, int bonus = 0, bool isAwarded = false, DateTime awardDate = default(DateTime))
         {
             Id = id;
             Username = username;
@@ -26,13 +27,16 @@ namespace SIMSProject.Domain.Models.UserModels
             Birthday = birthday;
             BonusPoints = bonus;
             IsAwarded = isAwarded;
+            AwardDate = awardDate;
             Vouchers = new List<Voucher>();
         }
 
         public string[] ToCSV()
         {
+            string awardDateValue = (AwardDate.HasValue) ? AwardDate.Value.ToString() : "";
             string[] csvValues =
             {
+
                 Id.ToString(),
                 Username,
                 Password,
@@ -40,12 +44,13 @@ namespace SIMSProject.Domain.Models.UserModels
                 Math.Round(Rating, 2).ToString(),
                 Birthday.ToString(),
                 BonusPoints.ToString(),
-                IsAwarded.ToString()
+                IsAwarded.ToString(),
+                awardDateValue
             };
             return csvValues;
         }
 
-        public void FromCSV(string[] values)
+        public async void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
             Username = values[1];
@@ -55,6 +60,14 @@ namespace SIMSProject.Domain.Models.UserModels
             Birthday = DateTime.Parse(values[5]);
             BonusPoints = int.Parse(values[6]);
             IsAwarded = bool.Parse(values[7]);
+            if (DateTime.TryParse(values[8], out DateTime awardDate))
+            {
+                AwardDate = awardDate;
+            }
+            else
+            {
+                AwardDate = null;
+            }
         }
 
         public override string ToString()

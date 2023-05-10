@@ -4,12 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest1.MainView"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Title="Main" Height="768" Width="1024">
+    
+    <Window.Resources>
+        <converters:UserRoleConverter x:Key="UserRoleConverter" />
+    </Window.Resources>
+    
     <Grid MouseLeftButtonDown="BG_PreviewMouseLeftButtonDown">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -162,7 +167,7 @@
         </Grid>
 
 
-        <Grid x:Name="GridMenu" Width="330" HorizontalAlignment="Right" Background="#063e77" Grid.Row="1">
+        <Grid x:Name="GridMenu" Width="0" HorizontalAlignment="Right" Background="#063e77" Grid.Row="1">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="2" ShadowDepth="1" Color="Gray"/>
             </Grid.Effect>
@@ -188,7 +193,7 @@
                                Text="{Binding Username}" Margin="108,0,108,0" Grid.Row="1" Grid.ColumnSpan="2"/>
                     <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="35,37,14,-30" Grid.ColumnSpan="2">
                         <Label Foreground="White" Content="Status: " FontSize="18" Height="38"/>
-                        <TextBlock TextAlignment="Center" VerticalAlignment="Center" Text="{Binding Status}" Foreground="White" FontSize="18" FontWeight="Bold" Height="29"/>
+                        <TextBlock TextAlignment="Center" VerticalAlignment="Center" Text="{Binding Status, Converter={StaticResource UserRoleConverter}}" Foreground="White" FontSize="18" FontWeight="Bold" Height="29"/>
                         <Label Content="    Bodovi: " FontSize="18" Foreground="White" Height="38"/>
                         <TextBlock Text="{Binding BonusPoints}" FontSize="18" FontWeight="Bold"
                                    Foreground="White" Height="29"/>
