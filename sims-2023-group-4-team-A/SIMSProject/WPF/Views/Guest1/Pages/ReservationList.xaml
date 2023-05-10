@@ -45,7 +45,7 @@
                 <DataGridTextColumn Header="Datum dolaska" Width="180" Binding="{Binding StartDate, StringFormat={}{0:dd.MM.yyyy.}}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Datum odlaska" Width="180" Binding="{Binding EndDate, StringFormat={}{0:dd.MM.yyyy.}}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Broj dana" Width="130" Binding="{Binding NumberOfDays}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Broj gostiju" Width="130" Binding="{Binding GuestNumber}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Broj gostiju" Width="130*" Binding="{Binding GuestNumber}"></DataGridTextColumn>
 
             </DataGrid.Columns>
 

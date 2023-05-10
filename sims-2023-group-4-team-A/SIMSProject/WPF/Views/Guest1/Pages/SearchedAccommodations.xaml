@@ -29,7 +29,7 @@
                FontSize="30"
                FontWeight="Bold"
                VerticalAlignment="Center" Margin="75,0,73,0"/>
-            <Image Grid.Column="2" Source="../Icons/chevron-left-black.png" Margin="92,10,76,59"/>
+            <Image Grid.Column="2" Source="../Icons/chevron-left-black.png" Height="30" Width="30" Margin="92,10,76,59"/>
             <Button Content="Nazad" 
                     Background="Transparent"
                     BorderBrush="Transparent"
@@ -68,7 +68,7 @@
                         <StackPanel Grid.Column="1" Orientation="Vertical" Margin="30">
                             <TextBlock FontWeight="Bold" FontSize="28" Text="{Binding Name}" Margin="10,5,5,5"/>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="../Icons/location.png"/>
+                                <Image Source="../Icons/location-black.png"/>
                                 <TextBlock FontSize="24" Text="{Binding Location}" Margin="0,5,5,5"/>
                             </StackPanel>
                             <StackPanel Margin="10" Orientation="Horizontal">

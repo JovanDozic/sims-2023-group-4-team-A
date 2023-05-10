@@ -34,7 +34,7 @@
                 <DataGridTextColumn Header="Lokacija" Width="270" Binding="{Binding Location}" />
                 <DataGridTextColumn Header="Tip" Width="150" Binding="{Binding Type, Converter={StaticResource TypeConverter}}" />
                 <DataGridTextColumn Header="Broj gostiju" Width="140" Binding="{Binding MaxGuestNumber}" />
-                <DataGridTextColumn Header="Broj dana" Width="130" Binding="{Binding MinReservationDays}" />
+                <DataGridTextColumn Header="Broj dana" Width="130*" Binding="{Binding MinReservationDays}" />
 
             </DataGrid.Columns>
 

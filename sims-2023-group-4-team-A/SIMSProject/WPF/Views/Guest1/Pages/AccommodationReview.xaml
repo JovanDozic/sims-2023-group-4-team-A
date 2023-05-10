@@ -39,7 +39,7 @@
 
                 <TextBlock FontSize="30" Text="{Binding SelectedAccommodation.Name}" FontWeight="Bold"
                            VerticalAlignment="Top" Margin="0,55,0,10"></TextBlock>
-                <Image Grid.Column="1" Source="../Icons/chevron-left-black.png" Margin="23,61,77,18" Grid.ColumnSpan="2" />
+                <Image Grid.Column="1" Source="../Icons/chevron-left-black.png" Height="30" Width="30" Margin="23,61,77,18" Grid.ColumnSpan="2" />
                 <Button Content="Nazad" 
                     Background="Transparent"
                     BorderBrush="Transparent"

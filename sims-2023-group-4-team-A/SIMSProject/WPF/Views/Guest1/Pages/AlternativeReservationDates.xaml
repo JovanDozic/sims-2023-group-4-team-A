@@ -16,14 +16,14 @@
             <RowDefinition Height="120"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Image Source="../Icons/chevron-left-black.png" Margin="924,13,73,33" />
+        <Image Source="../Icons/chevron-left-black.png" Height="30" Width="30" Margin="918,11,76,29" />
         <Button Content="Nazad" 
                     Background="Transparent"
                     BorderBrush="Transparent"
                     VerticalAlignment="Top"
                     FontWeight="Bold"
                     BorderThickness="0"
-                    FontSize="20" Margin="951,7,10,0" Click="Button_Click_Close" Height="34"/>
+                    FontSize="20" Margin="948,10,10,0" Click="Button_Click_Close" Height="25"/>
 
         <Label FontWeight="Bold" Content="Smeštaj nije slobodan u izabranom periodu"
                FontSize="30" Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,10"/>
@@ -34,43 +34,43 @@
 
         <DataGrid  ItemsSource="{Binding AlternativeRanges}" SelectedItem="{Binding SelectedRange}" AutoGenerateColumns="False" IsReadOnly="True"  Grid.Row="2" FontSize="25" Margin="261,10,261,29" SelectionChanged="DataGrid_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding StartDate, StringFormat={}{0:dd.MM.yyyy.}}" Width="250" Header="Datum dolaska" FontSize="25"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding EndDate, StringFormat={}{0:dd.MM.yyyy.}}" Width="250" Header="Datum odlaska" FontSize="25"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding StartDate, StringFormat={}{0:dd.MM.yyyy.}}" Width="1*" Header="Datum dolaska" FontSize="25"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding EndDate, StringFormat={}{0:dd.MM.yyyy.}}" Width="1*" Header="Datum odlaska" FontSize="25"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
         <Button Grid.Row="3" FontSize="25" Content="Rezerviši"
                 IsEnabled="False" x:Name="ReservationButton"
                 Height="51" Width="287" Margin="368,10,369,59" Click="Button_Click_Confirm">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter Margin="{TemplateBinding Padding}"
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter Margin="{TemplateBinding Padding}"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                               RecognizesAccessKey="False"/>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsEnabled" Value="False">
-                                            <Setter Property="Foreground" Value="White"/>
-                                            <Setter Property="Background" Value="Gray"/>
-                                            <Setter Property="Cursor" Value="Arrow"/>
-                                            <Setter Property="IsHitTestVisible" Value="False"/>
-                                        </Trigger>
-                                        <Trigger Property="IsEnabled" Value="True">
-                                            <Setter Property="Foreground" Value="White"/>
-                                            <Setter Property="Background" Value="#0c669f"/>
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Button.Style>
-            </Button>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="Background" Value="Gray"/>
+                                        <Setter Property="Cursor" Value="Arrow"/>
+                                        <Setter Property="IsHitTestVisible" Value="False"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="True">
+                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="Background" Value="#0c669f"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
 
     </Grid>
 </Page>
