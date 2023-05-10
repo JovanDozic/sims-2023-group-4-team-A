@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Markup;
 
 namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
 {
@@ -53,11 +54,26 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         }
         public string TourLanguage
         {
-            get => _customTourRequest.TourLanguage;
+            get
+            {
+                return _customTourRequest.TourLanguage switch
+                {
+                    Language.ENGLISH => "Engleski",
+                    Language.SERBIAN => "Srpski",
+                    Language.SPANISH => "Španski",
+                    _ => "Francuski"
+
+                };
+            }
             set
             {
-                if(_customTourRequest.TourLanguage ==  value) return;
-                _customTourRequest.TourLanguage = value;
+                _customTourRequest.TourLanguage = value switch
+                {
+                    "Engleski" => Language.ENGLISH,
+                    "Srpski" => Language.SERBIAN,
+                    "Španski" => Language.SPANISH,
+                    _ => Language.FRENCH
+                };
                 OnPropertyChanged();
             }
         }
