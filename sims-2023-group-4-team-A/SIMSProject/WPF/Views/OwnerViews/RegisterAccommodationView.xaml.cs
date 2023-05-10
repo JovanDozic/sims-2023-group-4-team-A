@@ -27,7 +27,7 @@ namespace SIMSProject.View.OwnerViews
 
         private void BtnUploadFiles_Click(object sender, RoutedEventArgs e)
         {
-            _accommodationViewModel.UploadImageToAccommodation(TbImageUrl.Text);
+            _accommodationViewModel.UploadImageURLToAccommodation(TbImageUrl.Text);
             TbImageUrl.Text = string.Empty;
             DgrImageUrLs.Items.Refresh();
         }

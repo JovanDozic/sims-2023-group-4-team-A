@@ -168,7 +168,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
         public string GetMessage(AccommodationReservation reservation)
         {
-            return $"Gost {reservation.Guest.Username} je otkazao rezervaciju {reservation.Accommodation.Name}({reservation.StartDate.ToString("dd.MM.yyyy.")} - {reservation.EndDate.ToString("dd.MM.yyyy.")})";
+            return $"Gost {reservation.Guest.Username} je otkazao rezervaciju {reservation.Accommodation.Name}({reservation.StartDate:dd.MM.yyyy.} - {reservation.EndDate:dd.MM.yyyy.})";
         }
 
         public void CancelReservation()
