@@ -35,7 +35,7 @@ namespace SIMSProject.Repositories.AccommodationRepositories
 
         public List<OwnerRating> GetAllByOwnerId(int ownerId)
         {
-            return _ratings.FindAll(x => x.Reservation.Accommodation.Owner.Id == ownerId);
+            return _ratings.FindAll(x => x.Reservation?.Accommodation.Owner.Id == ownerId);
         }
 
         public OwnerRating GetById(int ratingId)

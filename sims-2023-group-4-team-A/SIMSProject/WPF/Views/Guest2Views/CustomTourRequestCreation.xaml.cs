@@ -45,7 +45,7 @@ namespace SIMSProject.WPF.Views.Guest2Views
             if (datePicker != null)
             {
                 datePicker.SelectedDate = null;
-                datePicker.DisplayDateStart = DateTime.Today;
+                datePicker.DisplayDateStart = DateTime.Today.AddDays(2);
             }
         }
 

@@ -10,7 +10,7 @@ namespace SIMSProject.WPF.Views
     /// <summary>
     /// Interaction logic for RateGuide.xaml
     /// </summary>
-    public partial class RateGuide : Window
+    public partial class RateGuide : Page
     {
         private User _user;
         private readonly GuideRatingViewModel _viewModel;
@@ -28,13 +28,18 @@ namespace SIMSProject.WPF.Views
         {
             _viewModel.LeaveRating(_guideId);
             MessageBox.Show("Ocena uspesno ostavljena");
-            Close();
+            //Close();
         }
 
         private void BtnAddImage_Click(object sender, RoutedEventArgs e)
         {
             _viewModel.AddImageToGuideRating(TbImageURL.Text);
             TbImageURL.Text = string.Empty;
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

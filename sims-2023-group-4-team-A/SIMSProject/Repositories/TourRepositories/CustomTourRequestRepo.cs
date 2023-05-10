@@ -32,6 +32,11 @@ namespace SIMSProject.Repositories.TourRepositories
             return _customTourRequests;
         }
 
+        public List<CustomTourRequest> GetAllAcceptedByGuestId(int guestId)
+        {
+            return GetAllByGuestId(guestId).FindAll(x => x.RequestStatus == RequestStatus.ACCEPTED);
+        }
+
         public List<CustomTourRequest> GetAllByGuestId(int guestId)
         {
             return _customTourRequests.FindAll(x => x.Guest.Id == guestId);

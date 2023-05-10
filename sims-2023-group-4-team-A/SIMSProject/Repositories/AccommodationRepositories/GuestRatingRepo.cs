@@ -39,7 +39,7 @@ namespace SIMSProject.Repositories.AccommodationRepositories
 
         public List<GuestRating> GetAllByGuestId(int guestId)
         {
-            return _ratings.FindAll(x => x.Reservation.Guest.Id == guestId);
+            return _ratings.FindAll(x => x.Reservation?.Guest.Id == guestId);
         }
 
         public double GetOverallByGuestId(int guestId)
