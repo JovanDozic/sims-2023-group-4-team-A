@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.View.OwnerViews;
@@ -21,7 +22,7 @@ namespace SIMSProject.WPF.Views.OwnerViews
 
         private void LogOut_Click(object sender, RoutedEventArgs e)
         {
-            _user = new Owner(0, "<null>", "<null>");
+            _user = new Owner(0, "<null>", "<null>", DateTime.Now);
             SignInView window = new();
             window.Show();
             Close();

@@ -39,8 +39,8 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
 
         public bool SignIn(string password)
         {
-            //try
-            //{
+            try
+            {
                 User? user = _userService.GetUser(Username, password) as User
                              ?? throw new Exception("Dogodila se greška prilikom logovanja.");
                 if (user.Username.Equals("marko") && user.Password.Equals("marko"))

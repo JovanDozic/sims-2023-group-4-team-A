@@ -1,20 +1,17 @@
-﻿using MaterialDesignThemes.Wpf.AddOns.Converters;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using SIMSProject.Application.Services;
 using SIMSProject.Application.Services.AccommodationServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.WPF.Views.OwnerViews;
+using SIMSProject.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Windows;
-using System.Windows.Navigation;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 {
@@ -30,24 +27,13 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private AccommodationReservationViewModel _accommodationReservationViewModel;
         private string _fullLocation = string.Empty;
         private string _selectedImageFile = string.Empty;
-        private Accommodation _selectedAccommodation;
-        private ObservableCollection<Accommodation> _accommodations;
-        public ObservableCollection<Accommodation> Accommodations
-        {
-            get => _accommodations;
-            set
-            {
-                if (_accommodations == value) return;
-                _accommodations = value;
-                OnPropertyChanged();
-            }
-        }
+        private Accommodation _selectedAccommodation = new();
         private string _maxGuestNumberString = string.Empty;
         private string _minReservationDaysString = string.Empty;
         private string _cancellationThresholdString = string.Empty;
         private ObservableCollection<Accommodation> _accommodations = new();
 
-        public ObservableCollection<string> AccommodationTypeSource { get; set; }
+        public ObservableCollection<AccommodationType> AccommodationTypeSource { get; set; }
         public Accommodation SelectedAccommodation
         {
             get => _selectedAccommodation;
@@ -269,7 +255,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
-
         public ObservableCollection<Accommodation> Accommodations
         {
             get => _accommodations;
@@ -280,8 +265,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
-
-
 
         public RelayCommand RegisterAccommodationCommand { get; }
         public RelayCommand PrepareLocationCommand { get; }
@@ -308,10 +291,12 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             PrepareLocationCommand = new(PrepareLocation, CanPrepareLocation);
             UploadImageToAccommodationCommand = new(UploadImageToAccommodation, CanUploadIMageToAccommodation);
         }
+
         public bool IsNotSelected()
         {
             return SelectedAccommodation == null;
         }
+
         public ObservableCollection<Accommodation> LoadAllAccommodations()
         {
             return new ObservableCollection<Accommodation>(_accommodationService.GetAll());
@@ -322,6 +307,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _accommodationService.ReloadAccommodations();
             return Accommodations = new(_accommodationService.GetAllByOwnerId(_user.Id));
         }
+
         public void Search(string nameTypeLocation,int duration, int maxGuests)
         {
             _accommodationService.Search(Accommodations,nameTypeLocation, duration, maxGuests);
@@ -333,6 +319,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             if (result != MessageBoxResult.Yes) return;
 
             _accommodation.Location = _locationService.GetLocation(_accommodation.Location);
+            if (_accommodation.Location == null) MessageBox.Show("nullcina");
             _accommodation.Owner = _user as Owner ?? throw new Exception("Greška prilikom registrovanja: Vlasnik nije inicijalizovan.");
             _accommodationService.RegisterAccommodation(_accommodation);
 
@@ -359,22 +346,27 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             return dateBegin >= dateEnd;
         }
+
         public bool IsNumberOfDaysValid(int numberOfDays)
         {
             return numberOfDays >= SelectedAccommodation.MinReservationDays;
         }
+
         public bool IsNumberOfDaysGreaterThanDuration(int numberOfDays, TimeSpan duration)
         {
             return numberOfDays <= duration.Days;
         }
+
         public bool IsAccommodationOccupied(DateTime dateBegin, DateTime dateEnd)
         {
             return _accommodationService.CheckReservations(_accommodationReservationService.GetAll(), dateBegin, dateEnd, SelectedAccommodation.Id).Count != 0;
         }
+
         public bool IsGuestsNumberValid(int guestsNumber)
         {
             return guestsNumber <= SelectedAccommodation.MaxGuestNumber;
         }
+
         public List<DateRange> GetReservedDates()
         {
             List<DateRange> dateRanges = new List<DateRange>();
@@ -384,11 +376,13 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             }
             return dateRanges;
         }
+
         public List<AccommodationReservation> RemoveCancelled(List<AccommodationReservation> reservedAccommodations)
         {
             reservedAccommodations.RemoveAll(reserved => reserved.Canceled);
             return reservedAccommodations;
         }
+
         public bool IsCanceled(DateTime dateBegin, DateTime dateEnd)
         {
             return _accommodationService.CheckReservations(_accommodationReservationService.GetAll(), dateBegin, dateEnd, SelectedAccommodation.Id).All(r => r.Canceled);
