@@ -31,7 +31,7 @@
             <Label Content="Moji Smeštaji" Grid.Column="0"
                    FontSize="22.5" FontWeight="SemiBold"
                    HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            
+
             <Button x:Name="BtnAddAccommodation" Grid.Column="1"
                     Style="{StaticResource NoHoverButtonStyle}"
                     Width="30" Height="30"
@@ -41,11 +41,6 @@
             </Button>
         </Grid>
 
-        <!--<TextBox x:Name="TbSearchInput" Grid.Row="1" Style="{StaticResource MobileTextBoxInput}"
-                 Text="Pretraga" Foreground="Gray"
-                 GotFocus="TbSearchInput_GotFocus" LostFocus="TbSearchInput_LostFocus"
-                 TextChanged="TbSearchInput_TextChanged"/>-->
-    
         <Border Grid.Row="1" Style="{StaticResource MobileTextBoxInputBorder}">
             <xctk:WatermarkTextBox Watermark="Pretraga" x:Name="TbSearchInput"
                                    Style="{StaticResource MobileWatermarkTextBoxInput}"

@@ -29,5 +29,15 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
         {
             NavigationService?.GoBack();
         }
+
+        private void BtnReservationHelp_Click(object sender, RoutedEventArgs e)
+        {
+            PopupReservationHelp.IsOpen = true;
+        }
+
+        private void BtnRenovationHelp_Click(object sender, RoutedEventArgs e)
+        {
+            PopupRenovationHelp.IsOpen = true;
+        }
     }
 }

@@ -1,28 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SIMSProject.Domain.Models.UserModels;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccountViews
 {
-    /// <summary>
-    /// Interaction logic for OwnerAccountView.xaml
-    /// </summary>
     public partial class OwnerAccountView : Page
     {
-        public OwnerAccountView()
+        private User _user;
+
+        public User User
+        {
+            get => _user;
+            set
+            {
+                if (_user == value) return;
+                _user = value;
+            }
+        }
+
+        public OwnerAccountView(User user)
         {
             InitializeComponent();
+            _user = user;
+            DataContext = this;
+        }
+
+        private void BtnOpenOldMenu_Click(object sender, RoutedEventArgs e)
+        {
+            OwnerHomeViewOld ownerHomeViewOld = new(_user);
+            ownerHomeViewOld.Show();
+
+            OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow ?? new(new User());
+            ownerWindow?.Close();
+        }
+
+        private void BtnLogOut_Click(object sender, RoutedEventArgs e)
+        {
+            SignInView signInView = new();
+            signInView.Show();
+
+            OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow ?? new(new User());
+            ownerWindow?.Close();
         }
     }
 }

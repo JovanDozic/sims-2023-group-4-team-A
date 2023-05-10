@@ -25,7 +25,7 @@ namespace SIMSProject.WPF.Views.OwnerViews
             DataContext = this;
             _user = user;
 
-            NavBtn_Click(NavBtnAccommodations, null);
+            NavBtn_Click(NavBtnHome, null);
         }
 
         private void EnableNavButton(object sender)
@@ -70,7 +70,7 @@ namespace SIMSProject.WPF.Views.OwnerViews
                     "NavBtnAccommodations" => new OwnerMyAccommodationsView(_user),
                     "NavBtnHome" => new OwnerHomeView(),
                     "NavBtnForums" => new OwnerAllForumsView(),
-                    _ => new OwnerAccountView(),
+                    _ => new OwnerAccountView(_user),
                 }
             );
             
@@ -93,9 +93,6 @@ namespace SIMSProject.WPF.Views.OwnerViews
             return null;
         }
 
-
-
-
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
@@ -106,9 +103,6 @@ namespace SIMSProject.WPF.Views.OwnerViews
         {
             Storyboard storyboard = (Storyboard)FindResource("FadeAnimation");
             storyboard.Begin(MainFrame);
-
-            // Prevent the default navigation behavior
-            //e.Cancel = true;
         }
     }
 }

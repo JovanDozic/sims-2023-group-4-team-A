@@ -38,6 +38,13 @@ namespace SIMSProject.Application.Services.AccommodationServices
             return _repo.GetAllByAccommodationId(accommodationId);
         }
 
+        public List<AccommodationReservation> GetAllFutureByAccommodationId(int accommodationId)
+        {
+            var futureReservations = GetAllByAccommodationId(accommodationId);
+            futureReservations.RemoveAll(x => x.StartDate <= DateTime.Now);
+            return futureReservations;
+        }
+
         public void UpdateReservation(AccommodationReservation selectedReservation)
         {
             _repo.Update(selectedReservation);

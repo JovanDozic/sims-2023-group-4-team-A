@@ -11,12 +11,33 @@
 
     <Grid>
 
-        <Label FontSize="30"
-               FontWeight="Bold"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center">
-            Sunce ti kakav nalog!
-        </Label>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+
+            <Label FontSize="30" Margin="10"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Content="Sunce ti kakav nalog!"/>
+
+            <Label FontSize="30" Margin="10"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Content="{Binding User.Username}"/>
+
+            <Button x:Name="BtnLogOut" Margin="10"
+                    Content="Log out" Background="white"
+                    Style="{StaticResource MobileActionSingleButtonStyle}"
+                    Click="BtnLogOut_Click"/>
+
+            <Button x:Name="BtnOpenOldMenu" Margin="10"
+                    Content="Open Old Menu" Background="white"
+                    Style="{StaticResource MobileActionSingleButtonStyle}"
+                    Click="BtnOpenOldMenu_Click"/>
+
+        </StackPanel>
+
+
 
 
     </Grid>

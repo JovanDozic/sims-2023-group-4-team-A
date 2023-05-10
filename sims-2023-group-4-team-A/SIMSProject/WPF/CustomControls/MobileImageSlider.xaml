@@ -27,10 +27,10 @@
                 HorizontalAlignment="Left" Panel.ZIndex="100">
             <Grid Height="{Binding Path=Height, ElementName=image}" Width="175" Background="Transparent">
                 <Image Source="/Resources/Icons/left.png" 
-                   Height="40" 
-                   Width="40" 
-                   HorizontalAlignment="Left"
-                   Style="{StaticResource IconRenderStyle}"/>
+                       Height="40" 
+                       Width="40" 
+                       HorizontalAlignment="Left"
+                       Style="{StaticResource IconRenderStyle}"/>
             </Grid>
         </Button>
 

@@ -42,7 +42,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
             _reservationService = Injector.GetService<AccommodationReservationService>();
 
-            Reservations = new(_reservationService.GetAllByAccommodationId(Accommodation.Id));
+            Reservations = new(_reservationService.GetAllFutureByAccommodationId(Accommodation.Id));
         }
 
 
