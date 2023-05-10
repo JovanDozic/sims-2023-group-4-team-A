@@ -8,6 +8,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="965"
       Title="CustomRequestsPage">
+    <Page.InputBindings>
+        <KeyBinding Command="{Binding FilterCommand}" Key="S" Modifiers="Ctrl"/>
+    </Page.InputBindings>
     <Grid Width="800">
         <Grid.RowDefinitions>
             <RowDefinition Height="250"/>
@@ -30,30 +33,33 @@
                           Margin="10,10,0,0"
                           ItemsSource="{Binding Path=RequestsLocations, UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{Binding Path=SelectedLocation, UpdateSourceTrigger=PropertyChanged}"/>
-                <DatePicker x:Name="dtRange"
-                            Height="42" Width="181"
+                <cstm:DateRangePicker x:Name="dtRange"
+                            StartDate="{Binding Path=StartDate,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            EndDate="{Binding Path=EndDate,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                             Margin="10,10,0,0"/>
                 <cstm:NumericTextBox 
                           x:Name="nmNumOfGuests"
                           HorizontalContentAlignment="Right"
                           Height="48" Width="181"
                           Margin="10,10,0,0"
-                          Value="{Binding Path=NumberOfGuests,UpdateSourceTrigger=PropertyChanged}"/>
+                          Value="{Binding Path=NumberOfGuests,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                 <ComboBox x:Name="cbLanguage"
                           Text="Jezik"
                           IsEditable="True"
                           IsReadOnly="True"
                           Focusable="True"
-                          Height="42" Width="181"
+                          Height="42" Width="200"
                           Margin="10,10,0,0"
                           ItemsSource="{Binding Path=RequestsLanguages, UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{Binding Path=SelectedLanguage, UpdateSourceTrigger=PropertyChanged}"/>
                 <Button x:Name="btnSearch"
                         Height="32" Width="32"
-                        Margin="10,10,0,0"
+                        Margin="2,10,0,0"
                         Focusable="True"
                         ToolTip="Ctrl+S za filtriranje"
-                        />
+                        Command="{Binding FilterCommand}">
+                    <Image Source="Resources/search1.png"/>
+                </Button>
             </WrapPanel>
         </GroupBox>
         <DataGrid Grid.Row="1"
@@ -83,11 +89,5 @@
                 Height="37" Width="108"
                 Content="Demo"
                 FontStyle="Normal" FontSize="24" FontWeight="Bold"/>
-        <Calendar x:Name="cldRange"
-                  Grid.Row="0"
-                  HorizontalAlignment="Right"
-                  Margin="10,10,10,0"
-                  SelectionMode="SingleRange"
-                  />
     </Grid>
 </Page>

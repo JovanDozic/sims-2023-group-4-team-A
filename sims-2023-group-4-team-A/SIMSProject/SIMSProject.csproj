@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\add.png" />
+    <None Remove="Resources\Images\calendar.png" />
+    <None Remove="Resources\Images\calendar1.png" />
     <None Remove="Resources\Images\checkboxlist.png" />
     <None Remove="Resources\Images\checkmark.png" />
     <None Remove="Resources\Images\chevron-left-black.png" />
@@ -30,10 +32,13 @@
     <None Remove="Resources\Images\NotificationAlertNoColor.png" />
     <None Remove="Resources\Images\open.png" />
     <None Remove="Resources\Images\rating.png" />
+    <None Remove="Resources\Images\search1.png" />
+    <None Remove="Resources\Images\search2.png" />
     <None Remove="Resources\Images\stars.png" />
     <None Remove="Resources\Images\statusInformation.png" />
     <None Remove="Resources\Images\tripbooklogo.png" />
     <None Remove="Resources\Images\view.png" />
+    <None Remove="WPF\CustomControls\calendar1.png" />
     <None Remove="WPF\Views\Guest1\burger.png" />
     <None Remove="WPF\Views\Guest1\chevron-left.png" />
     <None Remove="WPF\Views\Guest1\close.png" />
@@ -56,8 +61,9 @@
     <Resource Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\calendar1.png" />
     <Resource Include="Resources\Images\checkboxlist.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\checkmark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -72,9 +78,12 @@
     <Resource Include="Resources\Images\NotificationAlertNoColor.png" />
     <Resource Include="Resources\Images\open.png" />
     <Resource Include="Resources\Images\rating.png" />
+    <Resource Include="Resources\Images\search1.png" />
+    <Resource Include="Resources\Images\search2.png" />
     <Resource Include="Resources\Images\stars.png" />
     <Resource Include="Resources\Images\statusInformation.png" />
     <Resource Include="Resources\Images\tripbooklogo.png" />
+    <Resource Include="WPF\CustomControls\calendar1.png" />
     <Content Include="Resources\Images\delete.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

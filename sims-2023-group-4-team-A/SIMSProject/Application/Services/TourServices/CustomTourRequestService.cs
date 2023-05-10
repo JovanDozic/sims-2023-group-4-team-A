@@ -2,6 +2,7 @@
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
+using System;
 using System.Collections.Generic;
 
 namespace SIMSProject.Application.Services.TourServices
@@ -36,6 +37,28 @@ namespace SIMSProject.Application.Services.TourServices
         public List<string> GetRequestsLanguages()
         {
             return _customTourRequestRepo.GetRequestsLanguages();
+        }
+
+        public List<CustomTourRequest> FilterRequests(Location location, string language, int numOfGuests, DateTime start, DateTime end)
+        {
+            List<CustomTourRequest> requests = new(_customTourRequestRepo.GetAll());
+            if (location != null)
+            {
+                requests.RemoveAll(x => x.Location.Id != location.Id);
+            }
+            if (language != string.Empty)
+            {
+                requests.RemoveAll(x => !x.TourLanguage.Equals(language));
+            }
+            if (numOfGuests > 0)
+            {
+                requests.RemoveAll(x => x.GuestCount != numOfGuests);
+            }
+            if(DateTime.Compare(start, end) != 0)
+            {
+                requests.RemoveAll(x => DateTime.Compare(x.StartDate, start) < 0 || DateTime.Compare(x.EndDate, end) > 0);
+            }
+            return requests;
         }
     }
 }

@@ -8,6 +8,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
 {
@@ -39,7 +41,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
         }
 
         public ObservableCollection<Location> RequestsLocations { get; set; } = new();
-        public ObservableCollection<Language> RequestsLanguage { get; set; } = new();
+        public ObservableCollection<Language> RequestsLanguages { get; set; } = new();
 
         private Location _location = new();
         public Location SelectedLocation
@@ -77,11 +79,50 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
             }
         }
 
+        private DateTime _start;
+        public DateTime StartDate
+        {
+            get => _start;
+            set
+            {
+                if(value == _start) return;
+                _start = value;
+                OnPropertyChanged(nameof(StartDate));
+            }
+        }
+
+        private DateTime _end;
+        public DateTime EndDate
+        {
+            get => _end;
+            set
+            {
+                if(value == _end) return;
+                _end = value;
+                OnPropertyChanged(nameof(EndDate));
+            }
+        }
+
+
         public CustomTourRequestsViewModel()
         {
             _requestService = Injector.GetService<CustomTourRequestService>();
-            CustomTourRequests = new (_requestService.GetAll());
-            _requestService.GetRequestsLanguages();
+            CustomTourRequests = new(_requestService.GetAll());
+            RequestsLocations = new(_requestService.GetRequestsLocations());
+
+            FilterCommand = new RelayCommand(FilterExecute, FilterCanExecute);
         }
+
+        #region FilterCommand
+        public ICommand FilterCommand { get; private set; }
+        public bool FilterCanExecute()
+        {
+            return true;
+        }
+        public void FilterExecute()
+        {
+            CustomTourRequests = new(_requestService.FilterRequests(SelectedLocation, SelectedLanguage.ToString(), NumberOfGuests, StartDate, EndDate));
+        }
+        #endregion
     }
 }
