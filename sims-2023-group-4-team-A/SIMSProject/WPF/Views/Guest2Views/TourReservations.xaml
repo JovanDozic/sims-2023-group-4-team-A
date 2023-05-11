@@ -4,8 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest2Views"
+        xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
         mc:Ignorable="d"
         Title="TourReservations" Height="520" Width="1140">
+    <Page.Resources>
+        <converters:TourAppointmentStatusConverter x:Key="TourAppointmentStatusConverter"/>
+        <converters:TourAppointmentDateTimeConverter x:Key="DateTimeConverter"/>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
@@ -18,9 +23,9 @@
                   SelectedItem="{Binding Path=SelectedTourReservation, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="DataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding TourAppointment.Tour.Name}" Header="Naziv" Width="*"/>
-                <DataGridTextColumn Binding="{Binding TourAppointment.Date}" Header="Termin" Width="*"/>
+                <DataGridTextColumn Binding="{Binding TourAppointment.Date, Converter={StaticResource DateTimeConverter}}" Header="Termin" Width="*"/>
                 <DataGridTextColumn Binding="{Binding TourAppointment.Tour.Location}" Header="Lokacija" Width="*"/>
-                <DataGridTextColumn Binding="{Binding TourAppointment.TourStatus}" Header="Status ture" Width="*"/>
+                <DataGridTextColumn Binding="{Binding TourAppointment.TourStatus, Converter={StaticResource TourAppointmentStatusConverter}}" Header="Status ture" Width="200"/>
             </DataGrid.Columns>
         </DataGrid>
 

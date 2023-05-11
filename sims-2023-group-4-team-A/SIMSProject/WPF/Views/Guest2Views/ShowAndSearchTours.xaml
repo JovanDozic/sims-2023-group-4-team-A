@@ -5,10 +5,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.View.Guest2"
       xmlns:custom="clr-namespace:SIMSProject.WPF.CustomControls"
+      xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
       mc:Ignorable="d" 
       Title="ShowAndSearchTours" Width="1280" Height="520"
       >
 
+    <Page.Resources>
+        <converters:TourLanguageConverter x:Key="TourLanguageConverter"/>
+    </Page.Resources>
     <DockPanel>
         
         <ToolBar DockPanel.Dock="Top" Height="60">
@@ -37,7 +41,7 @@
                     <DataGridTextColumn Binding="{Binding Path = Name}" Header="Naziv" Width="200" x:Name="name"/>
                     <DataGridTextColumn Binding="{Binding Path = Location}" Header="Lokacija" Width="250" x:Name="location"/>
                     <DataGridTextColumn Binding="{Binding Path = Duration}" Header="Trajanje ture" Width="150" x:Name="duration"/>
-                    <DataGridTextColumn Binding="{Binding Path = TourLanguage}" Header="Jezik" Width="100" x:Name="tourLanguage"/>
+                    <DataGridTextColumn Binding="{Binding Path = TourLanguage, Converter={StaticResource TourLanguageConverter}}" Header="Jezik" Width="100" x:Name="tourLanguage"/>
                     <DataGridTextColumn Binding="{Binding MaxGuestNumber}" Header="Broj ljudi na turi" Width="200" x:Name="maxGuestNumber"/>
                 </DataGrid.Columns>
             </DataGrid>
