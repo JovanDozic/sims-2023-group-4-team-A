@@ -42,6 +42,11 @@ namespace SIMSProject.Repositories.TourRepositories
             return _customTourRequests.FindAll(x => x.Guest.Id == guestId);
         }
 
+        public CustomTourRequest GetById(int id)
+        {
+            return _customTourRequests.Find(x => x.Id == id);
+        }
+
         public List<Language> GetRequestsLanguages()
         {
             return _customTourRequests.Select(x => x.TourLanguage).Distinct().ToList();

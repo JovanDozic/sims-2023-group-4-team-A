@@ -18,5 +18,6 @@ namespace SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces
         public void SaveAll(List<CustomTourRequest> customTourRequests);
         public List<Location> GetRequestsLocations();
         public List<Language> GetRequestsLanguages();
+        public CustomTourRequest GetById(int id);
     }
 }

@@ -40,14 +40,14 @@ namespace SIMSProject.Application.Services.TourServices
             return _customTourRequestRepo.GetRequestsLanguages();
         }
 
-        public List<CustomTourRequest> FilterRequests(Location location, Language? language, int numOfGuests, DateTime start, DateTime end)
+        public List<CustomTourRequest> FilterRequests(Location location, Language language, int numOfGuests, DateTime start, DateTime end)
         {
             List<CustomTourRequest> requests = new(_customTourRequestRepo.GetAll());
             if (location.Id != 0)
             {
                 requests.RemoveAll(x => x.Location.Id != location.Id);
             }
-            if (language != null)
+            if (language > 0)
             {
                 requests.RemoveAll(x => !x.TourLanguage.Equals(language));
             }
@@ -85,6 +85,13 @@ namespace SIMSProject.Application.Services.TourServices
             double guestcount = _customTourRequestRepo.GetAllAcceptedByGuestId(guestId).FindAll(x => x.RequestCreateDate.Year == year).Sum(x => x.GuestCount);
             if(acceptedRequests == 0) return 0;
             return guestcount/acceptedRequests;
+        }
+
+        public void ApproveRequest(CustomTourRequest request)
+        {
+            CustomTourRequest old = _customTourRequestRepo.GetById(request.Id);
+            old.RequestStatus = RequestStatus.ACCEPTED;
+            _customTourRequestRepo.SaveAll(_customTourRequestRepo.GetAll());
         }
     }
 }

@@ -16,8 +16,6 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews.CustomTourRequests
             InitializeComponent();
             this.DataContext = ViewModel;
 
-            dpAppointment.DisplayDateStart = ViewModel.TourRequest.StartDate;
-            dpAppointment.DisplayDateEnd = ViewModel.TourRequest.EndDate;
             foreach(var date in ViewModel.BusyDates)
             {
                 dpAppointment.BlackoutDates.Add(new CalendarDateRange(date));
