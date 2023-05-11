@@ -25,12 +25,12 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Column="0" Margin="0,-15,0,0"
-                   FontSize="45" FontWeight="SemiBold"
+                   FontSize="40" FontWeight="SemiBold"
                    HorizontalAlignment="Left" VerticalAlignment="Top"
                    Text="{Binding Title, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>
 
         <Border Grid.Column="1" Width="250"
-                Margin="15,0,0,0"
+                Margin="10,0,0,0"
                 HorizontalAlignment="Right">
             <Grid>
                 <Grid.ColumnDefinitions>

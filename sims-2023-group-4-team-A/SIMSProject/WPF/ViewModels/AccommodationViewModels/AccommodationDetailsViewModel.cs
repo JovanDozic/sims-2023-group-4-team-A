@@ -59,7 +59,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _statisticService = Injector.GetService<AccommodationStatisticService>();
 
             Reservations = new(_reservationService.GetAllFutureByAccommodationId(Accommodation.Id));
-            Statistic = _statisticService.GetStatistic(accommodation, DateTime.Now.Year);
+            Statistic = _statisticService.GetYearlyStatistic(accommodation, DateTime.Now.Year);
         }
 
 

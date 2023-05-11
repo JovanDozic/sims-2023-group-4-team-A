@@ -1,21 +1,9 @@
 ﻿using SIMSProject.Domain.Models.AccommodationModels;
-using SIMSProject.WPF.CustomControls;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
 {
@@ -28,6 +16,8 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
             InitializeComponent();
             _viewModel = new(accommodation);
             DataContext = _viewModel;
+
+            _viewModel.LoadYearlyStatistics();
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
@@ -38,6 +28,13 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
         public void GoBack()
         {
             NavigationService?.GoBack();
+        }
+
+        private void LstStats_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            OwnerMonthlyStatisticsView monthlyStatisticsView = new(_viewModel.Accommodation, _viewModel.Statistic);
+            OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow ?? new(new User());
+            ownerWindow?.SwitchToPage(monthlyStatisticsView);
         }
     }
 }

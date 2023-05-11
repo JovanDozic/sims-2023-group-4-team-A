@@ -2,6 +2,7 @@
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Model;
+using SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -47,11 +48,30 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
         public List<int> GetYearsOfExisting(Accommodation accommodation)
         {
-            MessageBox.Show("Date created: " + accommodation.DateCreated.ToString());
-            return Enumerable.Range(
+            var years = Enumerable.Range(
                 accommodation.DateCreated.Year, 
                 DateTime.Now.Year - accommodation.DateCreated.Year + 1).ToList();
+            years.Reverse();
+            return years;
         }
+
+        public List<int> GetMonthsOfExisting(Accommodation accommodation, int year)
+        {
+            List<int> months = new();
+
+            if (year == accommodation.DateCreated.Year)
+                for (int month = accommodation.DateCreated.Month; month <= 12; month++)
+                    months.Add(month);
+            else if (year == DateTime.Now.Year)
+                for (int month = 1; month <= DateTime.Now.Month; month++)
+                    months.Add(month);
+            else if (year > accommodation.DateCreated.Year && year < DateTime.Now.Year)
+                for (int month = 1; month <= 12; month++)
+                    months.Add(month);
+
+            return months;
+        }
+
 
         public void Search(ObservableCollection<Accommodation> accommodations, string nameTypeLocation, int durationSearch, int maxGuestsSearch)
         {

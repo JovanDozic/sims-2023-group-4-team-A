@@ -33,7 +33,7 @@
         </Button>
 
         <Label Content="Registruj smeštaj" Grid.Row="1"
-               FontSize="22.5" FontWeight="SemiBold"
+               FontSize="30" FontWeight="SemiBold"
                HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
         <ScrollViewer Grid.Row="2" 

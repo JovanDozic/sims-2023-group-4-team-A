@@ -3,22 +3,43 @@ using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.AccommodationModels;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 {
     public class AccommodationStatisticsViewModel : ViewModelBase
     {
         private readonly AccommodationStatisticService _statService;
-        private AccommodationStatistic _statistics = new();
+        private AccommodationStatistic _statistic = new();
 
-        public ObservableCollection<AccommodationStatistic> Statistics { get; set; }
-
-        public AccommodationStatisticsViewModel(Accommodation accommodation)
+        public Accommodation Accommodation { get; set; }
+        public ObservableCollection<AccommodationStatistic> Statistics { get; set; } = new();
+        public AccommodationStatistic Statistic
         {
-            _statService = Injector.GetService<AccommodationStatisticService>();
-            Statistics = new(_statService.GetAllStatistics(accommodation));
+            get => _statistic;
+            set
+            {
+                if (value == _statistic) return;
+                _statistic = value;
+                OnPropertyChanged();
+            }
         }
 
+        public AccommodationStatisticsViewModel(Accommodation accommodation, AccommodationStatistic? statistic = null)
+        {
+            _statService = Injector.GetService<AccommodationStatisticService>();
+            Accommodation = accommodation;
+            if (statistic is not null) Statistic = statistic;
+        }
 
+        public void LoadYearlyStatistics()
+        {
+            Statistics = new(_statService.GetAllYearlyStatistics(Accommodation));
+        }
+
+        public void LoadMonthlyStatistics()
+        {
+            Statistics = new(_statService.GetAllMonthlyStatistics(Accommodation, Statistic.Year));
+        }
     }
 }

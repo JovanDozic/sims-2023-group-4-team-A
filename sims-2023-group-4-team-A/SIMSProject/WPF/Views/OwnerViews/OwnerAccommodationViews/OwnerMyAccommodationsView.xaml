@@ -29,7 +29,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="Moji Smeštaji" Grid.Column="0"
-                   FontSize="22.5" FontWeight="SemiBold"
+                   FontSize="30" FontWeight="SemiBold"
                    HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
             <Button x:Name="BtnAddAccommodation" Grid.Column="1"
