@@ -37,21 +37,18 @@
         <Label Grid.Row="2" Grid.RowSpan="6" Grid.Column="2" Grid.ColumnSpan="7" Background="#ebebeb"/>
         <Label Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="4" FontSize="35" VerticalAlignment="Center" Content="Statistika zahteva za obične ture" FontWeight="DemiBold"/>
         <Label Grid.Row="3" Grid.Column="2" FontSize="28" VerticalAlignment="Center" Content="Odabrana godina: " FontWeight="DemiBold"/>
-        <ComboBox Grid.Row="3" Grid.Column="3" Width="100" Height="40" FontSize="28" HorizontalAlignment="Left" SelectedItem="{Binding SelectedYear}" FontWeight="DemiBold">
-            <ComboBox.ItemsSource>
-                <x:Array Type="sys:Int32">
-                    <sys:Int32>2023</sys:Int32>
-                    <sys:Int32>2022</sys:Int32>
-                    <sys:Int32>2021</sys:Int32>
-                </x:Array>
-            </ComboBox.ItemsSource>
+        <ComboBox Grid.Row="3" Grid.Column="3" Width="130" Height="40" FontSize="28" HorizontalAlignment="Left" SelectedItem="{Binding SelectedItem}" FontWeight="DemiBold">
+            <ComboBoxItem Content="Oduvek"/>
+            <ComboBoxItem Content="2023"/>
+            <ComboBoxItem Content="2022"/>
+            <ComboBoxItem Content="2021"/>
         </ComboBox>
         <Label Grid.Row="4" Grid.Column="2" FontSize="28" VerticalAlignment="Center" Content="Prihvaćeni: " FontWeight="DemiBold"/>
         <TextBlock Grid.Row="4" Grid.Column="3" Text="{Binding AcceptedPercentage}" FontSize="28" VerticalAlignment="Center" FontWeight="DemiBold"/>
         <Label Grid.Row="5" Grid.Column="2" FontSize="28" VerticalAlignment="Center" Content="Neprihvaćeni: " FontWeight="DemiBold"/>
         <TextBlock Grid.Row="5" Grid.Column="3" Text="{Binding UnacceptedPercentage}" FontSize="28" VerticalAlignment="Center" FontWeight="DemiBold"/>
         <Label Grid.Row="6" Grid.Column="2" FontSize="28" VerticalAlignment="Center" Content="Prosečan broj gostiju: " FontWeight="DemiBold"/>
-        <TextBlock Grid.Row="6" Grid.Column="3" Text="{Binding AverageGuestPercentage}" FontSize="28" VerticalAlignment="Center" FontWeight="DemiBold"/>
+        <TextBlock Grid.Row="6" Grid.Column="3" Text="{Binding AverageGuestNumber}" FontSize="28" VerticalAlignment="Center" FontWeight="DemiBold"/>
         <lvc:CartesianChart Grid.Row="4" Grid.Column="5" Grid.RowSpan="3">
             <lvc:CartesianChart.Series>
                 <lvc:LineSeries Title="Podaci" Values="{Binding Data}" />
