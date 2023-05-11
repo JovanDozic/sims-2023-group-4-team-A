@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 
 namespace SIMSProject.Application.Services.AccommodationServices
 {
@@ -43,6 +44,15 @@ namespace SIMSProject.Application.Services.AccommodationServices
         {
             return _repo.GetAllByOwnerId(ownerId).Count;
         }
+
+        public List<int> GetYearsOfExisting(Accommodation accommodation)
+        {
+            MessageBox.Show("Date created: " + accommodation.DateCreated.ToString());
+            return Enumerable.Range(
+                accommodation.DateCreated.Year, 
+                DateTime.Now.Year - accommodation.DateCreated.Year + 1).ToList();
+        }
+
         public void Search(ObservableCollection<Accommodation> accommodations, string nameTypeLocation, int durationSearch, int maxGuestsSearch)
         {
             accommodations.Clear();

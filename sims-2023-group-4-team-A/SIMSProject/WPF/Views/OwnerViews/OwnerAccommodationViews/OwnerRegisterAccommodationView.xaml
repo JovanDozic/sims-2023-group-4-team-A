@@ -15,10 +15,10 @@
         <converters:AccommodationTypeConverter x:Key="TypeConverter" />
     </Page.Resources>
 
-    <Grid Margin="20,10,20,0">
+    <Grid Margin="15,0,15,10">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="60"/>
             <RowDefinition/>
         </Grid.RowDefinitions>

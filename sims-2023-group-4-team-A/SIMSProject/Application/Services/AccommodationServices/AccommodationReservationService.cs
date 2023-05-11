@@ -36,10 +36,15 @@ namespace SIMSProject.Application.Services.AccommodationServices
             return _repo.GetAll().Where(r => !r.Canceled && r.Guest.Id == user.Id).ToList();
         }
 
+        public List<AccommodationReservation> GetAllCancelled(int accommodationId)
+        {
+            return GetAll().FindAll(x => x.Canceled);
+        }
+
         public List<AccommodationReservation> GetAllByAccommodationId(int accommodationId)
         {
             _repo.Load();
-            return _repo.GetAllByAccommodationId(accommodationId);
+            return _repo.GetAllByAccommodationId(accommodationId).FindAll(x => !x.Canceled);
         }
 
         public List<AccommodationReservation> GetAllFutureByAccommodationId(int accommodationId)

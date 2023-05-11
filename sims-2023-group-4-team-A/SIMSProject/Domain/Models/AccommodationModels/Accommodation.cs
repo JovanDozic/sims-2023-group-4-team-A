@@ -3,6 +3,7 @@ using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace SIMSProject.Domain.Models.AccommodationModels
 {
@@ -24,6 +25,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public bool IsRecentlyRenovated { get; set; } = false;
         public double Rating { get; set; } = 0;
         public int NumberOfRatings { get; set; } = 0;
+        public DateTime DateCreated { get; set; } = DateTime.Now;
 
         public Accommodation()
         {
@@ -47,6 +49,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             IsRecentlyRenovated = original.IsRecentlyRenovated;
             Rating = original.Rating;
             NumberOfRatings = original.NumberOfRatings;
+            DateCreated = original.DateCreated;
         }
 
         public static AccommodationType GetType(string type)
@@ -84,12 +87,13 @@ namespace SIMSProject.Domain.Models.AccommodationModels
                 MaxGuestNumber.ToString(),
                 MinReservationDays.ToString(),
                 CancellationThreshold.ToString(),
-                ImageURLsCSV,
                 Description,
                 IsInRenovation.ToString(),
                 IsRecentlyRenovated.ToString(),
                 Math.Round(Rating, 2).ToString(),
                 NumberOfRatings.ToString(),
+                DateCreated.ToString(),
+                ImageURLsCSV
             };
             return csvValues;
         }
@@ -105,14 +109,15 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             MaxGuestNumber = int.Parse(values[i++]);
             MinReservationDays = int.Parse(values[i++]);
             CancellationThreshold = int.Parse(values[i++]);
-            ImageURLsCSV = values[i++];
-            ImageURLs = ImageURLsFromCSV(ImageURLsCSV);
-            FeaturedImage = ImageURLs.Count > 0 ? ImageURLs.First() : string.Empty;
             Description = values[i++];
             IsInRenovation = bool.Parse(values[i++]);
             IsRecentlyRenovated = bool.Parse(values[i++]);
             Rating = double.Parse(values[i++]);
             NumberOfRatings = int.Parse(values[i++]);
+            DateCreated = DateTime.Parse(values[i++]);
+            ImageURLsCSV = values[i++];
+            ImageURLs = ImageURLsFromCSV(ImageURLsCSV);
+            FeaturedImage = ImageURLs.Count > 0 ? ImageURLs.First() : string.Empty;
         }
 
         public override string? ToString()

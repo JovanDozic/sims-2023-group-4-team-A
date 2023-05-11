@@ -39,5 +39,12 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
         {
             PopupRenovationHelp.IsOpen = true;
         }
+
+        private void BtnAllStats_Click(object sender, RoutedEventArgs e)
+        {
+            OwnerYearlyStatisticsView yearlyStatisticsView = new(_viewModel.Accommodation);
+            OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow ?? new(_user);
+            ownerWindow?.SwitchToPage(yearlyStatisticsView);
+        }
     }
 }

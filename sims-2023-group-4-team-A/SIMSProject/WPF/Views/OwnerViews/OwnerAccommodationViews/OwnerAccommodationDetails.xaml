@@ -32,7 +32,7 @@
         </Style>
     </Page.Resources>
 
-    <Grid Margin="15,10">
+    <Grid Margin="15,0,15,10">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -41,7 +41,8 @@
 
         <Button x:Name="BtnBack" Grid.Row="0"
                 Style="{StaticResource BackButtonStyle}"
-                Click="BtnBack_Click">
+                Click="BtnBack_Click"
+                VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal">
                 <Image Source="/Resources/Icons/back.png"
                        Style="{StaticResource BackButtonIconStyle}"/>
@@ -305,25 +306,26 @@
 
                 <!-- Statistics section -->
                 <StackPanel Orientation="Vertical" Grid.Row="4"
-                            Margin="0,10">
+                            Margin="0,10"
+                            DataContext="{Binding Statistic}">
 
                     <TextBlock Text="Statistika"
                                FontWeight="SemiBold" FontSize="30" TextWrapping="Wrap"
                                Margin="0,0,0,5"/>
 
                     <cstm:AccommodationStatsGrid 
-                        Title="2023."
+                        Title="{Binding Year}"
                         TotalReservations="{Binding TotalReservations}"
-                        CanceledReservations="{Binding CanceledReservations}"
+                        CancelledReservations="{Binding CancelledReservations}"
                         RescheduledReservations="{Binding RescheduledReservations}"
                         RenovationRecommendations="{Binding RenovationRecommendations}"
-                        Margin="0,10"
+                        Margin="0,10,0,20"
                         Width="385"
                         HorizontalAlignment="Center"/>
 
                     <Button x:Name="BtnAllStats"
                             HorizontalAlignment="Center" Width="385"
-                            Style="{StaticResource MobileActionSingleButtonStyle}">
+                            Style="{StaticResource MobileActionSingleButtonStyle}" Click="BtnAllStats_Click">
                         <TextBlock Text="Sva statistika" 
                                    VerticalAlignment="Center"/>
                     </Button>

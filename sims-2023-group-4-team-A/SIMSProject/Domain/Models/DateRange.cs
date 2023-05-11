@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMSProject.Model
+namespace SIMSProject.Domain.Models
 {
     public class DateRange
     {

@@ -3,6 +3,7 @@ using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -51,8 +52,6 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
             OwnerAccommodationDetails accommodationDetails = new(_user, new Accommodation(_viewModel.Accommodation));
             OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow ?? new(_user);
             ownerWindow?.SwitchToPage(accommodationDetails);
-
-           
         }
     }
 }

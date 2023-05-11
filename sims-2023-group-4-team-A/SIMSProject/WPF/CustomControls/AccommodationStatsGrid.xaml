@@ -53,7 +53,7 @@
                 <TextBlock Grid.Row="1" Grid.Column="0" 
                    Text="Otkazane rezervacije" Background="#10000000"/>
                 <Border Grid.Row="1" Grid.Column="1" BorderThickness="2,0,0,0">
-                    <TextBlock Text="{Binding CanceledReservations}" Background="#10000000"/>
+                    <TextBlock Text="{Binding CancelledReservations}" Background="#10000000"/>
                 </Border>
 
                 <TextBlock Grid.Row="2" Grid.Column="0" 

@@ -23,4 +23,10 @@
         Accepted,
         Rejected
     }
+
+    public enum AccommodationStatisticType 
+    { 
+        MONTHLY = 0, 
+        YEARLY 
+    }
 }

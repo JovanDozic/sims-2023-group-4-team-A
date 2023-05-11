@@ -21,13 +21,13 @@ namespace SIMSProject.WPF.CustomControls
         public static readonly DependencyProperty TotalReservationsProperty =
             DependencyProperty.Register("TotalReservations", typeof(int), typeof(AccommodationStatsGrid));
 
-        public int CanceledReservations
+        public int CancelledReservations
         {
-            get { return (int)GetValue(CanceledReservationsProperty); }
-            set { SetValue(CanceledReservationsProperty, value); }
+            get { return (int)GetValue(CancelledReservationsProperty); }
+            set { SetValue(CancelledReservationsProperty, value); }
         }
-        public static readonly DependencyProperty CanceledReservationsProperty =
-            DependencyProperty.Register("CanceledReservations", typeof(int), typeof(AccommodationStatsGrid));
+        public static readonly DependencyProperty CancelledReservationsProperty =
+            DependencyProperty.Register("CancelledReservations", typeof(int), typeof(AccommodationStatsGrid));
 
         public int RescheduledReservations
         {

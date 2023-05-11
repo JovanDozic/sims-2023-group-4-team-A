@@ -112,6 +112,7 @@ namespace SIMSProject.Domain.Injectors
             services.AddScoped<UserService>();
             services.AddScoped<AccommodationService>();
             services.AddScoped<AccommodationReservationService>();
+            services.AddScoped<AccommodationStatisticService>();
             services.AddScoped<LocationService>();
             services.AddScoped<NotificationService>();
             services.AddScoped<GuestRatingService>();

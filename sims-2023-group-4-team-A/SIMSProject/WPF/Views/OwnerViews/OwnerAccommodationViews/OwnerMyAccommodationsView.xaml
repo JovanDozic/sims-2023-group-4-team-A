@@ -99,9 +99,7 @@
                                 <TextBlock Text="Renoviranje u toku" Margin="5,0,0,0"
                                            FontSize="14"/>
                             </StackPanel>
-                            
                         </StackPanel>
-                        
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
