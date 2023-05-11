@@ -57,6 +57,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 }
             }
         }
+        //public string KeyPoints { get => _selectedTourReservation.TourAppointment.Tour.KeyPointsToString(); }
         public TourReservationsViewModel(User user)
         {
             _user = user;

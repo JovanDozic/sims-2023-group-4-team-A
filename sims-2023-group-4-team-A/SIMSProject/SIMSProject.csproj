@@ -16,16 +16,20 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\add.png" />
+    <None Remove="Resources\Images\back.png" />
     <None Remove="Resources\Images\checkboxlist.png" />
     <None Remove="Resources\Images\checkmark.png" />
     <None Remove="Resources\Images\chevron-left-black.png" />
+    <None Remove="Resources\Images\chevron-right-black.png" />
     <None Remove="Resources\Images\close.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\home.png" />
     <None Remove="Resources\Images\left-arrow.png" />
+    <None Remove="Resources\Images\location.png" />
     <None Remove="Resources\Images\Logo.png" />
     <None Remove="Resources\Images\lookupitem.png" />
+    <None Remove="Resources\Images\next.png" />
     <None Remove="Resources\Images\NotificationAlert.png" />
     <None Remove="Resources\Images\NotificationAlertNoColor.png" />
     <None Remove="Resources\Images\open.png" />
@@ -56,6 +60,7 @@
     <Resource Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\back.png" />
     <Resource Include="Resources\Images\checkboxlist.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -63,11 +68,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\chevron-left-black.png" />
+    <Resource Include="Resources\Images\chevron-right-black.png" />
     <Resource Include="Resources\Images\close.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\home.png" />
+    <Resource Include="Resources\Images\location.png" />
     <Resource Include="Resources\Images\lookupitem.png" />
+    <Resource Include="Resources\Images\next.png" />
     <Resource Include="Resources\Images\NotificationAlert.png" />
     <Resource Include="Resources\Images\NotificationAlertNoColor.png" />
     <Resource Include="Resources\Images\open.png" />
