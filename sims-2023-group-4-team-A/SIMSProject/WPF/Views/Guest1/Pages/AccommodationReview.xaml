@@ -54,39 +54,33 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Orientation="Vertical" Margin="0,0,345,10" Grid.ColumnSpan="2">
+                <StackPanel Orientation="Vertical" Margin="0,0,345,0" Grid.ColumnSpan="2">
                     <TextBlock FontWeight="Bold" Foreground="#626161" Text="{Binding SelectedAccommodation.Location}" FontSize="25" Height="35"/>
-                    <StackPanel Orientation="Horizontal" Height="33">
+                    <StackPanel Orientation="Horizontal" Height="34">
                         <TextBlock Text="Tip: " FontSize="25" Foreground="#626161"/>
                         <TextBlock Foreground="#626161" FontWeight="Bold" Text="{Binding SelectedAccommodation.Type, Converter={StaticResource TypeConverter}}" Margin="0,0,0,3" FontSize="25"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Height="35">
-                        <TextBlock Foreground="#626161" FontSize="25" Text="Ocena:" Margin="0,0,0,5" Width="83"/>
-                        <TextBlock FontSize="25" Text="4.2" Foreground="#626161" FontWeight="Bold"/>
                     </StackPanel>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" HorizontalAlignment="Left" Width="339" Margin="34,0,0,0">
                     <StackPanel Orientation="Horizontal" Width="357">
-                        <TextBlock Text="Maksimalan broj gostiju: "
+                        <TextBlock Text="Maksimalan broj gostiju:"
                                    FontSize="25" Width="287"/>
                         <TextBlock FontWeight="Bold" Text="{Binding SelectedAccommodation.MaxGuestNumber}" FontSize="25" Width="55"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Minimalan broj dana: " FontSize="25" Width="259" Height="36"/>
+                        <TextBlock Text="Minimalan broj dana:" FontSize="25" Width="254" Height="36"/>
                         <TextBlock FontWeight="Bold" Text="{Binding SelectedAccommodation.MinReservationDays}" FontSize="25" Width="75" Margin="5"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
         </Grid>
 
-        <custom:ImageSlider x:Name="imageSlider" Margin="-19,172,-23,75" Grid.RowSpan="3" />
+        <custom:ImageSlider x:Name="imageSlider" Margin="-37,152,-37,88" Grid.RowSpan="3" />
         <Button Content="Rezervacija" Background="#0c669f"
                 Foreground="White" FontSize="30" Grid.Row="2" HorizontalAlignment="Center"
-                VerticalAlignment="Top" Width="240" Height="52" Margin="0,38,0,0"
-                Click="Button_Click_Reservation">
-
-        </Button>
+                VerticalAlignment="Center" Width="240" Height="52"
+                Click="Button_Click_Reservation"/>
 
     </Grid>
 </Page>

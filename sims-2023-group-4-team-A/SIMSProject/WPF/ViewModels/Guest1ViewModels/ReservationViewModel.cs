@@ -1,18 +1,15 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SIMSProject.Application.Services;
 using SIMSProject.Application.Services.AccommodationServices;
 using SIMSProject.Domain.Injectors;
-using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Model;
-using System;
 using System.Collections.ObjectModel;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Position;
+using ToastNotifications;
+using Notifications.Wpf;
 
 namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
 {
@@ -161,6 +158,18 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
                 }
             }
             return true;
+        }
+
+        public void ShowNotification()
+        {
+            /*
+            var notificationManager = new NotificationManager(new WpfNotificationCenter());
+            notificationManager.PositionProvider = new PrimaryScreenPositionProvider(
+                corner: Corner.BottomRight,
+                offsetX: 10,
+                offsetY: 10
+            );
+            */
         }
         
         public void SaveReservation()

@@ -75,11 +75,7 @@
                                 <TextBlock FontSize="24" Text="Tip smeštaja: "></TextBlock>
                                 <TextBlock FontSize="24" FontWeight="Bold" Text="{Binding Type, Converter={StaticResource TypeConverter}}"></TextBlock>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock FontSize="24" Text="Ocena:" Margin="10,5,5,5" Width="75"></TextBlock>
-                                <TextBlock FontSize="24" Text="4.2" Height="32"></TextBlock>
-                            </StackPanel>
-                            
+
                         </StackPanel>
 
                     </Grid>

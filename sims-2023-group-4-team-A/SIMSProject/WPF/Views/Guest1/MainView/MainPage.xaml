@@ -5,9 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest1.MainView" xmlns:custom="clr-namespace:SIMSProject.WPF.CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel Orientation="Vertical">
-        <Grid Height="90" Margin="10,10,0,70">
+             d:DesignHeight="668" d:DesignWidth="1024">
+    <StackPanel>
+
+        <Grid Grid.Row="0" Height="90" Margin="10,10,0,70">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
@@ -20,29 +21,30 @@
                    FontWeight="Bold" Margin="0,-6,0,0"></Label>
             <Label Foreground="#777773" Content="Smeštaj možete naći po nazivu, tipu ili lokaciji" FontSize="25" Margin="0,36,0,9" Grid.RowSpan="2"/>
         </Grid>
-        <Grid HorizontalAlignment="Center" Margin="0,20,0,0" Height="250">
+        <Grid Height="357" Width="424">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
-
-            <TextBox x:Name="Search1" Grid.ColumnSpan="2" Width="391"
+            <Label Grid.Row="0" Content="Smeštaj:" FontSize="30" Grid.ColumnSpan="2" Margin="16,18,-211,0"/>
+            <TextBox x:Name="Search1" Grid.Row="1" Grid.ColumnSpan="2" Width="391"
                      GotFocus="TextSearch_GotFocus" LostFocus="TextSearch_LostFocus"
                      Foreground="Gray" Text="Naziv/Tip/Lokacija"
                      FontSize="30"
                      TextAlignment="Center"
-                     Height="61"></TextBox>
-            <Label Content="Broj gostiju:" FontSize="30" HorizontalAlignment="Left" Margin="-6,4,0,58" Grid.RowSpan="2" Grid.Row="1"/>
-            <custom:NumericBoxRating Value="{Binding MaxGuestNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="1" Margin="35,36,58,26" Grid.RowSpan="2"/>
-            <custom:NumericBoxRating Value="{Binding MinReservationDays, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="94,36,0,26" Grid.RowSpan="2"></custom:NumericBoxRating>
-            <Label Grid.Row="1" Grid.Column="1" Content="Broj dana:" FontSize="30" HorizontalAlignment="Right"></Label>
-            <Button Background="#0c669f" Foreground="White" Content="Pretraži" FontSize="30" Grid.Row="3" Grid.ColumnSpan="2" Width="391" Height="61" Click="Button_Click_Search"></Button>
+                     Height="61"/>
+            <Label Content="Broj gostiju:" FontSize="30" HorizontalAlignment="Left" Margin="16,0,0,0" Grid.Row="2" Width="186"/>
+            <custom:NumericBoxRating Value="{Binding MaxGuestNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Margin="51,35,59,27" Grid.RowSpan="2"/>
+            <custom:NumericBoxRating Value="{Binding MinReservationDays, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="94,36,0,26" Grid.RowSpan="2"/>
+            <Label Grid.Row="2" Grid.Column="1" Content="Broj dana:" FontSize="30" HorizontalAlignment="Left" Margin="59,0,0,0" Width="145"/>
+            <Button Background="#0c669f" Foreground="White" Content="Pretraži" FontSize="30" Grid.Row="4" Grid.ColumnSpan="2" Height="61" Click="Button_Click_Search" Margin="16,5,10,5"/>
         </Grid>
     </StackPanel>
 </Page>
