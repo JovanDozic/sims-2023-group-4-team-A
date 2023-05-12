@@ -1,4 +1,5 @@
-﻿using SIMSProject.Application.Services;
+﻿using Microsoft.Win32;
+using SIMSProject.Application.Services;
 using SIMSProject.Application.Services.AccommodationServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
@@ -8,32 +9,31 @@ using SIMSProject.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 {
-    public class AccommodationViewModel : ViewModelBase
+    public class AccommodationViewModel : ViewModelBase, IDataErrorInfo
     {
         private User _user;
+        private INavigationService? _navigationService;
+
         private Accommodation _accommodation = new();
         private AccommodationService _accommodationService;
         private LocationService _locationService;
         private AccommodationReservationService _accommodationReservationService;
         private AccommodationReservationViewModel _accommodationReservationViewModel;
+        private string _fullLocation = string.Empty;
         private string _selectedImageFile = string.Empty;
-        private Accommodation _selectedAccommodation;
-        private ObservableCollection<Accommodation> _accommodations;
-        public ObservableCollection<Accommodation> Accommodations
-        {
-            get => _accommodations;
-            set
-            {
-                if (_accommodations == value) return;
-                _accommodations = value;
-                OnPropertyChanged();
-            }
-        }
-        public ObservableCollection<string> AccommodationTypeSource { get; set; }
+        private Accommodation _selectedAccommodation = new();
+        private string _maxGuestNumberString = string.Empty;
+        private string _minReservationDaysString = string.Empty;
+        private string _cancellationThresholdString = string.Empty;
+        private ObservableCollection<Accommodation> _accommodations = new();
+
+        public ObservableCollection<AccommodationType> AccommodationTypeSource { get; set; }
         public Accommodation SelectedAccommodation
         {
             get => _selectedAccommodation;
@@ -85,23 +85,14 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
-        public string LocationCity
+        public string FullLocation
         {
-            get => _accommodation.Location.City;
+            get => _fullLocation;
             set
             {
-                if (_accommodation.Location.City == value) return;
-                _accommodation.Location.City = value;
-                OnPropertyChanged();
-            }
-        }
-        public string LocationCountry
-        {
-            get => _accommodation.Location.Country;
-            set
-            {
-                if (_accommodation.Location.Country == value) return;
-                _accommodation.Location.Country = value;
+                if (value == _fullLocation) return;
+                _fullLocation = value;
+                PrepareLocation();
                 OnPropertyChanged();
             }
         }
@@ -115,6 +106,19 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
+        public string MaxGuestNumberString
+        {
+            get => _maxGuestNumberString;
+            set
+            {
+                if (value == _maxGuestNumberString) return;
+                if (value == string.Empty) _maxGuestNumberString = value;
+                if (!int.TryParse(value, out int result)) return;
+                _maxGuestNumberString = value;
+                _accommodation.MaxGuestNumber = result;
+                OnPropertyChanged();
+            }
+        }
         public int MaxGuestNumber
         {
             get => _accommodation.MaxGuestNumber;
@@ -125,6 +129,19 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
+        public string MinReservationDaysString
+        {
+            get => _minReservationDaysString;
+            set
+            {
+                if (value == _minReservationDaysString) return;
+                if (value == string.Empty) _minReservationDaysString = value;
+                if (!int.TryParse(value, out int result)) return;
+                _minReservationDaysString = value;
+                _accommodation.MinReservationDays = result;
+                OnPropertyChanged();
+            }
+        }
         public int MinReservationDays
         {
             get => _accommodation.MinReservationDays;
@@ -132,6 +149,19 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             {
                 if (_accommodation.MinReservationDays == value || value < 1) return;
                 Accommodation.MinReservationDays = value;
+                OnPropertyChanged();
+            }
+        }
+        public string CancellationThresholdString
+        {
+            get => _cancellationThresholdString;
+            set
+            {
+                if (value == _cancellationThresholdString) return;
+                if (value == string.Empty) _cancellationThresholdString = value;
+                if (!int.TryParse(value, out int result)) return;
+                _cancellationThresholdString = value;
+                _accommodation.CancellationThreshold = result;
                 OnPropertyChanged();
             }
         }
@@ -165,6 +195,26 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
+        public string FeaturedImage
+        {
+            get => Accommodation.FeaturedImage;
+            set
+            {
+                if (Accommodation.FeaturedImage == value) return;
+                Accommodation.FeaturedImage = value;
+                OnPropertyChanged();
+            }
+        }
+        public string Description
+        {
+            get => Accommodation.Description;
+            set
+            {
+                if (Accommodation.Description == value) return;
+                Accommodation.Description = value;
+                OnPropertyChanged();
+            }
+        }
         public string SelectedImageFile
         {
             get => _selectedImageFile;
@@ -175,26 +225,78 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
+        public double Rating
+        {
+            get => Accommodation.Rating;
+            set
+            {
+                if (value == Accommodation.Rating) return;
+                Accommodation.Rating = value;
+                OnPropertyChanged();
+            }
+        }
+        public int NumberOfRatings
+        {
+            get => Accommodation.NumberOfRatings;
+            set
+            {
+                if (value == Accommodation.NumberOfRatings) return;
+                Accommodation.NumberOfRatings = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool IsRecentlyRenovated
+        {
+            get => Accommodation.IsRecentlyRenovated;
+            set
+            {
+                if (value == Accommodation.IsRecentlyRenovated) return;
+                Accommodation.IsRecentlyRenovated = value;
+                OnPropertyChanged();
+            }
+        }
+        public ObservableCollection<Accommodation> Accommodations
+        {
+            get => _accommodations;
+            set
+            {
+                if (value == _accommodations) return;
+                _accommodations = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public AccommodationViewModel(User user)
+        public RelayCommand RegisterAccommodationCommand { get; }
+        public RelayCommand PrepareLocationCommand { get; }
+        public RelayCommand UploadImageToAccommodationCommand { get; }
+
+        public AccommodationViewModel(User user, INavigationService? navigationService = null)
         {
             _user = user;
+            _navigationService = navigationService;
             _accommodationService = Injector.GetService<AccommodationService>();
             _locationService = Injector.GetService<LocationService>();
             _accommodationReservationService = Injector.GetService<AccommodationReservationService>();
             _accommodationReservationViewModel = new(_user);
             Accommodations = LoadAllAccommodations();
-            AccommodationTypeSource = new ObservableCollection<string>
+
+            AccommodationTypeSource = new ObservableCollection<AccommodationType>
             {
-                Accommodation.GetType(AccommodationType.Apartment),
-                Accommodation.GetType(AccommodationType.House),
-                Accommodation.GetType(AccommodationType.Hut)
+                AccommodationType.Apartment,
+                AccommodationType.House,
+                AccommodationType.Hut
             };
+
+            RegisterAccommodationCommand = new(RegisterAccommodation, CanRegisterAccommodation);
+            PrepareLocationCommand = new(PrepareLocation, CanPrepareLocation);
+            UploadImageToAccommodationCommand = new(UploadImageToAccommodation, CanUploadIMageToAccommodation);
         }
+
         public bool IsNotSelected()
         {
             return SelectedAccommodation == null;
         }
+
         public ObservableCollection<Accommodation> LoadAllAccommodations()
         {
             return new ObservableCollection<Accommodation>(_accommodationService.GetAll());
@@ -203,8 +305,9 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         public ObservableCollection<Accommodation> LoadAccommodationsByOwner()
         {
             _accommodationService.ReloadAccommodations();
-            return new ObservableCollection<Accommodation>(_accommodationService.GetAllByOwnerId(_user.Id));
+            return Accommodations = new(_accommodationService.GetAllByOwnerId(_user.Id));
         }
+
         public void Search(string nameTypeLocation,int duration, int maxGuests)
         {
             _accommodationService.Search(Accommodations,nameTypeLocation, duration, maxGuests);
@@ -212,9 +315,15 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
         public void RegisterAccommodation()
         {
-            _accommodation.Location = _locationService.GetLocation(LocationCity, LocationCountry);
+            var result = MessageBox.Show("Da li ste sigurni da želite da registrujete smeštaj?", "Potvrdite registraciju", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result != MessageBoxResult.Yes) return;
+
+            _accommodation.Location = _locationService.GetLocation(_accommodation.Location);
+            if (_accommodation.Location == null) MessageBox.Show("nullcina");
             _accommodation.Owner = _user as Owner ?? throw new Exception("Greška prilikom registrovanja: Vlasnik nije inicijalizovan.");
             _accommodationService.RegisterAccommodation(_accommodation);
+
+            _navigationService?.GoBack();
         }
         public string GetDateMessage()
         {
@@ -237,22 +346,27 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             return dateBegin >= dateEnd;
         }
+
         public bool IsNumberOfDaysValid(int numberOfDays)
         {
             return numberOfDays >= SelectedAccommodation.MinReservationDays;
         }
+
         public bool IsNumberOfDaysGreaterThanDuration(int numberOfDays, TimeSpan duration)
         {
             return numberOfDays <= duration.Days;
         }
+
         public bool IsAccommodationOccupied(DateTime dateBegin, DateTime dateEnd)
         {
             return _accommodationService.CheckReservations(_accommodationReservationService.GetAll(), dateBegin, dateEnd, SelectedAccommodation.Id).Count != 0;
         }
+
         public bool IsGuestsNumberValid(int guestsNumber)
         {
             return guestsNumber <= SelectedAccommodation.MaxGuestNumber;
         }
+
         public List<DateRange> GetReservedDates()
         {
             List<DateRange> dateRanges = new List<DateRange>();
@@ -262,19 +376,131 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             }
             return dateRanges;
         }
+
         public List<AccommodationReservation> RemoveCancelled(List<AccommodationReservation> reservedAccommodations)
         {
             reservedAccommodations.RemoveAll(reserved => reserved.Canceled);
             return reservedAccommodations;
         }
+
         public bool IsCanceled(DateTime dateBegin, DateTime dateEnd)
         {
             return _accommodationService.CheckReservations(_accommodationReservationService.GetAll(), dateBegin, dateEnd, SelectedAccommodation.Id).All(r => r.Canceled);
         }
 
-        public void UploadImageToAccommodation(string imageUrl)
+        private bool CanRegisterAccommodation()
+        {
+            return IsAccommodationValid;
+        }
+
+        public void UploadImageURLToAccommodation(string imageUrl)
         {
             ImageURLs.Add(imageUrl);
+        }
+
+        public void PrepareLocation()
+        {
+            if (!CanPrepareLocation()) return;
+            string[] parts = FullLocation.Split(',');
+            _accommodation.Location.City = parts[0].Trim();
+            _accommodation.Location.Country = parts[1].Trim();
+        }
+
+        public bool CanPrepareLocation()
+        {
+            return FullLocation.Split(',').Length == 2;
+        }
+
+        public void UploadImageToAccommodation()
+        {
+            OpenFileDialog openFileDialog = new();
+            openFileDialog.DefaultExt = ".png";
+            openFileDialog.Filter = "Image files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg";
+
+            bool? result = openFileDialog.ShowDialog();
+            if (result is not true || result is null) return;
+            if (ImageURLs.Find(x => x.Equals(openFileDialog.FileName)) != null) return;
+            ImageURLs.Add(openFileDialog.FileName);
+        }
+
+        private bool CanUploadIMageToAccommodation()
+        {
+            return true;
+        }
+
+        internal void SearchAccommodations(string text)
+        {
+            LoadAccommodationsByOwner();
+            var SearchResults = Accommodations.ToList();
+            SearchResults.RemoveAll(x => !x.ToStringSearchable.ToLower().Contains(text.ToLower()));
+            Accommodations = new(SearchResults);
+        } 
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string? error = null;
+                string requiredMessage = "Obavezno polje";
+                switch (columnName)
+                {
+                    case nameof(Name):
+                        if (string.IsNullOrEmpty(Name)) error = requiredMessage;
+                        else if (Name.Length < 3) error = "Ime mora biti duže od 3 karaktera";
+                        break;
+                    case nameof(FullLocation):
+                        if (string.IsNullOrEmpty(FullLocation)) error = requiredMessage;
+                        var parts = FullLocation.Split(',');
+                        if (FullLocation.Length < 3 || parts.Length != 2) error = "Lokacija mora biti u formatu 'Grad, Država'";
+                        else if (parts[0].Length < 3 || parts[1].Length < 3) error = "Imena grada i države moraju biti duže od 3 karaktera";
+                        break;
+                    case nameof(Type):
+                        if (string.IsNullOrEmpty(Accommodation.GetType(Type)) || Type == AccommodationType.None) error = requiredMessage;
+                        break;
+                    case nameof(MaxGuestNumberString):
+                        if (string.IsNullOrEmpty(MaxGuestNumberString)) error = requiredMessage;
+                        if (MaxGuestNumber <= 0) error = "Maksimalan broj gostiju mora biti veći od 0";
+                        break;
+                    case nameof(MinReservationDaysString):
+                        if (string.IsNullOrEmpty(MinReservationDaysString)) error = requiredMessage;
+                        if (MinReservationDays <= 0) error = "Minimalan broj dana za rezervaciju mora biti veći od 0";
+                        break;
+                    case nameof(CancellationThresholdString):
+                        if (string.IsNullOrEmpty(CancellationThresholdString)) error = requiredMessage;
+                        if (CancellationThreshold <= 0) error = "Otkazni rok mora biti veći od 0";
+                        break;
+                    case nameof(Description):
+                        if (string.IsNullOrEmpty(Description)) error = requiredMessage;
+                        else if (Description.Length < 20) error = "Opis mora biti duži od 20 karaktera";
+                        break;
+                    case nameof(ImageURLs):
+                        if (ImageURLs.Count <= 0) error = requiredMessage;
+                        break;
+                    default:
+                        break;
+                }
+                return error;
+            }
+        }
+        public string Error => null;
+        public bool IsAccommodationValid
+        {
+            get
+            {
+                foreach (var property in new string[] {
+                    nameof(Name),
+                    nameof(FullLocation),
+                    nameof(Type),
+                    nameof(MaxGuestNumberString),
+                    nameof(MinReservationDaysString),
+                    nameof(CancellationThresholdString),
+                    nameof(Description),
+                    nameof(ImageURLs)})
+                {
+                    if (this[property] != null) return false;
+                }
+                return true;
+            }
         }
     }
 }

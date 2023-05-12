@@ -11,7 +11,10 @@ namespace SIMSProject.WPF.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is AccommodationType type)
-                return Accommodation.GetType(type);
+            {
+                var returnValue = Accommodation.GetType(type);
+                return returnValue == string.Empty ? "Izaberite..." : returnValue;
+            }
             return "<null>";
         }
 

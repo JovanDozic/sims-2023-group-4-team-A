@@ -15,6 +15,30 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Icons\back.png" />
+    <None Remove="Resources\Icons\bed-fill.png" />
+    <None Remove="Resources\Icons\bed.png" />
+    <None Remove="Resources\Icons\bell-fill.png" />
+    <None Remove="Resources\Icons\bell.png" />
+    <None Remove="Resources\Icons\bookbnb.png" />
+    <None Remove="Resources\Icons\down.png" />
+    <None Remove="Resources\Icons\forum-fill.png" />
+    <None Remove="Resources\Icons\forum.png" />
+    <None Remove="Resources\Icons\help.png" />
+    <None Remove="Resources\Icons\home-fill.png" />
+    <None Remove="Resources\Icons\home.png" />
+    <None Remove="Resources\Icons\image.png" />
+    <None Remove="Resources\Icons\left.png" />
+    <None Remove="Resources\Icons\location.png" />
+    <None Remove="Resources\Icons\plus.png" />
+    <None Remove="Resources\Icons\renovation-clock.png" />
+    <None Remove="Resources\Icons\renovation.png" />
+    <None Remove="Resources\Icons\right.png" />
+    <None Remove="Resources\Icons\star-fill.png" />
+    <None Remove="Resources\Icons\star-half.png" />
+    <None Remove="Resources\Icons\star.png" />
+    <None Remove="Resources\Icons\user-fill.png" />
+    <None Remove="Resources\Icons\user.png" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\calendar.png" />
     <None Remove="Resources\Images\calendar1.png" />
@@ -61,6 +85,38 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Icons\back.png" />
+    <Resource Include="Resources\Icons\bed-fill.png" />
+    <Resource Include="Resources\Icons\bed.png" />
+    <Resource Include="Resources\Icons\bell-fill.png" />
+    <Resource Include="Resources\Icons\bell.png" />
+    <Resource Include="Resources\Icons\bookbnb.png" />
+    <Resource Include="Resources\Icons\down.png" />
+    <Resource Include="Resources\Icons\forum-fill.png" />
+    <Resource Include="Resources\Icons\forum.png" />
+    <Resource Include="Resources\Icons\help.png" />
+    <Resource Include="Resources\Icons\home-fill.png" />
+    <Resource Include="Resources\Icons\home.png" />
+    <Resource Include="Resources\Icons\image.png" />
+    <Resource Include="Resources\Icons\left.png" />
+    <Resource Include="Resources\Icons\location.png" />
+    <Resource Include="Resources\Icons\plus.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\renovation-clock.png" />
+    <Resource Include="Resources\Icons\renovation.png" />
+    <Resource Include="Resources\Icons\right.png" />
+    <Resource Include="Resources\Icons\star-fill.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\star-half.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\star.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\user-fill.png" />
+    <Resource Include="Resources\Icons\user.png" />
     <Resource Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

@@ -1,6 +1,8 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Serializer;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SIMSProject.Domain.Models.AccommodationModels
 {
@@ -10,15 +12,41 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public Owner Owner { get; set; } = new();
         public string Name { get; set; } = string.Empty;
         public Location Location { get; set; } = new();
-        public AccommodationType Type { get; set; }
-        public int MaxGuestNumber { get; set; } = 1;
+        public AccommodationType Type { get; set; } = AccommodationType.None;
+        public int MaxGuestNumber { get; set; } = 2;
         public int MinReservationDays { get; set; } = 1;
         public int CancellationThreshold { get; set; } = 1;
         public List<string> ImageURLs { get; set; } = new();
         public string ImageURLsCSV { get; set; } = string.Empty;
+        public string FeaturedImage { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public bool IsInRenovation { get; set; } = false;
+        public bool IsRecentlyRenovated { get; set; } = false;
+        public double Rating { get; set; } = 0;
+        public int NumberOfRatings { get; set; } = 0;
 
         public Accommodation()
         {
+        }
+
+        public Accommodation(Accommodation original)
+        {
+            Id = original.Id;
+            Owner = original.Owner;
+            Name = original.Name;
+            Location = original.Location;
+            Type = original.Type;
+            MaxGuestNumber = original.MaxGuestNumber;
+            MinReservationDays = original.MinReservationDays;
+            CancellationThreshold = original.CancellationThreshold;
+            ImageURLs = new List<string>(original.ImageURLs);
+            ImageURLsCSV = original.ImageURLsCSV;
+            FeaturedImage = original.FeaturedImage;
+            Description = original.Description;
+            IsInRenovation = original.IsInRenovation;
+            IsRecentlyRenovated = original.IsRecentlyRenovated;
+            Rating = original.Rating;
+            NumberOfRatings = original.NumberOfRatings;
         }
 
         public static AccommodationType GetType(string type)
@@ -27,7 +55,8 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             {
                 "Apartman" => AccommodationType.Apartment,
                 "Kuća" => AccommodationType.House,
-                _ => AccommodationType.Hut
+                "Koliba" => AccommodationType.Hut,
+                _ => AccommodationType.None
             };
         }
 
@@ -37,7 +66,8 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             {
                 AccommodationType.Apartment => "Apartman",
                 AccommodationType.House => "Kuća",
-                _ => "Koliba"
+                AccommodationType.Hut => "Koliba",
+                _ => string.Empty
             };
         }
 
@@ -54,7 +84,12 @@ namespace SIMSProject.Domain.Models.AccommodationModels
                 MaxGuestNumber.ToString(),
                 MinReservationDays.ToString(),
                 CancellationThreshold.ToString(),
-                ImageURLsCSV
+                ImageURLsCSV,
+                Description,
+                IsInRenovation.ToString(),
+                IsRecentlyRenovated.ToString(),
+                Math.Round(Rating, 2).ToString(),
+                NumberOfRatings.ToString(),
             };
             return csvValues;
         }
@@ -72,11 +107,19 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             CancellationThreshold = int.Parse(values[i++]);
             ImageURLsCSV = values[i++];
             ImageURLs = ImageURLsFromCSV(ImageURLsCSV);
+            FeaturedImage = ImageURLs.Count > 0 ? ImageURLs.First() : string.Empty;
+            Description = values[i++];
+            IsInRenovation = bool.Parse(values[i++]);
+            IsRecentlyRenovated = bool.Parse(values[i++]);
+            Rating = double.Parse(values[i++]);
+            NumberOfRatings = int.Parse(values[i++]);
         }
 
         public override string? ToString()
         {
             return $"{GetType(Type)}: {Name} ({Location})";
         }
+
+        public string ToStringSearchable { get => $"{Type} {Name} {Location} {GetType(Type)}"; }
     }
 }

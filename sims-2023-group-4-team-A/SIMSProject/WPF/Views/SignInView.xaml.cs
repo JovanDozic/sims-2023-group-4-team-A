@@ -13,6 +13,9 @@ namespace SIMSProject.WPF.Views
             InitializeComponent();
             _signInViewModel = new SignInViewModel();
             DataContext = _signInViewModel;
+
+            // TODO: Remove this before commit to Develop
+            // BtnGoToOwner_Click(null, null);
         }
 
         private void BtnSignIn_Click(object sender, RoutedEventArgs e)
