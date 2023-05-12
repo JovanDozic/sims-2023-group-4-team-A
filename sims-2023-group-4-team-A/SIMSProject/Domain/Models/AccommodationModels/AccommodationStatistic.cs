@@ -15,7 +15,8 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public string ShortMonth 
         { 
             get
-            { 
+            {
+                if (Month == 0) return string.Empty;
                 var monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Month).Substring(0, 3) + "."; 
                 return char.ToUpper(monthName[0]) + monthName.Substring(1);
             }

@@ -1,7 +1,10 @@
-﻿using SIMSProject.Domain.Models.AccommodationModels;
+﻿using Microsoft.Win32;
+using SIMSProject.Application.Services;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -35,6 +38,11 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
             OwnerMonthlyStatisticsView monthlyStatisticsView = new(_viewModel.Accommodation, _viewModel.Statistic);
             OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow ?? new(new User());
             ownerWindow?.SwitchToPage(monthlyStatisticsView);
+        }
+
+        private void BtnExportStatistics_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.GeneratePDF();
         }
     }
 }

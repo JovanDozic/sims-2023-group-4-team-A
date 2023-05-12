@@ -29,14 +29,6 @@
                    FontSize="40" FontWeight="SemiBold"
                    HorizontalAlignment="Left" VerticalAlignment="Top"
                    Text="{Binding Title, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>
-        
-        <!--<Image Grid.Row="1" Grid.Column="0" 
-               Source="/Resources/Icons/trophy.png"
-               Style="{StaticResource IconRenderStyle}"
-               Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center"
-               Margin="0,0,0,15"
-               Visibility="{Binding BestIconVisibility, Converter={StaticResource BooleanToVisibilityConverter}, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>-->
-
 
         <Button x:Name="BtnTrophy" Background="Transparent" BorderBrush="Transparent"
                 Style="{StaticResource NoHoverButtonStyle}"      

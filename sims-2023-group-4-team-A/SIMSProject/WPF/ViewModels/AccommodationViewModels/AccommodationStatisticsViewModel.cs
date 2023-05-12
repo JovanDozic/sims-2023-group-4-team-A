@@ -1,7 +1,10 @@
-﻿using SIMSProject.Application.Services.AccommodationServices;
+﻿using SIMSProject.Application.Services;
+using SIMSProject.Application.Services.AccommodationServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.AccommodationModels;
+using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -43,6 +46,11 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
             _statService.CalculateOccupancyPercentage(Accommodation, 2023, 1);
             _statService.CalculateOccupancyPercentage(Accommodation, 2022);
+        }
+
+        public void GeneratePDF()
+        {
+            PDFService.GenerateAccommodationStatsPDF(Statistics.ToList());
         }
     }
 }

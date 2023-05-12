@@ -28,5 +28,10 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
         {
             NavigationService?.GoBack();
         }
+
+        private void BtnExportStatistics_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.GeneratePDF();
+        }
     }
 }

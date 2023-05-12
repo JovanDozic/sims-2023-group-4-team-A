@@ -34,6 +34,7 @@
     <None Remove="Resources\Icons\renovation-clock.png" />
     <None Remove="Resources\Icons\renovation.png" />
     <None Remove="Resources\Icons\right.png" />
+    <None Remove="Resources\Icons\share.png" />
     <None Remove="Resources\Icons\star-fill.png" />
     <None Remove="Resources\Icons\star-half.png" />
     <None Remove="Resources\Icons\star.png" />
@@ -99,6 +100,7 @@
     <Resource Include="Resources\Icons\renovation-clock.png" />
     <Resource Include="Resources\Icons\renovation.png" />
     <Resource Include="Resources\Icons\right.png" />
+    <Resource Include="Resources\Icons\share.png" />
     <Resource Include="Resources\Icons\star-fill.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -185,6 +187,7 @@
 
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageReference Include="MaterialDesignInXamlToolkitAddOns" Version="0.0.6" />

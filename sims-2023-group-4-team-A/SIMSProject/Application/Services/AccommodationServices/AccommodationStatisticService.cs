@@ -30,6 +30,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
             AccommodationStatistic statistic = new()
             {
+                Accommodation = accommodation,
                 Type = Domain.Models.AccommodationStatisticType.YEARLY,
                 Year = year,
                 Month = 0,
@@ -71,6 +72,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
             AccommodationStatistic statistic = new()
             {
+                Accommodation = accommodation,
                 Type = Domain.Models.AccommodationStatisticType.MONTHLY,
                 Year = year,
                 Month = month,
