@@ -5,9 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:cstm="clr-namespace:SIMSProject.WPF.CustomControls"
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.TourViews.GuideViews.CustomTourRequests"
+      xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="965"
       Title="CustomRequestsPage">
+    <Page.Resources>
+        <converters:TourLanguageConverter x:Key="LanguageConverter"/>
+    </Page.Resources>
     <Page.InputBindings>
         <KeyBinding Command="{Binding FilterCommand}" Key="S" Modifiers="Ctrl"/>
     </Page.InputBindings>
@@ -51,7 +55,8 @@
                           Height="42" Width="200"
                           Margin="10,10,0,0"
                           ItemsSource="{Binding Path=RequestsLanguages, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedItem="{Binding Path=SelectedLanguage, UpdateSourceTrigger=PropertyChanged}"/>
+                          SelectedItem="{Binding Path=SelectedLanguage, UpdateSourceTrigger=PropertyChanged}">
+                </ComboBox>
                 <Button x:Name="btnSearch"
                         Height="32" Width="32"
                         Margin="2,10,0,0"
@@ -74,7 +79,7 @@
                 <DataGridTextColumn Header="Lokacija" Width="250" Binding="{Binding Path=Location}" CanUserSort="False"/>
                 <DataGridTextColumn Header="Opseg datuma" Width="300" Binding="{Binding Path=FormattedDateRange}" CanUserSort="False"/>
                 <DataGridTextColumn Header="Gosti" Width="100" Binding="{Binding Path=GuestCount}"/>
-                <DataGridTextColumn Header="Jezik" Width="150" Binding="{Binding Path=TourLanguage}"/>
+                <DataGridTextColumn Header="Jezik" Width="150" Binding="{Binding Path=TourLanguage, Converter={StaticResource LanguageConverter}}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="btnAccept"

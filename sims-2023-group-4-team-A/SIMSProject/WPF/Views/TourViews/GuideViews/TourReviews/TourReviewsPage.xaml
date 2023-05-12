@@ -4,9 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.TourViews.GuideViews"
+      xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="965"
       Title="Reviews">
+    <Page.Resources>
+        <converters:TourAppointmentDateTimeConverter x:Key="DateConverter"/>
+    </Page.Resources>
     <Page.InputBindings>
         <KeyBinding Key="Return" Command="{Binding SearchRatingsCommand}"/>
         <KeyBinding Gesture="Ctrl+S" Command="{Binding GetAppointemntsCommand}"/>
@@ -64,7 +68,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Ime i prezime" Width="3*"/>
                     <DataGridTextColumn Header="Korisničko ime" Binding="{Binding Path=User.Guest.Username, UpdateSourceTrigger=PropertyChanged}" Width="3*"/>
-                    <DataGridTextColumn Header="Termin" Binding="{Binding Path=User.TourAppointment.Date, UpdateSourceTrigger=PropertyChanged}" Width="2*"/>
+                    <DataGridTextColumn Header="Termin" Binding="{Binding Path=User.TourAppointment.Date, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateConverter}}" Width="2*"/>
                     <DataGridTextColumn Header="Ocena" Binding="{Binding Path=Rating.Overall,UpdateSourceTrigger=PropertyChanged}" Width="2*"/>
                 </DataGrid.Columns>
             </DataGrid>

@@ -4,8 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMSProject.WPF.Views.TourViews.GuideViews"
+        xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
         mc:Ignorable="d"
         Title="DetailedTourView" Height="700" Width="1200" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <converters:TourAppointmentStatusConverter x:Key="StatusConverter"/>
+        <converters:TourAppointmentDateTimeConverter x:Key="DateConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -29,6 +34,14 @@
                      SelectedItem="{Binding SelectedAppointment}"
                      SelectionChanged="LbAppointments_SelectionChanged"
                      ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Path=Date, Converter={StaticResource DateConverter}}"/>
+                            <TextBlock Text="{Binding Path=TourStatus, Converter={StaticResource StatusConverter}}" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
             <Button x:Name="CancelBtn"
                     Click="CancelBtn_Click"

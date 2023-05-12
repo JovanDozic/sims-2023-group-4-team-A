@@ -4,8 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMSProject.WPF.Views.TourViews.GuideViews"
+        xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
         mc:Ignorable="d"
        Title="AppointmentSelection" Height="400" Width="500">
+    <Window.Resources>
+        <converters:TourAppointmentStatusConverter x:Key="StatusConverter"/>
+        <converters:TourAppointmentDateTimeConverter x:Key="DateConverter"/>
+    </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Command="{Binding LiveTrackCommand}" Key="S" Modifiers="Ctrl"/>
     </Window.InputBindings>
@@ -30,6 +35,14 @@
                  FontSize="24"
                  SelectedItem="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                  ItemsSource="{Binding Path=Appointments, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=Date, Converter={StaticResource DateConverter}}"/>
+                        <TextBlock Text="{Binding Path=TourStatus, Converter={StaticResource StatusConverter}}" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
         <Button x:Name="StartTrackingBTN"
                 Grid.Row="2"

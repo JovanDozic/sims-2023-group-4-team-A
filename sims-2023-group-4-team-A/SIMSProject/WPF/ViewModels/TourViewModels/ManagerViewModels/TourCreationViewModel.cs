@@ -22,7 +22,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         private readonly LocationService _locationService;
         private readonly KeyPointService _keyPointService;
 
-        private Tour _tour;
+        private Tour _tour = new();
         public Tour Tour
         {
             get => _tour;
@@ -79,6 +79,8 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
                 }
             }
         }
+
+        public ObservableCollection<string> TourLanguages { get; set; }
 
         public string TourLanguage
         {
@@ -223,21 +225,12 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
 
             }
         }
-        public List<string> TourLanguages { get; set; }
         public ObservableCollection<Location> AllLocations { get; set; } = new();
         public ObservableCollection<KeyPoint> Keys { get; set; } = new();
         public KeyPoint? SelectedKeyPoint { get; set; }
         public DateTime SelectedAppointment { get; set; } = DateTime.Now;
         public TourCreationViewModel(Guide guide)
         {
-            TourLanguages = new()
-            {
-                "Srpski",
-                "Engleski",
-                "Francuski",
-                "Španski"
-            };
-
             _tourService = Injector.GetService<TourService>();
             _tourAppointmentService = Injector.GetService<TourAppointmentService>();
             _tourKeyPointService = Injector.GetService<TourKeyPointService>();
@@ -246,6 +239,14 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
 
             AllLocations = new(_locationService.FindAll());
             Guide = guide;
+
+            TourLanguages = new ObservableCollection<string>
+            {
+                Tour.GetLanguage(Language.SERBIAN),
+                Tour.GetLanguage(Language.ENGLISH),
+                Tour.GetLanguage(Language.SPANISH),
+                Tour.GetLanguage(Language.FRENCH)
+            };
         }
 
         public void CreateTour()

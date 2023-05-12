@@ -14,7 +14,7 @@ using SIMSProject.Model;
 
 namespace SIMSProject.Domain.Models.TourModels
 {
-    public enum Language { ENGLISH = 0, SERBIAN, SPANISH, FRENCH };
+    public enum Language { ENGLISH = 1, SERBIAN, SPANISH, FRENCH };
 
     public class Tour : ISerializable
     {
@@ -42,6 +42,18 @@ namespace SIMSProject.Domain.Models.TourModels
             MaxGuestNumber = maxGuestNumber;
             Location.Id = locationId;
             Guide.Id = guideId;
+        }
+
+        public static string GetLanguage(Language language)
+        {
+            return language switch
+            {
+                Language.ENGLISH => "Engleski",
+                Language.FRENCH => "Francuski",
+                Language.SERBIAN => "Srpski",
+                Language.SPANISH => "Španski",
+                _ => "Jezik"
+            };
         }
 
         public string CreateImageURLs()

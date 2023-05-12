@@ -4,9 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.TourViews.GuideViews"
+      xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
      mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="965"
       Title="AllTours">
+    <Page.Resources>
+        <converters:TourLanguageConverter x:Key="LanguageConverter"/>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="500"/>
@@ -24,7 +28,7 @@
                   SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns >
                 <DataGridTextColumn Header="Naziv ture" Width="*" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Jezik" Binding="{Binding TourLanguage}"/>
+                <DataGridTextColumn Header="Jezik" Binding="{Binding TourLanguage, Converter={StaticResource LanguageConverter}}"/>
                 <DataGridTextColumn Header="Lokacija" Binding="{Binding Location}"/>
                 <DataGridTextColumn Header="Trajanje(h)" Binding="{Binding Duration}"/>
                 <DataGridTextColumn Header="Maks. broj gostiju" Width="*" Binding="{Binding MaxGuestNumber}"/>
