@@ -57,6 +57,7 @@
                                 Padding="5,15,10,15">
                             <cstm:AccommodationStatsGrid 
                                 Title="{Binding ShortMonth}"
+                                BestIconVisibility="{Binding Best}"
                                 TotalReservations="{Binding TotalReservations}"
                                 CancelledReservations="{Binding CancelledReservations}"
                                 RescheduledReservations="{Binding RescheduledReservations}"

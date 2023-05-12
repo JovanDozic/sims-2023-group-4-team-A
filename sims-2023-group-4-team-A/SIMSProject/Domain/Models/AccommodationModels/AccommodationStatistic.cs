@@ -8,7 +8,8 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public Accommodation Accommodation { get; set; } = new();
         public AccommodationStatisticType Type { get; set; }
         public int Year { get; set; } = 0;
-        public int Month { get; set; } = 0; // If Year is >= 0, and Month is 0, it's Yearly statistic (but Type is there anyways)
+        public int Month { get; set; } = 0;
+        public bool Best { get; set; } = false;
 
         public string ShortYear { get => $"'{Year.ToString()[2..]}"; }
         public string ShortMonth 
@@ -19,10 +20,13 @@ namespace SIMSProject.Domain.Models.AccommodationModels
                 return char.ToUpper(monthName[0]) + monthName.Substring(1);
             }
         }
+
         public int TotalReservations { get; set; } = 0;
         public int CancelledReservations { get; set; } = 0;
         public int RescheduledReservations { get; set; } = 0;
         public int RenovationRecommendations { get; set; } = 0;
+
+        public int OccupancyPercentage { get; set; } = 0;
 
         public AccommodationStatistic() { }
 

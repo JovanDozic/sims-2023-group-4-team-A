@@ -37,6 +37,7 @@
     <None Remove="Resources\Icons\star-fill.png" />
     <None Remove="Resources\Icons\star-half.png" />
     <None Remove="Resources\Icons\star.png" />
+    <None Remove="Resources\Icons\trophy.png" />
     <None Remove="Resources\Icons\user-fill.png" />
     <None Remove="Resources\Icons\user.png" />
     <None Remove="Resources\Images\add.png" />
@@ -107,6 +108,7 @@
     <Resource Include="Resources\Icons\star.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Icons\trophy.png" />
     <Resource Include="Resources\Icons\user-fill.png" />
     <Resource Include="Resources\Icons\user.png" />
     <Resource Include="Resources\Images\add.png">

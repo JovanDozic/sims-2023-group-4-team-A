@@ -53,6 +53,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <cstm:AccommodationStatsGrid 
                                     Title="{Binding ShortYear}"
+                                    BestIconVisibility="{Binding Best}"
                                     TotalReservations="{Binding TotalReservations}"
                                     CancelledReservations="{Binding CancelledReservations}"
                                     RescheduledReservations="{Binding RescheduledReservations}"

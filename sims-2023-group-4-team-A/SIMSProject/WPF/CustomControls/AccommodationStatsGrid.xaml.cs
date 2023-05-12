@@ -13,6 +13,14 @@ namespace SIMSProject.WPF.CustomControls
         public static readonly DependencyProperty TitleProperty =
         DependencyProperty.Register("Title", typeof(string), typeof(AccommodationStatsGrid));
 
+        public bool BestIconVisibility
+        {
+            get { return (bool)GetValue(BestIconVisibilityProperty); }
+            set { SetValue(BestIconVisibilityProperty, value); }
+        }
+        public static readonly DependencyProperty BestIconVisibilityProperty =
+            DependencyProperty.Register("BestIconVisibility", typeof(bool), typeof(AccommodationStatsGrid));
+
         public int TotalReservations
         {
             get { return (int)GetValue(TotalReservationsProperty); }

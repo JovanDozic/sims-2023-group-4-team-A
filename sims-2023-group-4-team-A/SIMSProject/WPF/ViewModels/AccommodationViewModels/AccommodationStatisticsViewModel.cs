@@ -40,6 +40,9 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         public void LoadMonthlyStatistics()
         {
             Statistics = new(_statService.GetAllMonthlyStatistics(Accommodation, Statistic.Year));
+
+            _statService.CalculateOccupancyPercentage(Accommodation, 2023, 1);
+            _statService.CalculateOccupancyPercentage(Accommodation, 2022);
         }
     }
 }
