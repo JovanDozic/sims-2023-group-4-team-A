@@ -9,17 +9,18 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     /// </summary>
     public partial class AllToursPage : Page
     {
-        private TourManagerViewModel ViewModel { get; set; } = new();
+        private ToursManagerViewModel ViewModel { get; set; }
         public AllToursPage()
         {
             InitializeComponent();
-            ViewModel.GetTours();
+            ViewModel = new("AllTours");
             this.DataContext = ViewModel;
         }
 
         private void DetailsBTN_Click(object sender, RoutedEventArgs e)
         {
-            var window = new DetailedTourWindow(ViewModel);
+            var viewModel = new DetailedTourViewModel(ViewModel.SelectedTour);
+            var window = new DetailedTourWindow(viewModel);
             window.Show();
         }
     }

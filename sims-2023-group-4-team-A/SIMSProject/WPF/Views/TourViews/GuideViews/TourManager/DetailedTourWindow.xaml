@@ -11,6 +11,9 @@
         <converters:TourAppointmentStatusConverter x:Key="StatusConverter"/>
         <converters:TourAppointmentDateTimeConverter x:Key="DateConverter"/>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding CancelAppointmentCommand}" Key="O" Modifiers="Ctrl"/>
+    </Window.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -32,7 +35,6 @@
                      Margin="0,20,0,0"
                      ItemsSource="{Binding Appointments, UpdateSourceTrigger=PropertyChanged}"
                      SelectedItem="{Binding SelectedAppointment}"
-                     SelectionChanged="LbAppointments_SelectionChanged"
                      ScrollViewer.HorizontalScrollBarVisibility="Auto">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -44,11 +46,11 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             <Button x:Name="CancelBtn"
-                    Click="CancelBtn_Click"
                     Content="Otkaži turu"
                     Margin="0,20,0,0"
                     Width="165" Height="36"
-                    FontSize="28"/>
+                    FontSize="28"
+                    Command="{Binding Path=CancelAppointmentCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

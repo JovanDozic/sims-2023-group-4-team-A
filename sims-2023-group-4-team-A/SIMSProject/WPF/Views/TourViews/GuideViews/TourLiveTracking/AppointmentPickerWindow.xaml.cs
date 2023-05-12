@@ -12,10 +12,10 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     public partial class AppointmentPickerWindow : Window
     {
         private AppointmentPickerViewModel ViewModel { get; set; }
-        public AppointmentPickerWindow(Tour tour)
+        public AppointmentPickerWindow(AppointmentPickerViewModel viewModel)
         {
             InitializeComponent();
-            ViewModel = new AppointmentPickerViewModel(tour);
+            ViewModel = viewModel;
             this.DataContext = ViewModel;
         }
 

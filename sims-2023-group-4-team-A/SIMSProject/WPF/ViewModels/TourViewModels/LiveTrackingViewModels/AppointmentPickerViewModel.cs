@@ -50,7 +50,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
         {
             _tourAppointmentService = Injector.GetService<TourAppointmentService>();
             _tour = tour;
-            Appointments = new(_tourAppointmentService.GetAllByTourId(_tour.Id));
+            Appointments = new(_tourAppointmentService.GetTodays(_tour));
             LiveTrackCommand = new RelayCommand(LiveTrackExecute, LiveTrackCanExecute);
         }
 
