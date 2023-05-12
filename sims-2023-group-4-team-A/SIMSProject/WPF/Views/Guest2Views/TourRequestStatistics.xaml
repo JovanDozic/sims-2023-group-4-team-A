@@ -49,15 +49,22 @@
         <TextBlock Grid.Row="5" Grid.Column="3" Text="{Binding UnacceptedPercentage}" FontSize="28" VerticalAlignment="Center" FontWeight="DemiBold"/>
         <Label Grid.Row="6" Grid.Column="2" FontSize="28" VerticalAlignment="Center" Content="Prosečan broj gostiju: " FontWeight="DemiBold"/>
         <TextBlock Grid.Row="6" Grid.Column="3" Text="{Binding AverageGuestNumber}" FontSize="28" VerticalAlignment="Center" FontWeight="DemiBold"/>
-        <lvc:CartesianChart Grid.Row="4" Grid.Column="5" Grid.RowSpan="3">
-            <lvc:CartesianChart.Series>
-                <lvc:LineSeries Title="Podaci" Values="{Binding Data}" />
-            </lvc:CartesianChart.Series>
+    
+        <lvc:CartesianChart Grid.Row="4" Grid.Column="5" Grid.RowSpan="3" Series="{Binding LanguageCounts}">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Jezik" Labels="{Binding TourLanguages}"  LabelsRotation="10"/>
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Broj zahteva" MinValue="0"/>
+            </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
-        <lvc:CartesianChart Grid.Row="4" Grid.Column="7" Grid.RowSpan="3">
-            <lvc:CartesianChart.Series>
-                <lvc:LineSeries Title="Podaci" Values="{Binding Data}" />
-            </lvc:CartesianChart.Series>
+        <lvc:CartesianChart Grid.Row="4" Grid.Column="7" Grid.RowSpan="3" Series="{Binding LocationCounts}">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Lokacija" Labels="{Binding TourLocations}" />
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Broj zahteva" MinValue="0" />
+            </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
 
     </Grid>
