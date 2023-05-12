@@ -19,11 +19,11 @@ namespace SIMSProject.View.Guest2
         public int DurationSearchBox;
         public int MaxGuestSearchBox;
         
-        public ShowAndSearchTours(Guest user, string location)
+        public ShowAndSearchTours(Guest user)
         {
             InitializeComponent();
             _user = user;
-            _tourViewModel = new ToursViewModel();
+            _tourViewModel = new ToursViewModel(_user);
             this.DataContext = _tourViewModel;
             CheckPending();
         }
@@ -47,7 +47,7 @@ namespace SIMSProject.View.Guest2
 
         private void Search_Click(object sender, RoutedEventArgs e)
         {
-            String locationAndLanguage = LocationAndLanguageSearch.Text;
+            String locationAndLanguage = LocationAndLanguageSearch.Text + CbLanguage.Text;
             int searchDuration = DurationSearch.Value <= 0 ? -1 : DurationSearch.Value;
             int searchMaxGuests = GuestSearch.Value <= 0 ? -1 : GuestSearch.Value;
             _tourViewModel.Search(locationAndLanguage, searchDuration, searchMaxGuests);
@@ -58,7 +58,7 @@ namespace SIMSProject.View.Guest2
             TextBox? textbox = sender as TextBox;
             if (textbox is null) return;
             textbox.Foreground = new SolidColorBrush(Colors.Black);
-            if (textbox.Text == "Lokacija jezik") textbox.Text = string.Empty;
+            if (textbox.Text == "Gde putujete?") textbox.Text = string.Empty;
         }
 
         private void TextSearch_LostFocus(object sender, RoutedEventArgs e)
@@ -68,7 +68,7 @@ namespace SIMSProject.View.Guest2
             if (textbox.Text == string.Empty)
             {
                 textbox.Foreground = new SolidColorBrush(Colors.Gray);
-                textbox.Text = "Lokacija jezik";
+                textbox.Text = "Gde putujete?";
 
             }
         }

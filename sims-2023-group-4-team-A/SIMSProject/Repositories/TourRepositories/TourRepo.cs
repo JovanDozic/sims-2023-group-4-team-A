@@ -97,7 +97,7 @@ namespace SIMSProject.Repositories.TourRepositories
                 (GetAll()))
                 tours.Add(tour);
 
-            if (locationAndLanguage == "Lokacija jezik") locationAndLanguage = string.Empty;
+            if (locationAndLanguage == "Gde putujete?") locationAndLanguage = string.Empty;
             string[] searchValues = locationAndLanguage.Split(" ");
 
             List<Tour> searchResults = tours.ToList();

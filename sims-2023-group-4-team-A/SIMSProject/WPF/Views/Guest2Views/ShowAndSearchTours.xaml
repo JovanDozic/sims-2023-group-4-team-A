@@ -7,47 +7,58 @@
       xmlns:custom="clr-namespace:SIMSProject.WPF.CustomControls"
       xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
       mc:Ignorable="d" 
-      Title="ShowAndSearchTours" Width="1280" Height="520"
+      Title="ShowAndSearchTours" Width="1140" Height="520"
       >
 
     <Page.Resources>
         <converters:TourLanguageConverter x:Key="TourLanguageConverter"/>
     </Page.Resources>
-    <DockPanel>
-        
-        <ToolBar DockPanel.Dock="Top" Height="60">
-            <TextBlock Width="25"/>
-            <TextBox x:Name="LocationAndLanguageSearch" Width="120" Height="30" Text="Lokacija jezik" 
-                     Foreground="Gray" GotFocus="TextSearch_GotFocus" LostFocus="TextSearch_LostFocus"/>
-            <Label Content="   Trajanje ture: " Height="30"/>
-            <custom:NumericTextBox x:Name="DurationSearch"/>
-            <Label Content="   Broj ljudi: " Height="30"/>
-            <custom:NumericTextBox x:Name="GuestSearch"/>
-            <TextBlock Width="50"/>
-            <Button  Height="30" Width ="100" Click="Search_Click" Content="Pretrazi" Background="Gray"/>
-            <Button x:Name="BtnReserve" Height="30" Width ="100" Click="Reserve_Click"  Content="Rezervisi" Background="Gray"/>
-        </ToolBar>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="90"/>
+            <RowDefinition/>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="230"/>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="400"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <DataGrid Height="400" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" RowHeight="30" FontSize="20"
+        <Label Grid.Row="1" Grid.ColumnSpan="7" Content="Nađite idealnu turu za Vas: " FontSize="40" FontWeight="Bold"/>
+        <TextBox Grid.Row="2" Grid.Column="0" x:Name="LocationAndLanguageSearch" Width="250" Height="50" FontSize="32" Text="Gde putujete?" 
+                     Foreground="DimGray" FontWeight="Bold" HorizontalAlignment="Left" GotFocus="TextSearch_GotFocus" LostFocus="TextSearch_LostFocus"/>
+        <ComboBox x:Name="CbLanguage" Grid.Row="2" Grid.Column="1" Height="50" Width="150" FontSize="32" Text="Jezik" SelectedItem="{Binding TourLanguage, Converter={StaticResource TourLanguageConverter}}" Cursor="Hand">
+            <ComboBoxItem IsEnabled="False" IsSelected="True" Tag="jezik" Foreground="LightGray">Jezik</ComboBoxItem>
+            <ComboBoxItem>Srpski</ComboBoxItem>
+            <ComboBoxItem>Engleski</ComboBoxItem>
+            <ComboBoxItem>Francuski</ComboBoxItem>
+            <ComboBoxItem>Španski</ComboBoxItem>
+        </ComboBox>
+        <Label Grid.Row="2" Grid.Column="2" Content="Broj ljudi: " FontSize="32" FontWeight="DemiBold" VerticalAlignment="Center" Height="60"/>
+        <custom:NumericTextBox x:Name="GuestSearch" Grid.Row="2" Grid.Column="3" Cursor="Hand"/>
+        <Label Grid.Row="2" Grid.Column="4" Content="Trajanje ture:" Height="60" FontSize="32" FontWeight="DemiBold" VerticalAlignment="Center"/>
+        <custom:NumericTextBox x:Name="DurationSearch" Grid.Row="2" Grid.Column="5" Cursor="Hand"/>
+        <Button Grid.Row="2" Grid.Column="6" Height="50" Width ="150" FontSize="32" VerticalAlignment="Center" FontWeight="DemiBold" Click="Search_Click" Content="Pretraži" Background="#ff6700" Cursor="Hand"/>
+        <DataGrid Grid.Row="3" Grid.ColumnSpan="7" SelectionMode="Single" IsReadOnly="True" FontSize="25" FontWeight="DemiBold" AutoGenerateColumns="False"
                   ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}"
                   >
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path = Name}" Header="Naziv" Width="200" x:Name="name"/>
-                    <DataGridTextColumn Binding="{Binding Path = Location}" Header="Lokacija" Width="250" x:Name="location"/>
-                    <DataGridTextColumn Binding="{Binding Path = Duration}" Header="Trajanje ture" Width="150" x:Name="duration"/>
-                    <DataGridTextColumn Binding="{Binding Path = TourLanguage, Converter={StaticResource TourLanguageConverter}}" Header="Jezik" Width="100" x:Name="tourLanguage"/>
-                    <DataGridTextColumn Binding="{Binding MaxGuestNumber}" Header="Broj ljudi na turi" Width="200" x:Name="maxGuestNumber"/>
-                </DataGrid.Columns>
-            </DataGrid>
-
-        </Grid>
-        
-
-    </DockPanel>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path = Name}" Header="Naziv" Width="*" x:Name="name"/>
+                <DataGridTextColumn Binding="{Binding Path = Location}" Header="Lokacija" Width="250" x:Name="location"/>
+                <DataGridTextColumn Binding="{Binding Path = Duration}" Header="Trajanje" Width="100" x:Name="duration"/>
+                <DataGridTextColumn Binding="{Binding Path = TourLanguage, Converter={StaticResource TourLanguageConverter}}" Header="Jezik" Width="100" x:Name="tourLanguage"/>
+                <DataGridTextColumn Binding="{Binding MaxGuestNumber}" Header="Kapacitet gostiju" Width="200" x:Name="maxGuestNumber"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" x:Name="BtnReserve" Height="50" Width ="280" FontSize="32" FontWeight="DemiBold" Click="Reserve_Click"  Content="Detalji i rezervacija" Background="#ff6700" Cursor="Hand"/>
+    </Grid>
 </Page>

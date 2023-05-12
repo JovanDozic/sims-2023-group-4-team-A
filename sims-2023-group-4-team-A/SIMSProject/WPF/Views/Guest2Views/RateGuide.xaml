@@ -27,7 +27,7 @@
             <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
         <Image Grid.Row="0" Source="/Resources/Images/chevron-left-black.png" RenderOptions.BitmapScalingMode="HighQuality" />
-        <Button Click="Back_Click" Grid.Column="1" Grid.Row="0" Content="Nazad" FontSize="28" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Foreground="#004e98"/>
+        <Button Click="Back_Click" Grid.Column="1" Grid.Row="0" Content="Nazad" FontSize="28" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Foreground="#004e98" Cursor="Hand"/>
         <Label Grid.Row="0" Grid.Column="2" Content="Ocenjivanje ture: " FontSize="40" FontWeight="Bold" HorizontalAlignment="Right"/>
         <TextBlock Text="{Binding TourReservation.TourAppointment.Tour.Name}" Grid.Row="0" Grid.Column="3" FontSize="40" VerticalAlignment="Center" FontWeight="DemiBold"/>
         <Label Grid.Row="1" Grid.Column="2" Content="Vodič: " FontWeight="Bold" FontSize="28" HorizontalAlignment="Right"/>
@@ -50,10 +50,10 @@
                 <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
             <TextBox x:Name="TbImageURL" Grid.Column="0" Width="220" HorizontalAlignment="Left" FontWeight="DemiBold"/>
-            <Button x:Name="BtnAddImage" Grid.Column="1" Content="+" FontSize="28"  Click="BtnAddImage_Click"/>
+            <Button x:Name="BtnAddImage" Grid.Column="1" Content="+" FontSize="28"  Click="BtnAddImage_Click" Cursor="Hand"/>
         </Grid>
 
-        <Button x:Name="BtnRate" Content="Oceni" Grid.Column="4" Grid.RowSpan="2" Grid.Row="8" Width="250" VerticalAlignment="Top" Height="80" FontSize="32" FontWeight="Bold" Click="BTNRate_Click" Background="#ff6700"/>
+        <Button x:Name="BtnRate" Content="Oceni" Grid.Column="4" Grid.RowSpan="2" Grid.Row="8" Width="250" VerticalAlignment="Top" Height="80" FontSize="32" FontWeight="Bold" Click="BTNRate_Click" Background="#ff6700" Cursor="Hand"/>
 
     </Grid>
 </Page>

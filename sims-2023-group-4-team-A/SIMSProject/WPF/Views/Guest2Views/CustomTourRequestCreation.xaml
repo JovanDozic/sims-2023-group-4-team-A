@@ -33,7 +33,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Image Grid.Row="1" Source="/Resources/Images/chevron-left-black.png" RenderOptions.BitmapScalingMode="HighQuality" />
-        <Button Click="Back_Click" Grid.Column="1" Grid.Row="1" Content="Nazad" FontSize="28" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Foreground="#004e98"/>
+        <Button Click="Back_Click" Grid.Column="1" Grid.Row="1" Content="Nazad" FontSize="28" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Foreground="#004e98" Cursor="Hand"/>
         <Label Grid.Row="2" Grid.RowSpan="6" Grid.Column="2" Grid.ColumnSpan="5" Background="#ebebeb"/>
         <Label Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="5" Content="Kreiraj zahtev za običnu turu" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="40" FontWeight="Bold"/>
         <Label Grid.Column="2" Grid.Row="3" Content="Lokacija:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
@@ -55,17 +55,17 @@
             Width="150"
             SelectedDate="{Binding StartDate, Mode=TwoWay}"
             HorizontalAlignment="Left"
-            FontSize="22"/>
+            FontSize="22" Cursor="Hand"/>
         <Label Grid.Column="5" Grid.Row="6" Content="Do:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
         <DatePicker  Validation.ErrorTemplate="{x:Null}" Loaded="DatePicker_Loaded" x:Name="DateTo" Grid.Row="6" Grid.Column="6"
             VerticalAlignment="Center"
             Width="150"
             SelectedDate="{Binding EndDate, Mode=TwoWay}"
             HorizontalAlignment="Left"
-            FontSize="22"/>
+            FontSize="22" Cursor="Hand"/>
         <Label Grid.Column="2" Grid.Row="7" Content="Broj gostiju:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
 
-        <custom:NumericBoxRating Value="{Binding GuestCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="GuestCount" Grid.Row="6" Grid.Column="3" Margin="32,22,85,14" Grid.RowSpan="2" Grid.ColumnSpan="2" />
-        <Button Click="CreateRequest_Click" Background="#ff6700" Grid.Column="7" Grid.Row="8" Content="Kreiraj zahtev" FontSize="32" FontWeight="Bold" Margin="0,0,15,0"/>
+        <custom:NumericBoxRating Value="{Binding GuestCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="GuestCount" Grid.Row="6" Grid.Column="3" Margin="32,22,85,14" Grid.RowSpan="2" Grid.ColumnSpan="2" Cursor="Hand" />
+        <Button Click="CreateRequest_Click" Background="#ff6700" Grid.Column="7" Grid.Row="8" Content="Kreiraj zahtev" FontSize="32" FontWeight="Bold" Margin="0,0,15,0" Cursor="Hand"/>
     </Grid>
 </Page>

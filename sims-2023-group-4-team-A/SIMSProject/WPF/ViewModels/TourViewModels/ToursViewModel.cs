@@ -9,6 +9,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
 {
     public class ToursViewModel: ViewModelBase
     {
+        private Guest _user;
         private readonly TourService _tourService;
         private readonly TourGuestService _tourGuestService;
         public ObservableCollection<Tour> Tours { get; set; }
@@ -24,6 +25,32 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
                     _tour = value;
                     OnPropertyChanged(nameof(SelectedTour));
                 }
+            }
+        }
+
+        public string TourLanguage
+        {
+            get
+            {
+                return _tour.TourLanguage switch
+                {
+                    Language.ENGLISH => "Engleski",
+                    Language.SERBIAN => "Srpski",
+                    Language.SPANISH => "Španski",
+                    _ => "Francuski"
+
+                };
+            }
+            set
+            {
+                _tour.TourLanguage = value switch
+                {
+                    "Engleski" => Language.ENGLISH,
+                    "Srpski" => Language.SERBIAN,
+                    "Španski" => Language.SPANISH,
+                    _ => Language.FRENCH
+                };
+                OnPropertyChanged();
             }
         }
         public void Search(string locationAndLanguage, int searchDuration, int searchMaxGuests)
@@ -44,8 +71,9 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             _tourGuestService.MakeGuestPresent(tourGuest);
 
         }
-        public ToursViewModel()
+        public ToursViewModel(Guest user)
         {
+            _user = user;
             _tourService = Injector.GetService<TourService>();
             _tourGuestService = Injector.GetService<TourGuestService>();
             Tours = new(_tourService.GetTours());
