@@ -6,12 +6,13 @@
         xmlns:cstm="clr-namespace:SIMSProject.WPF.CustomControls"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
        mc:Ignorable="d"
-        Height="700" Width="1200" WindowStartupLocation="CenterScreen">
+        Height="700" Width="1200" WindowStartupLocation="CenterScreen" Background="LightGoldenrodYellow">
     <Window.Resources>
         <Style x:Key="labels" TargetType="Label">
             <Setter Property="FontSize" Value="22"/>
             <Setter Property="Width" Value="296"/>
             <Setter Property="Height" Value="40"/>
+            <Setter Property="Foreground" Value="Blue"/>
         </Style>
     </Window.Resources>
     <Grid>
@@ -33,42 +34,45 @@
                  Content="N" 
                  FontSize="28" FontWeight="Bold" 
                  Width="54" Height="33" 
-                 HorizontalAlignment="Left" Margin="10,10,0,55"/>
+                 HorizontalAlignment="Left" Margin="10,0,0,50"/>
         <TextBlock Grid.Column="0" Grid.Row="0" 
                    Width="386" Height="36" 
+                   Foreground="Blue"
                    HorizontalAlignment="Left" FontSize="32" 
-                   FontWeight="Bold" Text="Kreirajte novu turu" Margin="10,50,0,12"/>
+                   FontWeight="Bold" Text="Kreirajte novu turu" Margin="10,30,0,0"/>
         <Label Grid.Column="0" Grid.Row="1" 
                Style="{StaticResource labels}" 
                Content="Naziv" 
-               HorizontalAlignment="Left" Margin="10,5,0,52"/>
+               HorizontalAlignment="Left" Margin="10,0,0,50"/>
         <TextBox Height="42" Width="243" 
-                 HorizontalAlignment="Left" Margin="10,45,0,10" 
+                 HorizontalAlignment="Left" Margin="10,40,0,0" 
                  Grid.Row="1" Grid.Column="0"
                  Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
         <Label  Grid.Row="2" Grid.Column="0" 
                 Style="{StaticResource labels}" 
                 Content="Lokacija" 
-                HorizontalAlignment="Left" Margin="10,10,0,48"/>
+                HorizontalAlignment="Left" Margin="10,0,0,50"/>
         <ComboBox Grid.Row="2" Grid.Column="0" 
                   Height="42" Width="243" 
-                  HorizontalAlignment="Left" Margin="10,50,0,5"
                   IsEditable="True"
+                  FontSize="22"
+                  HorizontalAlignment="Left" Margin="10,40,0,0"
                   ItemsSource="{Binding Path=AllLocations, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Location, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Style="{StaticResource labels}" 
                Content="Ključne tačke" 
-               HorizontalAlignment="Left" Margin="10,10,0,52" 
+               HorizontalAlignment="Left" Margin="10,0,0,50" 
                Grid.Row="3" Grid.Column="0"/>
         <ComboBox Height="42" Width="243" 
-                  HorizontalAlignment="Left" Margin="10,50,0,5" 
+                  HorizontalAlignment="Left" Margin="10,40,0,0" 
                   Grid.Row="3" Grid.Column="0"
+                  FontSize="22"
                   ItemsSource="{Binding Keys, UpdateSourceTrigger=PropertyChanged}" 
                   SelectedItem="{Binding SelectedKeyPoint, UpdateSourceTrigger=PropertyChanged}"
                   IsEditable="True"/>
-            <Button x:Name="AddKeyPoint"
+        <Button x:Name="AddKeyPoint"
                 Width="28" Height="23" 
-                Margin="277,60,175,15" 
+                Margin="80,40,0,0" 
                 Grid.Row="3" Grid.Column="0"
                 Content="+"
                 HorizontalContentAlignment="Center"
@@ -78,27 +82,30 @@
         <ListBox x:Name="LbKeyPoints"
                  Grid.Row="4" Grid.RowSpan="2" 
                  Width="450" Height="141" 
-                 HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"
+                 FontSize="22"
+                 HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"
                  ItemsSource="{Binding Path=KeyPoints, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Grid.Row="5" Grid.Column="0" 
                Style="{StaticResource labels}" 
                Content="Opis ture" 
-               HorizontalAlignment="Left" Margin="10,56,0,5"/>
-        <TextBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" 
+               HorizontalAlignment="Left" Margin="10,40,0,0"/>
+        <TextBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2"
                  Height="89" Width="871" 
-                 HorizontalAlignment="Left" Margin="10,5,0,8"
+                 FontSize="22"
+                 HorizontalAlignment="Left" Margin="10,70,0,0"
                  Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Grid.Row="0" Grid.Column="1" 
                Style="{StaticResource labels}" 
                Content="Odaberi datum i vreme" 
-               Margin="10,50,117,11"/>
+               Margin="0,30,110,0"/>
         <DatePicker Grid.Row="1" Grid.Column="1" 
-                    Width="151" Height="40" 
-                    FontSize="20" Margin="10,10,258,47"
+                    Width="151" Height="40"
+                    Margin="0,0,250,30"
+                    FontSize="20"
                     SelectedDate="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged}" 
                     />
         <cstm:TimePicker Grid.Row="1" Grid.Column="1"
-                         Margin="195,10,120,45"
+                         Margin="170,0,0,30"
                          Hours="{Binding Hours, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                          Minutes="{Binding Minutes, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
         <Button x:Name="AddDate"
@@ -106,22 +113,24 @@
                 Content="+" 
                 Click="AddDate_Click"
                 Grid.Row="1" Grid.Column="1" 
-                Margin="352,19,40,55"/>
+                Margin="150,0,0,30"/>
 
         <ListBox x:Name="LbAppointments"
                  Grid.Row="1" Grid.Column="1" 
-                 Width="283" Height="99" 
-                 Margin="10,61,127,35" Grid.RowSpan="2"
+                 Width="290" Height="99" 
+                 Grid.RowSpan="2"
+                 FontSize="22"
+                 Margin="10,20,120,0"
                  ItemsSource="{Binding Path=Appointments, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Style="{StaticResource labels}" 
                Grid.Row="3" Grid.Column="1" 
                Content="Jezik" 
-               Margin="10,10,118,51"/>
+               Margin="10,0,120,50"/>
         <ComboBox Height="42" Width="243" 
                   HorizontalAlignment="Left" 
                   Grid.Column="1" Grid.Row="3" 
-                  Margin="10,50,0,6"
-                  FontSize="24"
+                  Margin="10,40,0,0"
+                  FontSize="22"
                   ItemsSource="{Binding Path=TourLanguages, UpdateSourceTrigger=PropertyChanged}" 
                   SelectedItem="{Binding Path= TourLanguage}"
                   />
@@ -142,22 +151,26 @@
                              Value="{Binding Path=Duration, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.ColumnSpan="2"></cstm:NumericTextBox>
         <Button x:Name="BTNUploadFiles"
                 Grid.Column="2" Grid.Row="1" 
+                Foreground="Blue"
                 Width="150" Height="33" 
                 FontSize="22" FontWeight="Bold" 
                 Content="Dodaj sliku"
                 Click="BTNUploadFiles_Click"/>
         <TextBox x:Name="ImageURLs" 
                  Grid.Column="2" 
+                 FontSize="22"
                  Width="270" Height="42"
                  GotFocus="ImageURLs_GotFocus"/>
         <ListBox x:Name="LbImages"
                  Grid.Row="3" Grid.Column="2" 
                  Grid.RowSpan="3" 
+                 FontSize="22"
                  Width="270" Height="218"
                  ItemsSource="{Binding Path=Images, UpdateSourceTrigger=PropertyChanged}"/>
         <Button x:Name="Confirm"
                 Grid.Column="2" Grid.Row="6" 
                 FontSize="22" FontWeight="Bold" 
+                Foreground="Blue"
                 Content="Potvrdi Ctrl+P" 
                 Width="220" Height="42"
                 Click="Confirm_Click"/>

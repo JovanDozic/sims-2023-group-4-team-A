@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cstm="clr-namespace:SIMSProject.WPF.CustomControls"
+        xmlns:local="clr-namespace:SIMSProject.Domain.Models.TourModels"
         mc:Ignorable="d"
         Title="LiveTrackingWindow" Height="700" Width="1200" WindowStartupLocation="CenterScreen">
     <Window.InputBindings>
@@ -12,6 +13,17 @@
         <KeyBinding Command="{Binding PauseCommand}" Key="P" Modifiers="Shift"/>
         <KeyBinding Command="{Binding SignUpCommand}" Key="A" Modifiers="Shift"/>
     </Window.InputBindings>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type local:KeyPoint}">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding Path=Description}"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Path=Location.City}" FontSize="16"/>
+                    <TextBlock Text="{Binding Path=Location.Country}" Margin="5,0,0,0" FontSize="16"/>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -29,7 +41,7 @@
                     HorizontalAlignment="Left"
                     Height="40" Width="400"
                     FontSize="32" FontWeight="Bold"
-                    Text="{Binding Path=Tour.Name}"/>
+                    Text="{Binding Path=Appointment.Tour.Name}"/>
             <StackPanel Orientation="Horizontal">
                 <TextBlock 
                     Height="36" Width="292"
@@ -40,11 +52,11 @@
                            Height="36" Width="300"
                            FontSize="24"/>
             </StackPanel>
-            <TextBlock
+            <ListBox
                 Margin="0,25,0,0"
                 HorizontalAlignment="Left"
+                ItemsSource="{Binding Path=Appointment.Tour.KeyPoints}"
                 FontSize="24"
-                Text="{Binding Path=KeyPoints}"
                 Width="400" Height="250"/>
             <StackPanel Margin="0,126,0,0"
                 Orientation="Horizontal" Height="80" Width="527">
@@ -77,9 +89,18 @@
             <ListBox 
                 x:Name="LbGuests"
                 Width="342" Height="350"
-                ItemsSource="{Binding Path=Guests, UpdateSourceTrigger=PropertyChanged}"
-                SelectedItem="{Binding SelectedGuest, UpdateSourceTrigger=PropertyChanged}"
-                FontSize="24"/>
+                ItemsSource="{Binding Path=Guests, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                SelectedItem="{Binding Path=SelectedGuest}"
+                FontSize="24">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type local:TourGuest}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Path=Guest.Username}" />
+                            <TextBlock Text="{Binding Path=GuestStatus}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
             <Button x:Name="Sign_guestBTN" 
                     Margin="0,100,0,0"
                     Width="190" Height="80"

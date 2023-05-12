@@ -12,7 +12,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.BaseViewModels
 {
     public class BaseTourViewModel : ViewModelBase
     {
-        protected Tour _tour;
+        private Tour _tour;
         public Tour Tour
         {
             get => _tour;

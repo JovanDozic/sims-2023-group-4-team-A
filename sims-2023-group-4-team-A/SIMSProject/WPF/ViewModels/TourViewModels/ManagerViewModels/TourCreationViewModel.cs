@@ -14,13 +14,164 @@ using System.Windows;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
 {
-    public class TourCreationViewModel : BaseTourViewModel
+    public class TourCreationViewModel : ViewModelBase
     {
         private readonly TourService _tourService;
         private readonly TourAppointmentService _tourAppointmentService;
         private readonly TourKeyPointService _tourKeyPointService;
         private readonly LocationService _locationService;
         private readonly KeyPointService _keyPointService;
+
+        private Tour _tour;
+        public Tour Tour
+        {
+            get => _tour;
+            set
+            {
+                if (value != _tour)
+                {
+                    _tour = value;
+                    OnPropertyChanged(nameof(Tour));
+                }
+            }
+        }
+        public int Id
+        {
+            get { return _tour.Id; }
+        }
+
+        public Guide Guide
+        {
+            get => _tour.Guide;
+            set
+            {
+                if (_tour.Guide != value)
+                {
+                    _tour.Guide = value;
+                    OnPropertyChanged(nameof(Guide));
+                }
+
+            }
+        }
+
+        public string Name
+        {
+            get { return _tour.Name; }
+            set
+            {
+                if (_tour.Name != value)
+                {
+                    _tour.Name = value;
+                    OnPropertyChanged(nameof(Name));
+                }
+            }
+        }
+
+        public string Description
+        {
+            get { return _tour.Description; }
+            set
+            {
+                if (value != _tour.Description)
+                {
+                    _tour.Description = value;
+                    OnPropertyChanged(nameof(Description));
+                }
+            }
+        }
+
+        public string TourLanguage
+        {
+            get
+            {
+                return _tour.TourLanguage switch
+                {
+                    Language.ENGLISH => "Engleski",
+                    Language.SERBIAN => "Srpski",
+                    Language.SPANISH => "Španski",
+                    _ => "Francuski"
+
+                };
+            }
+            set
+            {
+                _tour.TourLanguage = value switch
+                {
+                    "Engleski" => Language.ENGLISH,
+                    "Srpski" => Language.SERBIAN,
+                    "Španski" => Language.SPANISH,
+                    _ => Language.FRENCH
+                };
+                OnPropertyChanged(nameof(TourLanguage));
+            }
+        }
+
+        public int MaxGuestNumber
+        {
+            get => _tour.MaxGuestNumber;
+            set
+            {
+                if (value >= 1)
+                {
+                    _tour.MaxGuestNumber = value;
+                    OnPropertyChanged(nameof(MaxGuestNumber));
+                }
+            }
+        }
+
+        public int Duration
+        {
+            get => _tour.Duration;
+            set
+            {
+                if (value >= 1)
+                {
+                    _tour.Duration = value;
+                    OnPropertyChanged(nameof(Duration));
+                }
+            }
+        }
+
+        public List<KeyPoint> KeyPoints
+        {
+            get => _tour.KeyPoints;
+            set
+            {
+                if (value != _tour.KeyPoints)
+                {
+                    _tour.KeyPoints = value;
+                    OnPropertyChanged(nameof(KeyPoints));
+                }
+            }
+        }
+
+
+        private List<TourAppointment> _appointments = new();
+        public List<TourAppointment> Appointments
+        {
+            get => _appointments;
+            set
+            {
+                if (value != _appointments)
+                {
+                    _appointments = value;
+                    OnPropertyChanged(nameof(Appointments));
+                }
+            }
+        }
+
+        public List<string> Images
+        {
+            get => _tour.Images;
+            set
+            {
+                if (value != _tour.Images)
+                {
+                    _tour.Images = value;
+                    OnPropertyChanged(nameof(Images));
+                }
+            }
+        }
 
 
         private int hours;
@@ -53,7 +204,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             }
         }
 
-        public new Location Location
+        public Location Location
         {
             get { return _tour.Location; }
             set
@@ -77,7 +228,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         public ObservableCollection<KeyPoint> Keys { get; set; } = new();
         public KeyPoint? SelectedKeyPoint { get; set; }
         public DateTime SelectedAppointment { get; set; } = DateTime.Now;
-        public TourCreationViewModel(Guide guide) : base(new())
+        public TourCreationViewModel(Guide guide)
         {
             TourLanguages = new()
             {
@@ -128,8 +279,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
                 return;
             }
 
-            int seconds = 0;
-            DateTime newDate = new(SelectedAppointment.Year, SelectedAppointment.Month, SelectedAppointment.Day, Hours, Minutes, seconds);
+            DateTime newDate = new(SelectedAppointment.Year, SelectedAppointment.Month, SelectedAppointment.Day, Hours, Minutes, 0);
             Appointments.Add(new(newDate, -1, MaxGuestNumber, -1, Guide.Id));
         }
     }

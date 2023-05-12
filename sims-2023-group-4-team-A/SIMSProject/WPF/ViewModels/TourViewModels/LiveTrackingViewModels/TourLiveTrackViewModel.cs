@@ -21,8 +21,29 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
         private readonly TourGuestService _tourGuestService;
         private readonly NotificationService _notificationService;
 
-        public BaseAppointmentViewModel Appointment { get; set; }
-        public ObservableCollection<TourGuest> Guests { get; set; }
+        private TourAppointment _appointment = new();
+        public TourAppointment Appointment
+        {
+            get => _appointment;
+            set
+            {
+                if(value == _appointment) return;
+                _appointment = value;
+                OnPropertyChanged(nameof(Appointment));
+            }
+        }
+
+        private ObservableCollection<TourGuest> _guests;
+        public ObservableCollection<TourGuest> Guests
+        {
+            get => _guests;
+            set
+            {
+                if (value == _guests) return;
+                _guests = value;
+                OnPropertyChanged(nameof(Guests));
+            }
+        }
 
         private TourGuest _selectedGuest = new();
         public TourGuest SelectedGuest
@@ -34,6 +55,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
                 {
                     _selectedGuest = value;
                     OnPropertyChanged(nameof(SelectedGuest));
+                    OnPropertyChanged(nameof(Guests));
                 }
             }
         }
@@ -45,8 +67,8 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
             _tourService = Injector.GetService<TourService>();
             _notificationService = Injector.GetService<NotificationService>();
 
-            Appointment = new(appointment);
-            Guests = new(_tourGuestService.GetGuests(Appointment.TourAppointment));
+            Appointment = appointment;
+            Guests = new(_tourGuestService.GetGuests(Appointment));
 
             GoNextCommand = new RelayCommand(GoNextExecute, GoNextCanExecute);
             EndCommand = new RelayCommand(EndExecute, EndCanExecute);
@@ -63,9 +85,8 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
         }
         public void GoNextExecute()
         {
-            KeyPoint Next = _tourService.GetNextKeyPoint(Appointment.TourAppointment);
-            Appointment.TourAppointment = _tourAppointmentService.AdvanceNext(Appointment.Id, Next);
-            Appointment.CurrentKeyPoint = Next;
+            KeyPoint Next = _tourService.GetNextKeyPoint(Appointment);
+            Appointment = _tourAppointmentService.AdvanceNext(Appointment.Id, Next);
         }
         #endregion
         #region EndCommand
@@ -103,20 +124,26 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
         public ICommand SignUpCommand { get; private set; }
         public bool SignUpCanExecute()
         {
-            return SelectedGuest.GuestStatus == GuestAttendance.ABSENT && Guests.Count > 0;
+            return (SelectedGuest != null ? SelectedGuest.GuestStatus == GuestAttendance.ABSENT : false) && Guests.Count > 0;
         }
         public void SignUpExecute()
         {
-            _tourGuestService.SignUpGuest(SelectedGuest.Guest.Id, Appointment.Id);
+            SelectedGuest = _tourGuestService.SignUpGuest(SelectedGuest.Guest.Id, Appointment.Id);
             SendNotification();
         }
         private void SendNotification()
         {
             string title = "Potvrda prisustva";
-            string description = $"{Appointment.TourAppointment.Guide} želi da potvrdi vaše prisustvo na turi:{Appointment.TourAppointment.Date}";
+            string description = $"{Appointment.Guide} želi da potvrdi vaše prisustvo na turi:{Appointment.Date}";
 
             var notification = new Notification(SelectedGuest.Guest, title, description, null);
             _notificationService.CreateNotification(notification);
+
+            Guests.Clear();
+            foreach (var guests in _tourGuestService.GetGuests(Appointment))
+            {
+                Guests.Add(guests);
+            }
         }
         #endregion
     }
