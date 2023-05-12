@@ -32,7 +32,7 @@ namespace SIMSProject.WPF.Views.Guest2Views
         }
         private void ShowKeyPoint_Click(object sender, RoutedEventArgs e)
         {
-            new ShowKeyPoint(User, _tourReservationsViewModel.SelectedTourReservation).Show();
+            NavigationService.Navigate(new ShowKeyPoint(User, _tourReservationsViewModel.SelectedTourReservation));
         }
         private void SetButtonState(object sender, bool state)
         {
@@ -43,7 +43,7 @@ namespace SIMSProject.WPF.Views.Guest2Views
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SetButtonState(BTNRateGuide, _tourReservationsViewModel.IsRatingEnabled());
-            SetButtonState(BTNShowKeyPoint, _tourReservationsViewModel.IsTourActive());
+            //SetButtonState(BTNShowKeyPoint, _tourReservationsViewModel.IsTourActive());
         }
 
         

@@ -14,8 +14,8 @@
             <RowDefinition Height="200"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border BorderThickness="2" BorderBrush="Black" Grid.Row="0"/>
-        <Border BorderThickness="2" BorderBrush="Black" Grid.Row="1"/>
+        <Border BorderThickness="2" BorderBrush="#004e98" Grid.Row="0"/>
+        <Border BorderThickness="2" BorderBrush="#004e98" Grid.Row="1"/>
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="120"/>

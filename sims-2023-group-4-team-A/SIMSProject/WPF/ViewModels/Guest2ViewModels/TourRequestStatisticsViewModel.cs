@@ -2,6 +2,7 @@
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.UserModels;
 using System;
+using System.Windows.Controls;
 
 namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
 {
@@ -9,8 +10,8 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
     {
         private Guest _user;
         private CustomTourRequestService _customTourRequestService;
-        private int _selectedYear;
-        public int SelectedYear
+        private string _selectedYear;
+        public string SelectedYear
         {
             get => _selectedYear;
             set
@@ -19,6 +20,18 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 _selectedYear = value;
                 OnPropertyChanged();
                 LoadByYear(_selectedYear);
+            }
+        }
+        private ComboBoxItem _selectedItem;
+        public ComboBoxItem SelectedItem
+        {
+            get => _selectedItem;
+            set
+            {
+                if (_selectedItem == value) return;
+                _selectedItem = value;
+                OnPropertyChanged();
+                SelectedYear = _selectedItem?.Content.ToString();
             }
         }
         private string _acceptedPercentage;
@@ -43,14 +56,14 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 OnPropertyChanged();
             }
         }
-        private double _averageGuestPercentage;
-        public double AverageGuestPercentage
+        private string _averageGuestNumber;
+        public string AverageGuestNumber
         {
-            get => _averageGuestPercentage;
+            get => _averageGuestNumber;
             set
             {
-                if(value == _averageGuestPercentage) return;
-                _averageGuestPercentage = value;
+                if(value == _averageGuestNumber) return;
+                _averageGuestNumber = value;
                 OnPropertyChanged();
             }
         }
@@ -60,11 +73,21 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             _customTourRequestService = Injector.GetService<CustomTourRequestService>();
         }
 
-        public void LoadByYear(int year)
+        public void LoadByYear(string selectedYear)
         {
-            AcceptedPercentage = Math.Round(_customTourRequestService.AcceptedRequestPercentageByGuestId(_user.Id, year),2).ToString() + "%";
-            UnacceptedPercentage = (100- Math.Round(_customTourRequestService.AcceptedRequestPercentageByGuestId(_user.Id, year), 2)).ToString() + "%";
-            AverageGuestPercentage = Math.Round(_customTourRequestService.AverageGuestsInAcceptedRequests(_user.Id, year), 2);
+            if (selectedYear == "Oduvek")
+            {
+                AcceptedPercentage = Math.Round(_customTourRequestService.AllTimeAcceptedRequestPercentageByGuestId(_user.Id), 2).ToString() + "%";
+                UnacceptedPercentage = (100 - Math.Round(_customTourRequestService.AllTimeAcceptedRequestPercentageByGuestId(_user.Id), 2)).ToString() + "%";
+                AverageGuestNumber = Math.Round(_customTourRequestService.AllTimeAverageGuestsInAcceptedRequests(_user.Id), 2).ToString();
+            }
+            int year;
+            if (int.TryParse(selectedYear, out year))
+            {
+                AcceptedPercentage = Math.Round(_customTourRequestService.AcceptedRequestPercentageByGuestId(_user.Id, year), 2).ToString() + "%";
+                UnacceptedPercentage = (100 - Math.Round(_customTourRequestService.AcceptedRequestPercentageByGuestId(_user.Id, year), 2)).ToString() + "%";
+                AverageGuestNumber = Math.Round(_customTourRequestService.AverageGuestsInAcceptedRequests(_user.Id, year), 2).ToString();
+            }
         }
 
     }

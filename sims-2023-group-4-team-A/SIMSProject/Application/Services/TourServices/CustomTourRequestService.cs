@@ -79,12 +79,25 @@ namespace SIMSProject.Application.Services.TourServices
             if (acceptedRequests == 0) return 0;
             return (acceptedRequests /= _customTourRequestRepo.GetAllByGuestId(guestId).FindAll(x => x.RequestCreateDate.Year == year).Count)*100;
         }
+        public double AllTimeAcceptedRequestPercentageByGuestId(int guestId)
+        {
+            double acceptedRequests = _customTourRequestRepo.GetAllAcceptedByGuestId(guestId).Count;
+            if (acceptedRequests == 0) return 0;
+            return (acceptedRequests /= _customTourRequestRepo.GetAllByGuestId(guestId).Count) * 100;
+        }
         public double AverageGuestsInAcceptedRequests(int guestId, int year)
         {
             double acceptedRequests = _customTourRequestRepo.GetAllAcceptedByGuestId(guestId).FindAll(x => x.RequestCreateDate.Year == year).Count;
             double guestcount = _customTourRequestRepo.GetAllAcceptedByGuestId(guestId).FindAll(x => x.RequestCreateDate.Year == year).Sum(x => x.GuestCount);
             if(acceptedRequests == 0) return 0;
             return guestcount/acceptedRequests;
+        }
+        public double AllTimeAverageGuestsInAcceptedRequests(int guestId)
+        {
+            double acceptedRequests = _customTourRequestRepo.GetAllAcceptedByGuestId(guestId).Count;
+            double guestcount = _customTourRequestRepo.GetAllAcceptedByGuestId(guestId).Sum(x => x.GuestCount);
+            if (acceptedRequests == 0) return 0;
+            return guestcount / acceptedRequests;
         }
 
         public void ApproveRequest(CustomTourRequest request)

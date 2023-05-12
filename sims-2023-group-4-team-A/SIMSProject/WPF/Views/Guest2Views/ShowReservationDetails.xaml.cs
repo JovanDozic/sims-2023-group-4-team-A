@@ -20,7 +20,7 @@ namespace SIMSProject.WPF.Views.Guest2Views
     /// <summary>
     /// Interaction logic for ShowKeyPoint.xaml
     /// </summary>
-    public partial class ShowKeyPoint : Window
+    public partial class ShowKeyPoint : Page
     {
         private User _user;
         private readonly TourReservationsViewModel _viewmodel;
@@ -31,6 +31,11 @@ namespace SIMSProject.WPF.Views.Guest2Views
             _viewmodel = new(user);
             _viewmodel.GetDetails(tourReservation);
             DataContext = _viewmodel;
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }
