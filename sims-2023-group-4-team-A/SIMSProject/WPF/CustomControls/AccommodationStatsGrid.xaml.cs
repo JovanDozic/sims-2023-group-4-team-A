@@ -57,5 +57,10 @@ namespace SIMSProject.WPF.CustomControls
         {
             InitializeComponent();
         }
+
+        private void BtnTrophy_Click(object sender, RoutedEventArgs e)
+        {
+            PopupTrophyHelp.IsOpen = true;
+        }
     }
 }
