@@ -3,14 +3,11 @@ using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
+using LiveCharts;
+using LiveCharts.Wpf;
+using LiveCharts.Helpers;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
 {
@@ -18,9 +15,21 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
     {
         private readonly CustomTourRequestService _requestService;
 
+        
         public ObservableCollection<Location> RequestsLocations { get; set; }
         public ObservableCollection<Language> RequestsLanguages { get; set; }
 
+        private SeriesCollection _series = new();
+        public SeriesCollection Series
+        {
+            get => _series;
+            set
+            {
+                if (value == _series) return;
+                _series = value;
+                OnPropertyChanged(nameof(Series));
+            }
+        }
         private Location _location = new();
         public Location SelectedLocation
         {
@@ -41,21 +50,21 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
             get => _language;
             set
             {
-                if(value != _language)
+                if (value != _language)
                 {
                     _language = value;
                     OnPropertyChanged(nameof(SelectedLanguage));
                 }
             }
         }
-        
+
         private bool _rbLocationsIsChecked;
         public bool RbLocationsIsChecked
         {
             get => _rbLocationsIsChecked;
             set
             {
-                if(value !=  _rbLocationsIsChecked)
+                if (value != _rbLocationsIsChecked)
                 {
                     _rbLocationsIsChecked = value;
                     OnPropertyChanged(nameof(RbLocationsIsChecked));
@@ -85,7 +94,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
             get => _rbAnnualyIsChecked;
             set
             {
-                if(value != _rbAnnualyIsChecked)
+                if (value != _rbAnnualyIsChecked)
                 {
                     _rbAnnualyIsChecked = value;
                     OnPropertyChanged(nameof(RbAnnualyIsChecked));
@@ -99,7 +108,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
             get => _rbYearIsChecked;
             set
             {
-                if( value != _rbYearIsChecked)
+                if (value != _rbYearIsChecked)
                 {
                     _rbYearIsChecked = value;
                     OnPropertyChanged(nameof(RbYearIsChecked));
@@ -114,7 +123,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
             get => _cbLocationsIsEnabled;
             set
             {
-                if(_cbLocationsIsEnabled != value)
+                if (_cbLocationsIsEnabled != value)
                 {
                     _cbLocationsIsEnabled = value;
                     OnPropertyChanged(nameof(CbLocationsIsEnabled));
@@ -128,7 +137,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
             get => _cbLanguagesIsEnabled;
             set
             {
-                if(_cbLanguagesIsEnabled != value)
+                if (_cbLanguagesIsEnabled != value)
                 {
                     _cbLanguagesIsEnabled = value;
                     OnPropertyChanged(nameof(CbLanguagesIsEnabled));
@@ -142,7 +151,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
             get => _tbYearIsEnabled;
             set
             {
-                if(_tbYearIsEnabled != value)
+                if (_tbYearIsEnabled != value)
                 {
                     _tbYearIsEnabled = value;
                     OnPropertyChanged(nameof(TbYearIsEnabled));
@@ -184,7 +193,15 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
         }
         public void CountLocationsExecute()
         {
-            _requestService.CountRequests(SelectedLocation);
+            Series = new SeriesCollection()
+            {
+                new ColumnSeries
+                {
+                    Title = "Lokacije",
+                    Values = new ChartValues<int>(_requestService.CountRequests(SelectedLocation).AsChartValues())
+                }
+                
+            };
         }
         #endregion
         #region CountLanguagesCommand
@@ -196,7 +213,14 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
         }
         public void CountLanguagesExecute()
         {
-            _requestService.CountRequests(SelectedLanguage);
+            Series = new SeriesCollection
+           {
+               new ColumnSeries
+               {
+                   Title = "Jezici",
+                   Values = new ChartValues<int>(_requestService.CountRequests(SelectedLanguage).AsChartValues())
+               }
+           };
         }
         #endregion
         #region CountLocationsMonthlyCommand
@@ -207,7 +231,14 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
         }
         public void CountLocationsMonthlyExecute()
         {
-            _requestService.CountRequestsMonthly(SelectedLocation, int.Parse(DesiredYear));
+            Series = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Lokacija u godini",
+                    Values = new ChartValues<int>(_requestService.CountRequestsMonthly(SelectedLocation, int.Parse(DesiredYear)).AsChartValues())
+                }
+            };
         }
         #endregion
         #region CountLanguagesMonthlyCommand
@@ -218,13 +249,16 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
         }
         public void CountLanguagesMonthlyExecute()
         {
-            _requestService.CountRequestsMonthly(SelectedLanguage, int.Parse(DesiredYear));
+            Series = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Jezika u godini",
+                    Values = new ChartValues<int>(_requestService.CountRequestsMonthly(SelectedLanguage, int.Parse(DesiredYear)).AsChartValues())
+                }
+            };
         }
         #endregion
-
         #endregion
-
-
-
     }
 }

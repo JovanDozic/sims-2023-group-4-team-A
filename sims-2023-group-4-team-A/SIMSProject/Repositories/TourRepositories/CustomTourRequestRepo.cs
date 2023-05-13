@@ -82,24 +82,22 @@ namespace SIMSProject.Repositories.TourRepositories
             var filteredRequests = _customTourRequests.Where(r => r.Location.Id == location.Id);
             return CountAnnualy(filteredRequests);
         }
+        public List<int> CountRequests(Language language)
+        {
+            var filteredRequests = _customTourRequests.Where(r => r.TourLanguage == language);
+            return CountAnnualy(filteredRequests);
+        }
         public List<int> CountRequestsMonthly(Language language, int desiredYear)
         {
-            var filteredRequests = _customTourRequests.Where(r => r.TourLanguage.Equals(language) && r.StartDate.Year.Equals(desiredYear));
-            return CountRequestsMonthly(filteredRequests);
+            var filteredRequests = _customTourRequests.Where(r => r.TourLanguage == language && r.StartDate.Year.Equals(desiredYear));
+            return CountMonthly(filteredRequests);
         }
 
         public List<int> CountRequestsMonthly(Location location, int desiredYear)
         {
             var filteredRequests = _customTourRequests.Where(r => r.Location.Id == location.Id && r.StartDate.Year.Equals(desiredYear));
-            return CountRequestsMonthly(filteredRequests);
+            return CountMonthly(filteredRequests);
         }
-
-        public List<int> CountRequests(Language language)
-        {
-            var filteredRequests = _customTourRequests.Where(r => r.TourLanguage.Equals(language));
-            return CountAnnualy(filteredRequests);
-        }
-
         private void MapGuests()
         {
             foreach(var customTourRequest  in _customTourRequests)
@@ -115,26 +113,20 @@ namespace SIMSProject.Repositories.TourRepositories
                 customTourRequest.Location = _locationRepo.GetById(customTourRequest.Location.Id);
             }
         }
-        private static List<int> CountRequestsMonthly(IEnumerable<CustomTourRequest> filteredRequests)
+        private static List<int> CountMonthly(IEnumerable<CustomTourRequest> filteredRequests)
         {
             var groupedRequests = filteredRequests.GroupBy(r => r.StartDate.Month);
-            return Enumerable.Range(1, 12).Select(month => groupedRequests.SingleOrDefault(g => g.Key == month)?.Count() ?? 0).ToList();
-        }
-        private List<int> GetRequestsYears()
-        {
-            return _customTourRequests.Select(x => x.StartDate.Year).Distinct().ToList();
+            return Enumerable.Range(1, 12)
+                .Select(month => groupedRequests.SingleOrDefault(g => g.Key == month)?.Count() ?? 0)
+                .ToList();
         }
         private List<int> CountAnnualy(IEnumerable<CustomTourRequest> filteredRequests)
         {
-            int firstYear, lastYear;
-            GetBoundries(out firstYear, out lastYear);
             var groupedRequests = filteredRequests.GroupBy(r => r.StartDate.Year);
-            return Enumerable.Range(firstYear, lastYear).Select(year => groupedRequests.SingleOrDefault(g => g.Key == year)?.Count() ?? 0).ToList();
-        }
-        private void GetBoundries(out int firstYear, out int lastYear)
-        {
-            firstYear = GetRequestsYears().FirstOrDefault();
-            lastYear = GetRequestsYears().LastOrDefault();
+            return _customTourRequests.Select(x => x.StartDate.Year).Distinct()
+                .OrderBy(x => x)
+                .Select(year => groupedRequests.SingleOrDefault(g => g.Key == year)?.Count() ?? 0)
+                .ToList();
         }
     }
 }

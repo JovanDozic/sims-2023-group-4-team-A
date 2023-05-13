@@ -124,5 +124,10 @@ namespace SIMSProject.Application.Services.TourServices
         {
             return _customTourRequestRepo.CountRequestsMonthly(language, desiredYear);
         }
+
+        public List<int> GetRequestsYears()
+        {
+            return _customTourRequestRepo.GetAll().Select(x => x.StartDate.Year).Distinct().OrderBy(x => x).ToList();
+        }
     }
 }
