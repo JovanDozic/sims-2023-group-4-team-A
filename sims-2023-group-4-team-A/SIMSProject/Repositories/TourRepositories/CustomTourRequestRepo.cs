@@ -26,26 +26,7 @@ namespace SIMSProject.Repositories.TourRepositories
             MapGuests();
             MapLocations();
         }
-        public int CountRequests(Location location)
-        {
-            return _customTourRequests.Count(x => x.Location.Id == location.Id);
-        }
-        public List<int> CountRequestsMonthly(Language language, int desiredYear)
-        {
-            var filteredRequests = _customTourRequests.Where(r => r.TourLanguage.Equals(language) && r.StartDate.Year.Equals(desiredYear));
-            return CountRequestsMonthly(filteredRequests);
-        }
-
-        public List<int> CountRequestsMonthly(Location location, int desiredYear)
-        {
-            var filteredRequests = _customTourRequests.Where(r => r.Location.Id == location.Id && r.StartDate.Year.Equals(desiredYear));
-            return CountRequestsMonthly(filteredRequests);
-        }
-
-        public int CountRequests(Language language)
-        {
-            return _customTourRequests.Count(x => x.TourLanguage.Equals(language));
-        }
+        
 
         public List<CustomTourRequest> GetAll()
         {
@@ -66,7 +47,7 @@ namespace SIMSProject.Repositories.TourRepositories
         {
             return _customTourRequests.Find(x => x.Id == id);
         }
-
+        
         public List<Language> GetRequestsLanguages()
         {
             return _customTourRequests.Select(x => x.TourLanguage).Distinct().ToList();
@@ -96,6 +77,29 @@ namespace SIMSProject.Repositories.TourRepositories
             _customTourRequests = customTourRequests;
         }
 
+        public List<int> CountRequests(Location location)
+        {
+            var filteredRequests = _customTourRequests.Where(r => r.Location.Id == location.Id);
+            return CountAnnualy(filteredRequests);
+        }
+        public List<int> CountRequestsMonthly(Language language, int desiredYear)
+        {
+            var filteredRequests = _customTourRequests.Where(r => r.TourLanguage.Equals(language) && r.StartDate.Year.Equals(desiredYear));
+            return CountRequestsMonthly(filteredRequests);
+        }
+
+        public List<int> CountRequestsMonthly(Location location, int desiredYear)
+        {
+            var filteredRequests = _customTourRequests.Where(r => r.Location.Id == location.Id && r.StartDate.Year.Equals(desiredYear));
+            return CountRequestsMonthly(filteredRequests);
+        }
+
+        public List<int> CountRequests(Language language)
+        {
+            var filteredRequests = _customTourRequests.Where(r => r.TourLanguage.Equals(language));
+            return CountAnnualy(filteredRequests);
+        }
+
         private void MapGuests()
         {
             foreach(var customTourRequest  in _customTourRequests)
@@ -115,6 +119,22 @@ namespace SIMSProject.Repositories.TourRepositories
         {
             var groupedRequests = filteredRequests.GroupBy(r => r.StartDate.Month);
             return Enumerable.Range(1, 12).Select(month => groupedRequests.SingleOrDefault(g => g.Key == month)?.Count() ?? 0).ToList();
+        }
+        private List<int> GetRequestsYears()
+        {
+            return _customTourRequests.Select(x => x.StartDate.Year).Distinct().ToList();
+        }
+        private List<int> CountAnnualy(IEnumerable<CustomTourRequest> filteredRequests)
+        {
+            int firstYear, lastYear;
+            GetBoundries(out firstYear, out lastYear);
+            var groupedRequests = filteredRequests.GroupBy(r => r.StartDate.Year);
+            return Enumerable.Range(firstYear, lastYear).Select(year => groupedRequests.SingleOrDefault(g => g.Key == year)?.Count() ?? 0).ToList();
+        }
+        private void GetBoundries(out int firstYear, out int lastYear)
+        {
+            firstYear = GetRequestsYears().FirstOrDefault();
+            lastYear = GetRequestsYears().LastOrDefault();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,11 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews.CustomTourRequests
     /// </summary>
     public partial class CustomRequestsStatisticsPage : Page
     {
+        private CustomTourRequestsStatisticsViewModel ViewModel { get; set; } = new();
         public CustomRequestsStatisticsPage()
         {
             InitializeComponent();
+            this.DataContext = ViewModel;
         }
     }
 }

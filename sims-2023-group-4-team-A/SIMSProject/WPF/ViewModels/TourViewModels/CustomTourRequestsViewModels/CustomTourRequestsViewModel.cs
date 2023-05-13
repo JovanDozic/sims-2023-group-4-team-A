@@ -40,8 +40,8 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
             }
         }
 
-        public ObservableCollection<Location> RequestsLocations { get; set; } = new();
-        public ObservableCollection<Language> RequestsLanguages { get; set; } = new();
+        public ObservableCollection<Location> RequestsLocations { get; set; }
+        public ObservableCollection<Language> RequestsLanguages { get; set; }
 
         private Location _location = new();
         public Location SelectedLocation

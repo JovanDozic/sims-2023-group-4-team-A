@@ -7,6 +7,12 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="965"
       Title="CustomRequestsStatisticsPage">
+    <Page.InputBindings>
+        <KeyBinding Command="{Binding CountLocationsCommand}" Key="L"/>
+        <KeyBinding Command="{Binding CountLanguagesCommand}" Key="J"/>
+        <KeyBinding Command="{Binding CountLocationsMonthlyCommand}" Key="A"/>
+        <KeyBinding Command="{Binding CountLanguagesMonthlyCommand}" Key="B"/>
+    </Page.InputBindings>
 
     <DockPanel>
         <Label Content="Statistika o zahtevima" 
@@ -39,21 +45,32 @@
                 <Label Content="Odaberi kriterijum pretrage:"
                        FontSize="24"
                        Height="45" Width="430"/>
-                <StackPanel Orientation="Horizontal"
-                            Margin="0,20,0,0">
+                <WrapPanel Orientation="Horizontal"
+                           Width="220" Height="100"
+                           HorizontalAlignment="Left"
+                           Margin="0,20,0,0">
                     <RadioButton x:Name="rdbLocation"
                                  Height="38"
-                                 VerticalContentAlignment="Center"/>
+                                 IsChecked="{Binding Path=RbLocationsIsChecked,Mode=TwoWay}"
+                                 VerticalContentAlignment="Top"/>
                     <ComboBox Width="181" Height="38"
-                              Margin="20,0,0,0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                            Margin="0,20,0,0">
+                              FontSize="24"
+                              IsEnabled="{Binding Path=CbLocationsIsEnabled,Mode=TwoWay}"
+                              ItemsSource="{Binding Path=RequestsLocations}"
+                              Margin="20,0,0,20"/>
                     <RadioButton x:Name="rdbLanguage"
                                  Height="38"
+                                 IsChecked="{Binding Path=RbLanguagesIsChecked,Mode=TwoWay}"
                                  VerticalContentAlignment="Center"/>
                     <ComboBox Width="181" Height="38"
+                              FontSize="24"
+                              IsEnabled="{Binding Path=CbLanguagesIsEnabled, Mode=TwoWay}"
+                              ItemsSource="{Binding Path=RequestsLanguages}"
                               Margin="20,0,0,0"/>
+                </WrapPanel>
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,20,0,0">
+
                 </StackPanel>
                 <Label FontSize="24"
                        Height="45" Width="430"
@@ -62,17 +79,20 @@
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <RadioButton x:Name="rdbAll" Content="Godina" 
                              FontSize="21" 
+                             IsChecked="{Binding Path=RbAnnualyIsChecked,Mode=TwoWay}"
                              VerticalContentAlignment="Center"/>
                     <RadioButton x:Name="rdbYear" 
                              Margin="20,0,0,0"
+                             IsChecked="{Binding Path=RbYearIsChecked, Mode=TwoWay}"
                              VerticalContentAlignment="Center"/>
                     <TextBox x:Name="tbYear" 
                          Margin="10,0,0,0"
+                         FontSize="24"
+                         IsEnabled="{Binding Path=TbYearIsEnabled, Mode=TwoWay}"
+                         Text="{Binding Path=DesiredYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          Width="206" Height="40"/>
                 </StackPanel>
             </StackPanel>
-
         </Grid>
-
     </DockPanel>
 </Page>

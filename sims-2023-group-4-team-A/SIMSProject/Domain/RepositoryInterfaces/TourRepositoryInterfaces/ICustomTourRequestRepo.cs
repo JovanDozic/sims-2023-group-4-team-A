@@ -19,8 +19,8 @@ namespace SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces
         public List<Location> GetRequestsLocations();
         public List<Language> GetRequestsLanguages();
         public CustomTourRequest GetById(int id);
-        public int CountRequests(Location location);
-        public int CountRequests(Language language);
+        public List<int> CountRequests(Location location);
+        public List<int> CountRequests(Language language);
         public List<int> CountRequestsMonthly(Location location, int desiredYear);
         public List<int> CountRequestsMonthly(Language language, int desiredYear);
     }

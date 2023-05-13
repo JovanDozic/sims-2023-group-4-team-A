@@ -107,12 +107,12 @@ namespace SIMSProject.Application.Services.TourServices
             _customTourRequestRepo.SaveAll(_customTourRequestRepo.GetAll());
         }
 
-        public int CountRequests(Location location)
+        public List<int> CountRequests(Location location)
         {
             return _customTourRequestRepo.CountRequests(location);
         }
 
-        public int CountRequests(Language language)
+        public List<int> CountRequests(Language language)
         {
             return _customTourRequestRepo.CountRequests(language);
         }

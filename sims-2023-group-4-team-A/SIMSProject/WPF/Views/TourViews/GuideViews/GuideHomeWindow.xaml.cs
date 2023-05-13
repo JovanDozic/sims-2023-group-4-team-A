@@ -67,5 +67,10 @@ namespace SIMSProject.View.GuideViews
         {
             mainFrame.Content = new CustomRequestsPage();
         }
+
+        private void RequestStatBTN_Click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.Content = new CustomRequestsStatisticsPage();
+        }
     }
 }
