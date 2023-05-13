@@ -102,7 +102,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             get => _customTourRequest.GuestCount;
             set
             {
-                if(_customTourRequest.GuestCount == value || value < 1) return;
+                if(_customTourRequest.GuestCount == value || value < 1 ) return;
                 _customTourRequest.GuestCount = value;
                 OnPropertyChanged();
             }
@@ -120,18 +120,6 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             }
         }
         public string DateRange { get; set; } = string.Empty;
-        //private ObservableCollection<string> _requestStatusSource = new();
-        //public ObservableCollection<string> RequestStatusSource
-        //{
-        //    get => _requestStatusSource;
-        //    set
-        //    {
-        //        if(value == _requestStatusSource) return;
-        //        _requestStatusSource = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-
         public CustomTourRequestViewModel(Guest user) 
         {
             TourLanguages = new()
@@ -148,21 +136,8 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             LoadTourRequestsByGuestId(_user.Id);
             CheckRequestValidity(CustomTourRequests.ToList());
 
-            //RequestStatusSource = new ObservableCollection<string>
-            //{
-            //    CustomTourRequest.GetStatus(RequestStatus.ONHOLD),
-            //    CustomTourRequest.GetStatus(RequestStatus.INVALID),
-            //    CustomTourRequest.GetStatus(RequestStatus.ACCEPTED)
-            //};
+            
         }
-        //public void LoadDatePicker(object sender)
-        //{
-        //    if (sender is DatePicker datePicker)
-        //    {
-        //        datePicker.SelectedDate = DateTime.Today.AddDays(2);
-        //        datePicker.DisplayDateStart = DateTime.Today.AddDays(2);
-        //    }
-        //}
         public void CreateRequest()
         {
             _customTourRequest.Guest.Id = _user.Id;
