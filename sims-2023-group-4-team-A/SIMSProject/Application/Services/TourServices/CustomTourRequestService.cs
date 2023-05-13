@@ -106,5 +106,23 @@ namespace SIMSProject.Application.Services.TourServices
             old.RequestStatus = RequestStatus.ACCEPTED;
             _customTourRequestRepo.SaveAll(_customTourRequestRepo.GetAll());
         }
+
+        public int CountRequests(Location location)
+        {
+            return _customTourRequestRepo.CountRequests(location);
+        }
+
+        public int CountRequests(Language language)
+        {
+            return _customTourRequestRepo.CountRequests(language);
+        }
+        public List<int> CountRequestsMonthly(Location location, int desiredYear)
+        {
+            return _customTourRequestRepo.CountRequestsMonthly(location, desiredYear);
+        }
+        public List<int> CountRequestsMonthly(Language language, int desiredYear)
+        {
+            return _customTourRequestRepo.CountRequestsMonthly(language, desiredYear);
+        }
     }
 }

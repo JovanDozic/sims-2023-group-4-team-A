@@ -1,0 +1,78 @@
+﻿<Page x:Class="SIMSProject.WPF.Views.TourViews.GuideViews.CustomTourRequests.CustomRequestsStatisticsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMSProject.WPF.Views.TourViews.GuideViews.CustomTourRequests"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="965"
+      Title="CustomRequestsStatisticsPage">
+
+    <DockPanel>
+        <Label Content="Statistika o zahtevima" 
+               HorizontalContentAlignment="Center"
+               FontSize="28"
+               FontWeight="Bold"
+               Height="150"
+               DockPanel.Dock="Top"/>
+        <StackPanel DockPanel.Dock="Bottom"
+                     Margin="20,0,0,0"
+                     Orientation="Horizontal"
+                    Height="150">
+            <Button x:Name="btnCreate"
+                    Height="40" Width="335"
+                    Content="Kreiraj najtraženiju turu"
+                    HorizontalContentAlignment="Left"
+                    FontSize="25"/>
+        </StackPanel>
+        <Grid Width="925">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                        HorizontalAlignment="Left">
+                <Label Content="Odaberi kriterijum pretrage:"
+                       FontSize="24"
+                       Height="45" Width="430"/>
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,20,0,0">
+                    <RadioButton x:Name="rdbLocation"
+                                 Height="38"
+                                 VerticalContentAlignment="Center"/>
+                    <ComboBox Width="181" Height="38"
+                              Margin="20,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,20,0,0">
+                    <RadioButton x:Name="rdbLanguage"
+                                 Height="38"
+                                 VerticalContentAlignment="Center"/>
+                    <ComboBox Width="181" Height="38"
+                              Margin="20,0,0,0"/>
+                </StackPanel>
+                <Label FontSize="24"
+                       Height="45" Width="430"
+                       Margin="0,20,0,0"
+                       Content="Prikaži zahteve na nivou:"/>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <RadioButton x:Name="rdbAll" Content="Godina" 
+                             FontSize="21" 
+                             VerticalContentAlignment="Center"/>
+                    <RadioButton x:Name="rdbYear" 
+                             Margin="20,0,0,0"
+                             VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="tbYear" 
+                         Margin="10,0,0,0"
+                         Width="206" Height="40"/>
+                </StackPanel>
+            </StackPanel>
+
+        </Grid>
+
+    </DockPanel>
+</Page>
