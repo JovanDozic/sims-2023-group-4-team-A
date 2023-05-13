@@ -1,4 +1,5 @@
-﻿using SIMSProject.Application.Services.TourServices;
+﻿using SIMSProject.Application.Services;
+using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
@@ -96,6 +97,10 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         public void GetDetails(TourReservation tourReservation)
         {
             TourReservation = tourReservation;
+        }
+        public void GeneratePDF(TourReservation tourReservation)
+        {
+            PDFService.GenerateTourReservationDetailsPDF(tourReservation);
         }
     }
 }

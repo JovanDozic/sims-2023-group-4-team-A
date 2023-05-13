@@ -47,7 +47,7 @@ namespace SIMSProject.View.Guest2
 
         private void Search_Click(object sender, RoutedEventArgs e)
         {
-            String locationAndLanguage = LocationAndLanguageSearch.Text + CbLanguage.Text;
+            String locationAndLanguage = LocationAndLanguageSearch.Text;
             int searchDuration = DurationSearch.Value <= 0 ? -1 : DurationSearch.Value;
             int searchMaxGuests = GuestSearch.Value <= 0 ? -1 : GuestSearch.Value;
             _tourViewModel.Search(locationAndLanguage, searchDuration, searchMaxGuests);

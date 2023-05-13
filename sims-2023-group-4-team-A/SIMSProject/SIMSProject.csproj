@@ -37,6 +37,7 @@
     <None Remove="Resources\Images\stars.png" />
     <None Remove="Resources\Images\statusInformation.png" />
     <None Remove="Resources\Images\tripbooklogo.png" />
+    <None Remove="Resources\Images\tripbooklogoPDF.png" />
     <None Remove="Resources\Images\view.png" />
     <None Remove="WPF\Views\Guest1\burger.png" />
     <None Remove="WPF\Views\Guest1\chevron-left.png" />
@@ -89,9 +90,9 @@
     <Content Include="Resources\Images\edit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\Logo.png">
+    <Resource Include="Resources\Images\Logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </Resource>
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -134,6 +135,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Images\tripbooklogoPDF.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
