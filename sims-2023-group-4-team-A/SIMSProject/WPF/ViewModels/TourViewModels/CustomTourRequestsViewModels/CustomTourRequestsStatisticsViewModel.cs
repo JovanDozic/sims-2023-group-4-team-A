@@ -8,6 +8,9 @@ using System.Windows.Input;
 using LiveCharts;
 using LiveCharts.Wpf;
 using LiveCharts.Helpers;
+using Dynamitey.DynamicObjects;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
 {
@@ -15,9 +18,39 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
     {
         private readonly CustomTourRequestService _requestService;
 
-        
         public ObservableCollection<Location> RequestsLocations { get; set; }
         public ObservableCollection<Language> RequestsLanguages { get; set; }
+
+        private readonly List<string> Months = new()
+        {
+            "Januar", "Februar", "Mart", "April", "Maj", "Jun",
+            "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"
+        };
+
+        private string _titleX = string.Empty;
+        public string TitleX
+        {
+            get => _titleX;
+            set
+            {
+                if (_titleX != value)
+                {
+                    _titleX = value;
+                    OnPropertyChanged(nameof(TitleX));
+                }
+            }
+        }
+        private List<string> _labels = new();
+        public List<string> Labels
+        {
+            get => _labels;
+            set
+            {
+                if (value == _labels) return;
+                _labels = value;
+                OnPropertyChanged(nameof(Labels));
+            }
+        }
 
         private SeriesCollection _series = new();
         public SeriesCollection Series
@@ -200,8 +233,10 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
                     Title = "Lokacije",
                     Values = new ChartValues<int>(_requestService.CountRequests(SelectedLocation).AsChartValues())
                 }
-                
             };
+            TitleX = $"Broj zahteva na lokaciji {SelectedLocation}\nna nivou godina";
+            Labels.Clear();
+            Labels.AddRange(_requestService.GetRequestsYears().ConvertAll(x => x.ToString()));
         }
         #endregion
         #region CountLanguagesCommand
@@ -221,6 +256,9 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
                    Values = new ChartValues<int>(_requestService.CountRequests(SelectedLanguage).AsChartValues())
                }
            };
+            TitleX = $"Broj zahteva na jeziku {SelectedLanguage}\nna nivou godina";
+            Labels.Clear();
+            Labels.AddRange(_requestService.GetRequestsYears().ConvertAll(x => x.ToString()));
         }
         #endregion
         #region CountLocationsMonthlyCommand
@@ -239,6 +277,9 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
                     Values = new ChartValues<int>(_requestService.CountRequestsMonthly(SelectedLocation, int.Parse(DesiredYear)).AsChartValues())
                 }
             };
+            TitleX = $"Broj zahteva na lokaciji {SelectedLocation}\nna nivou meseci u {DesiredYear}.";
+            Labels.Clear();
+            Labels.AddRange(Months);
         }
         #endregion
         #region CountLanguagesMonthlyCommand
@@ -257,6 +298,9 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
                     Values = new ChartValues<int>(_requestService.CountRequestsMonthly(SelectedLanguage, int.Parse(DesiredYear)).AsChartValues())
                 }
             };
+            TitleX = $"Broj zahteva na jeziku {SelectedLanguage}\nna nivou meseci u {DesiredYear}.";
+            Labels.Clear();
+            Labels.AddRange(Months);
         }
         #endregion
         #endregion
