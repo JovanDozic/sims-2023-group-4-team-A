@@ -36,11 +36,11 @@ namespace SIMSProject.WPF.Views.Guest2Views
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            NavigationService.Navigate(new MyTourRequests(_user));
+            
         }
         private void DatePicker_Loaded(object sender, RoutedEventArgs e)
         {
-            //_viewModel.LoadDatePicker(sender);
             DatePicker datePicker = sender as DatePicker;
             if (datePicker != null)
             {
@@ -48,11 +48,53 @@ namespace SIMSProject.WPF.Views.Guest2Views
                 datePicker.DisplayDateStart = DateTime.Today.AddDays(2);
             }
         }
+        private void DateFrom_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DatePicker dateFromPicker = sender as DatePicker;
+            if (dateFromPicker != null && DateTo.SelectedDate < dateFromPicker.SelectedDate)
+            {
+                DateTo.SelectedDate = dateFromPicker.SelectedDate;
+            }
+        }
+
+        private void DateTo_Loaded(object sender, RoutedEventArgs e)
+        {
+            DatePicker dateToPicker = sender as DatePicker;
+            if (dateToPicker != null && DateFrom.SelectedDate.HasValue)
+            {
+                dateToPicker.DisplayDateStart = DateFrom.SelectedDate.Value;
+            }
+        }
+
+        private void DateTo_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DatePicker dateToPicker = sender as DatePicker;
+            if (dateToPicker != null && dateToPicker.SelectedDate < DateFrom.SelectedDate)
+            {
+                dateToPicker.SelectedDate = DateFrom.SelectedDate;
+            }
+        }
 
         private void CreateRequest_Click(object sender, RoutedEventArgs e)
         {
+            if ((CbLocation.Text == string.Empty || Description.Text == string.Empty || CbLanguage.Text == string.Empty || DateFrom.Text == string.Empty || DateTo.Text == string.Empty)) 
+            {
+                LblCheck.Visibility = Visibility.Visible;
+                return;
+            }
+            else if (GuestCount.Value == 0)
+            {
+                LblGuestNumber.Visibility = Visibility.Visible;
+                LblCheck.Visibility = Visibility.Hidden;
+                return;
+            }
+            LblRequestCreated.Visibility = Visibility.Visible;
+            LblGuestNumber.Visibility = Visibility.Hidden;
+            LblCheck.Visibility = Visibility.Hidden;
+            BtnCreation.IsEnabled = false;
             _viewModel.CreateRequest();
         }
 
+        
     }
 }

@@ -110,9 +110,9 @@ namespace SIMSProject.Application.Services.TourServices
         {
             return _repo.GetToursWithSameLocation(tour);
         }
-        public void SearchTours(string locationAndLanguage, int searchDuration, int searchMaxGuests, ObservableCollection<Tour> tours)
+        public void SearchTours(string locationAndLanguage, int searchDuration, int searchMaxGuests, string language, ObservableCollection<Tour> tours)
         {
-            _repo.SearchTours(locationAndLanguage, searchDuration, searchMaxGuests, tours);
+            _repo.SearchTours(locationAndLanguage, searchDuration, searchMaxGuests, language, tours);
         }
 
         public List<DateTime> GetRatedDatesByTour(TourRatingDTO rating)

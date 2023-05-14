@@ -43,7 +43,7 @@ namespace SIMSProject.WPF.Views.Guest2Views
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SetButtonState(BTNRateGuide, _tourReservationsViewModel.IsRatingEnabled());
-            //SetButtonState(BTNShowKeyPoint, _tourReservationsViewModel.IsTourActive());
+            SetButtonState(BTNShowKeyPoint, _tourReservationsViewModel.IsTourActive());
         }
 
         
