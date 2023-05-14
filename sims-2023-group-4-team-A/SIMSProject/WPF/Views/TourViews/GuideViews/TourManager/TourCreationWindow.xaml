@@ -6,6 +6,8 @@
         xmlns:cstm="clr-namespace:SIMSProject.WPF.CustomControls"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
+        xmlns:local="clr-namespace:SIMSProject.Domain.Models.TourModels"
+        xmlns:location="clr-namespace:SIMSProject.Domain.Models"
     mc:Ignorable="d"
         Height="700" Width="1200" WindowStartupLocation="CenterScreen">
     <Window.Resources>
@@ -16,6 +18,23 @@
             <Setter Property="Foreground" Value="Blue"/>
         </Style>
         <converters:TourAppointmentDateTimeConverter x:Key="DateConverter"/>
+        <converters:TourLanguageConverter x:Key="LanguageConverter"/>
+        <converters:LocationConverter x:Key="LocationConverter"/>
+        <DataTemplate DataType="{x:Type local:KeyPoint}">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding Path=Description}"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Path=Location.City}" FontSize="16"/>
+                    <TextBlock Text="{Binding Path=Location.Country}" Margin="5,0,0,0" FontSize="16"/>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type location:Location}">
+            <StackPanel>
+                <TextBlock Text="{Binding Path=City}" FontSize="22"/>
+                <TextBlock Text="{Binding Path=Country}" FontSize="16"/>
+            </StackPanel>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -57,10 +76,13 @@
         <ComboBox Grid.Row="2" Grid.Column="0" 
                   Height="42" Width="243" 
                   IsEditable="True"
+                  IsEnabled="{Binding Path=CbLocationIsEnabled, Mode=TwoWay}"
                   FontSize="22"
                   HorizontalAlignment="Left" Margin="10,40,0,0"
                   ItemsSource="{Binding Path=AllLocations, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Location, UpdateSourceTrigger=PropertyChanged}"/>
+                  SelectedItem="{Binding Path=Location, UpdateSourceTrigger=PropertyChanged}"
+                  Text="{Binding Path=Location, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource LocationConverter}}">
+        </ComboBox>
         <Label Style="{StaticResource labels}" 
                Content="Ključne tačke" 
                HorizontalAlignment="Left" Margin="10,0,0,50" 
@@ -103,8 +125,10 @@
         <DatePicker Grid.Row="1" Grid.Column="1" 
                     Width="151" Height="40"
                     Margin="0,0,250,30"
+                    IsEnabled="{Binding Path=DpDateIsEnabled, Mode=TwoWay}"
                     FontSize="20"
-                    SelectedDate="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged}" 
+                    DisplayDate="{Binding Path=SelectedAppointment}"
+                    SelectedDate="{Binding Path=SelectedAppointment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                     />
         <cstm:TimePicker Grid.Row="1" Grid.Column="1"
                          Margin="170,0,0,30"
@@ -141,8 +165,10 @@
                   Grid.Column="1" Grid.Row="3" 
                   Margin="10,40,0,0"
                   FontSize="22"
+                  IsEnabled="{Binding Path=CbLanguageIsEnabled, Mode=TwoWay}"
                   ItemsSource="{Binding Path=TourLanguages, UpdateSourceTrigger=PropertyChanged}" 
-                  SelectedItem="{Binding Path= TourLanguage}"
+                  SelectedItem="{Binding Path=TourLanguage, UpdateSourceTrigger=PropertyChanged}"
+                  Text="{Binding Path=TourLanguage, UpdateSourceTrigger=PropertyChanged}"
                   />
         <Label Style="{StaticResource labels}" 
                Grid.Row="4" Grid.Column="1" 

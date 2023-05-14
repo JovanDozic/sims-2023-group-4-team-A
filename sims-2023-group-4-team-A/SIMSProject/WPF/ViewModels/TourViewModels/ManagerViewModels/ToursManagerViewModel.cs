@@ -1,12 +1,15 @@
 ﻿using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.WPF.Messenger.Messages;
+using SIMSProject.WPF.ViewModels.Messenger;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
 {
@@ -14,7 +17,19 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
     {
         private readonly TourService _tourService;
 
-        public ObservableCollection<Tour>? Tours { get; set; }
+        private ObservableCollection<Tour> _tours = new();
+        public ObservableCollection<Tour> Tours
+        {
+            get => _tours;
+            set
+            {
+                if(_tours != value)
+                {
+                    _tours = value;
+                    OnPropertyChanged(nameof(Tours));
+                }
+            }
+        }
         private Tour _tour = new();
         public Tour SelectedTour
         {
@@ -28,25 +43,32 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
                 }
             }
         }
-
-        public void GetTours()
-        {
-            Tours = new(_tourService.GetTours());
-        }
-
-        private void GetTodaysTours()
-        {
-            Tours = new(_tourService.GetTodaysTours());
-        }
-
         public ToursManagerViewModel(string callerId)
         {
             _tourService = Injector.GetService<TourService>();
             switch(callerId)
             {
-                case "TodaysTours": GetTodaysTours();break;
-                case "AllTours": GetTours();break;
+                case "TodaysTours": Tours = new(_tourService.GetTodaysTours());break;
+                case "AllTours": Tours = new(_tourService.GetTours()); break;
             }
+            TourInfoCommand = new RelayCommand(TourInfoExecute, TourInfoCanExecute);
+        }
+
+        #region TourInfoCommand
+        public ICommand TourInfoCommand { get; private set; }
+        public bool TourInfoCanExecute()
+        {
+            return SelectedTour.Id > 0;
+        }
+        public void TourInfoExecute()
+        {
+            SendMessage();
+        }
+        #endregion
+        public void SendMessage()
+        {
+            var message = new TourInfoMessage(this, SelectedTour);
+            MessageBus.Publish(message);
         }
     }
 }

@@ -32,8 +32,7 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
         }
         private void CheckAppointmentsBTN_Click(object sender, RoutedEventArgs e)
         {
-            var viewModel = new AppointmentPickerViewModel(ViewModel.SelectedTour);
-            var window = new AppointmentPickerWindow(viewModel);
+            var window = new AppointmentPickerWindow();
             window.Show();
         }
     }

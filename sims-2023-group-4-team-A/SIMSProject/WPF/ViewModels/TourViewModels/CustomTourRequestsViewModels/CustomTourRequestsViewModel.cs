@@ -2,6 +2,8 @@
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.WPF.Messenger.Messages;
+using SIMSProject.WPF.ViewModels.Messenger;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -112,7 +114,24 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
             RequestsLanguages = new(_requestService.GetRequestsLanguages());
 
             FilterCommand = new RelayCommand(FilterExecute, FilterCanExecute);
+            PickDateCommand = new RelayCommand(PickDateExecute, PickDateCanExecute);
         }
+        #region PickDateCommand
+        public ICommand PickDateCommand { get; private set; }
+        public bool PickDateCanExecute()
+        {
+            return SelectedRequest.Id > 0;
+        }
+        public void PickDateExecute()
+        {
+            SendMessage();
+        }
+        public void SendMessage()
+        {
+            var message = new ScheduleRequestMessage(this, SelectedRequest);
+            MessageBus.Publish(message);
+        }
+        #endregion
 
         #region FilterCommand
         public ICommand FilterCommand { get; private set; }

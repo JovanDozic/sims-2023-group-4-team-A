@@ -1,6 +1,9 @@
 ﻿using SIMSProject.Application.DTOs;
 using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
+using SIMSProject.WPF.Messenger.Messages;
+using SIMSProject.WPF.ViewModels.Messenger;
+using System;
 using System.Windows.Input;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels.ReviewsViewModels
@@ -50,28 +53,31 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ReviewsViewModels
         public string RatingDate { get => Rating.Rating.RatingDateToString(); }
         public string QAs { get => Rating.Rating.QAsToString(); }
 
-        public AppointmentRatingViewModel(TourAppointmentRatingDTO rating)
+        public AppointmentRatingViewModel()
         {
-            Rating = rating;
-            ReportingEnabled = !Rating.Rating.Reported;
-
             _service = Injector.GetService<GuideRatingService>();
 
+            MessageBus.Subscribe<DetailedReviewMessage>(this, OpenMessage);
             ReportCommand = new RelayCommand(ReportExecuted, ReportCanExecute);
         }
+        private void OpenMessage(DetailedReviewMessage message)
+        {
+            Rating = message.Rating;
+            ReportingEnabled = !Rating.Rating.Reported;
+        }
+        #region ReportCommand
         public ICommand ReportCommand { get; private set; }
-
         public void ReportExecuted()
         {
             Rating.Rating.Reported = true;
             _service.ReportReview(Rating.Rating.Id);
-            ReportingEnabled = !Rating.Rating.Reported;
+            ReportingEnabled = false;
         }
 
         public bool ReportCanExecute()
         {
             return ReportingEnabled;
         }
-
+        #endregion
     }
 }

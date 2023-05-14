@@ -32,7 +32,7 @@ namespace SIMSProject.View.GuideViews
 
         private void CreateTour_Click(object sender, RoutedEventArgs e)
         {
-            TourCreation window = new(Guide);
+            TourCreation window = new();
             window.Show();
         }
 

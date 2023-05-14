@@ -1,4 +1,5 @@
-﻿using SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels;
+﻿using SIMSProject.View.GuideViews;
+using SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -9,10 +10,9 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews.CustomTourRequests
     /// </summary>
     public partial class AcceptRequestWindow : Window
     {
-        private AcceptRequestViewModel ViewModel;
-        public AcceptRequestWindow(AcceptRequestViewModel viewModel)
+        private AcceptRequestViewModel ViewModel = new();
+        public AcceptRequestWindow()
         {
-            this.ViewModel = viewModel;
             InitializeComponent();
             this.DataContext = ViewModel;
 
@@ -20,6 +20,12 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews.CustomTourRequests
             {
                 dpAppointment.BlackoutDates.Add(new CalendarDateRange(date));
             }
+        }
+
+        private void btnAccept_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new TourCreation();
+            window.Show();
         }
     }
 }

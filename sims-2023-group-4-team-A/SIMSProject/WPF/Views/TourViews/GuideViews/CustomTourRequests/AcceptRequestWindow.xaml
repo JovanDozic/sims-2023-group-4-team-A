@@ -23,8 +23,8 @@
                  Width="265"
                  Height="40"
                  SelectedDate="{Binding Path=SelectedDate, UpdateSourceTrigger=PropertyChanged}"
-                 DisplayDateStart="{Binding Path=TourRequest.StartDate}"
-                 DisplayDateEnd="{Binding Path=TourRequest.EndDate}"
+                 DisplayDateStart="{Binding Path=StartDate,Mode=TwoWay}"
+                 DisplayDateEnd="{Binding Path=EndDate, Mode=TwoWay}"
                  FontSize="28">
         </DatePicker>
         <Button x:Name="btnAccept"
@@ -34,7 +34,8 @@
                 FontSize="28"
                 FontWeight="Bold"
                 HorizontalContentAlignment="Center"
-                Content="Prihvati zahtev"
-                Command="{Binding AcceptCommand}"/>
+                Content="Kreiraj turu"
+                Command="{Binding AcceptCommand}"
+                Click="btnAccept_Click"/>
     </Grid>
 </Window>

@@ -89,13 +89,13 @@ namespace SIMSProject.Repositories.TourRepositories
         }
         public List<int> CountRequestsMonthly(Language language, int desiredYear)
         {
-            var filteredRequests = _customTourRequests.Where(r => r.TourLanguage == language && r.StartDate.Year.Equals(desiredYear));
+            var filteredRequests = _customTourRequests.Where(r => r.TourLanguage == language && r.RequestCreateDate.Year.Equals(desiredYear));
             return CountMonthly(filteredRequests);
         }
 
         public List<int> CountRequestsMonthly(Location location, int desiredYear)
         {
-            var filteredRequests = _customTourRequests.Where(r => r.Location.Id == location.Id && r.StartDate.Year.Equals(desiredYear));
+            var filteredRequests = _customTourRequests.Where(r => r.Location.Id == location.Id && r.RequestCreateDate.Year.Equals(desiredYear));
             return CountMonthly(filteredRequests);
         }
         private void MapGuests()
@@ -115,15 +115,15 @@ namespace SIMSProject.Repositories.TourRepositories
         }
         private static List<int> CountMonthly(IEnumerable<CustomTourRequest> filteredRequests)
         {
-            var groupedRequests = filteredRequests.GroupBy(r => r.StartDate.Month);
+            var groupedRequests = filteredRequests.GroupBy(r => r.RequestCreateDate.Month);
             return Enumerable.Range(1, 12)
                 .Select(month => groupedRequests.SingleOrDefault(g => g.Key == month)?.Count() ?? 0)
                 .ToList();
         }
         private List<int> CountAnnualy(IEnumerable<CustomTourRequest> filteredRequests)
         {
-            var groupedRequests = filteredRequests.GroupBy(r => r.StartDate.Year);
-            return _customTourRequests.Select(x => x.StartDate.Year).Distinct()
+            var groupedRequests = filteredRequests.GroupBy(r => r.RequestCreateDate.Year);
+            return _customTourRequests.Select(x => x.RequestCreateDate.Year).Distinct()
                 .OrderBy(x => x)
                 .Select(year => groupedRequests.SingleOrDefault(g => g.Key == year)?.Count() ?? 0)
                 .ToList();

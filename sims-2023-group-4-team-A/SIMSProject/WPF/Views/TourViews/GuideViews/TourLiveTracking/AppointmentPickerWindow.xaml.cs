@@ -11,11 +11,10 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     /// </summary>
     public partial class AppointmentPickerWindow : Window
     {
-        private AppointmentPickerViewModel ViewModel { get; set; }
-        public AppointmentPickerWindow(AppointmentPickerViewModel viewModel)
+        private AppointmentPickerViewModel ViewModel { get; set; } = new();
+        public AppointmentPickerWindow()
         {
             InitializeComponent();
-            ViewModel = viewModel;
             this.DataContext = ViewModel;
         }
 
@@ -26,7 +25,7 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
 
         private void StartTrackingBTN_Click(object sender, RoutedEventArgs e)
         {
-            var window = new TourLiveTrackingWindow(ViewModel.SelectedAppointment);
+            var window = new TourLiveTrackingWindow();
             this.Close();
             window.Show();
         }

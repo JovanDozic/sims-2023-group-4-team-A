@@ -8,6 +8,9 @@
      mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="965"
       Title="AllTours">
+    <Page.InputBindings>
+        <KeyBinding Command="{Binding TourInfoCommand}" Key="D" Modifiers="Ctrl"/>
+    </Page.InputBindings>
     <Page.Resources>
         <converters:TourLanguageConverter x:Key="LanguageConverter"/>
     </Page.Resources>
@@ -44,6 +47,7 @@
                 </Style>
             </Grid.Resources>
             <Button x:Name="DetailsBTN" 
+                    Command="{Binding Path=TourInfoCommand}"
                     Click="DetailsBTN_Click"
                     Content="Detaljan prikaz Ctrl+D" 
                     Margin="32.5,0,0,0"/>

@@ -21,18 +21,11 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     /// </summary>
     public partial class DetailedReviewWindow : Window
     {
-        private AppointmentRatingViewModel ViewModel { get; set; }
-        public DetailedReviewWindow(TourAppointmentRatingDTO rating)
+        private AppointmentRatingViewModel ViewModel { get; set; } = new();
+        public DetailedReviewWindow()
         {
             InitializeComponent();
-            ViewModel = new(rating);
             this.DataContext = ViewModel;
-
-            AddImages();
-        }
-
-        private void AddImages()
-        {
             cstmImages.AddImages(ViewModel.Rating.Rating.ImageURLs);
         }
     }

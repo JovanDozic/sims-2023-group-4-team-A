@@ -11,11 +11,10 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     /// </summary>
     public partial class DetailedTourWindow : Window
     {
-        private DetailedTourViewModel ViewModel { get; set; }
-        public DetailedTourWindow(DetailedTourViewModel viewModel)
+        private DetailedTourViewModel ViewModel { get; set; } = new();
+        public DetailedTourWindow()
         {
             InitializeComponent();
-            ViewModel = viewModel;
             this.DataContext = ViewModel;
         }
     }

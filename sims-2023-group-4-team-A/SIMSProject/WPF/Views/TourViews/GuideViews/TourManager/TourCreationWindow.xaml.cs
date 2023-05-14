@@ -12,12 +12,11 @@ namespace SIMSProject.View.GuideViews
     public partial class TourCreation : Window
     {
         private bool _imageAdded;
-        private TourCreationViewModel ViewModel { get; set; }
+        private TourCreationViewModel ViewModel { get; set; } = new();
 
-        public TourCreation(Guide guide)
+        public TourCreation()
         {
             InitializeComponent();
-            ViewModel = new(guide);
             this.DataContext = ViewModel;
         }
 

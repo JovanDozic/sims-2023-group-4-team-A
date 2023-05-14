@@ -30,8 +30,7 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews.CustomTourRequests
 
         private void btnAccept_Click(object sender, RoutedEventArgs e)
         {
-            var viewModel = new AcceptRequestViewModel(ViewModel.SelectedRequest);
-            var window = new AcceptRequestWindow(viewModel);
+            var window = new AcceptRequestWindow();
             window.Show();
         }
     }

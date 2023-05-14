@@ -11,6 +11,8 @@ using SIMSProject.WPF.ViewModels.TourViewModels.BaseViewModels;
 using System.Windows.Input;
 using SIMSProject.View.Guest2;
 using System;
+using SIMSProject.WPF.ViewModels.Messenger;
+using SIMSProject.WPF.Messenger.Messages;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
 {
@@ -72,29 +74,32 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
                 }
             }
         }
-        public string KeyPoints { get => Appointment.Tour.KeyPointsToString(); }
-        public TourLiveTrackViewModel(TourAppointment appointment)
+        public TourLiveTrackViewModel()
         {
             _tourAppointmentService = Injector.GetService<TourAppointmentService>();
             _tourGuestService = Injector.GetService<TourGuestService>();
             _tourService = Injector.GetService<TourService>();
             _notificationService = Injector.GetService<NotificationService>();
 
-            Appointment = appointment;
-            CurrentKeyPoint = Appointment.CurrentKeyPoint;
-            Guests = new(_tourGuestService.GetGuests(Appointment));
+            MessageBus.Subscribe<LiveTrackMessage>(this, OpenMessage);
 
             GoNextCommand = new RelayCommand(GoNextExecute, GoNextCanExecute);
             EndCommand = new RelayCommand(EndExecute, EndCanExecute);
             PauseCommand = new RelayCommand(PauseExecute, PauseCanExecute);
             SignUpCommand = new RelayCommand(SignUpExecute, SignUpCanExecute);
         }
+        private void OpenMessage(LiveTrackMessage message)
+        {
+            Appointment = message.Appointment;
+            CurrentKeyPoint = message.Appointment.CurrentKeyPoint;
+            Guests = new(_tourGuestService.GetGuests(Appointment));
+        }
 
         #region GoNextCommand
         public ICommand GoNextCommand { get; set; }
         public bool GoNextCanExecute()
         {
-            bool reachedLast = Appointment.Tour.KeyPoints.Last().Id == Appointment.CurrentKeyPoint.Id;
+            bool reachedLast = Appointment.Id != 0 ? Appointment.Tour.KeyPoints.Last().Id == CurrentKeyPoint.Id:true;
             return !reachedLast;
         }
         public void GoNextExecute()

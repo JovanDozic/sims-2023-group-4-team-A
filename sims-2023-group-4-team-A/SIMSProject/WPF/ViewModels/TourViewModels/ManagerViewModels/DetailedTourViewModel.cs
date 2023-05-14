@@ -1,6 +1,8 @@
 ﻿using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.WPF.Messenger.Messages;
+using SIMSProject.WPF.ViewModels.Messenger;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,7 +18,18 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         private readonly TourAppointmentService _tourAppointmentService;
         private readonly VoucherSevice _voucherService;
         private readonly TourGuestService _tourGuestService;
-        public ObservableCollection<TourAppointment> Appointments { get; set; }
+
+        private ObservableCollection<TourAppointment> tourAppointments = new();
+        public ObservableCollection<TourAppointment> Appointments
+        {
+            get => tourAppointments;
+            set
+            {
+                if (value == tourAppointments) return;
+                tourAppointments = value;
+                OnPropertyChanged(nameof(Appointments));
+            }
+        }
 
         private TourAppointment _selectedAppointment = new();
         public TourAppointment SelectedAppointment
@@ -46,19 +59,23 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             }
         }
 
-        public DetailedTourViewModel(Tour tour) 
+        public DetailedTourViewModel() 
         {
             _tourAppointmentService = Injector.GetService<TourAppointmentService>();
             _voucherService = Injector.GetService<VoucherSevice>();
             _tourGuestService = Injector.GetService<TourGuestService>();
-            SelectedTour = tour;
-            GetAllAppointments();
+            
+            //SelectedTour = tour;
+            //GetAllAppointments();
 
+            MessageBus.Subscribe<TourInfoMessage>(this, OpenMessage);
+            
             CancelAppointmentCommand = new RelayCommand(CancelAppointmentExecute, CancelAppointmentCanExecute);
         }
 
-        private void GetAllAppointments()
+        private void OpenMessage(TourInfoMessage message)
         {
+            SelectedTour = message.Tour;
             Appointments = new(_tourAppointmentService.GetAllByTourId(SelectedTour.Id));
         }
 
@@ -66,7 +83,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         public ICommand CancelAppointmentCommand { get; private set; }
         public bool CancelAppointmentCanExecute()
         {
-            return SelectedAppointment.TourStatus == Status.INACTIVE;
+            return SelectedAppointment.TourStatus == Status.INACTIVE && Appointments.Count > 0;
         }
         public void CancelAppointmentExecute()
         {
