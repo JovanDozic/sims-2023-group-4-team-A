@@ -48,7 +48,7 @@
                     FontSize="24"
                     Text="Trenutna ključna tačka:"/>
                 <TextBlock x:Name="CurrentKeyPointTB" 
-                           Text="{Binding Path=Appointment.CurrentKeyPoint, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                           Text="{Binding Path=CurrentKeyPoint, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                            Height="36" Width="300"
                            FontSize="24"/>
             </StackPanel>

@@ -21,6 +21,19 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
         private readonly TourGuestService _tourGuestService;
         private readonly NotificationService _notificationService;
 
+
+        private KeyPoint _currentKeyPoint = new();
+        public KeyPoint CurrentKeyPoint
+        {
+            get => _currentKeyPoint;
+            set
+            {
+                if(value ==  _currentKeyPoint) return;
+                _currentKeyPoint = value;
+                OnPropertyChanged(nameof(CurrentKeyPoint));
+            }
+        }
+        
         private TourAppointment _appointment = new();
         public TourAppointment Appointment
         {
@@ -33,7 +46,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
             }
         }
 
-        private ObservableCollection<TourGuest> _guests;
+        private ObservableCollection<TourGuest> _guests = new();
         public ObservableCollection<TourGuest> Guests
         {
             get => _guests;
@@ -68,6 +81,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
             _notificationService = Injector.GetService<NotificationService>();
 
             Appointment = appointment;
+            CurrentKeyPoint = Appointment.CurrentKeyPoint;
             Guests = new(_tourGuestService.GetGuests(Appointment));
 
             GoNextCommand = new RelayCommand(GoNextExecute, GoNextCanExecute);
@@ -87,6 +101,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
         {
             KeyPoint Next = _tourService.GetNextKeyPoint(Appointment);
             Appointment = _tourAppointmentService.AdvanceNext(Appointment.Id, Next);
+            CurrentKeyPoint = Next;
         }
         #endregion
         #region EndCommand

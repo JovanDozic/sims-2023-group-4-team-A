@@ -8,6 +8,10 @@
       mc:Ignorable="d" 
        d:DesignHeight="600" d:DesignWidth="965"
       Title="Statistics">
+    <Page.InputBindings>
+        <KeyBinding Command="{Binding GetStatisticsCommand}" Key="A" Modifiers="Shift"/>
+        <KeyBinding Command="{Binding GetYearlyStatisticsCommand}" Key="Y" Modifiers="Shift"/>
+    </Page.InputBindings>
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal"
                     Margin="20,0,0,150">
@@ -47,14 +51,15 @@
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="20,0,0,0" VerticalAlignment="Center">
                 <RadioButton x:Name="rdbAll" Content="Za sva vremena" 
                              FontSize="21"
-                             Command="{Binding Path=GetStatisticsCommand}"
+                             IsChecked="{Binding Path=RbAnnualyIsChecked, Mode=TwoWay}"
                              VerticalContentAlignment="Center"/>
                 <RadioButton x:Name="rdbYear" 
                              Margin="20,0,0,0"
-                             Command="{Binding Path=GetYearlyStatisticsCommand}"
+                             IsChecked="{Binding Path=RbYearIsChecked,Mode=TwoWay}"
                              VerticalContentAlignment="Center"/>
                 <TextBox x:Name="tbYear"
-                         Text="{Binding DesiredYear, Mode=TwoWay}"
+                         Text="{Binding Path=DesiredYear, Mode=TwoWay}"
+                         IsEnabled="{Binding Path=TbYearIsEnabled, Mode=TwoWay}"
                          Margin="10,0,0,0"
                          FontSize="21"
                          VerticalContentAlignment="Center"
