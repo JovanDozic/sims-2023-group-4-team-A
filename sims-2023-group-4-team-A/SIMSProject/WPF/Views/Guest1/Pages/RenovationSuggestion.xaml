@@ -34,7 +34,10 @@
 
         <Label FontSize="28" Grid.Row="2" Content="Nivo hitnosti renoviranja:" Margin="42,39,42,149"></Label>
 
-        <ComboBox ItemsSource="{Binding Levels}" SelectedItem="{Binding Level, Mode=TwoWay}" x:Name="MyComboBox" Grid.Row="2" Margin="42,90,42,93" FontSize="22" SelectionChanged="MyComboBox_SelectionChanged">
+        <ComboBox ItemsSource="{Binding Levels}"
+                  SelectedItem="{Binding Level, Mode=TwoWay}"
+                  x:Name="MyComboBox" VerticalContentAlignment="Center"
+                  Grid.Row="2" Margin="42,90,42,93" FontSize="22" SelectionChanged="MyComboBox_SelectionChanged">
            
         </ComboBox>
 

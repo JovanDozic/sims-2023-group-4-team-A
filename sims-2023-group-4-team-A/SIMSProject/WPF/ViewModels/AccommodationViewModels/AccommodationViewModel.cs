@@ -218,7 +218,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         }
         public string GetDateMessage()
         {
-            return "Datum odlaska mora biti veći od datuma dolaska";
+            return "Krajnji datum mora biti veći od početnog datuma";
         }
 
         public string GetDaysMessage()

@@ -14,7 +14,7 @@
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -29,7 +29,7 @@
                FontSize="30"
                FontWeight="Bold"
                VerticalAlignment="Center" Margin="75,0,73,0"/>
-            <Image Grid.Column="2" Source="../Icons/chevron-left-black.png" Height="30" Width="30" Margin="92,10,76,59"/>
+            <Image Grid.Column="2" Source="../Icons/chevron-left-black.png" Width="30" Margin="93,10,77,38"/>
             <Button Content="Nazad" 
                     Background="Transparent"
                     BorderBrush="Transparent"
@@ -39,7 +39,7 @@
                     FontSize="20" Grid.Column="2" Margin="122,10,10,0" Click="Button_Click_Close"/>
         </Grid>
 
-        <ListView x:Name="SearchedAccLW" Grid.Row="1" Margin="53,0,0,0"
+        <ListView x:Name="SearchedAccLW" Grid.Row="1"
                   ItemsSource="{Binding Path=Accommodations, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedAccommodation}"
                   Background="Transparent"
@@ -47,7 +47,7 @@
                   SelectionChanged="ListView_SelectionChanged"
                   BorderThickness="0" d:ItemsSource="{d:SampleData ItemCount=5}"
                   ScrollViewer.CanContentScroll="False"
-                  ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="29,0,32,0">
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

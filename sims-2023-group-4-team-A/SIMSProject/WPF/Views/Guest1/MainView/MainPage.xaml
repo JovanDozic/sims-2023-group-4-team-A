@@ -39,6 +39,7 @@
                      Foreground="Gray" Text="Naziv/Tip/Lokacija"
                      FontSize="30"
                      TextAlignment="Center"
+                     VerticalContentAlignment="Center"
                      Height="61"/>
             <Label Content="Broj gostiju:" FontSize="30" HorizontalAlignment="Left" Margin="16,0,0,0" Grid.Row="2" Width="186"/>
             <custom:NumericBoxRating Value="{Binding MaxGuestNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Margin="51,35,59,27" Grid.RowSpan="2"/>
