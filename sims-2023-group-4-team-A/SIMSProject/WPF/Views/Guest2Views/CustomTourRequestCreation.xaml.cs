@@ -41,12 +41,37 @@ namespace SIMSProject.WPF.Views.Guest2Views
         }
         private void DatePicker_Loaded(object sender, RoutedEventArgs e)
         {
-            //_viewModel.LoadDatePicker(sender);
             DatePicker datePicker = sender as DatePicker;
             if (datePicker != null)
             {
                 datePicker.SelectedDate = null;
                 datePicker.DisplayDateStart = DateTime.Today.AddDays(2);
+            }
+        }
+        private void DateFrom_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DatePicker dateFromPicker = sender as DatePicker;
+            if (dateFromPicker != null && DateTo.SelectedDate < dateFromPicker.SelectedDate)
+            {
+                DateTo.SelectedDate = dateFromPicker.SelectedDate;
+            }
+        }
+
+        private void DateTo_Loaded(object sender, RoutedEventArgs e)
+        {
+            DatePicker dateToPicker = sender as DatePicker;
+            if (dateToPicker != null && DateFrom.SelectedDate.HasValue)
+            {
+                dateToPicker.DisplayDateStart = DateFrom.SelectedDate.Value;
+            }
+        }
+
+        private void DateTo_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DatePicker dateToPicker = sender as DatePicker;
+            if (dateToPicker != null && dateToPicker.SelectedDate < DateFrom.SelectedDate)
+            {
+                dateToPicker.SelectedDate = DateFrom.SelectedDate;
             }
         }
 

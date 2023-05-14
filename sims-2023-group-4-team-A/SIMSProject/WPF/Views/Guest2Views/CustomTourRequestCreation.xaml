@@ -4,11 +4,16 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest2Views"
-      xmlns:custom="clr-namespace:SIMSProject.WPF.CustomControls"
+      xmlns:custom="clr-namespace:SIMSProject.WPF.CustomControls" 
+      xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
       Width="1140" Height="520"
       Title="CustomTourRequestCreation">
 
+    <Page.Resources>
+        <converters:DateToBoolConverter x:Key="DateToBoolConverter"/>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
@@ -50,19 +55,20 @@
                   SelectedItem="{Binding Path= TourLanguage}"/>
         <Label Grid.Column="2" Grid.Row="6" Content="Vremenski opseg:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
         <Label Grid.Column="3" Grid.Row="6" Content="Od:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
-        <DatePicker Validation.ErrorTemplate="{x:Null}"  Loaded="DatePicker_Loaded" x:Name="DateFrom" Grid.Row="6" Grid.Column="4"
+        <DatePicker Validation.ErrorTemplate="{x:Null}" Focusable="False" Loaded="DatePicker_Loaded" x:Name="DateFrom" Grid.Row="6" Grid.Column="4"
             VerticalAlignment="Center"
             Width="150"
             SelectedDate="{Binding StartDate, Mode=TwoWay}"
             HorizontalAlignment="Left"
-            FontSize="22" Cursor="Hand"/>
+            FontSize="22" Cursor="Hand"
+            SelectedDateChanged="DateFrom_SelectedDateChanged"/>
         <Label Grid.Column="5" Grid.Row="6" Content="Do:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
-        <DatePicker  Validation.ErrorTemplate="{x:Null}" Loaded="DatePicker_Loaded" x:Name="DateTo" Grid.Row="6" Grid.Column="6"
+        <DatePicker  Validation.ErrorTemplate="{x:Null}" Focusable="False" Loaded="DateTo_Loaded" x:Name="DateTo" Grid.Row="6" Grid.Column="6"
             VerticalAlignment="Center" 
             Width="150"
             SelectedDate="{Binding EndDate, Mode=TwoWay}"
             HorizontalAlignment="Left"
-            FontSize="22" Cursor="Hand"/>
+            FontSize="22" Cursor="Hand" IsEnabled="{Binding ElementName=DateFrom, Path=SelectedDate, Converter={StaticResource DateToBoolConverter}}" SelectedDateChanged="DateTo_SelectedDateChanged"/>
         <Label Grid.Column="2" Grid.Row="7" Content="Broj gostiju:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
 
         <custom:Guest2NumericBoxInput Value="{Binding GuestCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="GuestCount" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Cursor="Hand" />
