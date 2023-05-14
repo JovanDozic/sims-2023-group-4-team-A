@@ -69,7 +69,7 @@ namespace SIMSProject.Application.Services
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error generating PDF file: " + ex.Message);
+                MessageBox.Show("PDF generation cancelled! " + ex.Message);
             }
         }
     }

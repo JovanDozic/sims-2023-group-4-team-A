@@ -63,12 +63,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             Reservations = new(_reservationService.GetAllFutureByAccommodationId(Accommodation.Id));
             Statistic = _statisticService.GetYearlyStatistic(accommodation, DateTime.Now.Year);
             Accommodation.Rating = _ratingService.CalculateRating(Accommodation);
-
-            MessageBox.Show(Accommodation.Rating.ToString());
         }
-
-        
-
 
     }
 }

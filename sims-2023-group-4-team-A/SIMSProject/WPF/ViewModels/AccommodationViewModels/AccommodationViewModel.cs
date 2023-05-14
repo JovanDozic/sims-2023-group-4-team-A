@@ -307,7 +307,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             if (result != MessageBoxResult.Yes) return;
 
             _accommodation.Location = _locationService.GetLocation(_accommodation.Location);
-            if (_accommodation.Location == null) MessageBox.Show("nullcina");
+            if (_accommodation.Location == null) return;
             _accommodation.Owner = _user as Owner ?? throw new Exception("Greška prilikom registrovanja: Vlasnik nije inicijalizovan.");
             _accommodationService.RegisterAccommodation(_accommodation);
 

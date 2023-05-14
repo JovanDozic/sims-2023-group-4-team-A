@@ -21,8 +21,6 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
             DataContext = _viewModel;
 
             _viewModel.LoadYearlyStatistics();
-
-            MessageBox.Show($"{_viewModel.Statistics.First().Year}: {_viewModel.Statistics.First().CancelledReservations}");
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
