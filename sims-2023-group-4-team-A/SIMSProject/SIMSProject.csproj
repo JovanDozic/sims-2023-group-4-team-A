@@ -21,7 +21,10 @@
     <None Remove="Resources\Icons\bell-fill.png" />
     <None Remove="Resources\Icons\bell.png" />
     <None Remove="Resources\Icons\bookbnb.png" />
+    <None Remove="Resources\Icons\clock-unfill.png" />
+    <None Remove="Resources\Icons\crossed-eye.png" />
     <None Remove="Resources\Icons\down.png" />
+    <None Remove="Resources\Icons\eye.png" />
     <None Remove="Resources\Icons\forum-fill.png" />
     <None Remove="Resources\Icons\forum.png" />
     <None Remove="Resources\Icons\help.png" />
@@ -85,7 +88,10 @@
     <Resource Include="Resources\Icons\bell-fill.png" />
     <Resource Include="Resources\Icons\bell.png" />
     <Resource Include="Resources\Icons\bookbnb.png" />
+    <Resource Include="Resources\Icons\clock-unfill.png" />
+    <Resource Include="Resources\Icons\crossed-eye.png" />
     <Resource Include="Resources\Icons\down.png" />
+    <Resource Include="Resources\Icons\eye.png" />
     <Resource Include="Resources\Icons\forum-fill.png" />
     <Resource Include="Resources\Icons\forum.png" />
     <Resource Include="Resources\Icons\help.png" />

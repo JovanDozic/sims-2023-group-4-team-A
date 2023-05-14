@@ -4,7 +4,6 @@ using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using System;
 using System.Collections.ObjectModel;
-using System.Windows;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 {

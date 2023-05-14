@@ -208,7 +208,8 @@
                         </Button>
                         <Button x:Name="BtnAllReservations" Grid.Column="1"
                                 HorizontalAlignment="Right"
-                                Style="{StaticResource MobileActionHalfButtonStyle}">
+                                Style="{StaticResource MobileActionHalfButtonStyle}"
+                                Click="BtnAllReservations_Click">
                             <TextBlock Text="Sve rezervacije" 
                                        VerticalAlignment="Center"/>
                         </Button>
@@ -416,12 +417,6 @@
                         </Button>
                     </Grid>
                 </StackPanel>
-
-                <!-- Close accommodation -->
-                <TextBlock Text="Zatvori smeštaj" Grid.Row="6"
-                           VerticalAlignment="Center" HorizontalAlignment="Center"
-                           FontSize="15" TextWrapping="Wrap" Foreground="#cc0000"
-                           Margin="0,60,0,10"/>
 
             </Grid>
         </ScrollViewer>

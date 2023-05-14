@@ -6,6 +6,8 @@ using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
+using Xceed.Wpf.AvalonDock.Converters;
 
 namespace SIMSProject.Application.Services.AccommodationServices
 {
@@ -28,23 +30,24 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
         public List<AccommodationReservation> GetAll()
         {
+            _repo.Load();
             return _repo.GetAll();
         }
 
         public List<AccommodationReservation> GetAllUncancelled(User user)
         {
-            return _repo.GetAll().Where(r => !r.Canceled && r.Guest.Id == user.Id).ToList();
+            return GetAll().Where(r => !r.Canceled && r.Guest.Id == user.Id).ToList();
         }
 
-        public List<AccommodationReservation> GetAllCancelled(int accommodationId)
+        public List<AccommodationReservation> GetAllCancelled()
         {
             return GetAll().FindAll(x => x.Canceled);
         }
 
         public List<AccommodationReservation> GetAllByAccommodationId(int accommodationId)
         {
-            _repo.Load();
-            return _repo.GetAllByAccommodationId(accommodationId);
+            var reservations = GetAll().FindAll(x => x.Accommodation.Id == accommodationId);
+            return reservations;
         }
 
         public List<AccommodationReservation> GetAllUncanceledByAccommodationId(int accommodationId)

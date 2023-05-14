@@ -5,6 +5,7 @@ using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace SIMSProject.Application.Services.AccommodationServices
@@ -85,6 +86,14 @@ namespace SIMSProject.Application.Services.AccommodationServices
             catch
             {
                 return new();
+            }
+        }
+
+        internal void UpdateRatingsForReservations(ObservableCollection<AccommodationReservation> reservations)
+        {
+            foreach (var reservation in reservations)
+            {
+                if (reservation.OwnerRated) reservation.OwnerRating = GetByReservationId(reservation.Id).Overall;
             }
         }
     }

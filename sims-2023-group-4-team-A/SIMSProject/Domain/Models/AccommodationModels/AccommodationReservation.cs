@@ -1,6 +1,7 @@
 ﻿using System;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Serializer;
+using SIMSProject.WPF.Views.Guest1.Pages;
 
 namespace SIMSProject.Domain.Models.AccommodationModels
 {
@@ -18,6 +19,14 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public bool OwnerRated { get; set; } = false;
         public bool Canceled { get; set; } = false;
         public string ReservationDetails { get; set; } = string.Empty;
+
+        public double OwnerRating { get; set; } = 0;
+        public double GuestRating { get; set; } = 0;
+
+        public string OwnerRatingString { get => OwnerRated ? Math.Round(OwnerRating, 2).ToString() : "-"; }
+        public string GuestRatingString { get => GuestRated ? Math.Round(GuestRating, 2).ToString() : "-"; }
+
+        public bool IsInFuture { get => StartDate > DateTime.Now; }
 
         public AccommodationReservation()
         {
@@ -49,7 +58,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
                 GuestRated.ToString(),
                 RateGuestNotificationSent.ToString(),
                 OwnerRated.ToString(),
-                Canceled.ToString()
+                Canceled.ToString(),
             };
             return csvValues;
         }
@@ -74,6 +83,16 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             return $"Rezervacija (id: {Id}) " +
                    $"od <{StartDate:dd.MM.yy}> do <{EndDate:dd.MM.yy}> " +
                    $"za gosta <{Guest.Id}> (gost {(GuestRated ? "je" : "nije")} ocenjen)";
+        }
+
+        public string FormattedStartDate
+        {
+            get => StartDate.ToString("ddd, d. MMM. yyyy.", new System.Globalization.CultureInfo("sr-Latn-RS"));
+        }
+
+        public string FormattedEndDate
+        {
+            get => EndDate.ToString("ddd, d. MMM. yyyy.", new System.Globalization.CultureInfo("sr-Latn-RS"));
         }
     }
 }
