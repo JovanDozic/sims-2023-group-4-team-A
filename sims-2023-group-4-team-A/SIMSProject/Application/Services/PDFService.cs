@@ -37,11 +37,9 @@ namespace SIMSProject.Application.Services
                 document.Open();
 
                 Paragraph heading = new(
-                    $"Statistika za smeštaj ({statistics.First().Accommodation.Id}) {statistics.First().Accommodation.Name}:",
-                    new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD))
-                {
-                    SpacingAfter = 15f
-                };
+                    $"Statistika za smeštaj ({statistics.First().Accommodation.Id}) {statistics.First().Accommodation.Name}:", 
+                    new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD));
+                heading.SpacingAfter = 15f;
                 document.Add(heading);
 
                 PdfPTable table = statistics.First().Type == Domain.Models.AccommodationStatisticType.MONTHLY ? new(7) : new(6);

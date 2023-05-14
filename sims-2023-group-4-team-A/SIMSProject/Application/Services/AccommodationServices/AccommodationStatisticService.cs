@@ -111,7 +111,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
             DateTime monthStartDate = new(year, month, 1);
             DateTime monthEndDate = monthStartDate.AddMonths(1).AddDays(-1);
 
-            foreach (AccommodationReservation reservation in _reservationService.GetAllByAccommodationId(accommodation.Id))
+            foreach (AccommodationReservation reservation in _reservationService.GetAllUncanceledByAccommodationId(accommodation.Id))
             {
                 if (reservation.StartDate <= monthEndDate && reservation.EndDate >= monthStartDate)
                 {
@@ -139,7 +139,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
             DateTime yearStartDate = new(year, 1, 1);
             DateTime yearEndDate = new(year, 12, 31);
 
-            foreach (AccommodationReservation reservation in _reservationService.GetAllByAccommodationId(accommodation.Id))
+            foreach (AccommodationReservation reservation in _reservationService.GetAllUncanceledByAccommodationId(accommodation.Id))
             {
                 if (reservation.StartDate <= yearEndDate && reservation.EndDate >= yearStartDate)
                 {
