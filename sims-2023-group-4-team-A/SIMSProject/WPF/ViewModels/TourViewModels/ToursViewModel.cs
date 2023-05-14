@@ -4,6 +4,8 @@ using SIMSProject.Domain.Models.TourModels;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.Application.Services;
+using SIMSProject.Domain.Models;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels
 {
@@ -27,7 +29,28 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
                 }
             }
         }
-
+        private int _guestSearch;
+        public int GuestSearch
+        {
+            get => _guestSearch;
+            set
+            {
+                if (value == _guestSearch || value is < 0) return;
+                _guestSearch = value;
+                OnPropertyChanged(nameof(GuestSearch));
+            }
+        }
+        private int _durationSearch;
+        public int DurationSearch
+        {
+            get => _durationSearch;
+            set
+            {
+                if (value == _durationSearch || value is < 0) return;
+                _durationSearch = value;
+                OnPropertyChanged(nameof(DurationSearch));
+            }
+        }
         public string TourLanguage
         {
             get
@@ -53,14 +76,15 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
                 OnPropertyChanged();
             }
         }
-        public void Search(string locationAndLanguage, int searchDuration, int searchMaxGuests)
+        public void Search(string locationAndLanguage, string language)
         {
-           _tourService.SearchTours(locationAndLanguage, searchDuration, searchMaxGuests, Tours);
+           _tourService.SearchTours(locationAndLanguage, DurationSearch, GuestSearch, language, Tours);
         }
 
         public bool IsSelected()
         {
-            return SelectedTour != null;
+            if(SelectedTour.Id == 0) return false;
+            return true;
         }
         public List<TourGuest> GetPendingTourGuests(User user)
         {

@@ -11,6 +11,7 @@ using SIMSProject.Application.Services.AccommodationServices;
 using SIMSProject.WPF.Views;
 using SIMSProject.WPF.Views.Guest1;
 using SIMSProject.WPF.Views.Guest1.MainView;
+using SIMSProject.WPF.Views.Guest2Views;
 
 namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
 {
@@ -47,6 +48,10 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
                 {
                     OpenGuestWindow(user);
                 }
+                else if (user.Username.Equals("anja") && user.Password.Equals("anja"))
+                {
+                    OpenGuest2Window(user);
+                }
                 else
                 {
                     OpenWindow(user);
@@ -80,6 +85,12 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
         {
             MainWindow guestWind = new(user as Guest ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
             guestWind.Show();
+        }
+
+        private void OpenGuest2Window(User user)
+        {
+            Guest2HomeView guest2HomeView = new(user as Guest ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
+            guest2HomeView.Show();
         }
 
         private void OpenWindow(User user)

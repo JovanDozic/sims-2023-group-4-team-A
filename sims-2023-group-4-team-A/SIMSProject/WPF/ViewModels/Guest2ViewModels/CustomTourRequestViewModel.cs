@@ -124,8 +124,8 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         {
             TourLanguages = new()
             {
-                "Srpski",
                 "Engleski",
+                "Srpski",
                 "Francuski",
                 "Španski"
             };

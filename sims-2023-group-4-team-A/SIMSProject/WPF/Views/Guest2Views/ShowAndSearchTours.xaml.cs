@@ -2,7 +2,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.ViewModels.Guest2ViewModels;
 using SIMSProject.WPF.ViewModels.TourViewModels;
 
 namespace SIMSProject.View.Guest2
@@ -48,11 +50,26 @@ namespace SIMSProject.View.Guest2
         private void Search_Click(object sender, RoutedEventArgs e)
         {
             String locationAndLanguage = LocationAndLanguageSearch.Text;
-            int searchDuration = DurationSearch.Value <= 0 ? -1 : DurationSearch.Value;
-            int searchMaxGuests = GuestSearch.Value <= 0 ? -1 : GuestSearch.Value;
-            _tourViewModel.Search(locationAndLanguage, searchDuration, searchMaxGuests);
+            String language = ConvertLanguage(CbLanguage.Text);
+            _tourViewModel.Search(locationAndLanguage, language);
+            LblSelectingTour.Visibility = Visibility.Hidden;
         }
-
+        private string ConvertLanguage(string selectedLanguage)
+        {
+            switch (selectedLanguage)
+            {
+                case "Srpski":
+                    return "SERBIAN";
+                case "Engleski":
+                    return "ENGLISH";
+                case "Španski":
+                    return "SPANISH";
+                case "Francuski":
+                    return "FRENCH";
+                default:
+                    return "";
+            }
+        }
         private void TextSearch_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox? textbox = sender as TextBox;
@@ -74,8 +91,14 @@ namespace SIMSProject.View.Guest2
         }
         private void Reserve_Click(object sender, RoutedEventArgs e)
         {
-            if (!_tourViewModel.IsSelected()) { MessageBox.Show("Odaberite turu koju zelite da rezervisete!"); return; }
-            new TourReservationCreation(_user, _tourViewModel.SelectedTour).Show();
+            if (_tourViewModel.IsSelected())
+            {
+                new TourReservationCreation(_user, _tourViewModel.SelectedTour).Show();
+                LblSelectingTour.Visibility = Visibility.Hidden;
+                return;
+            }
+            LblSelectingTour.Visibility = Visibility.Visible;
         }
+        
     }
 }

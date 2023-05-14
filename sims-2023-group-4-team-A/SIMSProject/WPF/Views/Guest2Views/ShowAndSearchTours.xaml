@@ -34,31 +34,32 @@
 
         <Label Grid.Row="1" Grid.ColumnSpan="7" Content="Nađite idealnu turu za Vas: " FontSize="40" FontWeight="Bold"/>
         <TextBox Grid.Row="2" Grid.Column="0" x:Name="LocationAndLanguageSearch" Width="250" Height="50" FontSize="32" Text="Gde putujete?" 
-                     Foreground="DimGray" FontWeight="Bold" HorizontalAlignment="Left" GotFocus="TextSearch_GotFocus" LostFocus="TextSearch_LostFocus"/>
-        <ComboBox x:Name="CbLanguage" Grid.Row="2" Grid.Column="1" Height="50" Width="150" FontSize="32" Text="Jezik" SelectedItem="{Binding TourLanguage, Converter={StaticResource TourLanguageConverter}}" Cursor="Hand">
-            <ComboBoxItem IsEnabled="False" IsSelected="True" Tag="jezik" Foreground="LightGray">Jezik</ComboBoxItem>
+                     Foreground="DimGray" FontWeight="Bold" HorizontalAlignment="Left" GotFocus="TextSearch_GotFocus" LostFocus="TextSearch_LostFocus" />
+        <ComboBox x:Name="CbLanguage" Grid.Row="2" Grid.Column="1" Height="50" Width="150" FontSize="32" Text="Jezik" SelectedItem="{Binding TourLanguage}"  Cursor="Hand">
+            <ComboBoxItem IsEnabled="True" IsSelected="True" Tag="jezik" Foreground="LightGray">Jezik</ComboBoxItem>
             <ComboBoxItem>Srpski</ComboBoxItem>
             <ComboBoxItem>Engleski</ComboBoxItem>
             <ComboBoxItem>Francuski</ComboBoxItem>
             <ComboBoxItem>Španski</ComboBoxItem>
         </ComboBox>
         <Label Grid.Row="2" Grid.Column="2" Content="Broj ljudi: " FontSize="32" FontWeight="DemiBold" VerticalAlignment="Center" Height="60"/>
-        <custom:NumericTextBox x:Name="GuestSearch" Grid.Row="2" Grid.Column="3" Cursor="Hand"/>
+        <custom:Guest2NumericBoxInput x:Name="GuestSearch" Value="{Binding Path=GuestSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="2" Grid.Column="3" Cursor="Hand"/>
         <Label Grid.Row="2" Grid.Column="4" Content="Trajanje ture:" Height="60" FontSize="32" FontWeight="DemiBold" VerticalAlignment="Center"/>
-        <custom:NumericTextBox x:Name="DurationSearch" Grid.Row="2" Grid.Column="5" Cursor="Hand"/>
+        <custom:Guest2NumericBoxInput x:Name="DurationSearch" Value="{Binding Path=DurationSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="2" Grid.Column="5" Cursor="Hand"/>
         <Button Grid.Row="2" Grid.Column="6" Height="50" Width ="150" FontSize="32" VerticalAlignment="Center" FontWeight="DemiBold" Click="Search_Click" Content="Pretraži" Background="#ff6700" Cursor="Hand"/>
         <DataGrid Grid.Row="3" Grid.ColumnSpan="7" SelectionMode="Single" IsReadOnly="True" FontSize="25" FontWeight="DemiBold" AutoGenerateColumns="False"
                   ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" 
                   >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path = Name}" Header="Naziv" Width="*" x:Name="name"/>
-                <DataGridTextColumn Binding="{Binding Path = Location}" Header="Lokacija" Width="250" x:Name="location"/>
+                <DataGridTextColumn Binding="{Binding Path = Location}" Header="Lokacija" Width="280" x:Name="location"/>
                 <DataGridTextColumn Binding="{Binding Path = Duration}" Header="Trajanje" Width="100" x:Name="duration"/>
-                <DataGridTextColumn Binding="{Binding Path = TourLanguage, Converter={StaticResource TourLanguageConverter}}" Header="Jezik" Width="100" x:Name="tourLanguage"/>
+                <DataGridTextColumn Binding="{Binding Path = TourLanguage, Converter={StaticResource TourLanguageConverter}}" Header="Jezik" Width="120" x:Name="tourLanguage"/>
                 <DataGridTextColumn Binding="{Binding MaxGuestNumber}" Header="Kapacitet gostiju" Width="200" x:Name="maxGuestNumber"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" x:Name="BtnReserve" Height="50" Width ="280" FontSize="32" FontWeight="DemiBold" Click="Reserve_Click"  Content="Detalji i rezervacija" Background="#ff6700" Cursor="Hand"/>
+        <Button IsEnabled="True" Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" x:Name="BtnReserve" Height="50" Width ="280" FontSize="32" FontWeight="DemiBold" Click="Reserve_Click"  Content="Detalji i rezervacija" Background="#ff6700" Cursor="Hand"/>
+        <Label x:Name="LblSelectingTour" Visibility="Hidden" Grid.Row="4" Grid.ColumnSpan="5" Content=" Morate izabrati neku turu!" Foreground="Red" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="32" FontWeight="DemiBold"/>
     </Grid>
 </Page>
