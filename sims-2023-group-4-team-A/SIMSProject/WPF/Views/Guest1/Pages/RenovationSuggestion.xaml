@@ -28,19 +28,14 @@
                     BorderThickness="0"
                     FontSize="20" Margin="950,10,10,62" Click="Button_Click_Close"/>
         <Label Grid.Row="1" FontSize="28" Content="Komentar:" Margin="42,7,0,182"></Label>
-        <TextBox FontSize="28" Grid.Row="1" Margin="42,57,42,222"
-                 GotFocus="TextComment_GotFocus" LostFocus="TextComment_LostFocus"
-                     Foreground="Gray" Text="Napišite šta Vam se nije svidelo u vezi smeštaja" Grid.RowSpan="2"></TextBox>
+        <TextBox Text="{Binding Comment}" FontSize="28" Grid.Row="1" Margin="42,57,42,222"
+                 GotFocus="TextComment_GotFocus" x:Name="Comment" Loaded="LoadText" LostFocus="TextComment_LostFocus"
+                     Foreground="Gray" Grid.RowSpan="2"></TextBox>
 
         <Label FontSize="28" Grid.Row="2" Content="Nivo hitnosti renoviranja:" Margin="42,39,42,149"></Label>
 
-        <ComboBox Name="MyComboBox" Grid.Row="2" Margin="42,90,42,93" FontSize="22" SelectionChanged="MyComboBox_SelectionChanged">
-            <ComboBoxItem>Nivo 1 - bilo bi lepo renovirati neke sitnice, ali sve funkcioniše kako treba i bez toga</ComboBoxItem>
-            <ComboBoxItem>Nivo 2 - male zamerke na smeštaj koje kada bi se uklonile bi ga učinile savršenim</ComboBoxItem>
-            <ComboBoxItem>Nivo 3 - nekoliko stvari koje su baš zasmetale bi trebalo renovirati</ComboBoxItem>
-            <ComboBoxItem>Nivo 4 - ima dosta loših stvari i renoviranje je stvarno neophodno</ComboBoxItem>
-            <ComboBoxItem>Nivo 5 - smeštaj je u jako lošem stanju i ne vredi ga uopšte iznajmljivati ukoliko se ne
-renovira</ComboBoxItem>
+        <ComboBox ItemsSource="{Binding Levels}" SelectedItem="{Binding Level, Mode=TwoWay}" x:Name="MyComboBox" Grid.Row="2" Margin="42,90,42,93" FontSize="22" SelectionChanged="MyComboBox_SelectionChanged">
+           
         </ComboBox>
 
         <Label x:Name="SelectionValidation" Content="Niste odabrali nivo hitnosti"
@@ -49,7 +44,7 @@ renovira</ComboBoxItem>
                VerticalAlignment="Top" Margin="42,146,87,0"></Label>
 
         <Button x:Name="RequestButton" Grid.Row="3" Width="295" Height="51" Content="Pošalji" FontSize="28" Margin="364,0,364,49"
-                IsEnabled="False">
+                IsEnabled="False" Click="RequestButton_Click">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Template">

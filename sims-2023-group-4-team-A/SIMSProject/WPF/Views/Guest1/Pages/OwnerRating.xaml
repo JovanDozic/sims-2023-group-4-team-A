@@ -122,10 +122,10 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Preporuka o renoviranju" Click="Button_Click_Renovation" Grid.Column="1" Grid.Row="10"
+            <Button Content="Preporuka o renoviranju" x:Name="RenovationButton" Click="Button_Click_Renovation" Grid.Column="1" Grid.Row="10"
                     FontSize="30" BorderThickness="0" BorderBrush="White" Background="Transparent"
                     VerticalAlignment="Center" HorizontalAlignment="Center"
-                    Width="320"
+                    Width="320" Visibility="Hidden"
                     Foreground="Blue"></Button>
 
         </Grid>

@@ -41,7 +41,6 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
                 _accommodationReservationViewModel.CancelReservation();
                 _accommodationReservationViewModel.Update();
                 _accommodationReservationViewModel.SendNotification();
-                MessageBox.Show("Rezervacija je otkazana!");
                 NavigationService.Navigate(new ReservationList(_user));
             }
         }
