@@ -1,15 +1,12 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
 using System;
+using System.Windows;
 using SIMSProject.Application.Services.AccommodationServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Model;
 using System.Collections.ObjectModel;
-using ToastNotifications.Lifetime;
-using ToastNotifications.Position;
-using ToastNotifications;
-using Notifications.Wpf;
 
 namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
 {
@@ -147,7 +144,6 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
             }
 
         }
-
         public bool CheckAvailability(DateTime start, DateTime end)
         {
             foreach (var reservedDate in _accommodationViewModel.GetReservedDates())
@@ -159,22 +155,8 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
             }
             return true;
         }
-
-        public void ShowNotification()
-        {
-            /*
-            var notificationManager = new NotificationManager(new WpfNotificationCenter());
-            notificationManager.PositionProvider = new PrimaryScreenPositionProvider(
-                corner: Corner.BottomRight,
-                offsetX: 10,
-                offsetY: 10
-            );
-            */
-        }
-        
         public void SaveReservation()
         {
-
             _reservationService.SaveReservation(new AccommodationReservation(_accommodationViewModel.SelectedAccommodation.Id, _user.Id, SelectedRange.StartDate, SelectedRange.EndDate, NumberOfDays, GuestsNumber, false),_user);
         }
 

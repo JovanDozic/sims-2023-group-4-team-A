@@ -55,41 +55,36 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             int GuestsNumber = GuestsNum.Value;
             TimeSpan duration = dateEnd - dateBegin;
 
-            if (!_accommodationViewModel.IsDateInPast(dateBegin, dateEnd))
+            if (_accommodationViewModel.IsNumberOfDaysValid(NumberOfDays))
             {
-                if (_accommodationViewModel.IsNumberOfDaysValid(NumberOfDays))
+                if (_accommodationViewModel.IsNumberOfDaysGreaterThanDuration(NumberOfDays, duration))
                 {
-                    if (_accommodationViewModel.IsNumberOfDaysGreaterThanDuration(NumberOfDays, duration))
+                    if (_accommodationViewModel.IsGuestsNumberValid(GuestsNumber))
                     {
-                        if (_accommodationViewModel.IsGuestsNumberValid(GuestsNumber))
+                        if (_accommodationViewModel.IsAccommodationOccupied(dateBegin, dateEnd))
                         {
-                            if (_accommodationViewModel.IsAccommodationOccupied(dateBegin, dateEnd))
-                            {
-                                if (_accommodationViewModel.IsCanceled(dateBegin, dateEnd))
-                                {
-                                    NavigationService.Navigate(new FreeReservationDates(_reservationViewModel));
-                                }
-                                else
-                                {
-                                    NavigationService.Navigate(new AlternativeReservationDates(_reservationViewModel));
-                                }
-                            }
-                            else
+                            if (_accommodationViewModel.IsCanceled(dateBegin, dateEnd))
                             {
                                 NavigationService.Navigate(new FreeReservationDates(_reservationViewModel));
                             }
+                            else
+                            {
+                                NavigationService.Navigate(new AlternativeReservationDates(_reservationViewModel));
+                            }
                         }
                         else
-                            GuestsValidation.Text = _accommodationViewModel.GetGuestsMessage();
+                        {
+                            NavigationService.Navigate(new FreeReservationDates(_reservationViewModel));
+                        }
                     }
                     else
-                        DurationValidation.Text = _accommodationViewModel.GetDaysDurationMessage();
+                        GuestsValidation.Text = _accommodationViewModel.GetGuestsMessage();
                 }
                 else
-                    DaysValidation.Text = _accommodationViewModel.GetDaysMessage();
+                    DurationValidation.Text = _accommodationViewModel.GetDaysDurationMessage();
             }
             else
-                DateValidation.Text = _accommodationViewModel.GetDateMessage();
+                DaysValidation.Text = _accommodationViewModel.GetDaysMessage();
         }
 
         private void DatePickerStart_Loaded(object sender, RoutedEventArgs e)
@@ -112,5 +107,15 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             }
         }
 
+        private void FirstDate_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            DateTime dateBegin = DateBeginBox.SelectedDate ?? DateTime.MinValue;
+            DateTime dateEnd = DateEndBox.SelectedDate ?? DateTime.MinValue;
+
+            if (!_accommodationViewModel.IsDateInPast(dateBegin, dateEnd))
+                DateValidation.Text = " ";
+            else
+                DateValidation.Text = _accommodationViewModel.GetDateMessage();
+        }
     }
 }

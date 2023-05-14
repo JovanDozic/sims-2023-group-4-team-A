@@ -17,10 +17,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ToastNotifications;
-using ToastNotifications.Core;
-using ToastNotifications.Lifetime;
-using ToastNotifications.Position;
 
 namespace SIMSProject.WPF.Views.Guest1.Pages
 {
@@ -30,7 +26,6 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
     public partial class FreeReservationDates : Page
     {
         private readonly User _user = new();
-        private AccommodationReservationViewModel _accommodationReservationViewModel;
         private ReservationViewModel _reservationViewModel;
         public FreeReservationDates(ReservationViewModel reservationViewModel)
         {
@@ -39,7 +34,6 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             DataContext = _reservationViewModel;
             
         }
-
         private void Button_Click_Close(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
@@ -48,7 +42,7 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
         private void Button_Click_Confirm(object sender, RoutedEventArgs e)
         {
             _reservationViewModel.SaveReservation();
-            MessageBox.Show("Uspešno rezervisano");
+            MessageBox.Show("Smeštaj je rezervisan", "Rezervacija uspešna!", MessageBoxButton.OK, MessageBoxImage.Information);
             NavigationService.Navigate(new MainPage(_user));
         }
 

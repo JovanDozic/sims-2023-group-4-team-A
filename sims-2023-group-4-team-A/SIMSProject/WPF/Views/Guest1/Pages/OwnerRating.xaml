@@ -8,7 +8,7 @@
       d:DesignHeight="768" d:DesignWidth="1024"
       Title="OwnerRating">
 
-    <ScrollViewer Margin="65,0,0,0" CanContentScroll="True">
+    <ScrollViewer Margin="65,0,0,0" CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Hidden">
         <Grid Height="1180" Width="900">
 
             <Grid.ColumnDefinitions>

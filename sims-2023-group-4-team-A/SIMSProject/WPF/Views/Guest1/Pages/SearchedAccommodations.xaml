@@ -46,7 +46,8 @@
                   BorderBrush="Transparent"
                   SelectionChanged="ListView_SelectionChanged"
                   BorderThickness="0" d:ItemsSource="{d:SampleData ItemCount=5}"
-                  ScrollViewer.CanContentScroll="False">
+                  ScrollViewer.CanContentScroll="False"
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden">
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
