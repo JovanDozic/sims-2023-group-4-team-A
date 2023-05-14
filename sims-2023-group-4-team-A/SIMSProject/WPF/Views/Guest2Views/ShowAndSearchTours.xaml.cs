@@ -2,7 +2,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.ViewModels.Guest2ViewModels;
 using SIMSProject.WPF.ViewModels.TourViewModels;
 
 namespace SIMSProject.View.Guest2
@@ -19,11 +21,11 @@ namespace SIMSProject.View.Guest2
         public int DurationSearchBox;
         public int MaxGuestSearchBox;
         
-        public ShowAndSearchTours(Guest user, string location)
+        public ShowAndSearchTours(Guest user)
         {
             InitializeComponent();
             _user = user;
-            _tourViewModel = new ToursViewModel();
+            _tourViewModel = new ToursViewModel(_user);
             this.DataContext = _tourViewModel;
             CheckPending();
         }
@@ -48,17 +50,32 @@ namespace SIMSProject.View.Guest2
         private void Search_Click(object sender, RoutedEventArgs e)
         {
             String locationAndLanguage = LocationAndLanguageSearch.Text;
-            int searchDuration = DurationSearch.Value <= 0 ? -1 : DurationSearch.Value;
-            int searchMaxGuests = GuestSearch.Value <= 0 ? -1 : GuestSearch.Value;
-            _tourViewModel.Search(locationAndLanguage, searchDuration, searchMaxGuests);
+            String language = ConvertLanguage(CbLanguage.Text);
+            _tourViewModel.Search(locationAndLanguage, language);
+            LblSelectingTour.Visibility = Visibility.Hidden;
         }
-
+        private string ConvertLanguage(string selectedLanguage)
+        {
+            switch (selectedLanguage)
+            {
+                case "Srpski":
+                    return "SERBIAN";
+                case "Engleski":
+                    return "ENGLISH";
+                case "Španski":
+                    return "SPANISH";
+                case "Francuski":
+                    return "FRENCH";
+                default:
+                    return "";
+            }
+        }
         private void TextSearch_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox? textbox = sender as TextBox;
             if (textbox is null) return;
             textbox.Foreground = new SolidColorBrush(Colors.Black);
-            if (textbox.Text == "Lokacija jezik") textbox.Text = string.Empty;
+            if (textbox.Text == "Gde putujete?") textbox.Text = string.Empty;
         }
 
         private void TextSearch_LostFocus(object sender, RoutedEventArgs e)
@@ -68,14 +85,20 @@ namespace SIMSProject.View.Guest2
             if (textbox.Text == string.Empty)
             {
                 textbox.Foreground = new SolidColorBrush(Colors.Gray);
-                textbox.Text = "Lokacija jezik";
+                textbox.Text = "Gde putujete?";
 
             }
         }
         private void Reserve_Click(object sender, RoutedEventArgs e)
         {
-            if (!_tourViewModel.IsSelected()) { MessageBox.Show("Odaberite turu koju zelite da rezervisete!"); return; }
-            new TourReservationCreation(_user, _tourViewModel.SelectedTour).Show();
+            if (_tourViewModel.IsSelected())
+            {
+                new TourReservationCreation(_user, _tourViewModel.SelectedTour).Show();
+                LblSelectingTour.Visibility = Visibility.Hidden;
+                return;
+            }
+            LblSelectingTour.Visibility = Visibility.Visible;
         }
+        
     }
 }

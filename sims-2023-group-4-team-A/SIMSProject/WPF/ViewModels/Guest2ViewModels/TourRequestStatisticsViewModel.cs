@@ -1,7 +1,12 @@
-﻿using SIMSProject.Application.Services.TourServices;
+﻿using LiveCharts;
+using LiveCharts.Wpf;
+using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.UserModels;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Controls;
 
 namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
@@ -67,6 +72,51 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 OnPropertyChanged();
             }
         }
+        
+        private ObservableCollection<string> _tourLanguages;
+        public ObservableCollection<string> TourLanguages
+        {
+            get => _tourLanguages;
+            set
+            {
+                _tourLanguages = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<string> _tourLocations;
+        public ObservableCollection<string> TourLocations
+        {
+            get => _tourLocations;
+            set
+            {
+                _tourLocations = value;
+                OnPropertyChanged();
+            }
+        }
+        private SeriesCollection _locationCounts;
+        public SeriesCollection LocationCounts
+        {
+            get => _locationCounts;
+            set
+            {
+                _locationCounts = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private SeriesCollection _languageCounts;
+        public SeriesCollection LanguageCounts
+        {
+            get => _languageCounts;
+            set
+            {
+                _languageCounts = value;
+                OnPropertyChanged();
+            }
+        }
+
+        
         public TourRequestStatisticsViewModel(Guest user)
         {
             _user = user;
@@ -80,6 +130,28 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 AcceptedPercentage = Math.Round(_customTourRequestService.AllTimeAcceptedRequestPercentageByGuestId(_user.Id), 2).ToString() + "%";
                 UnacceptedPercentage = (100 - Math.Round(_customTourRequestService.AllTimeAcceptedRequestPercentageByGuestId(_user.Id), 2)).ToString() + "%";
                 AverageGuestNumber = Math.Round(_customTourRequestService.AllTimeAverageGuestsInAcceptedRequests(_user.Id), 2).ToString();
+                
+                TourLanguages = new ObservableCollection<string>(_customTourRequestService.GetTourLanguages(_user.Id));
+                TourLocations = new ObservableCollection<string>(_customTourRequestService.GetTourLocations(_user.Id));
+
+                LanguageCounts = new SeriesCollection
+                {
+                    new ColumnSeries
+                    {
+                        Title = "Broj zahteva",
+                        Values = new ChartValues<int>(_customTourRequestService.GetAllTimeRequestCountByLanguage(_user.Id).Values.ToList())
+                    }
+                };
+
+                LocationCounts = new SeriesCollection
+                {
+                    new ColumnSeries
+                    {
+                        Title = "Broj zahteva",
+                        Values = new ChartValues<int>(_customTourRequestService.GetAllTimeRequestCountByLocation(_user.Id).Values.ToList())
+                    }
+                };
+
             }
             int year;
             if (int.TryParse(selectedYear, out year))
@@ -87,6 +159,27 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 AcceptedPercentage = Math.Round(_customTourRequestService.AcceptedRequestPercentageByGuestId(_user.Id, year), 2).ToString() + "%";
                 UnacceptedPercentage = (100 - Math.Round(_customTourRequestService.AcceptedRequestPercentageByGuestId(_user.Id, year), 2)).ToString() + "%";
                 AverageGuestNumber = Math.Round(_customTourRequestService.AverageGuestsInAcceptedRequests(_user.Id, year), 2).ToString();
+
+                TourLanguages = new ObservableCollection<string>(_customTourRequestService.GetTourLanguagesByYear(_user.Id, year));
+                TourLocations = new ObservableCollection<string>(_customTourRequestService.GetTourLocationsByYear(_user.Id, year));
+
+                LanguageCounts = new SeriesCollection
+                {
+                    new ColumnSeries
+                    {
+                        Title = "Broj zahteva",
+                        Values = new ChartValues<int>(_customTourRequestService.GetRequestCountByLanguage(_user.Id, year).Values.ToList())
+                    }
+                };
+
+                LocationCounts = new SeriesCollection
+                {
+                    new ColumnSeries
+                    {
+                        Title = "Broj zahteva",
+                        Values = new ChartValues<int>(_customTourRequestService.GetRequestCountByLocation(_user.Id, year).Values.ToList())
+                    }
+                };
             }
         }
 

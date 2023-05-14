@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest2Views"
       mc:Ignorable="d" 
@@ -32,11 +33,11 @@
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
         <Image Grid.Row="1" Source="/Resources/Images/chevron-left-black.png" RenderOptions.BitmapScalingMode="HighQuality" />
-        <Button Click="Back_Click" Grid.Column="1" Grid.Row="1" Content="Nazad" FontSize="28" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Foreground="#004e98"/>
+        <Button Click="Back_Click" Grid.Column="1" Grid.Row="1" Content="Nazad" FontSize="28" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Foreground="#004e98" Cursor="Hand"/>
         <Label Grid.Row="2" Grid.RowSpan="6" Grid.Column="2" Grid.ColumnSpan="7" Background="#ebebeb"/>
         <Label Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="4" FontSize="35" VerticalAlignment="Center" Content="Statistika zahteva za obične ture" FontWeight="DemiBold"/>
         <Label Grid.Row="3" Grid.Column="2" FontSize="28" VerticalAlignment="Center" Content="Odabrana godina: " FontWeight="DemiBold"/>
-        <ComboBox Grid.Row="3" Grid.Column="3" Width="130" Height="40" FontSize="28" HorizontalAlignment="Left" SelectedItem="{Binding SelectedItem}" FontWeight="DemiBold">
+        <ComboBox Grid.Row="3" Grid.Column="3" Width="130" Height="40" FontSize="28" HorizontalAlignment="Left" SelectedItem="{Binding SelectedItem}" FontWeight="DemiBold" Cursor="Hand">
             <ComboBoxItem Content="Oduvek"/>
             <ComboBoxItem Content="2023"/>
             <ComboBoxItem Content="2022"/>
@@ -47,6 +48,24 @@
         <Label Grid.Row="5" Grid.Column="2" FontSize="28" VerticalAlignment="Center" Content="Neprihvaćeni: " FontWeight="DemiBold"/>
         <TextBlock Grid.Row="5" Grid.Column="3" Text="{Binding UnacceptedPercentage}" FontSize="28" VerticalAlignment="Center" FontWeight="DemiBold"/>
         <Label Grid.Row="6" Grid.Column="2" FontSize="28" VerticalAlignment="Center" Content="Prosečan broj gostiju: " FontWeight="DemiBold"/>
-        <TextBlock Grid.Row="6" Grid.Column="3" Text="{Binding AverageGuestPercentage}" FontSize="28" VerticalAlignment="Center" FontWeight="DemiBold"/>
+        <TextBlock Grid.Row="6" Grid.Column="3" Text="{Binding AverageGuestNumber}" FontSize="28" VerticalAlignment="Center" FontWeight="DemiBold"/>
+    
+        <lvc:CartesianChart Grid.Row="4" Grid.Column="5" Grid.RowSpan="3" Series="{Binding LanguageCounts}">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Jezik" Labels="{Binding TourLanguages}" FontSize="15" Foreground="Black"/>
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Broj zahteva" MinValue="0" FontSize="15" Foreground="Black"/>
+            </lvc:CartesianChart.AxisY>
+        </lvc:CartesianChart>
+        <lvc:CartesianChart Grid.Row="4" Grid.Column="7" Grid.RowSpan="3" Series="{Binding LocationCounts}">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Lokacija" Labels="{Binding TourLocations}" FontSize="15" Foreground="Black" />
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Broj zahteva" MinValue="0" FontSize="15" Foreground="Black"/>
+            </lvc:CartesianChart.AxisY>
+        </lvc:CartesianChart>
+
     </Grid>
 </Page>

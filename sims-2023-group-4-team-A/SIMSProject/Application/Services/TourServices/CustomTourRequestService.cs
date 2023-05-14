@@ -1,6 +1,7 @@
 ﻿using Dynamitey.DynamicObjects;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
 using System;
 using System.Collections.Generic;
@@ -128,6 +129,131 @@ namespace SIMSProject.Application.Services.TourServices
         public List<int> GetRequestsYears()
         {
             return _customTourRequestRepo.GetAll().Select(x => x.StartDate.Year).Distinct().OrderBy(x => x).ToList();
+        }
+
+        public List<string> GetTourLanguagesByYear(int guestId, int year)
+        {
+            List<CustomTourRequest> requests = _customTourRequestRepo.GetAllByGuestId(guestId).Where(r =>r.RequestCreateDate.Year == year).ToList();
+            // Dohvati jedinstvene jezike iz svih zahteva za ture
+            List<string> languages = requests.Select(r => r.TourLanguage.ToString()).Distinct().ToList();
+            return languages;
+        }
+        public List<string> GetTourLanguages(int guestId)
+        {
+            List<CustomTourRequest> requests = _customTourRequestRepo.GetAllByGuestId(guestId).ToList();
+            // Dohvati jedinstvene jezike iz svih zahteva za ture
+            List<string> languages = requests.Select(r => r.TourLanguage.ToString()).Distinct().ToList();
+            return languages;
+        }
+        public List<string> GetTourLocationsByYear(int guestId, int year)
+        {
+            List<CustomTourRequest> requests = _customTourRequestRepo.GetAllByGuestId(guestId).Where(r => r.RequestCreateDate.Year == year).ToList();
+            // Dohvati jedinstvene lokacije iz svih zahteva za ture
+            List<string> locations = requests.Select(r => r.Location.ToString()).Distinct().ToList();
+            return locations;
+        }
+        public List<string> GetTourLocations(int guestId)
+        {
+            List<CustomTourRequest> requests = _customTourRequestRepo.GetAllByGuestId(guestId).ToList();
+            // Dohvati jedinstvene lokacije iz svih zahteva za ture
+            List<string> locations = requests.Select(r => r.Location.ToString()).Distinct().ToList();
+            return locations;
+        }
+        public Dictionary<string, int> GetRequestCountByLanguage(int guestId, int year)
+        {
+            // Dohvati sve zahteve za ture za određenog gosta i godinu
+            List<CustomTourRequest> requests = _customTourRequestRepo.GetAllByGuestId(guestId).Where(r => r.RequestCreateDate.Year == year).ToList();
+
+            // Izračunaj broj zahtjeva za svaki jezik
+            Dictionary<string, int> requestCounts = new Dictionary<string, int>();
+
+            foreach (CustomTourRequest request in requests)
+            {
+                string language = request.TourLanguage.ToString();
+
+                if (requestCounts.ContainsKey(language))
+                {
+                    requestCounts[language]++;
+                }
+                else
+                {
+                    requestCounts[language] = 1;
+                }
+            }
+            return requestCounts;
+        }
+
+        public Dictionary<string, int> GetAllTimeRequestCountByLanguage(int guestId)
+        {
+            // Dohvati sve zahteve za ture za određenog gosta i godinu
+            List<CustomTourRequest> requests = _customTourRequestRepo.GetAllByGuestId(guestId).ToList();
+
+            // Izračunaj broj zahtjeva za svaki jezik
+            Dictionary<string, int> requestCounts = new Dictionary<string, int>();
+
+            foreach (CustomTourRequest request in requests)
+            {
+                string language = request.TourLanguage.ToString();
+
+                if (requestCounts.ContainsKey(language))
+                {
+                    requestCounts[language]++;
+                }
+                else
+                {
+                    requestCounts[language] = 1;
+                }
+            }
+            return requestCounts;
+        }
+
+        public Dictionary<string, int> GetRequestCountByLocation(int guestId, int year)
+        {
+            // Dohvati sve zahteve za ture za određenog gosta i godinu
+            List<CustomTourRequest> requests = _customTourRequestRepo.GetAllByGuestId(guestId).Where(r => r.RequestCreateDate.Year == year).ToList();
+
+            // Izračunaj broj zahtjeva za svaku lokaciju
+            Dictionary<string, int> requestCounts = new Dictionary<string, int>();
+
+            foreach (CustomTourRequest request in requests)
+            {
+                string location = request.Location.ToString();
+
+                if (requestCounts.ContainsKey(location))
+                {
+                    requestCounts[location]++;
+                }
+                else
+                {
+                    requestCounts[location] = 1;
+                }
+            }
+
+            return requestCounts;
+        }
+        public Dictionary<string, int> GetAllTimeRequestCountByLocation(int guestId)
+        {
+            // Dohvati sve zahteve za ture za određenog gosta i godinu
+            List<CustomTourRequest> requests = _customTourRequestRepo.GetAllByGuestId(guestId).ToList();
+
+            // Izračunaj broj zahtjeva za svaku lokaciju
+            Dictionary<string, int> requestCounts = new Dictionary<string, int>();
+
+            foreach (CustomTourRequest request in requests)
+            {
+                string location = request.Location.ToString();
+
+                if (requestCounts.ContainsKey(location))
+                {
+                    requestCounts[location]++;
+                }
+                else
+                {
+                    requestCounts[location] = 1;
+                }
+            }
+
+            return requestCounts;
         }
     }
 }
