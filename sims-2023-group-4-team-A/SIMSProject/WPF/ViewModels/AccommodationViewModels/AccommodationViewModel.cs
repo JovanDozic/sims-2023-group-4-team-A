@@ -226,24 +226,13 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         }
         public double Rating
         {
-            get => Accommodation.Rating;
+            get => Accommodation.Rating.Overall;
             set
             {
-                if (value == Accommodation.Rating) return;
-                Accommodation.Rating = value;
                 OnPropertyChanged();
             }
         }
-        public int NumberOfRatings
-        {
-            get => Accommodation.NumberOfRatings;
-            set
-            {
-                if (value == Accommodation.NumberOfRatings) return;
-                Accommodation.NumberOfRatings = value;
-                OnPropertyChanged();
-            }
-        }
+
         public bool IsRecentlyRenovated
         {
             get => Accommodation.IsRecentlyRenovated;

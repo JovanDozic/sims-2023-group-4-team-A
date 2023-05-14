@@ -1,5 +1,6 @@
 ﻿using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.AccommodationModels;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Model;
 using SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews;
@@ -15,11 +16,13 @@ namespace SIMSProject.Application.Services.AccommodationServices
     {
         private readonly IAccommodationRepo _repo;
         private readonly AccommodationReservationService _accommodationReservationService;
+        private readonly OwnerRatingService _ratingService;
 
         public AccommodationService(IAccommodationRepo repo)
         {
             _repo = repo;
             _accommodationReservationService = Injector.GetService<AccommodationReservationService>();
+            _ratingService = Injector.GetService<OwnerRatingService>();
         }
 
         public void ReloadAccommodations()
@@ -27,13 +30,25 @@ namespace SIMSProject.Application.Services.AccommodationServices
             _repo.Load();
         }
 
+        public List<Accommodation> CalculateRatings(List<Accommodation> accommodations)
+        {
+            foreach(var accommodation in accommodations)
+            {
+                accommodation.Rating = _ratingService.CalculateRating(accommodation);
+            }
+            return accommodations;
+        }
+
         public List<Accommodation> GetAllByOwnerId(int ownerId)
         {
-            return _repo.GetAllByOwnerId(ownerId);
+            var accommodations = _repo.GetAllByOwnerId(ownerId);
+            return CalculateRatings(accommodations);
         }
+
         public List<Accommodation> GetAll()
         {
-            return _repo.GetAll();
+            var accommodations = _repo.GetAll();
+            return CalculateRatings(accommodations);
         }
 
         public void RegisterAccommodation(Accommodation accommodation)

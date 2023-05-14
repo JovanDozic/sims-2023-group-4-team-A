@@ -16,6 +16,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private ObservableCollection<AccommodationReservation> _reservations = new();
         private readonly AccommodationReservationService _reservationService;
         private readonly AccommodationStatisticService _statisticService;
+        private readonly OwnerRatingService _ratingService;
         
         public Accommodation Accommodation
         {
@@ -57,12 +58,16 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
             _reservationService = Injector.GetService<AccommodationReservationService>();
             _statisticService = Injector.GetService<AccommodationStatisticService>();
+            _ratingService = Injector.GetService<OwnerRatingService>();
 
             Reservations = new(_reservationService.GetAllFutureByAccommodationId(Accommodation.Id));
             Statistic = _statisticService.GetYearlyStatistic(accommodation, DateTime.Now.Year);
+            Accommodation.Rating = _ratingService.CalculateRating(Accommodation);
+
+            MessageBox.Show(Accommodation.Rating.ToString());
         }
 
-
+        
 
 
     }

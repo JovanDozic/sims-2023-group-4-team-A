@@ -3,6 +3,7 @@ using SIMSProject.Domain.RepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using SIMSProject.FileHandlers.AccommodationFileHandlers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -75,5 +76,7 @@ namespace SIMSProject.Repositories.AccommodationRepositories
         {
             _accommodations.ForEach(a => a.Location = _locationRepo.GetById(a.Location.Id));
         }
+
+        
     }
 }

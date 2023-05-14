@@ -9,6 +9,7 @@ namespace SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfa
         public OwnerRating GetById(int ratingId);
         public OwnerRating GetByReservationId(int reservationId);
         public List<OwnerRating> GetAllByOwnerId(int ownerId);
+        public List<OwnerRating> GetAllByAccommodationId(int accommodationId);
         public List<OwnerRating> GetAll();
         public double GetOverallByOwnerId(int ownerId);
         public int NextId();

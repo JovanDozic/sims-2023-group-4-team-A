@@ -80,11 +80,11 @@
                                Margin="0,0,0,5"/>
 
                     <StackPanel Orientation="Horizontal" Margin="0,2.5,0,0">
-                        <cstm:StarRating ControlHeight="20" Rating="{Binding Rating}" 
+                        <cstm:StarRating ControlHeight="20" Rating="{Binding Rating.Overall}" 
                                          HorizontalAlignment="Left" Margin="-5,0,0,0"/>
                         <TextBlock Text="•  " Margin="5,0,0,0" FontSize="10"
                                    VerticalAlignment="Center"/>
-                        <TextBlock Text="{Binding NumberOfRatings}" FontSize="10"
+                        <TextBlock Text="{Binding Rating.NumberOfRatings}" FontSize="10"
                                    VerticalAlignment="Center"/>
                         <TextBlock Text=" ocena" FontSize="10"
                                    VerticalAlignment="Center"/>
@@ -232,7 +232,7 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal" 
                                     HorizontalAlignment="Left" Grid.Column="0">
-                            <TextBlock Text="{Binding Rating}"
+                            <TextBlock Text="{Binding Rating.Overall}"
                                        FontWeight="SemiBold" FontSize="40"
                                        VerticalAlignment="Bottom"/>
                             <TextBlock Text="od 5"
@@ -241,7 +241,7 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,3.5"
                                     HorizontalAlignment="Right" Grid.Column="1">
-                            <TextBlock Text="{Binding NumberOfRatings}"
+                            <TextBlock Text="{Binding Rating.NumberOfRatings}"
                                        FontSize="20"
                                        VerticalAlignment="Bottom"/>
                             <TextBlock Text=" recenzije"
@@ -267,31 +267,19 @@
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Čistoća"
                                    Style="{StaticResource RatingCategoryLabel}"/>
                         <cstm:StarRating Grid.Row="0" Grid.Column="1"
-                                         Rating="2.3"
+                                         Rating="{Binding Rating.CleanlinessRating}"
                                          Style="{StaticResource RatingCategoryStars}"/>
 
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="Korektnost vlasnika"
                                    Style="{StaticResource RatingCategoryLabel}"/>
                         <cstm:StarRating Grid.Row="1" Grid.Column="1"
-                                         Rating="5"
+                                         Rating="{Binding Rating.OwnerCorrectness}"
                                          Style="{StaticResource RatingCategoryStars}"/>
 
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Kategorija"
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Ljubaznost"
                                    Style="{StaticResource RatingCategoryLabel}"/>
                         <cstm:StarRating Grid.Row="2" Grid.Column="1"
-                                         Rating="4.6"
-                                         Style="{StaticResource RatingCategoryStars}"/>
-
-                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Kategorija"
-                                   Style="{StaticResource RatingCategoryLabel}"/>
-                        <cstm:StarRating Grid.Row="3" Grid.Column="1"
-                                         Rating="3.6"
-                                         Style="{StaticResource RatingCategoryStars}"/>
-
-                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Kategorija"
-                                   Style="{StaticResource RatingCategoryLabel}"/>
-                        <cstm:StarRating Grid.Row="4" Grid.Column="1"
-                                         Rating="1.6"
+                                         Rating="{Binding Rating.Kindness}"
                                          Style="{StaticResource RatingCategoryStars}"/>
                     </Grid>
 

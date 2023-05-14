@@ -1,4 +1,5 @@
-﻿using SIMSProject.Domain.Models.UserModels;
+﻿using SIMSProject.Application.Services.AccommodationServices;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
@@ -23,9 +24,8 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public string Description { get; set; } = string.Empty;
         public bool IsInRenovation { get; set; } = false;
         public bool IsRecentlyRenovated { get; set; } = false;
-        public double Rating { get; set; } = 0;
-        public int NumberOfRatings { get; set; } = 0;
         public DateTime DateCreated { get; set; } = DateTime.Now;
+        public AccommodationRating Rating { get; set; } = new();
 
         public Accommodation()
         {
@@ -48,7 +48,6 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             IsInRenovation = original.IsInRenovation;
             IsRecentlyRenovated = original.IsRecentlyRenovated;
             Rating = original.Rating;
-            NumberOfRatings = original.NumberOfRatings;
             DateCreated = original.DateCreated;
         }
 
@@ -90,8 +89,8 @@ namespace SIMSProject.Domain.Models.AccommodationModels
                 Description,
                 IsInRenovation.ToString(),
                 IsRecentlyRenovated.ToString(),
-                Math.Round(Rating, 2).ToString(),
-                NumberOfRatings.ToString(),
+                Math.Round(Rating.Overall, 2).ToString(),
+                Rating.NumberOfRatings.ToString(),
                 DateCreated.ToString(),
                 ImageURLsCSV
             };
@@ -112,8 +111,8 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             Description = values[i++];
             IsInRenovation = bool.Parse(values[i++]);
             IsRecentlyRenovated = bool.Parse(values[i++]);
-            Rating = double.Parse(values[i++]);
-            NumberOfRatings = int.Parse(values[i++]);
+            Rating.Overall = double.Parse(values[i++]);
+            Rating.NumberOfRatings = int.Parse(values[i++]);
             DateCreated = DateTime.Parse(values[i++]);
             ImageURLsCSV = values[i++];
             ImageURLs = ImageURLsFromCSV(ImageURLsCSV);
