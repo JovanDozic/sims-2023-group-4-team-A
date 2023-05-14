@@ -83,7 +83,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         public ICommand CancelAppointmentCommand { get; private set; }
         public bool CancelAppointmentCanExecute()
         {
-            return SelectedAppointment.TourStatus == Status.INACTIVE && Appointments.Count > 0;
+            return SelectedAppointment != null && SelectedAppointment.TourStatus == Status.INACTIVE && Appointments.Count > 0;
         }
         public void CancelAppointmentExecute()
         {
