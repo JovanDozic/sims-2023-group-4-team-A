@@ -74,7 +74,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                     "Španski" => Language.SPANISH,
                     _ => Language.FRENCH
                 };
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(TourLanguage));
             }
         }
         public DateTime StartDate

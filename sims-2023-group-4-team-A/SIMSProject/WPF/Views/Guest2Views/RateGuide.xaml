@@ -51,7 +51,7 @@
                 <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
             <TextBox x:Name="TbImageURL" Grid.Column="0" Height="35" Width="220" FontSize="28" HorizontalAlignment="Left" FontWeight="DemiBold"/>
-            <Button x:Name="BtnAddImage" Grid.Column="1" Background="#ff6700" FontWeight="Bold" Content="+" FontSize="23" Height="40" Width="40" VerticalContentAlignment="Top" Click="BtnAddImage_Click" Cursor="Hand" >
+            <Button x:Name="BtnAddImage" Grid.Column="1" Background="#ff6700" FontWeight="Bold" Content="+" FontSize="28" Height="40" Width="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="BtnAddImage_Click" Cursor="Hand" >
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="50"/>

@@ -42,9 +42,9 @@
             <ComboBoxItem>Francuski</ComboBoxItem>
             <ComboBoxItem>Španski</ComboBoxItem>
         </ComboBox>
-        <Label Grid.Row="2" Grid.Column="2" Content="Broj ljudi: " FontSize="32" FontWeight="DemiBold" VerticalAlignment="Center" Height="60"/>
+        <Label Grid.Row="2" Grid.Column="2" Content="Broj ljudi: " FontSize="32" FontWeight="DemiBold" VerticalAlignment="Top" Height="50" Margin="0,25,0,0"/>
         <custom:Guest2NumericBoxInput x:Name="GuestSearch" Value="{Binding Path=GuestSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="2" Grid.Column="3" Cursor="Hand"/>
-        <Label Grid.Row="2" Grid.Column="4" Content="Trajanje ture:" Height="60" FontSize="32" FontWeight="DemiBold" VerticalAlignment="Center"/>
+        <Label Grid.Row="2" Grid.Column="4" Content="Trajanje ture:" Height="50" FontSize="32" FontWeight="DemiBold" VerticalAlignment="Top" Margin="0,25,0,0"/>
         <custom:Guest2NumericBoxInput x:Name="DurationSearch" Value="{Binding Path=DurationSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="2" Grid.Column="5" Cursor="Hand"/>
         <Button Grid.Row="2" Grid.Column="6" Height="50" Width ="150" FontSize="32" VerticalAlignment="Center" FontWeight="DemiBold" Click="Search_Click" Content="Pretraži" Background="#ff6700" Cursor="Hand"/>
         <DataGrid Grid.Row="3" Grid.ColumnSpan="7" SelectionMode="Single" IsReadOnly="True" FontSize="25" FontWeight="DemiBold" AutoGenerateColumns="False"
