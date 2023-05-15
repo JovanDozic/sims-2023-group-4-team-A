@@ -138,7 +138,8 @@
                                                    FontSize="20" FontWeight="SemiBold"
                                                    Margin="10,0,20,0"/>
                                         <Button Style="{StaticResource NoHoverButtonStyle}"
-                                                Click="BtnReservationInFuture_Click">
+                                                Click="BtnReservationInFuture_Click"
+                                                IsEnabled="{Binding IsInFuture}">
                                             <Image Source="/Resources/Icons/clock-unfill.png" Style="{StaticResource IconRenderStyle}"
                                                    Height="20"
                                                    Visibility="{Binding IsInFuture, Converter={StaticResource BooleanToVisibilityConverter}}"/>

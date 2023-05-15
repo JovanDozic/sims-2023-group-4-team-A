@@ -232,7 +232,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
-
         public bool IsRecentlyRenovated
         {
             get => Accommodation.IsRecentlyRenovated;
@@ -243,6 +242,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
+
         public ObservableCollection<Accommodation> Accommodations
         {
             get => _accommodations;
