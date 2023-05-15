@@ -33,6 +33,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
 
         public Accommodation(Accommodation original)
         {
+            if (original is null) return;
             Id = original.Id;
             Owner = original.Owner;
             Name = original.Name;
