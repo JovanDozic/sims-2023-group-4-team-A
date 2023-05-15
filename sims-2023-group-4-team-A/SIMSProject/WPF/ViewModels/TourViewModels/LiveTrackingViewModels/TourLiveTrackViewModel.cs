@@ -23,7 +23,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
         private readonly TourGuestService _tourGuestService;
         private readonly NotificationService _notificationService;
 
-
         private KeyPoint _currentKeyPoint = new();
         public KeyPoint CurrentKeyPoint
         {

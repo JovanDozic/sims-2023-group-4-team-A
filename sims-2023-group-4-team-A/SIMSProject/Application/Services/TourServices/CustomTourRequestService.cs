@@ -131,6 +131,16 @@ namespace SIMSProject.Application.Services.TourServices
             return _customTourRequestRepo.GetAll().Select(x => x.StartDate.Year).Distinct().OrderBy(x => x).ToList();
         }
 
+        public List<Location> GetMostWantedLocations()
+        {
+            return _customTourRequestRepo.GetMostWantedLocations();
+        }
+
+        public List<Language> GetMostWantedLanguages()
+        {
+            return _customTourRequestRepo.GetMostWantedLanguages();
+        }
+
         public List<string> GetTourLanguagesByYear(int guestId, int year)
         {
             List<CustomTourRequest> requests = _customTourRequestRepo.GetAllByGuestId(guestId).Where(r =>r.RequestCreateDate.Year == year).ToList();

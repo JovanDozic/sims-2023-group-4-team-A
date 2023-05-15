@@ -23,5 +23,7 @@ namespace SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces
         public List<int> CountRequests(Language language);
         public List<int> CountRequestsMonthly(Location location, int desiredYear);
         public List<int> CountRequestsMonthly(Language language, int desiredYear);
+        public List<Location> GetMostWantedLocations();
+        public List<Language> GetMostWantedLanguages();
     }
 }

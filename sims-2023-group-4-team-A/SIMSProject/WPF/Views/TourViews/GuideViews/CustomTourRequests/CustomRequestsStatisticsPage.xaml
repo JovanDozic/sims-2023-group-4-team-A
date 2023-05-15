@@ -6,6 +6,8 @@
       xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       xmlns:lvcvm="clr-namespace:LiveCharts;assembly=LiveCharts"
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.TourViews.GuideViews.CustomTourRequests"
+      xmlns:models="clr-namespace:SIMSProject.Domain.Models.TourModels"
+      xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="965"
       Title="CustomRequestsStatisticsPage">
@@ -15,7 +17,9 @@
         <KeyBinding Command="{Binding CountLocationsMonthlyCommand}" Key="A"/>
         <KeyBinding Command="{Binding CountLanguagesMonthlyCommand}" Key="B"/>
     </Page.InputBindings>
-
+    <Page.Resources>
+        <converters:TourLanguageConverter x:Key="LanguageConverter"/>
+    </Page.Resources>
     <DockPanel>
         <Label Content="Statistika o zahtevima" 
                HorizontalContentAlignment="Center"
@@ -31,6 +35,7 @@
                     Height="40" Width="335"
                     Content="Kreiraj najtraženiju turu"
                     HorizontalContentAlignment="Left"
+                    Command="{Binding Path=ToggleVisibilityCommand}"
                     FontSize="25"/>
         </StackPanel>
         <Grid Width="925">
@@ -117,6 +122,86 @@
                               FontSize="15" Foreground="Black"/>
                 </lvc:CartesianChart.AxisY>
             </lvc:CartesianChart>
+            <Border     Grid.Row="0"
+                        Grid.RowSpan="2" Grid.ColumnSpan="2"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        BorderThickness="1"
+                        BorderBrush="Aqua"
+                        Height="300" Width="450"
+                        Visibility="{Binding Path=SpVisibilityLanguages,Mode=TwoWay}">
+                <StackPanel x:Name="spLanguages"
+                        Grid.Row="0"
+                        Grid.RowSpan="2" Grid.ColumnSpan="2"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Height="300" Width="450"
+                        Background="White"
+                        Visibility="{Binding Path=SpVisibilityLanguages, Mode=TwoWay}">
+                    <Button x:Name="btnBack"
+                        Content="Odustani"
+                        FontSize="22"
+                        Margin="20,10,20,10" Width="120" HorizontalAlignment="Right"
+                        Command="{Binding Path=ToggleVisibilityCommand}"
+                        />
+                    <TextBlock x:Name="tbDescription"
+                           Height="30" 
+                           FontSize="22"
+                           Text="Najtraženiji jezik/jezici bili su:"
+                           Margin="20,0,20,10"/>
+                    <ListBox x:Name="lbMostWanted"
+                         Margin="20,0,20,0"
+                         Height="150"
+                         FontSize="22"
+                         ItemsSource="{Binding Path=MostWantedLanguages, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                         SelectedItem="{Binding Path=MostWantedLanguage, UpdateSourceTrigger=PropertyChanged}">
+                    </ListBox>
+                    <Button x:Name="btnCreateTour"
+                        Content="Kreiraj turu"
+                        Margin="20" Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                        Command="{Binding Path=CreateMostWantedCommand}"
+                        Click="btnCreateTour1_Click"
+                        FontSize="22"/>
+                </StackPanel>
+            </Border>
+           
+            <Border     Grid.Row="0"
+                        Grid.RowSpan="2" Grid.ColumnSpan="2"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        BorderThickness="1"
+                        BorderBrush="Aqua"
+                        Height="300" Width="450"
+                        Visibility="{Binding Path=SpVisibilityLocations, Mode=TwoWay}">
+                <StackPanel x:Name="spLocations"
+                       
+                        Background="White"
+                        Visibility="{Binding Path=SpVisibilityLocations, Mode=TwoWay}">
+                    <Button x:Name="btnBack1"
+                        Content="Odustani"
+                        FontSize="22"
+                        Margin="20,10,20,10" Width="120" HorizontalAlignment="Right"
+                        Command="{Binding Path=ToggleVisibilityCommand}"
+                        />
+                    <TextBlock x:Name="tbDescription1"
+                           Height="30" 
+                           FontSize="22"
+                           Text="Najtraženija lokacija/lokacije bile su:"
+                           Margin="20,0,20,10"/>
+                    <ListBox x:Name="lbMostWanted1"
+                         Margin="20,0,20,0"
+                         FontSize="22"
+                         Height="150"
+                         ItemsSource="{Binding Path=MostWantedLocations, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                         SelectedItem="{Binding Path=MostWantedLocation, UpdateSourceTrigger=PropertyChanged}">
+                    </ListBox>
+                    <Button x:Name="btnCreateTour1"
+                        Content="Kreiraj turu"
+                        Margin="20" Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                        Command="{Binding Path=CreateMostWantedCommand}"
+                        Click="btnCreateTour1_Click"
+                        FontSize="22"/>
+                </StackPanel>
+
+            </Border>
+            
         </Grid>
     </DockPanel>
 </Page>

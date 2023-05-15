@@ -285,6 +285,20 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
                 Tour.GetLanguage(Language.FRENCH)
             };
             MessageBus.Subscribe<CreateRequestedMessage>(this, OpenMessage);
+            MessageBus.Subscribe<CreateMostWantedMessage>(this, OpenMessage1);
+        }
+
+        private void OpenMessage1(CreateMostWantedMessage message)
+        {
+            if(message.Language > 0)
+            {
+                TourLanguage = Tour.GetLanguage(message.Language);
+                CbLanguageIsEnabled = false;
+                return;
+            }
+            Location = message.Location;
+            CbLocationIsEnabled = false;
+
         }
 
         private void OpenMessage(CreateRequestedMessage message)

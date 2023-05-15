@@ -11,6 +11,9 @@ using LiveCharts.Helpers;
 using Dynamitey.DynamicObjects;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Windows;
+using SIMSProject.WPF.Messenger.Messages;
+using SIMSProject.WPF.ViewModels.Messenger;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
 {
@@ -203,17 +206,90 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
                 OnPropertyChanged(nameof(DesiredYear));
             }
         }
+
+        private Visibility _spVisibilityLanguages = Visibility.Collapsed;
+        public Visibility SpVisibilityLanguages
+        {
+            get => _spVisibilityLanguages;
+            set
+            {
+                if (value == _spVisibilityLanguages) return;
+                _spVisibilityLanguages = value;
+                OnPropertyChanged(nameof(SpVisibilityLanguages));
+            }
+        }
+        private Visibility _spVisibilityLocations = Visibility.Collapsed;
+        public Visibility SpVisibilityLocations
+        {
+            get => _spVisibilityLocations;
+            set
+            {
+                if (value == _spVisibilityLocations) return;
+                _spVisibilityLocations = value;
+                OnPropertyChanged(nameof(SpVisibilityLocations));
+            }
+        }
+        private Language _mostWantedLanguage;
+        public Language MostWantedLanguage
+        {
+            get => _mostWantedLanguage;
+            set
+            {
+                if (value == _mostWantedLanguage) return;
+                _mostWantedLanguage = value;
+                OnPropertyChanged(nameof(MostWantedLanguage));
+            }
+        }
+        private Location _mostWantedLocation = new();
+        public Location MostWantedLocation
+        {
+            get => _mostWantedLocation;
+            set
+            {
+                if (value == _mostWantedLocation) return;
+                _mostWantedLocation = value;
+                OnPropertyChanged(nameof(MostWantedLocation));
+            }
+        }
+
+        private ObservableCollection<Language> _mostWantedLanguages = new();
+        public ObservableCollection<Language> MostWantedLanguages
+        {
+            get => _mostWantedLanguages;
+            set
+            {
+                if (_mostWantedLanguages == value) return;
+                _mostWantedLanguages = value;
+                OnPropertyChanged(nameof(MostWantedLanguages));
+            }
+        }
+        private ObservableCollection<Location> _mostWantedLocations = new();
+        public ObservableCollection<Location> MostWantedLocations
+        {
+            get => _mostWantedLocations;
+            set
+            {
+                if (value == _mostWantedLocations) return;
+                _mostWantedLocations = value;
+                OnPropertyChanged(nameof(MostWantedLocations));
+            }
+        }
+
         public CustomTourRequestsStatisticsViewModel()
         {
             _requestService = Injector.GetService<CustomTourRequestService>();
 
             RequestsLocations = new(_requestService.GetRequestsLocations());
             RequestsLanguages = new(_requestService.GetRequestsLanguages());
+            MostWantedLocations = new(_requestService.GetMostWantedLocations());
+            MostWantedLanguages = new(_requestService.GetMostWantedLanguages());
 
             CountLocationsCommand = new RelayCommand(CountLocationsExecute, CountLocationsCanExecute);
             CountLanguagesCommand = new RelayCommand(CountLanguagesExecute, CountLanguagesCanExecute);
             CountLocationsMonthlyCommand = new RelayCommand(CountLocationsMonthlyExecute, CountLocationsMonthlyCanExecute);
             CountLanguagesMonthlyCommand = new RelayCommand(CountLanguagesMonthlyExecute, CountLanguagesMonthlyCanExecute);
+            CreateMostWantedCommand = new RelayCommand(CreateMostWantedExecute, CreateMostWantedCanExecute);
+            ToggleVisibilityCommand = new RelayCommand(ToggleVisibilityExecute, ToggleVisibilityCanExecute);
         }
 
         #region Commands
@@ -301,6 +377,40 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
             TitleX = $"Broj zahteva na jeziku {SelectedLanguage}\nna nivou meseci u {DesiredYear}.";
             Labels.Clear();
             Labels.AddRange(Months);
+        }
+        #endregion
+        #region MostWantedCommand
+        public ICommand CreateMostWantedCommand { get; private set; }
+        public bool CreateMostWantedCanExecute()
+        {
+            return MostWantedLocation.Id > 0 || MostWantedLanguage > 0;
+        }
+        public void CreateMostWantedExecute()
+        {
+            SendMessage();
+        }
+        public void SendMessage()
+        {
+            var message =  RbLocationsIsChecked ? new CreateMostWantedMessage(this, MostWantedLocation) : new CreateMostWantedMessage(this, MostWantedLanguage);
+            MessageBus.Publish(message);
+        }
+        #endregion
+        #region ToggleVisibilityCommand
+        public ICommand ToggleVisibilityCommand { get; private set; }
+        public bool ToggleVisibilityCanExecute()
+        {
+            return RbLanguagesIsChecked || RbLocationsIsChecked;
+        }
+        public void ToggleVisibilityExecute()
+        {
+            if(RbLocationsIsChecked)
+            {
+                SpVisibilityLocations = SpVisibilityLocations == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+            }
+            if(RbLanguagesIsChecked)
+            {
+                SpVisibilityLanguages = SpVisibilityLanguages == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+            }
         }
         #endregion
         #endregion

@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Application.DTOs;
+using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.WPF.ViewModels.Messenger;
 using System;
@@ -49,6 +50,19 @@ namespace SIMSProject.WPF.Messenger.Messages
         {
             Request = request;
             Appointment = appointment;
+        }
+    }
+    public class CreateMostWantedMessage : Message
+    {
+        public Language Language { get; set; }
+        public Location? Location { get; set; }
+        public CreateMostWantedMessage(object sender, Language language) : base(sender)
+        {
+            Language = language;
+        }
+        public CreateMostWantedMessage(object sender, Location location) : base(sender)
+        {
+            Location = location;
         }
     }
 }

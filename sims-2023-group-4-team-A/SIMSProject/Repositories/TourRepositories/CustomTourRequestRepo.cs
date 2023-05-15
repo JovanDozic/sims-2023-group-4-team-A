@@ -5,6 +5,7 @@ using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using SIMSProject.FileHandlers.TourFileHandlers;
 using SIMSProject.WPF.Views.Guest2Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -105,7 +106,6 @@ namespace SIMSProject.Repositories.TourRepositories
                 customTourRequest.Guest = _guestRepo.GetById(customTourRequest.Guest.Id);
             }
         }
-
         private void MapLocations()
         {
             foreach (var customTourRequest in _customTourRequests)
@@ -127,6 +127,34 @@ namespace SIMSProject.Repositories.TourRepositories
                 .OrderBy(x => x)
                 .Select(year => groupedRequests.SingleOrDefault(g => g.Key == year)?.Count() ?? 0)
                 .ToList();
+        }
+
+        public List<Location> GetMostWantedLocations()
+        {
+            var filteredRequests = _customTourRequests.Where(x => DateTime.Compare(x.RequestCreateDate, DateTime.Now.AddYears(-1)) > 0);
+            var groupedRequests = filteredRequests.GroupBy(x => x.Location);
+            var countedRequests = GetRequestsLocations()
+                .Select(x =>
+                {
+                    var group = groupedRequests.SingleOrDefault(g => g.Key.Id == x.Id);
+                    return new { Location = x, Count = group?.Count() ?? 0 };
+                });
+            var maxCount = countedRequests.Max(x => x.Count);
+            return countedRequests.Where(x => x.Count == maxCount).Select(x => x.Location).ToList();
+        }
+
+        public List<Language> GetMostWantedLanguages()
+        {
+            var filteredRequests = _customTourRequests.Where(x => DateTime.Compare(x.RequestCreateDate, DateTime.Now.AddYears(-1)) > 0);
+            var groupedRequests = filteredRequests.GroupBy(x => x.TourLanguage);
+            var countedRequests = GetRequestsLanguages()
+                .Select(x =>
+                {
+                    var group = groupedRequests.SingleOrDefault(g => g.Key == x);
+                    return new { TourLanguage = x, Count = group?.Count() ?? 0 };
+                });
+            var maxCount = countedRequests.Max(x => x.Count);
+            return countedRequests.Where(x => x.Count == maxCount).Select(x => x.TourLanguage).ToList();
         }
     }
 }
