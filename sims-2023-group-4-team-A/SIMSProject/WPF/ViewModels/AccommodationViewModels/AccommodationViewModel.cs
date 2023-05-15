@@ -438,9 +438,11 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                         break;
                     case nameof(FullLocation):
                         if (string.IsNullOrEmpty(FullLocation)) error = requiredMessage;
+                        if (!FullLocation.Contains(',')) error = requiredMessage;
                         var parts = FullLocation.Split(',');
                         if (FullLocation.Length < 3 || parts.Length != 2) error = "Lokacija mora biti u formatu 'Grad, Država'";
                         else if (parts[0].Length < 3 || parts[1].Length < 3) error = "Imena grada i države moraju biti duže od 3 karaktera";
+                        else if (!_locationService.Exists(parts[0], parts[1])) error = "Lokacija ne postoji u nasem sistemu";
                         break;
                     case nameof(Type):
                         if (string.IsNullOrEmpty(Accommodation.GetType(Type)) || Type == AccommodationType.None) error = requiredMessage;
