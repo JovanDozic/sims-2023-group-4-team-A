@@ -92,7 +92,7 @@ namespace SIMSProject.Repositories.TourRepositories
             return _tourAppointments.FindAll(x => x.Tour.Id == tourId && (DateTime.Compare(x.Date.Date, DateTime.Now.Date) == 0 || x.TourStatus == Status.ACTIVE));
         }
 
-        public List<TourAppointment> GedTodaysAppointments()
+        public List<TourAppointment> GetTodaysAppointments()
         {
             return _tourAppointments.FindAll(x => (DateTime.Compare(x.Date.Date, DateTime.Now.Date) == 0 || x.TourStatus == Status.ACTIVE));
         }

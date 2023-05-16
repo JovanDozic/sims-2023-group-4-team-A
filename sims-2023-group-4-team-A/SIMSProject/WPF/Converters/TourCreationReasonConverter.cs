@@ -5,18 +5,17 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Data;
 
 namespace SIMSProject.WPF.Converters
 {
-    public class TourLanguageConverter : IValueConverter
+    public class TourCreationReasonConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is Language language)
+            if (value is Created created)
             {
-                return Tour.GetLanguage(language);
+                return Tour.GetReason(created);
             }
             return string.Empty;
         }

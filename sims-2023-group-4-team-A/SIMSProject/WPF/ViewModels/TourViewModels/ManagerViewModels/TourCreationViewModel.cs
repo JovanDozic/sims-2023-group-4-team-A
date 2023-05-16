@@ -116,17 +116,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         private Language _language;
         public string TourLanguage
         {
-            get
-            {
-                return _language switch
-                {
-                    Language.ENGLISH => "Engleski",
-                    Language.SERBIAN => "Srpski",
-                    Language.SPANISH => "Španski",
-                    _ => "Francuski"
-
-                };
-            }
+            get => Tour.GetLanguage(_language);
             set
             {
                 if(value == _language.ToString()) return;
@@ -298,6 +288,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             }
             Location = message.Location;
             CbLocationIsEnabled = false;
+            Tour.Reason = Created.STATISTICS;
 
         }
 
@@ -311,6 +302,8 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             CbLanguageIsEnabled = false;
             CbLocationIsEnabled = false;
             DpDateIsEnabled = false;
+
+            Tour.Reason = Created.CUSTOM;
         }
 
         public void CreateTour()

@@ -76,7 +76,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         private void OpenMessage(TourInfoMessage message)
         {
             SelectedTour = message.Tour;
-            Appointments = new(_tourAppointmentService.GetAllByTourId(SelectedTour.Id));
+            Appointments = new(_tourAppointmentService.GetAllByTour(SelectedTour.Id));
         }
 
         #region CancelCommand
