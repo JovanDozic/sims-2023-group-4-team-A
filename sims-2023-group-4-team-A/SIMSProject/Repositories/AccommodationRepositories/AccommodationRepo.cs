@@ -77,6 +77,5 @@ namespace SIMSProject.Repositories.AccommodationRepositories
             _accommodations.ForEach(a => a.Location = _locationRepo.GetById(a.Location.Id));
         }
 
-        
     }
 }

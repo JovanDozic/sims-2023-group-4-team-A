@@ -92,5 +92,15 @@ namespace SIMSProject.Application.Services.AccommodationServices
                 reservation.EndDate.AddDays(Consts.GuestRatingDeadline)
             );
         }
+
+        public List<DateRange> GetSchedule(Accommodation accommodation)
+        {
+            List<DateRange> schedule = new();
+            foreach(var reservation in GetAllUncanceledByAccommodationId(accommodation.Id))
+            {
+                schedule.Add(new DateRange(reservation.StartDate, reservation.EndDate));
+            }
+            return schedule;
+        }
     }
 }

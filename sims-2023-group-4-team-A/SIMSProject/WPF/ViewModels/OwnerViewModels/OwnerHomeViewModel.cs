@@ -124,5 +124,10 @@ namespace SIMSProject.WPF.ViewModels.OwnerViewModels
             else if (!SelectedReservation.OwnerRated) return false;
             return true;
         }
+
+        public void CancelRenovation()
+        {
+            _renovationViewModel.CancelRenovation(SelectedRenovation);
+        }
     }
 }

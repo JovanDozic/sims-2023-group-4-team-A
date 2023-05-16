@@ -107,12 +107,33 @@ namespace SIMSProject.WPF.Views.OwnerViews
 
         private void BtnCancelRenovation_Click(object sender, RoutedEventArgs e)
         {
+            if (DgrRenovations.SelectedItem is null) return;
 
+            if (MessageBox.Show("Da li ste sigurni da želite da otkažete renoviranje?", 
+                                "Otkazivanje renoviranja", 
+                                MessageBoxButton.YesNo, 
+                                MessageBoxImage.Question) == MessageBoxResult.No) 
+                return;
+
+            _viewModel.CancelRenovation();
+            _viewModel.LoadRenovations();
+            DgrRenovations.Items.Refresh();
+            DgrRenovations.SelectedItem = null;
         }
 
         private void DgrRenovations_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            BtnCancelRenovation.IsEnabled = DgrRenovations.SelectedItem is not null;
+        }
 
+        private void BtnScheduleRenovation_Click(object sender, RoutedEventArgs e)
+        {
+            if (DgrAccommodations.SelectedItem is null) return; 
+            OwnerScheduleRenovationOld window = new(_user, _viewModel.SelectedAccommodation);
+            window.ShowDialog();
+            _viewModel.LoadRenovations();
+            DgrRenovations.Items.Refresh();
+            DgrRenovations.SelectedItem = null;
         }
     }
 }

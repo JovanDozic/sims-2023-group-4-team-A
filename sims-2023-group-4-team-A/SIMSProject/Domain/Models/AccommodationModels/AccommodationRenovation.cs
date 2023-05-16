@@ -1,6 +1,5 @@
 ﻿using SIMSProject.Serializer;
 using System;
-using System.Globalization;
 
 namespace SIMSProject.Domain.Models.AccommodationModels
 {
@@ -8,9 +7,9 @@ namespace SIMSProject.Domain.Models.AccommodationModels
     {
         public int Id { get; set; }
         public Accommodation Accommodation { get; set; } = new();
-        public DateTime StartDate { get; set;  } = new();
-        public DateTime EndDate { get; set; } = new();
-        public int NumberOfDays { get; set; } = 0;
+        public DateTime StartDate { get; set;  } = DateTime.Now;
+        public DateTime EndDate { get; set; } = DateTime.Now.AddDays(1);
+        public int NumberOfDays { get; set; } = 1;
         public string Description { get; set; } = string.Empty;
         public bool IsCancelled { get; set; } = false;
 

@@ -72,13 +72,24 @@
             </StackPanel>
         </Button>
 
-        <Button x:Name="BtnCancelRenovation" Grid.Column="4" Grid.Row="1"
+        <Button x:Name="BtnScheduleRenovation" Grid.Column="4" Grid.Row="1"
+                Width="150" Height="40"
+                HorizontalContentAlignment="Center"
+                VerticalAlignment="Center"
+                Click="BtnScheduleRenovation_Click">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Resources/Images/add-renovation.png" Width="20" Height="20" Margin="0,0,5,0" />
+                <TextBlock Margin="8,0,0,0" Text="Zakaži renoviranje" TextWrapping="Wrap" Width="80" />
+            </StackPanel>
+        </Button>
+
+        <Button x:Name="BtnCancelRenovation" Grid.Column="6" Grid.Row="1"
                 Width="150" Height="40"
                 HorizontalContentAlignment="Center"
                 VerticalAlignment="Center"
                 Click="BtnCancelRenovation_Click">
             <StackPanel Orientation="Horizontal">
-                <Image Source="/Resources/Images/cancel-renovaiton.png" Width="20" Height="20" Margin="0,0,5,0" />
+                <Image Source="/Resources/Images/cancel-renovation.png" Width="20" Height="20" Margin="0,0,5,0" />
                 <TextBlock Margin="8,0,0,0" Text="Otkaži renoviranje" TextWrapping="Wrap" Width="80" />
             </StackPanel>
         </Button>
@@ -104,6 +115,11 @@
                     <DataGridTextColumn Header="Minimalan br. dana" Binding="{Binding MinReservationDays}" />
                     <DataGridTextColumn Header="Granica otkazivanja" Binding="{Binding CancellationThreshold}" />
                     <DataGridTextColumn Header="Broj slika" Binding="{Binding ImageURLs.Count}" />
+                    <DataGridTextColumn Header="Opis" Binding="{Binding Description}" />
+                    <DataGridCheckBoxColumn Header="Trenutno u renoviranju" Binding="{Binding IsInRenovation}" />
+                    <DataGridCheckBoxColumn Header="Renovirano u prethodnih godinu dana" Binding="{Binding IsRecentlyRenovated}" />
+                    <DataGridTextColumn Header="Datum kreiranja" Binding="{Binding DateCreated, StringFormat=\{0:dd.MM.yy\}}" />
+                    <DataGridTextColumn Header="Ocena" Binding="{Binding Rating.Overall}" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
@@ -144,11 +160,11 @@
                       IsReadOnly="True" SelectionChanged="DgrRenovations_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="30" />
+                    <DataGridCheckBoxColumn Header="Otkazano" Binding="{Binding IsCancelled}" />
                     <DataGridTextColumn Header="Od" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yy\}}" Width="80" />
                     <DataGridTextColumn Header="Do" Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yy\}}" Width="80" />
                     <DataGridTextColumn Header="Broj dana" Binding="{Binding NumberOfDays}" Width="30" />
                     <DataGridTextColumn Header="Opis" Binding="{Binding Description}" />
-                    <DataGridCheckBoxColumn Header="Otkazano" Binding="{Binding IsCancelled}" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

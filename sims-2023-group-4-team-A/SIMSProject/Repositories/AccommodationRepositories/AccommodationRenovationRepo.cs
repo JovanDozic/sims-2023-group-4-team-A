@@ -22,6 +22,14 @@ namespace SIMSProject.Repositories.AccommodationRepositories
             Load();
         }
 
+        public void Load()
+        {
+            _renovations = _fileHandler.Load();
+
+            MapAccommodations();
+            CheckRenovationStatuses();
+        }
+
         public List<AccommodationRenovation> GetAll()
         {
             return _renovations;
@@ -37,11 +45,18 @@ namespace SIMSProject.Repositories.AccommodationRepositories
             return _renovations.Find(x => x.Id == renovationId);
         }
 
-        public void Load()
+        private void CheckRenovationStatuses()
         {
-            _renovations = _fileHandler.Load();
-
-            MapAccommodations();
+            var accommodations = _accommodationRepo.GetAll();
+            foreach (var renovation in _renovations)
+            {
+                bool isInFuture = renovation.StartDate >= DateTime.Now;
+                var accommodation = accommodations.Find(x => x.Id == renovation.Accommodation.Id) ?? new();
+                bool isInRenovationPeriod = renovation.StartDate <= DateTime.Now && renovation.EndDate >= DateTime.Now;
+                accommodation.IsInRenovation = isInRenovationPeriod && !isInFuture;
+                accommodation.IsRecentlyRenovated = !isInRenovationPeriod && renovation.EndDate.AddYears(1) >= DateTime.Now && !isInFuture;
+            }
+            _accommodationRepo.SaveAll(accommodations);
         }
 
         private void MapAccommodations()

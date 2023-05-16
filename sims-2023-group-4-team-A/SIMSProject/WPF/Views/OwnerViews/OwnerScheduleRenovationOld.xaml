@@ -1,0 +1,89 @@
+﻿<Window x:Class="SIMSProject.WPF.Views.OwnerViews.OwnerScheduleRenovationOld"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="OwnerScheduleRenovationOld" Height="700" Width="600">
+    <Grid Margin="10,15">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+               Content="Zakaži renoviranje"
+               FontSize="30"/>
+
+        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+               Content="Smeštaj za koji se zakazuje:"
+               FontSize="15"/>
+        <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+               Content="Početak opsega (dd.MM.yyyy):"
+               FontSize="15"/>
+        <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+               Content="Kraj opsega (dd.MM.yyyy):"
+               FontSize="15"/>
+        <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+               Content="Predviđeni broj dana:"
+               FontSize="15"/>
+        <Label Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+               Content="Slobodni termini:"
+               FontSize="15"/>
+        <Label Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
+               Content="Opis:"
+               FontSize="15"/>
+
+        <TextBox Grid.Row="1" Grid.Column="1"
+                 Style="{StaticResource MobileTextBoxInput}"
+                 Text="{Binding Accommodation.Name}"
+                 IsEnabled="False"/>
+        
+        <DatePicker Grid.Row="2" Grid.Column="1"
+                    SelectedDate="{Binding StartDate}"/>
+
+        <DatePicker Grid.Row="3" Grid.Column="1"
+                    SelectedDate="{Binding EndDate}"/>
+        
+        <TextBox Grid.Row="4" Grid.Column="1"
+                 Style="{StaticResource MobileTextBoxInput}"
+                 Text="{Binding NumberOfDays}"/>
+
+        <Button x:Name="BtnFindDates" Grid.Row="5" Grid.Column="1"
+                Content="Pronadji termin"
+                Style="{StaticResource MobileActionHalfButtonStyle}" 
+                Click="BtnFindDates_Click"/>
+
+        <ComboBox x:Name="CbAvailableDates" Grid.Row="6" Grid.Column="1"
+                  ItemsSource="{Binding DatesSource, UpdateSourceTrigger=PropertyChanged}"
+                  DisplayMemberPath="FormattedDateRange"
+                  SelectedItem="{Binding SelectedDateRange, UpdateSourceTrigger=PropertyChanged}"
+                  IsEnabled="{Binding DatesFound}"/>
+
+        <TextBox Grid.Row="7" Grid.Column="1"
+                 Style="{StaticResource MobileTextBoxInput}"
+                 Text="{Binding Description}"
+                 IsEnabled="{Binding DatesFound}"/>
+
+        <Button x:Name="BtnScheduleRenovation" Grid.Row="8" Grid.ColumnSpan="2"
+                Content="Zakaži renoviranje"
+                Style="{StaticResource MobileActionHalfButtonStyle}"
+                IsEnabled="{Binding DatesFound}" Click="BtnScheduleRenovation_Click"/>
+
+    </Grid>
+</Window>
