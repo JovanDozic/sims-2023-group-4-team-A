@@ -1,5 +1,6 @@
 ﻿using SIMSProject.Serializer;
 using System;
+using System.Globalization;
 
 namespace SIMSProject.Domain.Models.AccommodationModels
 {
@@ -9,7 +10,9 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public Accommodation Accommodation { get; set; } = new();
         public DateTime StartDate { get; set;  } = new();
         public DateTime EndDate { get; set; } = new();
+        public int NumberOfDays { get; set; } = 0;
         public string Description { get; set; } = string.Empty;
+        public bool IsCancelled { get; set; } = false;
 
         public AccommodationRenovation() { }
 
@@ -21,7 +24,9 @@ namespace SIMSProject.Domain.Models.AccommodationModels
                 Accommodation.Id.ToString(),
                 StartDate.ToString(),
                 EndDate.ToString(),
-                Description
+                NumberOfDays.ToString(),    
+                Description,
+                IsCancelled.ToString()
             };
             return csvValues;
         }
@@ -33,7 +38,9 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             Accommodation.Id = int.Parse(values[i++]);
             StartDate = DateTime.Parse(values[i++]);
             EndDate = DateTime.Parse(values[i++]);
+            NumberOfDays = int.Parse(values[i++]);
             Description = values[i++];
+            IsCancelled = bool.Parse(values[i++]);
         }
 
     }

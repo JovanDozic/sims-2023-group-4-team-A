@@ -38,7 +38,9 @@ namespace SIMSProject.WPF.Views.OwnerViews
         private void DgrAccommodations_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _viewModel.LoadReservations();
+            _viewModel.LoadRenovations();
             DgrReservations.Items.Refresh();
+            DgrRenovations.Items.Refresh();
         }
 
         private void DgrReservations_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -101,6 +103,16 @@ namespace SIMSProject.WPF.Views.OwnerViews
                 Content = new OwnerNotificationView(_user)
             };
             popupWindow.ShowDialog();
+        }
+
+        private void BtnCancelRenovation_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DgrRenovations_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

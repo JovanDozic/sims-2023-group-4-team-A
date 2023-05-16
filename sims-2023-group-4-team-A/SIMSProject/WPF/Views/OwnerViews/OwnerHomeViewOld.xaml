@@ -6,7 +6,7 @@
         xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Icon="../../../Resources/Images/Stars.png"
-        Title="OwnerInitialWindow" Height="500" Width="1100">
+        Title="OwnerInitialWindow" Height="500" Width="1500">
 
     <Window.Resources>
         <converters:AccommodationTypeConverter x:Key="TypeConverter" />
@@ -15,6 +15,8 @@
     <Grid Margin="20">
 
         <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
@@ -49,10 +51,10 @@
         </Button>
 
         <Button x:Name="BtnViewOwnerRating" Grid.Column="2" Grid.Row="2"
-            Width="150" Height="40"
-            HorizontalContentAlignment="Center"
-            VerticalAlignment="Center"
-            IsEnabled="False" Click="BtnViewOwnerRating_Click" Margin="45,0,45,0">
+                Width="150" Height="40"
+                HorizontalContentAlignment="Center"
+                VerticalAlignment="Center"
+                IsEnabled="False" Click="BtnViewOwnerRating_Click" Margin="45,0,45,0">
             <StackPanel Orientation="Horizontal">
                 <Image Source="/Resources/Images/lookupitem.png" Width="20" Height="20" Margin="0,0,5,0" />
                 <TextBlock Margin="8,0,0,0" Text="Pregled ocene od gosta" TextWrapping="Wrap" Width="80" />
@@ -64,7 +66,21 @@
                 HorizontalContentAlignment="Center"
                 VerticalAlignment="Center"
                 Click="BtnReschedulingRequests_Click">
-            <TextBlock Text="Zahtevi za pomeranje" />
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Resources/Images/datetimepicker.png" Width="20" Height="20" Margin="0,0,5,0" />
+                <TextBlock Margin="8,0,0,0" Text="Zahtevi za pomeranje" TextWrapping="Wrap" Width="80" />
+            </StackPanel>
+        </Button>
+
+        <Button x:Name="BtnCancelRenovation" Grid.Column="4" Grid.Row="1"
+                Width="150" Height="40"
+                HorizontalContentAlignment="Center"
+                VerticalAlignment="Center"
+                Click="BtnCancelRenovation_Click">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Resources/Images/cancel-renovaiton.png" Width="20" Height="20" Margin="0,0,5,0" />
+                <TextBlock Margin="8,0,0,0" Text="Otkaži renoviranje" TextWrapping="Wrap" Width="80" />
+            </StackPanel>
         </Button>
 
         <StackPanel Orientation="Vertical"
@@ -111,6 +127,28 @@
                     <DataGridTextColumn Header="Gost" Binding="{Binding Guest.Username}" Width="80" />
                     <DataGridCheckBoxColumn Header="Gost ocenjen" Binding="{Binding GuestRated}" />
                     <DataGridCheckBoxColumn Header="Vlasnik ocenjen" Binding="{Binding OwnerRated}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2">
+            <Label Content="Renoviranja" FontSize="20"
+                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                   FontWeight="SemiBold" />
+            <DataGrid x:Name="DgrRenovations"
+                      ItemsSource="{Binding SelectedAccommodationRenovation, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedRenovation}"
+                      AutoGenerateColumns="False"
+                      Height="250" Margin="20,10,20,20"
+                      IsReadOnly="True" SelectionChanged="DgrRenovations_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="30" />
+                    <DataGridTextColumn Header="Od" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yy\}}" Width="80" />
+                    <DataGridTextColumn Header="Do" Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yy\}}" Width="80" />
+                    <DataGridTextColumn Header="Broj dana" Binding="{Binding NumberOfDays}" Width="30" />
+                    <DataGridTextColumn Header="Opis" Binding="{Binding Description}" />
+                    <DataGridCheckBoxColumn Header="Otkazano" Binding="{Binding IsCancelled}" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

@@ -6,7 +6,7 @@ namespace SIMSProject.FileHandlers.AccommodationFileHandlers
 {
     public class AccommodationRenovationFileHandler
     {
-        private const string FilePath = "../../../Resources/Data/accommodationRenovation.csv";
+        private const string FilePath = "../../../Resources/Data/accommodationRenovations.csv";
         private readonly Serializer<AccommodationRenovation> _serializer;
 
         public AccommodationRenovationFileHandler()

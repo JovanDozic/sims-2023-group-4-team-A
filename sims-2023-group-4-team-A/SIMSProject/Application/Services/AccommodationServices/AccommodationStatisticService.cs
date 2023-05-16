@@ -14,7 +14,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
         private readonly AccommodationService _accommodationService;
         private readonly AccommodationReservationService _reservationService;
         private readonly ReschedulingRequestService _requestService;
-        // TODO: Renovation Service
+        // TODO: SelectedRenovation Service
 
         public AccommodationStatisticService()
         {
