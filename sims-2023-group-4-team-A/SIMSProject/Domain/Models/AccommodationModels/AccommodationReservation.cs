@@ -44,39 +44,39 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             GuestNumber = guestsNumber;
         }
 
-        public string[] ToCSV()
-        {
-            string[] csvValues =
+            public string[] ToCSV()
             {
-                Id.ToString(),
-                Accommodation.Id.ToString(),
-                Guest.Id.ToString(),
-                StartDate.ToString(),
-                EndDate.ToString(),
-                NumberOfDays.ToString(),
-                GuestNumber.ToString(),
-                GuestRated.ToString(),
-                RateGuestNotificationSent.ToString(),
-                OwnerRated.ToString(),
-                Canceled.ToString(),
-            };
-            return csvValues;
-        }
+                string[] csvValues =
+                {
+                    Id.ToString(),
+                    Accommodation.Id.ToString(),
+                    Guest.Id.ToString(),
+                    StartDate.ToString(),
+                    EndDate.ToString(),
+                    NumberOfDays.ToString(),
+                    GuestNumber.ToString(),
+                    GuestRated.ToString(),
+                    RateGuestNotificationSent.ToString(),
+                    OwnerRated.ToString(),
+                    Canceled.ToString(),
+                };
+                return csvValues;
+            }
 
-        public void FromCSV(string[] values)
-        {
-            Id = int.Parse(values[0]);
-            Accommodation.Id = int.Parse(values[1]);
-            Guest.Id = int.Parse(values[2]);
-            StartDate = DateTime.Parse(values[3]);
-            EndDate = DateTime.Parse(values[4]);
-            NumberOfDays = int.Parse(values[5]);
-            GuestNumber = int.Parse(values[6]);
-            GuestRated = bool.Parse(values[7]);
-            RateGuestNotificationSent = bool.Parse(values[8]);
-            OwnerRated = bool.Parse(values[9]);
-            Canceled = bool.Parse(values[10]);
-        }
+            public void FromCSV(string[] values)
+            {
+                Id = int.Parse(values[0]);
+                Accommodation.Id = int.Parse(values[1]);
+                Guest.Id = int.Parse(values[2]);
+                StartDate = DateTime.Parse(values[3]);
+                EndDate = DateTime.Parse(values[4]);
+                NumberOfDays = int.Parse(values[5]);
+                GuestNumber = int.Parse(values[6]);
+                GuestRated = bool.Parse(values[7]);
+                RateGuestNotificationSent = bool.Parse(values[8]);
+                OwnerRated = bool.Parse(values[9]);
+                Canceled = bool.Parse(values[10]);
+            }
 
         public override string? ToString()
         {
