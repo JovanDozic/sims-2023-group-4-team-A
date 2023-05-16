@@ -19,7 +19,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
     {
         private readonly TourAppointmentService _tourAppointmentService;
         private Tour _tour { get; set; } = new();
-        private TourAppointment _active { get => _tourAppointmentService.GetActiveByTour(_tour); }
+        private TourAppointment _active { get => _tourAppointmentService.GetActive(); }
         
         private ObservableCollection<TourAppointment> _appointments = new();
         public ObservableCollection<TourAppointment> Appointments
@@ -66,7 +66,8 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
 
         public bool LiveTrackCanExecute()
         {
-            return (SelectedAppointment == _active && _active != null) || (SelectedAppointment.TourStatus == Status.INACTIVE && _active == null);
+            return SelectedAppointment != null 
+                && ((SelectedAppointment == _active && _active != null) || (SelectedAppointment.TourStatus == Status.INACTIVE && _active == null));
         }
         public void LiveTrackExecute() 
         {

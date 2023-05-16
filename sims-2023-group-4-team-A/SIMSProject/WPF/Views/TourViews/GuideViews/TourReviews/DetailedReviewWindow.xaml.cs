@@ -26,7 +26,6 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
         {
             InitializeComponent();
             this.DataContext = ViewModel;
-            cstmImages.AddImages(ViewModel.Rating.Rating.ImageURLs);
         }
     }
 }

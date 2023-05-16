@@ -65,9 +65,9 @@ namespace SIMSProject.Application.Services.TourServices
             return true;
         }
 
-        public TourAppointment GetActiveByTour(Tour tour)
+        public TourAppointment GetActive()
         {
-            return _repo.GetAll().Find(x => x.TourStatus == Status.ACTIVE && x.Tour.Id == tour.Id);
+            return _repo.GetAll().Find(x => x.TourStatus == Status.ACTIVE);
         }
 
         public TourAppointment Activate(TourAppointment appointment, Tour tour)
