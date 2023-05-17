@@ -47,6 +47,11 @@ namespace SIMSProject.Application.Services.AccommodationServices
             return _ratingRepo.GetAllByOwnerId(ownerId);
         }
 
+        public List<OwnerRating> GetAllByAccommodationId(int accommodationId)
+        {
+            return _ratingRepo.GetAllByAccommodationId(accommodationId);
+        }
+
         public int CountAllByOwnerId(int ownerId)
         {
             return _ratingRepo.GetAllByOwnerId(ownerId).Count;
@@ -74,7 +79,6 @@ namespace SIMSProject.Application.Services.AccommodationServices
             return CountAllByOwnerId(owner.Id) >= Consts.SuperOwnerMinimumRatingCount && owner.Rating >= Consts.SuperOwnerMinimumRating;
         }
 
-
         public AccommodationRating CalculateRating(Accommodation accommodation)
         {
             var ratings = _ratingRepo.GetAllByAccommodationId(accommodation.Id);
@@ -94,12 +98,17 @@ namespace SIMSProject.Application.Services.AccommodationServices
             }
         }
 
-        internal void UpdateRatingsForReservations(ObservableCollection<AccommodationReservation> reservations)
+        public void UpdateRatingsForReservations(ObservableCollection<AccommodationReservation> reservations)
         {
             foreach (var reservation in reservations)
             {
                 if (reservation.OwnerRated) reservation.OwnerRating = GetByReservationId(reservation.Id).Overall;
             }
+        }
+
+        public int CountRenovationSuggestionsByAccommodation(Accommodation accommodation)
+        {
+            return GetAllByAccommodationId(accommodation.Id).FindAll(x => x.RenovationSuggestion is not null).Count;
         }
     }
 }

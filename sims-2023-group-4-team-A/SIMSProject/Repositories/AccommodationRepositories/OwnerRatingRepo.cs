@@ -89,8 +89,8 @@ namespace SIMSProject.Repositories.AccommodationRepositories
         {
             foreach(var rating in _ratings)
             {
-                if (rating.Renovation is null) continue;
-                rating.Renovation = _suggestionRepo.GetById(rating.Renovation.Id);
+                if (rating.RenovationSuggestion is null) continue;
+                rating.RenovationSuggestion = _suggestionRepo.GetById(rating.RenovationSuggestion.Id);
             }
         }
 

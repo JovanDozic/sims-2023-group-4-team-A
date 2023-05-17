@@ -156,11 +156,11 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
         public RenovationSuggestion Renovation
         {
-            get => _rating.Renovation;
+            get => _rating.RenovationSuggestion;
             set
             {
-                if (_rating.Renovation == value) return;
-                _rating.Renovation = value;
+                if (_rating.RenovationSuggestion == value) return;
+                _rating.RenovationSuggestion = value;
                 OnPropertyChanged();
             }
         }
@@ -218,14 +218,14 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         public void RateOwnerAndAccommodation()
         {
             SelectedReservation.OwnerRated = true;
-            _rating.Renovation = null;
+            _rating.RenovationSuggestion = null;
             _ratingService.LeaveRating(_rating);
         }
 
         public void RateWithRenovation(RenovationSuggestion renovation)
         {
             SelectedReservation.OwnerRated = true;
-            _rating.Renovation = renovation;
+            _rating.RenovationSuggestion = renovation;
             _ratingService.LeaveRating(_rating);
         }
 

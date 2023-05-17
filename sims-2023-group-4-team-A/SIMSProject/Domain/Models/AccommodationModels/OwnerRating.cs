@@ -15,7 +15,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public string Comment { get; set; } = string.Empty;
         public List<string> ImageURLs { get; set; } = new();
         public string ImageURLsCSV { get; set; } = string.Empty;
-        public RenovationSuggestion? Renovation { get; set; } = new();
+        public RenovationSuggestion? RenovationSuggestion { get; set; } = new();
 
         public OwnerRating()
         {
@@ -28,7 +28,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
 
         public string[] ToCSV()
         {
-            string renovationSuggestionValue = Renovation?.Id.ToString() ?? "Nema preporuke o renoviranju";
+            string renovationSuggestionValue = RenovationSuggestion?.Id.ToString() ?? "Nema preporuke o renoviranju";
             ImageURLsCSV = ImageURLsToCSV(ImageURLs);
             string[] csvValues =
             {
@@ -59,11 +59,11 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             ImageURLs = ImageURLsFromCSV(ImageURLsCSV);
             if (values[8] == "Nema preporuke o renoviranju")
             {
-                Renovation = null;
+                RenovationSuggestion = null;
             }
             else
             {
-                Renovation.Id = int.Parse(values[8]);
+                RenovationSuggestion.Id = int.Parse(values[8]);
             }
         }
 
