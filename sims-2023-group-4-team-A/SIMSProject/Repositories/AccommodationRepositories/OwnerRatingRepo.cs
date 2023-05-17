@@ -12,13 +12,15 @@ namespace SIMSProject.Repositories.AccommodationRepositories
     {
         private readonly OwnerRatingFileHandler _fileHandler;
         private readonly IAccommodationReservationRepo _reservationRepo;
+        private readonly IRenovationSuggestionRepo _suggestionRepo;
         private List<OwnerRating> _ratings;
 
-        public OwnerRatingRepo(IAccommodationReservationRepo reservationRepo)
+        public OwnerRatingRepo(IAccommodationReservationRepo reservationRepo, IRenovationSuggestionRepo suggestionRepo)
         {
             _fileHandler = new();
             _ratings = new();
             _reservationRepo = reservationRepo;
+            _suggestionRepo = suggestionRepo;
 
             Load();
         }
@@ -27,6 +29,7 @@ namespace SIMSProject.Repositories.AccommodationRepositories
         {
             _ratings = _fileHandler.Load();
             MapAccommodationReservations();
+            MapRenovation();
         }
 
         public List<OwnerRating> GetAll()
@@ -79,6 +82,15 @@ namespace SIMSProject.Repositories.AccommodationRepositories
             foreach (var rating in _ratings)
             {
                 rating.Reservation = _reservationRepo.GetById(rating.Reservation.Id);
+            }
+        }
+ 
+        private void MapRenovation()
+        {
+            foreach(var rating in _ratings)
+            {
+                if (rating.Renovation is null) continue;
+                rating.Renovation = _suggestionRepo.GetById(rating.Renovation.Id);
             }
         }
 

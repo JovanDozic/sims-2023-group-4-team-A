@@ -1,4 +1,5 @@
-﻿using SIMSProject.Domain.Models.AccommodationModels;
+﻿using SIMSProject.Domain.Models;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.RepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
@@ -35,7 +36,7 @@ namespace SIMSProject.Repositories.AccommodationRepositories
 
         public List<Accommodation> GetAll()
         {
-            return _accommodations;
+            return _accommodations.OrderByDescending(x => x.Owner.Role).ToList();
         }
 
         public Accommodation GetById(int accommodationId)

@@ -17,6 +17,7 @@ using System.ComponentModel;
 using SIMSProject.WPF.Views;
 using SIMSProject.WPF.Views.Guest1.Pages;
 using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.ViewModels.Guest1ViewModels;
 
 namespace SIMSProject.WPF.Views.Guest1.MainView
 {
@@ -26,21 +27,19 @@ namespace SIMSProject.WPF.Views.Guest1.MainView
     public partial class MainWindow : Window
     {
         private readonly User _user;
+        private SuperGuestViewModel _superGuestViewModel;
         public MainWindow(User user)
         {
             InitializeComponent();
             _user = user;
+            _superGuestViewModel = new(_user);
+            DataContext = _superGuestViewModel;
             OpenMainPage();
-            SetUsername();
         }
      
         public void OpenMainPage()
         {
             MainWind.Navigate(new MainPage(_user));
-        }
-        public void SetUsername()
-        {
-            UserTB.Text = _user.Username;
         }
         private void Button_Click_Home(object sender, RoutedEventArgs e)
         {

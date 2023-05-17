@@ -45,19 +45,25 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
         private void Button_Click_Rate(object sender, RoutedEventArgs e)
         {
             _ownerRatingViewModel.RateOwnerAndAccommodation();
-            MessageBox.Show("Ocena uspešno ostavljena!", "Vlasnik i smeštaj ocenjeni", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Ocena uspešno ostavljena!", "", MessageBoxButton.OK, MessageBoxImage.Information);
             NavigationService.Navigate(new MainPage(_user));
 
         }
         private void ReservationsCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ButtonRate.IsEnabled = _ownerRatingViewModel.IsSelected();
-            SelectionValidation.Text = " ";
+            
+            if(_ownerRatingViewModel.IsSelected())
+            {
+                ButtonRate.IsEnabled = true;
+                RenovationButton.Visibility = Visibility.Visible;
+                SelectionValidation.Text = " ";
+            }
+            
         }
 
         private void Button_Click_Renovation(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new RenovationSuggestion());
+            NavigationService.Navigate(new RenovationSuggestion(_ownerRatingViewModel, _user));
         }
     }
 }

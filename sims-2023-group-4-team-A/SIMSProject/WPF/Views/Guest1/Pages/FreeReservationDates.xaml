@@ -16,24 +16,24 @@
             <RowDefinition Height="120"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Image Source="../Icons/chevron-left-black.png" Margin="927,14,71,14" />
+        <Image Source="../Icons/chevron-left-black.png" Height="30" Width="30" Margin="918,10,76,10" />
         <Button Content="Nazad" 
                     Background="Transparent"
                     BorderBrush="Transparent"
                     VerticalAlignment="Top"
                     FontWeight="Bold"
                     BorderThickness="0"
-                    FontSize="20" Margin="951,6,10,0" Click="Button_Click_Close" Height="35">
+                    FontSize="20" Margin="948,10,10,0" Click="Button_Click_Close" Height="26">
 
         </Button>
 
         <Label FontWeight="Bold" Content="Smeštaj je slobodan u sledećim terminima:"
                FontSize="30" Grid.Row="1" HorizontalAlignment="Center" Margin="0,0,0,26"/>
 
-        <DataGrid ItemsSource="{Binding DateRanges}" SelectedItem="{Binding SelectedRange}" AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Center" Grid.Row="2" FontSize="25" Margin="0,0,0,29" SelectionChanged="DataGrid_SelectionChanged">
+        <DataGrid ItemsSource="{Binding DateRanges}" SelectedItem="{Binding SelectedRange}" AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Center" Grid.Row="2" FontSize="25" Margin="0,0,0,29" SelectionChanged="DataGrid_SelectionChanged" Width="612">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding StartDate, StringFormat={}{0:dd.MM.yyyy.}}" Width="250" Header="Datum dolaska" FontSize="25"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding EndDate, StringFormat={}{0:dd.MM.yyyy.}}" Width="250" Header="Datum odlaska" FontSize="25"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding StartDate, StringFormat={}{0:dd.MM.yyyy.}}" Width="1*" Header="Datum dolaska" FontSize="25"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding EndDate, StringFormat={}{0:dd.MM.yyyy.}}" Width="1*" Header="Datum odlaska" FontSize="25"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 

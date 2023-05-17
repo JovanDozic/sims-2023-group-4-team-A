@@ -20,6 +20,7 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
         private string _username = string.Empty;
         private readonly UserService _userService;
         private readonly OwnerRatingService _ownerRatingService;
+        private readonly AccommodationReservationService _reservationService;
 
         public string Username
         {
@@ -36,6 +37,7 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
         {
             _userService = Injector.GetService<UserService>();
             _ownerRatingService = Injector.GetService<OwnerRatingService>();
+            _reservationService = Injector.GetService<AccommodationReservationService>();
         }
 
         public bool SignIn(string password)
@@ -83,6 +85,7 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
 
         private void OpenGuestWindow(User user)
         {
+            _reservationService.UpdateGuestInfo(user);
             MainWindow guestWind = new(user as Guest ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
             guestWind.Show();
         }

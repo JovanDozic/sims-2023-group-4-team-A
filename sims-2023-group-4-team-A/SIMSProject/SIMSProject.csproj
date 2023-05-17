@@ -1,4 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿
+<Project Sdk="Microsoft.NET.Sdk">
+
 
 
 	<PropertyGroup>
@@ -80,6 +82,7 @@
     <None Remove="WPF\Views\Guest1\chevron-left.png" />
     <None Remove="WPF\Views\Guest1\close.png" />
     <None Remove="WPF\Views\Guest1\home.png" />
+    <None Remove="WPF\Views\Guest1\Icons\location-black.png" />
     <None Remove="WPF\Views\Guest1\Icons\logo.png" />
     <None Remove="WPF\Views\Guest1\logo5.png" />
     <None Remove="WPF\Views\Guest1\notification.png" />
@@ -182,6 +185,9 @@
     <Content Include="WPF\Views\Guest1\Icons\account.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="WPF\Views\Guest1\Icons\location-black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="WPF\Views\Guest1\Icons\menu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -226,7 +232,9 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageReference Include="MaterialDesignInXamlToolkitAddOns" Version="0.0.6" />
+    <PackageReference Include="Microsoft.TeamFoundationServer.ExtendedClient" Version="16.205.1" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+    <PackageReference Include="ToastNotifications.Net5" Version="3.0.0" />
   </ItemGroup>
 
 </Project>
