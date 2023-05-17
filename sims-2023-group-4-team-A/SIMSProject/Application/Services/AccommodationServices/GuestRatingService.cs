@@ -39,10 +39,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
         public GuestRating GetByReservationId(int reservationId)
         {
-            var rating = _ratingRepo.GetByReservationId(reservationId);
-
-            MessageBox.Show(rating.Id.ToString());
-            return rating;
+            return _ratingRepo.GetByReservationId(reservationId);
         }
 
         public List<GuestRating> GetAll()

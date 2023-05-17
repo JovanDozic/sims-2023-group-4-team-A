@@ -29,6 +29,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
         public void SaveReservation(AccommodationReservation reservation, User user)
         {
+            
             var guest = GetGuestByUser(user);
             if(guest.Role is UserRole.SuperGuest)
             {
@@ -39,6 +40,8 @@ namespace SIMSProject.Application.Services.AccommodationServices
                 }
             }
             _repo.Save(reservation);
+            
+            
         }
 
         public List<AccommodationReservation> GetAll()

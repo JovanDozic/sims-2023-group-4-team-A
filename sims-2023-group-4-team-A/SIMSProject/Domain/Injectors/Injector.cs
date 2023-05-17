@@ -63,7 +63,8 @@ namespace SIMSProject.Domain.Injectors
 
             services.AddSingleton<IOwnerRatingRepo, OwnerRatingRepo>(
                 provider => new OwnerRatingRepo(
-                    provider.GetService<IAccommodationReservationRepo>() ?? throw new Exception("Dependency Injection Failed: IAccommodationReservationRepo not found.")
+                    provider.GetService<IAccommodationReservationRepo>() ?? throw new Exception("Dependency Injection Failed: IAccommodationReservationRepo not found."),
+                    provider.GetService<IRenovationSuggestionRepo>() ?? throw new Exception("Dependency Injection Failed: IRenovationSuggestionRepo not found.")
                 )
             );
             

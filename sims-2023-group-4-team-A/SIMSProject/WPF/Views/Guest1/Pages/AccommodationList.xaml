@@ -23,19 +23,19 @@
                VerticalAlignment="Bottom"
                FontWeight="Bold" Margin="22,0,0,0"></Label>
 
-        <DataGrid HorizontalAlignment="Center" Grid.Row="1" FontSize="20" Margin="0,10,0,10"
+        <DataGrid HorizontalAlignment="Center" Grid.Row="1" FontSize="19" Margin="0,10,0,10"
                    ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}"
                                SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"
-                   SelectedItem="{Binding SelectedAccommodation}" Width="979" SelectionChanged="DataGrid_SelectionChanged"
+                   SelectedItem="{Binding SelectedAccommodation}" Width="1004" SelectionChanged="DataGrid_SelectionChanged"
                   BorderBrush="Transparent"
                   BorderThickness="0">
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn Header="Super vlasnik" Binding="{Binding IsOwnerSuper, Mode=OneWay}" />
+                <DataGridCheckBoxColumn Header="Super vlasnik" Width="125" Binding="{Binding IsOwnerSuper, Mode=OneWay}" />
                 <DataGridTextColumn Header="Naziv" Width="280" Binding="{Binding Name}" />
-                <DataGridTextColumn Header="Lokacija" Width="270" Binding="{Binding Location}" />
-                <DataGridTextColumn Header="Tip" Width="150" Binding="{Binding Type, Converter={StaticResource TypeConverter}}" />
-                <DataGridTextColumn Header="Broj gostiju" Width="140" Binding="{Binding MaxGuestNumber}" />
-                <DataGridTextColumn Header="Broj dana" Width="130*" Binding="{Binding MinReservationDays}" />
+                <DataGridTextColumn Header="Lokacija" Width="280" Binding="{Binding Location}" />
+                <DataGridTextColumn Header="Tip" Width="110" Binding="{Binding Type, Converter={StaticResource TypeConverter}}" />
+                <DataGridTextColumn Header="Broj gostiju" Width="110" Binding="{Binding MaxGuestNumber}" />
+                <DataGridTextColumn Header="Broj dana" Width="100*" Binding="{Binding MinReservationDays}" />
             </DataGrid.Columns>
 
         </DataGrid>

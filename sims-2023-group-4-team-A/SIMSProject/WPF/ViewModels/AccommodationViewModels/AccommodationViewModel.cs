@@ -24,6 +24,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private LocationService _locationService;
         private AccommodationReservationService _accommodationReservationService;
         private AccommodationReservationViewModel _accommodationReservationViewModel;
+        private AccommodationRenovationService _renovationService;
         private string _fullLocation = string.Empty;
         private string _selectedImageFile = string.Empty;
         private Accommodation _selectedAccommodation = new();
@@ -265,6 +266,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _accommodationService = Injector.GetService<AccommodationService>();
             _locationService = Injector.GetService<LocationService>();
             _accommodationReservationService = Injector.GetService<AccommodationReservationService>();
+            _renovationService = Injector.GetService<AccommodationRenovationService>();
             _accommodationReservationViewModel = new(_user);
             Accommodations = LoadAllAccommodations();
 
@@ -347,7 +349,17 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
         public bool IsAccommodationOccupied(DateTime dateBegin, DateTime dateEnd)
         {
-            return _accommodationService.CheckReservations(_accommodationReservationService.GetAll(), dateBegin, dateEnd, SelectedAccommodation.Id).Count != 0;
+            return IsReserved(dateBegin, dateEnd) || IsRenovating(dateBegin, dateEnd);
+        }
+
+        public bool IsReserved(DateTime dateBegin, DateTime dateEnd)
+        {
+            return _accommodationService.CheckReservations(_accommodationReservationService.GetAllUncanceledByAccommodationId(SelectedAccommodation.Id), dateBegin, dateEnd).Count != 0;
+        }
+
+        public bool IsRenovating(DateTime dateBegin, DateTime dateEnd)
+        {
+            return _accommodationService.CheckRenovations(_renovationService.GetAllUncanceledByAccommodationId(SelectedAccommodation.Id), dateBegin, dateEnd).Count != 0;
         }
 
         public bool IsGuestsNumberValid(int guestsNumber)
@@ -362,6 +374,10 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             {
                 dateRanges.Add(new DateRange(reservation.StartDate, reservation.EndDate));
             }
+            foreach(var renovation in _renovationService.GetAllUncanceledByAccommodationId(SelectedAccommodation.Id))
+            {
+                dateRanges.Add(new DateRange(renovation.StartDate, renovation.EndDate));
+            }
             return dateRanges;
         }
 
@@ -370,12 +386,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             reservedAccommodations.RemoveAll(reserved => reserved.Canceled);
             return reservedAccommodations;
         }
-
-        public bool IsCanceled(DateTime dateBegin, DateTime dateEnd)
-        {
-            return _accommodationService.CheckReservations(_accommodationReservationService.GetAll(), dateBegin, dateEnd, SelectedAccommodation.Id).All(r => r.Canceled);
-        }
-
         private bool CanRegisterAccommodation()
         {
             return IsAccommodationValid;

@@ -62,15 +62,9 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
                     if (_accommodationViewModel.IsGuestsNumberValid(GuestsNumber))
                     {
                         if (_accommodationViewModel.IsAccommodationOccupied(dateBegin, dateEnd))
-                        {
-                            if (_accommodationViewModel.IsCanceled(dateBegin, dateEnd))
-                            {
-                                NavigationService.Navigate(new FreeReservationDates(_reservationViewModel));
-                            }
-                            else
-                            {
-                                NavigationService.Navigate(new AlternativeReservationDates(_reservationViewModel));
-                            }
+                        { 
+                             NavigationService.Navigate(new AlternativeReservationDates(_reservationViewModel));
+                            
                         }
                         else
                         {
