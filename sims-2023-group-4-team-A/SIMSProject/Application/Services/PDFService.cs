@@ -15,10 +15,9 @@ namespace SIMSProject.Application.Services
 {
     public static class PDFService
     {
-
         private static string OpenFilePicker()
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            SaveFileDialog saveFileDialog = new();
             saveFileDialog.Filter = "PDF Files (*.pdf)|*.pdf";
             saveFileDialog.DefaultExt = "pdf";
             if (saveFileDialog.ShowDialog() == true)
@@ -26,57 +25,57 @@ namespace SIMSProject.Application.Services
             throw new Exception("Save file dialog returned error!");
         }
 
-        //public static void GenerateAccommodationStatsPDF(List<AccommodationStatistic> statistics)
-        //{
-        //    try
-        //    {
-        //        string filePath = OpenFilePicker();
+        public static void GenerateAccommodationStatsPDF(List<AccommodationStatistic> statistics)
+        {
+            try
+            {
+                string filePath = OpenFilePicker();
 
-        //        Document document = new();
-        //        PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
-        //        writer.SetPdfVersion(PdfWriter.PDF_VERSION_1_7);
-        //        writer.SetFullCompression();
+                Document document = new();
+                PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
+                writer.SetPdfVersion(PdfWriter.PDF_VERSION_1_7);
+                writer.SetFullCompression();
 
-        //        document.Open();
+                document.Open();
 
-        //        Paragraph heading = new(
-        //            $"Statistika za smeštaj ({statistics.First().Accommodation.Id}) {statistics.First().Accommodation.Name}:",
-        //            new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD))
-        //        {
-        //            SpacingAfter = 15f
-        //        };
-        //        document.Add(heading);
+                Paragraph heading = new(
+                    $"Statistika za smeštaj ({statistics.First().Accommodation.Id}) {statistics.First().Accommodation.Name}:",
+                    new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD))
+                {
+                    SpacingAfter = 15f
+                };
+                document.Add(heading);
 
-        //        PdfPTable table = statistics.First().Type == Domain.Models.AccommodationStatisticType.MONTHLY ? new(7) : new(6);
-        //        table.AddCell("Godina");
-        //        if (statistics.First().Type == Domain.Models.AccommodationStatisticType.MONTHLY) table.AddCell("Mesec");
-        //        table.AddCell("Broj rezervacija");
-        //        table.AddCell("Otkazane rezervacije");
-        //        table.AddCell("Pomerene rezervacije");
-        //        table.AddCell("Preporuke za renoviranje");
-        //        table.AddCell("Najveća zauzetost");
+                PdfPTable table = statistics.First().Type == Domain.Models.AccommodationStatisticType.MONTHLY ? new(7) : new(6);
+                table.AddCell("Godina");
+                if (statistics.First().Type == Domain.Models.AccommodationStatisticType.MONTHLY) table.AddCell("Mesec");
+                table.AddCell("Broj rezervacija");
+                table.AddCell("Otkazane rezervacije");
+                table.AddCell("Pomerene rezervacije");
+                table.AddCell("Preporuke za renoviranje");
+                table.AddCell("Najveća zauzetost");
 
-        //        foreach (var statistic in statistics)
-        //        {
-        //            table.AddCell(statistic.Year.ToString());
-        //            if (statistics.First().Type == Domain.Models.AccommodationStatisticType.MONTHLY) table.AddCell(statistic.ShortMonth);
-        //            table.AddCell(statistic.TotalReservations.ToString());
-        //            table.AddCell(statistic.CancelledReservations.ToString());
-        //            table.AddCell(statistic.RescheduledReservations.ToString());
-        //            table.AddCell(statistic.RenovationRecommendations.ToString());
-        //            table.AddCell(statistic.Best ? "DA." : string.Empty);
-        //        }
+                foreach (var statistic in statistics)
+                {
+                    table.AddCell(statistic.Year.ToString());
+                    if (statistics.First().Type == Domain.Models.AccommodationStatisticType.MONTHLY) table.AddCell(statistic.ShortMonth);
+                    table.AddCell(statistic.TotalReservations.ToString());
+                    table.AddCell(statistic.CancelledReservations.ToString());
+                    table.AddCell(statistic.RescheduledReservations.ToString());
+                    table.AddCell(statistic.RenovationRecommendations.ToString());
+                    table.AddCell(statistic.Best ? "DA." : string.Empty);
+                }
 
-        //        document.Add(table);
-        //        document.Close();
+                document.Add(table);
+                document.Close();
 
-        //        MessageBox.Show("PDF file generated successfully.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Error generating PDF file: " + ex.Message);
-        //    }
-        //}
+                MessageBox.Show("PDF file generated successfully.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error generating PDF file: " + ex.Message);
+            }
+        }
 
         public static void GenerateTourReservationDetailsPDF(TourReservation tourReservation)
         {
@@ -125,7 +124,6 @@ namespace SIMSProject.Application.Services
                         Phrase phrase = new Phrase(chunk);
                         textCell.AddElement(phrase);
 
-
                         table.AddCell(textCell);
 
                         document.Add(table);
@@ -163,7 +161,7 @@ namespace SIMSProject.Application.Services
                 footer.Alignment = Element.ALIGN_RIGHT;
                 document.Add(footer);
 
-                document.Add(table);
+                //document.Add(table);
                 document.Close();
                 //MessageBox.Show("PDF file generated successfully.");
             }
