@@ -1,5 +1,7 @@
-﻿using SIMSProject.Application.Services;
+﻿using Dynamitey.DynamicObjects;
+using SIMSProject.Application.Services;
 using SIMSProject.Application.Services.TourServices;
+using SIMSProject.Application.Services.UserServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
@@ -279,6 +281,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         }
         public ObservableCollection<Location> AllLocations { get; set; } = new();
         public ObservableCollection<string> TourLanguages { get; set; }
+        public Guest Guest { get; set; } = new();
         public TourCreationViewModel()
         {
             _tourService = Injector.GetService<TourService>();
@@ -326,6 +329,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             Tour.Reason = CreatingReason.CUSTOM;
             _tourReservation.GuestId = message.Request.Guest.Id;
             _tourReservation.GuestNumber = message.Request.GuestCount;
+            Guest = message.Request.Guest;
         }
 
         #region AddKeyPointCommand
@@ -375,20 +379,33 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             Tour.Images.AddRange(Images.ToList());
             _tourService.CreateTour(Tour);
             _tourAppointmentService.CreateAppointments(Appointments.ToList(), Tour);
+            SendNewTourNotification();
             if(Tour.Reason == CreatingReason.CUSTOM)
             {
                 _tourReservation.TourAppointment = Appointments.FirstOrDefault();
                 _tourReservationService.Save(_tourReservation);
+                SendAcceptedTourNotification();
             }
         }
-
-        private void SendNotification()
+        private void SendAcceptedTourNotification()
+        {
+            string title = "Prihvaćen zahtev";
+            string description = $"Vaš zahtev za turu je prihvaćen" +
+                $" U pitanju je tura na lokaciji {_tour.Location}." +
+                $" Jezik na kom će tura biti realizovana je {Tour.GetLanguage(_tour.TourLanguage)} u terminu " +
+                $"{_tourReservation.TourAppointment.Date.ToString()}. " +
+                $"Rezervaciju i detalje možete videti u listi svojih rezervacija.";
+            
+            var notification = new Notification(Guest, title, description);
+            _notificationService.CreateNotification(notification);
+        }
+        private void SendNewTourNotification()
         {
             string title = "Nova tura";
-            string description = $"Kreirana je nova tura koja bi mogla da Vas interesuje." +
-                $" U pitanju je {_tour.Name} na lokaciji {_tour.Location}." +
-                $" Jezik na kom će tura biti realizovana je {Tour.GetLanguage(_tour.TourLanguage)} ";
-            if (Tour.Reason != Created.STATISTICS) return;
+            string description = $"Kreirana je nova tura koja bi mogla da Vas interesuje, ispunjava neke od dosad neispunjenih zahteva." +
+                $" U pitanju je tura: {_tour.Name} na lokaciji {_tour.Location}." +
+                $" Jezik na kom će tura biti realizovana je {Tour.GetLanguage(_tour.TourLanguage)}. ";
+            if (Tour.Reason != CreatingReason.STATISTICS) return;
             foreach (Guest guest in _customTourRequestService.GetGuestsWithSimilarRequests(_tour))
             {
                 var notification = new Notification(guest, title, description);

@@ -45,7 +45,7 @@
         </DataGrid>
         <Border Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Grid.RowSpan="3" BorderBrush="#004e98" BorderThickness="3"/>
         <TextBlock Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding SelectedNotification.Title}" FontWeight="Bold" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding SelectedNotification.Description}" TextWrapping="Wrap" FontWeight="DemiBold" FontSize="28" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Text="{Binding SelectedNotification.Description}" TextWrapping="Wrap" FontWeight="DemiBold" FontSize="28" HorizontalAlignment="Center"/>
 
         <Button x:Name="Yes" Grid.Column="1" Grid.Row="4" Height="50" Width="105" HorizontalAlignment="Left" Margin="135,10,0,10" Content="Da" FontWeight="Bold" FontSize="40" IsVisibleChanged="Button_IsVisibleChanged"/>
         <Button x:Name="No" Grid.Column="2" Grid.Row="4" Height="50" Width="105" HorizontalAlignment="Left" Margin="30,10,0,10" Content="Ne" FontWeight="Bold" FontSize="40" IsVisibleChanged="Button_IsVisibleChanged"/>
