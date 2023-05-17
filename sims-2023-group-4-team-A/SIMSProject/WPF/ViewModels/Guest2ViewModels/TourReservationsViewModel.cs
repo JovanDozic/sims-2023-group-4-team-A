@@ -1,4 +1,5 @@
-﻿using SIMSProject.Application.Services.TourServices;
+﻿using SIMSProject.Application.Services;
+using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
@@ -57,9 +58,11 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 }
             }
         }
+        //public string KeyPoints { get => _selectedTourReservation.TourAppointment.Tour.KeyPointsToString(); }
         public TourReservationsViewModel(User user)
         {
             _user = user;
+            //TourReservation = tourReservation;
             _reservationService = Injector.GetService<TourReservationService>();
             _tourGuestService = Injector.GetService<TourGuestService>();
         }
@@ -88,12 +91,16 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         public bool IsTourActive()
         {
             if (SelectedTourReservation == null) return false;
-            if (SelectedTourReservation.TourAppointment.TourStatus == Status.ACTIVE) return true;
-            return false;
+            //if (SelectedTourReservation.TourAppointment.TourStatus == Status.ACTIVE) return true;
+            return true;
         }
         public void GetDetails(TourReservation tourReservation)
         {
             TourReservation = tourReservation;
+        }
+        public void GeneratePDF(TourReservation tourReservation)
+        {
+            PDFService.GenerateTourReservationDetailsPDF(tourReservation);
         }
     }
 }

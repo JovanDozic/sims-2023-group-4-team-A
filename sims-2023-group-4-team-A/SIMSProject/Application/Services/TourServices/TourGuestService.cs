@@ -19,13 +19,14 @@ namespace SIMSProject.Application.Services.TourServices
             _repo = repo;
         }
 
-        public void SignUpGuest(int guestId, int tourAppointmentId)
+        public TourGuest SignUpGuest(int guestId, int tourAppointmentId)
         {
             TourGuest? tourGuest = _repo.GetAll().Find(x => x.Guest.Id == guestId && x.TourAppointment.Id == tourAppointmentId);
-            if (tourGuest == null) return;
+            if (tourGuest == null) return null;
 
             tourGuest.GuestStatus = GuestAttendance.PENDING;
             _repo.SaveAll(_repo.GetAll());
+            return tourGuest;
         }
 
         public void MakeGuestPresent(TourGuest tourGuest)

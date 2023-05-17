@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="SIMSProject.WPF.CustomControls.MobileImageSlider"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SIMSProject.WPF.CustomControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="400">
+    <UserControl.Resources>
+        <Style x:Key="SliderButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <ContentPresenter />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+
+        <Button Grid.Column="0" Style="{StaticResource SliderButtonStyle}" Click="OnPreviousButtonClick"
+                HorizontalAlignment="Left" Panel.ZIndex="100">
+            <Grid Height="{Binding Path=Height, ElementName=image}" Width="175" Background="Transparent">
+                <Image Source="/Resources/Icons/left.png" 
+                       Height="40" 
+                       Width="40" 
+                       HorizontalAlignment="Left"
+                       Style="{StaticResource IconRenderStyle}"/>
+            </Grid>
+        </Button>
+
+        <Image x:Name="image" Stretch="UniformToFill"
+               Height="{Binding Path=Height, RelativeSource={RelativeSource AncestorType=UserControl}}"
+               Width="{Binding Path=Width, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+
+        <Button Grid.Column="0" Style="{StaticResource SliderButtonStyle}" Click="OnNextButtonClick"
+                HorizontalAlignment="Right" Panel.ZIndex="100">
+            <Grid Height="{Binding Path=Height, ElementName=image}" Width="175" Background="Transparent">
+                <Image Source="/Resources/Icons/right.png" 
+                   Height="40" 
+                   Width="40" 
+                   HorizontalAlignment="Right"
+                   Style="{StaticResource IconRenderStyle}"/>
+            </Grid>
+        </Button>
+        
+    </Grid>
+</UserControl>

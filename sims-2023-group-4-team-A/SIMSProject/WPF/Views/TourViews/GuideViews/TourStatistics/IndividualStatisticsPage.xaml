@@ -4,10 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.TourViews.GuideViews"
+      xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
       mc:Ignorable="d" 
             d:DesignHeight="600" d:DesignWidth="965"
       Title="IndividualStatistics">
-
+    <Page.Resources>
+        <converters:TourLanguageConverter x:Key="LanguageConverter" />
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -38,7 +41,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv ture" Width="2*" Binding="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Lokacija" Width="1*" Binding="{Binding Path=Location, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="Jezik" Width="1*" Binding="{Binding Path=TourLanguage, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Jezik" Width="1*" Binding="{Binding Path=TourLanguage, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource LanguageConverter}}"/>
                 <DataGridTextColumn Header="Trajanje(h)" Width="1*" Binding="{Binding Path=Duration, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Maks. gostiju" Width="1*" Binding="{Binding Path=MaxGuestNumber, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>

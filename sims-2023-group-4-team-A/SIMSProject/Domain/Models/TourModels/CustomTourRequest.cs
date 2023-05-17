@@ -15,7 +15,7 @@ namespace SIMSProject.Domain.Models.TourModels
         public Guest Guest { get; set; } = new();
         public Location Location { get; set; } = new();
         public string Description { get; set; } = string.Empty; 
-        public string TourLanguage { get; set; }
+        public Language TourLanguage { get; set; }
         public int GuestCount { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -23,7 +23,7 @@ namespace SIMSProject.Domain.Models.TourModels
         public RequestStatus RequestStatus { get; set; }
 
         public CustomTourRequest() { }
-        public CustomTourRequest(int id, int guestId, int locationId, string description, string tourLanguage, int guestCount, DateTime startDate, DateTime endDate, DateTime requestCreateDate, RequestStatus requestStatus)
+        public CustomTourRequest(int id, int guestId, int locationId, string description, Language tourLanguage, int guestCount, DateTime startDate, DateTime endDate, DateTime requestCreateDate, RequestStatus requestStatus)
         {
             Id = id;
             Guest.Id = guestId;
@@ -62,7 +62,7 @@ namespace SIMSProject.Domain.Models.TourModels
             {
                 Id.ToString(),
                 Description,
-                TourLanguage,
+                TourLanguage.ToString(),
                 GuestCount.ToString(),
                 StartDate.ToString(),
                 EndDate.ToString(),
@@ -78,7 +78,7 @@ namespace SIMSProject.Domain.Models.TourModels
         {
             Id = Convert.ToInt32(values[0]);
             Description = values[1];
-            TourLanguage = values[2];
+            TourLanguage = (Language)Enum.Parse(typeof(Language), values[2]);
             GuestCount = Convert.ToInt32(values[3]);
             StartDate = DateTime.Parse(values[4]);
             EndDate = DateTime.Parse(values[5]);

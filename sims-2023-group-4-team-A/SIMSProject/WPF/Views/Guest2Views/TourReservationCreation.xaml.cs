@@ -13,6 +13,7 @@ using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Application.Services;
 using System.Linq;
+using System.Windows.Navigation;
 
 namespace SIMSProject.View.Guest2
 {
@@ -144,9 +145,12 @@ namespace SIMSProject.View.Guest2
         }
         private void Reservation_Click(object sender, RoutedEventArgs e)
         {
+            //NavigationService.Navigate(new ShowAndSearchTours(User, Tour.Location.ToString()));
             if (SelectedAppointment.AvailableSpots == 0)
             {
                 bool isAvailable = CheckAvailabilityAndShowAlternatives(AlternativeTour, AlternativeTourDate);
+                //NavigationService.Navigate(new ShowAndSearchTours(User, Tour.Location.ToString()));
+
                 if (!isAvailable) return;
             }
 

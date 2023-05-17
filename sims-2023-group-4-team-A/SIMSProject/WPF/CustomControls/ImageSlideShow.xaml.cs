@@ -22,8 +22,15 @@ namespace SIMSProject.WPF.CustomControls
     /// </summary>
     public partial class ImageSlideShow : UserControl
     {
+        public static readonly DependencyProperty ImageSourceProperty =
+            DependencyProperty.Register("Images", typeof(List<string>), typeof(ImageSlideShow), new PropertyMetadata(null));
 
-        private List<string> Images = new List<string>();   
+        public List<string> Images
+        {
+            get { return (List<string>)GetValue(ImageSourceProperty); }
+            set { SetValue(ImageSourceProperty, value); }
+        }
+
         private  int currentIndex;
         private readonly DispatcherTimer timer;
         public ImageSlideShow()
@@ -46,7 +53,7 @@ namespace SIMSProject.WPF.CustomControls
         public void AddImages(List<string> imageUrls)
         {
             Images.AddRange(imageUrls);
-            if (Images.Count == 1)
+            if (Images.Count > 0)
             {
                 UpdateImage();
             }

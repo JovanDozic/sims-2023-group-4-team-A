@@ -1,0 +1,44 @@
+﻿<Page x:Class="SIMSProject.WPF.Views.OwnerViews.OwnerAccountViews.OwnerAccountView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
+      mc:Ignorable="d" 
+      d:DesignHeight="750" d:DesignWidth="430"
+      Title="My Account"
+      Background="#ffcb00">
+
+    <Grid>
+
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+
+            <Label FontSize="30" Margin="10"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Content="Sunce ti kakav nalog!"/>
+
+            <Label FontSize="30" Margin="10"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Content="{Binding User.Username}"/>
+
+            <Button x:Name="BtnLogOut" Margin="10"
+                    Content="Log out" Background="white"
+                    Style="{StaticResource MobileActionSingleButtonStyle}"
+                    Click="BtnLogOut_Click"/>
+
+            <Button x:Name="BtnOpenOldMenu" Margin="10"
+                    Content="Open Old Menu" Background="white"
+                    Style="{StaticResource MobileActionSingleButtonStyle}"
+                    Click="BtnOpenOldMenu_Click"/>
+
+        </StackPanel>
+
+
+
+
+    </Grid>
+</Page>

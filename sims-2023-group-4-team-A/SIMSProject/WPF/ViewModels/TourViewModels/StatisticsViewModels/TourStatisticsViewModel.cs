@@ -67,11 +67,59 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.StatisticsViewModels
         }
         private Dictionary<int, GuestAgeGroupsDTO> AgeGroupDictionary { get; set; } = new();
         private Dictionary<int, VoucherUsageDTO> VoucherDictionary { get; set; } = new();
-
-
-        public void GetStatistics(int? desiredYear = null)
+        
+        private bool _rbAnnualyIsChecked;
+        public bool RbAnnualyIsChecked
         {
-            TourStatistics = _tourService.GetMostVisitedTour(desiredYear);
+            get => _rbAnnualyIsChecked;
+            set
+            {
+                if (value != _rbAnnualyIsChecked)
+                {
+                    _rbAnnualyIsChecked = value;
+                    OnPropertyChanged(nameof(RbAnnualyIsChecked));
+                }
+            }
+        }
+
+        private bool _rbYearIsChecked;
+        public bool RbYearIsChecked
+        {
+            get => _rbYearIsChecked;
+            set
+            {
+                if (value != _rbYearIsChecked)
+                {
+                    _rbYearIsChecked = value;
+                    OnPropertyChanged(nameof(RbYearIsChecked));
+                    TbYearIsEnabled = _rbYearIsChecked;
+                }
+            }
+        }
+        private bool _tbYearIsEnabled;
+        public bool TbYearIsEnabled
+        {
+            get => _tbYearIsEnabled;
+            set
+            {
+                if (_tbYearIsEnabled != value)
+                {
+                    _tbYearIsEnabled = value;
+                    OnPropertyChanged(nameof(TbYearIsEnabled));
+                }
+            }
+        }
+
+        private string _desiredYear = String.Empty;
+        public string DesiredYear
+        {
+            get => _desiredYear;
+            set
+            {
+                if (value == _desiredYear) return;
+                _desiredYear = value;
+                OnPropertyChanged(nameof(DesiredYear));
+            }
         }
 
         public void GetFinishedTours()
@@ -90,23 +138,21 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.StatisticsViewModels
 
         private void ExecuteGetStatistics()
         {
-            GetStatistics();
+            TourStatistics = _tourService.GetMostVisitedTour(null);
         }
         #endregion
 
         #region GetYearlyStatisticsCommand
-        public string DesiredYear { get; set; } = string.Empty;
-
         public ICommand GetYearlyStatisticsCommand { get; set; }
 
         private bool CanExecuteYearlyStatistics()
         {
-            return DesiredYear.Length > 0;
+            return !string.IsNullOrEmpty(DesiredYear);
         }
 
         private void ExecuteYearlyStatistics()
         {
-            GetStatistics(int.Parse(DesiredYear));
+            TourStatistics = _tourService.GetMostVisitedTour(int.Parse(DesiredYear));
         }
         #endregion
 

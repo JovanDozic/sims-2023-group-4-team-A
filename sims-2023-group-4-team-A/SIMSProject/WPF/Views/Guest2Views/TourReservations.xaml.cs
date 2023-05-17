@@ -23,15 +23,16 @@ namespace SIMSProject.WPF.Views.Guest2Views
 
         private void RateGuide_Click(object sender, RoutedEventArgs e)
         {
-            RateGuide rateGuide = new RateGuide(User, _tourReservationsViewModel.SelectedTourReservation, _tourReservationsViewModel.GetGuideId());
-            rateGuide.ShowDialog();
+            //RateGuide rateGuide = new RateGuide(User, _tourReservationsViewModel.SelectedTourReservation, _tourReservationsViewModel.GetGuideId());
+            //rateGuide.ShowDialog();
+            NavigationService.Navigate(new RateGuide(User, _tourReservationsViewModel.SelectedTourReservation, _tourReservationsViewModel.GetGuideId()));
             _tourReservationsViewModel.LoadReservationsByGuestId(User.Id);
             DgrReservations.SelectedItem = null;
             DgrReservations.Items.Refresh();
         }
         private void ShowKeyPoint_Click(object sender, RoutedEventArgs e)
         {
-            new ShowKeyPoint(User, _tourReservationsViewModel.SelectedTourReservation).Show();
+            NavigationService.Navigate(new ShowKeyPoint(User, _tourReservationsViewModel.SelectedTourReservation));
         }
         private void SetButtonState(object sender, bool state)
         {

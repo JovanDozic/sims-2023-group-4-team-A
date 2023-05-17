@@ -14,14 +14,15 @@ using SIMSProject.Model;
 
 namespace SIMSProject.Domain.Models.TourModels
 {
-    public enum Language { ENGLISH = 0, SERBIAN, SPANISH, FRENCH };
-
+    public enum Language { ENGLISH = 1, SERBIAN, SPANISH, FRENCH };
+    public enum Created { REGULAR = 0, CUSTOM, STATISTICS};
     public class Tour : ISerializable
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public Language TourLanguage { get; set; }
+        public Created Reason { get; set; }
         public int MaxGuestNumber { get; set; }
         public int Duration { get; set; }
         public Location Location { get; set; } = new();
@@ -32,7 +33,7 @@ namespace SIMSProject.Domain.Models.TourModels
 
         public Tour() { }
 
-        public Tour(string name, int locationId, string description, Language tourLanguage, int maxGuestNumber, int duration, int guideId)
+        public Tour(string name, int locationId, string description, Language tourLanguage,  int maxGuestNumber, int duration, int guideId, Created reason)
         {
             Name = name;
             Location.Id = locationId;
@@ -42,6 +43,30 @@ namespace SIMSProject.Domain.Models.TourModels
             MaxGuestNumber = maxGuestNumber;
             Location.Id = locationId;
             Guide.Id = guideId;
+            Reason = reason;
+        }
+
+        public static string GetLanguage(Language language)
+        {
+            return language switch
+            {
+                Language.ENGLISH => "Engleski",
+                Language.FRENCH => "Francuski",
+                Language.SERBIAN => "Srpski",
+                Language.SPANISH => "Španski",
+                _ => "Jezik"
+            };
+        }
+
+        public static string GetReason(Created reason)
+        {
+            return reason switch
+            {
+                Created.STATISTICS => "Preko statistike",
+                Created.REGULAR => "Obična tura",
+                Created.CUSTOM => "Po želji",
+                _ => "Razlog kreiranja"
+            };
         }
 
         public string CreateImageURLs()
@@ -82,6 +107,7 @@ namespace SIMSProject.Domain.Models.TourModels
                 Name,
                 Description,
                 TourLanguage.ToString(),
+                Reason.ToString(),
                 MaxGuestNumber.ToString(),
                 Duration.ToString(),
                 Location.Id.ToString(),
@@ -96,11 +122,12 @@ namespace SIMSProject.Domain.Models.TourModels
             Name = values[1];
             Description = values[2];
             TourLanguage = (Language)Enum.Parse(typeof(Language), values[3]);
-            MaxGuestNumber = Convert.ToInt32(values[4]);
-            Duration = Convert.ToInt32(values[5]);
-            Location.Id = Convert.ToInt32(values[6]);
-            Guide.Id = Convert.ToInt32(values[7]);
-            Images.AddRange(values[8].Split(','));
+            Reason = (Created)Enum.Parse(typeof(Created), values[4]);
+            MaxGuestNumber = Convert.ToInt32(values[5]);
+            Duration = Convert.ToInt32(values[6]);
+            Location.Id = Convert.ToInt32(values[7]);
+            Guide.Id = Convert.ToInt32(values[8]);
+            Images.AddRange(values[9].Split(','));
         }
     }
 }

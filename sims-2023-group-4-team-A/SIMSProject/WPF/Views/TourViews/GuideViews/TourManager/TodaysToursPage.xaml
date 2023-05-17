@@ -3,10 +3,17 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.TourViews.GuideViews"
        mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="965"
       Title="TodaysTours">
+    <Page.InputBindings>
+        <KeyBinding Command="{Binding TourInfoCommand}" Key="M" Modifiers="Ctrl"/>
+    </Page.InputBindings>
+    <Page.Resources>
+        <converters:TourLanguageConverter x:Key="LanguageConverter"/>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="500"/>
@@ -24,7 +31,7 @@
                   SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns >
                 <DataGridTextColumn Header="Naziv ture" Width="*" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Jezik" Binding="{Binding TourLanguage}"/>
+                <DataGridTextColumn Header="Jezik" Binding="{Binding TourLanguage, Converter={StaticResource LanguageConverter}}"/>
                 <DataGridTextColumn Header="Lokacija" Binding="{Binding Location}"/>
                 <DataGridTextColumn Header="Trajanje(h)" Binding="{Binding Duration}"/>
                 <DataGridTextColumn Header="Maks. broj gostiju" Width="*" Binding="{Binding MaxGuestNumber}"/>
@@ -40,6 +47,7 @@
                 </Style>
             </Grid.Resources>
             <Button x:Name="CheckAppointmentsBTN" 
+                    Command="{Binding Path=TourInfoCommand}"
                     Click="CheckAppointmentsBTN_Click"
                     Content="Pregledaj termine Ctrl+M" 
                     Margin="32.5,0,0,0"/>

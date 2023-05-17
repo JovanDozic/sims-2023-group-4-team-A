@@ -90,21 +90,24 @@ namespace SIMSProject.Repositories.TourRepositories
             return _tours.FindAll(x => x.Location.Id == selectedTour.Location.Id && x.Id != selectedTour.Id);
         }
 
-        public void SearchTours(string locationAndLanguage, int searchDuration, int searchMaxGuests, ObservableCollection<Tour> tours)
+        public void SearchTours(string locationAndLanguage, int searchDuration, int searchMaxGuests, string language, ObservableCollection<Tour> tours)
         {
             tours.Clear();
             foreach (var tour in new ObservableCollection<Tour>
                 (GetAll()))
                 tours.Add(tour);
 
-            if (locationAndLanguage == "Lokacija jezik") locationAndLanguage = string.Empty;
+            if (locationAndLanguage == "Gde putujete?") locationAndLanguage = string.Empty;
             string[] searchValues = locationAndLanguage.Split(" ");
 
             List<Tour> searchResults = tours.ToList();
 
             // Removing all by location and language
             foreach (string value in searchValues)
-                searchResults.RemoveAll(x => !x.ToStringSearch().ToLower().Contains(value.ToLower()));
+                searchResults.RemoveAll(x => !x.Location.City.ToLower().Contains(value.ToLower()) && !x.Location.Country.ToLower().Contains(value.ToLower()));
+
+            if (language == "") language = string.Empty;
+            searchResults.RemoveAll(x => !x.TourLanguage.ToString().ToLower().Contains(language.ToLower()));
 
             // Removing by numbers
             if (searchDuration > 0) searchResults.RemoveAll(x => x.Duration != searchDuration);

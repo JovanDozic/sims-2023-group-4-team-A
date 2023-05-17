@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Markup;
 
 namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
 {
@@ -53,12 +54,27 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         }
         public string TourLanguage
         {
-            get => _customTourRequest.TourLanguage;
+            get
+            {
+                return _customTourRequest.TourLanguage switch
+                {
+                    Language.ENGLISH => "Engleski",
+                    Language.SERBIAN => "Srpski",
+                    Language.SPANISH => "Španski",
+                    _ => "Francuski"
+
+                };
+            }
             set
             {
-                if(_customTourRequest.TourLanguage ==  value) return;
-                _customTourRequest.TourLanguage = value;
-                OnPropertyChanged();
+                _customTourRequest.TourLanguage = value switch
+                {
+                    "Engleski" => Language.ENGLISH,
+                    "Srpski" => Language.SERBIAN,
+                    "Španski" => Language.SPANISH,
+                    _ => Language.FRENCH
+                };
+                OnPropertyChanged(nameof(TourLanguage));
             }
         }
         public DateTime StartDate
@@ -86,7 +102,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             get => _customTourRequest.GuestCount;
             set
             {
-                if(_customTourRequest.GuestCount == value || value < 1) return;
+                if(_customTourRequest.GuestCount == value || value < 1 ) return;
                 _customTourRequest.GuestCount = value;
                 OnPropertyChanged();
             }
@@ -104,24 +120,12 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             }
         }
         public string DateRange { get; set; } = string.Empty;
-        //private ObservableCollection<string> _requestStatusSource = new();
-        //public ObservableCollection<string> RequestStatusSource
-        //{
-        //    get => _requestStatusSource;
-        //    set
-        //    {
-        //        if(value == _requestStatusSource) return;
-        //        _requestStatusSource = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-
         public CustomTourRequestViewModel(Guest user) 
         {
             TourLanguages = new()
             {
-                "Srpski",
                 "Engleski",
+                "Srpski",
                 "Francuski",
                 "Španski"
             };
@@ -132,21 +136,8 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             LoadTourRequestsByGuestId(_user.Id);
             CheckRequestValidity(CustomTourRequests.ToList());
 
-            //RequestStatusSource = new ObservableCollection<string>
-            //{
-            //    CustomTourRequest.GetStatus(RequestStatus.ONHOLD),
-            //    CustomTourRequest.GetStatus(RequestStatus.INVALID),
-            //    CustomTourRequest.GetStatus(RequestStatus.ACCEPTED)
-            //};
+            
         }
-        //public void LoadDatePicker(object sender)
-        //{
-        //    if (sender is DatePicker datePicker)
-        //    {
-        //        datePicker.SelectedDate = DateTime.Today.AddDays(2);
-        //        datePicker.DisplayDateStart = DateTime.Today.AddDays(2);
-        //    }
-        //}
         public void CreateRequest()
         {
             _customTourRequest.Guest.Id = _user.Id;

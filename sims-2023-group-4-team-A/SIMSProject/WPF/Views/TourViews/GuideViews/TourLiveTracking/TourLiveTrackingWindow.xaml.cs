@@ -9,11 +9,10 @@ namespace SIMSProject.View.GuideViews
     /// </summary>
     public partial class TourLiveTrackingWindow : Window
     {
-        private TourLiveTrackViewModel ViewModel { get; set; }
-        public TourLiveTrackingWindow(TourAppointment appointment)
+        private TourLiveTrackViewModel ViewModel { get; set; } = new();
+        public TourLiveTrackingWindow()
         {
             InitializeComponent();
-            ViewModel = new(appointment);
             ViewModel.RequestClose += (sender, args) => Close();
             this.DataContext = ViewModel;
         }

@@ -41,7 +41,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         public TourAppointmentsViewModel(Tour tour)
         {
             _tourAppointmentService = Injector.GetService<TourAppointmentService>();
-            Appointments = new(_tourAppointmentService.GetAllByTourId(tour.Id));
+            Appointments = new(_tourAppointmentService.GetAllByTour(tour.Id));
             Tour = new(tour);
         }
         public ObservableCollection<TourAppointment> GetAllInactiveAppointments(Tour tour)

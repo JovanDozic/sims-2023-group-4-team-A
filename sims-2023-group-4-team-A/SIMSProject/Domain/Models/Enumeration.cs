@@ -2,6 +2,7 @@
 {
     public enum AccommodationType
     {
+        None = -1,
         Apartment = 0,
         House,
         Hut
@@ -21,5 +22,11 @@
         Waiting,
         Accepted,
         Rejected
+    }
+
+    public enum AccommodationStatisticType 
+    { 
+        MONTHLY = 0, 
+        YEARLY 
     }
 }

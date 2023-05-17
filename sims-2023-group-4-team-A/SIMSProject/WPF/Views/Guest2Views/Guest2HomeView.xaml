@@ -6,20 +6,22 @@
         xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest2Views"
         mc:Ignorable="d"
         Title="Guest2HomeView" Height="720" Width="1280"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize">
     <Grid Background="#ebebeb">
         <Grid.RowDefinitions>
             <RowDefinition Height="200"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border BorderThickness="2" BorderBrush="Black" Grid.Row="0"/>
-        <Border BorderThickness="2" BorderBrush="Black" Grid.Row="1"/>
+        <Border BorderThickness="2" BorderBrush="#004e98" Grid.Row="0"/>
+        <Border BorderThickness="2" BorderBrush="#004e98" Grid.Row="1"/>
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="120"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Border BorderThickness="2" BorderBrush="Black" Grid.Row="1"/>
+            <Border BorderThickness="5" BorderBrush="#ff6700" Grid.Row="1"/>
 
             <Grid Grid.Row="0" Background="#004e98">
                 <Grid.ColumnDefinitions>
@@ -52,11 +54,11 @@
 
                 <Rectangle Name="B2" Grid.Row="1" Grid.Column="2" Fill="{x:Null}"/>
 
-                <Button Foreground="White" Background="Transparent" Click="Homepage_Click" Content="Početna stranica" FontSize="30" Grid.Column="1"  FontWeight="Bold" Height="80" Cursor="Hand"/>
-                <Button Foreground="White"  Click="MyReservations_Click" Content="Moje rezervacije" FontSize="30" Grid.Column="2" Background="Transparent" FontWeight="Bold" Height="80" Cursor="Hand"/>
-                <Button Foreground="White"  Click="MyRequests_Click" Content="Zahtevi za ture" FontSize="30" Grid.Column="3" Background="Transparent"  FontWeight="Bold" Height="80" Cursor="Hand"/>
-                <Button Foreground="White"  Click="Vouchers_Click" Content="Vaučeri" FontSize="30" Grid.Column="4" Background="Transparent"  FontWeight="Bold" Height="80" Cursor="Hand"/>
-                <Button Foreground="White"  Click="Notifications_Click" Content="Obaveštenja" FontSize="30" Grid.Column="5" Background="Transparent"  FontWeight="Bold" Height="80" Cursor="Hand"/>
+                <Button Foreground="White" Background="Transparent" BorderBrush="Transparent" Click="Homepage_Click" Content="Početna stranica" FontSize="30" Grid.Column="1"  FontWeight="Bold" Height="80" Cursor="Hand"/>
+                <Button Foreground="White"  Click="MyReservations_Click" Content="Moje rezervacije" FontSize="30" Grid.Column="2" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Height="80" Cursor="Hand"/>
+                <Button Foreground="White"  Click="MyRequests_Click" Content="Zahtevi za ture" FontSize="30" Grid.Column="3" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Height="80" Cursor="Hand"/>
+                <Button Foreground="White"  Click="Vouchers_Click" Content="Vaučeri" FontSize="30" Grid.Column="4" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Height="80" Cursor="Hand"/>
+                <Button Foreground="White"  Click="Notifications_Click" Content="Obaveštenja" FontSize="30" Grid.Column="5" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Height="80" Cursor="Hand"/>
             </Grid>
         </Grid>
 

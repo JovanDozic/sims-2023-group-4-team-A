@@ -11,6 +11,7 @@ using SIMSProject.Application.Services.AccommodationServices;
 using SIMSProject.WPF.Views;
 using SIMSProject.WPF.Views.Guest1;
 using SIMSProject.WPF.Views.Guest1.MainView;
+using SIMSProject.WPF.Views.Guest2Views;
 
 namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
 {
@@ -49,6 +50,10 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
                 {
                     OpenGuestWindow(user);
                 }
+                else if (user.Username.Equals("anja") && user.Password.Equals("anja"))
+                {
+                    OpenGuest2Window(user);
+                }
                 else
                 {
                     OpenWindow(user);
@@ -85,6 +90,12 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
             guestWind.Show();
         }
 
+        private void OpenGuest2Window(User user)
+        {
+            Guest2HomeView guest2HomeView = new(user as Guest ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
+            guest2HomeView.Show();
+        }
+
         private void OpenWindow(User user)
         {
             if (user == null) return;
@@ -92,9 +103,17 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
             {
                 case UserRole.Owner or UserRole.SuperOwner:
                     user = _ownerRatingService.UpdateOwnerInfo(user);
-                    OwnerHomeView ownerWindow = new(user
-                        ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
+                    //OwnerHomeViewOld ownerWindow = new(user
+                    //    ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
+                    //ownerWindow.Show();
+
+                    //OwnerView ownerWindow = new(user ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
+                    //ownerWindow.Show();
+
+                    OwnerWindow ownerWindow = new(user);
                     ownerWindow.Show();
+
+
                     break;
                 case UserRole.Guide or UserRole.SuperGuide:
                     GuideHomeWindow guideWindow = new(user as Guide

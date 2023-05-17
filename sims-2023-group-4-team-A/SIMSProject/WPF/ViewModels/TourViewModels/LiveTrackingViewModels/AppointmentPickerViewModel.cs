@@ -2,6 +2,8 @@
 using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.WPF.Messenger.Messages;
+using SIMSProject.WPF.ViewModels.Messenger;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,10 +18,9 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
     public class AppointmentPickerViewModel : ViewModelBase
     {
         private readonly TourAppointmentService _tourAppointmentService;
-        private Tour _tour { get; set; }
-        private TourAppointment _active { get => _tourAppointmentService.GetActiveByTour(_tour); }
-
-
+        private Tour _tour { get; set; } = new();
+        private TourAppointment _active { get => _tourAppointmentService.GetActive(); }
+        
         private ObservableCollection<TourAppointment> _appointments = new();
         public ObservableCollection<TourAppointment> Appointments
         {
@@ -46,12 +47,18 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
             }
         }
 
-        public AppointmentPickerViewModel(Tour tour)
+        public AppointmentPickerViewModel()
         {
             _tourAppointmentService = Injector.GetService<TourAppointmentService>();
-            _tour = tour;
-            Appointments = new(_tourAppointmentService.GetAllByTourId(_tour.Id));
+            MessageBus.Subscribe<TourInfoMessage>(this, OpenMessage);
+
             LiveTrackCommand = new RelayCommand(LiveTrackExecute, LiveTrackCanExecute);
+        }
+
+        private void OpenMessage(TourInfoMessage message)
+        {
+            _tour = message.Tour;
+            Appointments = new(_tourAppointmentService.GetTodays(_tour));
         }
 
         #region LiveTrackCommand
@@ -59,12 +66,22 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
 
         public bool LiveTrackCanExecute()
         {
-            return (SelectedAppointment == _active && _active != null) || (SelectedAppointment.TourStatus == Status.INACTIVE && _active == null);
+            return SelectedAppointment != null 
+                && ((SelectedAppointment == _active && _active != null) || (SelectedAppointment.TourStatus == Status.INACTIVE && _active == null));
         }
         public void LiveTrackExecute() 
         {
-            if (_active != null) return;
-            SelectedAppointment = _tourAppointmentService.Activate(SelectedAppointment, _tour);
+            if (_active == null)
+            {
+                SelectedAppointment = _tourAppointmentService.Activate(SelectedAppointment, _tour);
+            }
+            SendMessage(SelectedAppointment);   
+        }
+
+        public void SendMessage(TourAppointment selectedAppointment)
+        {
+            var message = new LiveTrackMessage(this, selectedAppointment);
+            MessageBus.Publish(message);
         }
         #endregion
     }

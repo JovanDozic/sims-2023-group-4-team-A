@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Domain.Models.AccommodationModels;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.FileHandlers.AccommodationFileHandlers;
 using System;
@@ -39,6 +40,11 @@ namespace SIMSProject.Repositories.AccommodationRepositories
         public List<OwnerRating> GetAllByOwnerId(int ownerId)
         {
             return _ratings.FindAll(x => x.Reservation?.Accommodation.Owner.Id == ownerId);
+        }
+
+        public List<OwnerRating> GetAllByAccommodationId(int accommodationId)
+        {
+            return _ratings.FindAll(x => x.Reservation?.Accommodation.Id == accommodationId);
         }
 
         public OwnerRating GetById(int ratingId)

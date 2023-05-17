@@ -4,8 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMSProject.View.Guest2"
+        xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
         mc:Ignorable="d"
         Title="VouchersDisplay" Height="520" Width="1140">
+    <Page.Resources>
+        <converters:VoucherObtainingReasonConverter x:Key="ObtainingReasonConverter"/>
+    </Page.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -18,7 +22,7 @@
                   ItemsSource="{Binding Path=Vouchers, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id}" Header="Naziv" Width="120"/>
-                <DataGridTextColumn Binding="{Binding Path = Reason}" Header="Razlog dobijanja" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Path = Reason, Converter={StaticResource ObtainingReasonConverter}}" Header="Razlog dobijanja" Width="*"/>
                 <DataGridTextColumn Binding="{Binding Path = FormattedDate}" Header="Datum isticanja" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>

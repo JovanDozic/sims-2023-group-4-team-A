@@ -5,6 +5,8 @@ using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.View.GuideViews;
+using SIMSProject.WPF.Messenger.Messages;
+using SIMSProject.WPF.ViewModels.Messenger;
 using SIMSProject.WPF.ViewModels.TourViewModels.BaseViewModels;
 using System;
 using System.Collections.Generic;
@@ -14,7 +16,7 @@ using System.Windows;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
 {
-    public class TourCreationViewModel : BaseTourViewModel
+    public class TourCreationViewModel : ViewModelBase
     {
         private readonly TourService _tourService;
         private readonly TourAppointmentService _tourAppointmentService;
@@ -22,6 +24,174 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         private readonly LocationService _locationService;
         private readonly KeyPointService _keyPointService;
 
+        private bool _cbLocationIsEnabled = true;
+        public bool CbLocationIsEnabled
+        {
+            get => _cbLocationIsEnabled;
+            set
+            {
+                if(value == _cbLocationIsEnabled)return;
+                _cbLocationIsEnabled = value;
+                OnPropertyChanged(nameof(CbLocationIsEnabled));
+            }
+        }
+        private bool _cbLanguageIsEnabled = true;
+        public bool CbLanguageIsEnabled
+        {
+            get => _cbLanguageIsEnabled;
+            set
+            {
+                if (value == _cbLanguageIsEnabled) return;
+                _cbLanguageIsEnabled = value;
+                OnPropertyChanged(nameof(CbLanguageIsEnabled));
+            }
+        }
+        private bool _dpDateIsEnabled = true;
+        public bool DpDateIsEnabled
+        {
+            get => _dpDateIsEnabled;
+            set
+            {
+                if (value == _dpDateIsEnabled) return;
+                _dpDateIsEnabled = value;
+                OnPropertyChanged(nameof(DpDateIsEnabled));
+            }
+        }
+
+        private Tour _tour = new();
+        public Tour Tour
+        {
+            get => _tour;
+            set
+            {
+                if (value != _tour)
+                {
+                    _tour = value;
+                    OnPropertyChanged(nameof(Tour));
+                }
+            }
+        }
+        public int Id
+        {
+            get { return _tour.Id; }
+        }
+        public Guide Guide
+        {
+            get => _tour.Guide;
+            set
+            {
+                if (_tour.Guide != value)
+                {
+                    _tour.Guide = value;
+                    OnPropertyChanged(nameof(Guide));
+                }
+
+            }
+        }
+        public string Name
+        {
+            get { return _tour.Name; }
+            set
+            {
+                if (_tour.Name != value)
+                {
+                    _tour.Name = value;
+                    OnPropertyChanged(nameof(Name));
+                }
+            }
+        }
+        public string Description
+        {
+            get { return _tour.Description; }
+            set
+            {
+                if (value != _tour.Description)
+                {
+                    _tour.Description = value;
+                    OnPropertyChanged(nameof(Description));
+                }
+            }
+        }
+        public ObservableCollection<string> TourLanguages { get; set; }
+        private Language _language;
+        public string TourLanguage
+        {
+            get => Tour.GetLanguage(_language);
+            set
+            {
+                if(value == _language.ToString()) return;
+                _language = value switch
+                {
+                    "Engleski" => Language.ENGLISH,
+                    "Srpski" => Language.SERBIAN,
+                    "Španski" => Language.SPANISH,
+                    _ => Language.FRENCH
+                };
+                OnPropertyChanged(nameof(TourLanguage));
+                _tour.TourLanguage = _language;
+            }
+        }
+        public int MaxGuestNumber
+        {
+            get => _tour.MaxGuestNumber;
+            set
+            {
+                if (value >= 1)
+                {
+                    _tour.MaxGuestNumber = value;
+                    OnPropertyChanged(nameof(MaxGuestNumber));
+                }
+            }
+        }
+        public int Duration
+        {
+            get => _tour.Duration;
+            set
+            {
+                if (value >= 1)
+                {
+                    _tour.Duration = value;
+                    OnPropertyChanged(nameof(Duration));
+                }
+            }
+        }
+        public List<KeyPoint> KeyPoints
+        {
+            get => _tour.KeyPoints;
+            set
+            {
+                if (value != _tour.KeyPoints)
+                {
+                    _tour.KeyPoints = value;
+                    OnPropertyChanged(nameof(KeyPoints));
+                }
+            }
+        }
+        private List<TourAppointment> _appointments = new();
+        public List<TourAppointment> Appointments
+        {
+            get => _appointments;
+            set
+            {
+                if (value != _appointments)
+                {
+                    _appointments = value;
+                    OnPropertyChanged(nameof(Appointments));
+                }
+            }
+        }
+        public List<string> Images
+        {
+            get => _tour.Images;
+            set
+            {
+                if (value != _tour.Images)
+                {
+                    _tour.Images = value;
+                    OnPropertyChanged(nameof(Images));
+                }
+            }
+        }
 
         private int hours;
         public int Hours
@@ -53,40 +223,42 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             }
         }
 
-        public new Location Location
+        private Location _location = new();
+        public Location Location
         {
-            get { return _tour.Location; }
+            get { return _location; }
             set
             {
-                if (_tour.Location != value)
+                if (_location != value)
                 {
-                    _tour.Location = value;
+                    _location = value;
                     Location.Id = value.Id;
+                    OnPropertyChanged(nameof(Location));
                     Keys.Clear();
-                    foreach (var point in _keyPointService.FindAll().FindAll(x => x.Location.Id == _tour.Location.Id))
+                    foreach (var point in _keyPointService.FindAll().FindAll(x => x.Location.Id == _location.Id))
                     {
                         Keys.Add(point);
                     }
-                    OnPropertyChanged(nameof(Location));
+                    _tour.Location = _location;
                 }
-
             }
         }
-        public List<string> TourLanguages { get; set; }
         public ObservableCollection<Location> AllLocations { get; set; } = new();
         public ObservableCollection<KeyPoint> Keys { get; set; } = new();
         public KeyPoint? SelectedKeyPoint { get; set; }
-        public DateTime SelectedAppointment { get; set; } = DateTime.Now;
-        public TourCreationViewModel(Guide guide) : base(new())
+        private DateTime _appointment;
+        public DateTime SelectedAppointment
         {
-            TourLanguages = new()
+            get => _appointment;
+            set
             {
-                "Srpski",
-                "Engleski",
-                "Francuski",
-                "Španski"
-            };
-
+                if (value == _appointment) return;
+                _appointment = value;
+                OnPropertyChanged(nameof(SelectedAppointment));
+            }
+        }
+        public TourCreationViewModel()
+        {
             _tourService = Injector.GetService<TourService>();
             _tourAppointmentService = Injector.GetService<TourAppointmentService>();
             _tourKeyPointService = Injector.GetService<TourKeyPointService>();
@@ -94,7 +266,44 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             _keyPointService = Injector.GetService<KeyPointService>();
 
             AllLocations = new(_locationService.FindAll());
-            Guide = guide;
+
+            TourLanguages = new ObservableCollection<string>
+            {
+                Tour.GetLanguage(Language.SERBIAN),
+                Tour.GetLanguage(Language.ENGLISH),
+                Tour.GetLanguage(Language.SPANISH),
+                Tour.GetLanguage(Language.FRENCH)
+            };
+            MessageBus.Subscribe<CreateRequestedMessage>(this, OpenMessage);
+            MessageBus.Subscribe<CreateMostWantedMessage>(this, OpenMessage1);
+        }
+
+        private void OpenMessage1(CreateMostWantedMessage message)
+        {
+            if(message.Language > 0)
+            {
+                TourLanguage = Tour.GetLanguage(message.Language);
+                CbLanguageIsEnabled = false;
+                return;
+            }
+            Location = message.Location;
+            CbLocationIsEnabled = false;
+            Tour.Reason = Created.STATISTICS;
+
+        }
+
+        private void OpenMessage(CreateRequestedMessage message)
+        {
+            Location = message.Request.Location;
+            TourLanguage = Tour.GetLanguage(message.Request.TourLanguage);
+            MaxGuestNumber = message.Request.GuestCount;
+            SelectedAppointment = message.Appointment;
+
+            CbLanguageIsEnabled = false;
+            CbLocationIsEnabled = false;
+            DpDateIsEnabled = false;
+
+            Tour.Reason = Created.CUSTOM;
         }
 
         public void CreateTour()
@@ -114,7 +323,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         {
             if (SelectedKeyPoint == null)
             {
-                MessageBox.Show("Nije moguće izabrati ključnu tačku koja ne postoji!");
                 return;
             }
             KeyPoints.Add(SelectedKeyPoint);
@@ -124,12 +332,10 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         {
             if (MaxGuestNumber <= 0)
             {
-                MessageBox.Show("Morate uneti broj gostiju  na turi!");
                 return;
             }
 
-            int seconds = 0;
-            DateTime newDate = new(SelectedAppointment.Year, SelectedAppointment.Month, SelectedAppointment.Day, Hours, Minutes, seconds);
+            DateTime newDate = new(SelectedAppointment.Year, SelectedAppointment.Month, SelectedAppointment.Day, Hours, Minutes, 0);
             Appointments.Add(new(newDate, -1, MaxGuestNumber, -1, Guide.Id));
         }
     }

@@ -1,4 +1,5 @@
 ﻿using SIMSProject.WPF.ViewModels.TourViewModels;
+using SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels;
 using SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels;
 using System;
 using System.Collections.Generic;
@@ -22,16 +23,16 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     /// </summary>
     public partial class TodaysToursPage : Page
     {
-        private TourManagerViewModel ViewModel { get; set; } = new();
+        private ToursManagerViewModel ViewModel { get; set; }
         public TodaysToursPage()
         {
             InitializeComponent();
-            ViewModel.GetTodaysTours();
+            ViewModel = new("TodaysTours");
             this.DataContext = ViewModel;
         }
         private void CheckAppointmentsBTN_Click(object sender, RoutedEventArgs e)
         {
-            var window = new AppointmentPickerWindow(ViewModel.SelectedTour);
+            var window = new AppointmentPickerWindow();
             window.Show();
         }
     }

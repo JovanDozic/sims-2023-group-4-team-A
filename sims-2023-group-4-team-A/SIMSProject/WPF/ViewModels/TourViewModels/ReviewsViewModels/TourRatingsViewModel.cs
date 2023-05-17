@@ -2,6 +2,8 @@
 using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.View.Guest2;
+using SIMSProject.WPF.Messenger.Messages;
+using SIMSProject.WPF.ViewModels.Messenger;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -115,9 +117,9 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ReviewsViewModels
 
             SearchRatingsCommand = new RelayCommand(SearchRatingsExecuted, SearchRatingsCanExecute);
             GetAppointemntsCommand = new RelayCommand(AppointemntsExecuted, AppointemntsCanExecute);
+            DetailsCommand = new RelayCommand(DetailsExecute, DetailsCanExecute);
         }
-
-        
+        #region SearchCommand
         public ICommand SearchRatingsCommand { get; private set; }
         public void SearchRatingsExecuted()
         {
@@ -129,7 +131,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ReviewsViewModels
         {
             return !SearchText.Equals("Pretraži po nazivu ture") && SearchText.Length > 0;
         }
-
+        #endregion
         #region AppointemntsCommand
         public ICommand GetAppointemntsCommand { get; private set; }
         public void AppointemntsExecuted()
@@ -143,6 +145,21 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ReviewsViewModels
         }
 
         #endregion
-
+        #region DetailsCommand
+        public ICommand DetailsCommand { get; private set; }
+        public bool DetailsCanExecute()
+        {
+            return true;
+        }
+        public void DetailsExecute()
+        {
+            SendMessage();
+        }
+        public void SendMessage()
+        {
+            var message = new DetailedReviewMessage(this, AppointmentRating);
+            MessageBus.Publish(message);
+        }
+        #endregion
     }
 }

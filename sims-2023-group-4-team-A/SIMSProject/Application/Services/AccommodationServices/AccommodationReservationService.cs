@@ -7,6 +7,8 @@ using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
+using Xceed.Wpf.AvalonDock.Converters;
 
 namespace SIMSProject.Application.Services.AccommodationServices
 {
@@ -41,6 +43,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
         public List<AccommodationReservation> GetAll()
         {
+            _repo.Load();
             return _repo.GetAll();
         }
 
@@ -51,13 +54,31 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
         public List<AccommodationReservation> GetAllUncancelled(User user)
         {
-            return _repo.GetAll().Where(r => !r.Canceled && r.Guest.Id == user.Id).ToList();
+            return GetAll().Where(r => !r.Canceled && r.Guest.Id == user.Id).ToList();
+        }
+
+        public List<AccommodationReservation> GetAllCancelled()
+        {
+            return GetAll().FindAll(x => x.Canceled);
         }
 
         public List<AccommodationReservation> GetAllByAccommodationId(int accommodationId)
         {
-            _repo.Load();
-            return _repo.GetAllByAccommodationId(accommodationId);
+            var reservations = GetAll().FindAll(x => x.Accommodation.Id == accommodationId);
+            return reservations;
+        }
+
+        public List<AccommodationReservation> GetAllUncanceledByAccommodationId(int accommodationId)
+        {
+            return GetAllByAccommodationId(accommodationId).FindAll(x => !x.Canceled);
+        }
+
+
+        public List<AccommodationReservation> GetAllFutureByAccommodationId(int accommodationId)
+        {
+            var futureReservations = GetAllByAccommodationId(accommodationId);
+            futureReservations.RemoveAll(x => x.StartDate <= DateTime.Now);
+            return futureReservations;
         }
 
         public void UpdateReservation(AccommodationReservation selectedReservation)
@@ -125,6 +146,16 @@ namespace SIMSProject.Application.Services.AccommodationServices
                       .Replace("@accommodation", reservation.Accommodation.Name),
                 reservation.EndDate.AddDays(Consts.GuestRatingDeadline)
             );
+        }
+
+        public List<DateRange> GetSchedule(Accommodation accommodation)
+        {
+            List<DateRange> schedule = new();
+            foreach(var reservation in GetAllUncanceledByAccommodationId(accommodation.Id))
+            {
+                schedule.Add(new DateRange(reservation.StartDate, reservation.EndDate));
+            }
+            return schedule;
         }
     }
 }

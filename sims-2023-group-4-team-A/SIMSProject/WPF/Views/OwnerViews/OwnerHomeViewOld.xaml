@@ -1,0 +1,201 @@
+﻿<Window x:Class="SIMSProject.WPF.Views.OwnerViews.OwnerHomeViewOld"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Icon="../../../Resources/Images/Stars.png"
+        Title="OwnerInitialWindow" Height="500" Width="1500">
+
+    <Window.Resources>
+        <converters:AccommodationTypeConverter x:Key="TypeConverter" />
+    </Window.Resources>
+
+    <Grid Margin="20">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*" />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Button x:Name="BtnRegisterAccommodation" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                Width="150" Height="40"
+                HorizontalContentAlignment="Center"
+                VerticalAlignment="Center" Click="BtnRegisterAccommodation_Click">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../../../Resources/Images/Add.png" Width="20" Height="20" Margin="0,0,5,0" />
+                <TextBlock Margin="5,2,0,0" Text="Registruj smeštaj" />
+            </StackPanel>
+        </Button>
+
+        <Button x:Name="BtnRateGuest" Grid.Column="2" Grid.Row="1"
+                Width="150" Height="40"
+                HorizontalContentAlignment="Center"
+                VerticalAlignment="Center"
+                IsEnabled="False" Click="BtnRateGuest_Click">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../../../Resources/Images/Rating.png" Width="20" Height="20" Margin="0,0,5,0" />
+                <TextBlock Margin="5,2,0,0" Text="Oceni gosta" />
+            </StackPanel>
+        </Button>
+
+        <Button x:Name="BtnViewOwnerRating" Grid.Column="2" Grid.Row="2"
+                Width="150" Height="40"
+                HorizontalContentAlignment="Center"
+                VerticalAlignment="Center"
+                IsEnabled="False" Click="BtnViewOwnerRating_Click" Margin="45,0,45,0">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Resources/Images/lookupitem.png" Width="20" Height="20" Margin="0,0,5,0" />
+                <TextBlock Margin="8,0,0,0" Text="Pregled ocene od gosta" TextWrapping="Wrap" Width="80" />
+            </StackPanel>
+        </Button>
+
+        <Button x:Name="BtnReschedulingRequests" Grid.Column="3" Grid.Row="1"
+                Width="150" Height="40"
+                HorizontalContentAlignment="Center"
+                VerticalAlignment="Center"
+                Click="BtnReschedulingRequests_Click">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Resources/Images/datetimepicker.png" Width="20" Height="20" Margin="0,0,5,0" />
+                <TextBlock Margin="8,0,0,0" Text="Zahtevi za pomeranje" TextWrapping="Wrap" Width="80" />
+            </StackPanel>
+        </Button>
+
+        <Button x:Name="BtnScheduleRenovation" Grid.Column="4" Grid.Row="1"
+                Width="150" Height="40"
+                HorizontalContentAlignment="Center"
+                VerticalAlignment="Center"
+                Click="BtnScheduleRenovation_Click">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Resources/Images/add-renovation.png" Width="20" Height="20" Margin="0,0,5,0" />
+                <TextBlock Margin="8,0,0,0" Text="Zakaži renoviranje" TextWrapping="Wrap" Width="80" />
+            </StackPanel>
+        </Button>
+
+        <Button x:Name="BtnCancelRenovation" Grid.Column="6" Grid.Row="1"
+                Width="150" Height="40"
+                HorizontalContentAlignment="Center"
+                VerticalAlignment="Center"
+                Click="BtnCancelRenovation_Click">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Resources/Images/cancel-renovation.png" Width="20" Height="20" Margin="0,0,5,0" />
+                <TextBlock Margin="8,0,0,0" Text="Otkaži renoviranje" TextWrapping="Wrap" Width="80" />
+            </StackPanel>
+        </Button>
+
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label Content="Smeštaji" FontSize="20"
+                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                   FontWeight="SemiBold" />
+            <DataGrid x:Name="DgrAccommodations" 
+                      ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedAccommodation}"
+                      AutoGenerateColumns="False"
+                      Height="250" Margin="20,10,20,20"
+                      IsReadOnly="True"
+                      SelectionChanged="DgrAccommodations_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
+                    <DataGridTextColumn Header="Ime" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="Lokacija" Binding="{Binding Location}" />
+                    <DataGridTextColumn Header="Tip" Binding="{Binding Type, Converter={StaticResource TypeConverter}}"  />
+                    <DataGridTextColumn Header="Maksimalan br. gostiju" Binding="{Binding MaxGuestNumber}" />
+                    <DataGridTextColumn Header="Minimalan br. dana" Binding="{Binding MinReservationDays}" />
+                    <DataGridTextColumn Header="Granica otkazivanja" Binding="{Binding CancellationThreshold}" />
+                    <DataGridTextColumn Header="Broj slika" Binding="{Binding ImageURLs.Count}" />
+                    <DataGridTextColumn Header="Opis" Binding="{Binding Description}" />
+                    <DataGridCheckBoxColumn Header="Trenutno u renoviranju" Binding="{Binding IsInRenovation}" />
+                    <DataGridCheckBoxColumn Header="Renovirano u prethodnih godinu dana" Binding="{Binding IsRecentlyRenovated}" />
+                    <DataGridTextColumn Header="Datum kreiranja" Binding="{Binding DateCreated, StringFormat=\{0:dd.MM.yy\}}" />
+                    <DataGridTextColumn Header="Ocena" Binding="{Binding Rating.Overall}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2">
+            <Label Content="Rezervacije" FontSize="20"
+                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                   FontWeight="SemiBold" />
+            <DataGrid x:Name="DgrReservations" 
+                      ItemsSource="{Binding SelectedAccommodationReservations, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedReservation}"
+                      AutoGenerateColumns="False"
+                      Height="250" Margin="20,10,20,20"
+                      IsReadOnly="True" SelectionChanged="DgrReservations_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="30" />
+                    <DataGridTextColumn Header="Od" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yy\}}" Width="80" />
+                    <DataGridTextColumn Header="Do" Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yy\}}" Width="80" />
+                    <DataGridTextColumn Header="Broj dana" Binding="{Binding NumberOfDays}" Width="30" />
+                    <DataGridTextColumn Header="Gost" Binding="{Binding Guest.Username}" Width="80" />
+                    <DataGridCheckBoxColumn Header="Gost ocenjen" Binding="{Binding GuestRated}" />
+                    <DataGridCheckBoxColumn Header="Vlasnik ocenjen" Binding="{Binding OwnerRated}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2">
+            <Label Content="Renoviranja" FontSize="20"
+                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                   FontWeight="SemiBold" />
+            <DataGrid x:Name="DgrRenovations"
+                      ItemsSource="{Binding SelectedAccommodationRenovations, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedRenovation}"
+                      AutoGenerateColumns="False"
+                      Height="250" Margin="20,10,20,20"
+                      IsReadOnly="True" SelectionChanged="DgrRenovations_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="30" />
+                    <DataGridCheckBoxColumn Header="Otkazano" Binding="{Binding IsCancelled}" />
+                    <DataGridTextColumn Header="Od" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yy\}}" Width="80" />
+                    <DataGridTextColumn Header="Do" Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yy\}}" Width="80" />
+                    <DataGridTextColumn Header="Broj dana" Binding="{Binding NumberOfDays}" Width="30" />
+                    <DataGridTextColumn Header="Opis" Binding="{Binding Description}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="2">
+            <TextBlock Width="100"
+                       FontSize="16" 
+                       VerticalAlignment="Center"
+                       Margin="20,0,0,0">
+            <Hyperlink Click="LogOut_Click">Odjava</Hyperlink>
+            </TextBlock>
+
+            <TextBlock Width="100"
+                       FontSize="16" 
+                       VerticalAlignment="Center"
+                       Margin="20,0,0,0">
+            <Hyperlink Click="OwnerInfo_Click">Nalog</Hyperlink>
+            </TextBlock>
+        </StackPanel>
+
+        <Button x:Name="BtnNotifications" Grid.Column="3" Grid.Row="2"
+                Width="150" Height="40"
+                HorizontalContentAlignment="Center"
+                VerticalAlignment="Center"
+                Click="BtnNotifications_Click">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{Binding NotificationIconSource}" Width="20" Height="20" Margin="0,0,5,0" />
+                <TextBlock Margin="5,2,0,0" Text="Obaveštenja" />
+            </StackPanel>
+        </Button>
+
+
+    </Grid>
+</Window>
