@@ -1,27 +1,21 @@
 ﻿using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.AccommodationModels;
-using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
-using SIMSProject.Model;
-using SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 
 namespace SIMSProject.Application.Services.AccommodationServices
 {
     public class AccommodationService
     {
         private readonly IAccommodationRepo _repo;
-        private readonly AccommodationReservationService _accommodationReservationService;
         private readonly OwnerRatingService _ratingService;
 
         public AccommodationService(IAccommodationRepo repo)
         {
             _repo = repo;
-            _accommodationReservationService = Injector.GetService<AccommodationReservationService>();
             _ratingService = Injector.GetService<OwnerRatingService>();
         }
 
@@ -87,7 +81,6 @@ namespace SIMSProject.Application.Services.AccommodationServices
             return months;
         }
 
-
         public void Search(ObservableCollection<Accommodation> accommodations, string nameTypeLocation, int durationSearch, int maxGuestsSearch)
         {
             accommodations.Clear();
@@ -110,12 +103,12 @@ namespace SIMSProject.Application.Services.AccommodationServices
             foreach (var searchResult in searchResults)
                 accommodations.Add(searchResult);
         }
+
         public List<AccommodationReservation> CheckReservations(List<AccommodationReservation> reservations, DateTime startDate, DateTime endDate, int accommodationId)
         {
             var conflictingReservation = reservations.FindAll(r => r.Accommodation.Id == accommodationId && (startDate < r.EndDate && r.StartDate < endDate));
 
             return conflictingReservation; 
         }
-       
     }
 }

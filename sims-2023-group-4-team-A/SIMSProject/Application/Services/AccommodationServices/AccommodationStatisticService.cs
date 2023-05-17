@@ -68,7 +68,9 @@ namespace SIMSProject.Application.Services.AccommodationServices
             var reservations = _reservationService.GetAllByAccommodationId(accommodation.Id)
                 .FindAll(x => x.StartDate.Year == year && x.StartDate.Month == month);
             var requests = _requestService.GetAllByAccommodationId(accommodation.Id)
-                .FindAll(x => x.Reservation.StartDate.Year == year && x.Reservation.StartDate.Month == month);
+                .FindAll(x => x.Reservation.StartDate.Year == year && x.Reservation.StartDate.Month == month 
+                         && x.Status == Domain.Models.ReschedulingRequestStatus.Accepted);
+            // var 
 
             AccommodationStatistic statistic = new()
             {
