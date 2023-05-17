@@ -8,7 +8,7 @@
       d:DesignHeight="768" d:DesignWidth="1024"
       Title="OwnerRating">
 
-    <ScrollViewer Margin="65,0,0,0" CanContentScroll="True">
+    <ScrollViewer Margin="65,0,0,0" CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Hidden">
         <Grid Height="1180" Width="900">
 
             <Grid.ColumnDefinitions>
@@ -49,7 +49,7 @@
                        HorizontalAlignment="Left" VerticalAlignment="Center"
                        FontSize="30" FontWeight="Bold" FontStyle="Italic"></TextBlock>
             <TextBlock Text="Niste odabrali smeštaj" x:Name="SelectionValidation" Grid.Row="2" Width="374" Foreground="Red" FontSize="18" Margin="0,72,76,61" Grid.RowSpan="2"></TextBlock>
-            <Label Grid.Row="3" Content="Cistoća:" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+            <Label Grid.Row="3" Content="Čistoća:" HorizontalAlignment="Left" VerticalAlignment="Bottom"
                    FontSize="30"></Label>
             <custom:NumericBoxRating FontSize="30" Grid.Row="3" HorizontalAlignment="Left"  Grid.RowSpan="2" Margin="43,61,0,32"
                                      Value="{Binding CleanlinessRating, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></custom:NumericBoxRating>
@@ -122,10 +122,10 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Preporuka o renoviranju" Click="Button_Click_Renovation" Grid.Column="1" Grid.Row="10"
+            <Button Content="Preporuka o renoviranju" x:Name="RenovationButton" Click="Button_Click_Renovation" Grid.Column="1" Grid.Row="10"
                     FontSize="30" BorderThickness="0" BorderBrush="White" Background="Transparent"
                     VerticalAlignment="Center" HorizontalAlignment="Center"
-                    Width="320"
+                    Width="320" Visibility="Hidden"
                     Foreground="Blue"></Button>
 
         </Grid>

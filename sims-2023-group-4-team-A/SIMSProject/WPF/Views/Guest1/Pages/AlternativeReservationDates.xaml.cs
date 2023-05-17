@@ -41,7 +41,7 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
         private void Button_Click_Confirm(object sender, RoutedEventArgs e)
         {
             _reservationViewModel.SaveReservation();
-            MessageBox.Show("Uspešno rezervisano");
+            MessageBox.Show("Smeštaj uspešno rezervisan!", "", MessageBoxButton.OK, MessageBoxImage.Information);
             NavigationService.Navigate(new MainPage(_user));
         }
 

@@ -63,6 +63,11 @@ namespace SIMSProject.Application.Services.AccommodationServices
             return owner;
         }
 
+        public OwnerRating GetById(int id)
+        {
+            return _ratingRepo.GetById(id);
+        }
+
         public bool IsSuperOwner(User user)
         {
             if (user is not Owner owner) return false;

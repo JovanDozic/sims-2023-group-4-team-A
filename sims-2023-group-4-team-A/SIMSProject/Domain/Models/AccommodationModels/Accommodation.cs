@@ -15,7 +15,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public string Name { get; set; } = string.Empty;
         public Location Location { get; set; } = new();
         public AccommodationType Type { get; set; } = AccommodationType.None;
-        public int MaxGuestNumber { get; set; } = 2;
+        public int MaxGuestNumber { get; set; } = 1;
         public int MinReservationDays { get; set; } = 1;
         public int CancellationThreshold { get; set; } = 1;
         public List<string> ImageURLs { get; set; } = new();
@@ -26,6 +26,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public bool IsRecentlyRenovated { get; set; } = false;
         public DateTime DateCreated { get; set; } = DateTime.Now;
         public AccommodationRating Rating { get; set; } = new();
+        public bool IsOwnerSuper => Owner.Role == UserRole.SuperOwner;
 
         public Accommodation()
         {

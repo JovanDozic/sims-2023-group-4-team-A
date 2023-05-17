@@ -189,7 +189,7 @@
                                 <GridViewColumn Header="Dolazak" DisplayMemberBinding="{Binding StartDate, StringFormat=\{0:dd.MMM.yy\}}" Width="120"/>
                                 <GridViewColumn Header="Odlazak" DisplayMemberBinding="{Binding EndDate, StringFormat=\{0:dd.MMM.yy\}}" Width="120"/>
                                 <GridViewColumn Header="Broj dana" DisplayMemberBinding="{Binding NumberOfDays}" Width="100"/>
-                                <GridViewColumn Header="Broj Gostiju" DisplayMemberBinding="{Binding Guest.Username}" Width="100"/>
+                                <GridViewColumn Header="Broj Gostiju" DisplayMemberBinding="{Binding GuestNumber}" Width="100"/>
                             </GridView>
                         </ListView.View>
                     </ListView>

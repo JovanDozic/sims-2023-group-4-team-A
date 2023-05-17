@@ -103,12 +103,18 @@ namespace SIMSProject.Application.Services.AccommodationServices
             foreach (var searchResult in searchResults)
                 accommodations.Add(searchResult);
         }
-
-        public List<AccommodationReservation> CheckReservations(List<AccommodationReservation> reservations, DateTime startDate, DateTime endDate, int accommodationId)
+        public List<AccommodationReservation> CheckReservations(List<AccommodationReservation> reservations, DateTime startDate, DateTime endDate)
         {
-            var conflictingReservation = reservations.FindAll(r => r.Accommodation.Id == accommodationId && (startDate < r.EndDate && r.StartDate < endDate));
+            var conflictingReservations = reservations.FindAll(r => startDate < r.EndDate && r.StartDate < endDate);
 
-            return conflictingReservation; 
+            return conflictingReservations; 
+        }
+
+        public List<AccommodationRenovation> CheckRenovations(List<AccommodationRenovation> renovations, DateTime startDate, DateTime endDate)
+        {
+            var conflictingRenovations = renovations.FindAll(r => startDate < r.EndDate && r.StartDate < endDate);
+
+            return conflictingRenovations;
         }
     }
 }
