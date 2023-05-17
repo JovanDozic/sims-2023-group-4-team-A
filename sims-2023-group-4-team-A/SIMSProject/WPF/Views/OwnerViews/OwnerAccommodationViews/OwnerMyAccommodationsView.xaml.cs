@@ -1,12 +1,10 @@
 ﻿using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
 {
@@ -43,16 +41,16 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
 
         private void TbSearchInput_TextChanged(object sender, TextChangedEventArgs e)
         {
+            LstAccommodations.SelectedItem = null;
             _viewModel.SearchAccommodations(TbSearchInput.Text);
         }
 
         private void LstAccommodations_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (LstAccommodations.SelectedItem is null) return; 
             OwnerAccommodationDetails accommodationDetails = new(_user, new Accommodation(_viewModel.Accommodation));
             OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow ?? new(_user);
             ownerWindow?.SwitchToPage(accommodationDetails);
-
-           
         }
     }
 }

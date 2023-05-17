@@ -5,6 +5,7 @@ using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace SIMSProject.Application.Services.AccommodationServices
@@ -66,6 +67,34 @@ namespace SIMSProject.Application.Services.AccommodationServices
         {
             if (user is not Owner owner) return false;
             return CountAllByOwnerId(owner.Id) >= Consts.SuperOwnerMinimumRatingCount && owner.Rating >= Consts.SuperOwnerMinimumRating;
+        }
+
+
+        public AccommodationRating CalculateRating(Accommodation accommodation)
+        {
+            var ratings = _ratingRepo.GetAllByAccommodationId(accommodation.Id);
+            try
+            {
+                return new()
+                {
+                    CleanlinessRating = ratings.Average(x => x.CleanlinessRating),
+                    OwnerCorrectness = ratings.Average(x => x.OwnerCorrectness),
+                    Kindness = ratings.Average(x => x.Kindness),
+                    NumberOfRatings = ratings.Count
+                };
+            }
+            catch
+            {
+                return new();
+            }
+        }
+
+        internal void UpdateRatingsForReservations(ObservableCollection<AccommodationReservation> reservations)
+        {
+            foreach (var reservation in reservations)
+            {
+                if (reservation.OwnerRated) reservation.OwnerRating = GetByReservationId(reservation.Id).Overall;
+            }
         }
     }
 }

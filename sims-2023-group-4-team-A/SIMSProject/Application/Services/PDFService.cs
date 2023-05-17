@@ -163,6 +163,7 @@ namespace SIMSProject.Application.Services
                 footer.Alignment = Element.ALIGN_RIGHT;
                 document.Add(footer);
 
+                document.Add(table);
                 document.Close();
                 //MessageBox.Show("PDF file generated successfully.");
             }

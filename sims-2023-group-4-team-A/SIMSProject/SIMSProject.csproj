@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
+
+	<PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
@@ -21,7 +22,10 @@
     <None Remove="Resources\Icons\bell-fill.png" />
     <None Remove="Resources\Icons\bell.png" />
     <None Remove="Resources\Icons\bookbnb.png" />
+    <None Remove="Resources\Icons\clock-unfill.png" />
+    <None Remove="Resources\Icons\crossed-eye.png" />
     <None Remove="Resources\Icons\down.png" />
+    <None Remove="Resources\Icons\eye.png" />
     <None Remove="Resources\Icons\forum-fill.png" />
     <None Remove="Resources\Icons\forum.png" />
     <None Remove="Resources\Icons\help.png" />
@@ -34,19 +38,24 @@
     <None Remove="Resources\Icons\renovation-clock.png" />
     <None Remove="Resources\Icons\renovation.png" />
     <None Remove="Resources\Icons\right.png" />
+    <None Remove="Resources\Icons\share.png" />
     <None Remove="Resources\Icons\star-fill.png" />
     <None Remove="Resources\Icons\star-half.png" />
     <None Remove="Resources\Icons\star.png" />
+    <None Remove="Resources\Icons\trophy.png" />
     <None Remove="Resources\Icons\user-fill.png" />
     <None Remove="Resources\Icons\user.png" />
+    <None Remove="Resources\Images\add-renovation.png" />
     <None Remove="Resources\Images\add.png" />
-    <None Remove="Resources\Images\calendar.png" />
-    <None Remove="Resources\Images\calendar1.png" />
-    <None Remove="Resources\Images\checkboxlist.png" />
+	  <None Remove="Resources\Images\cancel-renovation.png" />
+	  <None Remove="Resources\Images\calendar.png" />
+	  <None Remove="Resources\Images\calendar1.png" />
+	  <None Remove="Resources\Images\checkboxlist.png" />
     <None Remove="Resources\Images\checkmark.png" />
     <None Remove="Resources\Images\chevron-left-black.png" />
     <None Remove="Resources\Images\chevron-right-black.png" />
     <None Remove="Resources\Images\close.png" />
+    <None Remove="Resources\Images\datetimepicker.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\home.png" />
@@ -92,7 +101,10 @@
     <Resource Include="Resources\Icons\bell-fill.png" />
     <Resource Include="Resources\Icons\bell.png" />
     <Resource Include="Resources\Icons\bookbnb.png" />
+    <Resource Include="Resources\Icons\clock-unfill.png" />
+    <Resource Include="Resources\Icons\crossed-eye.png" />
     <Resource Include="Resources\Icons\down.png" />
+    <Resource Include="Resources\Icons\eye.png" />
     <Resource Include="Resources\Icons\forum-fill.png" />
     <Resource Include="Resources\Icons\forum.png" />
     <Resource Include="Resources\Icons\help.png" />
@@ -107,6 +119,7 @@
     <Resource Include="Resources\Icons\renovation-clock.png" />
     <Resource Include="Resources\Icons\renovation.png" />
     <Resource Include="Resources\Icons\right.png" />
+    <Resource Include="Resources\Icons\share.png" />
     <Resource Include="Resources\Icons\star-fill.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -116,12 +129,15 @@
     <Resource Include="Resources\Icons\star.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Icons\trophy.png" />
     <Resource Include="Resources\Icons\user-fill.png" />
     <Resource Include="Resources\Icons\user.png" />
+    <Resource Include="Resources\Images\add-renovation.png" />
     <Resource Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\calendar1.png" />
+    <Resource Include="Resources\Images\cancel-renovation.png" />
     <Resource Include="Resources\Images\checkboxlist.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -133,6 +149,7 @@
     <Resource Include="Resources\Images\close.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\datetimepicker.png" />
     <Resource Include="Resources\Images\home.png" />
     <Resource Include="Resources\Images\location.png" />
     <Resource Include="Resources\Images\lookupitem.png" />
@@ -205,6 +222,7 @@
     <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageReference Include="MaterialDesignInXamlToolkitAddOns" Version="0.0.6" />

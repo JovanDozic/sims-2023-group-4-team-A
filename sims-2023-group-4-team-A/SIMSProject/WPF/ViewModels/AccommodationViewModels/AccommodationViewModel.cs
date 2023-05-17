@@ -5,7 +5,6 @@ using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -227,21 +226,9 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         }
         public double Rating
         {
-            get => Accommodation.Rating;
+            get => Accommodation.Rating.Overall;
             set
             {
-                if (value == Accommodation.Rating) return;
-                Accommodation.Rating = value;
-                OnPropertyChanged();
-            }
-        }
-        public int NumberOfRatings
-        {
-            get => Accommodation.NumberOfRatings;
-            set
-            {
-                if (value == Accommodation.NumberOfRatings) return;
-                Accommodation.NumberOfRatings = value;
                 OnPropertyChanged();
             }
         }
@@ -255,6 +242,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
+
         public ObservableCollection<Accommodation> Accommodations
         {
             get => _accommodations;
@@ -319,7 +307,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             if (result != MessageBoxResult.Yes) return;
 
             _accommodation.Location = _locationService.GetLocation(_accommodation.Location);
-            if (_accommodation.Location == null) MessageBox.Show("nullcina");
+            if (_accommodation.Location == null) return;
             _accommodation.Owner = _user as Owner ?? throw new Exception("Greška prilikom registrovanja: Vlasnik nije inicijalizovan.");
             _accommodationService.RegisterAccommodation(_accommodation);
 
@@ -450,9 +438,11 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                         break;
                     case nameof(FullLocation):
                         if (string.IsNullOrEmpty(FullLocation)) error = requiredMessage;
+                        if (!FullLocation.Contains(',')) error = requiredMessage;
                         var parts = FullLocation.Split(',');
                         if (FullLocation.Length < 3 || parts.Length != 2) error = "Lokacija mora biti u formatu 'Grad, Država'";
                         else if (parts[0].Length < 3 || parts[1].Length < 3) error = "Imena grada i države moraju biti duže od 3 karaktera";
+                        else if (!_locationService.Exists(parts[0], parts[1])) error = "Lokacija ne postoji u nasem sistemu";
                         break;
                     case nameof(Type):
                         if (string.IsNullOrEmpty(Accommodation.GetType(Type)) || Type == AccommodationType.None) error = requiredMessage;
