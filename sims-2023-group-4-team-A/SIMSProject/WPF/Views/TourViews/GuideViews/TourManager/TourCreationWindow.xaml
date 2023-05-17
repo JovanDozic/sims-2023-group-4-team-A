@@ -75,13 +75,12 @@
                 HorizontalAlignment="Left" Margin="10,0,0,50"/>
         <ComboBox Grid.Row="2" Grid.Column="0" 
                   Height="42" Width="243" 
-                  IsEditable="True"
                   IsEnabled="{Binding Path=CbLocationIsEnabled, Mode=TwoWay}"
                   FontSize="22"
                   HorizontalAlignment="Left" Margin="10,40,0,0"
                   ItemsSource="{Binding Path=AllLocations, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path=Location, UpdateSourceTrigger=PropertyChanged}"
-                  Text="{Binding Path=Location, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource LocationConverter}}">
+                  SelectedItem="{Binding Path=SelectedLocation, UpdateSourceTrigger=PropertyChanged}"
+                  Text="{Binding Path=SelectedLocation, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource LocationConverter}}">
         </ComboBox>
         <Label Style="{StaticResource labels}" 
                Content="Ključne tačke" 
@@ -93,7 +92,7 @@
                   FontSize="22"
                   ItemsSource="{Binding Keys, UpdateSourceTrigger=PropertyChanged}" 
                   SelectedItem="{Binding SelectedKeyPoint, UpdateSourceTrigger=PropertyChanged}"
-                  IsEditable="True"/>
+                  />
         <Button x:Name="AddKeyPoint"
                 Width="28" Height="23" 
                 Margin="80,40,0,0" 
@@ -101,14 +100,15 @@
                 Content="+"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
-                Click="AddKeyPoint_Click" FontSize="18"
+                Command="{Binding Path=AddKeyPointCommand}"
+                FontSize="18"
                 />
         <ListBox x:Name="LbKeyPoints"
                  Grid.Row="4" Grid.RowSpan="2" 
                  Width="450" Height="141" 
                  FontSize="22"
                  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"
-                 ItemsSource="{Binding Path=KeyPoints, UpdateSourceTrigger=PropertyChanged}"/>
+                 ItemsSource="{Binding Path=KeyPoints, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
         <Label Grid.Row="5" Grid.Column="0" 
                Style="{StaticResource labels}" 
                Content="Opis ture" 
@@ -137,7 +137,7 @@
         <Button x:Name="AddDate"
                 Width="28" Height="23" 
                 Content="+" 
-                Click="AddDate_Click"
+                Command="{Binding Path=AddAppointmentCommand}"
                 Grid.Row="1" Grid.Column="1" 
                 Margin="150,0,0,30"/>
 
@@ -191,12 +191,12 @@
                 Width="150" Height="33" 
                 FontSize="22" FontWeight="Bold" 
                 Content="Dodaj sliku"
-                Click="BTNUploadFiles_Click"/>
+                Command="{Binding Path=AddImageCommand}"/>
         <TextBox x:Name="ImageURLs" 
                  Grid.Column="2" 
                  FontSize="22"
-                 Width="270" Height="42"
-                 GotFocus="ImageURLs_GotFocus"/>
+                 Text="{Binding Path=ImageUrl, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                 Width="270" Height="42"/>
         <ListBox x:Name="LbImages"
                  Grid.Row="3" Grid.Column="2" 
                  Grid.RowSpan="3" 
@@ -209,6 +209,6 @@
                 Foreground="Blue"
                 Content="Potvrdi Ctrl+P" 
                 Width="220" Height="42"
-                Click="Confirm_Click"/>
+                Command="{Binding Path=CreateTourCommand}"/>
     </Grid>
 </Window>

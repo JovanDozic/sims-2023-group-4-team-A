@@ -11,7 +11,6 @@ using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Model;
-using System;
 using System.Collections.ObjectModel;
 
 namespace SIMSProject.WPF.ViewModels.Guest1ViewModels

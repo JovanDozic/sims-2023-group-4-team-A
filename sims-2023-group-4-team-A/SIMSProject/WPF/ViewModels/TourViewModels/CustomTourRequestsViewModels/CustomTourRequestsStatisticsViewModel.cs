@@ -8,12 +8,10 @@ using System.Windows.Input;
 using LiveCharts;
 using LiveCharts.Wpf;
 using LiveCharts.Helpers;
-using Dynamitey.DynamicObjects;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Windows;
 using SIMSProject.WPF.Messenger.Messages;
-using SIMSProject.WPF.ViewModels.Messenger;
+using SIMSProject.WPF.Messenger;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
 {

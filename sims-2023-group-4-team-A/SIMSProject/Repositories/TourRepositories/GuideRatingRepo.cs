@@ -72,9 +72,5 @@ namespace SIMSProject.Repositories.TourRepositories
                 guideRating.TourReservation = _reservationRepo.GetById(guideRating.TourReservation.Id);
             }
         }
-        public List<DateTime> GetRatedDatesByTour(TourRatingDTO tourRating)
-        {
-            return tourRating.Ratings.Select(x => x.User.TourAppointment.Date).Distinct().ToList();
-        }
     }
 }

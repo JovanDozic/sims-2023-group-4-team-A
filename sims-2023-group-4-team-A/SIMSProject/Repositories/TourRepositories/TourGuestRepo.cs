@@ -35,17 +35,12 @@ namespace SIMSProject.Repositories.TourRepositories
 
         public TourGuest Save(TourGuest tourGuest)
         {
-            TourGuest? old = GetTourGuest(tourGuest);
+            TourGuest? old = GetTourGuest(tourGuest.TourAppointment.Id, tourGuest.Guest.Id);
             if (old != null) return null;
 
             _tourGuests.Add(tourGuest);
             _fileHandler.Save(_tourGuests);
             return tourGuest;
-        }
-
-        public TourGuest? GetTourGuest(TourGuest tourGuest)
-        {
-            return GetAll().Find(x => x.TourAppointment.Id == tourGuest.TourAppointment.Id && x.Guest.Id == tourGuest.Guest.Id);
         }
 
         public void SaveAll(List<TourGuest> tourGuests)
@@ -60,11 +55,11 @@ namespace SIMSProject.Repositories.TourRepositories
             {
                 MapKeyPoint(tourGuest);
                 MapGuest(tourGuest);
-                MapTourAppointemnt(tourGuest);
+                MapTourAppointment(tourGuest);
             }
         }
 
-        private void MapTourAppointemnt(TourGuest tourGuest)
+        private void MapTourAppointment(TourGuest tourGuest)
         {
             tourGuest.TourAppointment = _tourAppointmentRepo.GetAll().Find(x => x.Id == tourGuest.TourAppointment.Id) ?? throw new System.Exception("Error! No matching appointment.");
         }
@@ -89,7 +84,17 @@ namespace SIMSProject.Repositories.TourRepositories
 
         public List<TourGuest> GetPresentGuests()
         {
-            return GetAll().FindAll(x => x.GuestStatus == GuestAttendance.PRESENT);
+            return _tourGuests.FindAll(x => x.GuestStatus == GuestAttendance.PRESENT);
+        }
+
+        public List<TourGuest> GetAllPendingByUser(User user)
+        {
+            return _tourGuests.FindAll(x => x.Guest.Id == user.Id && x.GuestStatus == GuestAttendance.PENDING);
+        }
+
+        public TourGuest GetTourGuest(int appointmentId, int guestId)
+        {
+            return _tourGuests.Find(x => x.TourAppointment.Id == appointmentId && x.Guest.Id == guestId);
         }
     }
 }

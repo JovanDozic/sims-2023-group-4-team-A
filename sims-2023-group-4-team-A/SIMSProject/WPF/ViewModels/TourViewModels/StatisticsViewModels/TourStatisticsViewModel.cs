@@ -12,6 +12,8 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.StatisticsViewModels
 {
     public class TourStatisticsViewModel: ViewModelBase
     {
+        private readonly TourStatisticsService _tourStatisticsService;
+        private readonly TourAppointmentService _tourAppointmentService;
         private readonly TourService _tourService;
 
         public ObservableCollection<Tour> Tours { get; set; } = new();
@@ -125,7 +127,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.StatisticsViewModels
         public void GetFinishedTours()
         {
             Tours.Clear();
-            Tours = new(_tourService.GetToursWithFinishedAppointments());
+            Tours = new(_tourAppointmentService.GetToursWithFinishedAppointments());
         }
 
         #region GetStatisticsCommand
@@ -138,7 +140,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.StatisticsViewModels
 
         private void ExecuteGetStatistics()
         {
-            TourStatistics = _tourService.GetMostVisitedTour(null);
+            TourStatistics = _tourStatisticsService.GetMostVisitedTour(null);
         }
         #endregion
 
@@ -152,16 +154,18 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.StatisticsViewModels
 
         private void ExecuteYearlyStatistics()
         {
-            TourStatistics = _tourService.GetMostVisitedTour(int.Parse(DesiredYear));
+            TourStatistics = _tourStatisticsService.GetMostVisitedTour(int.Parse(DesiredYear));
         }
         #endregion
 
         public TourStatisticsViewModel()
         {
+            _tourStatisticsService = Injector.GetService<TourStatisticsService>();
             _tourService = Injector.GetService<TourService>();
+            _tourAppointmentService = Injector.GetService<TourAppointmentService>();
 
-            AgeGroupDictionary = _tourService.MapToursGuestAgeGroups();
-            VoucherDictionary = _tourService.MapToursVoucherUsage();
+            AgeGroupDictionary = _tourStatisticsService.MapToursGuestAgeGroups();
+            VoucherDictionary = _tourStatisticsService.MapToursVoucherUsage();
 
             GetStatisticsCommand = new RelayCommand(ExecuteGetStatistics, CanExecuteGetStatistics);
             GetYearlyStatisticsCommand = new RelayCommand(ExecuteYearlyStatistics, CanExecuteYearlyStatistics);

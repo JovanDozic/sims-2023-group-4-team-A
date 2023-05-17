@@ -1,14 +1,9 @@
 ﻿using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.WPF.Messenger;
 using SIMSProject.WPF.Messenger.Messages;
-using SIMSProject.WPF.ViewModels.Messenger;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
@@ -16,6 +11,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
     public class ToursManagerViewModel: ViewModelBase
     {
         private readonly TourService _tourService;
+        private readonly TourAppointmentService _tourAppointmentService;
 
         private ObservableCollection<Tour> _tours = new();
         public ObservableCollection<Tour> Tours
@@ -45,10 +41,11 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         }
         public ToursManagerViewModel(string callerId)
         {
+            _tourAppointmentService = Injector.GetService<TourAppointmentService>();
             _tourService = Injector.GetService<TourService>();
             switch(callerId)
             {
-                case "TodaysTours": Tours = new(_tourService.GetTodaysTours());break;
+                case "TodaysTours": Tours = new(_tourAppointmentService.GetTodaysTours());break;
                 case "AllTours": Tours = new(_tourService.GetTours()); break;
             }
             TourInfoCommand = new RelayCommand(TourInfoExecute, TourInfoCanExecute);

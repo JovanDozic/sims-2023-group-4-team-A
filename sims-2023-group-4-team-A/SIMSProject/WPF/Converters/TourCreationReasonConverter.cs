@@ -13,7 +13,7 @@ namespace SIMSProject.WPF.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is Created created)
+            if (value is CreatingReason created)
             {
                 return Tour.GetReason(created);
             }

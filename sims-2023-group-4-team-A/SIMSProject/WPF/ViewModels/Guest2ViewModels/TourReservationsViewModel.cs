@@ -80,7 +80,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         public bool IsRatingEnabled()
         {
             if (SelectedTourReservation == null) return false;
-            var tourGuest = _tourGuestService.GetGuest(SelectedTourReservation.TourAppointment, _user.Id);
+            var tourGuest = _tourGuestService.GetTourGuest(SelectedTourReservation.TourAppointment, _user.Id);
             if (SelectedTourReservation.TourAppointment.TourStatus == Status.COMPLETED && SelectedTourReservation.GuideRated == false && tourGuest.GuestStatus == GuestAttendance.PRESENT)
             {
                 return true;

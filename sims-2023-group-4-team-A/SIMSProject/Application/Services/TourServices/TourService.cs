@@ -16,71 +16,34 @@ namespace SIMSProject.Application.Services.TourServices
     public class TourService
     {
         private readonly ITourRepo _repo;
-        private readonly ITourAppointmentRepo _appointmentRepo;
-        private readonly GuideRatingService _guideRatingService;
-        private readonly TourStatisticsService _tourStatisticsService;
-
-        public TourService(ITourRepo repo, ITourAppointmentRepo appointmentRepo)
+        private readonly TourRatingService _tourRatingService;
+        private readonly TourKeyPointService _tourKeyPointService;
+        
+        public TourService(ITourRepo repo)
         {
             _repo = repo;
-            _appointmentRepo = appointmentRepo;
-            _guideRatingService = Injector.GetService<GuideRatingService>();
-            _tourStatisticsService = Injector.GetService<TourStatisticsService>();
+            _tourRatingService = Injector.GetService<TourRatingService>();
+            _tourKeyPointService = Injector.GetService<TourKeyPointService>();
         }
-
         public List<Tour> GetTours()
         {
             return _repo.GetAll();
         }
-
-        public List<Tour> GetTodaysTours()
-        {
-            return _appointmentRepo.GetTodaysAppointments().Select(x => x.Tour).Distinct().ToList();
-        }
-
-        public List<Tour> GetToursWithFinishedAppointments()
-        {
-            return _appointmentRepo.GetAll()
-                .Where(x => x.TourStatus == Status.COMPLETED)
-                .Select(x => x.Tour).Distinct().ToList();  
-        }
-
-
-        public Dictionary<int, VoucherUsageDTO> MapToursVoucherUsage()
-        {
-            Dictionary<int, VoucherUsageDTO> dictionary = new();
-            foreach (var finished in GetToursWithFinishedAppointments())
-            {
-                dictionary.TryAdd(finished.Id, _tourStatisticsService.GetVoucherUsageByTour(finished.Id));
-            }
-            return dictionary;
-        }
-
-        public Dictionary<int, GuestAgeGroupsDTO> MapToursGuestAgeGroups()
-        {
-            Dictionary<int, GuestAgeGroupsDTO> dictionary = new();
-            foreach(var finished in GetToursWithFinishedAppointments())
-            {
-                dictionary.TryAdd(finished.Id, _tourStatisticsService.SumGuestByAgeGroup(finished.Id));
-            }
-            return dictionary;
-        }
-        public TourStatisticsDTO GetMostVisitedTour(int? desiredYear)
-        {
-            return _tourStatisticsService.GetMostVisitedTour(desiredYear);
-        }
-
         public List<TourRatingDTO> GetRatings()
         {
             List<TourRatingDTO> tourRatings = new();
 
             foreach(var tour in _repo.GetAll())
             {
-                List<TourAppointmentRatingDTO> ratings = _guideRatingService.MapRatingsByTour(tour.Id);
+                List<TourAppointmentRatingDTO> ratings = _tourRatingService.MapRatingsByTour(tour.Id);
                 if (ratings.Count == 0) continue;
                 tourRatings.Add(new(tour, ratings));
             }
             return tourRatings;
+        }
+        public List<DateTime> GetRatedDatesByTour(TourRatingDTO rating)
+        {
+            return _tourRatingService.GetRatedDatesByTourRating(rating);
         }
 
         public List<TourRatingDTO> SearchRatings(string tourName)
@@ -90,7 +53,7 @@ namespace SIMSProject.Application.Services.TourServices
 
         public void CreateTour(Tour tour)
         {
-            _repo.Save(tour);
+            _tourKeyPointService.CreateNewPairs(_repo.Save(tour));
         }
 
         public KeyPoint GetNextKeyPoint(TourAppointment appointment)
@@ -103,7 +66,7 @@ namespace SIMSProject.Application.Services.TourServices
 
         public KeyPoint GetLastKeyPoint(TourAppointment appointment)
         {
-            return _repo.GetById(appointment.Tour.Id)?.KeyPoints.Last();
+            return _repo.GetLastKeyPoint(appointment);
         }
 
         public List<Tour> GetToursWithSameLocation(Tour tour)
@@ -114,11 +77,5 @@ namespace SIMSProject.Application.Services.TourServices
         {
             _repo.SearchTours(locationAndLanguage, searchDuration, searchMaxGuests, language, tours);
         }
-
-        public List<DateTime> GetRatedDatesByTour(TourRatingDTO rating)
-        {
-            return _guideRatingService.GetRatedDatesByTourRating(rating);
-        }
-
     }
 }

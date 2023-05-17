@@ -182,11 +182,5 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.BaseViewModels
         {
             _tour = tour;
         }
-
-        public string KeyPointsToString()
-        {
-            return _tour.KeyPointsToString();
-        }
-
     }
 }

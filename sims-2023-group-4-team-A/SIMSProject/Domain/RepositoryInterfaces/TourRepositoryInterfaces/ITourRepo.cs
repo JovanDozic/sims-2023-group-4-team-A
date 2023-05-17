@@ -17,5 +17,6 @@ namespace SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces
         public List<TourRatingDTO> SearchRatingsByTourName(List<TourRatingDTO> ratings, string tourName);
         public int GetCurrentKeyPointIndex(TourAppointment appointment, Tour currentTour);
         public void SearchTours(string locationAndLanguage, int searchDuration, int searchMaxGuests, string language, ObservableCollection<Tour> tours);
+        public KeyPoint GetLastKeyPoint(TourAppointment appointment);
     }
 }

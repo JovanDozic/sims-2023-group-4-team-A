@@ -17,7 +17,6 @@ namespace SIMSProject.Application.Services.TourServices
         {
             _repo = repo;
         }
-
         public void CreateAppointments(List<TourAppointment> tourAppointments, Tour tour)
         {
             foreach(var appointment in tourAppointments)
@@ -33,11 +32,11 @@ namespace SIMSProject.Application.Services.TourServices
 
         public List<TourAppointment> GetAllByTour(int tourId)
         {
-            return _repo.GetAll().FindAll(x => x.Tour.Id == tourId && DateTime.Compare(x.Date, DateTime.Now) > 0);
+            return _repo.GetAllByTour(tourId);
         }
         public List<TourAppointment> GetAllInactive(int tourId)
         {
-            return GetAllByTour(tourId).FindAll(x => x.TourStatus == Status.INACTIVE);
+            return _repo.GetAllInactive(tourId);
         }
         public TourAppointment AdvanceNext(int appointmentId, KeyPoint nextKeyPoint)
         {
@@ -54,9 +53,7 @@ namespace SIMSProject.Application.Services.TourServices
         public bool CancelAppointment(TourAppointment appointment)
         {
             TourAppointment? oldAppointment = _repo.GetById(appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
-
             if (!IsCancelable(oldAppointment)) return false;
-
             oldAppointment.TourStatus = Status.CANCELED;
             _repo.SaveAll(_repo.GetAll());
             return true;
@@ -64,7 +61,7 @@ namespace SIMSProject.Application.Services.TourServices
 
         public TourAppointment GetActive()
         {
-            return _repo.GetAll().Find(x => x.TourStatus == Status.ACTIVE);
+            return _repo.GetActive();
         }
 
         public TourAppointment Activate(TourAppointment appointment, Tour tour)
@@ -89,10 +86,18 @@ namespace SIMSProject.Application.Services.TourServices
             oldAppointment.AvailableSpots = appointment.AvailableSpots;
             _repo.SaveAll(_repo.GetAll());
         }
-
         public List<DateTime> GetBusyDates()
         {
-            return _repo.GetAll().Select(x => x.Date).Distinct().ToList();
+            return _repo.GetBusyDates();
+        }
+
+        public List<Tour> GetTodaysTours()
+        {
+            return _repo.GetTodaysTours();
+        }
+        public List<Tour> GetToursWithFinishedAppointments()
+        {
+            return _repo.GetToursWithFinishedAppointments();
         }
     }
 }

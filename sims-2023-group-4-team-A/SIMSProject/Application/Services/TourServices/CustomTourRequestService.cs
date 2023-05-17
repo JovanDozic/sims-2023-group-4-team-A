@@ -31,6 +31,11 @@ namespace SIMSProject.Application.Services.TourServices
             return _customTourRequestRepo.GetAll();
         }
 
+        public List<CustomTourRequest> GetOnHold()
+        {
+            return _customTourRequestRepo.GetOnHold();
+        }
+
         public List<Location> GetRequestsLocations()
         {
             return _customTourRequestRepo.GetRequestsLocations();

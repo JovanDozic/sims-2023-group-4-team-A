@@ -17,7 +17,7 @@ namespace SIMSProject.Application.Services.TourServices
             _repo = repo;
         }
 
-        public List<KeyPoint> FindAll()
+        public List<KeyPoint> GetAll()
         {
             return _repo.GetAll();
         }

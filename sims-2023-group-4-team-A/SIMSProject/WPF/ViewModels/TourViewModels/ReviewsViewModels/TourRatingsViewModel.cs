@@ -1,15 +1,10 @@
 ﻿using SIMSProject.Application.DTOs;
 using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
-using SIMSProject.View.Guest2;
+using SIMSProject.WPF.Messenger;
 using SIMSProject.WPF.Messenger.Messages;
-using SIMSProject.WPF.ViewModels.Messenger;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels.ReviewsViewModels
