@@ -127,6 +127,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
             if (user is not Guest guest) return false;
             return GetAllFromLastYear(user).Count >= 10;
         }
+
         private void UpdatePassedReservationNotifications()
         {
             foreach (var reservation in GetAll())
@@ -134,8 +135,8 @@ namespace SIMSProject.Application.Services.AccommodationServices
                 {
                     _notificationService.CreateNotification(PrepareNotification(reservation));
                     reservation.RateGuestNotificationSent = true;
+                    _repo.Update(reservation);
                 }
-            _repo.SaveAll(GetAll());
         }
 
         private static Notification PrepareNotification(AccommodationReservation reservation)
