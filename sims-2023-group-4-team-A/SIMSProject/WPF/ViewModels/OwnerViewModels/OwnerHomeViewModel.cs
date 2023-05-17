@@ -129,5 +129,13 @@ namespace SIMSProject.WPF.ViewModels.OwnerViewModels
         {
             _renovationViewModel.CancelRenovation(SelectedRenovation);
         }
+
+        public bool IsRenovationCancelationEnabled(AccommodationRenovation? renovation)
+        {
+            if (renovation is null) return false;
+            if (renovation.IsCancelled) return false;
+            if (DateTime.Now >= renovation.StartDate.AddDays(-Consts.RenovationCancellationDeadline)) return false;
+            return true;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.View.OwnerViews;
 using SIMSProject.WPF.ViewModels.OwnerViewModels;
@@ -47,6 +48,11 @@ namespace SIMSProject.WPF.Views.OwnerViews
         {
             BtnRateGuest.IsEnabled = _viewModel.IsGuestRatingEnabled();
             BtnViewOwnerRating.IsEnabled = _viewModel.IsOwnerRatingEnabled();
+        }
+
+        private void DgrRenovations_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BtnCancelRenovation.IsEnabled = _viewModel.IsRenovationCancelationEnabled(DgrRenovations.SelectedItem as AccommodationRenovation);
         }
 
         private void BtnRegisterAccommodation_Click(object sender, RoutedEventArgs e)
@@ -121,10 +127,7 @@ namespace SIMSProject.WPF.Views.OwnerViews
             DgrRenovations.SelectedItem = null;
         }
 
-        private void DgrRenovations_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            BtnCancelRenovation.IsEnabled = DgrRenovations.SelectedItem is not null;
-        }
+        
 
         private void BtnScheduleRenovation_Click(object sender, RoutedEventArgs e)
         {

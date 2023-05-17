@@ -1,8 +1,11 @@
-﻿using SIMSProject.Domain.Injectors;
+﻿using Microsoft.TeamFoundation.Test.WebApi;
+using SIMSProject.Domain.Injectors;
+using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace SIMSProject.Application.Services.AccommodationServices
 {
@@ -23,15 +26,17 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
         public AccommodationStatistic GetYearlyStatistic(Accommodation accommodation, int year)
         {
-            // TODO: Factor out back to corresponding services and repositories.
-            var reservations = _reservationService.GetAllByAccommodationId(accommodation.Id).FindAll(x => x.StartDate.Year == year);
-            var requests = _requestService.GetAllByAccommodationId(accommodation.Id).FindAll(x => x.Reservation.StartDate.Year == year);
-            var ratings = _ratingService.GetAllByAccommodationId(accommodation.Id).FindAll(x => x.Reservation.StartDate.Year == year);
+            var reservations = _reservationService.GetAllPastByAccommodationId(accommodation.Id)
+                .FindAll(x => x.StartDate.Year == year);
+            var requests = _requestService.GetAllByAccommodationId(accommodation.Id, ReschedulingRequestStatus.Accepted)
+                .FindAll(x => x.Reservation.StartDate.Year == year);
+            var ratings = _ratingService.GetAllByAccommodationId(accommodation.Id)
+                .FindAll(x => x.Reservation.StartDate.Year == year);
 
             AccommodationStatistic statistic = new()
             {
                 Accommodation = accommodation,
-                Type = Domain.Models.AccommodationStatisticType.Yearly,
+                Type = AccommodationStatisticType.Yearly,
                 Year = year,
                 Month = 0,
                 TotalReservations = reservations.Count,
@@ -61,23 +66,19 @@ namespace SIMSProject.Application.Services.AccommodationServices
             return statistics;
         }
 
-
-
         public AccommodationStatistic GetMonthlyStatistic(Accommodation accommodation, int year, int month)
         {
-            // TODO: Factor out back to corresponding services and repositories.
-            var reservations = _reservationService.GetAllByAccommodationId(accommodation.Id)
+            var reservations = _reservationService.GetAllPastByAccommodationId(accommodation.Id)
                 .FindAll(x => x.StartDate.Year == year && x.StartDate.Month == month);
-            var requests = _requestService.GetAllByAccommodationId(accommodation.Id)
-                .FindAll(x => x.Reservation.StartDate.Year == year && x.Reservation.StartDate.Month == month 
-                         && x.Status == Domain.Models.ReschedulingRequestStatus.Accepted);
+            var requests = _requestService.GetAllByAccommodationId(accommodation.Id, ReschedulingRequestStatus.Accepted)
+                .FindAll(x => x.Reservation.StartDate.Year == year && x.Reservation.StartDate.Month == month);
             var ratings = _ratingService.GetAllByAccommodationId(accommodation.Id)
                 .FindAll(x => x.Reservation.StartDate.Year == year && x.Reservation.StartDate.Month == month);
 
             AccommodationStatistic statistic = new()
             {
                 Accommodation = accommodation,
-                Type = Domain.Models.AccommodationStatisticType.Monthly,
+                Type = AccommodationStatisticType.Monthly,
                 Year = year,
                 Month = month,
                 TotalReservations = reservations.Count,

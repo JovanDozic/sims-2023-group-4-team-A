@@ -67,15 +67,18 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
         public List<AccommodationReservation> GetAllByAccommodationId(int accommodationId)
         {
-            var reservations = GetAll().FindAll(x => x.Accommodation.Id == accommodationId);
-            return reservations;
+            return GetAll().FindAll(x => x.Accommodation.Id == accommodationId);
+        }
+
+        public List<AccommodationReservation> GetAllPastByAccommodationId(int accommodationId)
+        {
+            return GetAllByAccommodationId(accommodationId).FindAll(x => x.EndDate <= DateTime.Now);
         }
 
         public List<AccommodationReservation> GetAllUncanceledByAccommodationId(int accommodationId)
         {
             return GetAllByAccommodationId(accommodationId).FindAll(x => !x.Canceled);
         }
-
 
         public List<AccommodationReservation> GetAllFutureByAccommodationId(int accommodationId)
         {
