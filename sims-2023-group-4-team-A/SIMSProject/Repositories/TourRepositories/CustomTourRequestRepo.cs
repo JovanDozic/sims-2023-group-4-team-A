@@ -156,5 +156,10 @@ namespace SIMSProject.Repositories.TourRepositories
             var maxCount = countedRequests.Max(x => x.Count);
             return countedRequests.Where(x => x.Count == maxCount).Select(x => x.TourLanguage).ToList();
         }
+
+        public List<CustomTourRequest> GetAllSimilarRequests(Tour tour)
+        {
+            return GetAll().FindAll(x => (x.Location.City == tour.Location.City && x.Location.Country == x.Location.Country) || x.TourLanguage == tour.TourLanguage && x.RequestStatus != RequestStatus.ACCEPTED);
+        }
     }
 }

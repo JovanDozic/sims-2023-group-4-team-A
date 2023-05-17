@@ -43,5 +43,19 @@ namespace SIMSProject.WPF.Views.Guest2Views
         {
             BtnOpenNotification_Click(sender, e);
         }
+
+        private void Button_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (_viewModel.SelectedNotification?.Title == "Potvrda prisustva")
+            {
+                Yes.Visibility = Visibility.Visible;
+                No.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Yes.Visibility = Visibility.Collapsed;
+                No.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 }

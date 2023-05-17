@@ -23,6 +23,8 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         private readonly TourKeyPointService _tourKeyPointService;
         private readonly LocationService _locationService;
         private readonly KeyPointService _keyPointService;
+        private readonly NotificationService _notificationService;
+        private readonly CustomTourRequestService _customTourRequestService;
 
         private bool _cbLocationIsEnabled = true;
         public bool CbLocationIsEnabled
@@ -264,6 +266,8 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             _tourKeyPointService = Injector.GetService<TourKeyPointService>();
             _locationService = Injector.GetService<LocationService>();
             _keyPointService = Injector.GetService<KeyPointService>();
+            _notificationService = Injector.GetService<NotificationService>();
+            _customTourRequestService = Injector.GetService<CustomTourRequestService>();
 
             AllLocations = new(_locationService.FindAll());
 
@@ -311,6 +315,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             _tourService.CreateTour(_tour);
             _tourAppointmentService.CreateAppointments(Appointments.ToList(), _tour);
             _tourKeyPointService.CreateNewPairs(_tour);
+            SendNotification();
             MessageBox.Show("Tura uspešno kreirana.");
         }
 
@@ -337,6 +342,20 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
 
             DateTime newDate = new(SelectedAppointment.Year, SelectedAppointment.Month, SelectedAppointment.Day, Hours, Minutes, 0);
             Appointments.Add(new(newDate, -1, MaxGuestNumber, -1, Guide.Id));
+        }
+
+        private void SendNotification()
+        {
+            string title = "Nova tura";
+            string description = $"Kreirana je nova tura koja bi mogla da Vas interesuje." +
+                $" U pitanju je {_tour.Name} na lokaciji {_tour.Location}." +
+                $" Jezik na kom će tura biti realizovana je {Tour.GetLanguage(_tour.TourLanguage)} ";
+            if (Tour.Reason != Created.STATISTICS) return;
+            foreach (Guest guest in _customTourRequestService.GetGuestsWithSimilarRequests(_tour))
+            {
+                var notification = new Notification(guest, title, description);
+                _notificationService.CreateNotification(notification);
+            }
         }
     }
 }

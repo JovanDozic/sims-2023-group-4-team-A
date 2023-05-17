@@ -127,6 +127,7 @@ namespace SIMSProject.Domain.Injectors
             services.AddScoped<GuideRatingService>();
             services.AddScoped<TourStatisticsService>();
             services.AddScoped<CustomTourRequestService>();
+            services.AddScoped<CustomTourRequestStatisticsService>();
 
             return services.BuildServiceProvider();
         }
