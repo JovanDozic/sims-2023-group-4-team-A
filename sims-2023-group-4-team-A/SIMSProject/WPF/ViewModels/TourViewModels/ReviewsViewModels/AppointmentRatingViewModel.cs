@@ -1,10 +1,8 @@
-﻿using Dynamitey.DynamicObjects;
-using SIMSProject.Application.DTOs;
+﻿using SIMSProject.Application.DTOs;
 using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
+using SIMSProject.WPF.Messenger;
 using SIMSProject.WPF.Messenger.Messages;
-using SIMSProject.WPF.ViewModels.Messenger;
-using System;
 using System.Collections.Generic;
 using System.Windows.Input;
 

@@ -4,15 +4,12 @@ using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.View.GuideViews;
+using SIMSProject.WPF.Messenger;
 using SIMSProject.WPF.Messenger.Messages;
-using SIMSProject.WPF.ViewModels.Messenger;
-using SIMSProject.WPF.ViewModels.TourViewModels.BaseViewModels;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
+using System.Windows.Input;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
 {
@@ -29,7 +26,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             get => _cbLocationIsEnabled;
             set
             {
-                if(value == _cbLocationIsEnabled)return;
+                if (value == _cbLocationIsEnabled) return;
                 _cbLocationIsEnabled = value;
                 OnPropertyChanged(nameof(CbLocationIsEnabled));
             }
@@ -70,10 +67,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
                 }
             }
         }
-        public int Id
-        {
-            get { return _tour.Id; }
-        }
         public Guide Guide
         {
             get => _tour.Guide;
@@ -111,14 +104,14 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
                 }
             }
         }
-        public ObservableCollection<string> TourLanguages { get; set; }
+
         private Language _language;
         public string TourLanguage
         {
             get => Tour.GetLanguage(_language);
             set
             {
-                if(value == _language.ToString()) return;
+                if (value == _language.ToString()) return;
                 _language = value switch
                 {
                     "Engleski" => Language.ENGLISH,
@@ -154,44 +147,58 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
                 }
             }
         }
-        public List<KeyPoint> KeyPoints
+        private Location _location = new();
+        public Location SelectedLocation
         {
-            get => _tour.KeyPoints;
+            get { return _location; }
             set
             {
-                if (value != _tour.KeyPoints)
+                if (_location != value)
                 {
-                    _tour.KeyPoints = value;
-                    OnPropertyChanged(nameof(KeyPoints));
+                    _location = value;
+                    SelectedLocation.Id = value.Id;
+                    OnPropertyChanged(nameof(SelectedLocation));
+                    _tour.Location = _location;
+                    Keys = new(_keyPointService.GetAll().Where(x => x.Location.Id == SelectedLocation.Id));
                 }
             }
         }
-        private List<TourAppointment> _appointments = new();
-        public List<TourAppointment> Appointments
+        
+        private KeyPoint _keyPoint = new();
+        public KeyPoint SelectedKeyPoint
         {
-            get => _appointments;
+            get => _keyPoint;
             set
             {
-                if (value != _appointments)
-                {
-                    _appointments = value;
-                    OnPropertyChanged(nameof(Appointments));
-                }
-            }
-        }
-        public List<string> Images
-        {
-            get => _tour.Images;
-            set
-            {
-                if (value != _tour.Images)
-                {
-                    _tour.Images = value;
-                    OnPropertyChanged(nameof(Images));
-                }
+                if (value == _keyPoint) return;
+                _keyPoint = value;
+                OnPropertyChanged(nameof(SelectedKeyPoint));
             }
         }
 
+        private string _imageUrl = string.Empty;
+        public string ImageUrl
+        {
+            get => _imageUrl;
+            set
+            {
+                if (value == _imageUrl) return;
+                _imageUrl = value;
+                OnPropertyChanged(nameof(ImageUrl));
+            }
+        }
+        
+        private DateTime _appointment;
+        public DateTime SelectedAppointment
+        {
+            get => _appointment;
+            set
+            {
+                if (value == _appointment) return;
+                _appointment = value;
+                OnPropertyChanged(nameof(SelectedAppointment));
+            }
+        }
         private int hours;
         public int Hours
         {
@@ -206,7 +213,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
 
             }
         }
-
         private int minutes;
         public int Minutes
         {
@@ -222,72 +228,86 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             }
         }
 
-        private Location _location = new();
-        public Location Location
+        private ObservableCollection<KeyPoint> _keyPoints = new();
+        public ObservableCollection<KeyPoint> KeyPoints
         {
-            get { return _location; }
+            get => _keyPoints;
             set
             {
-                if (_location != value)
+                if (value == _keyPoints) return;
+                _keyPoints = value;
+                OnPropertyChanged(nameof(KeyPoints));
+            }
+        }
+        private ObservableCollection<KeyPoint> _keys = new();
+        public ObservableCollection<KeyPoint> Keys
+        {
+            get => _keys;
+            set
+            {
+                if (value == _keys) return;
+                _keys = value;
+                OnPropertyChanged(nameof(Keys));
+            }
+        }
+        private ObservableCollection<string> _images = new();
+        public ObservableCollection<string> Images
+        {
+            get => _images;
+            set
+            {
+                if (value == _images) return;
+                _images = value;
+                OnPropertyChanged(nameof(Images));
+            }
+        }
+        private ObservableCollection<TourAppointment> _appointments = new();
+        public ObservableCollection<TourAppointment> Appointments
+        {
+            get => _appointments;
+            set
+            {
+                if (value != _appointments)
                 {
-                    _location = value;
-                    Location.Id = value.Id;
-                    OnPropertyChanged(nameof(Location));
-                    _tour.Location = _location;
+                    _appointments = value;
+                    OnPropertyChanged(nameof(Appointments));
                 }
             }
         }
         public ObservableCollection<Location> AllLocations { get; set; } = new();
-        public ObservableCollection<KeyPoint> Keys { get; set; } = new();
-        public KeyPoint? SelectedKeyPoint { get; set; }
-        private DateTime _appointment;
-        public DateTime SelectedAppointment
-        {
-            get => _appointment;
-            set
-            {
-                if (value == _appointment) return;
-                _appointment = value;
-                OnPropertyChanged(nameof(SelectedAppointment));
-            }
-        }
+        public ObservableCollection<string> TourLanguages { get; set; }
         public TourCreationViewModel()
         {
             _tourService = Injector.GetService<TourService>();
             _tourAppointmentService = Injector.GetService<TourAppointmentService>();
             _locationService = Injector.GetService<LocationService>();
             _keyPointService = Injector.GetService<KeyPointService>();
-
             AllLocations = new(_locationService.FindAll());
+            TourLanguages = new(Tour.GetLanguages());
 
-            TourLanguages = new ObservableCollection<string>
-            {
-                Tour.GetLanguage(Language.SERBIAN),
-                Tour.GetLanguage(Language.ENGLISH),
-                Tour.GetLanguage(Language.SPANISH),
-                Tour.GetLanguage(Language.FRENCH)
-            };
+            AddAppointmentCommand = new RelayCommand(AddAppointmentExecute, AddAppointmentCanExecute);
+            AddKeyPointCommand = new RelayCommand(AddKeyPointExecute, AddKeyPointCanExecute);
+            AddImageCommand = new RelayCommand(AddImageExecute, AddImageCanExecute);
+            CreateTourCommand = new RelayCommand(CreateTourExecute, CreateTourCanExecute);
+
             MessageBus.Subscribe<CreateRequestedMessage>(this, OpenMessage);
             MessageBus.Subscribe<CreateMostWantedMessage>(this, OpenMessage1);
         }
-
         private void OpenMessage1(CreateMostWantedMessage message)
         {
-            if(message.Language > 0)
+            if (message.Language > 0)
             {
                 TourLanguage = Tour.GetLanguage(message.Language);
                 CbLanguageIsEnabled = false;
                 return;
             }
-            Location = message.Location;
+            SelectedLocation = message.Location;
             CbLocationIsEnabled = false;
-            Tour.Reason = Created.STATISTICS;
-
+            Tour.Reason = CreatingReason.STATISTICS;
         }
-
         private void OpenMessage(CreateRequestedMessage message)
         {
-            Location = message.Request.Location;
+            SelectedLocation = message.Request.Location;
             TourLanguage = Tour.GetLanguage(message.Request.TourLanguage);
             MaxGuestNumber = message.Request.GuestCount;
             SelectedAppointment = message.Appointment;
@@ -296,38 +316,57 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             CbLocationIsEnabled = false;
             DpDateIsEnabled = false;
 
-            Tour.Reason = Created.CUSTOM;
+            Tour.Reason = CreatingReason.CUSTOM;
         }
 
-        public void CreateTour()
+        #region AddKeyPointCommand
+        public ICommand AddKeyPointCommand { get; private set; }
+        public bool AddKeyPointCanExecute()
         {
-            _tourService.CreateTour(_tour);
-            _tourAppointmentService.CreateAppointments(Appointments.ToList(), _tour);
+            return SelectedKeyPoint.Id > 0;
         }
-
-        public bool IsNotValid()
+        public void AddKeyPointExecute()
         {
-            return KeyPoints.Count < 2 || Images.Count < 1;
-        }
-
-        public void AddKeyPoint()
-        {
-            if (SelectedKeyPoint == null)
-            {
-                return;
-            }
             KeyPoints.Add(SelectedKeyPoint);
         }
-
-        public void AddAppointment()
+        #endregion
+        #region AddAppointmentCommand
+        public ICommand AddAppointmentCommand { get; private set; }
+        public bool AddAppointmentCanExecute()
         {
-            if (MaxGuestNumber <= 0)
-            {
-                return;
-            }
-
+            return MaxGuestNumber > 0;
+        }
+        public void AddAppointmentExecute()
+        {
             DateTime newDate = new(SelectedAppointment.Year, SelectedAppointment.Month, SelectedAppointment.Day, Hours, Minutes, 0);
             Appointments.Add(new(newDate, -1, MaxGuestNumber, -1, Guide.Id));
         }
+        #endregion
+        #region AddImageCommand
+        public ICommand AddImageCommand { get; private set; }
+        public bool AddImageCanExecute()
+        {
+            return ImageUrl != string.Empty;
+        }
+        public void AddImageExecute()
+        {
+            Images.Add(ImageUrl);
+            ImageUrl = string.Empty;
+        }
+        #endregion
+        #region CreateTourCommand
+        public ICommand CreateTourCommand { get; private set; }
+        public bool CreateTourCanExecute()
+        {
+            return Images.Count > 0 && KeyPoints.Count > 1;
+        }
+        public void CreateTourExecute()
+        {
+            _tour.KeyPoints.AddRange(KeyPoints.ToList());
+            _tour.Images.AddRange(Images.ToList());
+            _tourService.CreateTour(_tour);
+            _tourAppointmentService.CreateAppointments(Appointments.ToList(), _tour);
+        }
+        #endregion
     }
 }
