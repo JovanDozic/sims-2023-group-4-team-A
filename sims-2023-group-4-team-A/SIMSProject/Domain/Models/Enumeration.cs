@@ -26,7 +26,7 @@
 
     public enum AccommodationStatisticType 
     { 
-        MONTHLY = 0, 
-        YEARLY 
+        Monthly = 0, 
+        Yearly 
     }
 }

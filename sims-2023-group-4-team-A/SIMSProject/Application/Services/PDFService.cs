@@ -46,9 +46,9 @@ namespace SIMSProject.Application.Services
                 };
                 document.Add(heading);
 
-                PdfPTable table = statistics.First().Type == Domain.Models.AccommodationStatisticType.MONTHLY ? new(7) : new(6);
+                PdfPTable table = statistics.First().Type == Domain.Models.AccommodationStatisticType.Monthly ? new(7) : new(6);
                 table.AddCell("Godina");
-                if (statistics.First().Type == Domain.Models.AccommodationStatisticType.MONTHLY) table.AddCell("Mesec");
+                if (statistics.First().Type == Domain.Models.AccommodationStatisticType.Monthly) table.AddCell("Mesec");
                 table.AddCell("Broj rezervacija");
                 table.AddCell("Otkazane rezervacije");
                 table.AddCell("Pomerene rezervacije");
@@ -58,7 +58,7 @@ namespace SIMSProject.Application.Services
                 foreach (var statistic in statistics)
                 {
                     table.AddCell(statistic.Year.ToString());
-                    if (statistics.First().Type == Domain.Models.AccommodationStatisticType.MONTHLY) table.AddCell(statistic.ShortMonth);
+                    if (statistics.First().Type == Domain.Models.AccommodationStatisticType.Monthly) table.AddCell(statistic.ShortMonth);
                     table.AddCell(statistic.TotalReservations.ToString());
                     table.AddCell(statistic.CancelledReservations.ToString());
                     table.AddCell(statistic.RescheduledReservations.ToString());
