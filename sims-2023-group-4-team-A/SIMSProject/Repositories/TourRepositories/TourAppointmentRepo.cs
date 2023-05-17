@@ -14,15 +14,13 @@ using SIMSProject.FileHandlers.TourFileHandlers;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
-    public class TourAppointmentRepo: ITourAppointmentRepo
+    public class TourAppointmentRepo : ITourAppointmentRepo
     {
         private readonly TourAppointmentFileHandler _fileHandler;
         private List<TourAppointment> _tourAppointments;
         private readonly IKeyPointRepo _keyPointRepo;
         private readonly IGuideRepo _guideRepo;
-        private readonly ITourRepo  _tourRepo;
-
-
+        private readonly ITourRepo _tourRepo;
 
         public TourAppointmentRepo(IKeyPointRepo keyPointRepo, ITourRepo tourRepo, IGuideRepo guideRepo)
         {
@@ -68,7 +66,7 @@ namespace SIMSProject.Repositories.TourRepositories
         }
         private void MapTour(TourAppointment appointment)
         {
-            appointment.Tour = _tourRepo.GetById(appointment.Tour.Id) ?? throw new Exception("Error! No matching tour.") ;
+            appointment.Tour = _tourRepo.GetById(appointment.Tour.Id) ?? throw new Exception("Error! No matching tour.");
         }
 
         private void MapGuide(TourAppointment appointment)
@@ -85,16 +83,48 @@ namespace SIMSProject.Repositories.TourRepositories
 
         public List<TourAppointment> GetAllByTourId(int tourId)
         {
-            return GetAll().FindAll(x => x.Tour.Id == tourId && DateTime.Compare(x.Date, DateTime.Now) > 0);
+            return _tourAppointments.FindAll(x => x.Tour.Id == tourId && DateTime.Compare(x.Date, DateTime.Now) > 0);
         }
         public List<TourAppointment> GetTodaysAppointmentsByTour(int tourId)
         {
             return _tourAppointments.FindAll(x => x.Tour.Id == tourId && (DateTime.Compare(x.Date.Date, DateTime.Now.Date) == 0 || x.TourStatus == Status.ACTIVE));
         }
-
         public List<TourAppointment> GetTodaysAppointments()
         {
             return _tourAppointments.FindAll(x => (DateTime.Compare(x.Date.Date, DateTime.Now.Date) == 0 || x.TourStatus == Status.ACTIVE));
+        }
+
+        public List<TourAppointment> GetAllByTour(int tourId)
+        {
+            return _tourAppointments.FindAll(x => x.Tour.Id == tourId && DateTime.Compare(x.Date, DateTime.Now) > 0);
+        }
+
+        public List<TourAppointment> GetAllInactive(int tourId)
+        {
+            return GetAllByTour(tourId).FindAll(x => x.TourStatus == Status.INACTIVE);
+        }
+
+        public TourAppointment GetActive()
+        {
+            return _tourAppointments.Find(x => x.TourStatus == Status.ACTIVE);
+
+        }
+        public List<DateTime> GetBusyDates()
+        {
+            return _tourAppointments.Select(x => x.Date).Distinct().ToList();
+
+        }
+
+        public List<Tour> GetToursWithFinishedAppointments()
+        {
+            return _tourAppointments
+            .Where(x => x.TourStatus == Status.COMPLETED)
+            .Select(x => x.Tour).Distinct().ToList();
+        }
+
+        public List<Tour> GetTodaysTours()
+        {
+            return GetTodaysAppointments().Select(x => x.Tour).Distinct().ToList();
         }
     }
 }

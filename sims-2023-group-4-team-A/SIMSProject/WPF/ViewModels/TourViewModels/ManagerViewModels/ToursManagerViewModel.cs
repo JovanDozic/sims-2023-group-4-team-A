@@ -16,6 +16,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
     public class ToursManagerViewModel: ViewModelBase
     {
         private readonly TourService _tourService;
+        private readonly TourAppointmentService _tourAppointmentService;
 
         private ObservableCollection<Tour> _tours = new();
         public ObservableCollection<Tour> Tours
@@ -45,10 +46,11 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         }
         public ToursManagerViewModel(string callerId)
         {
+            _tourAppointmentService = Injector.GetService<TourAppointmentService>();
             _tourService = Injector.GetService<TourService>();
             switch(callerId)
             {
-                case "TodaysTours": Tours = new(_tourService.GetTodaysTours());break;
+                case "TodaysTours": Tours = new(_tourAppointmentService.GetTodaysTours());break;
                 case "AllTours": Tours = new(_tourService.GetTours()); break;
             }
             TourInfoCommand = new RelayCommand(TourInfoExecute, TourInfoCanExecute);

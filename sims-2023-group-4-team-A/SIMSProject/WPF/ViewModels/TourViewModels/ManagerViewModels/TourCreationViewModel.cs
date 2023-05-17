@@ -20,7 +20,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
     {
         private readonly TourService _tourService;
         private readonly TourAppointmentService _tourAppointmentService;
-        private readonly TourKeyPointService _tourKeyPointService;
         private readonly LocationService _locationService;
         private readonly KeyPointService _keyPointService;
 
@@ -234,11 +233,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
                     _location = value;
                     Location.Id = value.Id;
                     OnPropertyChanged(nameof(Location));
-                    Keys.Clear();
-                    foreach (var point in _keyPointService.FindAll().FindAll(x => x.Location.Id == _location.Id))
-                    {
-                        Keys.Add(point);
-                    }
                     _tour.Location = _location;
                 }
             }
@@ -261,7 +255,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         {
             _tourService = Injector.GetService<TourService>();
             _tourAppointmentService = Injector.GetService<TourAppointmentService>();
-            _tourKeyPointService = Injector.GetService<TourKeyPointService>();
             _locationService = Injector.GetService<LocationService>();
             _keyPointService = Injector.GetService<KeyPointService>();
 
@@ -310,8 +303,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         {
             _tourService.CreateTour(_tour);
             _tourAppointmentService.CreateAppointments(Appointments.ToList(), _tour);
-            _tourKeyPointService.CreateNewPairs(_tour);
-            MessageBox.Show("Tura uspešno kreirana.");
         }
 
         public bool IsNotValid()

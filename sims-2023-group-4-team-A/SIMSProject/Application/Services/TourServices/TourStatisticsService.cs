@@ -8,68 +8,54 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SIMSProject.Domain.Injectors;
 
 namespace SIMSProject.Application.Services.TourServices
 {
     public class TourStatisticsService
     {
-        private readonly ITourReservationRepo _tourReservationRepo;
-        private readonly ITourGuestRepo _tourGuestRepo;
+        private readonly ITourStatisticsRepo _tourStatisticsRepo;
+        private readonly TourService _tourService;
+        private readonly TourAppointmentService  _tourAppointmentService;
 
-        public TourStatisticsService(ITourReservationRepo tourReservationRepo, ITourGuestRepo tourGuestRepo)
+        public TourStatisticsService(ITourStatisticsRepo tourStatisticsRepo)
         {
-            _tourReservationRepo = tourReservationRepo;
-            _tourGuestRepo = tourGuestRepo;
+            _tourService = Injector.GetService<TourService>();
+            _tourAppointmentService = Injector.GetService<TourAppointmentService>();
+            _tourStatisticsRepo = tourStatisticsRepo;
         }
 
+        public Dictionary<int, VoucherUsageDTO> MapToursVoucherUsage()
+        {
+            Dictionary<int, VoucherUsageDTO> dictionary = new();
+            foreach (var finished in _tourAppointmentService.GetToursWithFinishedAppointments())
+            {
+                dictionary.TryAdd(finished.Id, GetVoucherUsageByTour(finished.Id));
+            }
+            return dictionary;
+        }
+        public Dictionary<int, GuestAgeGroupsDTO> MapToursGuestAgeGroups()
+        {
+            Dictionary<int, GuestAgeGroupsDTO> dictionary = new();
+            foreach (var finished in _tourAppointmentService.GetToursWithFinishedAppointments())
+            {
+                dictionary.TryAdd(finished.Id, SumGuestByAgeGroup(finished.Id));
+            }
+            return dictionary;
+        }
         public VoucherUsageDTO GetVoucherUsageByTour(int tourId)
         {
-            return _tourReservationRepo.GetCompletedReservationsByTour(tourId)
-               .Join(_tourGuestRepo.GetPresentGuests(),
-               tr => new { KeyOne = tr.TourAppointment.Id, KeyTwo = tr.GuestId },
-               tg => new { KeyOne = tg.TourAppointment.Id, KeyTwo = tg.Guest.Id },
-               (tr, tg) => new { tr.VoucherUsed, tr.GuestNumber })
-               .GroupBy(x => 1)
-               .Select(group => new
-               {
-                   used = group.Sum(x => x.VoucherUsed ? x.GuestNumber : 0),
-                   unused = group.Sum(x => !x.VoucherUsed ? x.GuestNumber : 0)
-               })
-               .Select(x => new VoucherUsageDTO(x.used, x.unused))
-               .FirstOrDefault();
+            return _tourStatisticsRepo.GetVoucherUsageByTour(tourId);
         }
 
         public GuestAgeGroupsDTO SumGuestByAgeGroup(int tourId)
         {
-            return _tourReservationRepo.GetCompletedReservationsByTour(tourId)
-               .Join(_tourGuestRepo.GetPresentGuests(),
-               tr => new { KeyOne = tr.TourAppointment.Id, KeyTwo = tr.GuestId },
-               tg => new { KeyOne = tg.TourAppointment.Id, KeyTwo = tg.Guest.Id },
-               (tr, tg) => new { tg.Guest.Birthday, tg.TourAppointment.Date, tr.GuestNumber })
-               .GroupBy(x => 1)
-               .Select(group => new GuestAgeGroupsDTO
-               {
-                   Minors = group.Sum(x => (x.Date - x.Birthday <= TimeSpan.FromDays(365 * 18)) ? x.GuestNumber : 0),
-                   Adults = group.Sum(x => (x.Date - x.Birthday > TimeSpan.FromDays(365 * 18) && x.Date - x.Birthday <= TimeSpan.FromDays(365 * 50)) ? x.GuestNumber : 0),
-                   Seniors = group.Sum(x => (x.Date - x.Birthday > TimeSpan.FromDays(365 * 50)) ? x.GuestNumber : 0)
-               }).FirstOrDefault();
+            return _tourStatisticsRepo.SumGuestByAgeGroup(tourId);
         }
 
         public TourStatisticsDTO GetMostVisitedTour(int? targetYear = null)
         {
-            return _tourReservationRepo.GetCompletedReservations(targetYear)
-               .Join(_tourGuestRepo.GetPresentGuests(),
-               tr => new { KeyOne = tr.TourAppointment.Id, KeyTwo = tr.GuestId },
-               tg => new { KeyOne = tg.TourAppointment.Id, KeyTwo = tg.Guest.Id },
-               (tr, tg) => new { tr.TourAppointment.Tour, tr.GuestNumber, tr.TourAppointment })
-               .GroupBy(joined => joined.Tour)
-               .Select(group => new TourStatisticsDTO
-               {
-                   Tour = group.Key,
-                   TotalAppointments = group.DistinctBy(x => x.TourAppointment).Count(),
-                   TotalGuests = group.Sum(x => x.GuestNumber)
-               }).OrderByDescending(result => result.TotalGuests)
-               .FirstOrDefault();
+            return _tourStatisticsRepo.GetMostVisitedTour(targetYear);
         }
     }
 }

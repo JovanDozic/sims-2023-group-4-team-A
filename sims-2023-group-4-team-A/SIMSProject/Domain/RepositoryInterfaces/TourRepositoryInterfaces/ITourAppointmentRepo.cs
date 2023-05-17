@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
+using System;
 using System.Collections.Generic;
 
 namespace SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces
@@ -13,5 +14,12 @@ namespace SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces
         public List<TourAppointment> GetAllByTourId(int tourId);
         public List<TourAppointment> GetTodaysAppointmentsByTour(int TourId);
         public List<TourAppointment> GetTodaysAppointments();
+        public List<TourAppointment> GetAllByTour(int tourId);
+        public List<TourAppointment> GetAllInactive(int tourId);
+        public TourAppointment GetActive();
+        public List<DateTime> GetBusyDates();
+        public List<Tour> GetToursWithFinishedAppointments();
+        public List<Tour> GetTodaysTours();
     }
+
 }

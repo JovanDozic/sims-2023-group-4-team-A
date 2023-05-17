@@ -127,5 +127,10 @@ namespace SIMSProject.Repositories.TourRepositories
         {
             return ratings.FindAll(x => x.Tour.Name == tourName || x.Tour.Name.ToLower().Contains(tourName.ToLower()));
         }
+
+        public KeyPoint GetLastKeyPoint(TourAppointment appointment)
+        {
+           return GetById(appointment.Tour.Id)?.KeyPoints.Last();
+        }
     }
 }
