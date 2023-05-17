@@ -1,12 +1,7 @@
 ﻿using SIMSProject.Application.Services.AccommodationServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.AccommodationModels;
-using SIMSProject.Domain.Models.UserModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 {

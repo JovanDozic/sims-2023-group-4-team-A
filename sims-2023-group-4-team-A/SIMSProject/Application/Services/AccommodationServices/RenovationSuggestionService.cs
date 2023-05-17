@@ -11,8 +11,6 @@ namespace SIMSProject.Application.Services.AccommodationServices
     public class RenovationSuggestionService
     {
         private readonly IRenovationSuggestionRepo _repo;
-
-
         public RenovationSuggestionService(IRenovationSuggestionRepo repo)
         {
             _repo = repo;
