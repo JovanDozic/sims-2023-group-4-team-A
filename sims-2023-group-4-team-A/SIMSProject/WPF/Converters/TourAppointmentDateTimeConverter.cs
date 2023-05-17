@@ -19,7 +19,6 @@ namespace SIMSProject.WPF.Converters
 
             return string.Empty;
         }
-
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return null;

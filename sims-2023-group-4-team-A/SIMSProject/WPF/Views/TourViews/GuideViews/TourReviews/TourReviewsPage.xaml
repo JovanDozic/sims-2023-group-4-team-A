@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.TourViews.GuideViews"
       xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="965"
       Title="Reviews">
@@ -26,10 +27,16 @@
                      Text="{Binding Path=SearchText, UpdateSourceTrigger=PropertyChanged}"
                      Width="275" Height="40" 
                      FontSize="24" Foreground="Silver"
-                     ToolTip="Pritisnite Enter za pretragu"
                      Focusable="True" LostFocus="tbSearch_LostFocus" GotFocus="tbSearch_GotFocus" 
                      Margin="82.5,50,0,0"
-                     HorizontalAlignment="Left"/>
+                     HorizontalAlignment="Left">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=SearchRatingsCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+             
+            </TextBox>
             <DataGrid x:Name="dgrRatings"
                       Width="800" Height="225"
                       FontSize="28"

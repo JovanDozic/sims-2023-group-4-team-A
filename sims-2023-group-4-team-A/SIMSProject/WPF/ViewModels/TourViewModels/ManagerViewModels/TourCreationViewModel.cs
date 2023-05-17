@@ -19,6 +19,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         private readonly TourAppointmentService _tourAppointmentService;
         private readonly LocationService _locationService;
         private readonly KeyPointService _keyPointService;
+        private readonly TourReservationService _tourReservationService;
 
         private bool _cbLocationIsEnabled = true;
         public bool CbLocationIsEnabled
@@ -53,7 +54,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
                 OnPropertyChanged(nameof(DpDateIsEnabled));
             }
         }
-
+        private TourReservation _tourReservation = new();
         private Tour _tour = new();
         public Tour Tour
         {
@@ -282,6 +283,8 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             _tourAppointmentService = Injector.GetService<TourAppointmentService>();
             _locationService = Injector.GetService<LocationService>();
             _keyPointService = Injector.GetService<KeyPointService>();
+            _tourReservationService = Injector.GetService<TourReservationService>();
+
             AllLocations = new(_locationService.FindAll());
             TourLanguages = new(Tour.GetLanguages());
 
@@ -295,6 +298,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         }
         private void OpenMessage1(CreateMostWantedMessage message)
         {
+            Tour.Reason = CreatingReason.STATISTICS;
             if (message.Language > 0)
             {
                 TourLanguage = Tour.GetLanguage(message.Language);
@@ -303,7 +307,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             }
             SelectedLocation = message.Location;
             CbLocationIsEnabled = false;
-            Tour.Reason = CreatingReason.STATISTICS;
         }
         private void OpenMessage(CreateRequestedMessage message)
         {
@@ -317,6 +320,8 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             DpDateIsEnabled = false;
 
             Tour.Reason = CreatingReason.CUSTOM;
+            _tourReservation.GuestId = message.Request.Guest.Id;
+            _tourReservation.GuestNumber = message.Request.GuestCount;
         }
 
         #region AddKeyPointCommand
@@ -362,10 +367,15 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         }
         public void CreateTourExecute()
         {
-            _tour.KeyPoints.AddRange(KeyPoints.ToList());
-            _tour.Images.AddRange(Images.ToList());
-            _tourService.CreateTour(_tour);
-            _tourAppointmentService.CreateAppointments(Appointments.ToList(), _tour);
+            Tour.KeyPoints.AddRange(KeyPoints.ToList());
+            Tour.Images.AddRange(Images.ToList());
+            _tourService.CreateTour(Tour);
+            _tourAppointmentService.CreateAppointments(Appointments.ToList(), Tour);
+            if(Tour.Reason == CreatingReason.CUSTOM)
+            {
+                _tourReservation.TourAppointment = Appointments.FirstOrDefault();
+                _tourReservationService.Save(_tourReservation);
+            }
         }
         #endregion
     }

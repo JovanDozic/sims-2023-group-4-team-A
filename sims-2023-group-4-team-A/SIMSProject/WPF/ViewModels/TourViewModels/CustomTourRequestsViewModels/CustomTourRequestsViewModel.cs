@@ -99,12 +99,10 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
                 OnPropertyChanged(nameof(EndDate));
             }
         }
-
-
         public CustomTourRequestsViewModel()
         {
             _requestService = Injector.GetService<CustomTourRequestService>();
-            CustomTourRequests = new(_requestService.GetAll());
+            CustomTourRequests = new(_requestService.GetOnHold());
             RequestsLocations = new(_requestService.GetRequestsLocations());
             RequestsLanguages = new(_requestService.GetRequestsLanguages());
 
