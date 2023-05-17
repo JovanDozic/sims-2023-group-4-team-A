@@ -119,7 +119,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _user = user;
             _ratingService = Injector.GetService<GuestRatingService>();
             Reservation = reservation;
-            LoadRating();
        }
 
         public void LeaveGuestRating()

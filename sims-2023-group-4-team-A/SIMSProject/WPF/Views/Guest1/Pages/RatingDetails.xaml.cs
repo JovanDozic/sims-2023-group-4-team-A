@@ -31,6 +31,7 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             _user = user;
             _guestRatingViewModel = new(_user, accommodationReservation);
             DataContext = _guestRatingViewModel;
+            _guestRatingViewModel.LoadRating();
         }
 
         private void Button_Click_Close(object sender, RoutedEventArgs e)

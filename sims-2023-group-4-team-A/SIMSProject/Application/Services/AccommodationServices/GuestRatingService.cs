@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 
 namespace SIMSProject.Application.Services.AccommodationServices
 {
@@ -38,7 +39,10 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
         public GuestRating GetByReservationId(int reservationId)
         {
-            return _ratingRepo.GetByReservationId(reservationId);
+            var rating = _ratingRepo.GetByReservationId(reservationId);
+
+            MessageBox.Show(rating.Id.ToString());
+            return rating;
         }
 
         public List<GuestRating> GetAll()

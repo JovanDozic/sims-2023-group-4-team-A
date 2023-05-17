@@ -8,6 +8,7 @@ using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Model;
 using System;
 using System.Collections.ObjectModel;
+using SIMSProject.Domain.Models;
 
 namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
 {
