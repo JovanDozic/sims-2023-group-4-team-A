@@ -87,6 +87,7 @@ namespace SIMSProject.Domain.Injectors
                     )
                 );
             services.AddSingleton<IVoucherRepo, VoucherRepo>();
+
             services.AddSingleton<ITourRepo, TourRepo>(
                 provider => new TourRepo(
                     provider.GetService<ITourKeyPointRepo>() ?? throw new Exception("Dependency Injection Failed: ITourKeyPointRepo not found."),
@@ -116,6 +117,19 @@ namespace SIMSProject.Domain.Injectors
                     provider.GetService<ILocationRepo>() ?? throw new Exception("Dependency Injection Failed: ILocationRepo not found.")
                 )
             );
+            services.AddSingleton<ITourRatingRepo, TourRatingRepo>(
+                provider => new TourRatingRepo(
+                    provider.GetService<IGuideRatingRepo>() ?? throw new Exception("Dependency Injection Failed: IGuideRatingRepo not found."),
+                    provider.GetService<ITourGuestRepo>() ?? throw new Exception("Dependency Injection Failed: ITourGuestRepo not found.")
+                    )
+                );
+
+            services.AddSingleton<ITourStatisticsRepo, TourStatisticsRepo>(
+                provider => new TourStatisticsRepo(
+                    provider.GetService<ITourReservationRepo>() ?? throw new Exception("Dependency Injection Failed: ITourReservationRepo not found."),
+                    provider.GetService<ITourGuestRepo>() ?? throw new Exception("Dependency Injection Failed: ITourGuestRepo not found.")
+                    )
+                );
 
             // Service Injections
             services.AddScoped<UserService>();
@@ -138,6 +152,8 @@ namespace SIMSProject.Domain.Injectors
             services.AddScoped<GuideRatingService>();
             services.AddScoped<TourStatisticsService>();
             services.AddScoped<CustomTourRequestService>();
+            services.AddScoped<TourRatingService>();
+            services.AddScoped<CustomTourRequestStatisticsService>();
             services.AddScoped<RenovationSuggestionService>();
 
             return services.BuildServiceProvider();

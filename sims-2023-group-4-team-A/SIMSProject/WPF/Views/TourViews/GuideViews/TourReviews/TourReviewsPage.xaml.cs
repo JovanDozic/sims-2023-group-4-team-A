@@ -22,7 +22,6 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     public partial class TourReviewsPage : Page
     {
         private TourRatingsViewModel ViewModel { get; set; } = new();
-
         public TourReviewsPage()
         {
             InitializeComponent();
@@ -32,12 +31,10 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
         {
             tbSearch.Text = "Pretraži po nazivu ture";
         }
-
         private void tbSearch_GotFocus(object sender, RoutedEventArgs e)
         {
             tbSearch.Text = string.Empty;
         }
-
         private void btnOpenDetails_Click(object sender, RoutedEventArgs e)
         {
             var window = new DetailedReviewWindow();

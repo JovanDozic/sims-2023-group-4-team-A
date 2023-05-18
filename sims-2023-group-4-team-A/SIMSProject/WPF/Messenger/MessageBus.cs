@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMSProject.WPF.ViewModels.Messenger
+namespace SIMSProject.WPF.Messenger
 {
     public static class MessageBus
     {

@@ -6,7 +6,6 @@ using SIMSProject.Application.Services.AccommodationServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Model;
-using System;
 using System.Collections.ObjectModel;
 using SIMSProject.Domain.Models;
 

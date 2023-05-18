@@ -30,8 +30,8 @@ namespace SIMSProject.WPF.Views.Guest2Views
             InitializeComponent();
             _user = user;
             _viewModel = new CustomTourRequestViewModel(_user);
-            //_viewModel.LoadTourRequestsByGuestId(_user.Id);
             this.DataContext = _viewModel;
+            CbLanguage.SelectedItem = null;
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)

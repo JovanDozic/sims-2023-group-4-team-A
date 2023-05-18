@@ -4,19 +4,26 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest2Views"
+      xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
       mc:Ignorable="d"
       d:DesignHeight="520" d:DesignWidth="1140"
       Title="Obaveštenja">
+    <Page.Resources>
+        <converters:TourAppointmentDateTimeConverter x:Key="DateTimeConverter"/>
+    </Page.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="70"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="180"/>
+            <RowDefinition Height="70"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="700"/>
+            <ColumnDefinition Width="600"/>
+            <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
@@ -24,27 +31,26 @@
                FontSize="40" VerticalAlignment="Center"
                HorizontalAlignment="Left" FontWeight="DemiBold" />
 
-        <DataGrid x:Name="DgrNotifications" Grid.Row="2" FontSize="28" FontWeight="DemiBold"
+        <DataGrid BorderBrush="#004e98" BorderThickness="3" x:Name="DgrNotifications" Grid.Row="2" FontSize="28" Grid.RowSpan="3" FontWeight="DemiBold"
                   ItemsSource="{Binding Notifications, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedNotification}"
                   AutoGenerateColumns="False"
-                  Height="250" Width="650" Margin="20,0,20,0" HorizontalAlignment="Left"
+                  Width="600" Margin="0,0,0,0" HorizontalAlignment="Left"
                   IsReadOnly="True" SelectionChanged="DgrNotifications_SelectionChanged"
                   MouseDoubleClick="DgrNotifications_MouseDoubleClick">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50" />
                 <DataGridTextColumn Header="Naslov" Binding="{Binding Title}" Width="*"/>
-                <!--
-                <DataGridTextColumn Header="Opis" Binding="{Binding Description}" Width="250" />
-                <DataGridTextColumn Header="Datum isteka" Binding="{Binding ExpirationDate}" /> 
-                -->
-                <DataGridTextColumn Header="Datum kreiranja" Binding="{Binding CreationDate}" Width="220" />
-                
+                <DataGridTextColumn Header="Datum kreiranja" Binding="{Binding CreationDate, Converter={StaticResource DateTimeConverter}}" Width="280" />
             </DataGrid.Columns>
         </DataGrid>
+        <Border Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Grid.RowSpan="3" BorderBrush="#004e98" BorderThickness="3"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding SelectedNotification.Title}" FontWeight="Bold" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Text="{Binding SelectedNotification.Description}" TextWrapping="Wrap" FontWeight="DemiBold" FontSize="28" HorizontalAlignment="Center" Padding="5"/>
 
+        <Button x:Name="Yes" Grid.Column="1" Grid.Row="4" Height="50" Width="105" HorizontalAlignment="Left" Margin="135,10,0,10" Content="Da" FontWeight="Bold" FontSize="40" IsVisibleChanged="Button_IsVisibleChanged"/>
+        <Button x:Name="No" Grid.Column="2" Grid.Row="4" Height="50" Width="105" HorizontalAlignment="Left" Margin="30,10,0,10" Content="Ne" FontWeight="Bold" FontSize="40" IsVisibleChanged="Button_IsVisibleChanged"/>
 
-        <Button x:Name="BtnOpenNotification" Grid.Row="3"
+        <Button Visibility="Hidden" x:Name="BtnOpenNotification" Grid.Row="5"
                 Width="170" Height="40" Margin="20"
                 IsEnabled="False" Click="BtnOpenNotification_Click">
             <StackPanel Orientation="Horizontal">

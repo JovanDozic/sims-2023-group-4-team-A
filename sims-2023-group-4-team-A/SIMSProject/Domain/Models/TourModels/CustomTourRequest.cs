@@ -14,8 +14,8 @@ namespace SIMSProject.Domain.Models.TourModels
         public int Id { get; set; }
         public Guest Guest { get; set; } = new();
         public Location Location { get; set; } = new();
-        public string Description { get; set; } = string.Empty; 
-        public Language TourLanguage { get; set; }
+        public string Description { get; set; } = string.Empty;
+        public Language TourLanguage { get; set; } = Language.ENGLISH;
         public int GuestCount { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

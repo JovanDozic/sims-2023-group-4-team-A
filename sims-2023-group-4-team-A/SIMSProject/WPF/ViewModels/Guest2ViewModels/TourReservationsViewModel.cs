@@ -58,11 +58,9 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 }
             }
         }
-        //public string KeyPoints { get => _selectedTourReservation.TourAppointment.Tour.KeyPointsToString(); }
         public TourReservationsViewModel(User user)
         {
             _user = user;
-            //TourReservation = tourReservation;
             _reservationService = Injector.GetService<TourReservationService>();
             _tourGuestService = Injector.GetService<TourGuestService>();
         }
@@ -80,7 +78,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         public bool IsRatingEnabled()
         {
             if (SelectedTourReservation == null) return false;
-            var tourGuest = _tourGuestService.GetGuest(SelectedTourReservation.TourAppointment, _user.Id);
+            var tourGuest = _tourGuestService.GetTourGuest(SelectedTourReservation.TourAppointment, _user.Id);
             if (SelectedTourReservation.TourAppointment.TourStatus == Status.COMPLETED && SelectedTourReservation.GuideRated == false && tourGuest.GuestStatus == GuestAttendance.PRESENT)
             {
                 return true;
@@ -91,7 +89,6 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         public bool IsTourActive()
         {
             if (SelectedTourReservation == null) return false;
-            //if (SelectedTourReservation.TourAppointment.TourStatus == Status.ACTIVE) return true;
             return true;
         }
         public void GetDetails(TourReservation tourReservation)

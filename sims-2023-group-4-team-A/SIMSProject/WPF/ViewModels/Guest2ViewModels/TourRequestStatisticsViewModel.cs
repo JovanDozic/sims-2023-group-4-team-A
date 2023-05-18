@@ -14,7 +14,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
     public class TourRequestStatisticsViewModel : ViewModelBase
     {
         private Guest _user;
-        private CustomTourRequestService _customTourRequestService;
+        private CustomTourRequestStatisticsService _customTourRequestStatisticsService;
         private string _selectedYear;
         public string SelectedYear
         {
@@ -120,67 +120,47 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         public TourRequestStatisticsViewModel(Guest user)
         {
             _user = user;
-            _customTourRequestService = Injector.GetService<CustomTourRequestService>();
+            _customTourRequestStatisticsService = Injector.GetService<CustomTourRequestStatisticsService>();
         }
 
         public void LoadByYear(string selectedYear)
         {
-            if (selectedYear == "Oduvek")
+            
+            int year = selectedYear == "Oduvek" ? -1 : int.TryParse(selectedYear, out year) ? year : 0;
+            if (year == -1)
             {
-                AcceptedPercentage = Math.Round(_customTourRequestService.AllTimeAcceptedRequestPercentageByGuestId(_user.Id), 2).ToString() + "%";
-                UnacceptedPercentage = (100 - Math.Round(_customTourRequestService.AllTimeAcceptedRequestPercentageByGuestId(_user.Id), 2)).ToString() + "%";
-                AverageGuestNumber = Math.Round(_customTourRequestService.AllTimeAverageGuestsInAcceptedRequests(_user.Id), 2).ToString();
-                
-                TourLanguages = new ObservableCollection<string>(_customTourRequestService.GetTourLanguages(_user.Id));
-                TourLocations = new ObservableCollection<string>(_customTourRequestService.GetTourLocations(_user.Id));
-
-                LanguageCounts = new SeriesCollection
-                {
-                    new ColumnSeries
-                    {
-                        Title = "Broj zahteva",
-                        Values = new ChartValues<int>(_customTourRequestService.GetAllTimeRequestCountByLanguage(_user.Id).Values.ToList())
-                    }
-                };
-
-                LocationCounts = new SeriesCollection
-                {
-                    new ColumnSeries
-                    {
-                        Title = "Broj zahteva",
-                        Values = new ChartValues<int>(_customTourRequestService.GetAllTimeRequestCountByLocation(_user.Id).Values.ToList())
-                    }
-                };
-
+                AcceptedPercentage = Math.Round(_customTourRequestStatisticsService.AllTimeAcceptedRequestPercentageByGuestId(_user.Id), 2).ToString() + "%";
+                UnacceptedPercentage = Math.Round(100 - _customTourRequestStatisticsService.AllTimeAcceptedRequestPercentageByGuestId(_user.Id), 2).ToString() + "%";
+                AverageGuestNumber = Math.Round(_customTourRequestStatisticsService.AllTimeAverageGuestsInAcceptedRequests(_user.Id), 2).ToString();
             }
-            int year;
-            if (int.TryParse(selectedYear, out year))
+            else
             {
-                AcceptedPercentage = Math.Round(_customTourRequestService.AcceptedRequestPercentageByGuestId(_user.Id, year), 2).ToString() + "%";
-                UnacceptedPercentage = (100 - Math.Round(_customTourRequestService.AcceptedRequestPercentageByGuestId(_user.Id, year), 2)).ToString() + "%";
-                AverageGuestNumber = Math.Round(_customTourRequestService.AverageGuestsInAcceptedRequests(_user.Id, year), 2).ToString();
-
-                TourLanguages = new ObservableCollection<string>(_customTourRequestService.GetTourLanguagesByYear(_user.Id, year));
-                TourLocations = new ObservableCollection<string>(_customTourRequestService.GetTourLocationsByYear(_user.Id, year));
-
-                LanguageCounts = new SeriesCollection
-                {
-                    new ColumnSeries
-                    {
-                        Title = "Broj zahteva",
-                        Values = new ChartValues<int>(_customTourRequestService.GetRequestCountByLanguage(_user.Id, year).Values.ToList())
-                    }
-                };
-
-                LocationCounts = new SeriesCollection
-                {
-                    new ColumnSeries
-                    {
-                        Title = "Broj zahteva",
-                        Values = new ChartValues<int>(_customTourRequestService.GetRequestCountByLocation(_user.Id, year).Values.ToList())
-                    }
-                };
+                AcceptedPercentage = Math.Round(_customTourRequestStatisticsService.AcceptedRequestPercentageByGuestId(_user.Id, year), 2).ToString() + "%";
+                UnacceptedPercentage = Math.Round(100 - _customTourRequestStatisticsService.AcceptedRequestPercentageByGuestId(_user.Id, year), 2).ToString() + "%";
+                AverageGuestNumber = Math.Round(_customTourRequestStatisticsService.AverageGuestsInAcceptedRequests(_user.Id, year), 2).ToString();
             }
+
+            TourLanguages = new ObservableCollection<string>(_customTourRequestStatisticsService.GetTourLanguages(_user.Id, year));
+            TourLocations = new ObservableCollection<string>(_customTourRequestStatisticsService.GetTourLocations(_user.Id, year));
+
+            LanguageCounts = new SeriesCollection
+                {
+                    new ColumnSeries
+                    {
+                        Title = "Broj zahteva",
+                        Values = new ChartValues<int>(_customTourRequestStatisticsService.GetRequestCountByLanguage(_user.Id, year).Values.ToList())
+                    }
+                };
+
+            LocationCounts = new SeriesCollection
+                {
+                    new ColumnSeries
+                    {
+                        Title = "Broj zahteva",
+                        Values = new ChartValues<int>(_customTourRequestStatisticsService.GetRequestCountByLocation(_user.Id, year).Values.ToList())
+                    }
+                };
+
         }
 
     }

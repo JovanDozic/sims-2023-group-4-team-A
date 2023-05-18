@@ -21,7 +21,7 @@ namespace SIMSProject.Application.Services.TourServices
 
         public TourGuest SignUpGuest(int guestId, int tourAppointmentId)
         {
-            TourGuest? tourGuest = _repo.GetAll().Find(x => x.Guest.Id == guestId && x.TourAppointment.Id == tourAppointmentId);
+            TourGuest? tourGuest = _repo.GetTourGuest(tourAppointmentId, guestId);
             if (tourGuest == null) return null;
 
             tourGuest.GuestStatus = GuestAttendance.PENDING;
@@ -40,18 +40,17 @@ namespace SIMSProject.Application.Services.TourServices
         {
             return _repo.GetGuests(appointment.Id);
         }
-        public TourGuest GetGuest(TourAppointment appointment, int guestId)
+        public TourGuest GetTourGuest(TourAppointment appointment, int guestId)
         {
-            return GetGuests(appointment).Find(x=>x.Guest.Id == guestId);
+            return _repo.GetTourGuest(appointment.Id, guestId);
         }
         public TourGuest Save(TourGuest tourGuest)
         {
             return _repo.Save(tourGuest);
         }
-        
         public List<TourGuest> GetAllPendingByUser(User user)
         {
-            return _repo.GetAll().FindAll(x => x.Guest.Id == user.Id && x.GuestStatus == GuestAttendance.PENDING);
+            return _repo.GetAllPendingByUser(user);
         }
     }
 }

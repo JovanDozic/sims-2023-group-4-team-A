@@ -1,21 +1,6 @@
-﻿using SIMSProject.Domain.Models.TourModels;
-using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.Model;
+﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.Guest2ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SIMSProject.View.Guest2
 {

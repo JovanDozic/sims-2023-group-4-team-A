@@ -58,10 +58,10 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             {
                 return _customTourRequest.TourLanguage switch
                 {
-                    Language.ENGLISH => "Engleski",
                     Language.SERBIAN => "Srpski",
                     Language.SPANISH => "Španski",
-                    _ => "Francuski"
+                    Language.FRENCH => "Francuski",
+                    _ => "Engleski"
 
                 };
             }
@@ -69,10 +69,10 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             {
                 _customTourRequest.TourLanguage = value switch
                 {
-                    "Engleski" => Language.ENGLISH,
                     "Srpski" => Language.SERBIAN,
                     "Španski" => Language.SPANISH,
-                    _ => Language.FRENCH
+                    "Francuski" => Language.FRENCH,
+                    _ => Language.ENGLISH
                 };
                 OnPropertyChanged(nameof(TourLanguage));
             }

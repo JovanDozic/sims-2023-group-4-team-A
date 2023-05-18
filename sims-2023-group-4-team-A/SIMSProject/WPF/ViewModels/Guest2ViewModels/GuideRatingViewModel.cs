@@ -111,7 +111,6 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
 
         public void LeaveRating(int guideId)
         {
-            //TourReservation.TourAppointment.Tour.GuideId = TourReservation.TourAppointment.Tour.Guide.Id;
             TourReservation.GuideRated = true;
             _ratingService.LeaveRating(_rating, guideId);
         }

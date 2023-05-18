@@ -21,7 +21,6 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews.CustomTourRequests
                 dpAppointment.BlackoutDates.Add(new CalendarDateRange(date));
             }
         }
-
         private void btnAccept_Click(object sender, RoutedEventArgs e)
         {
             var window = new TourCreation();

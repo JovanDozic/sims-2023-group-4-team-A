@@ -12,8 +12,10 @@ namespace SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces
     {
         public int NextId();
         public List<CustomTourRequest> GetAll();
+        public List<CustomTourRequest> GetOnHold();
         public List<CustomTourRequest> GetAllByGuestId(int guestId);
         public List<CustomTourRequest> GetAllAcceptedByGuestId(int guestId);
+        public List<CustomTourRequest> GetAllSimilarRequests(Tour tour);
         public CustomTourRequest Save(CustomTourRequest customTourRequest);
         public void SaveAll(List<CustomTourRequest> customTourRequests);
         public List<Location> GetRequestsLocations();

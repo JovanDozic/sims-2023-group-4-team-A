@@ -15,25 +15,24 @@ using SIMSProject.Model;
 namespace SIMSProject.Domain.Models.TourModels
 {
     public enum Language { ENGLISH = 1, SERBIAN, SPANISH, FRENCH };
-    public enum Created { REGULAR = 0, CUSTOM, STATISTICS};
+    public enum CreatingReason { REGULAR = 0, CUSTOM, STATISTICS};
     public class Tour : ISerializable
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public Language TourLanguage { get; set; }
-        public Created Reason { get; set; }
+        public CreatingReason Reason { get; set; }
         public int MaxGuestNumber { get; set; }
         public int Duration { get; set; }
         public Location Location { get; set; } = new();
         public Guide Guide { get; set; } = new();
-        public List<TourAppointment> Appointments { get; set; } = new();
         public List<KeyPoint> KeyPoints { get; set; } = new List<KeyPoint>();
         public List<string> Images { get; set; } = new List<string>();
 
         public Tour() { }
 
-        public Tour(string name, int locationId, string description, Language tourLanguage,  int maxGuestNumber, int duration, int guideId, Created reason)
+        public Tour(string name, int locationId, string description, Language tourLanguage,  int maxGuestNumber, int duration, int guideId, CreatingReason reason, List<KeyPoint> keyPoints, List<string> images)
         {
             Name = name;
             Location.Id = locationId;
@@ -44,6 +43,8 @@ namespace SIMSProject.Domain.Models.TourModels
             Location.Id = locationId;
             Guide.Id = guideId;
             Reason = reason;
+            KeyPoints = keyPoints;
+            Images = images;
         }
 
         public static string GetLanguage(Language language)
@@ -57,14 +58,22 @@ namespace SIMSProject.Domain.Models.TourModels
                 _ => "Jezik"
             };
         }
-
-        public static string GetReason(Created reason)
+        public static List<string> GetLanguages()
+        {
+            List<string> languages = new();
+            foreach (Language language in Enum.GetValues(typeof(Language)))
+            {
+                languages.Add(GetLanguage(language));
+            }
+            return languages;
+        }
+        public static string GetReason(CreatingReason reason)
         {
             return reason switch
             {
-                Created.STATISTICS => "Preko statistike",
-                Created.REGULAR => "Obična tura",
-                Created.CUSTOM => "Po želji",
+                CreatingReason.STATISTICS => "Preko statistike",
+                CreatingReason.REGULAR => "Obična tura",
+                CreatingReason.CUSTOM => "Po želji",
                 _ => "Razlog kreiranja"
             };
         }
@@ -79,27 +88,6 @@ namespace SIMSProject.Domain.Models.TourModels
             imageURLs.Remove(imageURLs.Length - 1, 1);
             return imageURLs.ToString();
         }
-
-        public override string? ToString()
-        {
-            return Name + ", " + Location + ", " + TourLanguage.ToString();
-        }
-
-        public string KeyPointsToString()
-        {
-            var builder = new StringBuilder();
-            foreach (var keyPoint in KeyPoints)
-            {
-                builder.Append($"{keyPoint.ToString()}\n");
-            }
-            return builder.ToString();
-        }
-
-        public string ToStringSearch()
-        {
-            return Location + " " + TourLanguage.ToString();
-        }
-
         public string[] ToCSV()
         {
             string[] csvValues = {
@@ -122,7 +110,7 @@ namespace SIMSProject.Domain.Models.TourModels
             Name = values[1];
             Description = values[2];
             TourLanguage = (Language)Enum.Parse(typeof(Language), values[3]);
-            Reason = (Created)Enum.Parse(typeof(Created), values[4]);
+            Reason = (CreatingReason)Enum.Parse(typeof(CreatingReason), values[4]);
             MaxGuestNumber = Convert.ToInt32(values[5]);
             Duration = Convert.ToInt32(values[6]);
             Location.Id = Convert.ToInt32(values[7]);
