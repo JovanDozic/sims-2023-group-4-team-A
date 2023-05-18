@@ -71,7 +71,7 @@ namespace SIMSProject.Application.Services.TourServices
         {
             foreach (var customRequest in customTourRequests)
             {
-                if((customRequest.StartDate-DateTime.Now).TotalHours <= 48)
+                if((customRequest.StartDate-DateTime.Now).TotalHours <= 48 && customRequest.RequestStatus == RequestStatus.ONHOLD)
                 {
                     customRequest.RequestStatus = RequestStatus.INVALID;
                 }

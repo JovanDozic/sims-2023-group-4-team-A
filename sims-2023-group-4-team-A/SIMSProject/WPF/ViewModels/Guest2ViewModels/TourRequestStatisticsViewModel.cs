@@ -130,13 +130,13 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             if (year == -1)
             {
                 AcceptedPercentage = Math.Round(_customTourRequestStatisticsService.AllTimeAcceptedRequestPercentageByGuestId(_user.Id), 2).ToString() + "%";
-                UnacceptedPercentage = (100 - Math.Round(_customTourRequestStatisticsService.AllTimeAcceptedRequestPercentageByGuestId(_user.Id), 2)).ToString() + "%";
+                UnacceptedPercentage = Math.Round(100 - _customTourRequestStatisticsService.AllTimeAcceptedRequestPercentageByGuestId(_user.Id), 2).ToString() + "%";
                 AverageGuestNumber = Math.Round(_customTourRequestStatisticsService.AllTimeAverageGuestsInAcceptedRequests(_user.Id), 2).ToString();
             }
             else
             {
                 AcceptedPercentage = Math.Round(_customTourRequestStatisticsService.AcceptedRequestPercentageByGuestId(_user.Id, year), 2).ToString() + "%";
-                UnacceptedPercentage = (100 - Math.Round(_customTourRequestStatisticsService.AcceptedRequestPercentageByGuestId(_user.Id, year), 2)).ToString() + "%";
+                UnacceptedPercentage = Math.Round(100 - _customTourRequestStatisticsService.AcceptedRequestPercentageByGuestId(_user.Id, year), 2).ToString() + "%";
                 AverageGuestNumber = Math.Round(_customTourRequestStatisticsService.AverageGuestsInAcceptedRequests(_user.Id, year), 2).ToString();
             }
 

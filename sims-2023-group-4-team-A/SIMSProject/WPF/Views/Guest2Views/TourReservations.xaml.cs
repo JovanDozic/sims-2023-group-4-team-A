@@ -23,8 +23,6 @@ namespace SIMSProject.WPF.Views.Guest2Views
 
         private void RateGuide_Click(object sender, RoutedEventArgs e)
         {
-            //RateGuide rateGuide = new RateGuide(User, _tourReservationsViewModel.SelectedTourReservation, _tourReservationsViewModel.GetGuideId());
-            //rateGuide.ShowDialog();
             NavigationService.Navigate(new RateGuide(User, _tourReservationsViewModel.SelectedTourReservation, _tourReservationsViewModel.GetGuideId()));
             _tourReservationsViewModel.LoadReservationsByGuestId(User.Id);
             DgrReservations.SelectedItem = null;
