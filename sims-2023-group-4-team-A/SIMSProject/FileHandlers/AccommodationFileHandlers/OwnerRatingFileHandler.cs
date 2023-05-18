@@ -19,9 +19,9 @@ namespace SIMSProject.FileHandlers.AccommodationFileHandlers
             return _serializer.FromCSV(FilePath);
         }
 
-        public void Save(List<OwnerRating> ownerRating)
+        public void Save(List<OwnerRating> ratings)
         {
-            _serializer.ToCSV(FilePath, ownerRating);
+            _serializer.ToCSV(FilePath, ratings);
         }
     }
 }

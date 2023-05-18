@@ -25,42 +25,40 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.ColumnSpan="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
 
-            <Label Content="Rezervacija smeštaja: " FontSize="32"
-                   FontWeight="Bold" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="77" Margin="116,73,0,30" Width="332" Grid.ColumnSpan="2"/>
-            <TextBlock HorizontalAlignment="Left" Text="{Binding SelectedAccommodation.Name}"
-                       FontSize="32" VerticalAlignment="Top" FontStyle="Italic"
-                   FontWeight="Bold" Margin="108,90,0,0" Grid.ColumnSpan="2" Width="532" Grid.Column="1"/>
-            <Image Grid.Column="2" Source="../Icons/chevron-left-black.png" Margin="236,10,76,142" />
+            <Label Content="Rezervacija smeštaja"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   FontSize="32" FontWeight="Bold"></Label>
+            <TextBlock HorizontalAlignment="Center" Text="{Binding SelectedAccommodation.Name}"
+                       FontSize="28" VerticalAlignment="Top" FontStyle="Italic"
+                       TextAlignment="Center"
+                   FontWeight="Bold" Margin="0,116,0,0" Height="42"/>
+            <Image Source="../Icons/chevron-left-black.png" Height="30" Width="30" Margin="918,11,76,139" />
             <Button Content="Nazad" 
                     Background="Transparent"
                     BorderBrush="Transparent"
                     VerticalAlignment="Top"
                     FontWeight="Bold"
                     BorderThickness="0"
-                    FontSize="20" Grid.Column="2" Margin="265,7,10,0" Click="Button_Click_Close" Height="31"/>
+                    FontSize="20" Margin="948,10,10,0" Click="Button_Click_Close" Height="25"/>
         </Grid>
 
-        <Label Grid.Row="1" VerticalAlignment="Top" Content="Datum dolaska:" FontSize="28" Margin="214,11,98,0" Height="48"></Label>
-        <DatePicker Validation.ErrorTemplate="{x:Null}" Loaded="DatePickerStart_Loaded" SelectedDate="{Binding DateBegin}" x:Name="DateBeginBox" Width="240" Grid.Row="1" FontSize="28" Margin="214,86,58,68" Grid.RowSpan="2" ></DatePicker>
-        <TextBlock x:Name="DateValidation" Grid.Row="2" Grid.ColumnSpan="2" Foreground="Red" Margin="310,37,310,24" FontSize="18"/>
+        <Label Grid.Row="1" VerticalAlignment="Top" Content="Početni datum:" FontSize="28" Margin="214,23,98,0" Height="48"></Label>
+        <DatePicker SelectedDateChanged="FirstDate_Changed" Validation.ErrorTemplate="{x:Null}" Loaded="DatePickerStart_Loaded" SelectedDate="{Binding DateBegin}" x:Name="DateBeginBox" Width="240" Grid.Row="1" FontSize="28" Margin="214,86,58,68" Grid.RowSpan="2" />
+        <TextBlock x:Name="DateValidation" Grid.Row="2" Grid.ColumnSpan="2" Foreground="Red" Margin="310,42,310,19" FontSize="18"/>
 
-        <Label Content="Datum odlaska:" Grid.Row="1" Grid.Column="1"
-               FontSize="28" VerticalAlignment="Top" Margin="82,11,36,0"></Label>
-        <DatePicker Validation.ErrorTemplate="{x:Null}" Loaded="DatePickerEnd_Loaded" SelectedDate="{Binding DateEnd}" x:Name="DateEndBox" Width="240" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1"
-                    FontSize="28" Margin="82,85,0,68" Grid.RowSpan="2"></DatePicker>
+        <Label Content="Krajnji datum:" Grid.Row="1" Grid.Column="1"
+               FontSize="28" VerticalAlignment="Top" Margin="82,23,36,0"></Label>
+        <DatePicker SelectedDateChanged="FirstDate_Changed" Validation.ErrorTemplate="{x:Null}" Loaded="DatePickerEnd_Loaded" SelectedDate="{Binding DateEnd}" x:Name="DateEndBox" Width="240" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1"
+                    FontSize="28" Margin="82,90,0,63" Grid.RowSpan="2"></DatePicker>
 
         <Label Grid.Row="3" Content="Broj dana:" FontSize="28" Margin="218,9,135,18"/>
-        <custom:NumericBoxRating Value="{Binding NumberOfDays, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="DaysNum" Grid.Row="3" VerticalAlignment="Top" Margin="252,43,158,0" Grid.RowSpan="2"/>
+        <custom:NumericBoxRating Value="{Binding NumberOfDays, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="DaysNum" Grid.Row="3" VerticalAlignment="Top" Margin="252,43,158,0" Grid.RowSpan="2"></custom:NumericBoxRating>
 
-        <Label Grid.Row="3" Grid.Column="1" Content="Broj ljudi:"
-               FontSize="28" Margin="82,9,36,13"/>
-        <custom:NumericBoxRating Value="{Binding GuestsNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="GuestsNum" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" Margin="116,43,294,0" Grid.RowSpan="2"></custom:NumericBoxRating>
+        <Label Grid.Row="3" Grid.Column="1" Content="Broj gostiju:"
+               FontSize="28" Margin="82,9,36,18"/>
+        <custom:NumericBoxRating  Value="{Binding GuestsNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="GuestsNum" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" Margin="116,43,294,0" Grid.RowSpan="2"></custom:NumericBoxRating>
 
         <TextBlock Width="374" Foreground="Red" x:Name="DurationValidation" Grid.Row="4" FontSize="18"
                    VerticalAlignment="Top" HorizontalAlignment="Left" Margin="128,55,0,0"/>

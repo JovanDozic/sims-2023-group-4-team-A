@@ -60,7 +60,7 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
         private void Button_Click_SendRequest(object sender, RoutedEventArgs e)
         {
             _reschedulingRequestViewModel.SendRequest();
-            MessageBox.Show("Zahtev uspešno poslat!");
+            MessageBox.Show("Zahtev uspešno poslat!", "", MessageBoxButton.OK, MessageBoxImage.Information);
             NavigationService.Navigate(new ReservationList(_user));
         }
     }

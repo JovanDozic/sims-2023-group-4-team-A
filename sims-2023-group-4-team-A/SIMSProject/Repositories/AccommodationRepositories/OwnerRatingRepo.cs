@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Domain.Models.AccommodationModels;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.FileHandlers.AccommodationFileHandlers;
 using System;
@@ -11,13 +12,15 @@ namespace SIMSProject.Repositories.AccommodationRepositories
     {
         private readonly OwnerRatingFileHandler _fileHandler;
         private readonly IAccommodationReservationRepo _reservationRepo;
+        private readonly IRenovationSuggestionRepo _suggestionRepo;
         private List<OwnerRating> _ratings;
 
-        public OwnerRatingRepo(IAccommodationReservationRepo reservationRepo)
+        public OwnerRatingRepo(IAccommodationReservationRepo reservationRepo, IRenovationSuggestionRepo suggestionRepo)
         {
             _fileHandler = new();
             _ratings = new();
             _reservationRepo = reservationRepo;
+            _suggestionRepo = suggestionRepo;
 
             Load();
         }
@@ -26,6 +29,7 @@ namespace SIMSProject.Repositories.AccommodationRepositories
         {
             _ratings = _fileHandler.Load();
             MapAccommodationReservations();
+            MapRenovationSuggestions();
         }
 
         public List<OwnerRating> GetAll()
@@ -36,6 +40,11 @@ namespace SIMSProject.Repositories.AccommodationRepositories
         public List<OwnerRating> GetAllByOwnerId(int ownerId)
         {
             return _ratings.FindAll(x => x.Reservation?.Accommodation.Owner.Id == ownerId);
+        }
+
+        public List<OwnerRating> GetAllByAccommodationId(int accommodationId)
+        {
+            return _ratings.FindAll(x => x.Reservation?.Accommodation.Id == accommodationId);
         }
 
         public OwnerRating GetById(int ratingId)
@@ -73,6 +82,15 @@ namespace SIMSProject.Repositories.AccommodationRepositories
             foreach (var rating in _ratings)
             {
                 rating.Reservation = _reservationRepo.GetById(rating.Reservation.Id);
+            }
+        }
+ 
+        private void MapRenovationSuggestions()
+        {
+            foreach(var rating in _ratings)
+            {
+                if (rating.RenovationSuggestion is null) continue;
+                rating.RenovationSuggestion = _suggestionRepo.GetById(rating.RenovationSuggestion.Id);
             }
         }
 

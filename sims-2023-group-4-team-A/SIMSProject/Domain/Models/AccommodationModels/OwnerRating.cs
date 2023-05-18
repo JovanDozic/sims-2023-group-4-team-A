@@ -15,6 +15,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public string Comment { get; set; } = string.Empty;
         public List<string> ImageURLs { get; set; } = new();
         public string ImageURLsCSV { get; set; } = string.Empty;
+        public RenovationSuggestion? RenovationSuggestion { get; set; } = new();
 
         public OwnerRating()
         {
@@ -27,6 +28,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
 
         public string[] ToCSV()
         {
+            string renovationSuggestionValue = RenovationSuggestion?.Id.ToString() ?? "Nema preporuke o renoviranju";
             ImageURLsCSV = ImageURLsToCSV(ImageURLs);
             string[] csvValues =
             {
@@ -37,7 +39,9 @@ namespace SIMSProject.Domain.Models.AccommodationModels
                 Kindness.ToString(),
                 Overall.ToString(CultureInfo.CurrentCulture),
                 Comment,
-                ImageURLsCSV
+                ImageURLsCSV,
+                renovationSuggestionValue
+                
             };
             return csvValues;
         }
@@ -53,6 +57,15 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             Comment = values[6];
             ImageURLsCSV = values[7];
             ImageURLs = ImageURLsFromCSV(ImageURLsCSV);
+            if (values[8] == "Nema preporuke o renoviranju")
+            {
+                RenovationSuggestion = null;
+            }
+            else
+            {
+                RenovationSuggestion = new();
+                RenovationSuggestion.Id = int.Parse(values[8]);
+            }
         }
 
         public override string? ToString()

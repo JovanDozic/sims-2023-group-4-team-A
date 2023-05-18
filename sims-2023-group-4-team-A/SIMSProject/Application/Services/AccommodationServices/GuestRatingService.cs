@@ -2,8 +2,11 @@
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 
 namespace SIMSProject.Application.Services.AccommodationServices
 {
@@ -42,6 +45,14 @@ namespace SIMSProject.Application.Services.AccommodationServices
         public List<GuestRating> GetAll()
         {
             return _ratingRepo.GetAll();
+        }
+
+        public void UpdateRatingsForReservations(ObservableCollection<AccommodationReservation> reservations)
+        {
+            foreach (var reservation in reservations)
+            {
+                if (reservation.GuestRated) reservation.GuestRating = GetByReservationId(reservation.Id).Overall;
+            }
         }
     }
 }

@@ -29,7 +29,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="Moji Smeštaji" Grid.Column="0"
-                   FontSize="22.5" FontWeight="SemiBold"
+                   FontSize="30" FontWeight="SemiBold"
                    HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
             <Button x:Name="BtnAddAccommodation" Grid.Column="1"
@@ -76,11 +76,11 @@
                                        Margin="0,2.5,0,0"/>
 
                             <StackPanel Orientation="Horizontal" Margin="0,2.5,0,0">
-                                <cstm:StarRating ControlHeight="20" Rating="{Binding Rating}" 
+                                <cstm:StarRating ControlHeight="20" Rating="{Binding Rating.Overall}" 
                                                  HorizontalAlignment="Left" Margin="-5,0,0,0"/>
                                 <TextBlock Text="•  " Margin="5,0,0,0" FontSize="10"
                                            VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding NumberOfRatings}" FontSize="10"
+                                <TextBlock Text="{Binding Rating.NumberOfRatings}" FontSize="10"
                                            VerticalAlignment="Center"/>
                                 <TextBlock Text=" ocena" FontSize="10"
                                            VerticalAlignment="Center"/>
@@ -99,9 +99,7 @@
                                 <TextBlock Text="Renoviranje u toku" Margin="5,0,0,0"
                                            FontSize="14"/>
                             </StackPanel>
-                            
                         </StackPanel>
-                        
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

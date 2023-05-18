@@ -49,16 +49,25 @@ namespace SIMSProject.Domain.Injectors
                     provider.GetService<IGuestRepo>() ?? throw new Exception("Dependency Injection Failed: IGuestRepo not found.")
                 )
             );
+            services.AddSingleton<IAccommodationRenovationRepo, AccommodationRenovationRepo>(
+                provider => new AccommodationRenovationRepo(
+                    provider.GetService<IAccommodationRepo>() ?? throw new Exception("Dependency Injection Failed: IAccommodationRepo not found.")
+                )
+            );
             services.AddSingleton<IGuestRatingRepo, GuestRatingRepo>(
                 provider => new GuestRatingRepo(
                     provider.GetService<IAccommodationReservationRepo>() ?? throw new Exception("Dependency Injection Failed: IAccommodationReservationRepo not found.")
                 )
             );
+            services.AddSingleton<IRenovationSuggestionRepo, RenovationSuggestionRepo>();
+
             services.AddSingleton<IOwnerRatingRepo, OwnerRatingRepo>(
                 provider => new OwnerRatingRepo(
-                    provider.GetService<IAccommodationReservationRepo>() ?? throw new Exception("Dependency Injection Failed: IAccommodationReservationRepo not found.")
+                    provider.GetService<IAccommodationReservationRepo>() ?? throw new Exception("Dependency Injection Failed: IAccommodationReservationRepo not found."),
+                    provider.GetService<IRenovationSuggestionRepo>() ?? throw new Exception("Dependency Injection Failed: IRenovationSuggestionRepo not found.")
                 )
             );
+            
             services.AddSingleton<IReschedulingRequestRepo, ReschedulingRequestRepo>(
                 provider => new ReschedulingRequestRepo(
                     provider.GetService<IAccommodationReservationRepo>() ?? throw new Exception("Dependency Injection Failed: IAccommodationReservationRepo not found.")
@@ -126,6 +135,8 @@ namespace SIMSProject.Domain.Injectors
             services.AddScoped<UserService>();
             services.AddScoped<AccommodationService>();
             services.AddScoped<AccommodationReservationService>();
+            services.AddScoped<AccommodationRenovationService>();
+            services.AddScoped<AccommodationStatisticService>();
             services.AddScoped<LocationService>();
             services.AddScoped<NotificationService>();
             services.AddScoped<GuestRatingService>();
@@ -143,6 +154,7 @@ namespace SIMSProject.Domain.Injectors
             services.AddScoped<CustomTourRequestService>();
             services.AddScoped<TourRatingService>();
             services.AddScoped<CustomTourRequestStatisticsService>();
+            services.AddScoped<RenovationSuggestionService>();
 
             return services.BuildServiceProvider();
         }

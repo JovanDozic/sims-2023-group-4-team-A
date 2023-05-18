@@ -1,7 +1,6 @@
 ﻿using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
-using SIMSProject.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,12 +11,12 @@ namespace SIMSProject.Application.Services.AccommodationServices
     public class AccommodationService
     {
         private readonly IAccommodationRepo _repo;
-        private readonly AccommodationReservationService _accommodationReservationService;
+        private readonly OwnerRatingService _ratingService;
 
         public AccommodationService(IAccommodationRepo repo)
         {
             _repo = repo;
-            _accommodationReservationService = Injector.GetService<AccommodationReservationService>();
+            _ratingService = Injector.GetService<OwnerRatingService>();
         }
 
         public void ReloadAccommodations()
@@ -25,13 +24,25 @@ namespace SIMSProject.Application.Services.AccommodationServices
             _repo.Load();
         }
 
+        public List<Accommodation> CalculateRatings(List<Accommodation> accommodations)
+        {
+            foreach(var accommodation in accommodations)
+            {
+                accommodation.Rating = _ratingService.CalculateRating(accommodation);
+            }
+            return accommodations;
+        }
+
         public List<Accommodation> GetAllByOwnerId(int ownerId)
         {
-            return _repo.GetAllByOwnerId(ownerId);
+            var accommodations = _repo.GetAllByOwnerId(ownerId);
+            return CalculateRatings(accommodations);
         }
+
         public List<Accommodation> GetAll()
         {
-            return _repo.GetAll();
+            var accommodations = _repo.GetAll();
+            return CalculateRatings(accommodations);
         }
 
         public void RegisterAccommodation(Accommodation accommodation)
@@ -43,6 +54,33 @@ namespace SIMSProject.Application.Services.AccommodationServices
         {
             return _repo.GetAllByOwnerId(ownerId).Count;
         }
+
+        public List<int> GetYearsOfExisting(Accommodation accommodation)
+        {
+            var years = Enumerable.Range(
+                accommodation.DateCreated.Year, 
+                DateTime.Now.Year - accommodation.DateCreated.Year + 1).ToList();
+            years.Reverse();
+            return years;
+        }
+
+        public List<int> GetMonthsOfExisting(Accommodation accommodation, int year)
+        {
+            List<int> months = new();
+
+            if (year == accommodation.DateCreated.Year)
+                for (int month = accommodation.DateCreated.Month; month <= 12; month++)
+                    months.Add(month);
+            else if (year == DateTime.Now.Year)
+                for (int month = 1; month <= DateTime.Now.Month; month++)
+                    months.Add(month);
+            else if (year > accommodation.DateCreated.Year && year < DateTime.Now.Year)
+                for (int month = 1; month <= 12; month++)
+                    months.Add(month);
+
+            return months;
+        }
+
         public void Search(ObservableCollection<Accommodation> accommodations, string nameTypeLocation, int durationSearch, int maxGuestsSearch)
         {
             accommodations.Clear();
@@ -65,12 +103,18 @@ namespace SIMSProject.Application.Services.AccommodationServices
             foreach (var searchResult in searchResults)
                 accommodations.Add(searchResult);
         }
-        public List<AccommodationReservation> CheckReservations(List<AccommodationReservation> reservations, DateTime startDate, DateTime endDate, int accommodationId)
+        public List<AccommodationReservation> CheckReservations(List<AccommodationReservation> reservations, DateTime startDate, DateTime endDate)
         {
-            var conflictingReservation = reservations.FindAll(r => r.Accommodation.Id == accommodationId && (startDate < r.EndDate && r.StartDate < endDate));
+            var conflictingReservations = reservations.FindAll(r => startDate < r.EndDate && r.StartDate < endDate);
 
-            return conflictingReservation; 
+            return conflictingReservations; 
         }
-       
+
+        public List<AccommodationRenovation> CheckRenovations(List<AccommodationRenovation> renovations, DateTime startDate, DateTime endDate)
+        {
+            var conflictingRenovations = renovations.FindAll(r => startDate < r.EndDate && r.StartDate < endDate);
+
+            return conflictingRenovations;
+        }
     }
 }

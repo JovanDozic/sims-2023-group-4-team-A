@@ -13,6 +13,14 @@ namespace SIMSProject.WPF.CustomControls
         public static readonly DependencyProperty TitleProperty =
         DependencyProperty.Register("Title", typeof(string), typeof(AccommodationStatsGrid));
 
+        public bool BestIconVisibility
+        {
+            get { return (bool)GetValue(BestIconVisibilityProperty); }
+            set { SetValue(BestIconVisibilityProperty, value); }
+        }
+        public static readonly DependencyProperty BestIconVisibilityProperty =
+            DependencyProperty.Register("BestIconVisibility", typeof(bool), typeof(AccommodationStatsGrid));
+
         public int TotalReservations
         {
             get { return (int)GetValue(TotalReservationsProperty); }
@@ -21,13 +29,13 @@ namespace SIMSProject.WPF.CustomControls
         public static readonly DependencyProperty TotalReservationsProperty =
             DependencyProperty.Register("TotalReservations", typeof(int), typeof(AccommodationStatsGrid));
 
-        public int CanceledReservations
+        public int CancelledReservations
         {
-            get { return (int)GetValue(CanceledReservationsProperty); }
-            set { SetValue(CanceledReservationsProperty, value); }
+            get { return (int)GetValue(CancelledReservationsProperty); }
+            set { SetValue(CancelledReservationsProperty, value); }
         }
-        public static readonly DependencyProperty CanceledReservationsProperty =
-            DependencyProperty.Register("CanceledReservations", typeof(int), typeof(AccommodationStatsGrid));
+        public static readonly DependencyProperty CancelledReservationsProperty =
+            DependencyProperty.Register("CancelledReservations", typeof(int), typeof(AccommodationStatsGrid));
 
         public int RescheduledReservations
         {
@@ -48,6 +56,11 @@ namespace SIMSProject.WPF.CustomControls
         public AccommodationStatsGrid()
         {
             InitializeComponent();
+        }
+
+        private void BtnTrophy_Click(object sender, RoutedEventArgs e)
+        {
+            PopupTrophyHelp.IsOpen = true;
         }
     }
 }

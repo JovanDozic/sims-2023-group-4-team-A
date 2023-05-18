@@ -4,7 +4,6 @@ using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,22 +17,33 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private readonly AccommodationReservationService _reservationService;
         private readonly ReschedulingRequestService _reservationRequestService;
         private readonly GuestRatingService _guestRatingService;
-        private GuestRatingViewModel _guestRatingViewModel;
+        private readonly OwnerRatingService _ownerRatingService;
         private readonly NotificationService _notificationService;
         private AccommodationReservation _selectedReservation = new();
         private AccommodationReservation _accommodationReservation = new();
+        private Accommodation _accommodation = new();
+        private double _overall;
 
         public ObservableCollection<AccommodationReservation> Reservations { get; set; } = new();
         public ObservableCollection<DateRange> DateRanges { get; set; } = new();
         public ObservableCollection<DateRange> AlternativeRanges { get; set; } = new();
+
+        public Accommodation Accommodation
+        {
+            get => _accommodation;
+            set
+            {
+                if (_accommodation == value) return;
+                _accommodation = value;
+                OnPropertyChanged();
+            }
+        }
         public object AccommodationsCombo { get; private set; } = new();
-        private double _overall;
         public double OverallRating
         {
             get { return _overall; }
             set { _overall = value; OnPropertyChanged(nameof(OverallRating)); }
         }
-
         public AccommodationReservation SelectedReservation
         {
             get => _selectedReservation;
@@ -101,14 +111,17 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             }
         }
 
-        public AccommodationReservationViewModel(User user)
+        public AccommodationReservationViewModel(User user, Accommodation? accommodation = null)
         {
             _user = user;
+            if (accommodation is not null) Accommodation = accommodation;
             _reservationService = Injector.GetService<AccommodationReservationService>();
             _reservationRequestService = Injector.GetService<ReschedulingRequestService>();
             _guestRatingService = Injector.GetService<GuestRatingService>();
+            _ownerRatingService = Injector.GetService<OwnerRatingService>();
             _notificationService = Injector.GetService<NotificationService>();
-            Reservations = LoadUnCanceledReservations();
+
+            Reservations = LoadUncanceledReservations(); // TODO: a brate ne moze ovo ovde
             DateBegin = DateTime.Today.Date;
             DateEnd = DateTime.Today.Date.AddDays(1);
         }
@@ -146,7 +159,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
         public void SaveReservation()
         {
-            _reservationService.SaveReservation(SelectedReservation);
+            _reservationService.SaveReservation(SelectedReservation, _user);
         }
         public void Update()
         {
@@ -214,15 +227,21 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             return new ObservableCollection<AccommodationReservation>(_reservationService.GetAll());
         }
 
-        public ObservableCollection<AccommodationReservation> LoadUnCanceledReservations()
+        public ObservableCollection<AccommodationReservation> LoadUncanceledReservations()
         {
             return new ObservableCollection<AccommodationReservation>(_reservationService.GetAllUncancelled(_user));
         }
 
         public ObservableCollection<AccommodationReservation> LoadReservationsByAccommodation(Accommodation accommodation)
         {
-
             return new ObservableCollection<AccommodationReservation>(_reservationService.GetAllByAccommodationId(accommodation.Id));
+        }
+
+        public void LoadReservationsByAccommodation()
+        {
+            Reservations = new ObservableCollection<AccommodationReservation>(_reservationService.GetAllByAccommodationId(Accommodation.Id).OrderByDescending(x => x.StartDate));
+            _guestRatingService.UpdateRatingsForReservations(Reservations);
+            _ownerRatingService.UpdateRatingsForReservations(Reservations);
         }
 
     }

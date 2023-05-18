@@ -12,8 +12,10 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
     {
         private readonly User _user;
         private OwnerRating _rating = new();
+        private RenovationSuggestion _renovation = new();
         private OwnerRatingService _ratingService;
         private AccommodationReservationService _reservationService;
+        private RenovationSuggestionService _suggestionService;
         private Accommodation _accommodation = new();
         private string _selectedImageFile = string.Empty;
         private string _ownerNameTB = string.Empty;
@@ -151,12 +153,23 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
-        
+
+        public RenovationSuggestion Renovation
+        {
+            get => _rating.RenovationSuggestion;
+            set
+            {
+                if (_rating.RenovationSuggestion == value) return;
+                _rating.RenovationSuggestion = value;
+                OnPropertyChanged();
+            }
+        }
         public OwnerRatingViewModel(User user, AccommodationReservation reservation)
         {
             _user = user;
             _ratingService = Injector.GetService<OwnerRatingService>();
             _reservationService = Injector.GetService<AccommodationReservationService>();
+            _suggestionService = Injector.GetService<RenovationSuggestionService>();
             Reservation = reservation;
             LoadRating();
         }
@@ -205,6 +218,14 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         public void RateOwnerAndAccommodation()
         {
             SelectedReservation.OwnerRated = true;
+            _rating.RenovationSuggestion = null;
+            _ratingService.LeaveRating(_rating);
+        }
+
+        public void RateWithRenovation(RenovationSuggestion renovation)
+        {
+            SelectedReservation.OwnerRated = true;
+            _rating.RenovationSuggestion = renovation;
             _ratingService.LeaveRating(_rating);
         }
 
@@ -212,6 +233,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             if (Reservation == null) return;
             Rating = _ratingService.GetByReservationId(Reservation.Id);
-        }
+        }    
     }
 }

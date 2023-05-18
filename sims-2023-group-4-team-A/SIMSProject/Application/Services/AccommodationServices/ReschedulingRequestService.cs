@@ -24,6 +24,16 @@ namespace SIMSProject.Application.Services.AccommodationServices
             return _requestRepo.GetAllByOwnerId(ownerId);
         }
 
+        public List<ReschedulingRequest> GetAllByAccommodationId(int accommodationId)
+        {
+            return _requestRepo.GetAll().FindAll(x => x.Reservation.Accommodation.Id == accommodationId);
+        }
+
+        public List<ReschedulingRequest> GetAllByAccommodationId(int accommodationId, ReschedulingRequestStatus status)
+        {
+            return _requestRepo.GetAll().FindAll(x => x.Reservation.Accommodation.Id == accommodationId && x.Status == status);
+        }
+
         public bool IsDateRangeAvailable(AccommodationReservation reservationToBeMoved, DateTime startDate, DateTime endDate)
         {
             foreach (var reservation in _reservationRepo.GetAllByAccommodationId(reservationToBeMoved.Accommodation.Id))

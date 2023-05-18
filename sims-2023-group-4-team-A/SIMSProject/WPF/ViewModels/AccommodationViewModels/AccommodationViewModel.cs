@@ -5,7 +5,6 @@ using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,6 +24,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private LocationService _locationService;
         private AccommodationReservationService _accommodationReservationService;
         private AccommodationReservationViewModel _accommodationReservationViewModel;
+        private AccommodationRenovationService _renovationService;
         private string _fullLocation = string.Empty;
         private string _selectedImageFile = string.Empty;
         private Accommodation _selectedAccommodation = new();
@@ -227,21 +227,9 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         }
         public double Rating
         {
-            get => Accommodation.Rating;
+            get => Accommodation.Rating.Overall;
             set
             {
-                if (value == Accommodation.Rating) return;
-                Accommodation.Rating = value;
-                OnPropertyChanged();
-            }
-        }
-        public int NumberOfRatings
-        {
-            get => Accommodation.NumberOfRatings;
-            set
-            {
-                if (value == Accommodation.NumberOfRatings) return;
-                Accommodation.NumberOfRatings = value;
                 OnPropertyChanged();
             }
         }
@@ -255,6 +243,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
+
         public ObservableCollection<Accommodation> Accommodations
         {
             get => _accommodations;
@@ -277,6 +266,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _accommodationService = Injector.GetService<AccommodationService>();
             _locationService = Injector.GetService<LocationService>();
             _accommodationReservationService = Injector.GetService<AccommodationReservationService>();
+            _renovationService = Injector.GetService<AccommodationRenovationService>();
             _accommodationReservationViewModel = new(_user);
             Accommodations = LoadAllAccommodations();
 
@@ -319,7 +309,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             if (result != MessageBoxResult.Yes) return;
 
             _accommodation.Location = _locationService.GetLocation(_accommodation.Location);
-            if (_accommodation.Location == null) MessageBox.Show("nullcina");
+            if (_accommodation.Location == null) return;
             _accommodation.Owner = _user as Owner ?? throw new Exception("Greška prilikom registrovanja: Vlasnik nije inicijalizovan.");
             _accommodationService.RegisterAccommodation(_accommodation);
 
@@ -327,7 +317,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         }
         public string GetDateMessage()
         {
-            return "Datum odlaska mora biti veći od datuma dolaska";
+            return "Krajnji datum mora biti veći od početnog datuma";
         }
 
         public string GetDaysMessage()
@@ -359,7 +349,17 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
         public bool IsAccommodationOccupied(DateTime dateBegin, DateTime dateEnd)
         {
-            return _accommodationService.CheckReservations(_accommodationReservationService.GetAll(), dateBegin, dateEnd, SelectedAccommodation.Id).Count != 0;
+            return IsReserved(dateBegin, dateEnd) || IsRenovating(dateBegin, dateEnd);
+        }
+
+        public bool IsReserved(DateTime dateBegin, DateTime dateEnd)
+        {
+            return _accommodationService.CheckReservations(_accommodationReservationService.GetAllUncanceledByAccommodationId(SelectedAccommodation.Id), dateBegin, dateEnd).Count != 0;
+        }
+
+        public bool IsRenovating(DateTime dateBegin, DateTime dateEnd)
+        {
+            return _accommodationService.CheckRenovations(_renovationService.GetAllUncanceledByAccommodationId(SelectedAccommodation.Id), dateBegin, dateEnd).Count != 0;
         }
 
         public bool IsGuestsNumberValid(int guestsNumber)
@@ -374,6 +374,10 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             {
                 dateRanges.Add(new DateRange(reservation.StartDate, reservation.EndDate));
             }
+            foreach(var renovation in _renovationService.GetAllUncanceledByAccommodationId(SelectedAccommodation.Id))
+            {
+                dateRanges.Add(new DateRange(renovation.StartDate, renovation.EndDate));
+            }
             return dateRanges;
         }
 
@@ -382,12 +386,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             reservedAccommodations.RemoveAll(reserved => reserved.Canceled);
             return reservedAccommodations;
         }
-
-        public bool IsCanceled(DateTime dateBegin, DateTime dateEnd)
-        {
-            return _accommodationService.CheckReservations(_accommodationReservationService.GetAll(), dateBegin, dateEnd, SelectedAccommodation.Id).All(r => r.Canceled);
-        }
-
         private bool CanRegisterAccommodation()
         {
             return IsAccommodationValid;
@@ -450,9 +448,11 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                         break;
                     case nameof(FullLocation):
                         if (string.IsNullOrEmpty(FullLocation)) error = requiredMessage;
+                        if (!FullLocation.Contains(',')) error = requiredMessage;
                         var parts = FullLocation.Split(',');
                         if (FullLocation.Length < 3 || parts.Length != 2) error = "Lokacija mora biti u formatu 'Grad, Država'";
                         else if (parts[0].Length < 3 || parts[1].Length < 3) error = "Imena grada i države moraju biti duže od 3 karaktera";
+                        else if (!_locationService.Exists(parts[0], parts[1])) error = "Lokacija ne postoji u nasem sistemu";
                         break;
                     case nameof(Type):
                         if (string.IsNullOrEmpty(Accommodation.GetType(Type)) || Type == AccommodationType.None) error = requiredMessage;

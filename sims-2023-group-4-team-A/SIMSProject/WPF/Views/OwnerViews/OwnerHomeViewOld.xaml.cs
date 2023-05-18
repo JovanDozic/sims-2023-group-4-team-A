@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.View.OwnerViews;
 using SIMSProject.WPF.ViewModels.OwnerViewModels;
@@ -38,13 +39,20 @@ namespace SIMSProject.WPF.Views.OwnerViews
         private void DgrAccommodations_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _viewModel.LoadReservations();
+            _viewModel.LoadRenovations();
             DgrReservations.Items.Refresh();
+            DgrRenovations.Items.Refresh();
         }
 
         private void DgrReservations_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             BtnRateGuest.IsEnabled = _viewModel.IsGuestRatingEnabled();
             BtnViewOwnerRating.IsEnabled = _viewModel.IsOwnerRatingEnabled();
+        }
+
+        private void DgrRenovations_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BtnCancelRenovation.IsEnabled = _viewModel.IsRenovationCancelationEnabled(DgrRenovations.SelectedItem as AccommodationRenovation);
         }
 
         private void BtnRegisterAccommodation_Click(object sender, RoutedEventArgs e)
@@ -101,6 +109,34 @@ namespace SIMSProject.WPF.Views.OwnerViews
                 Content = new OwnerNotificationView(_user)
             };
             popupWindow.ShowDialog();
+        }
+
+        private void BtnCancelRenovation_Click(object sender, RoutedEventArgs e)
+        {
+            if (DgrRenovations.SelectedItem is null) return;
+
+            if (MessageBox.Show("Da li ste sigurni da želite da otkažete renoviranje?", 
+                                "Otkazivanje renoviranja", 
+                                MessageBoxButton.YesNo, 
+                                MessageBoxImage.Question) == MessageBoxResult.No) 
+                return;
+
+            _viewModel.CancelRenovation();
+            _viewModel.LoadRenovations();
+            DgrRenovations.Items.Refresh();
+            DgrRenovations.SelectedItem = null;
+        }
+
+        
+
+        private void BtnScheduleRenovation_Click(object sender, RoutedEventArgs e)
+        {
+            if (DgrAccommodations.SelectedItem is null) return; 
+            OwnerScheduleRenovationOld window = new(_user, _viewModel.SelectedAccommodation);
+            window.ShowDialog();
+            _viewModel.LoadRenovations();
+            DgrRenovations.Items.Refresh();
+            DgrRenovations.SelectedItem = null;
         }
     }
 }

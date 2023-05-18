@@ -29,7 +29,7 @@
         <Label Content="Ocene po kategorijama" FontSize="32"
                Grid.ColumnSpan="2" HorizontalAlignment="Center"
                FontWeight="Bold"></Label>
-        <Image  Source="../Icons/chevron-left-black.png" Margin="416,17,70,30" Grid.Column="1"/>
+        <Image  Source="../Icons/chevron-left-black.png" Margin="416,14,70,32" Grid.Column="1"/>
         <Button Content="Nazad" 
                     Background="Transparent"
                     BorderBrush="Transparent"
@@ -37,58 +37,60 @@
                     BorderThickness="0"
                     FontSize="20" Grid.Column="1" Margin="438,10,10,25" Click="Button_Click_Close"/>
 
-        <Label Content="Čistoća:" FontSize="25" Grid.Row="1"
+        <Label Content="Čistoća:" FontSize="28" Grid.Row="1"
                VerticalAlignment="Bottom"
                HorizontalAlignment="Center"></Label>
         <TextBox Grid.Row="2" Text="{Binding Rating.CleanlinessRating}"
-                 Height="40" FontSize="25" IsReadOnly="True"
+                 Height="40" FontSize="28" IsReadOnly="True"
                  Width="120" TextAlignment="Center"></TextBox>
 
-        <Label Content="Poštovanje pravila:" FontSize="25" Grid.Row="1" Grid.Column="1"
+        <Label Content="Poštovanje pravila:" FontSize="28" Grid.Row="1" Grid.Column="1"
                VerticalAlignment="Bottom"
                HorizontalAlignment="Center"></Label>
         <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Rating.ComplianceWithRules}"
-                 Height="40" FontSize="25" IsReadOnly="True"
+                 Height="40" FontSize="28" IsReadOnly="True"
                  Width="120" TextAlignment="Center"></TextBox>
 
-        <Label Content="Urednost plaćanja:" FontSize="25" Grid.Row="3"
+        <Label Content="Urednost plaćanja:" FontSize="28" Grid.Row="3"
                VerticalAlignment="Bottom"
                HorizontalAlignment="Center"></Label>
         <TextBox Grid.Row="4" Text="{Binding Rating.PaymentAndBilling}"
-                 Height="40" FontSize="25" IsReadOnly="True"
+                 Height="40" FontSize="28" IsReadOnly="True"
                  Width="120" TextAlignment="Center"></TextBox>
 
-        <Label Content="Komunikacija gosta:" FontSize="25" Grid.Row="3" Grid.Column="1"
+        <Label Content="Komunikacija gosta:" FontSize="28" Grid.Row="3" Grid.Column="1"
                VerticalAlignment="Bottom"
                HorizontalAlignment="Center"></Label>
         <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Rating.CommunicationRating}"
-                 Height="40" FontSize="25" IsReadOnly="True"
+                 Height="40" FontSize="28" IsReadOnly="True"
                  Width="120" TextAlignment="Center"></TextBox>
 
         <Label Content="Preporuka drugim vlasnicima:"
-               FontSize="25"
+               FontSize="28"
                VerticalAlignment="Bottom"
                HorizontalAlignment="Center"
                Grid.Row="5"></Label>
         <TextBox Grid.Row="6" Text="{Binding Rating.Recommendation}"
-                 Height="40" FontSize="25" IsReadOnly="True"
+                 Height="40" FontSize="28" IsReadOnly="True"
                  Width="120" TextAlignment="Center"></TextBox>
 
         <Label Content="Prosečna ocena:"
                Grid.Row="5" Grid.Column="1"
-               FontSize="25" FontWeight="Bold"
+               FontSize="28" FontWeight="Bold"
                VerticalAlignment="Bottom"
                HorizontalAlignment="Center"></Label>
         <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Rating.Overall}"
-                 Height="40" FontSize="25" FontWeight="Bold" IsReadOnly="True"
+                 Height="40" FontSize="28" FontWeight="Bold" IsReadOnly="True"
                  Width="120" TextAlignment="Center"></TextBox>
 
         <Label Content="Komentar:" Grid.Row="7"
-               FontSize="25"
+               FontSize="28"
                VerticalAlignment="Bottom"
                HorizontalAlignment="Center"></Label>
 
-        <TextBox Text="{Binding Rating.Comment}" IsReadOnly="True" Grid.Row="8" Grid.ColumnSpan="2" FontSize="25" Margin="195,10,196,0" Height="156" VerticalAlignment="Top"></TextBox>
+        <TextBox Text="{Binding Rating.Comment}"
+                 IsReadOnly="True" Grid.Row="8" Grid.ColumnSpan="2"
+                 FontSize="28" Margin="195,10,196,0" Height="156" VerticalAlignment="Top"></TextBox>
 
     </Grid>
 </Page>
