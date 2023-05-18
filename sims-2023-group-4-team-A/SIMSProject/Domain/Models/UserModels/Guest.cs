@@ -8,8 +8,6 @@ namespace SIMSProject.Domain.Models.UserModels
     public class Guest : User, ISerializable
     {
         public double Rating { get; set; }
-        public List<Voucher> Vouchers { get; set; } = new();
-
         public Guest()
         {
         }
@@ -22,8 +20,6 @@ namespace SIMSProject.Domain.Models.UserModels
             Role = UserRole.Guest;
             Rating = rating;
             Birthday = birthday;
-
-            Vouchers = new List<Voucher>();
         }
 
         public string[] ToCSV()
