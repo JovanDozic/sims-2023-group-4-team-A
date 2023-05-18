@@ -43,26 +43,26 @@ namespace SIMSProject.Application.Services.TourServices
             return guestcount / acceptedRequests;
         }
         
-        public List<string> GetTourLanguages(int guestId, int? year = null)
+        public List<string> GetTourLanguages(int guestId, int year)
         {
             List<CustomTourRequest> requests = _customTourRequestRepo.GetAllByGuestId(guestId).ToList();
-            if (year != -1) requests = requests.Where(r => r.RequestCreateDate.Year == year.Value).ToList();
+            if (year != -1) requests = requests.Where(r => r.RequestCreateDate.Year == year).ToList();
             List<string> languages = requests.Select(r => r.TourLanguage.ToString()).Distinct().ToList();
             return languages;
         }
         
-        public List<string> GetTourLocations(int guestId, int? year = null)
+        public List<string> GetTourLocations(int guestId, int year)
         {
             List<CustomTourRequest> requests = _customTourRequestRepo.GetAllByGuestId(guestId).ToList();
-            if (year != -1) requests = requests.Where(r => r.RequestCreateDate.Year == year.Value).ToList();
+            if (year != -1) requests = requests.Where(r => r.RequestCreateDate.Year == year).ToList();
             List<string> locations = requests.Select(r => r.Location.ToString()).Distinct().ToList();
             return locations;
         }
         
-        public Dictionary<string, int> GetRequestCountByLanguage(int guestId, int? year = null)
+        public Dictionary<string, int> GetRequestCountByLanguage(int guestId, int year)
         {
             List<CustomTourRequest> requests = _customTourRequestRepo.GetAllByGuestId(guestId).ToList();
-            if (year != -1) requests = requests.Where(r => r.RequestCreateDate.Year == year.Value).ToList();
+            if (year != -1) requests = requests.Where(r => r.RequestCreateDate.Year == year).ToList();
             Dictionary<string, int> requestCounts = new Dictionary<string, int>();
 
             foreach (CustomTourRequest request in requests)
@@ -82,10 +82,10 @@ namespace SIMSProject.Application.Services.TourServices
         }
 
         
-        public Dictionary<string, int> GetRequestCountByLocation(int guestId, int? year = null)
+        public Dictionary<string, int> GetRequestCountByLocation(int guestId, int year)
         {
             List<CustomTourRequest> requests = _customTourRequestRepo.GetAllByGuestId(guestId).ToList();
-            if (year != -1) requests = requests.Where(r => r.RequestCreateDate.Year == year.Value).ToList();
+            if (year != -1) requests = requests.Where(r => r.RequestCreateDate.Year == year).ToList();
             Dictionary<string, int> requestCounts = new Dictionary<string, int>();
 
             foreach (CustomTourRequest request in requests)

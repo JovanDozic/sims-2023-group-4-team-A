@@ -390,7 +390,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         private void SendAcceptedTourNotification()
         {
             string title = "Prihvaćen zahtev";
-            string description = $"Vaš zahtev za turu je prihvaćen" +
+            string description = $"Vaš zahtev za turu je prihvaćen." +
                 $" U pitanju je tura na lokaciji {_tour.Location}." +
                 $" Jezik na kom će tura biti realizovana je {Tour.GetLanguage(_tour.TourLanguage)} u terminu " +
                 $"{_tourReservation.TourAppointment.Date.ToString()}. " +
