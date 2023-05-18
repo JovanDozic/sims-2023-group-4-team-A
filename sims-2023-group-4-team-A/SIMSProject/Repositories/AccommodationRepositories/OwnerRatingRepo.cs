@@ -29,7 +29,7 @@ namespace SIMSProject.Repositories.AccommodationRepositories
         {
             _ratings = _fileHandler.Load();
             MapAccommodationReservations();
-            MapRenovation();
+            MapRenovationSuggestions();
         }
 
         public List<OwnerRating> GetAll()
@@ -85,7 +85,7 @@ namespace SIMSProject.Repositories.AccommodationRepositories
             }
         }
  
-        private void MapRenovation()
+        private void MapRenovationSuggestions()
         {
             foreach(var rating in _ratings)
             {

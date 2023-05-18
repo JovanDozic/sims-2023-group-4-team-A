@@ -63,6 +63,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             }
             else
             {
+                RenovationSuggestion = new();
                 RenovationSuggestion.Id = int.Parse(values[8]);
             }
         }

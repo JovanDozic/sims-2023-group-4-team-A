@@ -12,7 +12,7 @@ namespace SIMSProject.Domain.Models
         public string Description { get; set; } = string.Empty;
         public DateTime CreationDate { get; set; } = DateTime.MinValue;
         public DateTime? ExpirationDate { get; set; } = null;
-        public bool IsRead { get; set; }
+        public bool IsRead { get; set; } = false;
 
         public Notification() 
         { 

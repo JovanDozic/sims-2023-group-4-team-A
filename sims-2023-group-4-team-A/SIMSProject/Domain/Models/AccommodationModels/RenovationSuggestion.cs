@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using SIMSProject.Serializer;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SIMSProject.Serializer;
 
 namespace SIMSProject.Domain.Models.AccommodationModels
 {
@@ -12,10 +7,12 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public int Id { get; set; }
         public string Comment { get; set; } = string.Empty;
         public string LevelOfEmergency { get; set; } = string.Empty;
+
         public RenovationSuggestion()
         {
 
         }
+
         public RenovationSuggestion(string comment, string levelOfEmergency)
         {
             Comment = comment;

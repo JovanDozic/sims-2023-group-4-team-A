@@ -44,7 +44,7 @@ namespace SIMSProject.Domain.Models
             Country = Convert.ToString(values[2]);
         }
 
-        public override string ToString()
+        public override string? ToString()
         {
             return $"{City}, {Country}";
         }

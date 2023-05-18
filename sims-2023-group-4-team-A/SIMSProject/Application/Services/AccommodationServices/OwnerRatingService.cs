@@ -106,9 +106,5 @@ namespace SIMSProject.Application.Services.AccommodationServices
             }
         }
 
-        public int CountRenovationSuggestionsByAccommodation(Accommodation accommodation)
-        {
-            return GetAllByAccommodationId(accommodation.Id).FindAll(x => x.RenovationSuggestion is not null).Count;
-        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace SIMSProject.Domain.Models
 {
-    public class Consts
+    public static class Consts
     {
         public const int GuestRatingDeadline = 5;
         public const int RenovationCancellationDeadline = 5;

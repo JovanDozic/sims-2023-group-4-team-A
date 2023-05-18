@@ -36,7 +36,6 @@ namespace SIMSProject.Domain.Models.UserModels
             string awardDateValue = (AwardDate.HasValue) ? AwardDate.Value.ToString() : "";
             string[] csvValues =
             {
-
                 Id.ToString(),
                 Username,
                 Password,
@@ -50,7 +49,7 @@ namespace SIMSProject.Domain.Models.UserModels
             return csvValues;
         }
 
-        public async void FromCSV(string[] values)
+        public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
             Username = values[1];

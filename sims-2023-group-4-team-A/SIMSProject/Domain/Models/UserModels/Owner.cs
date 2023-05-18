@@ -8,7 +8,6 @@ namespace SIMSProject.Domain.Models.UserModels
     public class Owner : User, ISerializable
     {
         public double Rating { get; set; }
-        public List<Accommodation> Accommodations { get; set; } = new();
 
         public Owner()
         {

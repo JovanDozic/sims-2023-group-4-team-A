@@ -1,7 +1,6 @@
 ﻿using System;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Serializer;
-using SIMSProject.WPF.Views.Guest1.Pages;
 
 namespace SIMSProject.Domain.Models.AccommodationModels
 {
@@ -19,14 +18,19 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public bool OwnerRated { get; set; } = false;
         public bool Canceled { get; set; } = false;
         public string ReservationDetails { get; set; } = string.Empty;
-
         public double OwnerRating { get; set; } = 0;
         public double GuestRating { get; set; } = 0;
-
         public string OwnerRatingString { get => OwnerRated ? Math.Round(OwnerRating, 2).ToString() : "-"; }
         public string GuestRatingString { get => GuestRated ? Math.Round(GuestRating, 2).ToString() : "-"; }
-
         public bool IsInFuture { get => StartDate > DateTime.Now; }
+        public string FormattedStartDate
+        {
+            get => StartDate.ToString("ddd, d. MMM. yyyy.", new System.Globalization.CultureInfo("sr-Latn-RS"));
+        }
+        public string FormattedEndDate
+        {
+            get => EndDate.ToString("ddd, d. MMM. yyyy.", new System.Globalization.CultureInfo("sr-Latn-RS"));
+        }
 
         public AccommodationReservation()
         {
@@ -44,55 +48,45 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             GuestNumber = guestsNumber;
         }
 
-            public string[] ToCSV()
+        public string[] ToCSV()
+        {
+            string[] csvValues =
             {
-                string[] csvValues =
-                {
-                    Id.ToString(),
-                    Accommodation.Id.ToString(),
-                    Guest.Id.ToString(),
-                    StartDate.ToString(),
-                    EndDate.ToString(),
-                    NumberOfDays.ToString(),
-                    GuestNumber.ToString(),
-                    GuestRated.ToString(),
-                    RateGuestNotificationSent.ToString(),
-                    OwnerRated.ToString(),
-                    Canceled.ToString(),
-                };
-                return csvValues;
-            }
+                Id.ToString(),
+                Accommodation.Id.ToString(),
+                Guest.Id.ToString(),
+                StartDate.ToString(),
+                EndDate.ToString(),
+                NumberOfDays.ToString(),
+                GuestNumber.ToString(),
+                GuestRated.ToString(),
+                RateGuestNotificationSent.ToString(),
+                OwnerRated.ToString(),
+                Canceled.ToString(),
+            };
+            return csvValues;
+        }
 
-            public void FromCSV(string[] values)
-            {
-                Id = int.Parse(values[0]);
-                Accommodation.Id = int.Parse(values[1]);
-                Guest.Id = int.Parse(values[2]);
-                StartDate = DateTime.Parse(values[3]);
-                EndDate = DateTime.Parse(values[4]);
-                NumberOfDays = int.Parse(values[5]);
-                GuestNumber = int.Parse(values[6]);
-                GuestRated = bool.Parse(values[7]);
-                RateGuestNotificationSent = bool.Parse(values[8]);
-                OwnerRated = bool.Parse(values[9]);
-                Canceled = bool.Parse(values[10]);
-            }
+        public void FromCSV(string[] values)
+        {
+            Id = int.Parse(values[0]);
+            Accommodation.Id = int.Parse(values[1]);
+            Guest.Id = int.Parse(values[2]);
+            StartDate = DateTime.Parse(values[3]);
+            EndDate = DateTime.Parse(values[4]);
+            NumberOfDays = int.Parse(values[5]);
+            GuestNumber = int.Parse(values[6]);
+            GuestRated = bool.Parse(values[7]);
+            RateGuestNotificationSent = bool.Parse(values[8]);
+            OwnerRated = bool.Parse(values[9]);
+            Canceled = bool.Parse(values[10]);
+        }
 
         public override string? ToString()
         {
             return $"Rezervacija (id: {Id}) " +
                    $"od <{StartDate:dd.MM.yy}> do <{EndDate:dd.MM.yy}> " +
                    $"za gosta <{Guest.Id}> (gost {(GuestRated ? "je" : "nije")} ocenjen)";
-        }
-
-        public string FormattedStartDate
-        {
-            get => StartDate.ToString("ddd, d. MMM. yyyy.", new System.Globalization.CultureInfo("sr-Latn-RS"));
-        }
-
-        public string FormattedEndDate
-        {
-            get => EndDate.ToString("ddd, d. MMM. yyyy.", new System.Globalization.CultureInfo("sr-Latn-RS"));
         }
     }
 }

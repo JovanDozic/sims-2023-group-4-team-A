@@ -4,7 +4,6 @@ using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 
 namespace SIMSProject.Domain.Models.AccommodationModels
 {
@@ -27,6 +26,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public DateTime DateCreated { get; set; } = DateTime.Now;
         public AccommodationRating Rating { get; set; } = new();
         public bool IsOwnerSuper => Owner.Role == UserRole.SuperOwner;
+        public string ToStringSearchable { get => $"{Type} {Name} {Location} {GetType(Type)}"; }
 
         public Accommodation()
         {
@@ -126,6 +126,5 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             return $"{GetType(Type)}: {Name} ({Location})";
         }
 
-        public string ToStringSearchable { get => $"{Type} {Name} {Location} {GetType(Type)}"; }
     }
 }

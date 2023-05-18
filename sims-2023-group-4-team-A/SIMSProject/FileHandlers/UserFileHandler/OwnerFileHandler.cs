@@ -19,9 +19,9 @@ namespace SIMSProject.FileHandlers.UserFileHandler
             return _serializer.FromCSV(FilePath);
         }
 
-        public void Save(List<Owner> users)
+        public void Save(List<Owner> owners)
         {
-            _serializer.ToCSV(FilePath, users);
+            _serializer.ToCSV(FilePath, owners);
         }
     }
 }
