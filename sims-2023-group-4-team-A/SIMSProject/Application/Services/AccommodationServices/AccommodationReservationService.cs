@@ -29,7 +29,6 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
         public void SaveReservation(AccommodationReservation reservation, User user)
         {
-            
             var guest = GetGuestByUser(user);
             if(guest.Role is UserRole.SuperGuest)
             {
@@ -40,8 +39,6 @@ namespace SIMSProject.Application.Services.AccommodationServices
                 }
             }
             _repo.Save(reservation);
-            
-            
         }
 
         public List<AccommodationReservation> GetAll()
@@ -58,11 +55,6 @@ namespace SIMSProject.Application.Services.AccommodationServices
         public List<AccommodationReservation> GetAllUncancelled(User user)
         {
             return GetAll().Where(r => !r.Canceled && r.Guest.Id == user.Id).ToList();
-        }
-
-        public List<AccommodationReservation> GetAllCancelled()
-        {
-            return GetAll().FindAll(x => x.Canceled);
         }
 
         public List<AccommodationReservation> GetAllByAccommodationId(int accommodationId)
@@ -87,9 +79,9 @@ namespace SIMSProject.Application.Services.AccommodationServices
             return futureReservations;
         }
 
-        public void UpdateReservation(AccommodationReservation selectedReservation)
+        public void UpdateReservation(AccommodationReservation reservation)
         {
-            _repo.Update(selectedReservation);
+            _repo.Update(reservation);
         }
 
         public User UpdateGuestInfo(User user)
