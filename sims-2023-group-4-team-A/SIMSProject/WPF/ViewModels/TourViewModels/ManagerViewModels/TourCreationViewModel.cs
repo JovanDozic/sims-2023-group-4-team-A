@@ -11,7 +11,9 @@ using SIMSProject.WPF.Messenger.Messages;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 using System.Windows.Input;
+using Xceed.Wpf.Toolkit.Panels;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
 {
@@ -72,18 +74,9 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
                 }
             }
         }
-        public Guide Guide
+        private Guide Guide
         {
-            get => _tour.Guide;
-            set
-            {
-                if (_tour.Guide != value)
-                {
-                    _tour.Guide = value;
-                    OnPropertyChanged(nameof(Guide));
-                }
-
-            }
+            get => _tour.Guide = GuideHomeViewModel.Guide;
         }
         public string Name
         {
@@ -232,7 +225,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
 
             }
         }
-
+        private Guest Guest { get; set; } = new();
         private ObservableCollection<KeyPoint> _keyPoints = new();
         public ObservableCollection<KeyPoint> KeyPoints
         {
@@ -281,7 +274,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         }
         public ObservableCollection<Location> AllLocations { get; set; } = new();
         public ObservableCollection<string> TourLanguages { get; set; }
-        public Guest Guest { get; set; } = new();
         public TourCreationViewModel()
         {
             _tourService = Injector.GetService<TourService>();
@@ -336,7 +328,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         public ICommand AddKeyPointCommand { get; private set; }
         public bool AddKeyPointCanExecute()
         {
-            return SelectedKeyPoint.Id > 0;
+            return SelectedKeyPoint != null && SelectedKeyPoint.Id > 0;
         }
         public void AddKeyPointExecute()
         {
@@ -347,7 +339,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         public ICommand AddAppointmentCommand { get; private set; }
         public bool AddAppointmentCanExecute()
         {
-            return MaxGuestNumber > 0;
+            return SelectedAppointment != null && MaxGuestNumber > 0;
         }
         public void AddAppointmentExecute()
         {
@@ -371,7 +363,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         public ICommand CreateTourCommand { get; private set; }
         public bool CreateTourCanExecute()
         {
-            return Images.Count > 0 && KeyPoints.Count > 1;
+            return Images.Count > 0 && KeyPoints.Count > 1 && Appointments.Count > 0;
         }
         public void CreateTourExecute()
         {
@@ -379,36 +371,35 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             Tour.Images.AddRange(Images.ToList());
             _tourService.CreateTour(Tour);
             _tourAppointmentService.CreateAppointments(Appointments.ToList(), Tour);
-            SendNewTourNotification();
-            if(Tour.Reason == CreatingReason.CUSTOM)
+            switch(Tour.Reason)
             {
-                _tourReservation.TourAppointment = Appointments.FirstOrDefault();
-                _tourReservationService.Save(_tourReservation);
-                SendAcceptedTourNotification();
+                case CreatingReason.CUSTOM: _tourReservation.TourAppointment = Appointments.FirstOrDefault() ?? throw new Exception("Error! No appointments found!");
+                                            _tourReservationService.Save(_tourReservation);
+                                            SendAcceptedTourNotification();break;
+                case CreatingReason.STATISTICS: SendNewTourNotification();break;
             }
         }
         private void SendAcceptedTourNotification()
         {
             string title = "Prihvaćen zahtev";
-            string description = $"Vaš zahtev za turu je prihvaćen." +
-                $" U pitanju je tura na lokaciji {_tour.Location}." +
-                $" Jezik na kom će tura biti realizovana je {Tour.GetLanguage(_tour.TourLanguage)} u terminu " +
-                $"{_tourReservation.TourAppointment.Date.ToString()}. " +
-                $"Rezervaciju i detalje možete videti u listi svojih rezervacija.";
-            
-            var notification = new Notification(Guest, title, description);
+            StringBuilder description = new("Vaš zahtev za turu je prihvaćen.");
+            description.Append($" U pitanju je tura na lokaciji {_tour.Location}.");
+            description.Append($" Jezik na kom će tura biti realizovana je {Tour.GetLanguage(_tour.TourLanguage)} u terminu ");
+            description.Append($"{_tourReservation.TourAppointment.Date.ToString()}. ");
+            description.Append("Rezervaciju i detalje možete videti u listi svojih rezervacija.");
+            var notification = new Notification(Guest, title, description.ToString());
             _notificationService.CreateNotification(notification);
         }
         private void SendNewTourNotification()
         {
-            string title = "Nova tura";
-            string description = $"Kreirana je nova tura koja bi mogla da Vas interesuje, ispunjava neke od dosad neispunjenih zahteva." +
-                $" U pitanju je tura: {_tour.Name} na lokaciji {_tour.Location}." +
-                $" Jezik na kom će tura biti realizovana je {Tour.GetLanguage(_tour.TourLanguage)}. ";
             if (Tour.Reason != CreatingReason.STATISTICS) return;
+            string title = "Nova tura";
+            StringBuilder description = new("Kreirana je nova tura koja bi mogla da Vas interesuje, ispunjava neke od dosad neispunjenih zahteva.");
+            description.Append($" U pitanju je tura: {_tour.Name} na lokaciji {_tour.Location}.");
+            description.Append($" Jezik na kom će tura biti realizovana je {Tour.GetLanguage(_tour.TourLanguage)}. ");   
             foreach (Guest guest in _customTourRequestService.GetGuestsWithSimilarRequests(_tour))
             {
-                var notification = new Notification(guest, title, description);
+                var notification = new Notification(guest, title, description.ToString());
                 _notificationService.CreateNotification(notification);
             }
         }

@@ -3,6 +3,7 @@ using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.ViewModels.TourViewModels;
 using SIMSProject.WPF.Views;
 using SIMSProject.WPF.Views.TourViews.GuideViews;
 using SIMSProject.WPF.Views.TourViews.GuideViews.CustomTourRequests;
@@ -20,14 +21,15 @@ namespace SIMSProject.View.GuideViews
     /// </summary>
     public partial class GuideHomeWindow : Window
     {
-
+        private GuideHomeViewModel ViewModel { get; set; }
         public Guide Guide { get; set; } = new();
         public GuideHomeWindow(Guide guide)
         {
             InitializeComponent();
             this.Guide = guide;
+            ViewModel = new(this.Guide);
             mainFrame.Content = new AllToursPage();
-
+            this.DataContext = ViewModel;
         }
 
         private void CreateTour_Click(object sender, RoutedEventArgs e)

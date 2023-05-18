@@ -22,9 +22,7 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     /// </summary>
     public partial class IndividualStatisticsPage : Page
     {
-
         private TourStatisticsViewModel ViewModel { get; set; }
-
         public IndividualStatisticsPage()
         {
             InitializeComponent();
@@ -32,7 +30,6 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
             ViewModel.GetFinishedTours();
             this.DataContext = ViewModel;
         }
-
         private void BtnNext_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new TourStatisticsPage());

@@ -44,6 +44,7 @@ namespace SIMSProject.Repositories.TourRepositories
         {
             appointment.Id = NextId();
             appointment.Tour = tour;
+            appointment.AvailableSpots = tour.MaxGuestNumber;
             _tourAppointments.Add(appointment);
             _fileHandler.Save(_tourAppointments);
             return appointment;

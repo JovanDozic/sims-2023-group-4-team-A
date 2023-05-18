@@ -17,7 +17,6 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
             ViewModel = new TourStatisticsViewModel();
             this.DataContext = ViewModel;
         }
-
         private void BtnNext_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new IndividualStatisticsPage());

@@ -12,15 +12,10 @@ namespace SIMSProject.View.GuideViews
     public partial class TourCreation : Window
     {
         private TourCreationViewModel ViewModel { get; set; } = new();
-
         public TourCreation()
         {
             InitializeComponent();
             this.DataContext = ViewModel;
-        }
-        private void Close_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
     }
 }
