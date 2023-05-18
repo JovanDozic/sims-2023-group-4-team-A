@@ -41,10 +41,10 @@
                      TextAlignment="Center"
                      VerticalContentAlignment="Center"
                      Height="61"/>
-            <Label Content="Broj gostiju:" FontSize="30" HorizontalAlignment="Left" Margin="16,0,0,0" Grid.Row="2" Width="186"/>
+            <Label Content="Broj gostiju:" FontSize="30" HorizontalAlignment="Left" Margin="16,0,0,0" Grid.Row="2" Width="186" Height="56" VerticalAlignment="Bottom"/>
             <custom:NumericBoxRating Value="{Binding MaxGuestNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Margin="51,35,59,27" Grid.RowSpan="2"/>
             <custom:NumericBoxRating Value="{Binding MinReservationDays, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="94,36,0,26" Grid.RowSpan="2"/>
-            <Label Grid.Row="2" Grid.Column="1" Content="Broj dana:" FontSize="30" HorizontalAlignment="Left" Margin="59,0,0,0" Width="145"/>
+            <Label Grid.Row="2" Grid.Column="1" Content="Broj dana:" FontSize="30" HorizontalAlignment="Left" Margin="59,15,0,0" Width="145"/>
             <Button Background="#0c669f" Foreground="White" Content="Pretraži" FontSize="30" Grid.Row="4" Grid.ColumnSpan="2" Height="61" Click="Button_Click_Search" Margin="16,5,10,5"/>
         </Grid>
     </StackPanel>

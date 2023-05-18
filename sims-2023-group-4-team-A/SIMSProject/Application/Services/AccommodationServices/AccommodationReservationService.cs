@@ -156,5 +156,23 @@ namespace SIMSProject.Application.Services.AccommodationServices
             }
             return schedule;
         }
+
+        public void SearchForFreeAccommodations()
+        {
+            //TODO proci kroz sve rezervacije za zadate datume i izdvojiti slobodne
+            /*
+             -pozove se funkcija za dobavljanje svih neotkazanih rezervacija.
+             -prodje se kroz tu listu i u privremenu listu se dodaju slobodne rezervacije
+             */
+            //TODO proci kroz izdvojene rezervacije i provjeriti dane i goste
+            /*
+             -proci kroz privremenu listu slobodnih rezervacija
+             -za svaku rezervaciju provjeriti uslove za njene dane i goste
+             -izbaciti iz liste rezervacije(smestaje) koje ne ispunjavaju uslove
+            */
+            //TODO napuniti listu smestaja koja se salje u vm
+
+
+        }
     }
 }
