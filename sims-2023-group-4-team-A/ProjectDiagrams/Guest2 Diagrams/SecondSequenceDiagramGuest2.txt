@@ -1,0 +1,17 @@
+@startuml
+
+actor "User" as U
+participant "Guest2NotificationViewModel" as GNVM
+participant "NotificationService" as NS
+participant "NotificationRepo" as NR
+
+U -> GNVM++ : WindowLoaded
+GNVM -> GNVM++ : LoadNotifications()
+GNVM -> NS++ : GetAllUnreadByUser(_user)
+NS -> NR++ : GetAllUnreadByUser(_user)
+NR --> NS-- : unreadNotificationsList
+NS --> GNVM-- : unreadNotificationsList
+deactivate GNVM
+GNVM --> U-- : unreadNotificationsList
+
+@enduml

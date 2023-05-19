@@ -1,0 +1,65 @@
+@startuml
+
+actor "User" as U
+participant "TourCreationViewModel" as TCVM 
+participant "TourService" as TS
+participant "TourRepo" as TR
+participant "KeyPointService" as KPS
+participant "KeyPointRepo" as KPR 
+participant "TourAppointmentService" as TAS
+participant "TourAppointmentRepo" as TAR
+participant "CustomTourRequestService" as CTRS
+participant "CustomTourRequestRepo" as CTRR
+participant "NotificationService" as NS
+participant "NotificationRepo" as NR
+participant "NotificationFileHandler" as NFL
+
+
+U -> TCVM++ : CreateTourCommand
+TCVM -> TCVM++ :  CreateTourExecute()
+TCVM -> TS++ : CreateTour(tour)
+TS -> TR++ : Save(tour)
+TR --> TS-- : tour
+TS -> KPS++ : CreateNewPairs(tour)
+loop for each (keyPoint in KeyPoints)
+KPS -> KPR++ : Save(new(tour.Id, keyPoint.Id))
+KPR --> KPS-- : tourKeyPoints
+end
+deactivate KPS
+deactivate TS
+TCVM -> TAS++ : CreateAppointments(Appointments, Tour)
+loop for each (appointment in Appointments)
+TAS -> TAR++ : Save(appointment, tour)
+TAR --> TAS-- : appointment
+end
+deactivate TAS
+
+opt tour.Reason == CreatingReason.STATISTICS
+TCVM -> TCVM++ : SendNewTourNotification()
+TCVM -> CTRS++ : GetGuestsWithSimilarRequests(tour)
+CTRS -> CTRR++ : GetAllSimilarRequests(tour)
+CTRR -> CTRR : FilterRequests
+CTRR --> CTRS-- : similarRequests
+CTRS -> CTRS : FilterGuests
+CTRS --> TCVM-- : guestsWithSimilarRequests
+loop for each (guest in guestsWithSimilarRequests)
+TCVM -> Notification**: <<create>>
+Notification --> TCVM : notification
+TCVM -> NS++ : CreateNotification(notification)
+NS -> NS : notification.IsRead = false
+NS -> NR++ : Save(notification)
+NR -> NR++ : NextId()
+NR --> NR-- : notification.Id
+NR -> NFL++ : Save(notification) 
+database "CSV"
+NFL -> CSV : ToCSV(FilePath, notification)
+deactivate NFL
+NR --> NS-- : notification
+deactivate NS
+end
+end
+deactivate TCVM
+deactivate TCVM
+deactivate TCVM
+
+@enduml
