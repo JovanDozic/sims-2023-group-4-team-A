@@ -36,7 +36,8 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Content="Početni datum:" FontSize="30" Margin="0,18,28,0"/>
-            <DatePicker Margin="0,71,31,26" Grid.RowSpan="2" FontSize="30" RenderTransformOrigin="0.5,0.5">
+            <DatePicker Margin="0,71,31,26" Grid.RowSpan="2"
+                        SelectedDate="{Binding DateBegin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="30" RenderTransformOrigin="0.5,0.5">
                 <DatePicker.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -48,12 +49,14 @@
             </DatePicker>
             <Label Grid.Column="1" FontSize="30"
                    Content="Krajnji datum:" Margin="37,18,0,0"></Label>
-            <DatePicker Grid.Column="1" FontSize="30" Margin="31,71,0,26" Grid.RowSpan="2"/>
+            <DatePicker Grid.Column="1" FontSize="30"
+                        SelectedDate="{Binding DateEnd, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="31,71,0,26" Grid.RowSpan="2"/>
             <Label Content="Broj gostiju:" FontSize="30" HorizontalAlignment="Left" Grid.Row="2" Width="176" Margin="-3,15,0,0"/>
             <custom:NumericBoxRating Value="{Binding GuestsNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Margin="34,46,100,27" Grid.RowSpan="2"/>
             <custom:NumericBoxRating Value="{Binding NumberOfDays, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="124,44,0,31" Grid.RowSpan="2"/>
             <Label Grid.Row="2" Grid.Column="1" Content="Broj dana:" FontSize="30" HorizontalAlignment="Left" Margin="84,15,0,0" Width="142"/>
-            <Button Background="#0c669f" Foreground="White" Content="Pretraži" FontSize="30" Grid.Row="4" Grid.ColumnSpan="2" Height="61" Margin="0,5,10,5"/>
+            <Button Background="#0c669f" Foreground="White" Content="Pretraži" FontSize="30" Grid.Row="4" Grid.ColumnSpan="2" Height="61" Margin="0,5,10,5"
+                    Click="Button_Click_Search"/>
         </Grid>
     </StackPanel>
 </Page>

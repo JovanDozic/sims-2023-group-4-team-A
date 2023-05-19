@@ -1,5 +1,6 @@
 ﻿using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.AccommodationModels;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,13 @@ namespace SIMSProject.Application.Services.AccommodationServices
     {
         private readonly IAccommodationRepo _repo;
         private readonly OwnerRatingService _ratingService;
+        private AccommodationReservationService _reservationService;
 
         public AccommodationService(IAccommodationRepo repo)
         {
             _repo = repo;
             _ratingService = Injector.GetService<OwnerRatingService>();
+            _reservationService = Injector.GetService<AccommodationReservationService>();
         }
 
         public void ReloadAccommodations()
@@ -108,6 +111,26 @@ namespace SIMSProject.Application.Services.AccommodationServices
             var conflictingReservations = reservations.FindAll(r => startDate < r.EndDate && r.StartDate < endDate);
 
             return conflictingReservations; 
+        }
+
+        public void SearchForFreeAccommodations(ObservableCollection<Accommodation> accommodations, User user, DateTime startDate, DateTime endDate, int daysNum, int guestNum)
+        {
+            accommodations.Clear();
+            foreach (var acc in new ObservableCollection<Accommodation>(_repo.GetAll()))
+                accommodations.Add(acc);
+
+            List<Accommodation> searchResults = accommodations.ToList();
+            var reservedAccommodations = _reservationService.GetAllUncancelled(user).FindAll(r => startDate < r.EndDate && r.StartDate < endDate);
+
+            var accommodationIdsInReservations = reservedAccommodations.Select(r => r.Accommodation.Id).ToList();
+
+            searchResults.RemoveAll(a => accommodationIdsInReservations.Contains(a.Id));
+            searchResults.RemoveAll(a => a.MaxGuestNumber < guestNum);
+            searchResults.RemoveAll(a => a.MinReservationDays > daysNum);
+
+            accommodations.Clear();
+            foreach (var searchResult in searchResults)
+                accommodations.Add(searchResult);
         }
 
         public List<AccommodationRenovation> CheckRenovations(List<AccommodationRenovation> renovations, DateTime startDate, DateTime endDate)

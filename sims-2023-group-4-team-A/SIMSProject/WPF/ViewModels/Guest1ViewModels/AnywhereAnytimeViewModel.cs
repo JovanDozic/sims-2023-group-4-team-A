@@ -4,6 +4,7 @@ using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,15 +14,9 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
     public class AnywhereAnytimeViewModel: ViewModelBase
     {
         private User _user = new();
-        private AccommodationReservationService _accommodationReservationService;
+        private AccommodationService _accommodationService;
         private AccommodationReservation _accommodationReservation = new();
-
-        public AnywhereAnytimeViewModel(User user)
-        {
-            _user = user;
-            _accommodationReservationService = Injector.GetService<AccommodationReservationService>();
-        }
-
+        public ObservableCollection<Accommodation> Accommodations { get; set; }
         public AccommodationReservation AccommodationReservation
         {
             get => _accommodationReservation;
@@ -77,6 +72,21 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
                 _accommodationReservation.EndDate = value;
                 OnPropertyChanged();
             }
+        }
+        public AnywhereAnytimeViewModel(User user)
+        {
+            _user = user;
+            _accommodationService = Injector.GetService<AccommodationService>();
+            Accommodations = LoadAllAccommodations();
+        }
+        public ObservableCollection<Accommodation> LoadAllAccommodations()
+        {
+            return new ObservableCollection<Accommodation>(_accommodationService.GetAll());
+        }
+
+        public void Search()
+        {
+            _accommodationService.SearchForFreeAccommodations(Accommodations, _user, DateBegin, DateEnd, NumberOfDays, GuestsNumber);
         }
     }
 }

@@ -24,12 +24,18 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
     {
         private readonly User _user = new();
         private AnywhereAnytimeViewModel _anywhereAnytimeViewModel;
+
         public AnywhereAnytimeView(User user)
         {
             InitializeComponent();
             _user = user;
             _anywhereAnytimeViewModel = new(_user);
             DataContext = _anywhereAnytimeViewModel;
+        }
+
+        private void Button_Click_Search(object sender, RoutedEventArgs e)
+        {
+            _anywhereAnytimeViewModel.Search();
         }
     }
 }
