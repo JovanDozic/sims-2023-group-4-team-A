@@ -18,32 +18,34 @@ using System.Windows.Shapes;
 namespace SIMSProject.WPF.Views.Guest1.Pages
 {
     /// <summary>
-    /// Interaction logic for SearchedFreeAccommodations.xaml
+    /// Interaction logic for FreeAccommodationReview.xaml
     /// </summary>
-    public partial class SearchedFreeAccommodations : Page
+    public partial class FreeAccommodationReview : Page
     {
-        private AnywhereAnytimeViewModel _accommodationViewModel;
+        private AnywhereAnytimeViewModel _anywhereAnytimeViewModel;
         private readonly User _user = new();
-        public SearchedFreeAccommodations(AnywhereAnytimeViewModel vm, User user)
+        public FreeAccommodationReview(AnywhereAnytimeViewModel vm, User user)
         {
             InitializeComponent();
             _user = user;
-            _accommodationViewModel = vm;
-            DataContext = _accommodationViewModel;
-
+            _anywhereAnytimeViewModel = vm;
+            DataContext = _anywhereAnytimeViewModel;
+            AddImages();
         }
 
         private void Button_Click_Close(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }
-
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void AddImages()
         {
-            if (SearchedAccLW.SelectedItem != null)
-            {
-                NavigationService.Navigate(new FreeAccommodationReview(_accommodationViewModel, _user));
-            }
+            imageSlider.AddImages(_anywhereAnytimeViewModel.SelectedAccommodation.ImageURLs);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            _anywhereAnytimeViewModel.SaveReservation();
+            MessageBox.Show("Uspesno rezervisano!");
         }
     }
 }
