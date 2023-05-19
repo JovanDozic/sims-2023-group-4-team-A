@@ -392,7 +392,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         }
         private void SendNewTourNotification()
         {
-            if (Tour.Reason != CreatingReason.STATISTICS) return;
             string title = "Nova tura";
             StringBuilder description = new("Kreirana je nova tura koja bi mogla da Vas interesuje, ispunjava neke od dosad neispunjenih zahteva.");
             description.Append($" U pitanju je tura: {_tour.Name} na lokaciji {_tour.Location}.");

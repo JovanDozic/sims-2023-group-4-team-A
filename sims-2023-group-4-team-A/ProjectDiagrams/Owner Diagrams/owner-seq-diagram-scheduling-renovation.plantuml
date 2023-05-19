@@ -1,0 +1,104 @@
+@startuml Accommodation Renovation Scheduling Sequence Diagram
+actor User
+User -> OwnerHomeViewOld : InitializeComponent()
+activate OwnerHomeViewOld
+
+User -> OwnerHomeViewOld : BtnScheduleRenovation_Click()
+
+alt DgrAccommodations.SelectedItem is null
+    OwnerHomeViewOld --> User : MessageBox.Show("Select Accommodation!")
+
+else DgrAccommodations.SelectedItem is not null
+
+    OwnerHomeViewOld -> OwnerScheduleRenovationOld : ShowDialog()
+    activate OwnerScheduleRenovationOld
+
+    User -> OwnerScheduleRenovationOld : Input Range and Number of Days
+    User -> OwnerScheduleRenovationOld : BtnFindDates_Click()
+    OwnerScheduleRenovationOld -> AccommodationRenovationViewModel : FindDates()
+    activate AccommodationRenovationViewModel
+
+    alt CanScheduleRenovation() is not true
+        AccommodationRenovationViewModel --> User : MessageBox.Show("Error with selected date ranges.")
+
+    else CanScheduleRenovation() is true
+
+        AccommodationRenovationViewModel -> AccommodationRenovationService : GetAvailableDateRanges(Accommodation, StartDate, EndDate, NumberOfDays)
+        activate AccommodationRenovationService
+
+        AccommodationRenovationService -> AccommodationReservationService : GetSchedule(Accommodation)
+        activate AccommodationReservationService
+
+        loop for each reservation in GetAllUncanceledByAccommodationId(accommodation.Id)
+
+            AccommodationReservationService -> AccommodationReservationService : Add(new DateRange(reservation.StartDate, reservation.EndDate))
+
+        end
+
+        AccommodationReservationService --> AccommodationRenovationService : reservationsSchedule
+        deactivate AccommodationReservationService
+
+        AccommodationRenovationService -> AccommodationRenovationService : GetSchedule(Accommodation)
+        activate AccommodationRenovationService
+        AccommodationRenovationService --> AccommodationRenovationService : renovationsSchedule
+        deactivate AccommodationRenovationService
+
+        AccommodationRenovationService -> AccommodationRenovationService : GenerateAllPossibleDateRanges(startDate, endDate, numberOfDays)
+        activate AccommodationRenovationService
+        AccommodationRenovationService --> AccommodationRenovationService : dateRangesToCheck
+        deactivate AccommodationRenovationService
+
+        loop for each range in dateRangesToCheck
+            alt DoesOverlapWithAnyRange(reservationsSchedule, range) is true or DoesOverlapWithAnyRange(renovationsSchedule, range) is true
+                AccommodationRenovationService --> AccommodationRenovationService: Do not add range to availableDateRanges
+            else DoesOverlapWithAnyRange(reservationsSchedule, range) is false and DoesOverlapWithAnyRange(renovationsSchedule, range) is false
+                AccommodationRenovationService --> AccommodationRenovationService: Add range to availableDateRanges
+            end
+        end
+
+        AccommodationRenovationService --> AccommodationRenovationViewModel : DatesSource
+        deactivate AccommodationRenovationService
+
+        alt DatesSource.Count is 0
+            AccommodationRenovationViewModel --> User : MessageBox.Show("No available dates.")
+            deactivate AccommodationRenovationViewModel
+        else DatesSource.Count is not 0
+
+            User -> OwnerScheduleRenovationOld : Select date range from combobox and enter description
+            User -> OwnerScheduleRenovationOld : BtnScheduleRenovation_Click()
+            OwnerScheduleRenovationOld -> AccommodationRenovationViewModel : ScheduleRenovation()
+            activate AccommodationRenovationViewModel
+            alt no exception
+                AccommodationRenovationViewModel -> AccommodationRenovationService : SaveRenovation(Renovation)
+
+                activate AccommodationRenovationService
+                AccommodationRenovationService -> AccommodationRenovationRepo : Save(renovation)
+                deactivate AccommodationRenovationService
+
+                activate AccommodationRenovationRepo
+                AccommodationRenovationRepo --> AccommodationRenovationRepo : NextId()
+
+                activate AccommodationRenovationRepo
+                AccommodationRenovationRepo --> AccommodationRenovationRepo : renovation.Id
+                deactivate AccommodationRenovationRepo
+
+                AccommodationRenovationRepo -> AccommodationRenovationFileHandler : Save(renovation)
+                deactivate AccommodationRenovationRepo
+
+                activate AccommodationRenovationFileHandler
+                database CSV
+                AccommodationRenovationFileHandler -> CSV : ToCSV(FilePath, renovations)
+                deactivate AccommodationRenovationFileHandler
+
+                AccommodationRenovationViewModel --> User : MessageBox.Show("Renovation successfully scheduled!")
+            else exception
+                AccommodationRenovationViewModel --> User : MessageBox.Show("Exception Message")
+                deactivate AccommodationRenovationViewModel
+            end
+            OwnerScheduleRenovationOld --> User : Close()
+            deactivate OwnerScheduleRenovationOld
+        end
+    end
+    deactivate OwnerHomeViewOld
+end
+@enduml

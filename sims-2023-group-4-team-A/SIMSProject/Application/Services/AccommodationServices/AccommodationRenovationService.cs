@@ -1,12 +1,10 @@
-﻿using MaterialDesignThemes.Wpf.AddOns.Converters;
-using SIMSProject.Domain.Injectors;
+﻿using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 
 namespace SIMSProject.Application.Services.AccommodationServices
 {
@@ -14,7 +12,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
     {
         private readonly IAccommodationRenovationRepo _repo;
         private readonly AccommodationReservationService _reservationService;
-        
+
         public AccommodationRenovationService(IAccommodationRenovationRepo repo)
         {
             _repo = repo;
@@ -67,6 +65,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
             return availableDateRanges;
         }
 
+
         private List<DateRange> GenerateAllPossibleDateRanges(DateTime startDate, DateTime endDate, int numberOfDays)
         {
             var dateRanges = new List<DateRange>();
@@ -81,12 +80,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
         private bool DoesOverlapWithAnyRange(List<DateRange> ranges, DateRange rangeToCheck)
         {
-            return ranges.Any(range => DoesOverlap(range, rangeToCheck));
-        }
-
-        private bool DoesOverlap(DateRange range1, DateRange range2)
-        {
-            return range1.StartDate <= range2.EndDate && range1.EndDate >= range2.StartDate;
+            return ranges.Any(range => range.StartDate <= rangeToCheck.EndDate && range.EndDate >= rangeToCheck.StartDate);
         }
 
         public void CancelRenovation(AccommodationRenovation renovation)

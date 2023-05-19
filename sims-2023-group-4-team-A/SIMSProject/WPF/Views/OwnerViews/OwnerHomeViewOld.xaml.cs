@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.TeamFoundation.Build.WebApi;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.View.OwnerViews;
@@ -131,7 +132,11 @@ namespace SIMSProject.WPF.Views.OwnerViews
 
         private void BtnScheduleRenovation_Click(object sender, RoutedEventArgs e)
         {
-            if (DgrAccommodations.SelectedItem is null) return; 
+            if (DgrAccommodations.SelectedItem is null)
+            {
+                MessageBox.Show("Izaberite smeštaj za koji želite da yakažete renoviranje", "Izaberite smeštaj!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            } 
             OwnerScheduleRenovationOld window = new(_user, _viewModel.SelectedAccommodation);
             window.ShowDialog();
             _viewModel.LoadRenovations();

@@ -1,14 +1,8 @@
 ﻿using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
-using SIMSProject.FileHandlers.UserFileHandler;
-using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using SIMSProject.FileHandlers.TourFileHandlers;
 
@@ -82,10 +76,6 @@ namespace SIMSProject.Repositories.TourRepositories
             appointment.CurrentKeyPoint = _keyPointRepo.GetAll().Find(x => x.Id == appointment.CurrentKeyPoint.Id) ?? throw new SystemException("Error!No matching key point!");
         }
 
-        public List<TourAppointment> GetAllByTourId(int tourId)
-        {
-            return _tourAppointments.FindAll(x => x.Tour.Id == tourId && DateTime.Compare(x.Date, DateTime.Now) > 0);
-        }
         public List<TourAppointment> GetTodaysAppointmentsByTour(int tourId)
         {
             return _tourAppointments.FindAll(x => x.Tour.Id == tourId && (DateTime.Compare(x.Date.Date, DateTime.Now.Date) == 0 || x.TourStatus == Status.ACTIVE));
