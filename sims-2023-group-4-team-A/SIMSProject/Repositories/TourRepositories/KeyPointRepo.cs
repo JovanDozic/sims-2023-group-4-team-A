@@ -4,7 +4,6 @@ using SIMSProject.Domain.RepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
 using SIMSProject.FileHandlers.TourFileHandlers;
 using SIMSProject.Model;
-using SIMSProject.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
