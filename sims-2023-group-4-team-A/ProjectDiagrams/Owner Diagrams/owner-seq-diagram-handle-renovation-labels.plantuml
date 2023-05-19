@@ -1,0 +1,85 @@
+@startuml Accommodation Renovation Labels Handling Sequence Diagram
+
+actor User
+User -> AccommodationRenovationViewModel : LoadRenovations()
+
+activate AccommodationRenovationViewModel
+    AccommodationRenovationViewModel -> AccommodationRenovationService : GetAll()
+
+    activate AccommodationRenovationService
+        AccommodationRenovationService -> AccommodationRenovationRepo : Load()
+
+        activate AccommodationRenovationRepo
+            AccommodationRenovationRepo -> AccommodationRenovationFileHandler : Load()
+            participant AccommodationRepo
+
+            activate AccommodationRenovationFileHandler
+                database CSV
+                AccommodationRenovationFileHandler -> CSV : FromCSV(filePath)
+
+                activate CSV
+                    CSV -->AccommodationRenovationFileHandler : List<AccommodationRenovation>
+                deactivate CSV
+
+                AccommodationRenovationFileHandler -->AccommodationRenovationRepo : _renovations
+            deactivate AccommodationRenovationFileHandler
+
+            AccommodationRenovationRepo -> AccommodationRenovationRepo : MapAccommodations()
+
+            activate AccommodationRenovationRepo
+                loop for each renovation in _renovations
+                    AccommodationRenovationRepo -> AccommodationRepo :GetById(renovation.Accommodation.Id)
+                    activate AccommodationRepo
+                    AccommodationRepo --> AccommodationRenovationRepo :Accommodation
+                    deactivate AccommodationRepo
+                    deactivate AccommodationRenovationRepo
+                end
+                AccommodationRenovationRepo -> AccommodationRenovationRepo : CheckRenovationStatuses()
+
+                activate AccommodationRenovationRepo
+                    AccommodationRenovationRepo -> AccommodationRepo :GetAll()
+
+                    activate AccommodationRepo
+                        AccommodationRepo --> AccommodationRenovationRepo :accommodations
+                    deactivate AccommodationRepo
+
+                    loop
+                        AccommodationRenovationRepo -> AccommodationRenovationRepo : Check if renovation is in future
+                        activate AccommodationRenovationRepo
+                            AccommodationRenovationRepo --> AccommodationRenovationRepo : isInFuture
+                        deactivate AccommodationRenovationRepo
+
+                        AccommodationRenovationRepo -> AccommodationRenovationRepo : Find Accommodation from Reservation
+                        activate AccommodationRenovationRepo
+                            AccommodationRenovationRepo --> AccommodationRenovationRepo : accommodation
+                        deactivate AccommodationRenovationRepo
+
+                        AccommodationRenovationRepo -> AccommodationRenovationRepo : Check if renovation is currently occuring
+                        activate AccommodationRenovationRepo
+                            AccommodationRenovationRepo --> AccommodationRenovationRepo : isInRenovationPeriod
+                        deactivate AccommodationRenovationRepo
+
+                        opt (isInRenovationPeriod and is not isInFuture) is true
+                            AccommodationRenovationRepo -> AccommodationRenovationRepo : accommodation.IsInRenovation = true
+                        end
+                        opt (!isInRenovationPeriod and (renovation.EndDate.AddYears(1) >= DateTime.Now) and is not isInFuture) is true
+                            AccommodationRenovationRepo -> AccommodationRenovationRepo: accommodation.IsRecentlyRenovated = true
+                        end
+                    end
+
+                    AccommodationRenovationRepo-> AccommodationRepo :SaveAll(accommodations)
+                    activate AccommodationRepo
+                    deactivate AccommodationRepo
+
+                deactivate AccommodationRenovationRepo
+
+                AccommodationRenovationRepo --> AccommodationRenovationService : List<AccommodationRenovation>
+        deactivate AccommodationRenovationRepo
+
+        AccommodationRenovationService --> AccommodationRenovationViewModel : Renovations
+    deactivate AccommodationRenovationService
+
+    AccommodationRenovationViewModel --> User : Renovations are binded to datagrid
+deactivate AccommodationRenovationViewModel
+
+@enduml
