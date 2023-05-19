@@ -76,10 +76,6 @@ namespace SIMSProject.Repositories.TourRepositories
             appointment.CurrentKeyPoint = _keyPointRepo.GetAll().Find(x => x.Id == appointment.CurrentKeyPoint.Id) ?? throw new SystemException("Error!No matching key point!");
         }
 
-        public List<TourAppointment> GetAllByTourId(int tourId)
-        {
-            return _tourAppointments.FindAll(x => x.Tour.Id == tourId && DateTime.Compare(x.Date, DateTime.Now) > 0);
-        }
         public List<TourAppointment> GetTodaysAppointmentsByTour(int tourId)
         {
             return _tourAppointments.FindAll(x => x.Tour.Id == tourId && (DateTime.Compare(x.Date.Date, DateTime.Now.Date) == 0 || x.TourStatus == Status.ACTIVE));
