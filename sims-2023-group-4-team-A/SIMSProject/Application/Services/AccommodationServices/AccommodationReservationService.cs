@@ -88,17 +88,22 @@ namespace SIMSProject.Application.Services.AccommodationServices
         {
             if (user is not Guest guest) return null;
 
-            guest.Role = IsSuperGuest(guest) ? UserRole.SuperGuest : UserRole.Guest;
-            if (IsSuperGuest(guest) && guest.IsAwarded == false || (IsSuperGuest(guest) && guest.IsAwarded == true && DidDateExpire(guest.AwardDate)))
+            if (IsSuperGuest(guest) && (guest.AwardDate is null || DidDateExpire(guest.AwardDate)))
             {
-                guest.IsAwarded = true;
+                guest.Role = UserRole.SuperGuest;
                 guest.BonusPoints = 5;
                 guest.AwardDate = DateTime.Today;
             }
-            else if (!IsSuperGuest(guest))
+            else if(!IsSuperGuest(guest) && guest.AwardDate is null)
             {
+                guest.Role = UserRole.Guest;
                 guest.BonusPoints = 0;
-                guest.IsAwarded = false;
+                guest.AwardDate = null;
+            }
+            else if(!IsSuperGuest(guest) && DidDateExpire(guest.AwardDate))
+            {
+                guest.Role = UserRole.Guest;
+                guest.BonusPoints = 0;
                 guest.AwardDate = null;
             }
             _guestRepo.Update(guest);

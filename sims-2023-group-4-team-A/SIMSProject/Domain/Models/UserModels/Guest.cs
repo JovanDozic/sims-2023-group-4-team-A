@@ -8,16 +8,14 @@ namespace SIMSProject.Domain.Models.UserModels
     public class Guest : User, ISerializable
     {
         public double Rating { get; set; }
-        public List<Voucher> Vouchers { get; set; } = new();
         public int BonusPoints { get; set; } 
-        public bool IsAwarded { get; set; } 
         public DateTime? AwardDate { get; set; }
 
         public Guest()
         {
         }
 
-        public Guest(int id, string username, string password, DateTime birthday, double rating = 0, int bonus = 0, bool isAwarded = false, DateTime awardDate = default(DateTime))
+        public Guest(int id, string username, string password, DateTime birthday, double rating = 0, int bonus = 0, DateTime awardDate = default(DateTime))
         {
             Id = id;
             Username = username;
@@ -26,9 +24,7 @@ namespace SIMSProject.Domain.Models.UserModels
             Rating = rating;
             Birthday = birthday;
             BonusPoints = bonus;
-            IsAwarded = isAwarded;
             AwardDate = awardDate;
-            Vouchers = new List<Voucher>();
         }
 
         public string[] ToCSV()
@@ -43,7 +39,6 @@ namespace SIMSProject.Domain.Models.UserModels
                 Math.Round(Rating, 2).ToString(),
                 Birthday.ToString(),
                 BonusPoints.ToString(),
-                IsAwarded.ToString(),
                 awardDateValue
             };
             return csvValues;
@@ -58,8 +53,7 @@ namespace SIMSProject.Domain.Models.UserModels
             Rating = double.Parse(values[4]);
             Birthday = DateTime.Parse(values[5]);
             BonusPoints = int.Parse(values[6]);
-            IsAwarded = bool.Parse(values[7]);
-            if (DateTime.TryParse(values[8], out DateTime awardDate))
+            if (DateTime.TryParse(values[7], out DateTime awardDate))
             {
                 AwardDate = awardDate;
             }
