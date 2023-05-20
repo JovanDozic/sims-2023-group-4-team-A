@@ -81,8 +81,7 @@
                VerticalAlignment="Center" FontSize="30" Margin="77,0,0,0" Grid.Column="1"/>
         <DatePicker Loaded="DatePicker2_Loaded" x:Name="DateTo" Grid.Row="4"
                     VerticalAlignment="Top"
-                    Width="238"
-                    
+                    Width="238"     
                     SelectedDate="{Binding NewEndDate, Mode=TwoWay}"
                     SelectedDateChanged="EndDate_SelectedDateChanged"
                     HorizontalAlignment="Left"

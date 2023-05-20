@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
 {
@@ -19,6 +20,8 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
         private AccommodationReservationService _accommodationReservationService;
         private AccommodationReservation _accommodationReservation = new();
         private Accommodation _selectedAccommodation = new();
+        private DateTime _newDateBegin;
+        private DateTime _newDateEnd;
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public ObservableCollection<DateRange> DateRanges { get; set; } = new();
         public DateRange SelectedRange { get; set; } = new();
@@ -91,6 +94,26 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
                 OnReservationDataChanged();
             }
         }
+        public DateTime NewDateBegin
+        {
+            get => _newDateBegin;
+            set
+            {
+                if (_newDateBegin == value) return;
+                _newDateBegin = value;
+                OnPropertyChanged();
+            }
+        }
+        public DateTime NewDateEnd
+        {
+            get => _newDateEnd;
+            set
+            {
+                if (_newDateEnd == value) return;
+                _newDateEnd = value;
+                OnPropertyChanged();
+            }
+        }
         public AnywhereAnytimeViewModel(User user)
         {
             _user = user;
@@ -119,18 +142,97 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
         public ObservableCollection<DateRange> LoadDateRanges()
         {
             var dates = new ObservableCollection<DateRange>();
-            for (DateTime date = DateBegin; date <= DateEnd.AddDays(-NumberOfDays); date = date.AddDays(1))
+            if(DateBegin != DateTime.MinValue && DateEnd != DateTime.MinValue)
             {
-                DateTime endDateRange = date.AddDays(NumberOfDays);
-                DateRange dateRange = new DateRange(date, endDateRange);
-                dates.Add(dateRange);
+                for (DateTime date = DateBegin; date <= DateEnd.AddDays(-NumberOfDays); date = date.AddDays(1))
+                {
+                    DateTime endDateRange = date.AddDays(NumberOfDays);
+                    DateRange dateRange = new DateRange(date, endDateRange);
+                    dates.Add(dateRange);
+                }
             }
+            
             return dates;
         }
 
         public void SaveReservation()
         {
             _accommodationReservationService.SaveReservation(new AccommodationReservation(SelectedAccommodation.Id, _user.Id, SelectedRange.StartDate, SelectedRange.EndDate, NumberOfDays, GuestsNumber, false), _user);
+        }
+
+        public void SaveReservationWithNewDates()
+        {
+            _accommodationReservationService.SaveReservation(new AccommodationReservation(SelectedAccommodation.Id, _user.Id, NewDateBegin, NewDateEnd, NumberOfDays, GuestsNumber, false), _user);
+        }
+
+        public bool IsEndDateSelected ()
+        {
+            return DateBegin != DateTime.MinValue && DateEnd == DateTime.MinValue;
+
+        }
+
+        public bool IsStartDateSelected()
+        {
+            return DateEnd != DateTime.MinValue && DateBegin == DateTime.MinValue;
+        }
+
+        public bool IsDaysNumberValid()
+        {
+            if(DateBegin != DateTime.MinValue && DateEnd != DateTime.MinValue)
+            {
+                TimeSpan duration = DateEnd - DateBegin;
+                return duration.Days < NumberOfDays;
+            }
+            return false;
+        }
+
+        public bool IsDateInPast()
+        {
+            if (DateBegin != DateTime.MinValue && DateEnd != DateTime.MinValue)
+                return DateBegin >= DateEnd;
+            else
+                return false;
+        }
+
+        public bool AreDatesSelected()
+        {
+            return DateBegin != DateTime.MinValue && DateEnd != DateTime.MinValue;
+        }
+        public bool AreNewDatesSelected()
+        {
+            return NewDateBegin != DateTime.MinValue && NewDateEnd != DateTime.MinValue;
+        }
+        public void LoadFirstDatePicker(object sender)
+        {
+            if (sender is DatePicker datePicker)
+            {
+                datePicker.DisplayDateStart = DateTime.Today.AddDays(1);
+            }
+        }
+        public void LoadSecondDatePicker(object sender)
+        {
+            if (sender is DatePicker datePicker)
+            {
+                datePicker.DisplayDateStart = DateTime.Today.AddDays(NumberOfDays + 1);
+            }
+        }
+        public DateTime? GetUpdatedEndDate(DateTime? selectedStartDate)
+        {
+            if (selectedStartDate.HasValue && selectedStartDate.Value != DateTime.MinValue)
+            {
+                return selectedStartDate.Value.AddDays(NumberOfDays);
+            }
+
+            return null;
+        }
+        public DateTime? GetUpdatedStartDate(DateTime? selectedEndDate)
+        {
+            if (selectedEndDate.HasValue && selectedEndDate.Value != DateTime.MinValue)
+            {
+                return selectedEndDate.Value.AddDays(-NumberOfDays);
+            }
+
+            return null;
         }
     }
 }

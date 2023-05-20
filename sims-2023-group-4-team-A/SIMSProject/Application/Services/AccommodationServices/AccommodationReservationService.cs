@@ -31,7 +31,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
         public void SaveReservation(AccommodationReservation reservation, User user)
         {
             var guest = GetGuestByUser(user);
-            if(guest.Role is UserRole.SuperGuest)
+            if (guest.Role is UserRole.SuperGuest)
             {
                 if (guest.BonusPoints > 0)
                 {
@@ -41,7 +41,6 @@ namespace SIMSProject.Application.Services.AccommodationServices
             }
             _repo.Save(reservation);
         }
-
         public List<AccommodationReservation> GetAll()
         {
             _repo.Load();
@@ -50,12 +49,23 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
         public List<AccommodationReservation> GetAllFromLastYear(User user)
         {
-            return GetAllUncancelled(user).FindAll(r => r.StartDate > DateTime.Now.AddYears(-1) && r.EndDate < DateTime.Now);
+            return GetAllUncancelledByUser(user).FindAll(r => r.StartDate > DateTime.Now.AddYears(-1) && r.EndDate < DateTime.Now);
         }
 
-        public List<AccommodationReservation> GetAllUncancelled(User user)
+        public List<AccommodationReservation> GetAllUncancelledByUser(User user)
         {
             return GetAll().Where(r => !r.Canceled && r.Guest.Id == user.Id).ToList();
+        }
+
+        public List<AccommodationReservation> GetAllUncancelled()
+        {
+            return GetAll().Where(r => !r.Canceled).ToList();
+        }
+        public List<AccommodationReservation> GetAllUncancelledFromFuture()
+        {
+            var futureReservations = GetAll();
+            futureReservations.RemoveAll(x => x.StartDate <= DateTime.Now);
+            return futureReservations;
         }
 
         public List<AccommodationReservation> GetAllByAccommodationId(int accommodationId)

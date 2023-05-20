@@ -35,7 +35,7 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
 
         private void Button_Click_Close(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            NavigationService.Navigate(new AnywhereAnytimeView(_user));
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -120,11 +120,16 @@ namespace SIMSProject.Application.Services.AccommodationServices
                 accommodations.Add(acc);
 
             List<Accommodation> searchResults = accommodations.ToList();
-            var reservedAccommodations = _reservationService.GetAllUncancelled(user).FindAll(r => startDate < r.EndDate && r.StartDate < endDate);
+            var reservedAccommodations = _reservationService.GetAllUncancelled().FindAll(r => startDate < r.EndDate && r.StartDate < endDate);
 
             var accommodationIdsInReservations = reservedAccommodations.Select(r => r.Accommodation.Id).ToList();
+            var futureResAccommodationsIds = _reservationService.GetAllUncancelledFromFuture().Select(r => r.Accommodation.Id).ToList();
 
-            searchResults.RemoveAll(a => accommodationIdsInReservations.Contains(a.Id));
+            if (startDate != DateTime.MinValue && endDate != DateTime.MinValue)
+                searchResults.RemoveAll(a => accommodationIdsInReservations.Contains(a.Id));
+            else
+                searchResults.RemoveAll(a => futureResAccommodationsIds.Contains(a.Id));
+
             searchResults.RemoveAll(a => a.MaxGuestNumber < guestNum);
             searchResults.RemoveAll(a => a.MinReservationDays > daysNum);
 

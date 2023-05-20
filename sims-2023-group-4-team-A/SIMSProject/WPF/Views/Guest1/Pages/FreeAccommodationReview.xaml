@@ -81,17 +81,86 @@
 
             <custom:ImageSlider x:Name="imageSlider" Margin="-37,152,-37,88" Grid.RowSpan="3" />
 
-            <Label Content="Slobodni termini:" Grid.Row="2"
-                   VerticalAlignment="Top"
+            <Label x:Name="FreeDates" Content="Slobodni termini:" Grid.Row="2"
+                   VerticalAlignment="Top" Visibility="Hidden"
                    HorizontalAlignment="Center"
                    FontSize="30" Margin="0,14,0,0"></Label>
-            <ComboBox FontSize="25" HorizontalContentAlignment="Center"
+            <ComboBox x:Name="DatesCombo" Visibility="Hidden" FontSize="25" HorizontalContentAlignment="Center"
                       SelectedItem="{Binding SelectedRange}"
+                      SelectionChanged="FreeDates_SelectionChanged"
                       ItemsSource="{Binding DateRanges}" DisplayMemberPath="FormattedDateRange" Grid.Row="3" Margin="217,0,217,20"></ComboBox>
-            <Button Content="Rezervacija" Background="#0c669f"
-                    Foreground="White" FontSize="30" Grid.Row="4" HorizontalAlignment="Center"
+            <Label x:Name="ChooseDates" Visibility="Hidden" Grid.Row="2" Content="Odaberite datum dolaska i datum odlaska" FontSize="28"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            <DatePicker x:Name="FirstDate" Validation.ErrorTemplate="{x:Null}" Visibility="Hidden"
+                        Loaded="DatePicker1_Loaded"
+                        SelectedDateChanged="StartDate_SelectedDateChanged"
+                        SelectedDate="{Binding NewDateBegin, Mode=TwoWay}" FontSize="25" Grid.Row="3" Margin="59,0,528,35"></DatePicker>
+            <DatePicker x:Name="SecondDate" Validation.ErrorTemplate="{x:Null}" Visibility="Hidden" 
+                        Loaded="DatePicker2_Loaded"
+                        SelectedDateChanged="EndDate_SelectedDateChanged"
+                        SelectedDate="{Binding NewDateEnd, Mode=TwoWay}" FontSize="25" Grid.Row="3" Margin="478,0,109,35"></DatePicker>
+            <Button Content="Rezervacija" x:Name="ReservationButton"
+                    FontSize="30" Grid.Row="4" HorizontalAlignment="Center"
                     VerticalAlignment="Center" Width="240" Height="52" Click="Button_Click"
-                    />
+                    IsEnabled="False" Visibility="Hidden">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              RecognizesAccessKey="True"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="Background" Value="Gray"/>
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="True">
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="Background" Value="#0c669f"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Content="Rezervacija" x:Name="ReservationButtonNew"
+                    FontSize="30" Grid.Row="4" HorizontalAlignment="Center"
+                    VerticalAlignment="Center" Width="240" Height="52" Click="Button_Click"
+                    IsEnabled="False" Visibility="Hidden">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              RecognizesAccessKey="True"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="Background" Value="Gray"/>
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="True">
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="Background" Value="#0c669f"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
 
         </Grid>
     </ScrollViewer>

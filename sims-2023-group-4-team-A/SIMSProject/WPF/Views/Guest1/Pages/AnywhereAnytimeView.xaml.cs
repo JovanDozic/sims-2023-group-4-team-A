@@ -35,10 +35,26 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
 
         private void Button_Click_Search(object sender, RoutedEventArgs e)
         {
-            _anywhereAnytimeViewModel.Search();
-            var searchPage = new SearchedFreeAccommodations(_anywhereAnytimeViewModel, _user);
-            searchPage.SearchedAccLW.Items.Clear();
-            NavigationService.Navigate(searchPage);
+            EndWarning.Content = " ";
+            StartWarning.Content = " ";
+            DaysCheck.Content = " ";
+            PastWarning.Content = " ";
+            if (_anywhereAnytimeViewModel.IsEndDateSelected())
+                EndWarning.Content = "Morate izabrati krajnji datum";
+            else if (_anywhereAnytimeViewModel.IsStartDateSelected())
+                StartWarning.Content = "Morate izabrati početni datum";
+            else if (_anywhereAnytimeViewModel.IsDateInPast())
+                PastWarning.Content = "Krajnji datum mora biti veći od početnog";
+            else if (_anywhereAnytimeViewModel.IsDaysNumberValid())
+                DaysCheck.Content = "Broj dana je veći od opsega datuma";
+            else
+            {
+                _anywhereAnytimeViewModel.Search();
+                var searchPage = new SearchedFreeAccommodations(_anywhereAnytimeViewModel, _user);
+                searchPage.SearchedAccLW.Items.Clear();
+                NavigationService.Navigate(searchPage);
+            }
+
         }
         private void DatePickerStart_Loaded(object sender, RoutedEventArgs e)
         {
@@ -59,5 +75,6 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
                 datePicker.DisplayDateStart = DateTime.Today.AddDays(1);
             }
         }
+
     }
 }

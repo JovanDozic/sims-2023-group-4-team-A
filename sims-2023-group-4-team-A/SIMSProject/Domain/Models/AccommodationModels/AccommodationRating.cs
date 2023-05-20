@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SIMSProject.Application.Services.AccommodationServices
+namespace SIMSProject.Domain.Models.AccommodationModels
 {
     public class AccommodationRating
     {
