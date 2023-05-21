@@ -128,7 +128,7 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
 
         public void Search()
         {
-            _accommodationService.SearchForFreeAccommodations(Accommodations, _user, DateBegin, DateEnd, NumberOfDays, GuestsNumber);
+            _accommodationService.SearchForFreeAccommodations(Accommodations, DateBegin, DateEnd, NumberOfDays, GuestsNumber);
         }
 
         private void OnReservationDataChanged()

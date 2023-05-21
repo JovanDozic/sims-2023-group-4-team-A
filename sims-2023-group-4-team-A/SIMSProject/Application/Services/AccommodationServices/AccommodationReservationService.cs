@@ -63,7 +63,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
         }
         public List<AccommodationReservation> GetAllUncancelledFromFuture()
         {
-            var futureReservations = GetAll();
+            var futureReservations = GetAllUncancelled();
             futureReservations.RemoveAll(x => x.StartDate <= DateTime.Now);
             return futureReservations;
         }

@@ -113,7 +113,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
             return conflictingReservations; 
         }
 
-        public void SearchForFreeAccommodations(ObservableCollection<Accommodation> accommodations, User user, DateTime startDate, DateTime endDate, int daysNum, int guestNum)
+        public void SearchForFreeAccommodations(ObservableCollection<Accommodation> accommodations, DateTime startDate, DateTime endDate, int daysNum, int guestNum)
         {
             accommodations.Clear();
             foreach (var acc in new ObservableCollection<Accommodation>(_repo.GetAll()))
