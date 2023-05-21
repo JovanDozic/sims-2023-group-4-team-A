@@ -1,0 +1,93 @@
+@startuml SuperGuest Sequence Diagram
+
+actor User
+
+User -> SignInViewModel : SignIn(username, password)
+
+activate SignInViewModel
+    SignInViewModel -> AccommodationReservationService : UpdateGuestInfo(user)
+    activate AccommodationReservationService
+    
+    alt user is not Guest guest
+        activate AccommodationReservationService
+            AccommodationReservationService --> AccommodationReservationService : null
+        deactivate AccommodationReservationService
+        else 
+        AccommodationReservationService --> AccommodationReservationService : guest
+        end
+        alt IsSuperGuest(guest) && (guest.AwardDate is null || DidDateExpire(guest.AwardDate))
+                AccommodationReservationService --> AccommodationReservationService : guest.Role = SuperGuest
+                AccommodationReservationService --> AccommodationReservationService : guest.BonusPoints = 5
+                AccommodationReservationService --> AccommodationReservationService : guest.AwardDate = Today
+        else
+            alt !IsSuperGuest(guest) && guest.AwardDate is null
+                    AccommodationReservationService --> AccommodationReservationService : guest.Role = Guest
+                    AccommodationReservationService --> AccommodationReservationService : guest.BonusPoints = 0
+                    AccommodationReservationService --> AccommodationReservationService : guest.AwardDate = null
+            end
+            else
+            alt !IsSuperGuest(guest) && DidDateExpire(guest.AwardDate)
+                    AccommodationReservationService --> AccommodationReservationService : guest.Role = Guest
+                    AccommodationReservationService --> AccommodationReservationService : guest.BonusPoints = 0
+                    AccommodationReservationService --> AccommodationReservationService : guest.AwardDate = null
+            end
+    end
+            activate AccommodationReservationService
+                AccommodationReservationService -> GuestRepo : Update(guest)
+                activate GuestRepo
+                    GuestRepo --> AccommodationReservationService
+                deactivate GuestRepo
+            deactivate AccommodationReservationService
+
+    AccommodationReservationService --> SignInViewModel : Updated guest information
+    deactivate AccommodationReservationService
+
+    SignInViewModel -> MainWindow : OpenGuestWindow(user)
+    activate MainWindow
+    MainWindow --> SignInViewModel
+    deactivate MainWindow
+
+    SignInViewModel --> User : Main window opened
+    deactivate SignInViewModel
+
+    User -> MainWindow : Making reservation
+    activate MainWindow
+    MainWindow -> AccommodationReservationService : SaveReservation(reservation, user)
+    activate AccommodationReservationService
+        AccommodationReservationService -> AccommodationReservationService : GetGuestByUser(user)
+        activate AccommodationReservationService
+            AccommodationReservationService --> AccommodationReservationService : guest
+        deactivate AccommodationReservationService
+            opt guest.Role is UserRole.SuperGuest
+            opt BonusPoints > 0
+                AccommodationReservationService --> AccommodationReservationService : guest.BonusPoints--
+                activate AccommodationReservationService
+                    AccommodationReservationService -> GuestRepo : Update(guest)
+                    activate GuestRepo
+                        GuestRepo --> AccommodationReservationService
+                    deactivate GuestRepo
+                deactivate AccommodationReservationService
+            end
+        end
+
+    AccommodationReservationService -> AccommodationReservationRepo: Save(reservation)
+        activate AccommodationReservationRepo
+        AccommodationReservationRepo --> AccommodationReservationRepo : NextId()
+        activate AccommodationReservationRepo 
+            AccommodationReservationRepo --> AccommodationReservationRepo : reservation.Id
+        deactivate AccommodationReservationRepo 
+            AccommodationReservationRepo-> AccommodationReservationFileHandler : Save(reservations)
+        deactivate AccommodationReservationRepo
+            activate AccommodationReservationFileHandler
+            database CSV
+            AccommodationReservationFileHandler -> CSV : ToCSV(FilePath, reservations)
+            deactivate AccommodationReservationFileHandler
+        AccommodationReservationService --> MainWindow : Reservation saved
+    deactivate AccommodationReservationService
+
+    MainWindow --> User : Reservation made
+    deactivate MainWindow
+
+deactivate User
+
+@enduml
