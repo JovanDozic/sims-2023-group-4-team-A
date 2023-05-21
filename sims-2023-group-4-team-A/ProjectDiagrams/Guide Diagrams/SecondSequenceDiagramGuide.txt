@@ -1,0 +1,28 @@
+@startuml
+actor Guide as G
+
+participant "CustomTourRequestsViewModel" as CTRVM
+participant "CustomTourRequestService" as CTRS
+participant "ICustomTourRequestRepo" as ICTRR
+participant "AcceptRequestViewModel" as ARVM
+participant "MessageBus" as MB
+participant "TourAppointmentService" as TAS
+participant "ITourAppointmentRepo" as ITAR
+
+MB -> ARVM: OpenMessage
+ARVM -> TAS++: getBusyDates()
+TAS -> ITAR++: getBusyDates()
+return
+return
+activate G
+G -> ARVM: AcceptRequestCommand
+ARVM -> ARVM++: AcceptRequestExecute()
+ARVM -> CTRS++: ApproveRequest(CustomTourRequest request)
+CTRS -> ICTRR: GetById(request.Id)
+ICTRR --> CTRS: old
+CTRS -> old: RequestStatus = RequestStatus.ACCEPTED
+CTRS -> ICTRR: SaveAll(_customTourRequestRepo.GetAll())
+return
+ARVM -> ARVM: SendMessage()
+ARVM -> MB: Publish(message)
+@enduml

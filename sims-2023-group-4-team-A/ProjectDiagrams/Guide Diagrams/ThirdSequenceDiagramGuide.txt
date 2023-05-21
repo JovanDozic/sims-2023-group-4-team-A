@@ -1,0 +1,56 @@
+@startuml
+!theme bluegray
+
+actor Guide as G
+participant "TourCreationViewModel" as TCVM
+participant "TourService" as TS
+participant "TourRepo" as TR
+participant "KeyPointService" as KPS
+participant "KeyPointRepo" as KPR 
+participant "TourAppointmentService" as TAS
+participant "ITourAppointmentRepo" as ITAR
+participant "TourReservationService" as TRS
+participant "NotificationService" as NS
+participant "NotificationRepo" as NR
+participant "NotificationFileHandler" as NFL
+
+TCVM -> TCVM: OpenMessage(message)
+activate G
+G -> TCVM++ : CreateTourCommand
+deactivate G
+TCVM -> TCVM++ :  CreateTourExecute()
+TCVM -> TS++ : CreateTour(tour)
+TS -> TR++ : Save(tour)
+TR --> TS-- : tour
+TS -> KPS++ : CreateNewPairs(tour)
+loop for each (keyPoint in KeyPoints)
+KPS -> KPR++ : Save(new(tour.Id, keyPoint.Id))
+KPR --> KPS-- : tourKeyPoints
+end
+deactivate KPS
+deactivate TS
+TCVM -> TAS++ : CreateAppointments(Appointments, Tour)
+loop for each (appointment in Appointments)
+TAS -> ITAR++ : Save(appointment, tour)
+ITAR --> TAS-- : appointment
+end
+deactivate TAS
+opt tour.Reason == CreatingReason.CUSTOM
+TCVM -> TRS: Save(_tourReservation)
+TCVM -> TCVM++ : SendAcceptedTourNotification()
+TCVM -> Notification**: <<create>>
+Notification --> TCVM : notification
+TCVM -> NS++ : CreateNotification(notification)
+NS -> NS : notification.IsRead = false
+NS -> NR++ : Save(notification)
+NR -> NR++ : NextId()
+NR --> NR-- : notification.Id
+NR -> NFL++ : Save(notification) 
+database "CSV"
+NFL -> CSV : ToCSV(FilePath, notification)
+deactivate NFL
+NR --> NS-- : notification
+deactivate NS
+end
+deactivate TCVM
+@enduml

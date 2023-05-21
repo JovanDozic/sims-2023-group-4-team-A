@@ -1,0 +1,71 @@
+@startuml
+!theme bluegray
+actor Guide as G
+
+participant "CustomTourRequestsViewModel" as CTRVM
+participant "CustomTourRequestService" as CTRS
+participant "ICustomTourRequestRepo" as ICTRR
+participant "AcceptRequestViewModel" as ARVM
+participant "MessageBus" as MB
+participant "TMessage" as TMsg
+participant "Message" as Msg
+
+CTRVM -> CTRS++: getOnHold()
+CTRS -> ICTRR++: getOnHold()
+return
+CTRS -> CTRVM--
+CTRVM -> CTRS++: getRequestsLocations()
+CTRS -> ICTRR++: getRequestsLocations()
+return
+CTRS -> CTRVM--
+CTRVM -> CTRS++: getRequestsLanguages()
+CTRS -> ICTRR++: getRequestsLanguages()
+return
+CTRS -> CTRVM--
+opt 
+G -> CTRVM++: FilterCommand
+deactivate G
+CTRVM -> CTRVM++: FilterExecute()
+CTRVM -> CTRS++: FilterRequests(SelectedLocation, SelectedLanguage, NumberOfGuests, StartDate, EndDate)
+CTRS -> ICTRR++: GetAll()
+ICTRR -> CTRS--: requests
+
+alt location.Id != 0
+    
+CTRS -> CTRS: requests.RemoveAll(x => x.Location.Id != location.Id)
+end
+
+alt language > 0 
+
+CTRS -> CTRS: requests.RemoveAll(x => !x.TourLanguage.Equals(language))
+end
+
+alt numOfGuests > 0
+
+CTRS -> CTRS: requests.RemoveAll(x => x.GuestCount != numOfGuests)
+end
+
+alt DateTime.Compare(start, end) != 0
+
+CTRS -> CTRS: requests.RemoveAll(x => DateTime.Compare(x.StartDate, start) < 0 || DateTime.Compare(x.EndDate, end) > 0)
+end
+
+CTRS -> CTRVM--: requests
+end
+
+activate G
+G -> CTRVM: PickDateCommand
+deactivate G
+CTRVM -> CTRVM: PickDateExecute()
+CTRVM -> CTRVM: SendMessage()
+CTRVM -> MB: Publish(message)
+MB -> MB: Publish<TMessage>(message)
+MB -> subscribers: Check if subscribers exist
+
+alt Subscribers exist
+    MB -> subscribers: Retrieve handlers for TMessage
+    loop for each handler
+        MB -> handler: Invoke handler(message)
+    end
+end
+@enduml
