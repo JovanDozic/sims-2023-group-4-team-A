@@ -1,6 +1,4 @@
-﻿
-using SIMSProject.Application.Services.AccommodationServices;
-using SIMSProject.Domain.Models.UserModels;
+﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;

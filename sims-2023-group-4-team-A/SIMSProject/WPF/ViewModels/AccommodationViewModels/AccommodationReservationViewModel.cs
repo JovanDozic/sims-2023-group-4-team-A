@@ -229,7 +229,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
         public ObservableCollection<AccommodationReservation> LoadUncanceledReservations()
         {
-            return new ObservableCollection<AccommodationReservation>(_reservationService.GetAllUncancelled(_user));
+            return new ObservableCollection<AccommodationReservation>(_reservationService.GetAllUncancelledByUser(_user));
         }
 
         public ObservableCollection<AccommodationReservation> LoadReservationsByAccommodation(Accommodation accommodation)

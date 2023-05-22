@@ -1,0 +1,167 @@
+﻿<Page x:Class="SIMSProject.WPF.Views.Guest1.Pages.FreeAccommodationReview"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest1.Pages" xmlns:converters="clr-namespace:SIMSProject.WPF.Converters" xmlns:custom="clr-namespace:SIMSProject.WPF.CustomControls"
+      mc:Ignorable="d" 
+      x:Name="accommodationReview"
+      d:DesignHeight="768" d:DesignWidth="1024"
+      Title="FreeAccommodationReview">
+
+    <Page.Resources>
+        <converters:AccommodationTypeConverter x:Key="TypeConverter" />
+        <converters:CsvToImageConverter x:Key="CsvToImageConverter"/>
+    </Page.Resources>
+
+    <ScrollViewer CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+        <Grid Margin="80,0,80,0" Height="894">
+            <Grid.ColumnDefinitions>
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200"></RowDefinition>
+                <RowDefinition Height="440"></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Margin="0,-31,0,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid Margin="82,-20,-80,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="30"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock FontSize="30" Text="{Binding SelectedAccommodation.Name}" FontWeight="Bold"
+                               VerticalAlignment="Top" Margin="0,55,0,10"></TextBlock>
+                    <Image Grid.Column="1" Source="../Icons/chevron-left-black.png" Height="30" Width="30" Margin="23,61,77,18" Grid.ColumnSpan="2" />
+                    <Button Content="Nazad" 
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        VerticalAlignment="Top"
+                        FontWeight="Bold"
+                        BorderThickness="0"
+                        FontSize="20" Grid.Column="2" Margin="23,59,10,0" Click="Button_Click_Close" Height="32"/>
+                </Grid>
+                <Grid Margin="82,90,64,0" Grid.RowSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Vertical" Margin="0,0,345,0" Grid.ColumnSpan="2">
+                        <TextBlock FontWeight="Bold" Foreground="#626161" Text="{Binding SelectedAccommodation.Location}" FontSize="25" Height="35"/>
+                        <StackPanel Orientation="Horizontal" Height="34">
+                            <TextBlock Text="Tip: " FontSize="25" Foreground="#626161"/>
+                            <TextBlock Foreground="#626161" FontWeight="Bold" Text="{Binding SelectedAccommodation.Type, Converter={StaticResource TypeConverter}}" Margin="0,0,0,3" FontSize="25"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Left" Width="339" Margin="34,0,0,0">
+                        <StackPanel Orientation="Horizontal" Width="357">
+                            <TextBlock Text="Maksimalan broj gostiju:"
+                                       FontSize="25" Width="287"/>
+                            <TextBlock FontWeight="Bold" Text="{Binding SelectedAccommodation.MaxGuestNumber}" FontSize="25" Width="55"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Minimalan broj dana:" FontSize="25" Width="254" Height="36"/>
+                            <TextBlock FontWeight="Bold" Text="{Binding SelectedAccommodation.MinReservationDays}" FontSize="25" Width="75" Margin="5"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+            <custom:ImageSlider x:Name="imageSlider" Margin="-37,152,-37,29" Grid.RowSpan="2" />
+
+            <Label x:Name="FreeDates" Content="Slobodni termini:" Grid.Row="2"
+                   VerticalAlignment="Top" Visibility="Hidden"
+                   HorizontalAlignment="Left"
+                   FontSize="30" Margin="312,5,0,0"></Label>
+            <ComboBox x:Name="DatesCombo"  FontSize="25" HorizontalContentAlignment="Center"
+                      SelectedItem="{Binding SelectedRange}" Visibility="Hidden"
+                      SelectionChanged="FreeDates_SelectionChanged"
+                      ItemsSource="{Binding DateRanges}" DisplayMemberPath="FormattedDateRange" Grid.Row="3" Margin="217,0,217,31"></ComboBox>
+            <Label x:Name="ChooseDates"  Grid.Row="2" Visibility="Hidden" Content="Odaberite datum dolaska i datum odlaska" FontSize="28"
+                   HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0"></Label>
+            <DatePicker x:Name="FirstDate" Validation.ErrorTemplate="{x:Null}" 
+                        Loaded="DatePicker1_Loaded" Width="247" Visibility="Hidden"
+                        SelectedDateChanged="StartDate_SelectedDateChanged"
+                        SelectedDate="{Binding NewDateBegin, Mode=TwoWay}" FontSize="25" Grid.Row="3" Margin="134,0,483,31"></DatePicker>
+            <DatePicker x:Name="SecondDate" Validation.ErrorTemplate="{x:Null}" 
+                        Loaded="DatePicker2_Loaded" Width="247" Visibility="Hidden"
+                        SelectedDateChanged="EndDate_SelectedDateChanged"
+                        SelectedDate="{Binding NewDateEnd, Mode=TwoWay}" FontSize="25" Grid.Row="3" Margin="483,0,134,31"></DatePicker>
+            <Button Content="Rezerviši" x:Name="ReservationButton"
+                    FontSize="30" Grid.Row="4" HorizontalAlignment="Center"
+                    VerticalAlignment="Top" Width="240" Height="52" Click="Button_Click"
+                    IsEnabled="False" Margin="0,10,0,0" Visibility="Hidden" >
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              RecognizesAccessKey="True"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="Background" Value="Gray"/>
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="True">
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="Background" Value="#0c669f"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Content="Rezerviši" x:Name="ReservationButtonNew"
+                    FontSize="30" Grid.Row="4" HorizontalAlignment="Center"
+                    VerticalAlignment="Center" Width="240" Height="52" Click="Button_Click"
+                    IsEnabled="False" Visibility="Hidden">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              RecognizesAccessKey="True"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="Background" Value="Gray"/>
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="True">
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="Background" Value="#0c669f"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+        </Grid>
+    </ScrollViewer>
+</Page>
