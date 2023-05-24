@@ -146,7 +146,7 @@ namespace SIMSProject.Domain.Injectors
             services.AddScoped<TourAppointmentService>();
             services.AddScoped<TourGuestService>();
             services.AddScoped<TourKeyPointService>();
-            services.AddScoped<VoucherSevice>();
+            services.AddScoped<VoucherService>();
             services.AddScoped<KeyPointService>();
             services.AddScoped<TourReservationService>();
             services.AddScoped<GuideRatingService>();

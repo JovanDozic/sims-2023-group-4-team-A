@@ -12,7 +12,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
     public class DetailedTourViewModel : ViewModelBase
     {
         private readonly TourAppointmentService _tourAppointmentService;
-        private readonly VoucherSevice _voucherService;
+        private readonly VoucherService _voucherService;
         private readonly TourGuestService _tourGuestService;
 
         private ObservableCollection<TourAppointment> tourAppointments = new();
@@ -57,7 +57,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         public DetailedTourViewModel() 
         {
             _tourAppointmentService = Injector.GetService<TourAppointmentService>();
-            _voucherService = Injector.GetService<VoucherSevice>();
+            _voucherService = Injector.GetService<VoucherService>();
             _tourGuestService = Injector.GetService<TourGuestService>();
             MessageBus.Subscribe<TourInfoMessage>(this, OpenMessage);
             CancelAppointmentCommand = new RelayCommand(CancelAppointmentExecute, CancelAppointmentCanExecute);
@@ -80,7 +80,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
                 return;
             }
             List<TourGuest> guests = _tourGuestService.GetGuests(SelectedAppointment);
-            _voucherService.GiveVouchers(guests, ObtainingReason.APPOINTMENTCANCELED);
+            _voucherService.GiveVouchers(guests, ObtainingReason.APPOINTMENTCANCELED, GuideHomeViewModel.Guide.Id);
         }
         #endregion
     }

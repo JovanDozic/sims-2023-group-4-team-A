@@ -14,7 +14,7 @@
                  FontWeight="Bold">
             <Button x:Name="Create_tourBTN" Content="Kreiraj turu   " Click="CreateTour_Click"/>
             <Button x:Name="Generate_reportBTN" Content="Generiši izveštaj  "/>
-            <Button x:Name="QuitBTN" Content="Daj otkaz "/>
+            <Button x:Name="QuitBTN" Content="Daj otkaz" Command="{Binding Path=QuitCommand}"/>
             <Button x:Name="Sign_outBTN" Content="Odjavi se" IsCancel="True" Click="Sign_outBTN_Click"/>
         </ToolBar>
         <StackPanel DockPanel.Dock="Left"

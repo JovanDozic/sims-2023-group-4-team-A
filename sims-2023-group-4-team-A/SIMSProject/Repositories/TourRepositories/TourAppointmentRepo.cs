@@ -117,5 +117,12 @@ namespace SIMSProject.Repositories.TourRepositories
         {
             return GetTodaysAppointments().Select(x => x.Tour).Distinct().ToList();
         }
+
+        public List<TourAppointment> GetAllUpcoming(int guideId)
+        {
+            return _tourAppointments.Where(x => x.Guide.Id == guideId 
+                                     && DateTime.Compare(x.Date, DateTime.Now) > 0
+                                     && x.TourStatus != Status.CANCELED).ToList();
+        }
     }
 }

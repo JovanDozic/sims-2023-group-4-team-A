@@ -14,7 +14,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
 {
     public class VouchersViewModel : ViewModelBase
     {
-        private readonly VoucherSevice _voucherService;
+        private readonly VoucherService _voucherService;
         private ObservableCollection<Voucher> _vouchers = new();
         public ObservableCollection<Voucher> Vouchers
         {
@@ -29,7 +29,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         
         public VouchersViewModel(Guest user)
         {
-            _voucherService=Injector.GetService<VoucherSevice>();
+            _voucherService=Injector.GetService<VoucherService>();
             Vouchers = new(_voucherService.GetVouchersByGuestId(user.Id).Where(x => DateTime.Compare(x.Expiration, DateTime.Now) > 0));
         }
         public void Update(Voucher voucher)

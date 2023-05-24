@@ -12,5 +12,7 @@ namespace SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces
         public Voucher Save(Voucher voucher);
         public void SaveAll(List<Voucher> appointments);
         public void Update(Voucher voucher);
+        public List<Voucher> GetAll(int guideId);
+        public void UpdateExistingVouchers(int guideId);
     }
 }

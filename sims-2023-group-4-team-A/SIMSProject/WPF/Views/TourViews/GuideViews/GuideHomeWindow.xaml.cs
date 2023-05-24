@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Application.Services;
+using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
@@ -50,7 +51,7 @@ namespace SIMSProject.View.GuideViews
 
         private void ReviewBTN_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.Content = new TourReviewsPage();   
+            mainFrame.Content = new TourReviewsPage();
         }
 
         private void Sign_outBTN_Click(object sender, RoutedEventArgs e)

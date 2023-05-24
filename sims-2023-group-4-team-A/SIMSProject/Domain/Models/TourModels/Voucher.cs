@@ -14,14 +14,16 @@ namespace SIMSProject.Domain.Models.TourModels
     public class Voucher : ISerializable
     {
         public int Id { get; set; }
+        public int GuideId { get; set; }
         public Guest Guest { get; set; } = new();
         public ObtainingReason Reason { get; set; }
         public DateTime Expiration { get; set; }
         public bool Used { get; set; } = false;
 
-        public Voucher(int guestId, ObtainingReason reason, bool used)
+        public Voucher(int guestId, int guideId, ObtainingReason reason, bool used)
         {
             Guest.Id = guestId;
+            GuideId = guideId;
             Reason = reason;
             Expiration = CalculateExpirationDate(reason);
             Used = used;
@@ -52,17 +54,18 @@ namespace SIMSProject.Domain.Models.TourModels
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Guest.Id.ToString(), Reason.ToString(), Expiration.ToString(), Used.ToString() };
+            string[] csvValues = { Id.ToString(), GuideId.ToString(),Guest.Id.ToString(), Reason.ToString(), Expiration.ToString(), Used.ToString() };
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            Guest.Id = Convert.ToInt32(values[1]);
-            Reason = (ObtainingReason)Enum.Parse(typeof(ObtainingReason), values[2]);
-            Expiration = DateTime.Parse(values[3]);
-            Used = bool.Parse(values[4]);
+            GuideId = Convert.ToInt32(values[1]);
+            Guest.Id = Convert.ToInt32(values[2]);
+            Reason = (ObtainingReason)Enum.Parse(typeof(ObtainingReason), values[3]);
+            Expiration = DateTime.Parse(values[4]);
+            Used = bool.Parse(values[5]);
         }
     }
 }

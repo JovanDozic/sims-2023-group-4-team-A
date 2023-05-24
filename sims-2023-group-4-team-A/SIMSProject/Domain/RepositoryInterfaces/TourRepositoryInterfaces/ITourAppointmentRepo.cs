@@ -19,6 +19,7 @@ namespace SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces
         public List<DateTime> GetBusyDates();
         public List<Tour> GetToursWithFinishedAppointments();
         public List<Tour> GetTodaysTours();
+        public List<TourAppointment> GetAllUpcoming(int guideId);
     }
 
 }

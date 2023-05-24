@@ -99,5 +99,10 @@ namespace SIMSProject.Application.Services.TourServices
         {
             return _repo.GetToursWithFinishedAppointments();
         }
+
+        public List<TourAppointment> GetAllUpcoming(int guideId)
+        {
+            return _repo.GetAllUpcoming(guideId);
+        }
     }
 }

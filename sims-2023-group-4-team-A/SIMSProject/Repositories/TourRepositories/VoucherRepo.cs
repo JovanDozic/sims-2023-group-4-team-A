@@ -54,5 +54,19 @@ namespace SIMSProject.Repositories.TourRepositories
             _vouchers[index] = voucher;
             _fileHandler.Save(_vouchers);
         }
+
+        public List<Voucher> GetAll(int guideId)
+        {
+            return _vouchers.Where(x => x.GuideId == guideId).ToList();
+        }
+
+        public void UpdateExistingVouchers(int guideId)
+        {
+            foreach (var voucher in GetAll(guideId))
+            {
+                voucher.GuideId = -1;
+            }
+            SaveAll(_vouchers);
+        }
     }
 }
