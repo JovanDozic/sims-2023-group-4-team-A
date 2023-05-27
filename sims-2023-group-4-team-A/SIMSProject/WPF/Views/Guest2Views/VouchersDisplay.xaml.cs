@@ -9,9 +9,9 @@ namespace SIMSProject.View.Guest2
     /// </summary>
     public partial class VouchersDisplay : Page
     {
-        public Guest User = new();
+        public Domain.Models.UserModels.Guest2 User = new();
         private VouchersViewModel _vouchersViewModel { get; set; }
-        public VouchersDisplay(Guest user)
+        public VouchersDisplay(Domain.Models.UserModels.Guest2 user)
         {
             InitializeComponent();
             User = user;

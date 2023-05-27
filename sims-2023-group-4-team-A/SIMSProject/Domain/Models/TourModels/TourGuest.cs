@@ -9,7 +9,7 @@ namespace SIMSProject.Domain.Models.TourModels
     {
         public TourAppointment TourAppointment { get; set; } = new();
         public GuestAttendance GuestStatus { get; set; }
-        public Guest Guest { get; set; } = new(); 
+        public Guest2 Guest { get; set; } = new(); 
         public KeyPoint JoiningPoint { get; set; } = new();
 
         public TourGuest() { }

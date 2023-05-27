@@ -8,7 +8,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
     {
         public int Id { get; set; }
         public Accommodation Accommodation { get; set; } = new();
-        public Guest Guest { get; set; } = new();
+        public Guest1 Guest { get; set; } = new();
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int NumberOfDays { get; set; } = 1;

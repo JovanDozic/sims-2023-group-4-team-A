@@ -5,31 +5,26 @@ using SIMSProject.Serializer;
 
 namespace SIMSProject.Domain.Models.UserModels
 {
-    public class Guest : User, ISerializable
+    public class Guest2 : User, ISerializable
     {
         public double Rating { get; set; }
-        public int BonusPoints { get; set; } 
-        public DateTime? AwardDate { get; set; }
 
-        public Guest()
+        public Guest2()
         {
         }
 
-        public Guest(int id, string username, string password, DateTime birthday, double rating = 0, int bonus = 0, DateTime awardDate = default(DateTime))
+        public Guest2(int id, string username, string password, DateTime birthday, double rating = 0)
         {
             Id = id;
             Username = username;
             Password = password;
-            Role = UserRole.Guest;
+            Role = UserRole.Guest2;
             Rating = rating;
             Birthday = birthday;
-            BonusPoints = bonus;
-            AwardDate = awardDate;
         }
 
         public string[] ToCSV()
         {
-            string awardDateValue = (AwardDate.HasValue) ? AwardDate.Value.ToString() : "";
             string[] csvValues =
             {
                 Id.ToString(),
@@ -37,9 +32,7 @@ namespace SIMSProject.Domain.Models.UserModels
                 Password,
                 GetRole(Role),
                 Math.Round(Rating, 2).ToString(),
-                Birthday.ToString(),
-                BonusPoints.ToString(),
-                awardDateValue
+                Birthday.ToString()
             };
             return csvValues;
         }
@@ -52,15 +45,6 @@ namespace SIMSProject.Domain.Models.UserModels
             Role = GetRole(values[3]);
             Rating = double.Parse(values[4]);
             Birthday = DateTime.Parse(values[5]);
-            BonusPoints = int.Parse(values[6]);
-            if (DateTime.TryParse(values[7], out DateTime awardDate))
-            {
-                AwardDate = awardDate;
-            }
-            else
-            {
-                AwardDate = null;
-            }
         }
 
         public override string ToString()

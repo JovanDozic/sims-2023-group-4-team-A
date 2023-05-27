@@ -225,7 +225,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
 
             }
         }
-        private Guest Guest { get; set; } = new();
+        private Guest2 Guest { get; set; } = new();
         private ObservableCollection<KeyPoint> _keyPoints = new();
         public ObservableCollection<KeyPoint> KeyPoints
         {
@@ -396,7 +396,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             StringBuilder description = new("Kreirana je nova tura koja bi mogla da Vas interesuje, ispunjava neke od dosad neispunjenih zahteva.");
             description.Append($" U pitanju je tura: {_tour.Name} na lokaciji {_tour.Location}.");
             description.Append($" Jezik na kom će tura biti realizovana je {Tour.GetLanguage(_tour.TourLanguage)}. ");   
-            foreach (Guest guest in _customTourRequestService.GetGuestsWithSimilarRequests(_tour))
+            foreach (Guest2 guest in _customTourRequestService.GetGuestsWithSimilarRequests(_tour))
             {
                 var notification = new Notification(guest, title, description.ToString());
                 _notificationService.CreateNotification(notification);

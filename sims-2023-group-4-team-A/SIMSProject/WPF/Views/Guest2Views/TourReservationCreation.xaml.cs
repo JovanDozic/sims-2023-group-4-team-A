@@ -22,7 +22,7 @@ namespace SIMSProject.View.Guest2
     /// </summary>
     public partial class TourReservationCreation : Window, INotifyPropertyChanged
     {
-        public Guest User = new();
+        public Domain.Models.UserModels.Guest2 User = new();
         public TourGuest TourGuest = new();
         public Tour Tour { get; set; }
         public Tour AlternativeTour { get; set; }
@@ -73,7 +73,7 @@ namespace SIMSProject.View.Guest2
         private readonly TourService _tourService;
         private readonly TourGuestService _tourGuestService;
 
-        public TourReservationCreation(Guest user, Tour selectedTour)
+        public TourReservationCreation(Domain.Models.UserModels.Guest2 user, Tour selectedTour)
         {
             InitializeComponent();
             DataContext = this;

@@ -46,18 +46,8 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
             {
                 User? user = _userService.GetUser(Username, password) as User
                              ?? throw new Exception("Dogodila se greška prilikom logovanja.");
-                if (user.Username.Equals("marko") && user.Password.Equals("marko"))
-                {
-                    OpenGuestWindow(user);
-                }
-                else if (user.Username.Equals("anja") && user.Password.Equals("anja"))
-                {
-                    OpenGuest2Window(user);
-                }
-                else
-                {
-                    OpenWindow(user);
-                }
+
+                OpenWindow(user);
                 return true;
             }
             catch (Exception ex)
@@ -66,34 +56,6 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
                 return false;
             }
 
-        }
-        public bool GuestSignIn(string password)
-        {
-            try
-            {
-                User? user = _userService.GetUser(Username, password) as User
-                             ?? throw new Exception("Dogodila se greška prilikom logovanja.");
-                OpenGuestWindow(user);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-        }
-
-        private void OpenGuestWindow(User user)
-        {
-            _reservationService.UpdateGuestInfo(user);
-            MainWindow guestWind = new(user as Guest ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
-            guestWind.Show();
-        }
-
-        private void OpenGuest2Window(User user)
-        {
-            Guest2HomeView guest2HomeView = new(user as Guest ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
-            guest2HomeView.Show();
         }
 
         private void OpenWindow(User user)
@@ -112,19 +74,23 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
 
                     OwnerWindow ownerWindow = new(user);
                     ownerWindow.Show();
-
-
                     break;
                 case UserRole.Guide or UserRole.SuperGuide:
                     GuideHomeWindow guideWindow = new(user as Guide
                         ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
                     guideWindow.Show();
                     break;
-                case UserRole.Guest or UserRole.SuperGuest:
-                    GuestInitialWindow guestWindow = new(user as Guest
-                        ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
-                    guestWindow.Show();
+                case UserRole.Guest1 or UserRole.SuperGuest:
+                    user = _reservationService.UpdateGuestInfo(user);
+                    MainWindow guestWind = new(user as Guest1 ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
+                    guestWind.Show();
+                    break;                 
+                case UserRole.Guest2:
+                    Guest2HomeView guest2HomeView = new(user as Guest2 ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
+                    guest2HomeView.Show();
                     break;
+                    
+
             }
         }
 

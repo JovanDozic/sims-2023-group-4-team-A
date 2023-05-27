@@ -21,8 +21,8 @@ namespace SIMSProject.WPF.Views.Guest2Views
     /// </summary>
     public partial class Guest2HomeView : Window
     {
-        public Guest User { get; set; } = new();
-        public Guest2HomeView(Guest user)
+        public Guest2 User { get; set; } = new();
+        public Guest2HomeView(Guest2 user)
         {
             InitializeComponent();
             User = user;
@@ -30,7 +30,7 @@ namespace SIMSProject.WPF.Views.Guest2Views
         }
         private void LogOut_Click(object sender, RoutedEventArgs e)
         {
-            User = new Guest(0, "<null>", "<null>", DateTime.Now);
+            User = new Guest2(0, "<null>", "<null>", DateTime.Now);
             SignInView window = new();
             window.Show();
             Close();

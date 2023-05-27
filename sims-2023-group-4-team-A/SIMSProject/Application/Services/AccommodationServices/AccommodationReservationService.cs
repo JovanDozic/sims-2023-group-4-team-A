@@ -16,10 +16,10 @@ namespace SIMSProject.Application.Services.AccommodationServices
     public class AccommodationReservationService
     {
         private readonly IAccommodationReservationRepo _repo;
-        private readonly IGuestRepo _guestRepo;
+        private readonly IGuest1Repo _guestRepo;
         private readonly NotificationService _notificationService;
 
-        public AccommodationReservationService(IAccommodationReservationRepo repo, IGuestRepo guestRepo)
+        public AccommodationReservationService(IAccommodationReservationRepo repo, IGuest1Repo guestRepo)
         {
             _repo = repo;
             _guestRepo = guestRepo;
@@ -97,7 +97,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
         public User UpdateGuestInfo(User user)
         {
-            if (user is not Guest guest) return null;
+            if (user is not Guest1 guest) return null;
 
             if (IsSuperGuest(guest) && (guest.AwardDate is null || DidDateExpire(guest.AwardDate)))
             {
@@ -107,13 +107,13 @@ namespace SIMSProject.Application.Services.AccommodationServices
             }
             else if(!IsSuperGuest(guest) && guest.AwardDate is null)
             {
-                guest.Role = UserRole.Guest;
+                guest.Role = UserRole.Guest1;
                 guest.BonusPoints = 0;
                 guest.AwardDate = null;
             }
             else if(!IsSuperGuest(guest) && DidDateExpire(guest.AwardDate))
             {
-                guest.Role = UserRole.Guest;
+                guest.Role = UserRole.Guest1;
                 guest.BonusPoints = 0;
                 guest.AwardDate = null;
             }
@@ -127,15 +127,15 @@ namespace SIMSProject.Application.Services.AccommodationServices
             return date.GetValueOrDefault().AddYears(1) < DateTime.Today;
         }
 
-        public Guest GetGuestByUser(User user)
+        public Guest1 GetGuestByUser(User user)
         {
-            if(user is not Guest guest) return null;
+            if(user is not Guest1 guest) return null;
             return guest;
         }
 
         public bool IsSuperGuest(User user)
         {
-            if (user is not Guest guest) return false;
+            if (user is not Guest1 guest) return false;
             return GetAllFromLastYear(user).Count >= 10;
         }
 

@@ -15,7 +15,7 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
     {
         private readonly User _user = new();
         private readonly AccommodationReservationService _reservationService;
-        private Guest _guest = new();
+        private Guest1 _guest = new();
 
         public string Username
         {

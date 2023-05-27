@@ -15,7 +15,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
 {
     public class CustomTourRequestViewModel : ViewModelBase
     {
-        private Guest _user;
+        private Guest2 _user;
         private CustomTourRequest _customTourRequest = new();
         private CustomTourRequestService _customTourRequestService;
         private LocationService _locationService;
@@ -120,7 +120,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             }
         }
         public string DateRange { get; set; } = string.Empty;
-        public CustomTourRequestViewModel(Guest user) 
+        public CustomTourRequestViewModel(Guest2 user) 
         {
             TourLanguages = new()
             {
