@@ -46,6 +46,7 @@ namespace SIMSProject.Application.Services.TourServices
         }
         public bool IsSuperGuide(List<TourAppointment> eligibleAppointments)
         {
+            if(eligibleAppointments == null) return false;
             int reviewCounter = 0;
             double totalGrade = 0;
             foreach(var  appointment in eligibleAppointments)

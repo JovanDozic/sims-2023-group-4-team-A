@@ -7,10 +7,12 @@ using SIMSProject.Domain.RepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
+using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces.GuideRepositoryInterfaces;
 using SIMSProject.Repositories;
 using SIMSProject.Repositories.AccommodationRepositories;
 using SIMSProject.Repositories.TourRepositories;
 using SIMSProject.Repositories.UserRepositories;
+using SIMSProject.Repositories.UserRepositories.GuideRepositories;
 using System;
 
 namespace SIMSProject.Domain.Injectors
@@ -131,6 +133,8 @@ namespace SIMSProject.Domain.Injectors
                     )
                 );
 
+            services.AddSingleton<ISuperGuideLogRepo, SuperGuideLogRepo>();
+
             // Service Injections
             services.AddScoped<UserService>();
             services.AddScoped<AccommodationService>();
@@ -155,6 +159,7 @@ namespace SIMSProject.Domain.Injectors
             services.AddScoped<TourRatingService>();
             services.AddScoped<CustomTourRequestStatisticsService>();
             services.AddScoped<RenovationSuggestionService>();
+            services.AddScoped<GuideService>();
 
             return services.BuildServiceProvider();
         }
