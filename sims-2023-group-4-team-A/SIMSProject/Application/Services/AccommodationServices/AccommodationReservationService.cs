@@ -162,7 +162,6 @@ namespace SIMSProject.Application.Services.AccommodationServices
                 reservation.EndDate.AddDays(Consts.GuestRatingDeadline)
             );
         }
-
         public List<DateRange> GetSchedule(Accommodation accommodation)
         {
             List<DateRange> schedule = new();
@@ -172,5 +171,70 @@ namespace SIMSProject.Application.Services.AccommodationServices
             }
             return schedule;
         }
+
+        public Dictionary<string, int> CountReservationsByMonth(User user)
+        {
+            Dictionary<string, int> reservationsByMonth = new Dictionary<string, int>();
+            foreach (var reservation in GetAllUncancelledByUser(user))
+            {
+                string month = reservation.StartDate.Month.ToString();
+
+                if (reservationsByMonth.ContainsKey(month))
+                {
+                    reservationsByMonth[month]++;
+                }
+                else
+                {
+                    reservationsByMonth[month] = 1;
+                }
+            }
+
+            return reservationsByMonth;
+        }
+
+        public int CalculateReservationsCountPreviousYear(User user)
+        {
+            // Dobijanje trenutne godine
+            int currentYear = DateTime.Now.Year;
+
+            // Dobijanje prethodne godine
+            int previousYear = currentYear - 1;
+
+            // Računanje broja rezervacija za prethodnu godinu
+            int reservationsCountPreviousYear = 0;
+
+            foreach (var reservation in GetAllUncancelledByUser(user))
+            {
+                // Provera da li je rezervacija iz prethodne godine
+                if (reservation.StartDate.Year == previousYear)
+                {
+                    reservationsCountPreviousYear++;
+                }
+            }
+
+            return reservationsCountPreviousYear;
+        }
+
+        public int CalculateReservationsCountCurrentYear(User user)
+        {
+            // Dobijanje trenutne godine
+            int currentYear = DateTime.Now.Year;
+
+            // Računanje broja rezervacija za trenutnu godinu
+            int reservationsCountCurrentYear = 0;
+
+            foreach (var reservation in GetAllUncancelledByUser(user))
+            {
+                // Provera da li je rezervacija iz trenutne godine
+                if (reservation.StartDate.Year == currentYear)
+                {
+                    reservationsCountCurrentYear++;
+                }
+            }
+
+            return reservationsCountCurrentYear;
+        }
+
+
     }
 }
