@@ -77,5 +77,10 @@ namespace SIMSProject.Application.Services.TourServices
         {
             _repo.SearchTours(locationAndLanguage, searchDuration, searchMaxGuests, language, tours);
         }
+
+        public void SortBySuperGuide(int GuideId)
+        {
+            _repo.SortBySuperGuide(GuideId);
+        }
     }
 }

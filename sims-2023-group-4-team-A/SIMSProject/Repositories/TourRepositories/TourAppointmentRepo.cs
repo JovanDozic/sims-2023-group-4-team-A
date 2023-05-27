@@ -117,5 +117,19 @@ namespace SIMSProject.Repositories.TourRepositories
         {
             return GetTodaysAppointments().Select(x => x.Tour).Distinct().ToList();
         }
+
+        public List<TourAppointment> GetSuperGuideEligible(int GuideId, Language language)
+        {
+            DateTime currentDate = DateTime.Today;
+            DateTime lastYearDate = currentDate.AddYears(-1);
+
+            var eligible = _tourAppointments
+                .Where(x => x.Guide.Id == GuideId &&
+                x.Tour.TourLanguage == language &&
+                x.TourStatus == Status.COMPLETED &&
+                x.Date >= lastYearDate && x.Date <= currentDate);
+
+            return eligible.Count() >= 20 ? eligible.ToList() : null;
+        }
     }
 }

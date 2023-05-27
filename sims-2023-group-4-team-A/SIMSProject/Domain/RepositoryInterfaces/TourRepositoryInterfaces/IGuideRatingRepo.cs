@@ -14,5 +14,6 @@ namespace SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces
         public GuideRating Save(GuideRating guideRating);
         public void SaveAll(List<GuideRating> guideRatings);
         public GuideRating GetById(int id);
+        public List<GuideRating> GetAll(int appointmentId);
     }
 }

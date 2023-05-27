@@ -14,10 +14,10 @@ using SIMSProject.Application.DTOs;
 
 namespace SIMSProject.Repositories.TourRepositories
 {
-    public class TourRepo: ITourRepo
+    public class TourRepo : ITourRepo
     {
         private readonly TourFileHandler _fileHandler;
-        
+
         private List<Tour> _tours;
         private readonly ITourKeyPointRepo _tourKeyPointRepo;
         private readonly IKeyPointRepo _keyPointRepo;
@@ -35,7 +35,7 @@ namespace SIMSProject.Repositories.TourRepositories
 
         public int NextId()
         {
-            return _tours.Count > 0 ?_tours.Max(x => x.Id) + 1 : 1;
+            return _tours.Count > 0 ? _tours.Max(x => x.Id) + 1 : 1;
         }
 
         public List<Tour> GetAll()
@@ -70,12 +70,12 @@ namespace SIMSProject.Repositories.TourRepositories
             }
         }
 
-        private  void MapLocation(Tour tour)
+        private void MapLocation(Tour tour)
         {
             tour.Location = _locationRepo.GetAll().Find(x => x.Id == tour.Location.Id) ?? throw new SystemException("Error!No matching location!");
         }
 
-        private  void MapKeyPoints(Tour tour)
+        private void MapKeyPoints(Tour tour)
         {
             List<TourKeyPoint> pairs = _tourKeyPointRepo.GetAll().FindAll(x => x.TourId == tour.Id);
             foreach (var pair in pairs)
@@ -130,7 +130,20 @@ namespace SIMSProject.Repositories.TourRepositories
 
         public KeyPoint GetLastKeyPoint(TourAppointment appointment)
         {
-           return GetById(appointment.Tour.Id)?.KeyPoints.Last();
+            return GetById(appointment.Tour.Id)?.KeyPoints.Last();
+        }
+
+        public void SortBySuperGuide(int GuideId)
+        {
+            var sorted = _tours.OrderByDescending(x =>
+            {
+                if (x.Guide.Id == GuideId) return 2;
+                else if (x.Guide.Role == UserRole.SuperGuide) return 1;
+                return 0;
+            })
+            .ThenBy(x => x.Guide.Id)
+            .ThenBy(x => x.Name).ToList();
+            SaveAll(sorted);
         }
     }
 }

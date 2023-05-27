@@ -19,17 +19,15 @@ namespace SIMSProject.Application.Services.TourServices
         }
         public void CreateAppointments(List<TourAppointment> tourAppointments, Tour tour)
         {
-            foreach(var appointment in tourAppointments)
+            foreach (var appointment in tourAppointments)
             {
-               _repo.Save(appointment, tour);
+                _repo.Save(appointment, tour);
             }
         }
-
         public List<TourAppointment> GetTodays(Tour tour)
         {
             return _repo.GetTodaysAppointmentsByTour(tour.Id);
         }
-
         public List<TourAppointment> GetAllByTour(int tourId)
         {
             return _repo.GetAllByTour(tourId);
@@ -45,7 +43,6 @@ namespace SIMSProject.Application.Services.TourServices
             _repo.SaveAll(_repo.GetAll());
             return appointment;
         }
-
         private static bool IsCancelable(TourAppointment appointment)
         {
             return appointment.Date.AddHours(-48) > DateTime.Now;
@@ -58,12 +55,10 @@ namespace SIMSProject.Application.Services.TourServices
             _repo.SaveAll(_repo.GetAll());
             return true;
         }
-
         public TourAppointment GetActive()
         {
             return _repo.GetActive();
         }
-
         public TourAppointment Activate(TourAppointment appointment, Tour tour)
         {
             TourAppointment? oldAppointment = _repo.GetById(appointment.Id) ?? throw new ArgumentException("Error!Can't find appointment!");
@@ -73,7 +68,6 @@ namespace SIMSProject.Application.Services.TourServices
             _repo.SaveAll(_repo.GetAll());
             return oldAppointment;
         }
-
         public void StopLiveTracking(int appointmentId)
         {
             TourAppointment? toEnd = _repo.GetById(appointmentId) ?? throw new ArgumentException("Error!Can't find appointment!");
@@ -90,7 +84,6 @@ namespace SIMSProject.Application.Services.TourServices
         {
             return _repo.GetBusyDates();
         }
-
         public List<Tour> GetTodaysTours()
         {
             return _repo.GetTodaysTours();
@@ -98,6 +91,10 @@ namespace SIMSProject.Application.Services.TourServices
         public List<Tour> GetToursWithFinishedAppointments()
         {
             return _repo.GetToursWithFinishedAppointments();
+        }
+        public List<TourAppointment> GetSuperGuideEligible(int GuideId, Language language)
+        {
+            return _repo.GetSuperGuideEligible(GuideId, language);
         }
     }
 }
