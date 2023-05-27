@@ -118,6 +118,34 @@
             </Button.Style>
         </Button>
 
+        <Button x:Name="ReportButton" IsEnabled="False" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Margin="438,15,45,405" Grid.Column="1" Click="Button_Click" Grid.RowSpan="2">
+            <Image Source="../Icons/report.png"></Image>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              RecognizesAccessKey="True"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="True">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
+
 
     </Grid>
 </Page>

@@ -1,5 +1,6 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
+using SIMSProject.WPF.Views.Guest1.MainView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,7 +56,17 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
         {
             MoveButton.IsEnabled = !_accommodationReservationViewModel.IsNotSelected() && !_accommodationReservationViewModel.IsReservationInPast() && !_accommodationReservationViewModel.IsReservationOnStandBy();
             CancelButton.IsEnabled = !_accommodationReservationViewModel.IsNotSelected() && _accommodationReservationViewModel.IsDateValid();
+            ReportButton.IsEnabled = !_accommodationReservationViewModel.IsNotSelected();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+  
+                ReportButton.IsEnabled = true;
+                _accommodationReservationViewModel.GeneratePDF();
+                NavigationService.Navigate(new MainPage(_user));
+ 
         }
     }
-    }
+ }
 
