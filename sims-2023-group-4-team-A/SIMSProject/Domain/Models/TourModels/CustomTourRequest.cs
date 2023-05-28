@@ -12,7 +12,7 @@ namespace SIMSProject.Domain.Models.TourModels
     public class CustomTourRequest : ISerializable
     {
         public int Id { get; set; }
-        public Guest Guest { get; set; } = new();
+        public Guest2 Guest { get; set; } = new();
         public Location Location { get; set; } = new();
         public string Description { get; set; } = string.Empty;
         public Language TourLanguage { get; set; } = Language.ENGLISH;

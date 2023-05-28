@@ -11,7 +11,8 @@
     {
         Owner = 0,
         Guide,
-        Guest,
+        Guest1,
+        Guest2,
         SuperOwner,
         SuperGuide,
         SuperGuest

@@ -244,5 +244,10 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _ownerRatingService.UpdateRatingsForReservations(Reservations);
         }
 
+        public bool IsPDFGenerated()
+        {
+            return PDFService.GenerateAccommodationReservationDetailsPDF(SelectedReservation);
+        }
+
     }
 }

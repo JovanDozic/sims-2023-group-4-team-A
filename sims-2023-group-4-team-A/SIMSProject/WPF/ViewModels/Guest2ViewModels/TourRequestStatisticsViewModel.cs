@@ -13,7 +13,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
 {
     public class TourRequestStatisticsViewModel : ViewModelBase
     {
-        private Guest _user;
+        private Guest2 _user;
         private CustomTourRequestStatisticsService _customTourRequestStatisticsService;
         private string _selectedYear;
         public string SelectedYear
@@ -117,7 +117,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         }
 
         
-        public TourRequestStatisticsViewModel(Guest user)
+        public TourRequestStatisticsViewModel(Guest2 user)
         {
             _user = user;
             _customTourRequestStatisticsService = Injector.GetService<CustomTourRequestStatisticsService>();

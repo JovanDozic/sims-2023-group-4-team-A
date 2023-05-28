@@ -14,10 +14,10 @@ namespace SIMSProject.Repositories.TourRepositories
         private readonly TourGuestFileHandler _fileHandler;
         private List<TourGuest> _tourGuests;
         private readonly IKeyPointRepo _keyPointRepo;
-        private readonly IGuestRepo _guestRepo;
+        private readonly IGuest2Repo _guestRepo;
         private readonly ITourAppointmentRepo _tourAppointmentRepo;
 
-        public TourGuestRepo(IKeyPointRepo keyPointRepo, IGuestRepo guestRepo, ITourAppointmentRepo tourAppointmentRepo)
+        public TourGuestRepo(IKeyPointRepo keyPointRepo, IGuest2Repo guestRepo, ITourAppointmentRepo tourAppointmentRepo)
         {
             _fileHandler = new TourGuestFileHandler();
             _tourGuests = _fileHandler.Load();

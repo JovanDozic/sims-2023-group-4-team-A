@@ -16,12 +16,12 @@ namespace SIMSProject.View.Guest2
 
     public partial class ShowAndSearchTours : Page
     {
-        private Guest _user { get; set; }
+        private Domain.Models.UserModels.Guest2 _user { get; set; }
         private ToursViewModel _tourViewModel { get; set; }
         public int DurationSearchBox;
         public int MaxGuestSearchBox;
         
-        public ShowAndSearchTours(Guest user)
+        public ShowAndSearchTours(Domain.Models.UserModels.Guest2 user)
         {
             InitializeComponent();
             _user = user;

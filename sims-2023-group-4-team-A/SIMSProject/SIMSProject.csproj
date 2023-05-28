@@ -36,6 +36,7 @@
     <None Remove="Resources\Icons\image.png" />
     <None Remove="Resources\Icons\left.png" />
     <None Remove="Resources\Icons\location.png" />
+    <None Remove="Resources\Icons\logo.png" />
     <None Remove="Resources\Icons\plus.png" />
     <None Remove="Resources\Icons\renovation-clock.png" />
     <None Remove="Resources\Icons\renovation.png" />
@@ -60,6 +61,7 @@
     <None Remove="Resources\Images\datetimepicker.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\guest1logo.png" />
     <None Remove="Resources\Images\home.png" />
     <None Remove="Resources\Images\left-arrow.png" />
     <None Remove="Resources\Images\location.png" />
@@ -84,6 +86,7 @@
     <None Remove="WPF\Views\Guest1\home.png" />
     <None Remove="WPF\Views\Guest1\Icons\location-black.png" />
     <None Remove="WPF\Views\Guest1\Icons\logo.png" />
+    <None Remove="WPF\Views\Guest1\Icons\report.png" />
     <None Remove="WPF\Views\Guest1\logo5.png" />
     <None Remove="WPF\Views\Guest1\notification.png" />
     <None Remove="WPF\Views\Guest1\Icons\chevron-left-black.png" />
@@ -153,6 +156,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\datetimepicker.png" />
+    <EmbeddedResource Include="Resources\Images\guest1logo.png" />
     <Resource Include="Resources\Images\home.png" />
     <Resource Include="Resources\Images\location.png" />
     <Resource Include="Resources\Images\lookupitem.png" />
@@ -167,10 +171,16 @@
     <Resource Include="Resources\Images\statusInformation.png" />
     <Resource Include="Resources\Images\tripbooklogo.png" />
     <Resource Include="WPF\CustomControls\calendar1.png" />
+    <Content Include="Resources\Icons\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\delete.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WPF\Views\Guest1\Icons\report.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\Images\Logo.png">

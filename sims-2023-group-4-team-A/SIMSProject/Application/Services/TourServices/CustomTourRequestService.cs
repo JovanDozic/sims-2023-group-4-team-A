@@ -119,7 +119,7 @@ namespace SIMSProject.Application.Services.TourServices
             return _customTourRequestRepo.GetMostWantedLanguages();
         }
 
-        public List<Guest> GetGuestsWithSimilarRequests(Tour tour)
+        public List<Guest2> GetGuestsWithSimilarRequests(Tour tour)
         {
             return _customTourRequestRepo.GetAllSimilarRequests(tour).Select(x => x.Guest).Distinct().ToList();
         }

@@ -30,7 +30,7 @@ namespace SIMSProject.WPF.Views.Guest1
 
         private void Button_Click_SignIn(object sender, RoutedEventArgs e)
         {
-            if (_signInViewModel.GuestSignIn(PasswordTxt.Password)) Close();
+            //if (_signInViewModel.GuestSignIn(PasswordTxt.Password)) Close();
         }
 
         private void Button_Click_Close(object sender, RoutedEventArgs e)

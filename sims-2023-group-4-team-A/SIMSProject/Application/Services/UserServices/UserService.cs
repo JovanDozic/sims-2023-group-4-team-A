@@ -25,7 +25,8 @@ namespace SIMSProject.Application.Services.UserServices
             {
                 UserRole.Owner or UserRole.SuperOwner => user,
                 UserRole.Guide or UserRole.SuperGuide => user as Guide,
-                UserRole.Guest or UserRole.SuperGuest => user as Guest,
+                UserRole.Guest1 or UserRole.SuperGuest => user as Guest1,
+                UserRole.Guest2 => user as Guest2,
                 _ => null,
             };
         }
@@ -34,6 +35,7 @@ namespace SIMSProject.Application.Services.UserServices
         {
             return _repo.GetAllOwners().FirstOrDefault(x => x.Username == username) as object
                 ?? _repo.GetAllGuests().FirstOrDefault(x => x.Username == username) as object
+                ?? _repo.GetAllGuests1().FirstOrDefault(x => x.Username == username) as object
                 ?? _repo.GetAllGuides().FirstOrDefault(x => x.Username == username);
         }
     }

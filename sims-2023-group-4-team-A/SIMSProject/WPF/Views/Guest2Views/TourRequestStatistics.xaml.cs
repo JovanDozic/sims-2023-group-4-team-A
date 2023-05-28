@@ -22,10 +22,10 @@ namespace SIMSProject.WPF.Views.Guest2Views
     /// </summary>
     public partial class TourRequestStatistics : Page
     {
-        private Guest _user = new();
+        private Guest2 _user = new();
         private TourRequestStatisticsViewModel _viewModel;
         
-        public TourRequestStatistics(Guest user)
+        public TourRequestStatistics(Guest2 user)
         {
             InitializeComponent();
             _user = user;

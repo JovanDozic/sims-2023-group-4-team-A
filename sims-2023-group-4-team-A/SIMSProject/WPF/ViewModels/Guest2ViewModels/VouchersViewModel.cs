@@ -27,7 +27,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             }
         }
         
-        public VouchersViewModel(Guest user)
+        public VouchersViewModel(Guest2 user)
         {
             _voucherService=Injector.GetService<VoucherSevice>();
             Vouchers = new(_voucherService.GetVouchersByGuestId(user.Id).Where(x => DateTime.Compare(x.Expiration, DateTime.Now) > 0));

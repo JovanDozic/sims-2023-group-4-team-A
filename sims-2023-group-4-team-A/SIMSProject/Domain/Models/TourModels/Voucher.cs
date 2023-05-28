@@ -14,7 +14,7 @@ namespace SIMSProject.Domain.Models.TourModels
     public class Voucher : ISerializable
     {
         public int Id { get; set; }
-        public Guest Guest { get; set; } = new();
+        public Guest2 Guest { get; set; } = new();
         public ObtainingReason Reason { get; set; }
         public DateTime Expiration { get; set; }
         public bool Used { get; set; } = false;

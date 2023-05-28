@@ -14,8 +14,10 @@ namespace SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces
         public Guide? GetGuideById(int id);
         public List<Guide> GetAllGuides();
 
-        public Guest? GetGuestById(int id);
-        public List<Guest> GetAllGuests();
+        public Guest2? GetGuestById(int id);
+        public Guest1? GetGuest1ById(int id);
+        public List<Guest2> GetAllGuests();
+        public List<Guest1> GetAllGuests1();
 
     }
 }
