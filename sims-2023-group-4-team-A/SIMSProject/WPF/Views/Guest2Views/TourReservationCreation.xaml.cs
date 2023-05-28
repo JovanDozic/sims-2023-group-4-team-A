@@ -25,6 +25,7 @@ namespace SIMSProject.View.Guest2
         public Guest User = new();
         public TourGuest TourGuest = new();
         public Tour Tour { get; set; }
+        public bool IsSuperGuide { get => Tour.IsSuperGuide; }
         public Tour AlternativeTour { get; set; }
         public TourAppointment AlternativeTourDate { get; set; } = new();
         public TourAppointment   SelectedAppointment { get; set; }
