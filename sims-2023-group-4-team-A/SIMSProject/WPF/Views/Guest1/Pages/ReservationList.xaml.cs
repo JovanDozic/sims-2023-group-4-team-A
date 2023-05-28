@@ -61,11 +61,15 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-  
-                ReportButton.IsEnabled = true;
-                _accommodationReservationViewModel.GeneratePDF();
+            if(_accommodationReservationViewModel.IsPDFGenerated())
+            {
+                MessageBox.Show("Izvestaj uspesno kreiran!");
                 NavigationService.Navigate(new MainPage(_user));
- 
+            }else
+                NavigationService.Navigate(new MainPage(_user));
+
+
+
         }
     }
  }

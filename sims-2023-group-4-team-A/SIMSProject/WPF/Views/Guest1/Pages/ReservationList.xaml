@@ -118,7 +118,7 @@
             </Button.Style>
         </Button>
 
-        <Button x:Name="ReportButton" IsEnabled="False" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Margin="438,15,45,405" Grid.Column="1" Click="Button_Click" Grid.RowSpan="2">
+        <Button x:Name="ReportButton" IsEnabled="False" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Margin="434,13,54,0" Grid.Column="1" Click="Button_Click">
             <Image Source="../Icons/report.png"></Image>
             <Button.Style>
                 <Style TargetType="{x:Type Button}">

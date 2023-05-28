@@ -104,9 +104,6 @@ namespace SIMSProject.WPF.Views.Guest1.MainView
                         MainWind.Navigate(new ReservationsStatistics(_user));
                         ListViewMenu.SelectedItem = null;
                         break;
-                    //case "ItemReport":
-                      //  MainWind.Navigate(new ReportPage());
-                        //break;
                 }
 
 

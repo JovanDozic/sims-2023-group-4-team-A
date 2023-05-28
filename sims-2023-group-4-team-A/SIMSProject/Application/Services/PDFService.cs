@@ -171,7 +171,7 @@ namespace SIMSProject.Application.Services
             }
         }
 
-        public static void GenerateAccommodationReservationDetailsPDF(AccommodationReservation reservation)
+        public static bool GenerateAccommodationReservationDetailsPDF(AccommodationReservation reservation)
         {
             try
             {
@@ -302,11 +302,13 @@ namespace SIMSProject.Application.Services
 
 
                 document.Close();
+                return true;
                 //MessageBox.Show("PDF file generated successfully.");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error generating PDF file: " + ex.Message);
+                return false;
             }
 
 
