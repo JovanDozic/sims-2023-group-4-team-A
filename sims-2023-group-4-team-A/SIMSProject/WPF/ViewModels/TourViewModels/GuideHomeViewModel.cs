@@ -1,6 +1,8 @@
 ﻿using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Application.Services.UserServices;
+using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.UserModels;
 using System;
 using System.Collections.Generic;
@@ -15,10 +17,14 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
     {
         private readonly VoucherService _voucherService;
         public static Guide Guide { get; set; } = new();
+        private readonly GuideService _service;
+        public string SuperGuideLanguages { get; private set; }
         public GuideHomeViewModel(Guide guide)
         {
             _voucherService = Injector.GetService<VoucherService>();
+            _service = Injector.GetService<GuideService>();
             Guide = guide;
+            SuperGuideLanguages = _service.DisplaySuperGuideLanguages(guide);
             QuitCommand = new RelayCommand(QuitExecute, QuitCanExecute);
         }
 

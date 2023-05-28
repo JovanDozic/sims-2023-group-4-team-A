@@ -5,10 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMSProject.View.Guest2"
         xmlns:cstm="clr-namespace:SIMSProject.WPF.CustomControls"
+        xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
         mc:Ignorable="d"
         Title="Tour details and reservation" Height="650" Width="800"
         WindowStartupLocation="CenterScreen"
         Background="Beige">
+    <Window.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -117,5 +121,18 @@
                        Foreground="#ffb0b0b0"
                        Panel.ZIndex="0"/>
         </Grid>
+        <StackPanel Grid.Row="6" Grid.Column="2" 
+                    Orientation="Horizontal"
+                    Margin="30,0,0,0"
+                    Visibility="{Binding Path=IsSuperGuide, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Image Source="/Resources/Icons/trophy.png"
+                   Style="{StaticResource IconRenderStyle}"
+                   Height="28" VerticalAlignment="Bottom"
+                   />
+            <TextBlock Text="Supervodič!"
+                       Margin="10,0,0,0"
+                       FontSize="24" FontWeight="Bold"
+                       VerticalAlignment="Bottom"/>
+        </StackPanel>
     </Grid>
 </Window>

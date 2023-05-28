@@ -10,11 +10,11 @@ using System.Runtime.CompilerServices;
 using SIMSProject.FileHandlers;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Model;
-
+using SIMSProject.WPF.Converters;
 
 namespace SIMSProject.Domain.Models.TourModels
 {
-    public enum Language { ENGLISH = 1, SERBIAN, SPANISH, FRENCH };
+    public enum Language { ENGLISH = 1, SERBIAN, SPANISH, FRENCH, ITALIAN, GERMAN };
     public enum CreatingReason { REGULAR = 0, CUSTOM, STATISTICS};
     public class Tour : ISerializable
     {
@@ -29,10 +29,9 @@ namespace SIMSProject.Domain.Models.TourModels
         public Guide Guide { get; set; } = new();
         public List<KeyPoint> KeyPoints { get; set; } = new List<KeyPoint>();
         public List<string> Images { get; set; } = new List<string>();
-
+        public bool IsSuperGuide { get; set; }
         public Tour() { }
-
-        public Tour(string name, int locationId, string description, Language tourLanguage,  int maxGuestNumber, int duration, int guideId, CreatingReason reason, List<KeyPoint> keyPoints, List<string> images)
+        public Tour(string name, int locationId, string description, Language tourLanguage,  int maxGuestNumber, int duration, int guideId, CreatingReason reason, List<KeyPoint> keyPoints, List<string> images, bool isSuperGuide)
         {
             Name = name;
             Location.Id = locationId;
@@ -45,8 +44,12 @@ namespace SIMSProject.Domain.Models.TourModels
             Reason = reason;
             KeyPoints = keyPoints;
             Images = images;
+            IsSuperGuide = isSuperGuide;
         }
-
+        public string IsSuperGuideText()
+        {
+            return IsSuperGuide ? $"Vodič ove ture je supervodič za {GetLanguage(TourLanguage)} jezik" : "";
+        }
         public static string GetLanguage(Language language)
         {
             return language switch
@@ -55,6 +58,8 @@ namespace SIMSProject.Domain.Models.TourModels
                 Language.FRENCH => "Francuski",
                 Language.SERBIAN => "Srpski",
                 Language.SPANISH => "Španski",
+                Language.ITALIAN => "Italijanski",
+                Language.GERMAN => "Nemački",
                 _ => "Jezik"
             };
         }
@@ -77,7 +82,6 @@ namespace SIMSProject.Domain.Models.TourModels
                 _ => "Razlog kreiranja"
             };
         }
-
         public string CreateImageURLs()
         {
             StringBuilder imageURLs = new();
@@ -100,10 +104,10 @@ namespace SIMSProject.Domain.Models.TourModels
                 Duration.ToString(),
                 Location.Id.ToString(),
                 Guide.Id.ToString(),
+                IsSuperGuide.ToString(),
                 CreateImageURLs()};
             return csvValues;
         }
-
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
@@ -115,7 +119,8 @@ namespace SIMSProject.Domain.Models.TourModels
             Duration = Convert.ToInt32(values[6]);
             Location.Id = Convert.ToInt32(values[7]);
             Guide.Id = Convert.ToInt32(values[8]);
-            Images.AddRange(values[9].Split(','));
+            IsSuperGuide = Boolean.Parse(values[9]);
+            Images.AddRange(values[10].Split(','));
         }
     }
 }

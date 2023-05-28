@@ -1,4 +1,5 @@
-﻿using SIMSProject.Domain.Models.TourModels;
+﻿using Microsoft.VisualBasic;
+using SIMSProject.Domain.Models.TourModels;
 using System;
 using System.Collections.Generic;
 
@@ -20,6 +21,7 @@ namespace SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces
         public List<Tour> GetToursWithFinishedAppointments();
         public List<Tour> GetTodaysTours();
         public List<TourAppointment> GetAllUpcoming(int guideId);
+        public List<TourAppointment> GetSuperGuideEligible(int GuideId, Language language);
     }
 
 }

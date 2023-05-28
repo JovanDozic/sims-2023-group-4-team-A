@@ -30,6 +30,11 @@ namespace SIMSProject.Repositories.TourRepositories
             return _guideRatings;
         }
 
+        public List<GuideRating> GetAll(int appointmentId)
+        {
+            return _guideRatings.Where(x => x.TourReservation.TourAppointment.Id == appointmentId && !x.Reported).ToList();
+        }
+
         public List<GuideRating> GetAllByGuideId(int guideId)
         {
             return _guideRatings.FindAll(x=>x.TourReservation.TourAppointment.Tour.Guide.Id == guideId);

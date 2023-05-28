@@ -36,6 +36,7 @@
             <Button x:Name="StatisticsBTN" Content="Statistika o&#xa;turama Ctrl+S" Click="StatisticsBTN_Click"/>
             <Button x:Name="RequestStatBTN" Content="Statistika o&#xa;zahtevima za ture&#xa;Ctrl+S+R" Click="RequestStatBTN_Click"/>
             <Button x:Name="ReviewBTN" Content="Recenzije Ctrl+G" Click="ReviewBTN_Click"/>
+            <TextBlock Text="{Binding Path=SuperGuideLanguages, Mode=OneWay}"/>
         </StackPanel>
         <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden">
         </Frame>
