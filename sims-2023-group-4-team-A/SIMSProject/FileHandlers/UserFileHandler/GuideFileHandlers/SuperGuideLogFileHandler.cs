@@ -11,7 +11,7 @@ namespace SIMSProject.FileHandlers.UserFileHandler.GuideFileHandlers
 {
     public class SuperGuideLogFileHandler
     {
-        private const string FilePath = "../../../Resources/Data/Users/superguidelogs.csv";
+        private const string FilePath = "../../../Resources/Data/superguidelogs.csv";
         private readonly Serializer<SuperGuideLog> _serializer;
 
         public SuperGuideLogFileHandler()

@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Domain.Models;
+using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,11 @@ namespace SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces.Guide
 {
     public interface ISuperGuideLogRepo
     {
-        public SuperGuideLog GetByGuideId(int id);
+        public SuperGuideLog Get(int id, Language language);
         public List<SuperGuideLog> GetAll();
         public SuperGuideLog Save(SuperGuideLog log);
         public void SaveAll(List<SuperGuideLog> logs);
+        public void Delete(int id, Language language);
 
     }
 }

@@ -12,13 +12,13 @@ namespace SIMSProject.Domain.Models
     {
         public int GuideId { get; set; }
         public Language Language { get; set; }
-        public DateOnly Obtained { get; set; }
-
+        public DateTime Obtained { get; set; }
+        public bool Expired { get => DateTime.Compare(DateTime.Now, Obtained.AddYears(1)) > 0; }
         public SuperGuideLog()
         {
         }
 
-        public SuperGuideLog(int guideId, Language language, DateOnly obtained) 
+        public SuperGuideLog(int guideId, Language language, DateTime obtained) 
         {
             GuideId = guideId;
             Language = language;
@@ -35,7 +35,7 @@ namespace SIMSProject.Domain.Models
         {
             GuideId = int.Parse(values[0]);
             Language = (Language)Enum.Parse(typeof(Language), values[1]);
-            Obtained = DateOnly.Parse(values[2]);
+            Obtained = DateTime.Parse(values[2]);
         }
     }
 }

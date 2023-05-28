@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Domain.Models;
+using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces.GuideRepositoryInterfaces;
 using SIMSProject.FileHandlers.UserFileHandler.GuideFileHandlers;
 using System;
@@ -24,9 +25,9 @@ namespace SIMSProject.Repositories.UserRepositories.GuideRepositories
             return _logs;
         }
 
-        public SuperGuideLog GetByGuideId(int id)
+        public SuperGuideLog Get(int id, Language language)
         {
-            return _logs.FirstOrDefault(x => x.GuideId == id);
+            return _logs.FirstOrDefault(x => x.GuideId == id && x.Language == language);
         }
 
         public SuperGuideLog Save(SuperGuideLog log)
@@ -40,6 +41,13 @@ namespace SIMSProject.Repositories.UserRepositories.GuideRepositories
         {
             _fileHandler.Save(logs);
             _logs = logs;
+        }
+
+        public void Delete(int id, Language language)
+        {
+            var log = _logs.Find(x => x.GuideId == id &&  (x.Language == language));
+            _logs.Remove(log);
+            _fileHandler.Save(_logs);
         }
     }
 }

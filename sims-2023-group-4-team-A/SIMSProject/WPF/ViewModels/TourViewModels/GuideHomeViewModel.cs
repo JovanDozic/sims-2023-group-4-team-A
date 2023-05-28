@@ -18,7 +18,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         {
             _service = Injector.GetService<GuideService>();
             Guide = guide;
-            SuperGuideLanguages = _service.CheckIfSuperGuide(guide);
+            SuperGuideLanguages = _service.DisplaySuperGuideLanguages(guide);
         }
     }
 }

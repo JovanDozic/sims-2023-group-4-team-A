@@ -10,6 +10,7 @@ namespace SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces
     {
         public int NextId();
         public List<Tour> GetAll();
+        public List<Tour> GetAll(int GuideId, Language language);
         public Tour GetById(int id);
         public Tour Save(Tour tour);
         public void SortBySuperGuide(int GuideId);

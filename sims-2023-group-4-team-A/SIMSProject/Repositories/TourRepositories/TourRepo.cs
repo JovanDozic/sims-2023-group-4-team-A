@@ -137,13 +137,18 @@ namespace SIMSProject.Repositories.TourRepositories
         {
             var sorted = _tours.OrderByDescending(x =>
             {
-                if (x.Guide.Id == GuideId) return 2;
-                else if (x.Guide.Role == UserRole.SuperGuide) return 1;
+                if (x.Guide.Id == GuideId && x.IsSuperGuide) return 2;
+                else if (x.IsSuperGuide) return 1;
                 return 0;
             })
             .ThenBy(x => x.Guide.Id)
             .ThenBy(x => x.Name).ToList();
             SaveAll(sorted);
+        }
+
+        public List<Tour> GetAll(int GuideId, Language language)
+        {
+            return _tours.Where(x => x.Guide.Id == GuideId && x.TourLanguage == language).ToList();
         }
     }
 }
