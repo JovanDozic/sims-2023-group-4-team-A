@@ -33,6 +33,13 @@ namespace SIMSProject.Repositories.UserRepositories
             return _guides.Count > 0 ? _guides.Max(x => x.Id) + 1 : 1;
         }
 
+        public void Quit(int guideId)
+        {
+            Guide guide = _guides.Find(x => x.Id == guideId) ?? throw new Exception("No guide found!");
+            guide.Quit = true;
+            _fileHandler.Save(_guides);
+        }
+
         public Guide Save(Guide guide)
         {
             guide.Id = NextId();

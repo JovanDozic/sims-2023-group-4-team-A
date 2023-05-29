@@ -9,6 +9,7 @@ namespace SIMSProject.Domain.Models.UserModels
     public class Guide : User, ISerializable
     {
         public double Rating { get; set; }
+        public bool Quit { get; set; }
         public Guide()
         {
         }
@@ -33,7 +34,8 @@ namespace SIMSProject.Domain.Models.UserModels
                 Password,
                 GetRole(Role),
                 Math.Round(Rating, 2).ToString(),
-                Birthday.ToString()
+                Birthday.ToString(),
+                Quit.ToString()
             };
             return csvValues;
         }
@@ -46,6 +48,7 @@ namespace SIMSProject.Domain.Models.UserModels
             Role = GetRole(values[3]);
             Rating = double.Parse(values[4]);
             Birthday = DateTime.Parse(values[5]);
+            Quit = bool.Parse(values[6]);
         }
         public override string ToString()
         {

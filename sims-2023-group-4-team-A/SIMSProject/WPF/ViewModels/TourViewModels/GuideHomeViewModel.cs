@@ -16,8 +16,9 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
     public class GuideHomeViewModel
     {
         private readonly VoucherService _voucherService;
-        public static Guide Guide { get; set; } = new();
         private readonly GuideService _service;
+
+        public static Guide Guide { get; set; } = new();
         public string SuperGuideLanguages { get; private set; }
         public GuideHomeViewModel(Guide guide)
         {
@@ -36,7 +37,8 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         }
         public void QuitExecute()
         {
-            _voucherService.GiveVouchersForQuitting(Guide, ObtainingReason.GUIDEQUIT);    
+            _voucherService.GiveVouchersForQuitting(Guide, ObtainingReason.GUIDEQUIT);
+            _service.Quit(Guide.Id);
         }
         #endregion
     }

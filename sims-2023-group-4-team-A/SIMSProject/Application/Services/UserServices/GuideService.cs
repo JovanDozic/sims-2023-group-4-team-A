@@ -15,14 +15,16 @@ namespace SIMSProject.Application.Services.UserServices
 {
     public class GuideService
     {
-        private readonly ISuperGuideLogRepo _repo;
+        private readonly ISuperGuideLogRepo _superGuideLogRepo;
+        private readonly IGuideRepo _repo;
         private readonly GuideRatingService _ratingService;
         private readonly TourAppointmentService _tourAppointmentService;
         private readonly TourService _tourService;
 
-        public GuideService(ISuperGuideLogRepo repo)
+        public GuideService(IGuideRepo guideRepo,ISuperGuideLogRepo repo)
         {
-            _repo = repo;
+            _repo = guideRepo;
+            _superGuideLogRepo = repo;
             _ratingService = Injector.GetService<GuideRatingService>();
             _tourAppointmentService = Injector.GetService<TourAppointmentService>();
             _tourService = Injector.GetService<TourService>();
@@ -43,7 +45,7 @@ namespace SIMSProject.Application.Services.UserServices
             StringBuilder st = new(" ");
             foreach (Language language in Enum.GetValues(typeof(Language)))
             {
-                var log = _repo.Get(guide.Id, language);
+                var log = _superGuideLogRepo.Get(guide.Id, language);
                 if (log != null)
                 {
                     if (!log.Expired)
@@ -51,7 +53,7 @@ namespace SIMSProject.Application.Services.UserServices
                         st.Append($"{Tour.GetLanguage(language)},");
                         continue;
                     }
-                    _repo.Delete(guide.Id, language);
+                    _superGuideLogRepo.Delete(guide.Id, language);
                 }
                 if (_ratingService.IsSuperGuide(_tourAppointmentService.GetSuperGuideEligible(guide.Id, language)))
                 {
@@ -66,7 +68,12 @@ namespace SIMSProject.Application.Services.UserServices
         private void CreateLog(int guideId, Language language)
         {
             var log = new SuperGuideLog(guideId, language, DateTime.Now);
-            _repo.Save(log);
+            _superGuideLogRepo.Save(log);
+        }
+
+        public void Quit(int guideId)
+        {
+            _repo.Quit(guideId);
         }
     }
 }

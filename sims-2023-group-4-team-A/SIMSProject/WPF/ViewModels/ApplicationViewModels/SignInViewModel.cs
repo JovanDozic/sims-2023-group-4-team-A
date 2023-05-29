@@ -76,8 +76,13 @@ namespace SIMSProject.WPF.ViewModels.ApplicationViewModels
                     ownerWindow.Show();
                     break;
                 case UserRole.Guide or UserRole.SuperGuide:
-                    GuideHomeWindow guideWindow = new(user as Guide
-                        ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference)."));
+                    var guide = user as Guide ?? throw new Exception("Greska prilikom inicijalizacije korisnika (null reference).");
+                    if (guide.Quit)
+                    {
+                        MessageBox.Show("Dali ste otkaz! Vaš nalog je blokiran!");
+                        return;
+                    }
+                    GuideHomeWindow guideWindow = new(guide);
                     guideWindow.Show();
                     break;
                 case UserRole.Guest1 or UserRole.SuperGuest:

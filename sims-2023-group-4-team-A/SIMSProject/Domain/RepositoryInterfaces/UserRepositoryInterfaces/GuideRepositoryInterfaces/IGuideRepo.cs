@@ -11,5 +11,6 @@ namespace SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces
         public Guide Save(Guide guide);
         public void SaveAll(List<Guide> guides);
         public void Update(Guide guide);
+        public void Quit(int guideId);
     }
 }
