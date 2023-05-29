@@ -16,12 +16,14 @@ namespace SIMSProject.Repositories.UserRepositories
         private readonly IGuideRepo _guideRepo;
         private readonly IGuideRatingRepo _guideRatingRepo;
 
-        private readonly IGuestRepo _guestRepo;
+        private readonly IGuest2Repo _guestRepo;
         private readonly IGuestRatingRepo _guestRatingRepo;
+
+        private readonly IGuest1Repo _guest1Repo;
 
         public UserRepo(IOwnerRepo ownerRepo, IOwnerRatingRepo ownerRatingRepo, 
                         IGuideRepo guideRepo, IGuideRatingRepo guideRatingRepo,
-                        IGuestRepo guestRepo, IGuestRatingRepo guestRatingRepo)
+                        IGuest2Repo guestRepo, IGuestRatingRepo guestRatingRepo, IGuest1Repo guest1Repo)
         {
             _ownerRepo = ownerRepo;
             _ownerRatingRepo = ownerRatingRepo;
@@ -31,6 +33,8 @@ namespace SIMSProject.Repositories.UserRepositories
 
             _guestRepo = guestRepo;
             _guestRatingRepo = guestRatingRepo;
+
+            _guest1Repo = guest1Repo;
 
             CalculateRatings();
         }
@@ -51,7 +55,7 @@ namespace SIMSProject.Repositories.UserRepositories
             }
             ).ToList());
 
-            _guestRepo.SaveAll(GetAllGuests().Select(x =>
+            _guest1Repo.SaveAll(GetAllGuests1().Select(x =>
                 {
                     x.Rating = _guestRatingRepo.GetOverallByGuestId(x.Id);
                     return x;
@@ -64,16 +68,21 @@ namespace SIMSProject.Repositories.UserRepositories
             return role switch
             {
                 UserRole.Owner or UserRole.SuperOwner => GetAllOwners().Find(x => x.Id == id),
-                UserRole.Guest or UserRole.SuperGuest => GetAllGuests().Find(x => x.Id == id),
+                UserRole.Guest1 or UserRole.SuperGuest => GetAllGuests1().Find(x => x.Id == id),
+                UserRole.Guest2 => GetAllGuests().Find(x => x.Id == id),
                 _ => GetAllGuides().Find(x => x.Id == id)
             };
         }
 
-        public List<Guest> GetAllGuests()
+        public List<Guest2> GetAllGuests()
         {
             return _guestRepo.GetAll();
         }
 
+        public List<Guest1> GetAllGuests1()
+        {
+            return _guest1Repo.GetAll();
+        }
         public List<Guide> GetAllGuides()
         {
             return _guideRepo.GetAll();
@@ -84,9 +93,13 @@ namespace SIMSProject.Repositories.UserRepositories
             return _ownerRepo.GetAll();
         }
 
-        public Guest? GetGuestById(int id)
+        public Guest2? GetGuestById(int id)
         {
             return _guestRepo.GetById(id);
+        }
+        public Guest1? GetGuest1ById(int id)
+        {
+            return _guest1Repo.GetById(id);
         }
 
         public Guide? GetGuideById(int id)

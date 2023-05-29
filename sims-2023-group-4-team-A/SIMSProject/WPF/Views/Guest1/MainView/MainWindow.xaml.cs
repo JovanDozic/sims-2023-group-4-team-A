@@ -100,12 +100,10 @@ namespace SIMSProject.WPF.Views.Guest1.MainView
                     //case "ItemForums":
                       //  MainWind.Navigate(new ForumsPage());
                        // break;
-                    //case "ItemStatistics":
-                      //  MainWind.Navigate(new StatisticsPage());
-                        //break;
-                    //case "ItemReport":
-                      //  MainWind.Navigate(new ReportPage());
-                        //break;
+                    case "ItemStatistics":
+                        MainWind.Navigate(new ReservationsStatistics(_user));
+                        ListViewMenu.SelectedItem = null;
+                        break;
                 }
 
 

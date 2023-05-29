@@ -14,11 +14,11 @@ namespace SIMSProject.Repositories.TourRepositories
     public class CustomTourRequestRepo : ICustomTourRequestRepo
     {
         public readonly CustomTourRequestFileHandler _fileHandler;
-        private readonly IGuestRepo _guestRepo;
+        private readonly IGuest2Repo _guestRepo;
         private readonly ILocationRepo _locationRepo;
         private List<CustomTourRequest> _customTourRequests;
 
-        public CustomTourRequestRepo(IGuestRepo guestRepo, ILocationRepo locationRepo)
+        public CustomTourRequestRepo(IGuest2Repo guestRepo, ILocationRepo locationRepo)
         {
             _fileHandler = new CustomTourRequestFileHandler();
             _customTourRequests = _fileHandler.Load();

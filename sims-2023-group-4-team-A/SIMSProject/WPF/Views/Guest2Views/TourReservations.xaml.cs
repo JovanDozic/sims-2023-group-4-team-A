@@ -10,9 +10,9 @@ namespace SIMSProject.WPF.Views.Guest2Views
     /// </summary>
     public partial class TourReservations : Page
     {
-        public Guest User = new();
+        public Guest2 User = new();
         private readonly TourReservationsViewModel _tourReservationsViewModel;
-        public TourReservations(Guest user)
+        public TourReservations(Guest2 user)
         {
             InitializeComponent();
             User = user;

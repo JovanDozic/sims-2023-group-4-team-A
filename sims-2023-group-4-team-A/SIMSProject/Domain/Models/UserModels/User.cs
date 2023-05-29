@@ -20,7 +20,8 @@ namespace SIMSProject.Domain.Models.UserModels
             {
                 "Vlasnik" => UserRole.Owner,
                 "Vodič" => UserRole.Guide,
-                "Gost" => UserRole.Guest,
+                "Gost" => UserRole.Guest2,
+                "Gost " => UserRole.Guest1,
                 "Super Vlasnik" => UserRole.SuperOwner,
                 "Super Vodič" => UserRole.SuperGuide,
                 _ => UserRole.SuperGuest
@@ -33,7 +34,8 @@ namespace SIMSProject.Domain.Models.UserModels
             {
                 UserRole.Owner => "Vlasnik",
                 UserRole.Guide => "Vodič",
-                UserRole.Guest => "Gost",
+                UserRole.Guest2 => "Gost",
+                UserRole.Guest1 => "Gost ",
                 UserRole.SuperOwner => "Super Vlasnik",
                 UserRole.SuperGuide => "Super Vodič",
                 _ => "Super Gost"

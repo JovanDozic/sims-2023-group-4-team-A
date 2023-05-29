@@ -11,7 +11,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
 {
     public class ToursViewModel: ViewModelBase
     {
-        private Guest _user;
+        private Guest2 _user;
         private readonly TourService _tourService;
         private readonly TourGuestService _tourGuestService;
         public ObservableCollection<Tour> Tours { get; set; }
@@ -95,7 +95,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             _tourGuestService.MakeGuestPresent(tourGuest);
 
         }
-        public ToursViewModel(Guest user)
+        public ToursViewModel(Guest2 user)
         {
             _user = user;
             _tourService = Injector.GetService<TourService>();

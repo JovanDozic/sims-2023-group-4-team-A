@@ -13,10 +13,10 @@ namespace SIMSProject.Application.Services.AccommodationServices
     public class GuestRatingService
     {
         private readonly IGuestRatingRepo _ratingRepo;
-        private readonly IGuestRepo _guestRepo;
+        private readonly IGuest1Repo _guestRepo;
         private readonly IAccommodationReservationRepo _reservationRepo;
 
-        public GuestRatingService(IGuestRatingRepo ratingRepo, IGuestRepo guestRepo, IAccommodationReservationRepo reservationRepo)
+        public GuestRatingService(IGuestRatingRepo ratingRepo, IGuest1Repo guestRepo, IAccommodationReservationRepo reservationRepo)
         {
             _ratingRepo = ratingRepo;
             _guestRepo = guestRepo;
@@ -30,7 +30,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
             UpdateGuestsTotalRating(rating.Reservation.Guest);
         }
 
-        public void UpdateGuestsTotalRating(Guest guest)
+        public void UpdateGuestsTotalRating(Guest1 guest)
         {
             var ratings = _ratingRepo.GetAllByGuestId(guest.Id);
             guest.Rating = ratings.Average(x => x.Overall);

@@ -8,9 +8,9 @@ namespace SIMSProject.WPF.Views
 {
     public partial class GuestInitialWindow : Window
     {
-        public Guest User = new();
+        public Guest2 User = new();
 
-        public GuestInitialWindow(Guest user)
+        public GuestInitialWindow(Guest2 user)
         {
             InitializeComponent();
             User = user;

@@ -13,10 +13,10 @@ namespace SIMSProject.Repositories.AccommodationRepositories
     {
         private readonly AccommodationReservationFileHandler _fileHandler;
         private readonly IAccommodationRepo _accommodationRepo;
-        private readonly IGuestRepo _guestRepo;
+        private readonly IGuest1Repo _guestRepo;
         private List<AccommodationReservation> _reservations;
 
-        public AccommodationReservationRepo(IAccommodationRepo accommodationRepo, IGuestRepo guestRepo)
+        public AccommodationReservationRepo(IAccommodationRepo accommodationRepo, IGuest1Repo guestRepo)
         {
             _fileHandler = new();
             _reservations = new();

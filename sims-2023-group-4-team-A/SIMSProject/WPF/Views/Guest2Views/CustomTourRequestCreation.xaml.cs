@@ -23,9 +23,9 @@ namespace SIMSProject.WPF.Views.Guest2Views
     /// </summary>
     public partial class CustomTourRequestCreation : Page
     {
-        public Guest _user = new();
+        public Guest2 _user = new();
         private CustomTourRequestViewModel _viewModel;
-        public CustomTourRequestCreation(Guest user)
+        public CustomTourRequestCreation(Guest2 user)
         {
             InitializeComponent();
             _user = user;

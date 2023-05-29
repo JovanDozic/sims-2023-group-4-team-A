@@ -10,11 +10,11 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Title="Main" Height="768" Width="1024">
-    
+
     <Window.Resources>
         <converters:UserRoleConverter x:Key="UserRoleConverter" />
     </Window.Resources>
-    
+
     <Grid MouseLeftButtonDown="BG_PreviewMouseLeftButtonDown">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -172,7 +172,7 @@
                 <DropShadowEffect BlurRadius="2" ShadowDepth="1" Color="Gray"/>
             </Grid.Effect>
             <StackPanel>
-                <Grid Height="120">
+                <Grid Height="123">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1.8*"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
@@ -186,27 +186,27 @@
 
                     <TextBlock
                         TextAlignment="Center"
-                               VerticalAlignment="Center"
+                               VerticalAlignment="Top"
                                Foreground="White"
                                FontStyle="Italic"
                                FontSize="22" FontWeight="Bold"
-                               Text="{Binding Username}" Margin="108,0,108,0" Grid.Row="1" Grid.ColumnSpan="2"/>
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="35,37,14,-30" Grid.ColumnSpan="2">
-                        <Label Foreground="White" Content="Status: " FontSize="18" Height="38"/>
-                        <TextBlock TextAlignment="Center" VerticalAlignment="Center" Text="{Binding Status, Converter={StaticResource UserRoleConverter}}" Foreground="White" FontSize="18" FontWeight="Bold" Height="29"/>
-                        <Label Content="    Bodovi: " FontSize="18" Foreground="White" Height="38"/>
+                               Text="{Binding Username}" Margin="0,17,0,0" Grid.Row="1" Grid.ColumnSpan="2"/>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="24,50,10,-39" Grid.ColumnSpan="2">
+                        <Label Foreground="White" Content="Status: " FontSize="18" Height="32" Width="75"/>
+                        <TextBlock TextAlignment="left" VerticalAlignment="Center" Text="{Binding Status, Converter={StaticResource UserRoleConverter}}" Foreground="White" FontSize="18" FontWeight="Bold" Height="22" Width="97"/>
+                        <Label Content="    Bodovi: " FontSize="18" Foreground="White" Height="34" Width="96"/>
                         <TextBlock Text="{Binding BonusPoints}" FontSize="18" FontWeight="Bold"
-                                   Foreground="White" Height="29"/>
+                                   Foreground="White" Height="23"/>
                     </StackPanel>
 
-                    <Image Source="../Icons/account.png" VerticalAlignment="Top" Margin="136,4,19,0" Height="49" Grid.RowSpan="2" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    <Image HorizontalAlignment="Center" Source="../Icons/account.png" VerticalAlignment="Top" Margin="136,4,19,0" Height="49" Grid.RowSpan="2" RenderOptions.BitmapScalingMode="HighQuality"/>
                 </Grid>
 
-                <Separator Width="315" FontWeight="Bold" Background="#BDC3C3" HorizontalAlignment="Stretch"></Separator>
+                <Separator Width="314" FontWeight="Bold" Background="#BDC3C3" HorizontalAlignment="Stretch" Height="34"></Separator>
 
                 <ListView x:Name="ListViewMenu" Background="#063e77" 
                           SelectionChanged="ListViewMenu_SelectionChanged"
-                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"  BorderBrush="Transparent" Margin="0,0,0,0">
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"  BorderBrush="Transparent" Margin="0,0,0,0" Height="372">
                     <ListViewItem x:Name="ItemAllAccommodations" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontSize="22" Foreground="White" Text="Svi smeštaji u ponudi" VerticalAlignment="Center" Margin="20 10"/>
@@ -243,20 +243,15 @@
                         </StackPanel>
                     </ListViewItem>
 
-                    <ListViewItem x:Name="ItemReport" Height="60">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Izveštaj o rezervacijama" FontSize="22" Foreground="White" VerticalAlignment="Center"  Margin="20 10"/>
-                        </StackPanel>
-                    </ListViewItem>
                 </ListView>
                 <Grid Height="122">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2.2*"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Image Source="../Icons/chevron-left.png" Margin="193,64,87,16" RenderTransformOrigin="1.057,0.493" Grid.ColumnSpan="2" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    <Image Source="../Icons/chevron-left.png" Margin="204,88,92,-4" RenderTransformOrigin="1.057,0.493" Grid.ColumnSpan="2" RenderOptions.BitmapScalingMode="HighQuality"/>
 
-                    <Button Click="Button_Click_Close" Margin="0,0,10,25" FontSize="20" Foreground="White" Content="Odjavi se" BorderThickness="0" BorderBrush="Transparent" Background="#063e77" Height="30" Width="89" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.ColumnSpan="2"/>
+                    <Button Click="Button_Click_Close" Margin="0,0,10,0" FontSize="20" Foreground="White" Content="Odjavi se" BorderThickness="0" BorderBrush="Transparent" Background="#063e77" Height="30" Width="89" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="1"/>
                 </Grid>
             </StackPanel>
 

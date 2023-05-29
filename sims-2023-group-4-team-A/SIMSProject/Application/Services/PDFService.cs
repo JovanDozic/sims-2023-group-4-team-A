@@ -170,5 +170,149 @@ namespace SIMSProject.Application.Services
                 MessageBox.Show("Error generating PDF file: " + ex.Message);
             }
         }
+
+        public static bool GenerateAccommodationReservationDetailsPDF(AccommodationReservation reservation)
+        {
+            try
+            {
+                string filePath = OpenFilePicker();
+
+                Document document = new Document();
+                PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
+                writer.SetPdfVersion(PdfWriter.PDF_VERSION_1_7);
+                writer.SetFullCompression();
+
+                document.Open();
+
+                string assemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+                string imagePath = $"{assemblyName}.Resources.Images.guest1logo.png"; // Putanja do slike unutar projekta
+
+                // Učitajte sliku kao stream koristeći GetManifestResourceStream metodu
+                using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(imagePath))
+                {
+                    if (stream != null)
+                    {
+                        iTextSharp.text.Image logoImage = iTextSharp.text.Image.GetInstance(stream);
+
+                        float desiredHeight = 120f;
+                        float aspectRatio = logoImage.Width / logoImage.Height;
+                        float desiredWidth = desiredHeight * aspectRatio;
+
+                        // Centrirajte sliku
+                        logoImage.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+
+                        // Postavite željene dimenzije slike
+                        logoImage.ScaleAbsolute(desiredWidth, desiredHeight);
+
+                        // Dodajte sliku na dokument
+                        document.Add(logoImage);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error loading image.");
+                    }
+                }
+
+                Paragraph heading = new Paragraph("Izveštaj o rezervaciji smeštaja", new Font(Font.FontFamily.HELVETICA, 20, Font.BOLDITALIC));
+                heading.Alignment = Element.ALIGN_CENTER;
+                heading.SpacingAfter = 15f;
+                document.Add(heading);
+
+                // Kreiranje tabele sa dve kolone
+                PdfPTable table = new PdfPTable(2);
+                table.SpacingBefore = 20f;
+                table.SpacingAfter = 40;
+                table.WidthPercentage = 100f;
+
+                // Prva kolona - Detalji rezervacije
+                PdfPCell reservationCell = new PdfPCell();
+                reservationCell.Border = Rectangle.NO_BORDER;
+
+                Paragraph reservationTitle = new Paragraph("Detalji rezervacije:", new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD));
+                reservationTitle.SpacingAfter = 9f;
+                reservationCell.AddElement(reservationTitle);
+
+                // Dodavanje detalja o rezervaciji u prvu kolonu
+                Paragraph guestName = new Paragraph();
+                guestName.Add(new Chunk("Ime gosta: ", new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD)));
+                guestName.Add(new Chunk(reservation.Guest.Username, new Font(Font.FontFamily.HELVETICA, 14, Font.ITALIC)));
+                reservationCell.AddElement(guestName);
+                guestName.SpacingAfter = 8f;
+
+                Paragraph arrivalDate = new Paragraph();
+                arrivalDate.Add(new Chunk("Datum dolaska: ", new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD)));
+                arrivalDate.Add(new Chunk(reservation.StartDate.ToString("dd.MM.yyyy."), new Font(Font.FontFamily.HELVETICA, 14, Font.ITALIC)));
+                reservationCell.AddElement(arrivalDate);
+                arrivalDate.SpacingAfter = 8f;
+
+                Paragraph departureDate = new Paragraph();
+                departureDate.Add(new Chunk("Datum odlaska: ", new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD)));
+                departureDate.Add(new Chunk(reservation.EndDate.ToString("dd.MM.yyyy."), new Font(Font.FontFamily.HELVETICA, 14, Font.ITALIC)));
+                reservationCell.AddElement(departureDate);
+                departureDate.SpacingAfter = 8f;
+
+                Paragraph numberOfNights = new Paragraph();
+                numberOfNights.Add(new Chunk("Broj dana: ", new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD)));
+                numberOfNights.Add(new Chunk(reservation.NumberOfDays.ToString(), new Font(Font.FontFamily.HELVETICA, 14, Font.ITALIC)));
+                reservationCell.AddElement(numberOfNights);
+                numberOfNights.SpacingAfter = 8f;
+
+                Paragraph numberOfGuests = new Paragraph();
+                numberOfGuests.Add(new Chunk("Broj gostiju: ", new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD)));
+                numberOfGuests.Add(new Chunk(reservation.GuestNumber.ToString(), new Font(Font.FontFamily.HELVETICA, 14, Font.ITALIC)));
+                reservationCell.AddElement(numberOfGuests);
+                numberOfGuests.SpacingAfter = 8f;
+
+                // Druga kolona - Detalji smeštaja
+                PdfPCell accommodationCell = new PdfPCell();
+                accommodationCell.Border = Rectangle.NO_BORDER;
+
+                Paragraph accommodationTitle = new Paragraph("Detalji smeštaja:", new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD));
+                accommodationTitle.SpacingAfter = 8f;
+                accommodationCell.AddElement(accommodationTitle);
+
+                // Dodavanje detalja o smeštaju u drugu kolonu
+                Paragraph accommodationName = new Paragraph();
+                accommodationName.Add(new Chunk("Naziv: ", new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD)));
+                accommodationName.Add(new Chunk(reservation.Accommodation.Name, new Font(Font.FontFamily.HELVETICA, 14, Font.ITALIC)));
+                accommodationCell.AddElement(accommodationName);
+                accommodationName.SpacingAfter = 8f;
+
+                Paragraph accommodationLocation = new Paragraph();
+                accommodationLocation.Add(new Chunk("Lokacija: ", new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD)));
+                accommodationLocation.Add(new Chunk(reservation.Accommodation.Location.ToString(), new Font(Font.FontFamily.HELVETICA, 14, Font.ITALIC)));
+                accommodationCell.AddElement(accommodationLocation);
+                accommodationLocation.SpacingAfter = 8f;
+
+                // Dodavanje ćelija u tabelu
+                table.AddCell(reservationCell);
+                table.AddCell(accommodationCell);
+
+                // Dodavanje tabele u dokument
+                document.Add(table);
+
+                // Dodavanje datuma u donji desni ugao
+                DateTime currentDate = DateTime.Now;
+                Paragraph dateParagraph = new Paragraph("Datum kreiranja izveštaja: ", new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD));
+                Chunk currentDateChunk = new Chunk(currentDate.ToString("dd.MM.yyyy."), new Font(Font.FontFamily.HELVETICA, 14, Font.ITALIC));
+                dateParagraph.Add(currentDateChunk);
+                dateParagraph.Alignment = Element.ALIGN_RIGHT;
+                document.Add(dateParagraph);
+                dateParagraph.SpacingBefore = 20;
+
+
+                document.Close();
+                return true;
+                //MessageBox.Show("PDF file generated successfully.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error generating PDF file: " + ex.Message);
+                return false;
+            }
+
+
+
+        }
     }
 }
