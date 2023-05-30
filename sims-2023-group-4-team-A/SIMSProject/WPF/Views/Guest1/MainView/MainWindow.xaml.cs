@@ -31,6 +31,7 @@ namespace SIMSProject.WPF.Views.Guest1.MainView
         public MainWindow(User user)
         {
             InitializeComponent();
+            ToastNotificationService.Initialize(this);
             _user = user;
             _superGuestViewModel = new(_user);
             DataContext = _superGuestViewModel;

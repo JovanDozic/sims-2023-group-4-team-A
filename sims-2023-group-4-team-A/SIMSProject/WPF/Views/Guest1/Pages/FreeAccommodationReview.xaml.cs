@@ -49,14 +49,12 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             if(_anywhereAnytimeViewModel.AreDatesSelected())
             {
                 _anywhereAnytimeViewModel.SaveReservation();
-                MessageBox.Show("Smeštaj uspešno rezervisan!", "", MessageBoxButton.OK, MessageBoxImage.Information);
                 NavigationService.Navigate(new MainPage(_user));
             }else
             {
                 if (_anywhereAnytimeViewModel.AreNewDatesSelected())
                 {
                     _anywhereAnytimeViewModel.SaveReservationWithNewDates();
-                    MessageBox.Show("Smeštaj uspešno rezervisan!", "", MessageBoxButton.OK, MessageBoxImage.Information);
                     NavigationService.Navigate(new MainPage(_user));
                 }
                 else

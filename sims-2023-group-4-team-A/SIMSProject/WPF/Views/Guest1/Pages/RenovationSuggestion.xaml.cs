@@ -74,7 +74,6 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
                 Comment.Text = string.Empty;
             _suggestion.SendRequest();
             _rating.RateWithRenovation(_suggestion.Renovation);
-            MessageBox.Show("Ocena i preporuka uspešno poslati!", "", MessageBoxButton.OK, MessageBoxImage.Information);
             NavigationService.Navigate(new MainPage(_user));
         }
 

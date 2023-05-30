@@ -125,6 +125,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             _request.Status = ReschedulingRequestStatus.Waiting;
             _service.SaveRequest(_request);
+            ToastNotificationService.ShowSuccess("Zahtev uspešno poslat");
         }
 
         public AccommodationReservation LoadReservation()

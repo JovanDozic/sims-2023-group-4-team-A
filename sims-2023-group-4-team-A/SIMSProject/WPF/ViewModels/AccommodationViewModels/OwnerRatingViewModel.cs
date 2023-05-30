@@ -220,6 +220,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             SelectedReservation.OwnerRated = true;
             _rating.RenovationSuggestion = null;
             _ratingService.LeaveRating(_rating);
+            ToastNotificationService.ShowSuccess("Ocena uspešno ostavljena");
         }
 
         public void RateWithRenovation(RenovationSuggestion renovation)
@@ -227,6 +228,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             SelectedReservation.OwnerRated = true;
             _rating.RenovationSuggestion = renovation;
             _ratingService.LeaveRating(_rating);
+            ToastNotificationService.ShowSuccess("Ocena i preporuka uspešno poslati");
         }
 
         public void LoadRating()
