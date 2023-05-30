@@ -6,7 +6,8 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
 
     <Application.Resources>
-        <ControlTemplate x:Key="ValidationTemplate">
+        <ResourceDictionary>
+            <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
                 <AdornedElementPlaceholder x:Name="textBox"></AdornedElementPlaceholder>
                 <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#99ff0000"></TextBlock>
@@ -314,7 +315,11 @@
             </Setter>
         </Style>
 
-
+        
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
 
     </Application.Resources>
 

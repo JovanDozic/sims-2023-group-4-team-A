@@ -158,11 +158,13 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
         public void SaveReservation()
         {
             _accommodationReservationService.SaveReservation(new AccommodationReservation(SelectedAccommodation.Id, _user.Id, SelectedRange.StartDate, SelectedRange.EndDate, NumberOfDays, GuestsNumber, false), _user);
+            ToastNotificationService.ShowSuccess("Smeštaj uspešno rezervisan");
         }
 
         public void SaveReservationWithNewDates()
         {
             _accommodationReservationService.SaveReservation(new AccommodationReservation(SelectedAccommodation.Id, _user.Id, NewDateBegin, NewDateEnd, NumberOfDays, GuestsNumber, false), _user);
+            ToastNotificationService.ShowSuccess("Smeštaj uspešno rezervisan");
         }
 
         public bool IsEndDateSelected ()

@@ -63,7 +63,7 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
         {
             if(_accommodationReservationViewModel.IsPDFGenerated())
             {
-                MessageBox.Show("Izvestaj uspesno kreiran!");
+                _accommodationReservationViewModel.SendToast();
                 NavigationService.Navigate(new MainPage(_user));
             }else
                 NavigationService.Navigate(new MainPage(_user));

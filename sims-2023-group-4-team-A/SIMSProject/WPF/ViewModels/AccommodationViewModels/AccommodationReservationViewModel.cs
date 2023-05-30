@@ -249,5 +249,10 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             return PDFService.GenerateAccommodationReservationDetailsPDF(SelectedReservation);
         }
 
+        public void SendToast()
+        {
+            ToastNotificationService.ShowSuccess("PDF uspešno kreiran");
+        }
+
     }
 }

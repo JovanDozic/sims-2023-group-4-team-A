@@ -45,7 +45,6 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
         private void Button_Click_Rate(object sender, RoutedEventArgs e)
         {
             _ownerRatingViewModel.RateOwnerAndAccommodation();
-            MessageBox.Show("Ocena uspešno ostavljena!", "", MessageBoxButton.OK, MessageBoxImage.Information);
             NavigationService.Navigate(new MainPage(_user));
 
         }
