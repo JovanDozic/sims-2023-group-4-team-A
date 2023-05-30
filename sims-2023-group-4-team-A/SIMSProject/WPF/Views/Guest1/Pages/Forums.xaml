@@ -1,0 +1,26 @@
+﻿<Page x:Class="SIMSProject.WPF.Views.Guest1.Pages.Forums"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest1.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="668" d:DesignWidth="1024"
+      Title="Forums">
+
+    <Grid>
+        <TabControl Margin="15,23,15,10">
+            <TabItem FontSize="28" Header="Svi forumi">
+                <Grid>
+                    <!-- Sadržaj prvog taba - Svi forumi -->
+                </Grid>
+            </TabItem>
+            <TabItem FontSize="28" Header="Moji forumi">
+                <Grid>
+                    <Button Content="Kreiraj" Click="Button_Click"></Button>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Page>
