@@ -8,7 +8,7 @@
       d:DesignHeight="668" d:DesignWidth="1024"
       Title="ForumCreation">
 
-    <Grid Background="White">
+    <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -35,12 +35,44 @@
                FontSize="28" VerticalAlignment="Bottom"
                HorizontalAlignment="Center"></Label>
 
-        <ComboBox Grid.Row="2" Margin="30,26,30,32"></ComboBox>
-        <TextBox FontSize="28" TextAlignment="Center" x:Name="TodaysDate" Grid.Row="2" Grid.Column="1" Margin="95,26,95,32"></TextBox>
+        <ComboBox ItemsSource="{Binding AllLocations, UpdateSourceTrigger=PropertyChanged}" 
+                  SelectedItem="{Binding SelectedLocation, UpdateSourceTrigger=PropertyChanged}"
+                  SelectionChanged="LocationsSelection" FontSize="25" Grid.Row="2" Margin="30,26,30,32"></ComboBox>
+        <Label x:Name="LocationLabel" Visibility="Visible" Content="Odaberite lokaciju" Foreground="Red" FontSize="15"
+               Grid.Row="2" Margin="30,77,0,50" Grid.RowSpan="2"></Label>
+        <TextBox FontSize="28" Text="{Binding CreationDate, StringFormat='dd.MM.yyyy.'}" IsReadOnly="True" TextAlignment="Center" x:Name="TodaysDate" Grid.Row="2" Grid.Column="1" Margin="95,26,95,32"></TextBox>
         <Label Content="Komentar:" Grid.Row="3"
                FontSize="28" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-        <TextBox Grid.Row="4" Grid.ColumnSpan="2" Margin="161,10,95,7"/>
-        <Button Grid.Row="5" Grid.ColumnSpan="2" Width="279" Height="62" Content="Kreiraj forum" FontSize="28"></Button>
+        <TextBox x:Name="CommentTB" Text="{Binding Comment}" FontSize="25" Grid.Row="4" Grid.ColumnSpan="2" Margin="143,10,95,24" TextChanged="CommentTB_TextChanged" />
+        <Label x:Name="CommentLabel" Content="Komentar je obavezan" Visibility="Visible" FontSize="15" Grid.Row="4" Foreground="Red" Margin="143,180,0,97" Grid.RowSpan="2"></Label>
+        <Button x:Name="CreationButton" Grid.Row="5" Grid.ColumnSpan="2" Width="279" Height="62" Content="Kreiraj forum" FontSize="28" Click="Button_Click_Create">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              RecognizesAccessKey="True"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="Background" Value="Gray"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="True">
+                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="Background" Value="#0c669f"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
 
     </Grid>
 </Page>

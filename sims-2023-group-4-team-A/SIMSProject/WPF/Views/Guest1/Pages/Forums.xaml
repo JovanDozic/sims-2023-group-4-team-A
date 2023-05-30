@@ -17,7 +17,49 @@
             </TabItem>
             <TabItem FontSize="28" Header="Moji forumi">
                 <Grid>
-                    <Button Content="Kreiraj" Click="Button_Click"></Button>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button Content="Kreiraj novi forum" Click="Button_Click" Height="46" Margin="77,27,669,27"/>
+
+                    <ListView Grid.Row="1"
+                  ItemsSource="{Binding Forums, UpdateSourceTrigger=PropertyChanged}"
+                  Background="Transparent"
+                  BorderBrush="Transparent"
+                  BorderThickness="0" d:ItemsSource="{d:SampleData ItemCount=5}"
+                  ScrollViewer.CanContentScroll="False"
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="29,0,32,0">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="Height" Value="300"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="500"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Text="{Binding Comment}" TextWrapping="Wrap"  ></TextBox>
+                                    <StackPanel Grid.Column="1" Orientation="Vertical" Margin="30">
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                                            <Label Content="Lokacija:"></Label>
+                                            <Label Content="{Binding Location}"></Label>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                                            <Label Content="Datum: "></Label>
+                                            <Label Content="{Binding CreationDate,StringFormat='dd.MM.yyyy'}"></Label>
+                                        </StackPanel>
+
+                                    </StackPanel>
+
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </Grid>
             </TabItem>
         </TabControl>
