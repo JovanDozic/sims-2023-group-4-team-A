@@ -1,7 +1,5 @@
-﻿using SIMSProject.Domain.Models.AccommodationModels;
-using SIMSProject.Domain.Models.UserModels;
+﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
-using SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews;
 using System.Windows;
 using System.Windows.Controls;
 
