@@ -66,7 +66,7 @@ namespace SIMSProject.WPF.Views.OwnerViews
             MainFrame.Navigate(
                 button.Name switch
                 {
-                    "NavBtnNotifications" => new OwnerNotificationsView(),
+                    "NavBtnNotifications" => new OwnerNotificationsView(_user),
                     "NavBtnAccommodations" => new OwnerMyAccommodationsView(_user),
                     "NavBtnHome" => new OwnerHomeView(),
                     "NavBtnForums" => new OwnerAllForumsView(),

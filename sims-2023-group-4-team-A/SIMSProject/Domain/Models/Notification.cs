@@ -13,12 +13,13 @@ namespace SIMSProject.Domain.Models
         public DateTime CreationDate { get; set; } = DateTime.MinValue;
         public DateTime? ExpirationDate { get; set; } = null;
         public bool IsRead { get; set; } = false;
+        public string IconSource { get; set; } = "/Resources/Icons/bell.png";
 
         public Notification() 
         { 
         }
 
-        public Notification(User user, string title, string description, DateTime? expirationDate = null)
+        public Notification(User user, string title, string description, DateTime? expirationDate = null, string? iconSource = null)
         {
             Id = 0;
             User = user;
@@ -27,6 +28,7 @@ namespace SIMSProject.Domain.Models
             CreationDate = DateTime.Now;
             ExpirationDate = expirationDate;
             IsRead = false;
+            if (iconSource is not null) IconSource = iconSource;
         }
 
         public string[] ToCSV()
@@ -39,6 +41,7 @@ namespace SIMSProject.Domain.Models
                 Description,
                 CreationDate.ToString(),
                 ExpirationDate.ToString() ?? "",
+                IconSource,
                 IsRead.ToString()
             };
         }
@@ -53,6 +56,7 @@ namespace SIMSProject.Domain.Models
             Description = values[i++];
             CreationDate = DateTime.Parse(values[i++]);
             ExpirationDate = DateTime.TryParse(values[i++], out DateTime result) ? result : null;
+            IconSource = values[i++];
             IsRead = bool.Parse(values[i++]);
         }
     }

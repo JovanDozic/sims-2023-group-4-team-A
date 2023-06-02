@@ -13,7 +13,7 @@ namespace SIMSProject.Application.Services
             _repo = repo;
         }
 
-        public List<Location> FindAll()
+        public List<Location> GetAll()
         {
             return _repo.GetAll();
         }

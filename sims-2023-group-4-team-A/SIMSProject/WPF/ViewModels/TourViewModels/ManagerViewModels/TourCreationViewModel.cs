@@ -284,7 +284,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             _notificationService = Injector.GetService<NotificationService>();
             _customTourRequestService = Injector.GetService<CustomTourRequestService>();
 
-            AllLocations = new(_locationService.FindAll());
+            AllLocations = new(_locationService.GetAll());
             TourLanguages = new(Tour.GetLanguages());
 
             AddAppointmentCommand = new RelayCommand(AddAppointmentExecute, AddAppointmentCanExecute);

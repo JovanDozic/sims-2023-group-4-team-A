@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Domain.Injectors;
+using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
@@ -143,6 +144,11 @@ namespace SIMSProject.Application.Services.AccommodationServices
             var conflictingRenovations = renovations.FindAll(r => startDate < r.EndDate && r.StartDate < endDate);
 
             return conflictingRenovations;
+        }
+
+        public List<Accommodation> GetAllByLocation(Location location)
+        {
+            return GetAll().FindAll(a => a.Location.Id == location.Id) ?? new();
         }
     }
 }
