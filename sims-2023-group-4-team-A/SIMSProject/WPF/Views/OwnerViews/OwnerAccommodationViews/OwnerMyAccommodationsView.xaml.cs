@@ -47,10 +47,14 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
 
         private void LstAccommodations_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (LstAccommodations.SelectedItem is null) return; 
-            OwnerAccommodationDetails accommodationDetails = new(_user, new Accommodation(_viewModel.Accommodation));
-            OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow ?? new(_user);
+            if (LstAccommodations.SelectedItem is null) return;
+            Accommodation duplicateAccommodation = new Accommodation(_viewModel.Accommodation);
+
+            OwnerAccommodationDetails accommodationDetails = new OwnerAccommodationDetails(_user, duplicateAccommodation);
+            OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow ?? new OwnerWindow(_user);
             ownerWindow?.SwitchToPage(accommodationDetails);
+
+            LstAccommodations.SelectedItem = null;
         }
     }
 }

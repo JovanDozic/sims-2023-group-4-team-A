@@ -50,6 +50,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             IsRecentlyRenovated = original.IsRecentlyRenovated;
             Rating = original.Rating;
             DateCreated = original.DateCreated;
+            // TODO: Check if something is missing
         }
 
         public static AccommodationType GetType(string type)
