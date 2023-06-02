@@ -24,6 +24,7 @@
     <None Remove="Resources\Icons\bell-fill.png" />
     <None Remove="Resources\Icons\bell.png" />
     <None Remove="Resources\Icons\bookbnb.png" />
+    <None Remove="Resources\Icons\check.png" />
     <None Remove="Resources\Icons\clock-unfill.png" />
     <None Remove="Resources\Icons\crossed-eye.png" />
     <None Remove="Resources\Icons\down.png" />
@@ -37,6 +38,9 @@
     <None Remove="Resources\Icons\left.png" />
     <None Remove="Resources\Icons\location.png" />
     <None Remove="Resources\Icons\logo.png" />
+    <None Remove="Resources\Icons\notif-location-check.png" />
+    <None Remove="Resources\Icons\notif-location-x.png" />
+    <None Remove="Resources\Icons\notif-star.png" />
     <None Remove="Resources\Icons\plus.png" />
     <None Remove="Resources\Icons\renovation-clock.png" />
     <None Remove="Resources\Icons\renovation.png" />
@@ -107,6 +111,7 @@
     <Resource Include="Resources\Icons\bell-fill.png" />
     <Resource Include="Resources\Icons\bell.png" />
     <Resource Include="Resources\Icons\bookbnb.png" />
+    <Resource Include="Resources\Icons\check.png" />
     <Resource Include="Resources\Icons\clock-unfill.png" />
     <Resource Include="Resources\Icons\crossed-eye.png" />
     <Resource Include="Resources\Icons\down.png" />
@@ -119,6 +124,9 @@
     <Resource Include="Resources\Icons\image.png" />
     <Resource Include="Resources\Icons\left.png" />
     <Resource Include="Resources\Icons\location.png" />
+    <Resource Include="Resources\Icons\notif-location-check.png" />
+    <Resource Include="Resources\Icons\notif-location-x.png" />
+    <Resource Include="Resources\Icons\notif-star.png" />
     <Resource Include="Resources\Icons\plus.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -245,8 +253,8 @@
     <PackageReference Include="Microsoft.TeamFoundationServer.ExtendedClient" Version="16.205.1" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
     <PackageReference Include="ToastNotifications" Version="2.5.1" />
-    <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
     <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
+    <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
   </ItemGroup>
 
   <ItemGroup>

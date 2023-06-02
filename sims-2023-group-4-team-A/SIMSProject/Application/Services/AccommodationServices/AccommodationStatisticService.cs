@@ -1,7 +1,9 @@
 ﻿using Microsoft.TeamFoundation.Test.WebApi;
+using Microsoft.VisualStudio.Services.WebApi;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
+using SIMSProject.Domain.Models.UserModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
         private readonly AccommodationReservationService _reservationService;
         private readonly ReschedulingRequestService _requestService;
         private readonly OwnerRatingService _ratingService;
+        private readonly LocationService _locationService;
 
         public AccommodationStatisticService()
         {
@@ -22,6 +25,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
             _reservationService = Injector.GetService<AccommodationReservationService>();
             _requestService = Injector.GetService<ReschedulingRequestService>();
             _ratingService = Injector.GetService<OwnerRatingService>();
+            _locationService = Injector.GetService<LocationService>();
         }
 
         public AccommodationStatistic GetYearlyStatistic(Accommodation accommodation, int year)
@@ -157,6 +161,83 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
             double occupancyPercentage = (double)occupiedDays / totalDaysInYear * 100;
             return (int)Math.Round(occupancyPercentage);
+        }
+
+        private List<Location> GetUsableLocations()
+        {
+            List<Location> usableLocations = new();
+            foreach (Location location in _locationService.GetAll())
+                if (_accommodationService.GetAllByLocation(location).Count > 0)
+                    usableLocations.Add(location);
+            return usableLocations;
+        }
+
+        public List<Location> GetMostPopularLocations()
+        {
+            var locations = GetUsableLocations();
+            int maxOccupancy = 0;
+            List<Location> popularLocations = new List<Location>();
+
+            foreach (var location in locations)
+            {
+                int locationOccupancy = CalculateOccupancyPercentageForLastYears(location, 3);
+
+                if (locationOccupancy > maxOccupancy)
+                {
+                    maxOccupancy = locationOccupancy;
+                    popularLocations.Clear();
+                    popularLocations.Add(location);
+                }
+                else if (locationOccupancy == maxOccupancy)
+                {
+                    popularLocations.Add(location);
+                }
+            }
+
+            return popularLocations;
+        }
+
+        public List<Location> GetLeastPopularLocation(User user)
+        {
+            var locations = GetUsableLocations();
+            int minOccupancy = int.MaxValue;
+            List<Location> leastPopularLocations = new List<Location>();
+
+            foreach (var location in locations)
+            {
+                int locationOccupancy = CalculateOccupancyPercentageForLastYears(location, 3);
+
+                if (locationOccupancy < minOccupancy)
+                {
+                    minOccupancy = locationOccupancy;
+                    leastPopularLocations.Clear();
+                    leastPopularLocations.Add(location);
+                }
+                else if (locationOccupancy == minOccupancy)
+                {
+                    leastPopularLocations.Add(location);
+                }
+            }
+
+            return leastPopularLocations
+                .Where(location => _accommodationService.GetAllByOwnerId(user.Id)
+                .Any(x => x.Location.Id == location.Id))
+                .ToList();
+        }
+
+        public int CalculateOccupancyPercentageForLastYears(Location location, int years)
+        {
+            int totalOccupancy = 0;
+
+            foreach (var accommodation in _accommodationService.GetAllByLocation(location))
+            {
+                for (int i = 0; i < years; i++)
+                {
+                    int year = DateTime.Now.AddYears(-i).Year;
+                    totalOccupancy += CalculateOccupancyPercentage(accommodation, year);
+                }
+            }
+            return totalOccupancy / (_accommodationService.GetAllByLocation(location).Count * years);
         }
     }
 }

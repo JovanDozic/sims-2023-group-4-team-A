@@ -132,7 +132,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             _user = user;
             _customTourRequestService = Injector.GetService<CustomTourRequestService>();
             _locationService = Injector.GetService<LocationService>();
-            AllLocations = new(_locationService.FindAll());
+            AllLocations = new(_locationService.GetAll());
             LoadTourRequestsByGuestId(_user.Id);
             CheckRequestValidity(CustomTourRequests.ToList());
 

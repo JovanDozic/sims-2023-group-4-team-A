@@ -187,7 +187,6 @@
                        Style="{StaticResource IconRenderStyle}"/>
                         <TextBlock Text="Dodaj smeštaj" VerticalAlignment="Center" Margin="0,0,0,0"/>
                     </StackPanel>
-
                 </Button>
             </Grid>
         </ScrollViewer>
