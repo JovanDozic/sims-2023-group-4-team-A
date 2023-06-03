@@ -55,6 +55,8 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             {
                 CommentLabel.Visibility = Visibility.Collapsed;
             }
+            else
+                CommentLabel.Visibility = Visibility.Visible;
         }
     }
 }
