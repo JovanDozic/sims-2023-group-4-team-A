@@ -6,17 +6,60 @@
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
       mc:Ignorable="d" 
       d:DesignHeight="750" d:DesignWidth="430"
-      Title="My Forums"
-      Background="LightGreen">
+      Title="My Forums">
 
     <Grid>
 
-        <Label FontSize="30"
-               FontWeight="Bold"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center">
-            Moji forumi
-        </Label>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Forumi" Grid.Row="0"
+                   FontSize="30" FontWeight="SemiBold"
+                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+        <ListView x:Name="LstNotifications" Grid.Row="1" 
+                  ItemsSource="{Binding Locations, UpdateSourceTrigger=PropertyChanged}"
+                  Background="Transparent"
+                  BorderThickness="0"
+                  BorderBrush="Transparent" 
+                  ScrollViewer.CanContentScroll="False"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                  SelectedItem="{Binding Location, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,12.5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="35"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Grid.Column="0" Source="/Resources/Icons/flag.png" Height="25" 
+                               Stretch="UniformToFill"
+                               Style="{StaticResource IconRenderStyle}"
+                               VerticalAlignment="Top"
+                               Margin="0,4,10,0"/>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="10,0,0,0">
+                            <TextBlock FontSize="17.5" Text="{Binding}"
+                                       TextWrapping="Wrap"
+                                       Margin="0,0,0,0"/>
+                            <TextBlock FontSize="12" Text="-"
+                                       TextWrapping="Wrap"
+                                       Margin="7.5,6,0,0"/>
+                            <TextBlock FontSize="12" Text="{Binding ForumsCount}"
+                                       TextWrapping="Wrap"
+                                       Margin="4,6,0,0"/>
+                            <TextBlock FontSize="12" Text=""
+                                       TextWrapping="Wrap"
+                                       Margin="4,6,0,0"/>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
 
     </Grid>

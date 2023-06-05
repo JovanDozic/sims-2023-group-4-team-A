@@ -1,6 +1,8 @@
 ﻿using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
+using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using SIMSProject.FileHandlers.AccommodationFileHandlers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,12 +11,14 @@ namespace SIMSProject.Repositories.AccommodationRepositories
     internal class CommentRepo : ICommentRepo
     {
         private readonly CommentFileHandler _fileHandler;
+        private IUserRepo _userRepo;
         private List<Comment> _comments;
 
-        public CommentRepo()
+        public CommentRepo(IUserRepo userRepo)
         {
             _comments = new();
             _fileHandler = new();
+            _userRepo = userRepo;
 
             Load();
         }
@@ -32,6 +36,16 @@ namespace SIMSProject.Repositories.AccommodationRepositories
         public void Load()
         {
             _comments = _fileHandler.Load();
+
+            MapUsers();
+        }
+
+        private void MapUsers()
+        {
+            foreach (var comment in _comments)
+            {
+                comment.User = _userRepo.GetByIdAndRole(comment.User.Id, comment.User.Role);
+            }
         }
 
         public int NextId()

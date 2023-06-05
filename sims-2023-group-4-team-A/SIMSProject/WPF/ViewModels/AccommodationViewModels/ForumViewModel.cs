@@ -5,11 +5,8 @@ using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 {
@@ -65,13 +62,13 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             }
         }
 
-        public string Comment
+        public Comment Comment
         {
-            get => _forum.Comment;
+            get => _forum.Comments.First();
             set
             {
-                if (_forum.Comment == value) return;
-                _forum.Comment = value;
+                if (_forum.Comments.First() == value) return;
+                //_forum.Comments.First() = value;
                 OnPropertyChanged();
             }
         }
@@ -81,7 +78,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _user = user;
             _forumService = Injector.GetService<ForumService>();
             _locationService = Injector.GetService<LocationService>();
-            AllLocations = new(_locationService.FindAll());
+            AllLocations = new(_locationService.GetAll());
             CreationDate = DateTime.Today;
             Forums = LoadAllForumsByUser();
         }
@@ -92,9 +89,9 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         }
         public void CreateForum()
         {
-            _forum.ForumOwner.Id = _user.Id;
-            _forumService.CreateForum(_forum);
-            ToastNotificationService.ShowSuccess("Forum uspešno kreiran");
+            //_forum.ForumOwner.Id = _user.Id;
+            //_forumService.CreateForum(_forum);
+            //ToastNotificationService.ShowSuccess("Forum uspešno kreiran");
         }
 
         public bool IsLocationSelected()
@@ -104,7 +101,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
         public bool IsCommentEmpty()
         {
-            return Comment != String.Empty;
+            return Comment.Text != string.Empty;
         }
     }
 }

@@ -32,6 +32,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             {
                 Id.ToString(),
                 User.Id.ToString(),
+                User.GetRole(User.Role),
                 Text,
                 CreationDate.ToString(),
                 Downvotes.ToString()
@@ -44,6 +45,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             int i = 0;
             Id = int.Parse(values[i++]);
             User.Id = int.Parse(values[i++]);
+            User.Role = User.GetRole(values[i++]);
             Text = values[i++];
             CreationDate = DateTime.Parse(values[i++]);
             Downvotes = int.Parse(values[i++]);

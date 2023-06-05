@@ -138,6 +138,19 @@ namespace SIMSProject.Domain.Injectors
 
             services.AddSingleton<ISuperGuideLogRepo, SuperGuideLogRepo>();
 
+            services.AddSingleton<ICommentRepo, CommentRepo>(
+                provider => new CommentRepo(
+                    provider.GetService<IUserRepo>() ?? throw new Exception("Dependency Injection Failed: IUserRepo not found.")
+                    )
+                );
+
+            services.AddSingleton<IForumRepo, ForumRepo>(
+                provider => new ForumRepo(
+                    provider.GetService<ILocationRepo>() ?? throw new Exception("Dependency Injection Failed: ILocationRepo not found."), 
+                    provider.GetService<ICommentRepo>() ?? throw new Exception("Dependency Injection Failed: ICommentRepo not found.")
+                    )
+                );
+
             // Service Injections
             services.AddScoped<UserService>();
             services.AddScoped<AccommodationService>();
