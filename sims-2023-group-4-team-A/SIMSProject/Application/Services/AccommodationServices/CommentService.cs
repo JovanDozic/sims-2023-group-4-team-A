@@ -6,28 +6,28 @@ using System.Linq;
 
 namespace SIMSProject.Application.Services.AccommodationServices
 {
-    public class ForumService
+    public class CommentService
     {
-        private readonly IForumRepo _repo;
+        private readonly ICommentRepo _repo;
 
-        public ForumService(IForumRepo repo)
+        public CommentService(ICommentRepo repo)
         {
             _repo = repo;
         }
 
-        public List<Forum> GetAll()
+        public List<Comment> GetAll()
         {
             return _repo.GetAll();
         }
 
-        public void CreateForum(Forum forum)
+        public void CreateForum(Comment comment)
         {
-            _repo.Save(forum);
+            _repo.Save(comment);
         }
 
-        public List<Forum> GetAllByUser(User user)
+        public List<Comment> GetAllByUser(User user)
         {
-            return _repo.GetAll().Where(f => f.Comments.First().Id == user.Id).ToList();
+            return _repo.GetAll().Where(x => x.User.Id == user.Id).ToList();
         }
     }
 }
