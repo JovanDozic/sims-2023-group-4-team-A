@@ -43,13 +43,13 @@
         </DataGrid>
         <Button Click="NewRequest_Click" Grid.Column="2" Grid.Row="2" Content="Nova obična tura"  Height="50" Width="285" FontSize="30" Background="#ff6700" FontWeight="Bold" HorizontalAlignment="Left" Margin="70,5,0,5" Cursor="Hand"/>
         <Label Grid.Row="3" Grid.Column="0" Content="Zahtevi za složene ture: " FontSize="35" FontWeight="Bold" HorizontalAlignment="left" VerticalAlignment="Bottom"/>
-        <DataGrid x:Name="DgrComplexRequests" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" FontSize="25" FontWeight="DemiBold" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False">
+        <DataGrid x:Name="DgrComplexRequests" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" FontSize="25" FontWeight="DemiBold" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=ComplexTourRequests, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedComplexTourRequest, UpdateSourceTrigger=PropertyChanged}" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Width="100"/>
-                <DataGridTextColumn Header="Status zahteva"/>
+                <DataGridTextColumn Header="Naziv" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Status zahteva" Binding="{Binding Status, Converter={StaticResource RequestStatusConverter}}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button BorderBrush="#ff6700" BorderThickness="3" Background="#ebebeb" Grid.Column="1" Grid.Row="4" Height="50" Width="300" Content="Detalji" FontSize="30" FontWeight="Bold" Cursor="Hand" />
+        <Button Click="ComplexTourRequestDetails_Click" BorderBrush="#ff6700" BorderThickness="3" Background="#ebebeb" Grid.Column="1" Grid.Row="4" Height="50" Width="300" Content="Detalji" FontSize="30" FontWeight="Bold" Cursor="Hand" />
         <Button Click="NewComplexRequest_Click" Background="#ff6700" Grid.Column="1" Grid.Row="5" Height="50" Width="300" Content="Nova složena tura" FontSize="30" FontWeight="Bold" Cursor="Hand" />
     </Grid>
 </Page>

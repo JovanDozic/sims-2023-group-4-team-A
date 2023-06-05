@@ -10,11 +10,11 @@ namespace SIMSProject.Domain.Models.TourModels
         public int Id { get; set; }
         public Guest2 Guest { get; set; } = new();
         public string Name { get; set; } = string.Empty;
-        public ComplexRequestStatus Status { get; set;}
+        public RequestStatus Status { get; set;}
 
         public ComplexTourRequest() { }
 
-        public ComplexTourRequest(int id, int guestId, string name, ComplexRequestStatus status)
+        public ComplexTourRequest(int id, int guestId, string name, RequestStatus status)
         {
             Id = id;
             Guest.Id = guestId;
@@ -39,7 +39,7 @@ namespace SIMSProject.Domain.Models.TourModels
             Id = Convert.ToInt32(values[0]);
             Guest.Id = Convert.ToInt32(values[1]);
             Name = Convert.ToString(values[2]);
-            Status = (ComplexRequestStatus)Enum.Parse(typeof(ComplexRequestStatus), values[3]); 
+            Status = (RequestStatus)Enum.Parse(typeof(RequestStatus), values[3]); 
         }
     }
 }

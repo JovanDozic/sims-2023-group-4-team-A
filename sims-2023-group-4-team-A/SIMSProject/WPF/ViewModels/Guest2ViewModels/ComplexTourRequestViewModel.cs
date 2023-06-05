@@ -130,8 +130,30 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 OnPropertyChanged();
             }
         }
-        
-        public ComplexTourRequestViewModel(Guest2 user)
+        private ObservableCollection<CustomTourRequest> _tourRequestParts = new();
+        public ObservableCollection<CustomTourRequest> TourRequestParts
+        {
+            get => _tourRequestParts;
+            set
+            {
+                if (value == _tourRequestParts) return;
+                _tourRequestParts = value;
+                OnPropertyChanged();
+            }
+        }
+        private ComplexTourRequest _selectedComplexTourRequest = new();
+        public ComplexTourRequest SelectedComplexTourRequest
+        {
+            get => _selectedComplexTourRequest;
+            set
+            {
+                if (value == _selectedComplexTourRequest) return;
+                _selectedComplexTourRequest = value;
+                OnPropertyChanged(nameof(SelectedComplexTourRequest));
+            }
+        }
+
+        public ComplexTourRequestViewModel(Guest2 user, ComplexTourRequest complexTourRequest = null)
         {
             TourLanguages = new()
             {
@@ -145,6 +167,9 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             _customTourRequestService = Injector.GetService<CustomTourRequestService>();
             _locationService = Injector.GetService<LocationService>();
             AllLocations = new(_locationService.GetAll());
+            SelectedComplexTourRequest = complexTourRequest;
+            
+            
             //LoadTourRequestsByGuestId(_user.Id);
             //CheckRequestValidity(CustomTourRequests.ToList());
         }
@@ -160,13 +185,18 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         {
             _complexTourRequest.Guest.Id = _user.Id;
             _complexTourRequest.Name = "Složen zahtev " + _complexTourRequestService.NextId();
-            _complexTourRequest.Status = ComplexRequestStatus.ONHOLD;
+            _complexTourRequest.Status = RequestStatus.ONHOLD;
             _complexTourRequestService.Save(_complexTourRequest);
             foreach (var tourRequest in CustomTourRequests)
             {
                 _customTourRequestService.Save(tourRequest);
             }
             CustomTourRequests.Clear();
+        }
+
+        public void GetParts()
+        {
+            TourRequestParts =new ObservableCollection<CustomTourRequest>(_customTourRequestService.GetAllComplexTourParts(SelectedComplexTourRequest.Id));
         }
     }
 }

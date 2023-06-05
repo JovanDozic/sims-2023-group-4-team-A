@@ -35,5 +35,10 @@ namespace SIMSProject.WPF.Views.Guest2Views
         {
             NavigationService.Navigate(new ComplexTourRequestCreation(_user));
         }
+
+        private void ComplexTourRequestDetails_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ComplexTourRequestDetails(_user, _viewModel.SelectedComplexTourRequest));
+        }
     }
 }

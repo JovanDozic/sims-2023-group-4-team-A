@@ -18,6 +18,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         private Guest2 _user;
         private CustomTourRequest _customTourRequest = new();
         private CustomTourRequestService _customTourRequestService;
+        private ComplexTourRequestService _complexTourRequestService;
         private LocationService _locationService;
         public ObservableCollection<Location> AllLocations { get; set; } = new();
         public List<string> TourLanguages { get; set; }
@@ -119,6 +120,29 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 OnPropertyChanged();
             }
         }
+
+        private ObservableCollection<ComplexTourRequest> _complexTourRequests = new();
+        public ObservableCollection<ComplexTourRequest> ComplexTourRequests
+        {
+            get => _complexTourRequests;
+            set
+            {
+                if (value == _complexTourRequests) return;
+                _complexTourRequests = value;
+                OnPropertyChanged();
+            }
+        }
+        private ComplexTourRequest _selectedComplexTourRequest = new();
+        public ComplexTourRequest SelectedComplexTourRequest
+        {
+            get => _selectedComplexTourRequest;
+            set
+            {
+                if (value == _selectedComplexTourRequest) return;
+                _selectedComplexTourRequest = value;
+                OnPropertyChanged(nameof(SelectedComplexTourRequest));
+            }
+        }
         public string DateRange { get; set; } = string.Empty;
         public CustomTourRequestViewModel(Guest2 user) 
         {
@@ -131,9 +155,11 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             };
             _user = user;
             _customTourRequestService = Injector.GetService<CustomTourRequestService>();
+            _complexTourRequestService = Injector.GetService<ComplexTourRequestService>();
             _locationService = Injector.GetService<LocationService>();
             AllLocations = new(_locationService.GetAll());
             LoadTourRequestsByGuestId(_user.Id);
+            LoadComplexTourRequestsByGuestId(_user.Id);
             CheckRequestValidity(CustomTourRequests.ToList());
 
             
@@ -149,6 +175,10 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         public void LoadTourRequestsByGuestId(int guestId)
         {
             CustomTourRequests = new(_customTourRequestService.GetAllByGuestId(guestId));
+        }
+        public void LoadComplexTourRequestsByGuestId(int guestId)
+        {
+            ComplexTourRequests = new(_complexTourRequestService.GetAllByGuestId(guestId));
         }
         public void CheckRequestValidity(List<CustomTourRequest> customTourRequests)
         {
