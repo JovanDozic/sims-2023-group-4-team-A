@@ -4,10 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.TourViews.GuideViews.ComplexTourRequests"
+      xmlns:converter="clr-namespace:SIMSProject.WPF.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="965"
       Title="ComplexRequestsPage">
-
+    <Page.Resources>
+        <converter:TourRequestStatusConverter x:Key="TourRequestStatusConverter"/>
+        <converter:TourLanguageConverter x:Key="TourLanguageConverter"/>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -18,25 +22,28 @@
                   Width="595" Height="130"
                   HorizontalAlignment="Left"
                   FontSize="28"
-                  CanUserAddRows="False" AutoGenerateColumns="False">
+                  CanUserAddRows="False" AutoGenerateColumns="False"
+                  ItemsSource="{Binding Path=ComplexTourRequests, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=SelectedRequest, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv" Width="*"/>
-                <DataGridTextColumn Header="Gost" Width="*"/>
-                <DataGridTextColumn Header="Datum početka" Width="*"/>
+                <DataGridTextColumn Header="Naziv" Width="*" Binding="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Gost" Width="*" Binding="{Binding Path=Guest, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Status" Width="*" Binding="{Binding Path=Status, Converter={StaticResource TourRequestStatusConverter}}"/>
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid Grid.Row="1"
                   Margin="20,20,0,20"
-                  Width="800" Height="200"
+                  Width="925" Height="200"
                   HorizontalAlignment="Left" VerticalAlignment="Top"
                   FontSize="28"
-                  CanUserAddRows="False" AutoGenerateColumns="False">
+                  CanUserAddRows="False" AutoGenerateColumns="False"
+                  ItemsSource="{Binding Path=SelectedRequest.Parts, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Lokacija"/>
-                <DataGridTextColumn Header="Jezik" Width="*"/>
-                <DataGridTextColumn Header="Termin"/>
-                <DataGridTextColumn Header="Broj gostiju"/>
-                <DataGridTextColumn Header="Status"/>
+                <DataGridTextColumn Header="Lokacija" Binding="{Binding Path=Location, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Jezik" Width="*" Binding="{Binding Path=TourLanguage, Converter={StaticResource TourLanguageConverter}}"/>
+                <DataGridTextColumn Header="Termin" Binding="{Binding Path=FormattedDateRange}"/>
+                <DataGridTextColumn Header="Broj gostiju" Binding="{Binding Path=GuestCount}"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Path=RequestStatus, Converter={StaticResource TourRequestStatusConverter}}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button Grid.Row="1"

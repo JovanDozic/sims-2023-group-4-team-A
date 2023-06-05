@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SIMSProject.WPF.ViewModels.Guest2ViewModels;
+using SIMSProject.WPF.ViewModels.TourViewModels.ComplexTourRequestsViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,11 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews.ComplexTourRequests
     /// </summary>
     public partial class ComplexTourRequestsPage : Page
     {
+        private ComplexRequestViewModel ViewModel = new();
         public ComplexTourRequestsPage()
         {
             InitializeComponent();
+            this.DataContext = ViewModel;
         }
     }
 }
