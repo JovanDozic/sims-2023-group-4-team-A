@@ -2,40 +2,40 @@
 using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SIMSProject.Domain.Models.AccommodationModels
 {
     public class Forum: ISerializable
     {
         public int Id { get; set; }
-        public Guest1 ForumOwner { get; set; } = new();
         public Location Location { get; set; } = new();
-        public string Comment { get; set; } = string.Empty;
+        public List<Comment> Comments { get; set; } = new();
         public DateTime CreationDate { get; set; }
+        public bool IsClosed { get; set; } = false;
+        public bool IsUseful { get; set; } = false;
 
         public Forum()
         {
         }
-
-        public Forum(Forum forum)
+        public static string CommentsToCSV(List<Comment> comments)
         {
-            Id = forum.Id;
-            ForumOwner.Id = forum.ForumOwner.Id;
-            Location = forum.Location;
-            Comment = forum.Comment;
-            CreationDate = forum.CreationDate;
+            return comments.Count > 0 ? string.Join(",", comments.Select(x => x.Id)) : string.Empty;
         }
+
+        public static List<string> CommentsFromCSV(string value)
+        {
+            return value.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+        }
+
         public string[] ToCSV()
         {
             string[] csvValues =
             {
                 Id.ToString(),
-                ForumOwner.Id.ToString(),
                 Location.Id.ToString(),
-                Comment,
+                CommentsToCSV(Comments),
                 CreationDate.ToString()
             };
             return csvValues;
