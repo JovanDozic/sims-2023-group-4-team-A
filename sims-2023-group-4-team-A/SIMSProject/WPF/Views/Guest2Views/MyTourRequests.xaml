@@ -50,6 +50,6 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button BorderBrush="#ff6700" BorderThickness="3" Background="#ebebeb" Grid.Column="1" Grid.Row="4" Height="50" Width="300" Content="Detalji" FontSize="30" FontWeight="Bold" Cursor="Hand" />
-        <Button Background="#ff6700" Grid.Column="1" Grid.Row="5" Height="50" Width="300" Content="Nova složena tura" FontSize="30" FontWeight="Bold" Cursor="Hand" />
+        <Button Click="NewComplexRequest_Click" Background="#ff6700" Grid.Column="1" Grid.Row="5" Height="50" Width="300" Content="Nova složena tura" FontSize="30" FontWeight="Bold" Cursor="Hand" />
     </Grid>
 </Page>

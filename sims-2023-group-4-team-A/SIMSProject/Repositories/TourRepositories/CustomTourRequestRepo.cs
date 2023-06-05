@@ -41,14 +41,18 @@ namespace SIMSProject.Repositories.TourRepositories
 
         public List<CustomTourRequest> GetAllByGuestId(int guestId)
         {
-            return _customTourRequests.FindAll(x => x.Guest.Id == guestId);
+            return _customTourRequests.FindAll(x => x.Guest.Id == guestId && x.ComplexTourId == -1);
         }
 
         public CustomTourRequest GetById(int id)
         {
             return _customTourRequests.Find(x => x.Id == id);
         }
-        
+        public List<CustomTourRequest> GetAllComplexTourParts(int complexTourId)
+        {
+            return _customTourRequests.FindAll(x => x.ComplexTourId == complexTourId);
+        }
+
         public List<Language> GetRequestsLanguages()
         {
             return _customTourRequests.Select(x => x.TourLanguage).Distinct().ToList();
