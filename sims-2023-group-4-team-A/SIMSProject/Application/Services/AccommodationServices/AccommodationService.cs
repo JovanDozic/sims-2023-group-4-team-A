@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Domain.Injectors;
+using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
@@ -14,12 +15,14 @@ namespace SIMSProject.Application.Services.AccommodationServices
         private readonly IAccommodationRepo _repo;
         private readonly OwnerRatingService _ratingService;
         private AccommodationReservationService _reservationService;
+        private AccommodationRenovationService _renovationService;
 
         public AccommodationService(IAccommodationRepo repo)
         {
             _repo = repo;
             _ratingService = Injector.GetService<OwnerRatingService>();
             _reservationService = Injector.GetService<AccommodationReservationService>();
+            _renovationService = Injector.GetService<AccommodationRenovationService>();
         }
 
         public void ReloadAccommodations()
@@ -120,15 +123,17 @@ namespace SIMSProject.Application.Services.AccommodationServices
                 accommodations.Add(acc);
 
             List<Accommodation> searchResults = accommodations.ToList();
-            var reservedAccommodations = _reservationService.GetAllUncancelled().FindAll(r => startDate < r.EndDate && r.StartDate < endDate);
 
-            var accommodationIdsInReservations = reservedAccommodations.Select(r => r.Accommodation.Id).ToList();
-            var futureResAccommodationsIds = _reservationService.GetAllUncancelledFromFuture().Select(r => r.Accommodation.Id).ToList();
+            var reservedAccommodations = _reservationService.GetAllUncancelled().FindAll(r => startDate < r.EndDate && r.StartDate < endDate).Select(r => r.Accommodation);
+            var renovatingAccommodations = _renovationService.GetAllUncanceled().Where(r => startDate < r.EndDate && r.StartDate < endDate).Select(r => r.Accommodation);
+
+            var commonAccommodations = reservedAccommodations.Union(renovatingAccommodations).ToList();
+
+            var accommodationsToExclude = commonAccommodations.Select(a => a.Id).ToList();
 
             if (startDate != DateTime.MinValue && endDate != DateTime.MinValue)
-                searchResults.RemoveAll(a => accommodationIdsInReservations.Contains(a.Id));
-            else
-                searchResults.RemoveAll(a => futureResAccommodationsIds.Contains(a.Id));
+                searchResults.RemoveAll(a => accommodationsToExclude.Contains(a.Id));
+            
 
             searchResults.RemoveAll(a => a.MaxGuestNumber < guestNum);
             searchResults.RemoveAll(a => a.MinReservationDays > daysNum);
@@ -144,5 +149,49 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
             return conflictingRenovations;
         }
+        public List<DateRange> FindReservedOrRenovatingDateRanges(Accommodation accommodation)
+        {
+            var reservedDateRanges = _reservationService.GetAllUncanceledByAccommodationId(accommodation.Id)
+                .Select(r => new DateRange(r.StartDate, r.EndDate))
+                .ToList();
+
+            var renovatingDateRanges = _renovationService.GetAllUncanceledByAccommodationId(accommodation.Id)
+                .Select(r => new DateRange(r.StartDate, r.EndDate))
+                .ToList();
+
+            var allDateRanges = reservedDateRanges.Concat(renovatingDateRanges).ToList();
+            var mergedDateRanges = MergeDateRanges(allDateRanges);
+
+            return mergedDateRanges;
+        }
+
+
+        private List<DateRange> MergeDateRanges(List<DateRange> dateRanges)
+        {
+            dateRanges.Sort((d1, d2) => d1.StartDate.CompareTo(d2.StartDate));
+
+            var mergedRanges = new List<DateRange>();
+
+            var currentRange = dateRanges[0];
+            for (int i = 1; i < dateRanges.Count; i++)
+            {
+                var nextRange = dateRanges[i];
+
+                if (currentRange.EndDate >= nextRange.StartDate)
+                {
+                    currentRange = new DateRange(currentRange.StartDate, nextRange.EndDate);
+                }
+                else
+                {
+                    mergedRanges.Add(currentRange);
+                    currentRange = nextRange;
+                }
+            }
+
+            mergedRanges.Add(currentRange);
+
+            return mergedRanges;
+        }
+
     }
 }

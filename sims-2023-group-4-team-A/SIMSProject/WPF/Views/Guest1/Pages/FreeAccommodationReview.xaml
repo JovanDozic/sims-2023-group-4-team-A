@@ -82,23 +82,18 @@
             <custom:ImageSlider x:Name="imageSlider" Margin="-37,152,-37,29" Grid.RowSpan="2" />
 
             <Label x:Name="FreeDates" Content="Slobodni termini:" Grid.Row="2"
-                   VerticalAlignment="Top" Visibility="Hidden"
+                   VerticalAlignment="Top"
                    HorizontalAlignment="Left"
                    FontSize="30" Margin="312,5,0,0"></Label>
             <ComboBox x:Name="DatesCombo"  FontSize="25" HorizontalContentAlignment="Center"
                       SelectedItem="{Binding SelectedRange}" Visibility="Hidden"
                       SelectionChanged="FreeDates_SelectionChanged"
                       ItemsSource="{Binding DateRanges}" DisplayMemberPath="FormattedDateRange" Grid.Row="3" Margin="217,0,217,31"></ComboBox>
-            <Label x:Name="ChooseDates"  Grid.Row="2" Visibility="Hidden" Content="Odaberite datum dolaska i datum odlaska" FontSize="28"
-                   HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0"></Label>
-            <DatePicker x:Name="FirstDate" Validation.ErrorTemplate="{x:Null}" 
-                        Loaded="DatePicker1_Loaded" Width="247" Visibility="Hidden"
-                        SelectedDateChanged="StartDate_SelectedDateChanged"
-                        SelectedDate="{Binding NewDateBegin, Mode=TwoWay}" FontSize="25" Grid.Row="3" Margin="134,0,483,31"></DatePicker>
-            <DatePicker x:Name="SecondDate" Validation.ErrorTemplate="{x:Null}" 
-                        Loaded="DatePicker2_Loaded" Width="247" Visibility="Hidden"
-                        SelectedDateChanged="EndDate_SelectedDateChanged"
-                        SelectedDate="{Binding NewDateEnd, Mode=TwoWay}" FontSize="25" Grid.Row="3" Margin="483,0,134,31"></DatePicker>
+            <ComboBox x:Name="NewDatesCombo"  FontSize="25" HorizontalContentAlignment="Center"
+                      SelectedItem="{Binding SelectedRange}" Visibility="Hidden"
+                      SelectionChanged="NewFreeDates_SelectionChanged"
+                      ItemsSource="{Binding NoDatesDateRanges}" DisplayMemberPath="FormattedDateRange" Grid.Row="3" Margin="217,0,217,31"></ComboBox>
+
             <Button Content="Rezerviši" x:Name="ReservationButton"
                     FontSize="30" Grid.Row="4" HorizontalAlignment="Center"
                     VerticalAlignment="Top" Width="240" Height="52" Click="Button_Click"
