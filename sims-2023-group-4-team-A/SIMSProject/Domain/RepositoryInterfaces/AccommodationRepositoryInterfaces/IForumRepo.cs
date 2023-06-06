@@ -15,5 +15,6 @@ namespace SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfa
         public int NextId();
         public Forum Save(Forum forum);
         public void SaveAll(List<Forum> forums);
+        void Update(Forum forum);
     }
 }

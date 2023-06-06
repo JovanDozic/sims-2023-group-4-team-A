@@ -1,6 +1,7 @@
 ﻿using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,6 +30,13 @@ namespace SIMSProject.Application.Services.AccommodationServices
         public List<Comment> GetAllByUser(User user)
         {
             return _repo.GetAll().Where(x => x.User.Id == user.Id).ToList();
+        }
+
+        public Comment CreateComment(Comment newComment)
+        {
+            newComment.CreationDate = DateTime.Now;
+            _repo.Save(newComment);
+            return newComment;
         }
     }
 }

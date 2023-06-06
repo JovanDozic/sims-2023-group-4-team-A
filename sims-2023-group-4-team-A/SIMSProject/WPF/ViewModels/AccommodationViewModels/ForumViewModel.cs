@@ -89,7 +89,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         }
         public void CreateForum()
         {
-            //_forum.ForumOwner.Id = _user.Id;
+            //_forum.ForumOwner.Id = User.Id;
             //_forumService.CreateForum(_forum);
             //ToastNotificationService.ShowSuccess("Forum uspešno kreiran");
         }

@@ -85,5 +85,13 @@ namespace SIMSProject.Repositories.AccommodationRepositories
             _fileHandler.Save(forums);
             _forums = forums;
         }
+
+        public void Update(Forum forum)
+        {
+            var forumToUpdate = _forums.Find(x => x.Id == forum.Id);
+            var index = _forums.IndexOf(forumToUpdate);
+            _forums[index] = forum;
+            _fileHandler.Save(_forums);
+        }
     }
 }

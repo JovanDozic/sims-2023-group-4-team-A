@@ -63,6 +63,7 @@
     <None Remove="Resources\Icons\user.png" />
     <None Remove="Resources\Icons\was-at-location.png" />
     <None Remove="Resources\Icons\was-not-at-location.png" />
+    <None Remove="Resources\Icons\x.png" />
     <None Remove="Resources\Images\add-renovation.png" />
     <None Remove="Resources\Images\add.png" />
 	  <None Remove="Resources\Images\cancel-renovation.png" />
@@ -168,6 +169,7 @@
     <Resource Include="Resources\Icons\user.png" />
     <Resource Include="Resources\Icons\was-at-location.png" />
     <Resource Include="Resources\Icons\was-not-at-location.png" />
+    <Resource Include="Resources\Icons\x.png" />
     <Resource Include="Resources\Images\add-renovation.png" />
     <Resource Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

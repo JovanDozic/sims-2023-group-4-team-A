@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerForumViews"
       xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
       mc:Ignorable="d" 
-      d:DesignHeight="750" d:DesignWidth="430"
+      d:DesignHeight="1000" d:DesignWidth="430"
       Title="Forum">
 
     <Page.Resources>
@@ -14,13 +14,12 @@
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" Inverted="False" />
     </Page.Resources>
 
-
-    <Grid Margin="15,0,15,10">
+    <Grid Margin="15,0,15,10" x:Name="MyGrid">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition x:Name="InputCommentRow" Height="75"/>
         </Grid.RowDefinitions>
 
         <Button x:Name="BtnBack" Grid.Row="0" Click="BtnBack_Click"
@@ -32,7 +31,6 @@
                 <TextBlock Text="{Binding Forum.Location}" Style="{StaticResource BackButtonTextStyle}"/>
             </StackPanel>
         </Button>
-
 
         <ListView x:Name="LstComments" Grid.Row="1" 
                   ItemsSource="{Binding Comments, UpdateSourceTrigger=PropertyChanged}"
@@ -116,18 +114,95 @@
         </ListView>
 
         <!-- Add comment Button -->
-        <Button x:Name="BtnAddComment" Grid.Row="3" 
+        <Button x:Name="BtnAddCommentInputForm" Grid.Row="2" 
                 IsEnabled="{Binding CanUserLeaveComment}"
                 Visibility="{Binding CanUserLeaveComment, Converter={StaticResource BooleanToVisibilityConverter}}"
-                Margin="0,0,0,-20"
+                Margin="0,12.5,0,0"
                 Style="{StaticResource MobileActionSingleButtonStyle}"
-                Click="BtnAddComment_Click">
+                Click="BtnAddCommentInputForm_Click">
             <StackPanel Orientation="Horizontal">
                 <Image Source="/Resources/Icons/comment.png" Height="17.5" Margin="0,0,10,0" 
                        Style="{StaticResource IconRenderStyle}"/>
                 <TextBlock Text="Ostavi komentar" VerticalAlignment="Center" Margin="0,0,0,0"/>
             </StackPanel>
         </Button>
+
+        <!-- Comment Input Form -->
+        <Border x:Name="CommentInputForm" Grid.Row="3"
+                BorderThickness="0" BorderBrush="Transparent" Background="#eeeeee"
+                Margin="0,15,0,5"
+                Visibility="Collapsed">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="1" Color="Black" Opacity="0.5" 
+                                  BlurRadius="10" Direction="90"/>
+            </Border.Effect>
+            <Grid Margin="15,15,15,5" DataContext="{Binding NewComment}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="27.5"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <!-- Header (Location icon, username, role) -->
+                <StackPanel Orientation="Horizontal"
+                                        Grid.Column="0" Grid.Row="0"
+                                        Grid.ColumnSpan="2"
+                                        Width="385"
+                                        Margin="0,0,0,5">
+                    <Image Source="{Binding CommentUserIcon}"
+                                       Style="{StaticResource IconRenderStyle}"
+                                       Height="17.5"/>
+                    <TextBlock Text="{Binding User.Username}"
+                                           FontSize="17.5"
+                                           FontWeight="Bold"
+                                           VerticalAlignment="Bottom"
+                                           Margin="10,0,0,0"/>
+                    <TextBlock Text="{Binding User.Role}"
+                                           FontSize="12.5"
+                                           Foreground="Gray"
+                                           VerticalAlignment="Bottom"
+                                           Margin="10,0,0,2"/>
+                </StackPanel>
+
+                <!-- Comment content -->
+                <TextBox x:Name="TxtNewComment" Grid.Row="1" Grid.ColumnSpan="2"
+                         Style="{StaticResource MobileTextBoxInput}"
+                         Text="{Binding Text}"/>
+
+                <!-- Action buttons -->
+                <Button x:Name="BtnCancelAddingComment" 
+                        Grid.Column="0" Grid.Row="3"
+                        HorizontalAlignment="Center"
+                        Width="150" Background="White"
+                        Style="{StaticResource MobileActionHalfButtonStyle}"
+                        Click="BtnCancelAddingComment_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resources/Icons/x.png" Height="17.5" Margin="0,0,10,0" 
+                               Style="{StaticResource IconRenderStyle}"/>
+                        <TextBlock Text="Otkaži" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                    </StackPanel>
+                </Button>
+                
+                <Button x:Name="BtnAddComment"
+                        Grid.Column="1" Grid.Row="3"
+                        HorizontalAlignment="Center"
+                        Width="150" Background="White"
+                        Style="{StaticResource MobileActionHalfButtonStyle}"
+                        Click="BtnAddComment_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resources/Icons/check.png" Height="17.5" Margin="0,0,10,0" 
+                               Style="{StaticResource IconRenderStyle}"/>
+                        <TextBlock Text="Pošalji" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                    </StackPanel>
+                </Button>
+
+            </Grid>
+        </Border>
 
     </Grid>
 </Page>

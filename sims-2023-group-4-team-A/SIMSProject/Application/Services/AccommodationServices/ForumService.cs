@@ -1,4 +1,5 @@
-﻿using SIMSProject.Domain.Models;
+﻿using SIMSProject.Domain.Injectors;
+using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
@@ -12,10 +13,12 @@ namespace SIMSProject.Application.Services.AccommodationServices
     public class ForumService
     {
         private readonly IForumRepo _repo;
+        private CommentService _commentService;
 
         public ForumService(IForumRepo repo)
         {
             _repo = repo;
+            _commentService = Injector.GetService<CommentService>();
         }
 
         public List<Forum> GetAll()
@@ -46,6 +49,14 @@ namespace SIMSProject.Application.Services.AccommodationServices
         public List<Forum> GetAllByLocation(Location location)
         {
             return GetAll().FindAll(x => x.Location.Id == location.Id);
+        }
+
+        public Comment AddNewComment(Forum forum, Comment newComment)
+        {
+            newComment = _commentService.CreateComment(newComment);
+            forum.Comments.Add(newComment);
+            _repo.Update(forum);
+            return newComment;
         }
     }
 }

@@ -43,19 +43,21 @@
                                VerticalAlignment="Top"
                                Margin="0,4,10,0"/>
 
-                        <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="10,0,0,0">
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="10,0,0,0"
+                                    VerticalAlignment="Center">
                             <TextBlock FontSize="17.5" Text="{Binding}"
+                                       TextWrapping="Wrap"/>
+                            <StackPanel Orientation="Horizontal" Margin="7.5,2,0,0">
+                                <TextBlock FontSize="12" Text="("
                                        TextWrapping="Wrap"
-                                       Margin="0,0,0,0"/>
-                            <TextBlock FontSize="12" Text="-"
+                                       VerticalAlignment="Center"/>
+                                <TextBlock FontSize="12" Text="{Binding ForumsCount}"
                                        TextWrapping="Wrap"
-                                       Margin="7.5,6,0,0"/>
-                            <TextBlock FontSize="12" Text="{Binding ForumsCount}"
+                                       VerticalAlignment="Center"/>
+                                <TextBlock FontSize="12" Text=")"
                                        TextWrapping="Wrap"
-                                       Margin="4,6,0,0"/>
-                            <TextBlock FontSize="12" Text=""
-                                       TextWrapping="Wrap"
-                                       Margin="4,6,0,0"/>
+                                       VerticalAlignment="Center"/>
+                            </StackPanel>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>

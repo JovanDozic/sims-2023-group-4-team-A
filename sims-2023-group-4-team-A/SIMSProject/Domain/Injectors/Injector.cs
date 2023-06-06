@@ -176,6 +176,7 @@ namespace SIMSProject.Domain.Injectors
             services.AddScoped<CustomTourRequestStatisticsService>();
             services.AddScoped<RenovationSuggestionService>();
             services.AddScoped<ForumService>();
+            services.AddScoped<CommentService>();
             services.AddScoped<GuideService>();
 
             return services.BuildServiceProvider();
