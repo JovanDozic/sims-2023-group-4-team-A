@@ -42,5 +42,10 @@ namespace SIMSProject.Application.Services.AccommodationServices
             }
             return locations;
         }
+
+        public List<Forum> GetAllByLocation(Location location)
+        {
+            return GetAll().FindAll(x => x.Location.Id == location.Id);
+        }
     }
 }

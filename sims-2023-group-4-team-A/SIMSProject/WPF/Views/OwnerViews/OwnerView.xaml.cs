@@ -69,7 +69,7 @@ namespace SIMSProject.WPF.Views.OwnerViews
                     "NavBtnNotifications" => new OwnerNotificationsView(_user),
                     "NavBtnAccommodations" => new OwnerMyAccommodationsView(_user),
                     "NavBtnHome" => new OwnerHomeView(),
-                    "NavBtnForums" => new OwnerAllForumsView(_user),
+                    "NavBtnForums" => new OwnerForumLocationsView(_user),
                     _ => new OwnerAccountView(_user),
                 }
             );

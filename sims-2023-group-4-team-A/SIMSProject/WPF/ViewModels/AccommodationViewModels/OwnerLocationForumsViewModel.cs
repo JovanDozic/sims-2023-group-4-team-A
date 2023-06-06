@@ -1,27 +1,27 @@
 ﻿using SIMSProject.Application.Services.AccommodationServices;
 using SIMSProject.Domain.Injectors;
+using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 {
-    public class OwnerForumViewModel
+    public class OwnerLocationForumsViewModel
     {
-        private User _user;
         private ForumService _forumService;
-
+        public Location Location { get; set; }
         public Forum Forum { get; set; } = new();
+        public ObservableCollection<Forum> Forums { get; set; }
 
-        public ObservableCollection<Comment> Comments { get; set; }
-
-        public OwnerForumViewModel(User user, Forum forum)
+        public OwnerLocationForumsViewModel(User user, Location location)
         {
-            _user = user;
-            Forum = forum;
+            Location = location;
             _forumService = Injector.GetService<ForumService>();
 
-            Comments = new(Forum.Comments);
+            Forums = new(_forumService.GetAllByLocation(Location));
         }
     }
 }

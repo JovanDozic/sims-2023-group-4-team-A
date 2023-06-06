@@ -1,6 +1,6 @@
-1|1|Super Gost|Ovo je prvi komentar.|5.6.2023. 13:31:00|0
-2|2|Gost |Ovo je drugi komentar.|5.6.2023. 13:32:00|0
-3|1|Super Gost|Ovo je treci komentar.|5.6.2023. 13:33:00|0
-4|2|Gost |Ovo je cetvrti komentar.|5.6.2023. 13:34:00|0
-5|1|Super Gost|Ovo je peti komentar.|5.6.2023. 13:35:00|0
-6|2|Gost |Ovo je sesti komentar.|5.6.2023. 13:36:00|0
+1|1|Super Gost|true|Ovo je prvi komentar.|5.6.2023. 13:31:00|0
+2|2|Gost |false|Ovo je drugi komentar.|5.6.2023. 13:32:00|0
+3|1|Super Gost|true|Ovo je treci komentar.|5.6.2023. 13:33:00|0
+4|2|Gost |true|Ovo je cetvrti komentar.|5.6.2023. 13:34:00|0
+5|1|Super Gost|true|Ovo je peti komentar.|5.6.2023. 13:35:00|0
+6|2|Gost |false|Ovo je sesti komentar.|5.6.2023. 13:36:00|0

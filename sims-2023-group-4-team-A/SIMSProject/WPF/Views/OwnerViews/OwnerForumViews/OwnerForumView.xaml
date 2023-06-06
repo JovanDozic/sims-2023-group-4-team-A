@@ -1,0 +1,38 @@
+﻿<Page x:Class="SIMSProject.WPF.Views.OwnerViews.OwnerForumViews.OwnerForumView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerForumViews"
+      mc:Ignorable="d" 
+      d:DesignHeight="750" d:DesignWidth="430"
+      Title="Forum">
+
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Page.Resources>
+
+    <Grid Margin="15,0,15,10">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Button x:Name="BtnBack" Grid.Row="0" Click="BtnBack_Click"
+                Style="{StaticResource BackButtonStyle}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Resources/Icons/back.png"
+                       Style="{StaticResource BackButtonIconStyle}"/>
+                <TextBlock Text="Nazad - Forumi" Style="{StaticResource BackButtonTextStyle}"/>
+            </StackPanel>
+        </Button>
+
+        <TextBlock Text="{Binding Comments.Count}" Grid.Row="1"
+                   FontSize="30" FontWeight="SemiBold"
+                   HorizontalAlignment="Left" VerticalAlignment="Top"
+                   TextWrapping="Wrap"/>
+        
+    </Grid>
+</Page>

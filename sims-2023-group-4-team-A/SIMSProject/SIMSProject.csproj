@@ -38,6 +38,7 @@
     <None Remove="Resources\Icons\image.png" />
     <None Remove="Resources\Icons\left.png" />
     <None Remove="Resources\Icons\location.png" />
+    <None Remove="Resources\Icons\lock-gray.png" />
     <None Remove="Resources\Icons\logo.png" />
     <None Remove="Resources\Icons\notif-location-check.png" />
     <None Remove="Resources\Icons\notif-location-x.png" />
@@ -50,6 +51,7 @@
     <None Remove="Resources\Icons\star-fill.png" />
     <None Remove="Resources\Icons\star-half.png" />
     <None Remove="Resources\Icons\star.png" />
+    <None Remove="Resources\Icons\stars.png" />
     <None Remove="Resources\Icons\trophy.png" />
     <None Remove="Resources\Icons\user-fill.png" />
     <None Remove="Resources\Icons\user.png" />
@@ -126,6 +128,7 @@
     <Resource Include="Resources\Icons\image.png" />
     <Resource Include="Resources\Icons\left.png" />
     <Resource Include="Resources\Icons\location.png" />
+    <Resource Include="Resources\Icons\lock-gray.png" />
     <Resource Include="Resources\Icons\notif-location-check.png" />
     <Resource Include="Resources\Icons\notif-location-x.png" />
     <Resource Include="Resources\Icons\notif-star.png" />
@@ -145,6 +148,7 @@
     <Resource Include="Resources\Icons\star.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Icons\stars.png" />
     <Resource Include="Resources\Icons\trophy.png" />
     <Resource Include="Resources\Icons\user-fill.png" />
     <Resource Include="Resources\Icons\user.png" />

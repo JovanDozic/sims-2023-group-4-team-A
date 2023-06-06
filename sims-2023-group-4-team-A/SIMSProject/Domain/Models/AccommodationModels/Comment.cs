@@ -8,6 +8,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
     {
         public int Id { get; set; }
         public User User { get; set; } = new();
+        public bool WasAtLocation { get; set; } = true;
         public string Text { get; set; } = string.Empty;
         public DateTime CreationDate { get; set; } = DateTime.Now;
         public int Downvotes { get; set; } = 0;
@@ -21,6 +22,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             if (original is null) return;
             Id = original.Id;
             User = original.User;
+            WasAtLocation = original.WasAtLocation;
             Text = original.Text;
             CreationDate = original.CreationDate;
             Downvotes = original.Downvotes;
@@ -33,6 +35,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
                 Id.ToString(),
                 User.Id.ToString(),
                 User.GetRole(User.Role),
+                WasAtLocation.ToString(),
                 Text,
                 CreationDate.ToString(),
                 Downvotes.ToString()
@@ -46,9 +49,15 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             Id = int.Parse(values[i++]);
             User.Id = int.Parse(values[i++]);
             User.Role = User.GetRole(values[i++]);
+            WasAtLocation = bool.Parse(values[i++]);
             Text = values[i++];
             CreationDate = DateTime.Parse(values[i++]);
             Downvotes = int.Parse(values[i++]);
+        }
+
+        public string WasAtLocationIcon
+        {
+            get => WasAtLocation ? "/Resources/Icons/notif-location-check.png" : "/Resources/Icons/notif-location-x.png";
         }
     }
 }

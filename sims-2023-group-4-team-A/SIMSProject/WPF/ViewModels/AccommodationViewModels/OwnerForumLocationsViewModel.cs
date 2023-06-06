@@ -7,15 +7,16 @@ using System.Collections.ObjectModel;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 {
-    public class OwnerForumLocationViewModel
+    public class OwnerForumLocationsViewModel
     {
         private User _user;
         private LocationService _locationService;
         private ForumService _forumService;
 
         public ObservableCollection<Location> Locations { get; set; }
+        public Location Location { get; set; } = new();
 
-        public OwnerForumLocationViewModel(User user)
+        public OwnerForumLocationsViewModel(User user)
         {
             _user = user;
             _locationService = Injector.GetService<LocationService>();

@@ -22,6 +22,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
         public void CreateForum(Comment comment)
         {
+            // TODO: treba da se zabelezi da li j egost bio na toj lokaciji
             _repo.Save(comment);
         }
 
