@@ -22,5 +22,15 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerForumViews
         {
             NavigationService?.GoBack();
         }
+
+        private void BtnDownvoteComment_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnAddComment_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
     }
 }

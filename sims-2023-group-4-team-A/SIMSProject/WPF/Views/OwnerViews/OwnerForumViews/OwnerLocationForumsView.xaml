@@ -68,7 +68,7 @@
                                         Grid.ColumnSpan="2"
                                         Width="385"
                                         Margin="0,0,0,5">
-                                <Image Source="{Binding Comments[0].WasAtLocationIcon}"
+                                <Image Source="{Binding Comments[0].CommentUserIcon}"
                                        Style="{StaticResource IconRenderStyle}"
                                        Height="17.5"/>
                                 <TextBlock Text="{Binding Comments[0].User.Username}"

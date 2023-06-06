@@ -55,9 +55,15 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             Downvotes = int.Parse(values[i++]);
         }
 
-        public string WasAtLocationIcon
+        public string CommentUserIcon
         {
-            get => WasAtLocation ? "/Resources/Icons/notif-location-check.png" : "/Resources/Icons/notif-location-x.png";
+            get
+            {
+                if (User.Role == UserRole.Guest1 || User.Role == UserRole.SuperGuest) return WasAtLocation ? "/Resources/Icons/was-at-location.png" : "/Resources/Icons/was-not-at-location.png";
+                if (User.Role == UserRole.Owner) return "/Resources/Icons/is-owner.png";
+                if (User.Role == UserRole.SuperOwner) return "/Resources/Icons/is-superowner.png";
+                return "/Resources/Icons/question.png";
+            }
         }
     }
 }
