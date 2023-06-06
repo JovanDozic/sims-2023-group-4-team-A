@@ -1,4 +1,5 @@
-﻿using SIMSProject.WPF.ViewModels.TourViewModels.ComplexTourRequestsViewModels;
+﻿using SIMSProject.View.GuideViews;
+using SIMSProject.WPF.ViewModels.TourViewModels.ComplexTourRequestsViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,13 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews.ComplexTourRequests
             InitializeComponent();
             this.DataContext = ViewModel;
 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new TourCreation();
+            window.Show();
+            this.Close();
         }
     }
 }

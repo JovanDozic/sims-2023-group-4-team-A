@@ -9,12 +9,14 @@ using SIMSProject.Domain.Models.TourModels;
 using System.Collections.ObjectModel;
 using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
+using System.Windows.Input;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels.ComplexTourRequestsViewModels
 {
     public class AcceptComplexPartViewModel: ViewModelBase
     {
         private readonly ComplexTourRequestService _service;
+        private readonly CustomTourRequestService _requestService;
         private ObservableCollection<DateTime> _freeDates = new();
         private DateTime _startDate;
         public DateTime StartDate
@@ -85,15 +87,35 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ComplexTourRequestsViewModel
         }
         public AcceptComplexPartViewModel()
         {
+            _requestService = Injector.GetService<CustomTourRequestService>();
             _service = Injector.GetService<ComplexTourRequestService>();
             MessageBus.Subscribe<ScheduleRequestMessage>(this, OpenMessage);
-        }
 
+            AcceptCommand = new RelayCommand(AcceptCommandExecute, AcceptCommandCanExecute);
+        }
         private void OpenMessage(ScheduleRequestMessage message)
         {
             TourRequest = message.Request;
             StartDate = TourRequest.StartDate;
             EndDate = TourRequest.EndDate;
         }
+        #region AcceptRequestCommand
+        public ICommand AcceptCommand { get; private set; }
+        public bool AcceptCommandCanExecute()
+        {
+            return SelectedDate != DateTime.MinValue;
+        }
+        public void AcceptCommandExecute()
+        {
+            _requestService.ApproveRequest(TourRequest);
+            SendMessage();
+        }
+
+        public void SendMessage()
+        {
+            var message = new CreateRequestedMessage(this, TourRequest, SelectedDate, Duration);
+            MessageBus.Publish(message);
+        }
+        #endregion
     }
 }
