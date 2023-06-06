@@ -22,6 +22,7 @@ namespace SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces
         public List<Tour> GetTodaysTours();
         public List<TourAppointment> GetAllUpcoming(int guideId);
         public List<TourAppointment> GetSuperGuideEligible(int GuideId, Language language);
+        public List<TourAppointment> FindOverlapped(DateTime currentDate, List<TourAppointment> scheduled, DateTime appointmentEnd);
     }
 
 }

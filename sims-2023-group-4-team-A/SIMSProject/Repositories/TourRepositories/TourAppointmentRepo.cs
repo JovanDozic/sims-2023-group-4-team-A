@@ -135,5 +135,13 @@ namespace SIMSProject.Repositories.TourRepositories
         {
             return _tourAppointments.Where(x => x.Guide.Id == guideId  && DateTime.Compare(x.Date, DateTime.Now) > 0  && x.TourStatus != Status.CANCELED).ToList();
         }
+        public List<TourAppointment> FindOverlapped(DateTime currentDate, List<TourAppointment> scheduled, DateTime appointmentEnd)
+        {
+            return scheduled.FindAll(x => (DateTime.Compare(currentDate, x.Date) >= 0 && DateTime.Compare(currentDate, x.AppointmentsEnd) <= 0)
+                                                           || (DateTime.Compare(currentDate, x.Date) <= 0 && DateTime.Compare(appointmentEnd, x.AppointmentsEnd) >= 0)
+                                                           || (DateTime.Compare(appointmentEnd, x.Date) >= 0 && DateTime.Compare(appointmentEnd, x.AppointmentsEnd) <= 0)
+                                                           || (DateTime.Compare(currentDate, x.Date) >= 0 && DateTime.Compare(appointmentEnd, x.AppointmentsEnd) <= 0))
+                .OrderByDescending(x => x.AppointmentsEnd).ToList();
+        }
     }
 }

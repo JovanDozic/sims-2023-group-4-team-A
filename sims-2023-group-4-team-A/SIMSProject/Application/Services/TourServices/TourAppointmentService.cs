@@ -101,5 +101,9 @@ namespace SIMSProject.Application.Services.TourServices
         {
             return _repo.GetSuperGuideEligible(GuideId, language);
         }
+        public List<TourAppointment> FindOverlapped(DateTime currentDate, List<TourAppointment> scheduled, DateTime appointmentEnd)
+        {
+            return _repo.FindOverlapped(currentDate, scheduled, appointmentEnd);
+        }
     }
 }

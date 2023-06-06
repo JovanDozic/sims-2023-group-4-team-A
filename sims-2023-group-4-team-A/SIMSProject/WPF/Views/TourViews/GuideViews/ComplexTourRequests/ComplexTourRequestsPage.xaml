@@ -22,6 +22,7 @@
                   Width="595" Height="130"
                   HorizontalAlignment="Left"
                   FontSize="28"
+                  IsReadOnly="True"
                   CanUserAddRows="False" AutoGenerateColumns="False"
                   ItemsSource="{Binding Path=ComplexTourRequests, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedRequest, UpdateSourceTrigger=PropertyChanged}">
@@ -36,12 +37,25 @@
                   Width="925" Height="200"
                   HorizontalAlignment="Left" VerticalAlignment="Top"
                   FontSize="28"
+                  SelectionMode="Single"
+                  IsReadOnly="True"
                   CanUserAddRows="False" AutoGenerateColumns="False"
+                  SelectedItem="{Binding Path=SelectedPart, UpdateSourceTrigger=PropertyChanged}"
                   ItemsSource="{Binding Path=SelectedRequest.Parts, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Lokacija" Binding="{Binding Path=Location, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="Jezik" Width="*" Binding="{Binding Path=TourLanguage, Converter={StaticResource TourLanguageConverter}}"/>
-                <DataGridTextColumn Header="Termin" Binding="{Binding Path=FormattedDateRange}"/>
+                <DataGridTextColumn Header="Jezik" Binding="{Binding Path=TourLanguage, Converter={StaticResource TourLanguageConverter}}"/>
+                <DataGridTemplateColumn Header="Termin">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Path=StartDate,UpdateSourceTrigger=PropertyChanged,StringFormat='dd.MM.yyyy'}"/>
+                                <TextBlock Text=" - "/>
+                                <TextBlock Text="{Binding Path=EndDate,UpdateSourceTrigger=PropertyChanged, StringFormat='dd.MM.yyyy.'}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Broj gostiju" Binding="{Binding Path=GuestCount}"/>
                 <DataGridTextColumn Header="Status" Binding="{Binding Path=RequestStatus, Converter={StaticResource TourRequestStatusConverter}}"/>
             </DataGrid.Columns>
@@ -51,6 +65,8 @@
                 Margin="20,0,0,20"
                 Height="36" Width="320"
                 FontSize="28"
-                Content="Izlistaj moguće termine"/>
+                Content="Izlistaj moguće termine"
+                Command="{Binding Path=GetPotentialAppointmentsCommand}"
+                Click="Button_Click"/>
     </Grid>
 </Page>

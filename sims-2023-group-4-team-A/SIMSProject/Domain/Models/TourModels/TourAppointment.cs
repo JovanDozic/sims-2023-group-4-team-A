@@ -13,6 +13,7 @@ namespace SIMSProject.Domain.Models.TourModels
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
+        public DateTime AppointmentsEnd { get => this.Date.AddHours(this.Tour.Duration); }
         public Status TourStatus { get; set; } = Status.INACTIVE;
         public int AvailableSpots { get; set; }
         public Tour Tour { get; set; } = new();
@@ -38,7 +39,7 @@ namespace SIMSProject.Domain.Models.TourModels
         {
             return DateTime.Compare(DateTime.Now, date) > 0;
         }
-
+        
         public override string ToString()
         {
             return $"{Date}, {TourStatus}";

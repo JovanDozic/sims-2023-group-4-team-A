@@ -4,27 +4,43 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMSProject.WPF.Views.TourViews.GuideViews.ComplexTourRequests"
+        xmlns:converter="clr-namespace:SIMSProject.WPF.Converters"
+        xmlns:cstm="clr-namespace:SIMSProject.WPF.CustomControls"
         mc:Ignorable="d"
         Title="Mogući termini" Height="400" Width="500"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <converter:TourAppointmentDateTimeConverter x:Key="DateConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0"
-                   Margin="20,20,20,0"
+                   Text="{Binding Path=TourRequest.Description}"
+                   Margin="20,20,20,20"
                    FontSize="24"/>
         <StackPanel Grid.Row="1">
             <StackPanel Orientation="Horizontal"
-                        Margin="0,10,0,0">
+                        Margin="0,10,0,0"
+                        HorizontalAlignment="Center">
                 <Label Height="40" Width="185"
-                       Margin="60,0,0,0"
                        FontSize="24"
                        Content="Odaberi trajanje:"/>
+                <cstm:NumericBox Value="{Binding Path=Duration, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
             </StackPanel>
             <ListBox Height="100" Width="380"
-                     Margin="0,10,0,0"/>
+                     Margin="0,10,0,0"
+                     FontSize="24"
+                     ItemsSource="{Binding Path=FreeDates, UpdateSourceTrigger=PropertyChanged}"
+                     SelectedItem="{Binding Path=SelectedDate, UpdateSourceTrigger=PropertyChanged}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=., StringFormat='dd.MM.yyyy. HH:mm'}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
             <Button Content="Prihvati deo ture"
                     FontSize="24"
                     Height="36" Width="220"
