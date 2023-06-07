@@ -1,0 +1,57 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!-- Colors -->
+    <SolidColorBrush x:Key="BackgroundColor" Color="White"/>
+    <SolidColorBrush x:Key="TextColor" Color="Black"/>
+    <SolidColorBrush x:Key="CardBackgroundColor" Color="#eeeeee"/>
+
+    <!-- Icon Sources -->
+    <BitmapImage x:Key="BookbnbIcon" 
+                 UriSource="../../../Resources/Icons/bookbnb.png"/>
+    <BitmapImage x:Key="NotificationsMenuIcon" 
+                 UriSource="../../../Resources/Icons/bell.png"/>
+    <BitmapImage x:Key="AccommodationsMenuIcon" 
+                 UriSource="../../../Resources/Icons/bed.png"/>
+    <BitmapImage x:Key="HomeMenuIcon" 
+                 UriSource="../../../Resources/Icons/home.png"/>
+    <BitmapImage x:Key="ForumsMenuIcon" 
+                 UriSource="../../../Resources/Icons/forum.png"/>
+    <BitmapImage x:Key="AccountMenuIcon" 
+                 UriSource="../../../Resources/Icons/user.png"/>
+    <BitmapImage x:Key="AddAccommodationIcon"
+                 UriSource="/Resources/Icons/plus.png"/>
+
+
+    <BitmapImage x:Key="StarFillIcon" 
+                 UriSource="/Resources/Icons/star-fill.png"/>
+    <BitmapImage x:Key="StarHalfIcon" 
+                 UriSource="/Resources/Icons/star-half.png"/>
+    <BitmapImage x:Key="StarIcon" 
+                 UriSource="/Resources/Icons/star.png"/>
+    
+    <!--<BitmapImage x:Key="" 
+                 UriSource=""/>
+    <BitmapImage x:Key="" 
+                 UriSource=""/>
+    <BitmapImage x:Key="" UriSource=""/>
+    <BitmapImage x:Key="" UriSource=""/>
+    <BitmapImage x:Key="" UriSource=""/>
+    <BitmapImage x:Key="" UriSource=""/>
+    <BitmapImage x:Key="" UriSource=""/>
+    <BitmapImage x:Key="" UriSource=""/>
+    <BitmapImage x:Key="" UriSource=""/>
+    <BitmapImage x:Key="" UriSource=""/>
+    <BitmapImage x:Key="" UriSource=""/>
+    <BitmapImage x:Key="" UriSource=""/>
+    <BitmapImage x:Key="" UriSource=""/>
+    <BitmapImage x:Key="" UriSource=""/>
+    <BitmapImage x:Key="" UriSource=""/>
+    <BitmapImage x:Key="" UriSource=""/>
+    <BitmapImage x:Key="" UriSource=""/>
+    <BitmapImage x:Key="" UriSource=""/>
+    <BitmapImage x:Key="" UriSource=""/>
+    <BitmapImage x:Key="" UriSource=""/>
+    <BitmapImage x:Key="" UriSource=""/>
+    <BitmapImage x:Key="" UriSource=""/>-->
+</ResourceDictionary>

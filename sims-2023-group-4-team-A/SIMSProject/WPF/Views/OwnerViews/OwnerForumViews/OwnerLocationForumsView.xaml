@@ -26,20 +26,23 @@
             <StackPanel Orientation="Horizontal">
                 <Image Source="/Resources/Icons/back.png"
                        Style="{StaticResource BackButtonIconStyle}"/>
-                <TextBlock Text="Nazad - Forumi" Style="{StaticResource BackButtonTextStyle}"/>
+                <TextBlock Text="Nazad - Forumi" Style="{StaticResource BackButtonTextStyle}"
+                           Foreground="{DynamicResource TextColor}"/>
             </StackPanel>
         </Button>
 
         <TextBlock Text="{Binding Location}" Grid.Row="1"
                    FontSize="30" FontWeight="SemiBold"
                    HorizontalAlignment="Left" VerticalAlignment="Top"
-                   TextWrapping="Wrap"/>
+                   TextWrapping="Wrap"
+                   Foreground="{DynamicResource TextColor}"/>
 
         <ListView x:Name="LstForums" Grid.Row="2" 
                   ItemsSource="{Binding Forums, UpdateSourceTrigger=PropertyChanged}"
                   Background="Transparent"
                   BorderThickness="0"
                   BorderBrush="Transparent" 
+                  Foreground="{DynamicResource TextColor}"
                   ScrollViewer.CanContentScroll="False"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
@@ -47,7 +50,8 @@
                   SelectionChanged="LstForums_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderThickness="0" BorderBrush="Transparent" Background="#eeeeee"
+                    <Border BorderThickness="0" BorderBrush="Transparent" 
+                            Background="{DynamicResource CardBackgroundColor}"
                             Margin="0,0,0,15">
                         <Grid Margin="15,15">
 

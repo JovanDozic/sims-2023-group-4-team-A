@@ -28,8 +28,10 @@
             <StackPanel Orientation="Horizontal">
                 <Image Source="/Resources/Icons/back.png"
                        Style="{StaticResource BackButtonIconStyle}"/>
-                <TextBlock Text="Nazad - Forumi - " Style="{StaticResource BackButtonTextStyle}"/>
-                <TextBlock Text="{Binding Forum.Location}" Style="{StaticResource BackButtonTextStyle}"/>
+                <TextBlock Text="Nazad - Forumi - " Style="{StaticResource BackButtonTextStyle}"
+                           Foreground="{DynamicResource TextColor}"/>
+                <TextBlock Text="{Binding Forum.Location}" Style="{StaticResource BackButtonTextStyle}"
+                           Foreground="{DynamicResource TextColor}"/>
             </StackPanel>
         </Button>
 
@@ -38,6 +40,7 @@
                   Background="Transparent"
                   BorderThickness="0"
                   BorderBrush="Transparent" 
+                  Foreground="{DynamicResource TextColor}"
                   ScrollViewer.CanContentScroll="False"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
@@ -50,7 +53,8 @@
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderThickness="0" BorderBrush="Transparent" Background="#eeeeee"
+                    <Border BorderThickness="0" BorderBrush="Transparent"
+                            Background="{DynamicResource CardBackgroundColor}"
                             Margin="0,0,0,15">
                         <Grid Margin="15,15">
 
@@ -108,7 +112,8 @@
                                     <TextBlock Text="{Binding Downvotes, UpdateSourceTrigger=PropertyChanged}"
                                                FontSize="17.5"
                                                VerticalAlignment="Center"
-                                               Margin="0,0,10,0"/>
+                                               Margin="0,0,10,0"
+                                               Foreground="{DynamicResource TextColor}"/>
                                     <Image Source="{Binding UserDownvotedIcon}"
                                            Style="{StaticResource IconRenderStyle}"
                                            Height="17.5"/>

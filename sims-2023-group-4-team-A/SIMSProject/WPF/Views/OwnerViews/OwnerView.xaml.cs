@@ -1,10 +1,13 @@
-﻿using SIMSProject.Domain.Models.UserModels;
+﻿using Microsoft.VisualStudio.Services.Commerce;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews;
 using SIMSProject.WPF.Views.OwnerViews.OwnerAccountViews;
 using SIMSProject.WPF.Views.OwnerViews.OwnerForumViews;
 using SIMSProject.WPF.Views.OwnerViews.OwnerNotificationViews;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,7 +20,7 @@ namespace SIMSProject.WPF.Views.OwnerViews
     public partial class OwnerView : Page, INotifyPropertyChanged
     {
         private User _user = new();
-
+        private App App => (App)System.Windows.Application.Current;
 
         public OwnerView(User user)
         {
@@ -104,5 +107,21 @@ namespace SIMSProject.WPF.Views.OwnerViews
             Storyboard storyboard = (Storyboard)FindResource("FadeAnimation");
             storyboard.Begin(MainFrame);
         }
+
+        private void TextBlock_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (App.CurrentTheme == "Light")
+            {
+                App.SwitchTheme("Dark");
+                App.CurrentTheme = "Dark";
+            }
+            else
+            {
+                App.SwitchTheme("Light");
+                App.CurrentTheme = "Light";
+            }
+        }
+
+       
     }
 }

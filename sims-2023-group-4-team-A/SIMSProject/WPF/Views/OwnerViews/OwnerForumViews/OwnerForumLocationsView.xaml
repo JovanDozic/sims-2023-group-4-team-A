@@ -16,14 +16,16 @@
         </Grid.RowDefinitions>
 
         <Label Content="Forumi" Grid.Row="0"
-                   FontSize="30" FontWeight="SemiBold"
-                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+               FontSize="30" FontWeight="SemiBold"
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Foreground="{DynamicResource TextColor}"/>
 
         <ListView x:Name="LstLocations" Grid.Row="1" 
                   ItemsSource="{Binding Locations, UpdateSourceTrigger=PropertyChanged}"
                   Background="Transparent"
                   BorderThickness="0"
                   BorderBrush="Transparent" 
+                  Foreground="{DynamicResource TextColor}"
                   ScrollViewer.CanContentScroll="False"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
