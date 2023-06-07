@@ -1,6 +1,10 @@
-﻿using SIMSProject.Domain.Models.UserModels;
+﻿using Dynamitey.DynamicObjects;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Serializer;
+using SIMSProject.WPF.ViewModels.TourViewModels;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SIMSProject.Domain.Models.TourModels
 {
@@ -10,7 +14,9 @@ namespace SIMSProject.Domain.Models.TourModels
         public int Id { get; set; }
         public Guest2 Guest { get; set; } = new();
         public string Name { get; set; } = string.Empty;
+        public List<CustomTourRequest> Parts { get; set; } = new();
         public RequestStatus Status { get; set;}
+        public bool ArePartsAvailable { get => !Parts.Any(x => x.AssignedGuideId == GuideHomeViewModel.Guide.Id); }
 
         public ComplexTourRequest() { }
 

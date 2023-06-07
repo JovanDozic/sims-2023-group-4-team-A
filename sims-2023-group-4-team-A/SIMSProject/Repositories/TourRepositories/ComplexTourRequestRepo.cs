@@ -1,7 +1,9 @@
-﻿using SIMSProject.Domain.Models.TourModels;
+﻿using Microsoft.VisualStudio.Services.Common;
+using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using SIMSProject.FileHandlers.TourFileHandlers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,13 +13,32 @@ namespace SIMSProject.Repositories.TourRepositories
     {
         public readonly ComplexTourRequestFileHandler _fileHandler;
         private readonly IGuest2Repo _guestRepo;
+        private readonly ICustomTourRequestRepo _customTourRequestRepo;
         private List<ComplexTourRequest> _complexTourRequests;
-        public ComplexTourRequestRepo(IGuest2Repo guestRepo)
+        public ComplexTourRequestRepo(IGuest2Repo guestRepo, ICustomTourRequestRepo customTourRequestRepo)
         {
             _fileHandler = new ComplexTourRequestFileHandler();
             _complexTourRequests = _fileHandler.Load();
             _guestRepo = guestRepo;
-            MapGuests();
+            _customTourRequestRepo = customTourRequestRepo;
+            MapComplexTours();
+        }
+        
+        private void MapComplexTours()
+        {
+            foreach (var complexTourRequest in _complexTourRequests)
+            {
+                MapGuests(complexTourRequest);
+                MapParts(complexTourRequest);
+            }
+        }
+        private void MapParts(ComplexTourRequest complexTourRequest)
+        {
+            complexTourRequest.Parts.AddRangeIfRangeNotNull(_customTourRequestRepo.GetAllComplexTourParts(complexTourRequest.Id));
+        }
+        private void MapGuests(ComplexTourRequest complexTourRequest)
+        {
+            complexTourRequest.Guest = _guestRepo.GetById(complexTourRequest.Guest.Id);
         }
 
         public List<ComplexTourRequest> GetAll()
@@ -47,14 +68,6 @@ namespace SIMSProject.Repositories.TourRepositories
         {
             _fileHandler.Save(complexTourRequests);
             _complexTourRequests = complexTourRequests;
-        }
-
-        private void MapGuests()
-        {
-            foreach (var complexTourRequest in _complexTourRequests)
-            {
-                complexTourRequest.Guest = _guestRepo.GetById(complexTourRequest.Guest.Id);
-            }
         }
     }
 }

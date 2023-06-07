@@ -313,6 +313,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             TourLanguage = Tour.GetLanguage(message.Request.TourLanguage);
             MaxGuestNumber = message.Request.GuestCount;
             SelectedAppointment = message.Appointment;
+            Duration = message.Duration;
 
             CbLanguageIsEnabled = false;
             CbLocationIsEnabled = false;

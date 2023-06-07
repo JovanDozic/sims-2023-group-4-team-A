@@ -41,10 +41,17 @@ namespace SIMSProject.WPF.Messenger.Messages
     {
         public CustomTourRequest Request { get; set; }
         public DateTime Appointment { get; set; }
+        public int Duration { get; set; }
         public CreateRequestedMessage(object sender, CustomTourRequest request, DateTime appointment) : base(sender)
         {
             Request = request;
             Appointment = appointment;
+        }
+        public CreateRequestedMessage(object sender, CustomTourRequest request, DateTime appointment, int duration) : base(sender)
+        {
+            Request = request;
+            Appointment = appointment;
+            Duration = duration;
         }
     }
     public class CreateMostWantedMessage : Message
