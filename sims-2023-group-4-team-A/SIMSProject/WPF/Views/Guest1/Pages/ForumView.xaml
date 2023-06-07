@@ -1,0 +1,64 @@
+﻿<Page x:Class="SIMSProject.WPF.Views.Guest1.Pages.ForumView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest1.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="668" d:DesignWidth="1024"
+      Title="ForumView">
+    <ScrollViewer ScrollViewer.CanContentScroll="False"
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="170"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="130"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Image Source="../Icons/chevron-left-black.png" Width="30" Margin="923,8,71,12"/>
+            <Button Content="Nazad" 
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    VerticalAlignment="Top"
+                    FontWeight="Bold"
+                    BorderThickness="0"
+                    FontSize="20" Margin="948,10,10,0" Click="Button_Click_Close"/>
+            <Label Content="Lokacija: " Grid.Row="1" FontSize="30" Margin="35,0,857,0"></Label>
+            <Label Content="Bijeljina" FontWeight="Bold" FontStyle="Italic" Grid.Row="1" Margin="167,0,0,0" FontSize="30"></Label>
+            <Button Foreground="White" Background="#0c669f" Height="50" Content="Zatvori forum" FontSize="25" Grid.Row="2" Margin="775,10,60,0"/>
+            <Label Content="Vlasnik foruma: " FontSize="30" Grid.Row="2" Margin="35,0,759,0"></Label>
+            <Label Content="Marko" Grid.Row="2" FontSize="30" FontWeight="Bold" FontStyle="Italic" Margin="261,0,636,0"></Label>
+            <Label Foreground="Gray" Content="14.10.2001." Grid.Row="3" FontSize="20" Margin="35,0,862,0"></Label>
+            <TextBox IsReadOnly="True" BorderThickness="4" FontWeight="Bold" BorderBrush="White" Background="Transparent" TextWrapping="Wrap" FontSize="24" Grid.Row="4" Margin="35,10,216,46"/>
+
+            <Label Content="Broj komentara:" FontSize="25" Grid.Row="5" Margin="35,0,783,0"></Label>
+            <Label Content="32" FontSize="25" Grid.Row="5" Margin="224,0,0,0"></Label>
+            <TextBox TextWrapping="Wrap" FontSize="24" Grid.Row="6" Margin="35,0,216,10"></TextBox>
+            <Button Background="#0c669f" Foreground="White" Content="Potvrdi" FontSize="25" Height="50" Grid.Row="6" Margin="821,70,60,10"/>
+            <Label Content="Komentari:" FontSize="20" Grid.Row="7" Margin="35,0,867,0"></Label>
+            <Separator Grid.Row="7" Margin="35,10,867,2"></Separator>
+
+            <ItemsControl Grid.Row="8" ItemsSource="{Binding Comments}" Margin="35,0,0,0">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Author}" FontWeight="Bold" />
+                            <TextBlock Text="{Binding CreationDate}" FontStyle="Italic" />
+                            <TextBlock Text="{Binding Content}" />
+                            <Separator />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+
+        </Grid>
+    </ScrollViewer>
+</Page>

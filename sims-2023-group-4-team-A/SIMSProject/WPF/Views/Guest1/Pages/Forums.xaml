@@ -8,8 +8,11 @@
       d:DesignHeight="668" d:DesignWidth="1024"
       Title="Forums">
 
+    
+
+
     <Grid>
-        <TabControl Margin="15,23,15,10">
+        <TabControl Margin="15,23,15,10" Background="Transparent">
             <TabItem FontSize="28" Header="Svi forumi">
                 <Grid>
                     <!-- Sadržaj prvog taba - Svi forumi -->
@@ -21,19 +24,22 @@
                         <RowDefinition Height="100"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Button Content="Kreiraj novi forum" Click="Button_Click" Height="46" Margin="77,27,669,27"/>
+                    <Button Background="#0c669f" Foreground="White" Content="Kreiraj novi forum" Click="Button_Click" Height="46" Margin="77,27,669,27"/>
 
-                    <ListView Grid.Row="1"
+                    <ListView x:Name="MyForums" Grid.Row="1"
                   ItemsSource="{Binding Forums, UpdateSourceTrigger=PropertyChanged}"
                   Background="Transparent"
                   BorderBrush="Transparent"
                   BorderThickness="0" d:ItemsSource="{d:SampleData ItemCount=5}"
                   ScrollViewer.CanContentScroll="False"
-                  ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="29,0,32,0">
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="29,0,32,0" SelectionChanged="MyForums_SelectionChanged">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                <Setter Property="Height" Value="300"/>
+                                <Setter Property="Height" Value="250"/>
+                                <Setter Property="BorderBrush" Value="Gray"></Setter>
+                                <Setter Property="Margin" Value="0,0,0,20" />
+                                
                             </Style>
                         </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
@@ -43,15 +49,16 @@
                                         <ColumnDefinition Width="500"></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <TextBox Text="{Binding Comment}" TextWrapping="Wrap"  ></TextBox>
+                                    <TextBox Text="{Binding Comment}" Background="Transparent" FontWeight="Bold" BorderThickness="4" IsReadOnly="True" BorderBrush="White" TextWrapping="Wrap">
+                                    </TextBox>
                                     <StackPanel Grid.Column="1" Orientation="Vertical" Margin="30">
                                         <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                                             <Label Content="Lokacija:"></Label>
-                                            <Label Content="{Binding Location}"></Label>
+                                            <Label Content="{Binding Location}" FontWeight="Bold"></Label>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                                             <Label Content="Datum: "></Label>
-                                            <Label Content="{Binding CreationDate,StringFormat='dd.MM.yyyy'}"></Label>
+                                            <Label Content="{Binding CreationDate,StringFormat='dd.MM.yyyy'}" FontWeight="Bold"></Label>
                                         </StackPanel>
 
                                     </StackPanel>

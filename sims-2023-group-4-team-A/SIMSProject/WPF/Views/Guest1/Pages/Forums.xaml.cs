@@ -36,5 +36,13 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
         {
             NavigationService.Navigate(new ForumCreation(_user));
         }
+
+        private void MyForums_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (MyForums.SelectedItem != null)
+            {
+                NavigationService.Navigate(new ForumView());
+            }
+        }
     }
 }
