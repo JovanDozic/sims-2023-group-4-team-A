@@ -129,6 +129,9 @@ namespace SIMSProject.Application.Services.TourServices
             return _customTourRequestRepo.GetAllComplexTourParts(complexTourId);
         }
 
-
+        public void Update(CustomTourRequest customTourRequest)
+        {
+            _customTourRequestRepo.Update(customTourRequest);
+        }
     }
 }

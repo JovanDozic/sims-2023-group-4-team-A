@@ -175,5 +175,13 @@ namespace SIMSProject.Repositories.TourRepositories
         {
             return GetAll().FindAll(x => (x.Location.City == tour.Location.City && x.Location.Country == x.Location.Country) || x.TourLanguage == tour.TourLanguage && x.RequestStatus != RequestStatus.ACCEPTED);
         }
+
+        public void Update(CustomTourRequest customTourRequest)
+        {
+            CustomTourRequest requestToUpdate = GetById(customTourRequest.Id) ?? throw new Exception("Updating voucher failed!");
+            int index = _customTourRequests.IndexOf(requestToUpdate);
+            _customTourRequests[index] = customTourRequest;
+            _fileHandler.Save(_customTourRequests);
+        }
     }
 }
