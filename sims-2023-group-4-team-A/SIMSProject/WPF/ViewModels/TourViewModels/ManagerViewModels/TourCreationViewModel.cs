@@ -26,6 +26,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         private readonly TourReservationService _tourReservationService;
         private readonly NotificationService _notificationService;
         private readonly CustomTourRequestService _customTourRequestService;
+        private readonly GuideService _guideService;
 
         private bool _cbLocationIsEnabled = true;
         public bool CbLocationIsEnabled
@@ -61,6 +62,8 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             }
         }
         private TourReservation _tourReservation = new();
+
+        private CustomTourRequest _request = new();
         private Tour _tour = new();
         public Tour Tour
         {
@@ -283,6 +286,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             _tourReservationService = Injector.GetService<TourReservationService>();
             _notificationService = Injector.GetService<NotificationService>();
             _customTourRequestService = Injector.GetService<CustomTourRequestService>();
+            _guideService = Injector.GetService<GuideService>();
 
             AllLocations = new(_locationService.GetAll());
             TourLanguages = new(Tour.GetLanguages());
@@ -309,10 +313,13 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         }
         private void OpenMessage(CreateRequestedMessage message)
         {
+            _request = message.Request;
             SelectedLocation = message.Request.Location;
             TourLanguage = Tour.GetLanguage(message.Request.TourLanguage);
             MaxGuestNumber = message.Request.GuestCount;
             SelectedAppointment = message.Appointment;
+            Hours = SelectedAppointment.Hour;
+            Minutes = SelectedAppointment.Minute;
             Duration = message.Duration;
 
             CbLanguageIsEnabled = false;
@@ -370,12 +377,16 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         {
             Tour.KeyPoints.AddRange(KeyPoints.ToList());
             Tour.Images.AddRange(Images.ToList());
+            Tour.IsSuperGuide = _guideService.CheckIfSuper(Guide, _language);
             _tourService.CreateTour(Tour);
             _tourAppointmentService.CreateAppointments(Appointments.ToList(), Tour);
             switch(Tour.Reason)
             {
                 case CreatingReason.CUSTOM: _tourReservation.TourAppointment = Appointments.FirstOrDefault() ?? throw new Exception("Error! No appointments found!");
                                             _tourReservationService.Save(_tourReservation);
+                                            _request.AssignedGuideId = Guide.Id;
+                                            _request.RealizationDate = _tourReservation.TourAppointment.Date;
+                                            _customTourRequestService.Save(_request);
                                             SendAcceptedTourNotification();break;
                 case CreatingReason.STATISTICS: SendNewTourNotification();break;
             }

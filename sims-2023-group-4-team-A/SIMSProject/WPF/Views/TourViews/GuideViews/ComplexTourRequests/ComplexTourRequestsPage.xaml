@@ -11,6 +11,7 @@
     <Page.Resources>
         <converter:TourRequestStatusConverter x:Key="TourRequestStatusConverter"/>
         <converter:TourLanguageConverter x:Key="TourLanguageConverter"/>
+        <converter:CustomTourRequestStatusToBoolConverter x:Key="CTRSConverter"/>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -28,7 +29,7 @@
                   SelectedItem="{Binding Path=SelectedRequest, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="IsEnabled" Value="{Binding Path=ArePartsAvailable, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Setter Property="IsEnabled" Value="{Binding Path=ArePartsAvailable}"/>
                 </Style>
             </DataGrid.RowStyle>
             <DataGrid.Columns>
@@ -47,6 +48,11 @@
                   CanUserAddRows="False" AutoGenerateColumns="False"
                   SelectedItem="{Binding Path=SelectedPart, UpdateSourceTrigger=PropertyChanged}"
                   ItemsSource="{Binding Path=SelectedRequest.Parts, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="IsEnabled" Value="{Binding Path=RequestStatus, Converter={StaticResource CTRSConverter}}"/>
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Lokacija" Binding="{Binding Path=Location, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Jezik" Binding="{Binding Path=TourLanguage, Converter={StaticResource TourLanguageConverter}}"/>
