@@ -75,5 +75,10 @@ namespace SIMSProject.Application.Services.UserServices
         {
             _repo.Quit(guideId);
         }
+
+        public bool CheckIfSuper(Guide guide, Language language)
+        {
+            return _superGuideLogRepo.CheckIfSuper(guide, language);
+        }
     }
 }
