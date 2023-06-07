@@ -30,6 +30,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         public VouchersViewModel(Guest2 user)
         {
             _voucherService=Injector.GetService<VoucherService>();
+            _voucherService.WinVoucher(user.Id);
             Vouchers = new(_voucherService.GetVouchersByGuestId(user.Id).Where(x => DateTime.Compare(x.Expiration, DateTime.Now) > 0));
         }
         public void Update(Voucher voucher)

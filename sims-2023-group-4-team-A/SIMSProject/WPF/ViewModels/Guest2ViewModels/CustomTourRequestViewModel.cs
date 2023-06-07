@@ -161,8 +161,8 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             LoadTourRequestsByGuestId(_user.Id);
             LoadComplexTourRequestsByGuestId(_user.Id);
             CheckRequestValidity(CustomTourRequests.ToList());
-
-            
+            CheckComplexRequestsValidity(ComplexTourRequests.ToList(), _user.Id);
+            CheckComplexRequestAcceptance(ComplexTourRequests.ToList(), _user.Id);
         }
         public void CreateRequest()
         {
@@ -183,6 +183,14 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         public void CheckRequestValidity(List<CustomTourRequest> customTourRequests)
         {
             _customTourRequestService.CheckRequestValidity(customTourRequests);
+        }
+        public void CheckComplexRequestsValidity(List<ComplexTourRequest> complexTourRequests, int guestId)
+        {
+            _complexTourRequestService.CheckComplexRequestValidity(complexTourRequests, guestId);
+        }
+        public void CheckComplexRequestAcceptance(List<ComplexTourRequest> complexTourRequests, int guestId)
+        {
+            _complexTourRequestService.CheckComplexRequestAcceptance(complexTourRequests, guestId);
         }
     }
 }
