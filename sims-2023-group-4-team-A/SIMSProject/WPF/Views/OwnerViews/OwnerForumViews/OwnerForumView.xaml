@@ -41,6 +41,12 @@
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
                   SelectedItem="{Binding Comment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <EventSetter Event="MouseEnter" Handler="LstCommentsItem_MouseEnter"/>
+                    <EventSetter Event="MouseLeave" Handler="LstCommentsItem_MouseLeave"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderThickness="0" BorderBrush="Transparent" Background="#eeeeee"
@@ -98,13 +104,13 @@
                                     Style="{StaticResource NoHoverButtonStyle}"
                                     Click="BtnDownvoteComment_Click">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Downvotes}"
-                                           FontSize="17.5"
-                                           VerticalAlignment="Center"
-                                           Margin="0,0,10,0"/>
-                                    <Image Source="/Resources/Icons/downvote.png"
-                                       Style="{StaticResource IconRenderStyle}"
-                                       Height="17.5"/>
+                                    <TextBlock Text="{Binding Downvotes, UpdateSourceTrigger=PropertyChanged}"
+                                               FontSize="17.5"
+                                               VerticalAlignment="Center"
+                                               Margin="0,0,10,0"/>
+                                    <Image Source="{Binding UserDownvotedIcon}"
+                                           Style="{StaticResource IconRenderStyle}"
+                                           Height="17.5"/>
                                 </StackPanel>
                             </Button>
                         </Grid>
@@ -187,7 +193,7 @@
                         <TextBlock Text="Otkaži" VerticalAlignment="Center" Margin="0,0,0,0"/>
                     </StackPanel>
                 </Button>
-                
+
                 <Button x:Name="BtnAddComment"
                         Grid.Column="1" Grid.Row="3"
                         HorizontalAlignment="Center"

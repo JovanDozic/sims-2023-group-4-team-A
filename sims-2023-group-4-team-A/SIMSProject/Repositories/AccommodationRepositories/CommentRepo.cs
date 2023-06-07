@@ -2,6 +2,7 @@
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
 using SIMSProject.FileHandlers.AccommodationFileHandlers;
+using SIMSProject.WPF.Views.Guest1.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,6 +66,14 @@ namespace SIMSProject.Repositories.AccommodationRepositories
         {
             _fileHandler.Save(comments);
             _comments = comments;
+        }
+
+        public void Update(Comment comment)
+        {
+            var commentToUpdate = _comments.Find(x => x.Id == comment.Id) ?? new();
+            var index = _comments.IndexOf(commentToUpdate);
+            _comments[index] = comment;
+            _fileHandler.Save(_comments);
         }
     }
 }

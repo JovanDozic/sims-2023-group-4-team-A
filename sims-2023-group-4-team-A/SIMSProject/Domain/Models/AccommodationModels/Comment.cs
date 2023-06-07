@@ -19,13 +19,13 @@ namespace SIMSProject.Domain.Models.AccommodationModels
 
         public Comment(Comment original)
         {
-            if (original is null) return;
             Id = original.Id;
             User = original.User;
             WasAtLocation = original.WasAtLocation;
             Text = original.Text;
             CreationDate = original.CreationDate;
             Downvotes = original.Downvotes;
+            UserDownvoted = original.UserDownvoted;
         }
 
         public string[] ToCSV()
@@ -35,7 +35,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
                 Id.ToString(),
                 User.Id.ToString(),
                 User.GetRole(User.Role),
-                WasAtLocation.ToString(),
+                (User.Role == UserRole.Owner || User.Role == UserRole.SuperOwner) ? "True" : WasAtLocation.ToString(),
                 Text,
                 CreationDate.ToString(),
                 Downvotes.ToString()
@@ -63,6 +63,16 @@ namespace SIMSProject.Domain.Models.AccommodationModels
                 if (User.Role == UserRole.Owner) return "/Resources/Icons/is-owner.png";
                 if (User.Role == UserRole.SuperOwner) return "/Resources/Icons/is-superowner.png";
                 return "/Resources/Icons/question.png";
+            }
+        }
+        public bool UserDownvoted { get; set; } = false;
+
+        public string UserDownvotedIcon
+        {
+            get
+            {
+                if (UserDownvoted) return "/Resources/Icons/downvote-fill.png";
+                return "/Resources/Icons/downvote.png";
             }
         }
     }

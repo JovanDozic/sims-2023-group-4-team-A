@@ -1,6 +1,7 @@
 ﻿using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -19,7 +20,7 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerForumViews
             DataContext = _viewModel;
         }
 
-        private void BtnBack_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             NavigationService?.GoBack();
         }
@@ -30,6 +31,16 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerForumViews
             OwnerForumView forumView = new(_user, _viewModel.Forum);
             OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow ?? new(_user);
             ownerWindow?.SwitchToPage(forumView);
+        }
+
+        private void TextBlock_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            MessageBox.Show(_viewModel.Forums.First().ToString());
+        }
+
+        private void Page_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            LstForums.Items.Refresh();
         }
     }
 }

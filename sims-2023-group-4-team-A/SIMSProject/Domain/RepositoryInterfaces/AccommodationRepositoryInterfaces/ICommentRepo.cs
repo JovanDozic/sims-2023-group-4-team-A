@@ -11,5 +11,6 @@ namespace SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfa
         public int NextId();
         public Comment Save(Comment comment);
         public void SaveAll(List<Comment> comments);
+        void Update(Comment hoveredComment);
     }
 }

@@ -3,6 +3,7 @@ using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SIMSProject.WPF.Views.OwnerViews.OwnerForumViews
 {
@@ -19,40 +20,51 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerForumViews
             DataContext = _viewModel;
         }
 
-        private void BtnBack_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             NavigationService?.GoBack();
         }
 
-        private void BtnDownvoteComment_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void BtnDownvoteComment_Click(object sender, RoutedEventArgs e)
         {
-
+            if (_viewModel.DownvoteComment())
+            {
+                
+            }
         }
 
-        private void BtnAddCommentInputForm_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void BtnAddCommentInputForm_Click(object sender, RoutedEventArgs e)
         {
-            CommentInputForm.Visibility = System.Windows.Visibility.Visible;
-            BtnAddCommentInputForm.Visibility = System.Windows.Visibility.Collapsed;
+            CommentInputForm.Visibility = Visibility.Visible;
+            BtnAddCommentInputForm.Visibility = Visibility.Collapsed;
             InputCommentRow.Height = new GridLength(200);
+            TxtNewComment.Focus();
         }
 
-        private void BtnAddComment_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void BtnAddComment_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Add comment using View Model and service
             _viewModel.AddNewComment();
-
-
-
-            // TODO: Remove form for adding comment, and refresh comments list (maybe done in viewmodel)
             BtnCancelAddingComment_Click(sender, e);
             LstComments.Items.Refresh();
         }
 
-        private void BtnCancelAddingComment_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void BtnCancelAddingComment_Click(object sender, RoutedEventArgs e)
         {
-            CommentInputForm.Visibility = System.Windows.Visibility.Collapsed;
-            BtnAddCommentInputForm.Visibility = System.Windows.Visibility.Visible;
+            CommentInputForm.Visibility = Visibility.Collapsed;
+            BtnAddCommentInputForm.Visibility = Visibility.Visible;
             InputCommentRow.Height = new GridLength(75);
+        }
+
+        private void LstCommentsItem_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ListViewItem listViewItem = sender as ListViewItem ?? throw new System.Exception("List item not found.");
+            Comment? comment = listViewItem.DataContext as Comment;
+            _viewModel.HoveredComment = comment;
+        }
+
+        private void LstCommentsItem_MouseLeave(object sender, MouseEventArgs e)
+        {
+            _viewModel.HoveredComment = null;
         }
     }
 }

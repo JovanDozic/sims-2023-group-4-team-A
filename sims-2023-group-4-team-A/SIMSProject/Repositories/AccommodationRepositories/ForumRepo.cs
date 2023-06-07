@@ -1,4 +1,5 @@
-﻿using SIMSProject.Domain.Models.AccommodationModels;
+﻿using SIMSProject.Domain.Models;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.RepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.FileHandlers.AccommodationFileHandlers;
@@ -43,6 +44,27 @@ namespace SIMSProject.Repositories.AccommodationRepositories
 
             MapLocations();
             MapComments();
+            CheckAndUpdateUsability();
+        }
+
+        public void CheckAndUpdateUsability()
+        {
+            foreach (var forum in _forums)
+            {
+                bool hasEnoughOwnerComments = forum.Comments
+                    .FindAll(x => x.User.Role == Domain.Models.UserRole.Owner || 
+                             x.User.Role == Domain.Models.UserRole.SuperOwner)
+                    .Count >= Consts.UsefulForumOwnerCommentsCount;
+
+                bool hasEnoughGuestCommentsAtLocation = forum.Comments
+                    .FindAll(x => (x.User.Role == Domain.Models.UserRole.Guest1 || 
+                             x.User.Role == Domain.Models.UserRole.SuperGuest) && 
+                             x.WasAtLocation)
+                    .Count >= Consts.UsefulForumGuestCommentsCount;
+
+                if (hasEnoughOwnerComments && hasEnoughGuestCommentsAtLocation) forum.IsUseful = true;
+                else forum.IsUseful = false;
+            }
         }
 
         private void MapComments()
@@ -61,7 +83,7 @@ namespace SIMSProject.Repositories.AccommodationRepositories
 
         private void MapLocations()
         {
-            foreach(var forum in _forums)
+            foreach (var forum in _forums)
             {
                 forum.Location = _locationRepo.GetById(forum.Location.Id);
             }
@@ -88,7 +110,7 @@ namespace SIMSProject.Repositories.AccommodationRepositories
 
         public void Update(Forum forum)
         {
-            var forumToUpdate = _forums.Find(x => x.Id == forum.Id);
+            var forumToUpdate = _forums.Find(x => x.Id == forum.Id) ?? new();
             var index = _forums.IndexOf(forumToUpdate);
             _forums[index] = forum;
             _fileHandler.Save(_forums);

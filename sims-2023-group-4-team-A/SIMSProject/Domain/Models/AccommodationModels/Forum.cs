@@ -10,6 +10,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public int Id { get; set; }
         public Location Location { get; set; } = new();
         public List<Comment> Comments { get; set; } = new();
+        public int CommentsCount { get => Comments.Count; }
         public DateTime CreationDate { get; set; }
         public bool IsUseful { get; set; } = false;
         public bool IsClosed { get; set; } = false;

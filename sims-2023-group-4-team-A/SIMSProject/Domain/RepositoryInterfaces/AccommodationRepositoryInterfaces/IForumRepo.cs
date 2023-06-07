@@ -10,6 +10,7 @@ namespace SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfa
     public interface IForumRepo
     {
         public void Load();
+        public void CheckAndUpdateUsability();
         public Forum GetById(int forumId);
         public List<Forum> GetAll();
         public int NextId();

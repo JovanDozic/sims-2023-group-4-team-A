@@ -5,7 +5,6 @@ using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace SIMSProject.Application.Services.AccommodationServices
@@ -24,11 +23,6 @@ namespace SIMSProject.Application.Services.AccommodationServices
         public List<Forum> GetAll()
         {
             return _repo.GetAll();
-        }
-
-        public void CreateForum(Forum forum)
-        {
-            _repo.Save(forum);
         }
 
         public List<Forum> GetAllByUser(User user)
@@ -51,12 +45,50 @@ namespace SIMSProject.Application.Services.AccommodationServices
             return GetAll().FindAll(x => x.Location.Id == location.Id);
         }
 
+        public void CreateForum(Location location, Comment firstComment)
+        {
+            firstComment = _commentService.CreateComment(firstComment, location);
+            Forum forum = new()
+            {
+                Location = location,
+                CreationDate = DateTime.Now,
+            };
+            forum.Comments.Add(firstComment);
+            _repo.Save(forum);
+        }
+
         public Comment AddNewComment(Forum forum, Comment newComment)
         {
-            newComment = _commentService.CreateComment(newComment);
+            newComment = _commentService.CreateComment(newComment, forum.Location);
             forum.Comments.Add(newComment);
             _repo.Update(forum);
             return newComment;
+        }
+
+        public Comment DownvoteComment(Comment hoveredComment)
+        {
+            if (hoveredComment.UserDownvoted)
+            {
+                hoveredComment.UserDownvoted = false;
+                hoveredComment.Downvotes--;
+                _commentService.UpdateComment(hoveredComment);
+                return hoveredComment;
+            }
+            hoveredComment.UserDownvoted = true;
+            hoveredComment.Downvotes++;
+            _commentService.UpdateComment(hoveredComment);
+            return hoveredComment;
+        }
+
+        public void CheckAndUpdateUsability()
+        {
+            _repo.CheckAndUpdateUsability();
+        }
+
+        public void CloseForum(Forum forum)
+        {
+            forum.IsClosed = true;
+            _repo.Update(forum);
         }
     }
 }

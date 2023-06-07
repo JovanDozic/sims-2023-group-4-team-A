@@ -14,6 +14,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private ForumService _forumService;
         public Location Location { get; set; }
         public Forum Forum { get; set; } = new();
+
         public ObservableCollection<Forum> Forums { get; set; }
 
         public OwnerLocationForumsViewModel(User user, Location location)
