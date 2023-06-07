@@ -70,9 +70,6 @@ namespace SIMSProject.Application.Services.TourServices
             }
             _complexTourRequestRepo.SaveAll(_complexTourRequestRepo.GetAll());
         }
-
-    }
-
         public List<DateTime> GetFreeTimes(Guide guide, DateTime start, DateTime end, int duration)
         {
             if (duration == 0) return null;
@@ -100,5 +97,9 @@ namespace SIMSProject.Application.Services.TourServices
         {
             return date.AddHours(23).AddMinutes(59);
         }
+
     }
+
+        
+    
 }
