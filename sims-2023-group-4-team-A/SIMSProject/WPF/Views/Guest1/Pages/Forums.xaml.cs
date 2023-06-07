@@ -44,5 +44,13 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
                 NavigationService.Navigate(new ForumView());
             }
         }
+
+        private void AllForums_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (AllForums.SelectedItem != null)
+            {
+                NavigationService.Navigate(new ForumView());
+            }
+        }
     }
 }

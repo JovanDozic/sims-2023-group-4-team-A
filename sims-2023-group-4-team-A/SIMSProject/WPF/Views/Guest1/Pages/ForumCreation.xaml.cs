@@ -58,5 +58,10 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             else
                 CommentLabel.Visibility = Visibility.Visible;
         }
+
+        private void Button_Click_Close(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
     }
 }

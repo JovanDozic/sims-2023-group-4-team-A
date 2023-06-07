@@ -24,6 +24,15 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
+        <Image Source="../Icons/chevron-left-black.png" Width="30" Margin="411,8,71,68" Grid.Column="1"/>
+        <Button Content="Nazad" 
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    VerticalAlignment="Top"
+                    FontWeight="Bold"
+                    BorderThickness="0"
+                    FontSize="20" Margin="436,10,10,0" Click="Button_Click_Close" Grid.Column="1"/>
+
         <Label Content="Kreiranje novog foruma" Grid.ColumnSpan="2"
                FontSize="30" HorizontalAlignment="Center"
                VerticalAlignment="Center" FontWeight="Bold"></Label>
@@ -45,7 +54,7 @@
                FontSize="28" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
         <TextBox TextWrapping="Wrap" x:Name="CommentTB" Text="{Binding Comment}" FontSize="25" Grid.Row="4" Grid.ColumnSpan="2" Margin="143,10,95,24" TextChanged="CommentTB_TextChanged" />
         <Label x:Name="CommentLabel" Content="Komentar je obavezan" Visibility="Visible" FontSize="15" Grid.Row="4" Foreground="Red" Margin="143,180,0,97" Grid.RowSpan="2"></Label>
-        <Button x:Name="CreationButton" Grid.Row="5" Grid.ColumnSpan="2" Width="279" Height="62" Content="Kreiraj forum" FontSize="28" Click="Button_Click_Create">
+        <Button x:Name="CreationButton" Grid.Row="5" Grid.ColumnSpan="2" Width="279" Content="Kreiraj forum" FontSize="28" Click="Button_Click_Create" Margin="372,22,372,32">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Template">
