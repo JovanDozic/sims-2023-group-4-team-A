@@ -26,6 +26,11 @@
                   CanUserAddRows="False" AutoGenerateColumns="False"
                   ItemsSource="{Binding Path=ComplexTourRequests, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedRequest, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="IsEnabled" Value="{Binding Path=ArePartsAvailable, UpdateSourceTrigger=PropertyChanged}"/>
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv" Width="*" Binding="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Gost" Width="*" Binding="{Binding Path=Guest, UpdateSourceTrigger=PropertyChanged}"/>
