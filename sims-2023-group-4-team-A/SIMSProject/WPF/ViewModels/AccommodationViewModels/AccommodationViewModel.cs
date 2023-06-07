@@ -303,6 +303,10 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _accommodationService.Search(Accommodations,nameTypeLocation, duration, maxGuests);
         }
 
+        public bool IsAccommodationFound()
+        {
+            return Accommodations.Count != 0;
+        }
         public void RegisterAccommodation()
         {
             var result = MessageBox.Show("Da li ste sigurni da želite da registrujete smeštaj?", "Potvrdite registraciju", MessageBoxButton.YesNo, MessageBoxImage.Question);

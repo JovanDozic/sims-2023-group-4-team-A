@@ -30,11 +30,22 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             _user = user;
             _accommodationViewModel = accommodationViewModel;
             DataContext = _accommodationViewModel;
+            LabelVisibility();
         }
 
         private void Button_Click_Close(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        public void LabelVisibility()
+        {
+            if (_accommodationViewModel.IsAccommodationFound())
+            {
+                FoundLabel.Visibility = Visibility.Visible;
+            }
+            else
+                NotFoundLabel.Visibility = Visibility.Visible;
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

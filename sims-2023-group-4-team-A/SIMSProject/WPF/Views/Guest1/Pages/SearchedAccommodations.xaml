@@ -25,11 +25,15 @@
                 <ColumnDefinition Width="70"></ColumnDefinition>
                 <ColumnDefinition Width="200"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Content="Pronađeni smeštaji:"
+            <Label x:Name="FoundLabel" Visibility="Hidden" Content="Pronađeni smeštaji:"
                FontSize="30"
                FontWeight="Bold"
                VerticalAlignment="Center" Margin="75,0,73,0"/>
-            <Image Grid.Column="2" Source="../Icons/chevron-left-black.png" Width="30" Margin="93,10,77,38"/>
+            <Label x:Name="NotFoundLabel" Visibility="Hidden" Content="Nije pronađen nijedan smeštaj!"
+               FontSize="30"
+               FontWeight="Bold"
+               VerticalAlignment="Center" Margin="75,0,73,0"/>
+            <Image Grid.Column="2" Source="../Icons/chevron-left-black.png" Width="30" Margin="93,10,77,43"/>
             <Button Content="Nazad" 
                     Background="Transparent"
                     BorderBrush="Transparent"

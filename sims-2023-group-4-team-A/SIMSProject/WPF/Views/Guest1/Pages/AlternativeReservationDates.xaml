@@ -16,7 +16,7 @@
             <RowDefinition Height="120"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Image Source="../Icons/chevron-left-black.png" Height="30" Width="30" Margin="918,11,76,29" />
+        <Image Source="../Icons/chevron-left-black.png" Height="30" Width="30" Margin="918,8,76,32" />
         <Button Content="Nazad" 
                     Background="Transparent"
                     BorderBrush="Transparent"

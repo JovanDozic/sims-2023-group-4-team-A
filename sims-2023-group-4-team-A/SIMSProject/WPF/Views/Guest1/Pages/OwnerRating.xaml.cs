@@ -36,12 +36,6 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             DataContext = _ownerRatingViewModel;
             _ownerRatingViewModel.AddReservationsToCombo();
         }
-        private void Button_Click_Upload(object sender, RoutedEventArgs e)
-        {
-            _ownerRatingViewModel.UploadImage(ImageUrlTB.Text);
-            ImageUrlTB.Text = string.Empty;
-            ImagesList.Items.Refresh();
-        }
         private void Button_Click_Rate(object sender, RoutedEventArgs e)
         {
             _ownerRatingViewModel.RateOwnerAndAccommodation();
@@ -63,6 +57,11 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
         private void Button_Click_Renovation(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new RenovationSuggestion(_ownerRatingViewModel, _user));
+        }
+
+        private void BtnUploadImages_Click(object sender, RoutedEventArgs e)
+        {
+            _ownerRatingViewModel.UploadImageToAccommodation();
         }
     }
 }
