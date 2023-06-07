@@ -18,6 +18,8 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerForumViews
             _user = user;
             _viewModel = new(_user, forum);
             DataContext = _viewModel;
+
+            InputCommentRow.Height = _viewModel.CanUserLeaveComment ? new GridLength(75) : new GridLength(0);
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
@@ -27,10 +29,7 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerForumViews
 
         private void BtnDownvoteComment_Click(object sender, RoutedEventArgs e)
         {
-            if (_viewModel.DownvoteComment())
-            {
-                
-            }
+            _viewModel.DownvoteComment();
         }
 
         private void BtnAddCommentInputForm_Click(object sender, RoutedEventArgs e)

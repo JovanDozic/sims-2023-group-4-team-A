@@ -13,11 +13,15 @@ namespace SIMSProject.Application.Services.AccommodationServices
     {
         private readonly IForumRepo _repo;
         private CommentService _commentService;
+        private NotificationService _notificationService;
+        private AccommodationService _accommodationService;
 
         public ForumService(IForumRepo repo)
         {
             _repo = repo;
             _commentService = Injector.GetService<CommentService>();
+            _notificationService = Injector.GetService<NotificationService>();
+            _accommodationService = Injector.GetService<AccommodationService>();
         }
 
         public List<Forum> GetAll()
@@ -55,6 +59,24 @@ namespace SIMSProject.Application.Services.AccommodationServices
             };
             forum.Comments.Add(firstComment);
             _repo.Save(forum);
+            CreateNewForumNotification(location);
+        }
+
+        private void CreateNewForumNotification(Location location)
+        {
+            var owners = _accommodationService.GetAllByLocation(location).Select(x => x.Owner).Distinct().ToList();
+            foreach (var owner in owners)
+            {
+                _notificationService.CreateNotification(new Notification()
+                {
+                    User = owner,
+                    Title = Consts.ForumCreatedInOwnersLocationTitle,
+                    Description = Consts.ForumCreatedInOwnersLocationDescription
+                                        .Replace("@username", owner.Username)
+                                        .Replace("@location", location.ToString()),
+                    CreationDate = DateTime.Now,
+                });
+            }
         }
 
         public Comment AddNewComment(Forum forum, Comment newComment)

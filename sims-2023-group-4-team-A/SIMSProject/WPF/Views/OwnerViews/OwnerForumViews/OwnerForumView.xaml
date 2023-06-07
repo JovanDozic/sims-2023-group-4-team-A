@@ -19,7 +19,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
-            <RowDefinition x:Name="InputCommentRow" Height="75"/>
+            <RowDefinition x:Name="InputCommentRow" Height="75">
+            </RowDefinition>
         </Grid.RowDefinitions>
 
         <Button x:Name="BtnBack" Grid.Row="0" Click="BtnBack_Click"

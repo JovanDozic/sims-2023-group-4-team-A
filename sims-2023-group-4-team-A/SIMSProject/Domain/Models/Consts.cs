@@ -9,6 +9,10 @@
 
         public const string RateGuestNotificationTitle = "Ocenite gosta!";
         public const string RateGuestNotificationDescription = "Gost @guestUsername je @endDate napustio smeštaj @accommodation. Ostavite ocenu!";
+
+        public const string ForumCreatedInOwnersLocationTitle = "Novi forum!";
+        public const string ForumCreatedInOwnersLocationDescription = "Korisnik @username je kreirao forum za lokaciju @location!";
+
         internal static int UsefulForumOwnerCommentsCount = 2;
         internal static int UsefulForumGuestCommentsCount = 5;
     }

@@ -14,8 +14,9 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private ForumService _forumService;
         private AccommodationService _accommodationService;
         private Comment _newComment = new();
+        private ObservableCollection<Comment> _comments = new();
+        private Comment? _hoveredComment;
 
-        private Forum _forum = new();
         public Forum Forum { get; set; } = new();
         public Comment Comment { get; set; } = new();
         public Comment NewComment
@@ -28,8 +29,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged(nameof(NewComment));
             }
         }
-
-        private ObservableCollection<Comment> _comments = new();
         public ObservableCollection<Comment> Comments
         {
             get => _comments;
@@ -40,14 +39,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged(nameof(Comments));
             }
         }
-
-        public bool CanUserLeaveComment
-        {
-            get => _accommodationService.UserHasAccommodationsInLocation(User, Forum.Location)
-                    && !Forum.IsClosed;
-        }
-
-        private Comment? _hoveredComment;
         public Comment? HoveredComment
         {
             get { return _hoveredComment; }
@@ -57,6 +48,11 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 _hoveredComment = value;
                 OnPropertyChanged(nameof(HoveredComment));
             }
+        }
+        public bool CanUserLeaveComment
+        {
+            get => _accommodationService.UserHasAccommodationsInLocation(User, Forum.Location)
+                    && !Forum.IsClosed;
         }
 
         public OwnerForumViewModel(User user, Forum forum)

@@ -33,8 +33,7 @@
         <TextBlock Text="{Binding Location}" Grid.Row="1"
                    FontSize="30" FontWeight="SemiBold"
                    HorizontalAlignment="Left" VerticalAlignment="Top"
-                   TextWrapping="Wrap"
-                   MouseDown="TextBlock_MouseEnter"/>
+                   TextWrapping="Wrap"/>
 
         <ListView x:Name="LstForums" Grid.Row="2" 
                   ItemsSource="{Binding Forums, UpdateSourceTrigger=PropertyChanged}"

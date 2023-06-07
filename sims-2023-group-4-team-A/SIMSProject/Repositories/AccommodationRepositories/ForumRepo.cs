@@ -3,11 +3,8 @@ using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.RepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.FileHandlers.AccommodationFileHandlers;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SIMSProject.Repositories.AccommodationRepositories
 {
