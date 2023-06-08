@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="750" d:DesignWidth="430"
       Title="My Account"
-      Background="#ffcb00">
+      Background="{DynamicResource BackgroundColor}">
 
     <Grid>
 
@@ -17,21 +17,22 @@
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Content="Sunce ti kakav nalog!"/>
+                   Content="Sunce ti kakav nalog!"
+                   Foreground="#ffcb00"/>
 
             <Label FontSize="30" Margin="10"
-                   FontWeight="Bold"
+                   FontWeight="Bold" Foreground="{DynamicResource TextColor}"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Content="{Binding User.Username}"/>
 
             <Button x:Name="BtnLogOut" Margin="10"
-                    Content="Log out" Background="white"
+                    Content="Log out"
                     Style="{StaticResource MobileActionSingleButtonStyle}"
                     Click="BtnLogOut_Click"/>
 
             <Button x:Name="BtnOpenOldMenu" Margin="10"
-                    Content="Open Old Menu" Background="white"
+                    Content="Open Old Menu"
                     Style="{StaticResource MobileActionSingleButtonStyle}"
                     Click="BtnOpenOldMenu_Click"/>
 

@@ -5,8 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
       mc:Ignorable="d" 
+      xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
       d:DesignHeight="750" d:DesignWidth="430"
       Title="My Notifications">
+
+    <Page.Resources>
+        <converters:ResourceKeyToImageSourceConverter x:Key="ResourceKeyToImageSourceConverter" />
+    </Page.Resources>
 
     <Grid>
 
@@ -33,21 +38,24 @@
                   SelectedItem="{Binding Notification, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                        <Grid Margin="0,12.5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            
-                            <Image Grid.Column="0" Source="{Binding IconSource}" Height="20" Stretch="UniformToFill"
-                                   Style="{StaticResource IconRenderStyle}"
-                                   VerticalAlignment="Top"
-                                   Margin="0,4,10,0"/>
-                            
-                            <TextBlock Grid.Column="1" FontSize="17.5" Text="{Binding Description}"
+                    <Grid Margin="0,12.5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Grid.Column="0" 
+                               Source="{Binding IconSource, Converter={StaticResource ResourceKeyToImageSourceConverter}}" 
+                               Height="20" 
+                               Stretch="UniformToFill"
+                               Style="{StaticResource IconRenderStyle}"
+                               VerticalAlignment="Top"
+                               Margin="0,4,10,0"/>
+                        
+                        <TextBlock Grid.Column="1" FontSize="17.5" Text="{Binding Description}"
                                        TextWrapping="Wrap"
                                        Margin="0,0,15,0"/>
-                        </Grid>
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

@@ -9,6 +9,7 @@
     <!-- Icon Sources -->
     <BitmapImage x:Key="BookbnbIcon" 
                  UriSource="../../../Resources/Icons/bookbnb.png"/>
+    
     <BitmapImage x:Key="NotificationsMenuIcon" 
                  UriSource="../../../Resources/Icons/bell.png"/>
     <BitmapImage x:Key="AccommodationsMenuIcon" 
@@ -19,9 +20,19 @@
                  UriSource="../../../Resources/Icons/forum.png"/>
     <BitmapImage x:Key="AccountMenuIcon" 
                  UriSource="../../../Resources/Icons/user.png"/>
+    <BitmapImage x:Key="NotificationsMenuIconFill" 
+                 UriSource="../../../Resources/Icons/bell-fill.png"/>
+    <BitmapImage x:Key="AccommodationsMenuIconFill" 
+                 UriSource="../../../Resources/Icons/bed-fill.png"/>
+    <BitmapImage x:Key="HomeMenuIconFill" 
+                 UriSource="../../../Resources/Icons/home-fill.png"/>
+    <BitmapImage x:Key="ForumsMenuIconFill" 
+                 UriSource="../../../Resources/Icons/forum-fill.png"/>
+    <BitmapImage x:Key="AccountMenuIconFill" 
+                 UriSource="../../../Resources/Icons/user-fill.png"/>
+    
     <BitmapImage x:Key="AddAccommodationIcon"
                  UriSource="/Resources/Icons/plus.png"/>
-
 
     <BitmapImage x:Key="StarFillIcon" 
                  UriSource="/Resources/Icons/star-fill.png"/>
@@ -30,28 +41,13 @@
     <BitmapImage x:Key="StarIcon" 
                  UriSource="/Resources/Icons/star.png"/>
     
-    <!--<BitmapImage x:Key="" 
-                 UriSource=""/>
+    
+    
+    
+    
+    
+    <!--
     <BitmapImage x:Key="" 
                  UriSource=""/>
-    <BitmapImage x:Key="" UriSource=""/>
-    <BitmapImage x:Key="" UriSource=""/>
-    <BitmapImage x:Key="" UriSource=""/>
-    <BitmapImage x:Key="" UriSource=""/>
-    <BitmapImage x:Key="" UriSource=""/>
-    <BitmapImage x:Key="" UriSource=""/>
-    <BitmapImage x:Key="" UriSource=""/>
-    <BitmapImage x:Key="" UriSource=""/>
-    <BitmapImage x:Key="" UriSource=""/>
-    <BitmapImage x:Key="" UriSource=""/>
-    <BitmapImage x:Key="" UriSource=""/>
-    <BitmapImage x:Key="" UriSource=""/>
-    <BitmapImage x:Key="" UriSource=""/>
-    <BitmapImage x:Key="" UriSource=""/>
-    <BitmapImage x:Key="" UriSource=""/>
-    <BitmapImage x:Key="" UriSource=""/>
-    <BitmapImage x:Key="" UriSource=""/>
-    <BitmapImage x:Key="" UriSource=""/>
-    <BitmapImage x:Key="" UriSource=""/>
-    <BitmapImage x:Key="" UriSource=""/>-->
+    -->
 </ResourceDictionary>

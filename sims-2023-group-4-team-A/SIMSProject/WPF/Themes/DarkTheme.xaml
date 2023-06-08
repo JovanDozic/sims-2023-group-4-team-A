@@ -9,6 +9,7 @@
     <!-- Icon Sources -->
     <BitmapImage x:Key="BookbnbIcon" 
                  UriSource="../../../Resources/Icons/dark/bookbnb.png"/>
+    
     <BitmapImage x:Key="NotificationsMenuIcon" 
                  UriSource="../../../Resources/Icons/dark/bell.png"/>
     <BitmapImage x:Key="AccommodationsMenuIcon" 
@@ -19,6 +20,17 @@
                  UriSource="../../../Resources/Icons/dark/forum.png"/>
     <BitmapImage x:Key="AccountMenuIcon" 
                  UriSource="../../../Resources/Icons/dark/user.png"/>
+    <BitmapImage x:Key="NotificationsMenuIconFill" 
+                 UriSource="../../../Resources/Icons/dark/bell-fill.png"/>
+    <BitmapImage x:Key="AccommodationsMenuIconFill" 
+                 UriSource="../../../Resources/Icons/dark/bed-fill.png"/>
+    <BitmapImage x:Key="HomeMenuIconFill" 
+                 UriSource="../../../Resources/Icons/dark/home-fill.png"/>
+    <BitmapImage x:Key="ForumsMenuIconFill" 
+                 UriSource="../../../Resources/Icons/dark/forum-fill.png"/>
+    <BitmapImage x:Key="AccountMenuIconFill" 
+                 UriSource="../../../Resources/Icons/dark/user-fill.png"/>
+    
     <BitmapImage x:Key="AddAccommodationIcon"
                  UriSource="/Resources/Icons/dark/plus.png"/>
 

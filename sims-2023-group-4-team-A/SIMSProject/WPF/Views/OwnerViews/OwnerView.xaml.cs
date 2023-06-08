@@ -1,5 +1,7 @@
-﻿using Microsoft.VisualStudio.Services.Commerce;
+﻿using Dynamitey.DynamicObjects;
+using Microsoft.VisualStudio.Services.Commerce;
 using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.Views.Guest1.MainView;
 using SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews;
 using SIMSProject.WPF.Views.OwnerViews.OwnerAccountViews;
 using SIMSProject.WPF.Views.OwnerViews.OwnerForumViews;
@@ -31,35 +33,26 @@ namespace SIMSProject.WPF.Views.OwnerViews
             NavBtn_Click(NavBtnHome, null);
         }
 
-        private void EnableNavButton(object sender)
+        private void ChangeNavButtonIcon(object sender, string resourceName)
         {
             if (sender is not Button button || FindVisualChild<Image>(button) is not Image img) return;
-            var filledSource = img.Source?.ToString();
-            var index = filledSource?.IndexOf("Resources") ?? -1;
-            if (index >= 0 && filledSource is not null && !filledSource.Contains("-fill.png"))
-                img.Source = new BitmapImage(new Uri($"../../../{filledSource[index..].Replace(".png", "-fill.png")}", UriKind.Relative));
-        }
-
-        private void DisableNavButton(object sender)
-        {
-            if (sender is not Button button || FindVisualChild<Image>(button) is not Image img) return;
-            var filledSource = img.Source?.ToString();
-            var index = filledSource?.IndexOf("Resources") ?? -1;
-            if (index >= 0 && filledSource is not null)
-                img.Source = new BitmapImage(new Uri($"../../../{filledSource[index..].Replace("-fill", "")}", UriKind.Relative));
+            img.Source = (ImageSource)App.Resources[resourceName];
         }
 
         private void UpdateNotificationButtons(object sender)
         {
             if (sender is not Button button) return;
 
-            if (button.Name != "NavBtnNotifications") DisableNavButton(NavBtnNotifications);
-            if (button.Name != "NavBtnAccommodations") DisableNavButton(NavBtnAccommodations);
-            if (button.Name != "NavBtnHome") DisableNavButton(NavBtnHome);
-            if (button.Name != "NavBtnForums") DisableNavButton(NavBtnForums);
-            if (button.Name != "NavBtnAccount") DisableNavButton(NavBtnAccount);
-
-            EnableNavButton(sender);
+            if (button.Name != "NavBtnNotifications") ChangeNavButtonIcon(NavBtnNotifications, "NotificationsMenuIcon");
+            else ChangeNavButtonIcon(sender, "NotificationsMenuIconFill");
+            if (button.Name != "NavBtnAccommodations") ChangeNavButtonIcon(NavBtnAccommodations, "AccommodationsMenuIcon");
+            else ChangeNavButtonIcon(sender, "AccommodationsMenuIconFill");
+            if (button.Name != "NavBtnHome") ChangeNavButtonIcon(NavBtnHome, "HomeMenuIcon");
+            else ChangeNavButtonIcon(sender, "HomeMenuIconFill");
+            if (button.Name != "NavBtnForums") ChangeNavButtonIcon(NavBtnForums, "ForumsMenuIcon");
+            else ChangeNavButtonIcon(sender, "ForumsMenuIconFill");
+            if (button.Name != "NavBtnAccount") ChangeNavButtonIcon(NavBtnAccount, "AccountMenuIcon");
+            else ChangeNavButtonIcon(sender, "AccountMenuIconFill");
         }
 
         private void NavBtn_Click(object sender, RoutedEventArgs e)
@@ -76,7 +69,7 @@ namespace SIMSProject.WPF.Views.OwnerViews
                     _ => new OwnerAccountView(_user),
                 }
             );
-            
+
             UpdateNotificationButtons(sender);
         }
 
@@ -120,8 +113,9 @@ namespace SIMSProject.WPF.Views.OwnerViews
                 App.SwitchTheme("Light");
                 App.CurrentTheme = "Light";
             }
+            NavBtn_Click(NavBtnAccount, null);
         }
 
-       
+
     }
 }
