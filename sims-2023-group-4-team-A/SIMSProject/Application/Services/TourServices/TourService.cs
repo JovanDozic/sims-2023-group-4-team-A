@@ -73,9 +73,9 @@ namespace SIMSProject.Application.Services.TourServices
         {
             return _repo.GetToursWithSameLocation(tour);
         }
-        public void SearchTours(string locationAndLanguage, int searchDuration, int searchMaxGuests, string language, ObservableCollection<Tour> tours)
+        public void SearchTours(string location, int searchDuration, int searchMaxGuests, string language, ObservableCollection<Tour> tours)
         {
-            _repo.SearchTours(locationAndLanguage, searchDuration, searchMaxGuests, language, tours);
+            _repo.SearchTours(location, searchDuration, searchMaxGuests, language, tours);
         }
 
         public void SortBySuperGuide(int GuideId)

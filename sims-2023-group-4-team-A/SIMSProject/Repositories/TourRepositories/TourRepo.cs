@@ -90,15 +90,15 @@ namespace SIMSProject.Repositories.TourRepositories
             return _tours.FindAll(x => x.Location.Id == selectedTour.Location.Id && x.Id != selectedTour.Id);
         }
 
-        public void SearchTours(string locationAndLanguage, int searchDuration, int searchMaxGuests, string language, ObservableCollection<Tour> tours)
+        public void SearchTours(string location, int searchDuration, int searchMaxGuests, string language, ObservableCollection<Tour> tours)
         {
             tours.Clear();
             foreach (var tour in new ObservableCollection<Tour>
                 (GetAll()))
                 tours.Add(tour);
 
-            if (locationAndLanguage == "Gde putujete?") locationAndLanguage = string.Empty;
-            string[] searchValues = locationAndLanguage.Split(" ");
+            if (location == "Gde putujete?") location = string.Empty;
+            string[] searchValues = location.Split(" ");
 
             List<Tour> searchResults = tours.ToList();
 
