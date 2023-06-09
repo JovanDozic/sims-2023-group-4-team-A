@@ -31,7 +31,6 @@ namespace SIMSProject
                 CurrentLanguage = "en-US";
                 return;
             }
-
             TranslationSource.Instance.CurrentCulture = new System.Globalization.CultureInfo("sr-LATN");
             CurrentLanguage = "sr-LATN";
         }
