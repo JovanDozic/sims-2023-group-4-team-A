@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Serializer;
 
@@ -25,11 +26,11 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public bool IsInFuture { get => StartDate > DateTime.Now; }
         public string FormattedStartDate
         {
-            get => StartDate.ToString("ddd, d. MMM. yyyy.", new System.Globalization.CultureInfo("sr-Latn-RS"));
+            get => StartDate.ToString("ddd, d. MMM. yyyy.");
         }
         public string FormattedEndDate
         {
-            get => EndDate.ToString("ddd, d. MMM. yyyy.", new System.Globalization.CultureInfo("sr-Latn-RS"));
+            get => EndDate.ToString("ddd, d. MMM. yyyy.");
         }
 
         public AccommodationReservation()
@@ -55,8 +56,8 @@ namespace SIMSProject.Domain.Models.AccommodationModels
                 Id.ToString(),
                 Accommodation.Id.ToString(),
                 Guest.Id.ToString(),
-                StartDate.ToString(),
-                EndDate.ToString(),
+                StartDate.ToString(CultureInfo.GetCultureInfo("sr-LATN")),
+                EndDate.ToString(CultureInfo.GetCultureInfo("sr-LATN")),
                 NumberOfDays.ToString(),
                 GuestNumber.ToString(),
                 GuestRated.ToString(),
@@ -72,8 +73,8 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             Id = int.Parse(values[0]);
             Accommodation.Id = int.Parse(values[1]);
             Guest.Id = int.Parse(values[2]);
-            StartDate = DateTime.Parse(values[3]);
-            EndDate = DateTime.Parse(values[4]);
+            StartDate = DateTime.Parse(values[3], CultureInfo.GetCultureInfo("sr-LATN"));
+            EndDate = DateTime.Parse(values[4], CultureInfo.GetCultureInfo("sr-LATN"));
             NumberOfDays = int.Parse(values[5]);
             GuestNumber = int.Parse(values[6]);
             GuestRated = bool.Parse(values[7]);

@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerForumViews"
       xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
+      xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
       mc:Ignorable="d" 
       d:DesignHeight="1000" d:DesignWidth="430"
       Title="Forum">
@@ -28,7 +29,7 @@
             <StackPanel Orientation="Horizontal">
                 <Image Source="/Resources/Icons/back.png"
                        Style="{StaticResource BackButtonIconStyle}"/>
-                <TextBlock Text="Nazad - Forumi - " Style="{StaticResource BackButtonTextStyle}"
+                <TextBlock Text="{ns:Loc BackForumsLocation}" Style="{StaticResource BackButtonTextStyle}"
                            Foreground="{DynamicResource TextColor}"/>
                 <TextBlock Text="{Binding Forum.Location}" Style="{StaticResource BackButtonTextStyle}"
                            Foreground="{DynamicResource TextColor}"/>
@@ -135,7 +136,7 @@
             <StackPanel Orientation="Horizontal">
                 <Image Source="/Resources/Icons/comment.png" Height="17.5" Margin="0,0,10,0" 
                        Style="{StaticResource IconRenderStyle}"/>
-                <TextBlock Text="Ostavi komentar" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                <TextBlock Text="{ns:Loc LeaveAComment}" VerticalAlignment="Center" Margin="0,0,0,0"/>
             </StackPanel>
         </Button>
 
@@ -162,23 +163,23 @@
 
                 <!-- Header (Location icon, username, role) -->
                 <StackPanel Orientation="Horizontal"
-                                        Grid.Column="0" Grid.Row="0"
-                                        Grid.ColumnSpan="2"
-                                        Width="385"
-                                        Margin="0,0,0,5">
+                            Grid.Column="0" Grid.Row="0"
+                            Grid.ColumnSpan="2"
+                            Width="385"
+                            Margin="0,0,0,5">
                     <Image Source="{Binding CommentUserIcon}"
-                                       Style="{StaticResource IconRenderStyle}"
-                                       Height="17.5"/>
+                           Style="{StaticResource IconRenderStyle}"
+                           Height="17.5"/>
                     <TextBlock Text="{Binding User.Username}"
-                                           FontSize="17.5"
-                                           FontWeight="Bold"
-                                           VerticalAlignment="Bottom"
-                                           Margin="10,0,0,0"/>
+                               FontSize="17.5"
+                               FontWeight="Bold"
+                               VerticalAlignment="Bottom"
+                               Margin="10,0,0,0"/>
                     <TextBlock Text="{Binding User.Role}"
-                                           FontSize="12.5"
-                                           Foreground="Gray"
-                                           VerticalAlignment="Bottom"
-                                           Margin="10,0,0,2"/>
+                               FontSize="12.5"
+                               Foreground="Gray"
+                               VerticalAlignment="Bottom"
+                               Margin="10,0,0,2"/>
                 </StackPanel>
 
                 <!-- Comment content -->
@@ -196,7 +197,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Resources/Icons/x.png" Height="17.5" Margin="0,0,10,0" 
                                Style="{StaticResource IconRenderStyle}"/>
-                        <TextBlock Text="Otkaži" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                        <TextBlock Text="{ns:Loc Cancel}" VerticalAlignment="Center" Margin="0,0,0,0"/>
                     </StackPanel>
                 </Button>
 
@@ -209,7 +210,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Resources/Icons/check.png" Height="17.5" Margin="0,0,10,0" 
                                Style="{StaticResource IconRenderStyle}"/>
-                        <TextBlock Text="Pošalji" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                        <TextBlock Text="{ns:Loc Send}" VerticalAlignment="Center" Margin="0,0,0,0"/>
                     </StackPanel>
                 </Button>
 

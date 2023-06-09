@@ -3,6 +3,7 @@ using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 
 
@@ -50,7 +51,7 @@ namespace SIMSProject.Domain.Models.TourModels
             string[] csvValues =    
             {
                 Id.ToString(),
-                Date.ToString("dd.MM.yyyy HH:mm:ss"),
+                Date.ToString(CultureInfo.GetCultureInfo("sr-LATN")),
                 Tour.Id.ToString(),
                 Guide.Id.ToString(),
                 TourStatus.ToString(),
@@ -63,7 +64,7 @@ namespace SIMSProject.Domain.Models.TourModels
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            Date = DateTime.Parse(values[1]);
+            Date = DateTime.Parse(values[1], CultureInfo.GetCultureInfo("sr-LATN"));
             Tour.Id = Convert.ToInt32(values[2]);
             Guide.Id = Convert.ToInt32(values[3]);
             TourStatus = (Status)Enum.Parse(typeof(Status), values[4]);

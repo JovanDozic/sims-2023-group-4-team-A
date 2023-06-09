@@ -1,6 +1,7 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Serializer;
 using System;
+using System.Globalization;
 
 namespace SIMSProject.Domain.Models
 {
@@ -39,8 +40,8 @@ namespace SIMSProject.Domain.Models
                 User.GetRole(User.Role),
                 Title,
                 Description,
-                CreationDate.ToString(),
-                ExpirationDate.ToString() ?? "",
+                CreationDate.ToString(CultureInfo.GetCultureInfo("sr-LATN")),
+                ExpirationDate is not null ? ((DateTime)ExpirationDate).ToString(CultureInfo.GetCultureInfo("sr-LATN")) : "",
                 IconSource,
                 IsRead.ToString()
             };
@@ -54,8 +55,8 @@ namespace SIMSProject.Domain.Models
             User.Role = User.GetRole(values[i++]);
             Title = values[i++];
             Description = values[i++];
-            CreationDate = DateTime.Parse(values[i++]);
-            ExpirationDate = DateTime.TryParse(values[i++], out DateTime result) ? result : null;
+            CreationDate = DateTime.Parse(values[i++], CultureInfo.GetCultureInfo("sr-LATN"));
+            ExpirationDate = DateTime.TryParse(values[i++], CultureInfo.GetCultureInfo("sr-LATN"), DateTimeStyles.None, out DateTime result) ? result : null;
             IconSource = values[i++];
             IsRead = bool.Parse(values[i++]);
         }

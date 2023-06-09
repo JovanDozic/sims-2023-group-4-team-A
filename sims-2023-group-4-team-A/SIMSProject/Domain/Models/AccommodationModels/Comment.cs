@@ -1,6 +1,7 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Serializer;
 using System;
+using System.Globalization;
 
 namespace SIMSProject.Domain.Models.AccommodationModels
 {
@@ -37,7 +38,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
                 User.GetRole(User.Role),
                 (User.Role == UserRole.Owner || User.Role == UserRole.SuperOwner) ? "True" : WasAtLocation.ToString(),
                 Text,
-                CreationDate.ToString(),
+                CreationDate.ToString(CultureInfo.GetCultureInfo("sr-LATN")),
                 Downvotes.ToString()
             };
             return csvValues;
@@ -51,7 +52,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             User.Role = User.GetRole(values[i++]);
             WasAtLocation = bool.Parse(values[i++]);
             Text = values[i++];
-            CreationDate = DateTime.Parse(values[i++]);
+            CreationDate = DateTime.Parse(values[i++], CultureInfo.GetCultureInfo("sr-LATN"));
             Downvotes = int.Parse(values[i++]);
         }
 

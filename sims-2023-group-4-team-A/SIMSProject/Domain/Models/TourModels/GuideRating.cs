@@ -56,7 +56,7 @@ namespace SIMSProject.Domain.Models.TourModels
                 OrganizationQualityRating.ToString(),
                 Overall.ToString(CultureInfo.CurrentCulture),
                 Comment,
-                RatingDate.ToString(),
+                RatingDate.ToString(CultureInfo.GetCultureInfo("sr-LATN")),
                 Reported.ToString(),
                 ImageURLsCSV
             };
@@ -73,7 +73,7 @@ namespace SIMSProject.Domain.Models.TourModels
             OrganizationQualityRating = int.Parse(values[5]);
             Overall = double.Parse(values[6]);
             Comment = values[7];
-            RatingDate = DateTime.Parse(values[8]);
+            RatingDate = DateTime.Parse(values[8], CultureInfo.GetCultureInfo("sr-LATN"));
             Reported = bool.Parse(values[9]);
             ImageURLsCSV = values[10];
             ImageURLs = ImageURLsFromCSV(ImageURLsCSV);

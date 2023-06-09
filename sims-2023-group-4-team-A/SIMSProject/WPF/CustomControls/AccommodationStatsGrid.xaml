@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
              xmlns:local="clr-namespace:SIMSProject.WPF.CustomControls"
              mc:Ignorable="d" 
              Height="Auto">
@@ -47,7 +48,7 @@
                PlacementTarget="{Binding ElementName=BtnTrophy}"
                VerticalOffset="-15" HorizontalOffset="-20">
             <Border Style="{StaticResource PopupBorderStyle}">
-                <TextBlock Text="Najveća zauzetost." 
+                <TextBlock Text="{ns:Loc MostBusy}" 
                            Style="{StaticResource PopupTextStyle}"/>
             </Border>
         </Popup>
@@ -68,25 +69,25 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Grid.Column="0" 
-                   Text="Rezervacije" Background="#ffffff"/>
+                   Text="{ns:Loc Reservations}" Background="#ffffff"/>
                 <Border Grid.Row="0" Grid.Column="1" BorderThickness="2,0,0,0">
                     <TextBlock Text="{Binding TotalReservations}" Background="#ffffff"/>
                 </Border>
 
                 <TextBlock Grid.Row="1" Grid.Column="0" 
-                   Text="Otkazane rezervacije" Background="#10000000"/>
+                   Text="{ns:Loc CanceledReservations}" Background="#10000000"/>
                 <Border Grid.Row="1" Grid.Column="1" BorderThickness="2,0,0,0">
                     <TextBlock Text="{Binding CancelledReservations}" Background="#10000000"/>
                 </Border>
 
                 <TextBlock Grid.Row="2" Grid.Column="0" 
-                   Text="Pomerene rezervacije" Background="#ffffff"/>
+                   Text="{ns:Loc RescheduledReservations}" Background="#ffffff"/>
                 <Border Grid.Row="2" Grid.Column="1" BorderThickness="2,0,0,0">
                     <TextBlock Text="{Binding RescheduledReservations}" Background="#ffffff"/>
                 </Border>
 
                 <TextBlock Grid.Row="3" Grid.Column="0" 
-                   Text="Preporuke za renoviranje" Background="#10000000"/>
+                   Text="{ns:Loc RenovationSuggestions}" Background="#10000000"/>
                 <Border Grid.Row="3" Grid.Column="1" BorderThickness="2,0,0,0">
                     <TextBlock Text="{Binding RenovationRecommendations}" Background="#10000000"/>
                 </Border>

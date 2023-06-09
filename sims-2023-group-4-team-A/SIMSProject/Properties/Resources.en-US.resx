@@ -117,7 +117,151 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AllRatings" xml:space="preserve">
+    <value>All ratings</value>
+  </data>
+  <data name="AllRenovations" xml:space="preserve">
+    <value>All renovations</value>
+  </data>
+  <data name="AllReservations" xml:space="preserve">
+    <value>All reservations</value>
+  </data>
+  <data name="AllStatistics" xml:space="preserve">
+    <value>All statistics</value>
+  </data>
+  <data name="Arrival" xml:space="preserve">
+    <value>Arrival</value>
+  </data>
+  <data name="ArrivalDot" xml:space="preserve">
+    <value>Arrival:</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="BackForums" xml:space="preserve">
+    <value>Back - Forums</value>
+  </data>
+  <data name="BackForumsLocation" xml:space="preserve">
+    <value>Back - Forums - </value>
+  </data>
   <data name="Bookbnb" xml:space="preserve">
     <value>Bookbnb</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CanceledReservations" xml:space="preserve">
+    <value>Canceled reservations</value>
+  </data>
+  <data name="Cleanliness" xml:space="preserve">
+    <value>Cleanliness</value>
+  </data>
+  <data name="Correctness" xml:space="preserve">
+    <value>Owner correctness</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="Forums" xml:space="preserve">
+    <value>Forums</value>
+  </data>
+  <data name="GradesAndRatings" xml:space="preserve">
+    <value>Ratings</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Guest</value>
+  </data>
+  <data name="GuestName" xml:space="preserve">
+    <value>Guest name:</value>
+  </data>
+  <data name="Kindness" xml:space="preserve">
+    <value>Kindness</value>
+  </data>
+  <data name="LeaveAComment" xml:space="preserve">
+    <value>Leave a comment</value>
+  </data>
+  <data name="Leaving" xml:space="preserve">
+    <value>Leaving</value>
+  </data>
+  <data name="LeavingDot" xml:space="preserve">
+    <value>Leaving:</value>
+  </data>
+  <data name="MostBusy" xml:space="preserve">
+    <value>Most busy.</value>
+  </data>
+  <data name="NumberOfDays" xml:space="preserve">
+    <value>Days</value>
+  </data>
+  <data name="NumberOfDaysDot" xml:space="preserve">
+    <value>Number of days:</value>
+  </data>
+  <data name="NumberOfGuests" xml:space="preserve">
+    <value>Guests</value>
+  </data>
+  <data name="NumberOfGuestsDot" xml:space="preserve">
+    <value>Number of guests:</value>
+  </data>
+  <data name="OnlyFutureRenovationsAreDisplayed" xml:space="preserve">
+    <value>Only future renovations are displayed.</value>
+  </data>
+  <data name="OnlyFutureReservatoinsAreDisplayed" xml:space="preserve">
+    <value>Only future reservations are displayed.</value>
+  </data>
+  <data name="OutOf5" xml:space="preserve">
+    <value>out of 5</value>
+  </data>
+  <data name="RatingForGuestDot" xml:space="preserve">
+    <value>Guest rating:</value>
+  </data>
+  <data name="RatingFromGuestDot" xml:space="preserve">
+    <value>Owner rating:</value>
+  </data>
+  <data name="RenovationInProgress" xml:space="preserve">
+    <value>Renovation in progress</value>
+  </data>
+  <data name="Renovations" xml:space="preserve">
+    <value>Renovations</value>
+  </data>
+  <data name="RenovationSuggestions" xml:space="preserve">
+    <value>Renovation suggestions</value>
+  </data>
+  <data name="RescheduledReservations" xml:space="preserve">
+    <value>Rescheduled reservations</value>
+  </data>
+  <data name="ReschedulingRequests" xml:space="preserve">
+    <value>Rescheduling requests</value>
+  </data>
+  <data name="Reservations" xml:space="preserve">
+    <value>Reservations</value>
+  </data>
+  <data name="ReservationStillInFuture" xml:space="preserve">
+    <value>Reservation is still in future.</value>
+  </data>
+  <data name="ScheduleRenovation" xml:space="preserve">
+    <value>Schedule renovation</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="ThisWasRecentlyRenovated" xml:space="preserve">
+    <value>This accommodation was recently renovated</value>
+  </data>
+  <data name="UsefulForum" xml:space="preserve">
+    <value>Useful forum</value>
+  </data>
+  <data name="xRatings" xml:space="preserve">
+    <value> ratings</value>
+  </data>
+  <data name="xRatings2" xml:space="preserve">
+    <value> ratings</value>
   </data>
 </root>

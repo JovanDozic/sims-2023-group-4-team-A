@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Serializer;
@@ -43,8 +44,8 @@ namespace SIMSProject.Model
             {
                 Id.ToString(),
                 Reservation.Id.ToString(),
-                NewStartDate.ToString(),
-                NewEndDate.ToString(),
+                NewStartDate.ToString(CultureInfo.GetCultureInfo("sr-LATN")),
+                NewEndDate.ToString(CultureInfo.GetCultureInfo("sr-LATN")),
                 OwnerComment,
                 GetStatus(Status)
             };
@@ -56,8 +57,8 @@ namespace SIMSProject.Model
             var i = 0;
             Id = int.Parse(values[i++]);
             Reservation.Id = int.Parse(values[i++]);
-            NewStartDate = DateTime.Parse(values[i++]);
-            NewEndDate = DateTime.Parse(values[i++]);
+            NewStartDate = DateTime.Parse(values[i++], CultureInfo.GetCultureInfo("sr-LATN"));
+            NewEndDate = DateTime.Parse(values[i++], CultureInfo.GetCultureInfo("sr-LATN"));
             OwnerComment = values[i++];
             Status = GetStatus(values[i++]);
         }

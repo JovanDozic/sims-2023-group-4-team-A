@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using SIMSProject.Domain.Models.TourModels;
+using System.Globalization;
 using SIMSProject.Serializer;
 
 namespace SIMSProject.Domain.Models.UserModels
@@ -37,7 +36,7 @@ namespace SIMSProject.Domain.Models.UserModels
                 Password,
                 GetRole(Role),
                 Math.Round(Rating, 2).ToString(),
-                Birthday.ToString(),
+                Birthday.ToString(CultureInfo.GetCultureInfo("sr-LATN")),
                 BonusPoints.ToString(),
                 awardDateValue
             };
@@ -51,9 +50,9 @@ namespace SIMSProject.Domain.Models.UserModels
             Password = values[2];
             Role = GetRole(values[3]);
             Rating = double.Parse(values[4]);
-            Birthday = DateTime.Parse(values[5]);
+            Birthday = DateTime.Parse(values[5], CultureInfo.GetCultureInfo("sr-LATN"));
             BonusPoints = int.Parse(values[6]);
-            if (DateTime.TryParse(values[7], out DateTime awardDate))
+            if (DateTime.TryParse(values[7], CultureInfo.GetCultureInfo("sr-LATN"), DateTimeStyles.None, out DateTime awardDate))
             {
                 AwardDate = awardDate;
             }

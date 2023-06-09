@@ -7,6 +7,7 @@
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:cstm="clr-namespace:SIMSProject.WPF.CustomControls"
       xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
+      xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
       mc:Ignorable="d" 
       Height="Auto" d:DesignWidth="430"
       Title="Register Accommodation" Background="White">
@@ -46,7 +47,7 @@
             <StackPanel Orientation="Horizontal">
                 <Image Source="/Resources/Icons/back.png"
                        Style="{StaticResource BackButtonIconStyle}"/>
-                <TextBlock Text="Nazad" Style="{StaticResource BackButtonTextStyle}"/>
+                <TextBlock Text="{ns:Loc Back}" Style="{StaticResource BackButtonTextStyle}"/>
             </StackPanel>
         </Button>
 
@@ -86,7 +87,7 @@
                                    VerticalAlignment="Center"/>
                         <TextBlock Text="{Binding Rating.NumberOfRatings}" FontSize="10"
                                    VerticalAlignment="Center"/>
-                        <TextBlock Text=" ocena" FontSize="10"
+                        <TextBlock Text="{ns:Loc xRatings}" FontSize="10"
                                    VerticalAlignment="Center"/>
                     </StackPanel>
 
@@ -106,7 +107,7 @@
                         <Image Source="/Resources/Icons/renovation.png" 
                                Style="{StaticResource IconRenderStyle}"
                                Height="20"/>
-                        <TextBlock Text="Ovaj smestaj je nedavno renoviran" Margin="10,0,0,0"
+                        <TextBlock Text="{ns:Loc ThisWasRecentlyRenovated}" Margin="10,0,0,0"
                                    FontSize="14"/>
                     </StackPanel>
 
@@ -115,7 +116,7 @@
                         <Image Source="/Resources/Icons/renovation-clock.png"
                                Style="{StaticResource IconRenderStyle}"
                                Height="20"/>
-                        <TextBlock Text="Renoviranje u toku" Margin="10,0,0,0"
+                        <TextBlock Text="{ns:Loc RenovationInProgress}" Margin="10,0,0,0"
                                    FontSize="14"/>
                     </StackPanel>
                 </StackPanel>
@@ -125,7 +126,7 @@
                     Margin="0,10">
                     <!-- Title, Help button and popup -->
                     <StackPanel Grid.Row="10" Orientation="Horizontal">
-                        <TextBlock Text="Rezervacije" 
+                        <TextBlock Text="{ns:Loc Reservations}" 
                                    FontWeight="SemiBold" FontSize="30"
                                    Margin="0,0,0,5"/>
                         <Button x:Name="BtnReservationHelp" Width="30" Height="20"
@@ -142,7 +143,7 @@
                            PlacementTarget="{Binding ElementName=BtnReservationHelp}"
                            VerticalOffset="-100" HorizontalOffset="-90">
                         <Border Style="{StaticResource PopupBorderStyle}">
-                            <TextBlock Text="Prikazane su samo predstojeće rezervacije." 
+                            <TextBlock Text="{ns:Loc OnlyFutureReservatoinsAreDisplayed}" 
                                        Style="{StaticResource PopupTextStyle}"/>
                         </Border>
                     </Popup>
@@ -185,11 +186,11 @@
                         </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Gost" DisplayMemberBinding="{Binding Guest.Username}" Width="175"/>
-                                <GridViewColumn Header="Dolazak" DisplayMemberBinding="{Binding StartDate, StringFormat=\{0:dd.MMM.yy\}}" Width="120"/>
-                                <GridViewColumn Header="Odlazak" DisplayMemberBinding="{Binding EndDate, StringFormat=\{0:dd.MMM.yy\}}" Width="120"/>
-                                <GridViewColumn Header="Broj dana" DisplayMemberBinding="{Binding NumberOfDays}" Width="100"/>
-                                <GridViewColumn Header="Broj Gostiju" DisplayMemberBinding="{Binding GuestNumber}" Width="100"/>
+                                <GridViewColumn Header="{ns:Loc Guest}" DisplayMemberBinding="{Binding Guest.Username}" Width="175"/>
+                                <GridViewColumn Header="{ns:Loc Arrival}" DisplayMemberBinding="{Binding StartDate, StringFormat=\{0:dd.MMM.yy\}}" Width="120"/>
+                                <GridViewColumn Header="{ns:Loc Leaving}" DisplayMemberBinding="{Binding EndDate, StringFormat=\{0:dd.MMM.yy\}}" Width="120"/>
+                                <GridViewColumn Header="{ns:Loc NumberOfDays}" DisplayMemberBinding="{Binding NumberOfDays}" Width="100"/>
+                                <GridViewColumn Header="{ns:Loc NumberOfGuests}" DisplayMemberBinding="{Binding GuestNumber}" Width="100"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -203,14 +204,14 @@
                         <Button x:Name="BtnReschedulingRequests" Grid.Column="0"
                                 HorizontalAlignment="Left"
                                 Style="{StaticResource MobileActionHalfButtonStyle}">
-                            <TextBlock Text="Zahtevi za pomeranje" 
+                            <TextBlock Text="{ns:Loc ReschedulingRequests}" 
                                        VerticalAlignment="Center"/>
                         </Button>
                         <Button x:Name="BtnAllReservations" Grid.Column="1"
                                 HorizontalAlignment="Right"
                                 Style="{StaticResource MobileActionHalfButtonStyle}"
                                 Click="BtnAllReservations_Click">
-                            <TextBlock Text="Sve rezervacije" 
+                            <TextBlock Text="{ns:Loc AllReservations}" 
                                        VerticalAlignment="Center"/>
                         </Button>
                     </Grid>
@@ -221,7 +222,7 @@
                             Margin="0,10"
                             DataContext="{Binding Accommodation}">
 
-                    <TextBlock Text="Ocene i recenzije"
+                    <TextBlock Text="{ns:Loc GradesAndRatings}"
                                FontWeight="SemiBold" FontSize="30" TextWrapping="Wrap"
                                Margin="0,0,0,5"/>
 
@@ -236,7 +237,7 @@
                             <TextBlock Text="{Binding Rating.Overall}"
                                        FontWeight="SemiBold" FontSize="40"
                                        VerticalAlignment="Bottom"/>
-                            <TextBlock Text="od 5"
+                            <TextBlock Text="{ns:Loc OutOf5}"
                                        FontSize="20"
                                        Margin="10,22.5,0,0"/>
                         </StackPanel>
@@ -245,7 +246,7 @@
                             <TextBlock Text="{Binding Rating.NumberOfRatings}"
                                        FontSize="20"
                                        VerticalAlignment="Bottom"/>
-                            <TextBlock Text=" recenzije"
+                            <TextBlock Text="{ns:Loc xRatings2}"
                                        FontSize="20"
                                        VerticalAlignment="Bottom"/>
                         </StackPanel>
@@ -265,19 +266,19 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Čistoća"
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{ns:Loc Cleanliness}"
                                    Style="{StaticResource RatingCategoryLabel}"/>
                         <cstm:StarRating Grid.Row="0" Grid.Column="1"
                                          Rating="{Binding Rating.CleanlinessRating}"
                                          Style="{StaticResource RatingCategoryStars}"/>
 
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Korektnost vlasnika"
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{ns:Loc Correctness}"
                                    Style="{StaticResource RatingCategoryLabel}"/>
                         <cstm:StarRating Grid.Row="1" Grid.Column="1"
                                          Rating="{Binding Rating.OwnerCorrectness}"
                                          Style="{StaticResource RatingCategoryStars}"/>
 
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Ljubaznost"
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{ns:Loc Kindness}"
                                    Style="{StaticResource RatingCategoryLabel}"/>
                         <cstm:StarRating Grid.Row="2" Grid.Column="1"
                                          Rating="{Binding Rating.Kindness}"
@@ -287,7 +288,7 @@
                     <Button x:Name="BtnAllRatings"
                             HorizontalAlignment="Center" Width="385"
                             Style="{StaticResource MobileActionSingleButtonStyle}">
-                        <TextBlock Text="Sve recenzije" 
+                        <TextBlock Text="{ns:Loc AllRatings}" 
                                    VerticalAlignment="Center"/>
                     </Button>
 
@@ -298,7 +299,7 @@
                             Margin="0,10"
                             DataContext="{Binding Statistic}">
 
-                    <TextBlock Text="Statistika"
+                    <TextBlock Text="{ns:Loc Statistics}"
                                FontWeight="SemiBold" FontSize="30" TextWrapping="Wrap"
                                Margin="0,0,0,5"/>
 
@@ -315,7 +316,7 @@
                     <Button x:Name="BtnAllStats"
                             HorizontalAlignment="Center" Width="385"
                             Style="{StaticResource MobileActionSingleButtonStyle}" Click="BtnAllStats_Click">
-                        <TextBlock Text="Sva statistika" 
+                        <TextBlock Text="{ns:Loc AllStatistics}" 
                                    VerticalAlignment="Center"/>
                     </Button>
 
@@ -327,7 +328,7 @@
 
                     <!-- Title, Help button and popup -->
                     <StackPanel Grid.Row="10" Orientation="Horizontal">
-                        <TextBlock Text="Renoviranja" 
+                        <TextBlock Text="{ns:Loc Renovations}" 
                                    FontWeight="SemiBold" FontSize="30"
                                    Margin="0,0,0,5"/>
                         <Button x:Name="BtnRenovationHelp" Width="30" Height="20"
@@ -344,7 +345,7 @@
                            PlacementTarget="{Binding ElementName=BtnRenovationHelp}"
                            VerticalOffset="-100" HorizontalOffset="-90">
                         <Border Style="{StaticResource PopupBorderStyle}">
-                            <TextBlock Text="Prikazana su samo predstojeća renoviranja." 
+                            <TextBlock Text="{ns:Loc OnlyFutureRenovationsAreDisplayed}" 
                                        Style="{StaticResource PopupTextStyle}"/>
                         </Border>
                     </Popup>
@@ -388,15 +389,12 @@
                         </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Početak" DisplayMemberBinding="{Binding StartDate, StringFormat=\{0:dd.MMM.yy\}}" Width="120"/>
-                                <GridViewColumn Header="Kraj" DisplayMemberBinding="{Binding EndDate, StringFormat=\{0:dd.MMM.yy\}}" Width="120"/>
-                                <GridViewColumn Header="Opis" DisplayMemberBinding="{Binding}" Width="150"/>
+                                <GridViewColumn Header="{ns:Loc Start}" DisplayMemberBinding="{Binding StartDate, StringFormat=\{0:dd.MMM.yy\}}" Width="120"/>
+                                <GridViewColumn Header="{ns:Loc End}" DisplayMemberBinding="{Binding EndDate, StringFormat=\{0:dd.MMM.yy\}}" Width="120"/>
+                                <GridViewColumn Header="{ns:Loc Description}" DisplayMemberBinding="{Binding}" Width="150"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
-
-
-
 
                     <Grid Margin="0,5,0,0">
                         <Grid.ColumnDefinitions>
@@ -406,13 +404,13 @@
                         <Button x:Name="BtnScheduleRenovation" Grid.Column="0"
                                 HorizontalAlignment="Left"
                                 Style="{StaticResource MobileActionHalfButtonStyle}">
-                            <TextBlock Text="Zakaži renoviranje" 
+                            <TextBlock Text="{ns:Loc ScheduleRenovation}" 
                                        VerticalAlignment="Center"/>
                         </Button>
                         <Button x:Name="BtnAllRenovations" Grid.Column="1"
                                 HorizontalAlignment="Right"
                                 Style="{StaticResource MobileActionHalfButtonStyle}">
-                            <TextBlock Text="Sva renoviranja" 
+                            <TextBlock Text="{ns:Loc AllRenovations}" 
                                        VerticalAlignment="Center"/>
                         </Button>
                     </Grid>

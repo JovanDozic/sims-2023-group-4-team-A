@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
       xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
+      xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
       mc:Ignorable="d" 
       d:DesignHeight="1000" d:DesignWidth="430"
       Title="All Reservatinos" Background="White">
@@ -29,13 +30,13 @@
             <StackPanel Orientation="Horizontal">
                 <Image Source="/Resources/Icons/back.png"
                        Style="{StaticResource BackButtonIconStyle}"/>
-                <TextBlock Text="Nazad" Style="{StaticResource BackButtonTextStyle}"/>
+                <TextBlock Text="{ns:Loc Back}" Style="{StaticResource BackButtonTextStyle}"/>
                 <TextBlock Text=" - " Style="{StaticResource BackButtonTextStyle}"/>
                 <TextBlock Text="{Binding Accommodation.Name}" Style="{StaticResource BackButtonTextStyle}"/>
             </StackPanel>
         </Button>
 
-        <Label Content="Rezervacije" Grid.Row="1"
+        <Label Content="{ns:Loc Reservations}" Grid.Row="1"
                FontSize="30" FontWeight="SemiBold"
                HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
@@ -69,7 +70,7 @@
 
                                 <!-- Guest name -->
                                 <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-                                    <Label Content="Ime gosta:" FontSize="15"/>
+                                    <Label Content="{ns:Loc GuestName}" FontSize="15"/>
                                     <TextBlock Text="{Binding Guest.Username}"
                                                FontSize="20" FontWeight="SemiBold"
                                                Margin="10,0,0,0"/>
@@ -77,13 +78,13 @@
 
                                 <!-- StartDate / EndDate -->
                                 <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0">
-                                    <Label Content="Dolazak:" FontSize="15"/>
+                                    <Label Content="{ns:Loc ArrivalDot}" FontSize="15"/>
                                     <TextBlock Text="{Binding FormattedStartDate}"
                                                FontSize="18" FontWeight="SemiBold"
                                                Margin="10,0,0,0"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0">
-                                    <Label Content="Odlazak:" FontSize="15"/>
+                                    <Label Content="{ns:Loc LeavingDot}" FontSize="15"/>
                                     <TextBlock Text="{Binding FormattedEndDate}"
                                                FontSize="18" FontWeight="SemiBold"
                                                Margin="10,0,0,0"/>
@@ -91,7 +92,7 @@
 
                                 <!-- OwnerRating -->
                                 <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="0">
-                                    <Label Content="Recenzija od gosta:" FontSize="15"/>
+                                    <Label Content="{ns:Loc RatingFromGuestDot}" FontSize="15"/>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{Binding OwnerRatingString}"
                                                    FontSize="20" FontWeight="SemiBold"
@@ -116,7 +117,7 @@
 
                                 <!-- Number of days -->
                                 <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
-                                    <Label Content="Broj noćenja:" FontSize="15"/>
+                                    <Label Content="{ns:Loc NumberOfDaysDot}" FontSize="15"/>
                                     <TextBlock Text="{Binding NumberOfDays}"
                                                FontSize="20" FontWeight="SemiBold"
                                                Margin="10,0,0,0"/>  
@@ -124,7 +125,7 @@
 
                                 <!-- Number of guests -->
                                 <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1">
-                                    <Label Content="Broj gostiju:" FontSize="15"/>
+                                    <Label Content="{ns:Loc NumberOfGuestsDot}" FontSize="15"/>
                                     <TextBlock Text="{Binding GuestNumber}"
                                                FontSize="20" FontWeight="SemiBold"
                                                Margin="10,0,0,0"/>  
@@ -132,7 +133,7 @@
 
                                 <!-- GuestRating -->
                                 <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1">
-                                    <Label Content="Recenzija za gosta:" FontSize="15"/>
+                                    <Label Content="{ns:Loc RatingForGuestDot}" FontSize="15"/>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{Binding GuestRatingString}"
                                                    FontSize="20" FontWeight="SemiBold"
@@ -166,7 +167,7 @@
                PlacementTarget="{Binding ElementName=BtnOwnerNotRated}"
                VerticalOffset="-15" HorizontalOffset="-20">
             <Border Style="{StaticResource PopupBorderStyle}">
-                <TextBlock Text="Rezervaicja još uvek nije prošla." 
+                <TextBlock Text="{ns:Loc ReservationStillInFuture}" 
                            Style="{StaticResource PopupTextStyle}"/>
             </Border>
         </Popup>

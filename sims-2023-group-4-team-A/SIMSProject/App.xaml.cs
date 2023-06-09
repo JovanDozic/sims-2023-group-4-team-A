@@ -1,5 +1,6 @@
 ﻿using SIMSProject.WPF.Languages;
 using System;
+using System.Threading;
 using System.Windows;
 
 namespace SIMSProject
@@ -29,9 +30,13 @@ namespace SIMSProject
             {
                 TranslationSource.Instance.CurrentCulture = new System.Globalization.CultureInfo("en-US");
                 CurrentLanguage = "en-US";
+                Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
                 return;
             }
             TranslationSource.Instance.CurrentCulture = new System.Globalization.CultureInfo("sr-LATN");
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("sr-LATN");
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("sr-LATN");
             CurrentLanguage = "sr-LATN";
         }
     }

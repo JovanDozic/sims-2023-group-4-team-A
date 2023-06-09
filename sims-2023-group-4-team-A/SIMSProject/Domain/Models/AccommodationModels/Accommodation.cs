@@ -2,6 +2,7 @@
 using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace SIMSProject.Domain.Models.AccommodationModels
@@ -93,7 +94,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
                 IsRecentlyRenovated.ToString(),
                 Math.Round(Rating.Overall, 2).ToString(),
                 Rating.NumberOfRatings.ToString(),
-                DateCreated.ToString(),
+                DateCreated.ToString(CultureInfo.GetCultureInfo("sr-LATN")),
                 ImageURLsCSV
             };
             return csvValues;
@@ -115,7 +116,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             IsRecentlyRenovated = bool.Parse(values[i++]);
             Rating.Overall = double.Parse(values[i++]);
             Rating.NumberOfRatings = int.Parse(values[i++]);
-            DateCreated = DateTime.Parse(values[i++]);
+            DateCreated = DateTime.Parse(values[i++], CultureInfo.GetCultureInfo("sr-LATN"));
             ImageURLsCSV = values[i++];
             ImageURLs = ImageURLsFromCSV(ImageURLsCSV);
             FeaturedImage = ImageURLs.Count > 0 ? ImageURLs.First() : string.Empty;
