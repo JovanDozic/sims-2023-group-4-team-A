@@ -6,6 +6,7 @@ using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace SIMSProject.Application.Services.AccommodationServices
 {
@@ -51,20 +52,20 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
         public void CreateForum(Location location, Comment firstComment)
         {
-            firstComment = _commentService.CreateComment(firstComment, location);
+             firstComment = _commentService.CreateComment(firstComment, location);
             Forum forum = new()
             {
                 Location = location,
-                CreationDate = DateTime.Now,
+                CreationDate = DateTime.Today,
             };
             forum.Comments.Add(firstComment);
             _repo.Save(forum);
-            CreateNewForumNotification(location);
+            CreateNewForumNotification(forum);
         }
 
-        private void CreateNewForumNotification(Location location)
+        private void CreateNewForumNotification(Forum forum)
         {
-            var owners = _accommodationService.GetAllByLocation(location).Select(x => x.Owner).Distinct().ToList();
+            var owners = _accommodationService.GetAllByLocation(forum.Location).Select(x => x.Owner).Distinct().ToList();
             foreach (var owner in owners)
             {
                 _notificationService.CreateNotification(new Notification()
@@ -72,9 +73,10 @@ namespace SIMSProject.Application.Services.AccommodationServices
                     User = owner,
                     Title = Consts.ForumCreatedInOwnersLocationTitle,
                     Description = Consts.ForumCreatedInOwnersLocationDescription
-                                        .Replace("@username", owner.Username)
-                                        .Replace("@location", location.ToString()),
+                                        .Replace("@username", forum.Comments.First().User.Username)
+                                        .Replace("@location", forum.Location.ToString()),
                     CreationDate = DateTime.Now,
+                    IconSource = "CommentIcon"
                 });
             }
         }

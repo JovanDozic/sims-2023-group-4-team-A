@@ -1,4 +1,5 @@
-﻿using SIMSProject.Domain.Models.UserModels;
+﻿using SIMSProject.Domain.Models;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
         {
             if (MyForums.SelectedItem != null)
             {
-                NavigationService.Navigate(new ForumView());
+                NavigationService.Navigate(new ForumView(_user, _viewModel.SelectedForum));
             }
         }
 
@@ -49,8 +50,14 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
         {
             if (AllForums.SelectedItem != null)
             {
-                NavigationService.Navigate(new ForumView());
+                NavigationService.Navigate(new ForumView(_user, _viewModel.SelectedForum));
             }
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _viewModel.FilterForumsByLocation();
+
         }
     }
 }

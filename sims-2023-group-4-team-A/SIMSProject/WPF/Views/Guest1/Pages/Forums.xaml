@@ -21,9 +21,10 @@
                     </Grid.RowDefinitions>
 
                     <Label Content="Lokacija: " FontSize="28" Margin="29,50,0,0"></Label>
-                    <ComboBox Margin="29,100,705,62"></ComboBox>
+                    <ComboBox ItemsSource="{Binding AllLocations, UpdateSourceTrigger=PropertyChanged}" 
+                  SelectedItem="{Binding SelectedLocation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="29,100,705,62" SelectionChanged="ComboBox_SelectionChanged"></ComboBox>
                     <ListView x:Name="AllForums" Grid.Row="1"
-                  ItemsSource="{Binding Forums, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding AllForums, UpdateSourceTrigger=PropertyChanged}"
                   Background="Transparent"
                   BorderBrush="Transparent"
                   BorderThickness="0" d:ItemsSource="{d:SampleData ItemCount=5}"
@@ -45,7 +46,7 @@
                                         <ColumnDefinition Width="500"></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <TextBox Text="{Binding Comment}" Background="Transparent" FontWeight="Bold" BorderThickness="4" IsReadOnly="True" BorderBrush="White" TextWrapping="Wrap">
+                                    <TextBox Text="{Binding Comments[0].Text}" Background="Transparent" FontWeight="Bold" BorderThickness="4" IsReadOnly="True" BorderBrush="White" TextWrapping="Wrap">
                                     </TextBox>
                                     <StackPanel Grid.Column="1" Orientation="Vertical" Margin="30">
                                         <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
@@ -54,7 +55,7 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                                             <Label Content="Datum: "></Label>
-                                            <Label Content="{Binding CreationDate,StringFormat='dd.MM.yyyy'}" FontWeight="Bold"></Label>
+                                            <Label Content="{Binding CreationDate}" FontWeight="Bold"></Label>
                                         </StackPanel>
 
                                     </StackPanel>
@@ -75,6 +76,7 @@
 
                     <ListView x:Name="MyForums" Grid.Row="1"
                   ItemsSource="{Binding Forums, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedForum}"
                   Background="Transparent"
                   BorderBrush="Transparent"
                   BorderThickness="0" d:ItemsSource="{d:SampleData ItemCount=5}"
@@ -96,7 +98,7 @@
                                         <ColumnDefinition Width="500"></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <TextBox Text="{Binding Comment}" Background="Transparent" FontWeight="Bold" BorderThickness="4" IsReadOnly="True" BorderBrush="White" TextWrapping="Wrap">
+                                    <TextBox Text="{Binding Comments[0].Text, Mode=TwoWay}" Background="Transparent" FontWeight="Bold" BorderThickness="4" IsReadOnly="True" BorderBrush="White" TextWrapping="Wrap">
                                     </TextBox>
                                     <StackPanel Grid.Column="1" Orientation="Vertical" Margin="30">
                                         <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
@@ -105,7 +107,7 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                                             <Label Content="Datum: "></Label>
-                                            <Label Content="{Binding CreationDate,StringFormat='dd.MM.yyyy'}" FontWeight="Bold"></Label>
+                                            <Label Content="{Binding CreationDate}" FontWeight="Bold"></Label>
                                         </StackPanel>
 
                                     </StackPanel>

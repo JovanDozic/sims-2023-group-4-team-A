@@ -1,4 +1,8 @@
-﻿using System;
+﻿using SIMSProject.Domain.Models.AccommodationModels;
+using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.ViewModels.AccommodationViewModels;
+using SIMSProject.WPF.ViewModels.Guest1ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +24,15 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
     /// </summary>
     public partial class ForumView : Page
     {
-        public ForumView()
+        private User _user = new();
+        private ForumDisplayViewModel _viewModel;
+        public ForumView(User user, Forum forum)
         {
             InitializeComponent();
+            _user = user;
+            _viewModel = new(_user, forum);
+            DataContext = _viewModel;
+
         }
 
         private void Button_Click_Close(object sender, RoutedEventArgs e)

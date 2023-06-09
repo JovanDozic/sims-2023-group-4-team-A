@@ -31,12 +31,12 @@
                     BorderThickness="0"
                     FontSize="20" Margin="948,10,10,0" Click="Button_Click_Close"/>
             <Label Content="Lokacija: " Grid.Row="1" FontSize="30" Margin="35,0,857,0"></Label>
-            <Label Content="Bijeljina" FontWeight="Bold" FontStyle="Italic" Grid.Row="1" Margin="167,0,0,0" FontSize="30"></Label>
+            <Label Content="{Binding Forum.Location}" FontWeight="Bold" FontStyle="Italic" Grid.Row="1" Margin="167,0,0,0" FontSize="30"></Label>
             <Button Foreground="White" Background="#0c669f" Height="50" Content="Zatvori forum" FontSize="25" Grid.Row="2" Margin="775,10,60,0"/>
             <Label Content="Vlasnik foruma: " FontSize="30" Grid.Row="2" Margin="35,0,759,0"></Label>
-            <Label Content="Marko" Grid.Row="2" FontSize="30" FontWeight="Bold" FontStyle="Italic" Margin="261,0,636,0"></Label>
-            <Label Foreground="Gray" Content="14.10.2001." Grid.Row="3" FontSize="20" Margin="35,0,862,0"></Label>
-            <TextBox IsReadOnly="True" BorderThickness="4" FontWeight="Bold" BorderBrush="White" Background="Transparent" TextWrapping="Wrap" FontSize="24" Grid.Row="4" Margin="35,10,216,46"/>
+            <Label Content="{Binding Forum.Comments[0].User.Username}" Grid.Row="2" FontSize="30" FontWeight="Bold" FontStyle="Italic" Margin="261,0,636,0"></Label>
+            <Label Foreground="Gray" Content="{Binding Forum.CreationDate}" Grid.Row="3" FontSize="20" Margin="35,0,862,0"></Label>
+            <TextBox Text="{Binding Forum.Comments[0].Text}" IsReadOnly="True" BorderThickness="4" FontWeight="Bold" BorderBrush="White" Background="Transparent" TextWrapping="Wrap" FontSize="24" Grid.Row="4" Margin="35,10,216,46"/>
 
             <Label Content="Broj komentara:" FontSize="25" Grid.Row="5" Margin="35,0,783,0"></Label>
             <Label Content="32" FontSize="25" Grid.Row="5" Margin="224,0,0,0"></Label>

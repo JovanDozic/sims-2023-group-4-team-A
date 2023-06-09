@@ -5,6 +5,7 @@ using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -16,8 +17,11 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private Forum _forum = new();
         private ForumService _forumService;
         private LocationService _locationService;
+        private Comment _newComment = new();
+        private Forum _selectedForum = new();
 
         private ObservableCollection<Forum> _forums = new();
+        private ObservableCollection<Forum> _allForums = new();
         public ObservableCollection<Location> AllLocations { get; set; } = new();
         public ObservableCollection<Forum> Forums
         {
@@ -26,6 +30,17 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             {
                 if (value == _forums) return;
                 _forums = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<Forum> AllForums
+        {
+            get => _allForums;
+            set
+            {
+                if (value == _allForums) return;
+                _allForums = value;
                 OnPropertyChanged();
             }
         }
@@ -61,15 +76,25 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
-
-        public Comment Comment
+        public Forum SelectedForum
         {
-            get => _forum.Comments.First();
+            get => _selectedForum;
             set
             {
-                if (_forum.Comments.First() == value) return;
-                //_forum.Comments.First() = value;
+                if (_selectedForum == value) return;
+                _selectedForum = value;
                 OnPropertyChanged();
+            }
+        }
+
+        public Comment NewComment
+        {
+            get => _newComment;
+            set
+            {
+                if (_newComment == value) return;
+                _newComment = value;
+                OnPropertyChanged(nameof(NewComment));
             }
         }
 
@@ -81,17 +106,24 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             AllLocations = new(_locationService.GetAll());
             CreationDate = DateTime.Today;
             Forums = LoadAllForumsByUser();
+            AllForums = LoadAllForums();
+
         }
 
         public ObservableCollection<Forum> LoadAllForumsByUser()
         {
             return new ObservableCollection<Forum>(_forumService.GetAllByUser(_user));
         }
+        public ObservableCollection<Forum> LoadAllForums()
+        {
+            SelectedLocation = null;
+            return new ObservableCollection<Forum>(_forumService.GetAll());
+        }
         public void CreateForum()
         {
-            //_forum.ForumOwner.Id = User.Id;
-            //_forumService.CreateForum(_forum);
-            //ToastNotificationService.ShowSuccess("Forum uspešno kreiran");
+            NewComment.User = _user;
+            _forumService.CreateForum(SelectedLocation, NewComment);
+            ToastNotificationService.ShowSuccess("Forum uspešno kreiran");
         }
 
         public bool IsLocationSelected()
@@ -101,7 +133,19 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
         public bool IsCommentEmpty()
         {
-            return Comment.Text != string.Empty;
+            return NewComment.Text != string.Empty;
+        }
+
+        public void FilterForumsByLocation()
+        {
+            if (SelectedLocation == null)
+            {
+                AllForums = new ObservableCollection<Forum>(_forumService.GetAll());
+            }
+            else
+            {
+                AllForums = new ObservableCollection<Forum>(_forumService.GetAllByLocation(SelectedLocation));
+            }
         }
     }
 }

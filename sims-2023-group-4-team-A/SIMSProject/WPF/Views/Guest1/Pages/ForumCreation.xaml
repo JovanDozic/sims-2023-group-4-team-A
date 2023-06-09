@@ -52,7 +52,7 @@
         <TextBox Background="Transparent" FontSize="28" Text="{Binding CreationDate, StringFormat='dd.MM.yyyy.'}" IsReadOnly="True" TextAlignment="Center" x:Name="TodaysDate" Grid.Row="2" Grid.Column="1" Margin="95,26,95,32"></TextBox>
         <Label Content="Komentar:" Grid.Row="3"
                FontSize="28" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-        <TextBox TextWrapping="Wrap" x:Name="CommentTB" Text="{Binding Comment}" FontSize="25" Grid.Row="4" Grid.ColumnSpan="2" Margin="143,10,95,24" TextChanged="CommentTB_TextChanged" />
+        <TextBox TextWrapping="Wrap" x:Name="CommentTB" Text="{Binding NewComment.Text}" FontSize="25" Grid.Row="4" Grid.ColumnSpan="2" Margin="143,10,95,24" TextChanged="CommentTB_TextChanged" />
         <Label x:Name="CommentLabel" Content="Komentar je obavezan" Visibility="Visible" FontSize="15" Grid.Row="4" Foreground="Red" Margin="143,180,0,97" Grid.RowSpan="2"></Label>
         <Button x:Name="CreationButton" Grid.Row="5" Grid.ColumnSpan="2" Width="279" Content="Kreiraj forum" FontSize="28" Click="Button_Click_Create" Margin="372,22,372,32">
             <Button.Style>
