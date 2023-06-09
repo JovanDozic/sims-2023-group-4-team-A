@@ -137,6 +137,25 @@ namespace SIMSProject.Domain.Injectors
                 );
 
             services.AddSingleton<ISuperGuideLogRepo, SuperGuideLogRepo>();
+            services.AddSingleton<IComplexTourRequestRepo, ComplexTourRequestRepo>(
+                provider => new ComplexTourRequestRepo(
+                    provider.GetService<IGuest2Repo>() ?? throw new Exception("Dependency Injection Failed: IGuestRepo not found."),
+                    provider.GetService<ICustomTourRequestRepo>() ?? throw new Exception("Dependency Injection Failed: ICustomTourRequestRepo not found.")
+                )
+            );
+
+            services.AddSingleton<ICommentRepo, CommentRepo>(
+                provider => new CommentRepo(
+                    provider.GetService<IUserRepo>() ?? throw new Exception("Dependency Injection Failed: IUserRepo not found.")
+                    )
+                );
+
+            services.AddSingleton<IForumRepo, ForumRepo>(
+                provider => new ForumRepo(
+                    provider.GetService<ILocationRepo>() ?? throw new Exception("Dependency Injection Failed: ILocationRepo not found."), 
+                    provider.GetService<ICommentRepo>() ?? throw new Exception("Dependency Injection Failed: ICommentRepo not found.")
+                    )
+                );
 
             // Service Injections
             services.AddScoped<UserService>();
@@ -163,7 +182,9 @@ namespace SIMSProject.Domain.Injectors
             services.AddScoped<CustomTourRequestStatisticsService>();
             services.AddScoped<RenovationSuggestionService>();
             services.AddScoped<ForumService>();
+            services.AddScoped<CommentService>();
             services.AddScoped<GuideService>();
+            services.AddScoped<ComplexTourRequestService>();
 
             return services.BuildServiceProvider();
         }

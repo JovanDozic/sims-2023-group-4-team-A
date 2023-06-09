@@ -21,9 +21,11 @@ namespace SIMSProject.Domain.Models.TourModels
         public DateTime EndDate { get; set; }
         public DateTime RequestCreateDate { get; set; }
         public RequestStatus RequestStatus { get; set; }
-
+        public int ComplexTourId { get; set; } = -1;
+        public int AssignedGuideId { get; set; } = -1;
+        public DateTime RealizationDate { get; set; }
         public CustomTourRequest() { }
-        public CustomTourRequest(int id, int guestId, int locationId, string description, Language tourLanguage, int guestCount, DateTime startDate, DateTime endDate, DateTime requestCreateDate, RequestStatus requestStatus)
+        public CustomTourRequest(int id, int guestId, int locationId, string description, Language tourLanguage, int guestCount, DateTime startDate, DateTime endDate, DateTime requestCreateDate, RequestStatus requestStatus, DateTime realizationDate)
         {
             Id = id;
             Guest.Id = guestId;
@@ -35,6 +37,21 @@ namespace SIMSProject.Domain.Models.TourModels
             EndDate = endDate;
             RequestCreateDate = requestCreateDate;
             RequestStatus = requestStatus;
+            RealizationDate = realizationDate;
+        }
+        public CustomTourRequest(int id, int guestId, int locationId, string description, Language tourLanguage, int guestCount, DateTime startDate, DateTime endDate, DateTime requestCreateDate, RequestStatus requestStatus, int complexTourId)
+        {
+            Id = id;
+            Guest.Id = guestId;
+            Location.Id = locationId;
+            Description = description;
+            TourLanguage = tourLanguage;
+            GuestCount = guestCount;
+            StartDate = startDate;
+            EndDate = endDate;
+            RequestCreateDate = requestCreateDate;
+            RequestStatus = requestStatus;
+            ComplexTourId = complexTourId;
         }
         public string FormattedDateRange => $"{StartDate:dd/MM/yyyy}" + "-" + $"{EndDate:dd/MM/yyyy.}";
         public static RequestStatus GetStatus(string status)
@@ -69,7 +86,10 @@ namespace SIMSProject.Domain.Models.TourModels
                 RequestCreateDate.ToString(),
                 RequestStatus.ToString(),
                 Guest.Id.ToString(),
-                Location.Id.ToString()
+                Location.Id.ToString(),
+                ComplexTourId.ToString(),
+                AssignedGuideId.ToString(),
+                RealizationDate.ToString()
             };
             return csvValues;
         }
@@ -86,6 +106,9 @@ namespace SIMSProject.Domain.Models.TourModels
             RequestStatus = (RequestStatus)Enum.Parse(typeof(RequestStatus), values[7]);
             Guest.Id = Convert.ToInt32(values[8]);
             Location.Id = Convert.ToInt32(values[9]);
+            ComplexTourId = Convert.ToInt32(values[10]);
+            AssignedGuideId = Convert.ToInt32(values[11]);
+            RealizationDate = DateTime.Parse(values[12]);
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using SIMSProject.Domain.Models.UserModels;
+﻿using SIMSProject.Application.Services.AccommodationServices;
+using SIMSProject.Domain.Models.UserModels;
+using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -9,15 +12,21 @@ namespace SIMSProject.WPF.Views.OwnerViews
     public partial class OwnerWindow : Window
     {
         private User _user;
+        private SuggestionNotificationService _suggestionNotificationService;
 
         public OwnerWindow(User user)
         {
+            ((App)System.Windows.Application.Current).ChangeTheme("Light");
             InitializeComponent();
             DataContext = this;
-
             _user = user;
-            MainFrame.Navigate(new OwnerView(user));
+            _suggestionNotificationService = new(_user);
+           
+            SwitchToPage(new OwnerView(user));
+
+            StartParallelTasks();
         }
+
         public void SwitchToPage(Page page)
         {
             MainFrame.Navigate(page);
@@ -25,13 +34,24 @@ namespace SIMSProject.WPF.Views.OwnerViews
 
         private void MainFrame_Navigating(object sender, NavigatingCancelEventArgs e)
         {
-            // Start the fade animation
             Storyboard storyboard = (Storyboard)FindResource("FadeAnimation");
             storyboard.Begin(MainFrame);
+        }
 
-            // Prevent the default navigation behavior
-            //e.Cancel = true;
-            
+        private void StartParallelTasks()
+        {
+            Task.Run(() =>
+            {
+                try
+                {
+                    _suggestionNotificationService.GenerateSuggestionNotifications();
+                }
+                catch (Exception ex) 
+                {
+                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(ex.StackTrace);
+                }
+            });
         }
     }
 }

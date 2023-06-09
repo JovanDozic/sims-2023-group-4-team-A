@@ -1,5 +1,6 @@
 ﻿using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces.GuideRepositoryInterfaces;
 using SIMSProject.FileHandlers.UserFileHandler.GuideFileHandlers;
 using System;
@@ -48,6 +49,11 @@ namespace SIMSProject.Repositories.UserRepositories.GuideRepositories
             var log = _logs.Find(x => x.GuideId == id &&  (x.Language == language));
             _logs.Remove(log);
             _fileHandler.Save(_logs);
+        }
+
+        public bool CheckIfSuper(Guide guide, Language language)
+        {
+            return _logs.Any(x => x.GuideId == guide.Id && x.Language == language);
         }
     }
 }

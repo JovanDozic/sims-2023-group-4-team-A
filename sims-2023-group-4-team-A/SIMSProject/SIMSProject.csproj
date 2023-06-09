@@ -24,20 +24,78 @@
     <None Remove="Resources\Icons\bell-fill.png" />
     <None Remove="Resources\Icons\bell.png" />
     <None Remove="Resources\Icons\bookbnb.png" />
+    <None Remove="Resources\Icons\check.png" />
     <None Remove="Resources\Icons\clock-unfill.png" />
+    <None Remove="Resources\Icons\comment.png" />
     <None Remove="Resources\Icons\crossed-eye.png" />
+    <None Remove="Resources\Icons\dark\back.png" />
+    <None Remove="Resources\Icons\dark\bed-fill.png" />
+    <None Remove="Resources\Icons\dark\bed.png" />
+    <None Remove="Resources\Icons\dark\bell-fill.png" />
+    <None Remove="Resources\Icons\dark\bell.png" />
+    <None Remove="Resources\Icons\dark\bookbnb.png" />
+    <None Remove="Resources\Icons\dark\check.png" />
+    <None Remove="Resources\Icons\dark\clock-unfill.png" />
+    <None Remove="Resources\Icons\dark\clock.png" />
+    <None Remove="Resources\Icons\dark\comment.png" />
+    <None Remove="Resources\Icons\dark\crossed-eye.png" />
+    <None Remove="Resources\Icons\dark\down.png" />
+    <None Remove="Resources\Icons\dark\downvote-fill.png" />
+    <None Remove="Resources\Icons\dark\downvote.png" />
+    <None Remove="Resources\Icons\dark\eye.png" />
+    <None Remove="Resources\Icons\dark\flag.png" />
+    <None Remove="Resources\Icons\dark\forum-fill.png" />
+    <None Remove="Resources\Icons\dark\forum.png" />
+    <None Remove="Resources\Icons\dark\help.png" />
+    <None Remove="Resources\Icons\dark\home-fill.png" />
+    <None Remove="Resources\Icons\dark\home.png" />
+    <None Remove="Resources\Icons\dark\image.png" />
+    <None Remove="Resources\Icons\dark\is-owner.png" />
+    <None Remove="Resources\Icons\dark\is-superowner.png" />
+    <None Remove="Resources\Icons\dark\left.png" />
+    <None Remove="Resources\Icons\dark\location.png" />
+    <None Remove="Resources\Icons\dark\lock-gray.png" />
+    <None Remove="Resources\Icons\dark\notif-location-check.png" />
+    <None Remove="Resources\Icons\dark\notif-location-x.png" />
+    <None Remove="Resources\Icons\dark\notif-star.png" />
+    <None Remove="Resources\Icons\dark\plus.png" />
+    <None Remove="Resources\Icons\dark\question.png" />
+    <None Remove="Resources\Icons\dark\renovation-clock.png" />
+    <None Remove="Resources\Icons\dark\renovation.png" />
+    <None Remove="Resources\Icons\dark\right.png" />
+    <None Remove="Resources\Icons\dark\share.png" />
+    <None Remove="Resources\Icons\dark\star-fill.png" />
+    <None Remove="Resources\Icons\dark\star-half.png" />
+    <None Remove="Resources\Icons\dark\star.png" />
+    <None Remove="Resources\Icons\dark\stars.png" />
+    <None Remove="Resources\Icons\dark\trophy.png" />
+    <None Remove="Resources\Icons\dark\user-fill.png" />
+    <None Remove="Resources\Icons\dark\user.png" />
+    <None Remove="Resources\Icons\dark\was-at-location.png" />
+    <None Remove="Resources\Icons\dark\was-not-at-location.png" />
+    <None Remove="Resources\Icons\dark\x.png" />
     <None Remove="Resources\Icons\down.png" />
+    <None Remove="Resources\Icons\downvote-fill.png" />
+    <None Remove="Resources\Icons\downvote.png" />
     <None Remove="Resources\Icons\eye.png" />
+    <None Remove="Resources\Icons\flag.png" />
     <None Remove="Resources\Icons\forum-fill.png" />
     <None Remove="Resources\Icons\forum.png" />
     <None Remove="Resources\Icons\help.png" />
     <None Remove="Resources\Icons\home-fill.png" />
     <None Remove="Resources\Icons\home.png" />
     <None Remove="Resources\Icons\image.png" />
+    <None Remove="Resources\Icons\is-owner.png" />
+    <None Remove="Resources\Icons\is-superowner.png" />
     <None Remove="Resources\Icons\left.png" />
     <None Remove="Resources\Icons\location.png" />
+    <None Remove="Resources\Icons\lock-gray.png" />
     <None Remove="Resources\Icons\logo.png" />
+    <None Remove="Resources\Icons\notif-location-check.png" />
+    <None Remove="Resources\Icons\notif-location-x.png" />
+    <None Remove="Resources\Icons\notif-star.png" />
     <None Remove="Resources\Icons\plus.png" />
+    <None Remove="Resources\Icons\question.png" />
     <None Remove="Resources\Icons\renovation-clock.png" />
     <None Remove="Resources\Icons\renovation.png" />
     <None Remove="Resources\Icons\right.png" />
@@ -45,9 +103,13 @@
     <None Remove="Resources\Icons\star-fill.png" />
     <None Remove="Resources\Icons\star-half.png" />
     <None Remove="Resources\Icons\star.png" />
+    <None Remove="Resources\Icons\stars.png" />
     <None Remove="Resources\Icons\trophy.png" />
     <None Remove="Resources\Icons\user-fill.png" />
     <None Remove="Resources\Icons\user.png" />
+    <None Remove="Resources\Icons\was-at-location.png" />
+    <None Remove="Resources\Icons\was-not-at-location.png" />
+    <None Remove="Resources\Icons\x.png" />
     <None Remove="Resources\Images\add-renovation.png" />
     <None Remove="Resources\Images\add.png" />
 	  <None Remove="Resources\Images\cancel-renovation.png" />
@@ -107,21 +169,78 @@
     <Resource Include="Resources\Icons\bell-fill.png" />
     <Resource Include="Resources\Icons\bell.png" />
     <Resource Include="Resources\Icons\bookbnb.png" />
+    <Resource Include="Resources\Icons\check.png" />
     <Resource Include="Resources\Icons\clock-unfill.png" />
+    <Resource Include="Resources\Icons\comment.png" />
     <Resource Include="Resources\Icons\crossed-eye.png" />
+    <Resource Include="Resources\Icons\dark\back.png" />
+    <Resource Include="Resources\Icons\dark\bed-fill.png" />
+    <Resource Include="Resources\Icons\dark\bed.png" />
+    <Resource Include="Resources\Icons\dark\bell-fill.png" />
+    <Resource Include="Resources\Icons\dark\bell.png" />
+    <Resource Include="Resources\Icons\dark\bookbnb.png" />
+    <Resource Include="Resources\Icons\dark\check.png" />
+    <Resource Include="Resources\Icons\dark\clock-unfill.png" />
+    <Resource Include="Resources\Icons\dark\clock.png" />
+    <Resource Include="Resources\Icons\dark\comment.png" />
+    <Resource Include="Resources\Icons\dark\crossed-eye.png" />
+    <Resource Include="Resources\Icons\dark\down.png" />
+    <Resource Include="Resources\Icons\dark\downvote-fill.png" />
+    <Resource Include="Resources\Icons\dark\downvote.png" />
+    <Resource Include="Resources\Icons\dark\eye.png" />
+    <Resource Include="Resources\Icons\dark\flag.png" />
+    <Resource Include="Resources\Icons\dark\forum-fill.png" />
+    <Resource Include="Resources\Icons\dark\forum.png" />
+    <Resource Include="Resources\Icons\dark\help.png" />
+    <Resource Include="Resources\Icons\dark\home-fill.png" />
+    <Resource Include="Resources\Icons\dark\home.png" />
+    <Resource Include="Resources\Icons\dark\image.png" />
+    <Resource Include="Resources\Icons\dark\is-owner.png" />
+    <Resource Include="Resources\Icons\dark\is-superowner.png" />
+    <Resource Include="Resources\Icons\dark\left.png" />
+    <Resource Include="Resources\Icons\dark\location.png" />
+    <Resource Include="Resources\Icons\dark\lock-gray.png" />
+    <Resource Include="Resources\Icons\dark\notif-location-check.png" />
+    <Resource Include="Resources\Icons\dark\notif-location-x.png" />
+    <Resource Include="Resources\Icons\dark\notif-star.png" />
+    <Resource Include="Resources\Icons\dark\plus.png" />
+    <Resource Include="Resources\Icons\dark\renovation-clock.png" />
+    <Resource Include="Resources\Icons\dark\renovation.png" />
+    <Resource Include="Resources\Icons\dark\right.png" />
+    <Resource Include="Resources\Icons\dark\share.png" />
+    <Resource Include="Resources\Icons\dark\star-fill.png" />
+    <Resource Include="Resources\Icons\dark\star-half.png" />
+    <Resource Include="Resources\Icons\dark\star.png" />
+    <Resource Include="Resources\Icons\dark\stars.png" />
+    <Resource Include="Resources\Icons\dark\trophy.png" />
+    <Resource Include="Resources\Icons\dark\user-fill.png" />
+    <Resource Include="Resources\Icons\dark\user.png" />
+    <Resource Include="Resources\Icons\dark\was-at-location.png" />
+    <Resource Include="Resources\Icons\dark\was-not-at-location.png" />
+    <Resource Include="Resources\Icons\dark\x.png" />
     <Resource Include="Resources\Icons\down.png" />
+    <Resource Include="Resources\Icons\downvote-fill.png" />
+    <Resource Include="Resources\Icons\downvote.png" />
     <Resource Include="Resources\Icons\eye.png" />
+    <Resource Include="Resources\Icons\flag.png" />
     <Resource Include="Resources\Icons\forum-fill.png" />
     <Resource Include="Resources\Icons\forum.png" />
     <Resource Include="Resources\Icons\help.png" />
     <Resource Include="Resources\Icons\home-fill.png" />
     <Resource Include="Resources\Icons\home.png" />
     <Resource Include="Resources\Icons\image.png" />
+    <Resource Include="Resources\Icons\is-owner.png" />
+    <Resource Include="Resources\Icons\is-superowner.png" />
     <Resource Include="Resources\Icons\left.png" />
     <Resource Include="Resources\Icons\location.png" />
+    <Resource Include="Resources\Icons\lock-gray.png" />
+    <Resource Include="Resources\Icons\notif-location-check.png" />
+    <Resource Include="Resources\Icons\notif-location-x.png" />
+    <Resource Include="Resources\Icons\notif-star.png" />
     <Resource Include="Resources\Icons\plus.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Icons\question.png" />
     <Resource Include="Resources\Icons\renovation-clock.png" />
     <Resource Include="Resources\Icons\renovation.png" />
     <Resource Include="Resources\Icons\right.png" />
@@ -135,9 +254,13 @@
     <Resource Include="Resources\Icons\star.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Icons\stars.png" />
     <Resource Include="Resources\Icons\trophy.png" />
     <Resource Include="Resources\Icons\user-fill.png" />
     <Resource Include="Resources\Icons\user.png" />
+    <Resource Include="Resources\Icons\was-at-location.png" />
+    <Resource Include="Resources\Icons\was-not-at-location.png" />
+    <Resource Include="Resources\Icons\x.png" />
     <Resource Include="Resources\Images\add-renovation.png" />
     <Resource Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -231,6 +354,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Icons\dark\question.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Resources\Images\tripbooklogoPDF.png" />
   </ItemGroup>
 
@@ -245,8 +372,8 @@
     <PackageReference Include="Microsoft.TeamFoundationServer.ExtendedClient" Version="16.205.1" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
     <PackageReference Include="ToastNotifications" Version="2.5.1" />
-    <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
     <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
+    <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
   </ItemGroup>
 
   <ItemGroup>

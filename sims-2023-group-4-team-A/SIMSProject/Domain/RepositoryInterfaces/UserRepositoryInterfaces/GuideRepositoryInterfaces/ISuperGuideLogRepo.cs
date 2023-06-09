@@ -16,6 +16,6 @@ namespace SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces.Guide
         public SuperGuideLog Save(SuperGuideLog log);
         public void SaveAll(List<SuperGuideLog> logs);
         public void Delete(int id, Language language);
-
+        public bool CheckIfSuper(Guide guide, Language language);
     }
 }

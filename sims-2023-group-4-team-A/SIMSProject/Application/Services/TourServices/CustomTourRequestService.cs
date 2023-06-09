@@ -123,6 +123,15 @@ namespace SIMSProject.Application.Services.TourServices
         {
             return _customTourRequestRepo.GetAllSimilarRequests(tour).Select(x => x.Guest).Distinct().ToList();
         }
-        
+
+        public List<CustomTourRequest> GetAllComplexTourParts(int complexTourId)
+        {
+            return _customTourRequestRepo.GetAllComplexTourParts(complexTourId);
+        }
+
+        public void Update(CustomTourRequest customTourRequest)
+        {
+            _customTourRequestRepo.Update(customTourRequest);
+        }
     }
 }

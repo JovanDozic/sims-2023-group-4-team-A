@@ -91,7 +91,7 @@ namespace SIMSProject.View.Guest2
             _tourGuestService = Injector.GetService<TourGuestService>();
 
             AlternativeTours = new ObservableCollection<Tour>(_tourService.GetToursWithSameLocation(Tour));
-            List<Location> tourLocations = _locationService.FindAll();
+            List<Location> tourLocations = _locationService.GetAll();
 
             foreach (var tour in AlternativeTours)
             {
@@ -217,7 +217,7 @@ namespace SIMSProject.View.Guest2
             ShowDetails(AlternativeTour);
 
             AlternativeTours = new ObservableCollection<Tour>(_tourService.GetToursWithSameLocation(AlternativeTour));
-            List<Location> tourLocations = _locationService.FindAll();
+            List<Location> tourLocations = _locationService.GetAll();
 
             foreach (var tour in AlternativeTours)
             {

@@ -76,6 +76,15 @@ namespace SIMSProject.Repositories.TourRepositories
             _fileHandler.Save(_tourReservations);
         }
 
+        public void UpdateToVoucherWon(List<TourReservation> tourReservations)
+        {
+            foreach (var tourReservation in tourReservations)
+            {
+                tourReservation.IsVoucherWon = true;
+                Update(tourReservation);
+            }
+        }
+
         private void MapAppointments()
         {
             foreach (var tourReservation in _tourReservations)

@@ -14,6 +14,7 @@ namespace SIMSProject.Domain.Models.TourModels
         public int GuestNumber { get; set; }
         public bool VoucherUsed { get; set; } = false;
         public bool GuideRated { get; set; } = false;
+        public bool IsVoucherWon { get; set; } = false;
         public TourAppointment TourAppointment { get; set; } = new();
         public TourReservation() { }
 
@@ -27,7 +28,7 @@ namespace SIMSProject.Domain.Models.TourModels
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), TourAppointment.Id.ToString(), GuestId.ToString(), GuestNumber.ToString(), VoucherUsed.ToString(), GuideRated.ToString() };
+            string[] csvValues = { Id.ToString(), TourAppointment.Id.ToString(), GuestId.ToString(), GuestNumber.ToString(), VoucherUsed.ToString(), GuideRated.ToString(), IsVoucherWon.ToString() };
             return csvValues;
         }
 
@@ -39,6 +40,7 @@ namespace SIMSProject.Domain.Models.TourModels
             GuestNumber = Convert.ToInt32(value[3]);
             VoucherUsed = bool.Parse(value[4]);
             GuideRated = bool.Parse(value[5]);
+            IsVoucherWon = bool.Parse(value[6]);
         }
     }
 }

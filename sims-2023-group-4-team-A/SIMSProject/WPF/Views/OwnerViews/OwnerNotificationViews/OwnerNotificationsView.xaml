@@ -5,18 +5,60 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
       mc:Ignorable="d" 
+      xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
       d:DesignHeight="750" d:DesignWidth="430"
-      Title="My Accommodations"
-      Background="OrangeRed">
+      Title="My Notifications">
+
+        <Page.Resources>
+            <converters:ResourceKeyToImageSourceConverter x:Key="ResourceKeyToImageSourceConverter" />
+        </Page.Resources>
 
     <Grid>
 
-        <Label FontSize="30"
-               FontWeight="Bold"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center">
-            Moja obaveštenja
-        </Label>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Obaveštenja" Grid.Row="0"
+               FontSize="30" FontWeight="SemiBold"
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Foreground="{DynamicResource TextColor}"/>
+
+        <ListView x:Name="LstNotifications" Grid.Row="1" 
+                  ItemsSource="{Binding Notifications, UpdateSourceTrigger=PropertyChanged}"
+                  Background="Transparent"
+                  BorderThickness="0"
+                  BorderBrush="Transparent" 
+                  Foreground="{DynamicResource TextColor}"
+                  ScrollViewer.CanContentScroll="False"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                  SelectionChanged="LstNotifications_SelectionChanged"
+                  SelectedItem="{Binding Notification, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,12.5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Grid.Column="0" 
+                               Source="{Binding IconSource, Converter={StaticResource ResourceKeyToImageSourceConverter}}" 
+                               Height="20" 
+                               Stretch="UniformToFill"
+                               Style="{StaticResource IconRenderStyle}"
+                               VerticalAlignment="Top"
+                               Margin="0,4,10,0"/>
+                        
+                        <TextBlock Grid.Column="1" FontSize="17.5" Text="{Binding Description}"
+                                       TextWrapping="Wrap"
+                                       Margin="0,0,15,0"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
 
     </Grid>

@@ -44,7 +44,7 @@
             <Label x:Name="LBLChooseActive" Grid.ColumnSpan="2" Content="Izaberite aktivnu turu!" FontSize="28" FontWeight="Bold" VerticalContentAlignment="Center" Foreground="Red" Visibility="Hidden"/>
             <Label x:Name="LBLSelectTour" Grid.ColumnSpan="2" Content="Morate selektovati turu!" FontSize="28" FontWeight="Bold" VerticalContentAlignment="Center" Foreground="Red" Visibility="Hidden"/>
             <Button x:Name="BTNRateGuide" Grid.Column="2" Width="265" Content="Oceni turu" HorizontalAlignment="Center" FontSize="28" FontWeight="DemiBold" Background="#ff6700" Click="RateGuide_Click" Margin="0,10,0,75" Cursor="Hand" IsEnabled="False"/>
-            <Button x:Name="BTNShowKeyPoint" Grid.Column="3" Width="265" Content="Prikaži detalje" FontWeight="DemiBold" HorizontalAlignment="Left" FontSize="28" BorderBrush="#ff6700" BorderThickness="3" Margin="0,10,0,75" Click="ShowKeyPoint_Click" Cursor="Hand" IsEnabled="False"/>
+            <Button x:Name="BTNShowKeyPoint" Grid.Column="3" Width="265" Content="Prikaži detalje" FontWeight="DemiBold" HorizontalAlignment="Left" FontSize="28" BorderBrush="#ff6700" BorderThickness="3" Margin="0,10,0,75" Click="ShowDetails_Click" Cursor="Hand" IsEnabled="False"/>
         </Grid>
 
     </Grid>

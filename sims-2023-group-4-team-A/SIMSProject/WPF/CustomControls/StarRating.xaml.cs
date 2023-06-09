@@ -43,9 +43,18 @@ namespace SIMSProject.WPF.CustomControls
             Stars.Clear();
             int fullStars = (int)Rating;
             double fractionalStar = Rating - fullStars;
+
             string starFull = "/Resources/Icons/star-fill.png";
             string starHalf = "/Resources/Icons/star-half.png";
             string starEmpty = "/Resources/Icons/star.png";
+
+            var app = (App)System.Windows.Application.Current;
+            if (app.CurrentTheme == "Dark")
+            {
+                starFull = "/Resources/Icons/dark/star-fill.png";
+                starHalf = "/Resources/Icons/dark/star-half.png";
+                starEmpty = "/Resources/Icons/dark/star.png";
+            }
 
             for (int i = 0; i < fullStars; i++) Stars.Add(starFull);
 

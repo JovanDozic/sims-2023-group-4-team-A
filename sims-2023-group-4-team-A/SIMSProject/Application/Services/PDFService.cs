@@ -163,6 +163,12 @@ namespace SIMSProject.Application.Services
 
                 //document.Add(table);
                 document.Close();
+                if (File.Exists(filePath))
+                {
+                    ProcessStartInfo startInfo = new ProcessStartInfo(filePath);
+                    startInfo.UseShellExecute = true;
+                    Process.Start(startInfo);
+                }
                 //MessageBox.Show("PDF file generated successfully.");
             }
             catch (Exception ex)

@@ -28,7 +28,7 @@ namespace SIMSProject.WPF.Views.Guest2Views
             DgrReservations.SelectedItem = null;
             DgrReservations.Items.Refresh();
         }
-        private void ShowKeyPoint_Click(object sender, RoutedEventArgs e)
+        private void ShowDetails_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new ShowKeyPoint(User, _tourReservationsViewModel.SelectedTourReservation));
         }

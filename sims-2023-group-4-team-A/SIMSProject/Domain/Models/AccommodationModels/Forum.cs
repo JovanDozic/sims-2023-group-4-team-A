@@ -1,57 +1,63 @@
-﻿using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.Serializer;
+﻿using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SIMSProject.Domain.Models.AccommodationModels
 {
     public class Forum: ISerializable
     {
         public int Id { get; set; }
-        public Guest1 ForumOwner { get; set; } = new();
         public Location Location { get; set; } = new();
-        public string Comment { get; set; } = string.Empty;
+        public List<Comment> Comments { get; set; } = new();
+        public int CommentsCount { get => Comments.Count; }
         public DateTime CreationDate { get; set; }
+        public bool IsUseful { get; set; } = false;
+        public bool IsClosed { get; set; } = false;
 
         public Forum()
         {
         }
 
-        public Forum(Forum forum)
+        public static string CommentsToCSV(List<Comment> comments)
         {
-            Id = forum.Id;
-            ForumOwner.Id = forum.ForumOwner.Id;
-            Location = forum.Location;
-            Comment = forum.Comment;
-            CreationDate = forum.CreationDate;
+            return comments.Count > 0 ? string.Join(",", comments.Select(x => x.Id)) : string.Empty;
         }
+
+        public static List<Comment> CommentsFromCSV(string value)
+        {
+            var commentIds = value.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+            return commentIds.Select(x => new Comment() { Id = int.Parse(x) }).ToList();
+        }
+
         public string[] ToCSV()
         {
             string[] csvValues =
             {
                 Id.ToString(),
-                ForumOwner.Id.ToString(),
                 Location.Id.ToString(),
-                Comment,
-                CreationDate.ToString()
+                CommentsToCSV(Comments),
+                CreationDate.ToString(),
+                IsUseful.ToString(),
+                IsClosed.ToString()
             };
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
-            Id = int.Parse(values[0]);
-            ForumOwner.Id = int.Parse(values[1]);
-            Location.Id = int.Parse(values[2]);
-            Comment = values[3];
-            CreationDate = DateTime.Parse(values[4]);
+            int i = 0;
+            Id = int.Parse(values[i++]);
+            Location.Id = int.Parse(values[i++]);
+            Comments = CommentsFromCSV(values[i++]);
+            CreationDate = DateTime.Parse(values[i++]);
+            IsUseful = bool.Parse(values[i++]);
+            IsClosed = bool.Parse(values[i++]);
         }
+
         public override string? ToString()
         {
-            return $"{Location}";
+            return $"Forum <{Id}> for {Location} has {Comments.Count} comments. Started by user <{Comments.First().User.Id}>";
         }
     }
 }
