@@ -150,5 +150,10 @@ namespace SIMSProject.Application.Services.AccommodationServices
         {
             return GetAll().FindAll(a => a.Location.Id == location.Id) ?? new();
         }
+
+        public bool UserHasAccommodationsInLocation(User user, Location location)
+        {
+            return GetAllByOwnerId(user.Id).Any(a => a.Location.Id == location.Id);
+        }
     }
 }

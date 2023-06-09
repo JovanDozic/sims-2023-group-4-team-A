@@ -16,6 +16,7 @@ namespace SIMSProject.WPF.Views.OwnerViews
 
         public OwnerWindow(User user)
         {
+            ((App)System.Windows.Application.Current).ChangeTheme("Light");
             InitializeComponent();
             DataContext = this;
             _user = user;

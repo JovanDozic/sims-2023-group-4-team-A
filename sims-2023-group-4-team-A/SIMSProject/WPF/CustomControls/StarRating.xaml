@@ -34,13 +34,13 @@
                             <Setter Property="Source" Value="{Binding}"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding}" Value="star-full.png">
-                                    <Setter Property="Source" Value="/Resources/Icons/star-fill.png"/>
+                                    <Setter Property="Source" Value="{DynamicResource StarFillIcon}"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding}" Value="star-half.png">
-                                    <Setter Property="Source" Value="/Resources/Icons/star-half.png"/>
+                                    <Setter Property="Source" Value="{DynamicResource StarHalfIcon}"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding}" Value="star.png">
-                                    <Setter Property="Source" Value="/Resources/Icons/star.png"/>
+                                    <Setter Property="Source" Value="{DynamicResource StarIcon}"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>

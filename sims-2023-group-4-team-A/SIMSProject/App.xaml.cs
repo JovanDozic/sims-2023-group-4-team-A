@@ -1,21 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using SIMSProject.WPF.Languages;
+using System;
 using System.Windows;
 
 namespace SIMSProject
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : System.Windows.Application
     {
+        public string CurrentTheme { get; set; } = "Light";
+        public string CurrentLanguage { get; set; } = "sr-LATN";
 
+        public void ChangeTheme(string themeName)
+        {
+            Resources.MergedDictionaries.Clear();
 
+            var dictionary = new ResourceDictionary();
 
+            if (themeName == "Light")
+                dictionary.Source = new Uri("pack://application:,,,/WPF/Themes/LightTheme.xaml");
+            else if (themeName == "Dark")
+                dictionary.Source = new Uri("pack://application:,,,/WPF/Themes/DarkTheme.xaml");
 
+            Resources.MergedDictionaries.Add(dictionary);
+        }
+
+        public void ChangeLanguage(string language)
+        {
+            if (language.Equals("en-US"))
+            {
+                TranslationSource.Instance.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+                CurrentLanguage = "en-US";
+                return;
+            }
+
+            TranslationSource.Instance.CurrentCulture = new System.Globalization.CultureInfo("sr-LATN");
+            CurrentLanguage = "sr-LATN";
+        }
     }
 }

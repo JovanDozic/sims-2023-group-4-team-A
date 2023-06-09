@@ -1,0 +1,71 @@
+﻿<Page x:Class="SIMSProject.WPF.Views.OwnerViews.OwnerForumViews.OwnerForumLocationsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
+      mc:Ignorable="d" 
+      d:DesignHeight="750" d:DesignWidth="430"
+      Title="My Forums">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Forumi" Grid.Row="0"
+               FontSize="30" FontWeight="SemiBold"
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Foreground="{DynamicResource TextColor}"/>
+
+        <ListView x:Name="LstLocations" Grid.Row="1" 
+                  ItemsSource="{Binding Locations, UpdateSourceTrigger=PropertyChanged}"
+                  Background="Transparent"
+                  BorderThickness="0"
+                  BorderBrush="Transparent" 
+                  Foreground="{DynamicResource TextColor}"
+                  ScrollViewer.CanContentScroll="False"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                  SelectedItem="{Binding Location, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                  SelectionChanged="LstLocations_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,12.5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="35"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Grid.Column="0" Source="/Resources/Icons/flag.png" Height="25" 
+                               Stretch="UniformToFill"
+                               Style="{StaticResource IconRenderStyle}"
+                               VerticalAlignment="Top"
+                               Margin="0,4,10,0"/>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="10,0,0,0"
+                                    VerticalAlignment="Center">
+                            <TextBlock FontSize="17.5" Text="{Binding}"
+                                       TextWrapping="Wrap"/>
+                            <StackPanel Orientation="Horizontal" Margin="7.5,2,0,0">
+                                <TextBlock FontSize="12" Text="("
+                                       TextWrapping="Wrap"
+                                       VerticalAlignment="Center"/>
+                                <TextBlock FontSize="12" Text="{Binding ForumsCount}"
+                                       TextWrapping="Wrap"
+                                       VerticalAlignment="Center"/>
+                                <TextBlock FontSize="12" Text=")"
+                                       TextWrapping="Wrap"
+                                       VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+    </Grid>
+</Page>
