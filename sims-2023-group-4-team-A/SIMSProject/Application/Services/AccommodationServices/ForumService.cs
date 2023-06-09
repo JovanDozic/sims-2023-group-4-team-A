@@ -32,7 +32,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
         public List<Forum> GetAllByUser(User user)
         {
-            return _repo.GetAll().Where(f => f.Comments.First().Id == user.Id).ToList();
+            return _repo.GetAll().Where(f => f.Comments.First().User.Id == user.Id).ToList();
         }
 
         public List<Location> GetAllLocations()

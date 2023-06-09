@@ -13,7 +13,7 @@
         public const string ForumCreatedInOwnersLocationTitle = "Novi forum!";
         public const string ForumCreatedInOwnersLocationDescription = "Korisnik @username je kreirao forum za lokaciju @location!";
 
-        public static int UsefulForumOwnerCommentsCount = 2;
-        public static int UsefulForumGuestCommentsCount = 5;
+        public static int UsefulForumOwnerCommentsCount = 1;
+        public static int UsefulForumGuestCommentsCount = 1;
     }
 }

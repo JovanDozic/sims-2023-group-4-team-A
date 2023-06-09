@@ -49,7 +49,7 @@
                   SelectionChanged="LocationsSelection" FontSize="25" Grid.Row="2" Margin="30,26,30,32"></ComboBox>
         <Label x:Name="LocationLabel" Visibility="Visible" Content="Odaberite lokaciju" Foreground="Red" FontSize="15"
                Grid.Row="2" Margin="30,77,0,50" Grid.RowSpan="2"></Label>
-        <TextBox Background="Transparent" FontSize="28" Text="{Binding CreationDate, StringFormat='dd.MM.yyyy.'}" IsReadOnly="True" TextAlignment="Center" x:Name="TodaysDate" Grid.Row="2" Grid.Column="1" Margin="95,26,95,32"></TextBox>
+        <TextBox Background="Transparent" FontSize="28" IsReadOnly="True" TextAlignment="Center" x:Name="TodaysDate" Grid.Row="2" Grid.Column="1" Margin="95,26,95,32"></TextBox>
         <Label Content="Komentar:" Grid.Row="3"
                FontSize="28" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
         <TextBox TextWrapping="Wrap" x:Name="CommentTB" Text="{Binding NewComment.Text}" FontSize="25" Grid.Row="4" Grid.ColumnSpan="2" Margin="143,10,95,24" TextChanged="CommentTB_TextChanged" />

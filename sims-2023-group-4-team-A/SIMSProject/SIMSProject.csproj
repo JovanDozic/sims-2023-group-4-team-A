@@ -149,6 +149,7 @@
     <None Remove="WPF\Views\Guest1\Icons\location-black.png" />
     <None Remove="WPF\Views\Guest1\Icons\logo.png" />
     <None Remove="WPF\Views\Guest1\Icons\report.png" />
+    <None Remove="WPF\Views\Guest1\Icons\star.png" />
     <None Remove="WPF\Views\Guest1\logo5.png" />
     <None Remove="WPF\Views\Guest1\notification.png" />
     <None Remove="WPF\Views\Guest1\Icons\chevron-left-black.png" />
@@ -304,6 +305,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="WPF\Views\Guest1\Icons\report.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WPF\Views\Guest1\Icons\star.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\Images\Logo.png">

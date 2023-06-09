@@ -8,7 +8,7 @@
       d:DesignHeight="668" d:DesignWidth="1024"
       Title="Forums">
 
-    
+
 
 
     <Grid>
@@ -25,6 +25,7 @@
                   SelectedItem="{Binding SelectedLocation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="29,100,705,62" SelectionChanged="ComboBox_SelectionChanged"></ComboBox>
                     <ListView x:Name="AllForums" Grid.Row="1"
                   ItemsSource="{Binding AllForums, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedForum}"
                   Background="Transparent"
                   BorderBrush="Transparent"
                   BorderThickness="0" d:ItemsSource="{d:SampleData ItemCount=5}"
@@ -55,7 +56,7 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                                             <Label Content="Datum: "></Label>
-                                            <Label Content="{Binding CreationDate}" FontWeight="Bold"></Label>
+                                            <Label Content="{Binding CreationDate,StringFormat=dd.MM.yyyy.}" FontWeight="Bold"></Label>
                                         </StackPanel>
 
                                     </StackPanel>
@@ -68,11 +69,15 @@
             </TabItem>
             <TabItem FontSize="28" Header="Moji forumi">
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="6*"/>
+                        <ColumnDefinition Width="241*"/>
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="100"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Button Background="#0c669f" Foreground="White" Content="Kreiraj novi forum" Click="Button_Click" Height="46" Margin="77,27,669,27"/>
+                    <Button Background="#0c669f" Foreground="White" Content="Kreiraj novi forum" Click="Button_Click" Height="46" Margin="53,27,669,27" Grid.Column="1"/>
 
                     <ListView x:Name="MyForums" Grid.Row="1"
                   ItemsSource="{Binding Forums, UpdateSourceTrigger=PropertyChanged}"
@@ -81,14 +86,14 @@
                   BorderBrush="Transparent"
                   BorderThickness="0" d:ItemsSource="{d:SampleData ItemCount=5}"
                   ScrollViewer.CanContentScroll="False"
-                  ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="29,0,32,0" SelectionChanged="MyForums_SelectionChanged">
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="5,0,32,0" SelectionChanged="MyForums_SelectionChanged" Grid.Column="1">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                                 <Setter Property="Height" Value="250"/>
                                 <Setter Property="BorderBrush" Value="Gray"></Setter>
                                 <Setter Property="Margin" Value="0,0,0,20" />
-                                
+
                             </Style>
                         </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
@@ -107,7 +112,7 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                                             <Label Content="Datum: "></Label>
-                                            <Label Content="{Binding CreationDate}" FontWeight="Bold"></Label>
+                                            <Label Content="{Binding CreationDate,StringFormat=dd.MM.yyyy.}" FontWeight="Bold"></Label>
                                         </StackPanel>
 
                                     </StackPanel>
