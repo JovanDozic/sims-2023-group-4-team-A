@@ -13,6 +13,7 @@
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" Inverted="True" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" Inverted="False" />
+            <converters:ResourceKeyToImageSourceConverter x:Key="ResourceKeyToImageSourceConverter" />
     </Page.Resources>
 
     <Grid Margin="15,0,15,10" x:Name="MyGrid">
@@ -27,7 +28,7 @@
         <Button x:Name="BtnBack" Grid.Row="0" Click="BtnBack_Click"
                 Style="{StaticResource BackButtonStyle}">
             <StackPanel Orientation="Horizontal">
-                <Image Source="/Resources/Icons/back.png"
+                <Image Source="{DynamicResource BackIcon}"
                        Style="{StaticResource BackButtonIconStyle}"/>
                 <TextBlock Text="{ns:Loc BackForumsLocation}" Style="{StaticResource BackButtonTextStyle}"
                            Foreground="{DynamicResource TextColor}"/>
@@ -76,7 +77,7 @@
                                         Grid.ColumnSpan="2"
                                         Width="385"
                                         Margin="0,0,0,5">
-                                <Image Source="{Binding CommentUserIcon}"
+                                <Image Source="{Binding CommentUserIcon, Converter={StaticResource ResourceKeyToImageSourceConverter}}"
                                        Style="{StaticResource IconRenderStyle}"
                                        Height="17.5"/>
                                 <TextBlock Text="{Binding User.Username}"
@@ -115,7 +116,7 @@
                                                VerticalAlignment="Center"
                                                Margin="0,0,10,0"
                                                Foreground="{DynamicResource TextColor}"/>
-                                    <Image Source="{Binding UserDownvotedIcon}"
+                                    <Image Source="{Binding UserDownvotedIcon, Converter={StaticResource ResourceKeyToImageSourceConverter}}"
                                            Style="{StaticResource IconRenderStyle}"
                                            Height="17.5"/>
                                 </StackPanel>
@@ -134,15 +135,16 @@
                 Style="{StaticResource MobileActionSingleButtonStyle}"
                 Click="BtnAddCommentInputForm_Click">
             <StackPanel Orientation="Horizontal">
-                <Image Source="/Resources/Icons/comment.png" Height="17.5" Margin="0,0,10,0" 
+                <Image Source="{DynamicResource CommentIcon}" Height="17.5" Margin="0,0,10,0" 
                        Style="{StaticResource IconRenderStyle}"/>
-                <TextBlock Text="{ns:Loc LeaveAComment}" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                <TextBlock Text="{ns:Loc LeaveAComment}" VerticalAlignment="Center" Margin="0,0,0,0"
+                            Foreground="{DynamicResource TextColor}"/>
             </StackPanel>
         </Button>
 
         <!-- Comment Input Form -->
         <Border x:Name="CommentInputForm" Grid.Row="3"
-                BorderThickness="0" BorderBrush="Transparent" Background="#eeeeee"
+                BorderThickness="0" BorderBrush="Transparent" Background="{DynamicResource CardBackgroundColor}"
                 Margin="0,15,0,5"
                 Visibility="Collapsed">
             <Border.Effect>
@@ -174,7 +176,8 @@
                                FontSize="17.5"
                                FontWeight="Bold"
                                VerticalAlignment="Bottom"
-                               Margin="10,0,0,0"/>
+                               Margin="10,0,0,0"
+                               Foreground="{DynamicResource TextColor}"/>
                     <TextBlock Text="{Binding User.Role}"
                                FontSize="12.5"
                                Foreground="Gray"
@@ -185,32 +188,36 @@
                 <!-- Comment content -->
                 <TextBox x:Name="TxtNewComment" Grid.Row="1" Grid.ColumnSpan="2"
                          Style="{StaticResource MobileTextBoxInput}"
-                         Text="{Binding Text}"/>
+                         Text="{Binding Text}"
+                         Background="{DynamicResource BackgroundColor}"
+                          Foreground="{DynamicResource TextColor}"/>
 
                 <!-- Action buttons -->
                 <Button x:Name="BtnCancelAddingComment" 
                         Grid.Column="0" Grid.Row="3"
                         HorizontalAlignment="Center"
-                        Width="150" Background="White"
+                        Width="150" Background="{DynamicResource BackgroundColor}"
                         Style="{StaticResource MobileActionHalfButtonStyle}"
                         Click="BtnCancelAddingComment_Click">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Resources/Icons/x.png" Height="17.5" Margin="0,0,10,0" 
+                        <Image Source="{DynamicResource XIcon}" Height="17.5" Margin="0,0,10,0" 
                                Style="{StaticResource IconRenderStyle}"/>
-                        <TextBlock Text="{ns:Loc Cancel}" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                        <TextBlock Text="{ns:Loc Cancel}" VerticalAlignment="Center" Margin="0,0,0,0"
+                                    Foreground="{DynamicResource TextColor}"/>
                     </StackPanel>
                 </Button>
 
                 <Button x:Name="BtnAddComment"
                         Grid.Column="1" Grid.Row="3"
                         HorizontalAlignment="Center"
-                        Width="150" Background="White"
+                        Width="150" Background="{DynamicResource BackgroundColor}"
                         Style="{StaticResource MobileActionHalfButtonStyle}"
                         Click="BtnAddComment_Click">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Resources/Icons/check.png" Height="17.5" Margin="0,0,10,0" 
+                        <Image Source="{DynamicResource CheckIcon}" Height="17.5" Margin="0,0,10,0" 
                                Style="{StaticResource IconRenderStyle}"/>
-                        <TextBlock Text="{ns:Loc Send}" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                        <TextBlock Text="{ns:Loc Send}" VerticalAlignment="Center" Margin="0,0,0,0"
+                                   Foreground="{DynamicResource TextColor}"/>
                     </StackPanel>
                 </Button>
 

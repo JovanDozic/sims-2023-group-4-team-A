@@ -14,7 +14,7 @@
             <Setter Property="Padding" Value="7.5,5,0,5"/>
         </Style>
         <Style TargetType="Border">
-            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource TextColor}"/>
             <Setter Property="BorderThickness" Value="2"/>
         </Style>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -28,6 +28,7 @@
 
         <TextBlock Grid.Column="0" Margin="0,-15,0,0"
                    FontSize="40" FontWeight="SemiBold"
+                   Foreground="{DynamicResource TextColor}"
                    HorizontalAlignment="Left" VerticalAlignment="Top"
                    Text="{Binding Title, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>
 
@@ -36,7 +37,7 @@
                 VerticalAlignment="Bottom" HorizontalAlignment="Center"
                 Click="BtnTrophy_Click">
             <Image Grid.Row="1" Grid.Column="0" 
-                   Source="/Resources/Icons/trophy.png"
+                   Source="{DynamicResource TrophyIcon}"
                    Style="{StaticResource IconRenderStyle}"
                    Height="30" VerticalAlignment="Bottom"
                    Margin="0,0,0,15"
@@ -49,7 +50,8 @@
                VerticalOffset="-15" HorizontalOffset="-20">
             <Border Style="{StaticResource PopupBorderStyle}">
                 <TextBlock Text="{ns:Loc MostBusy}" 
-                           Style="{StaticResource PopupTextStyle}"/>
+                           Style="{StaticResource PopupTextStyle}"
+                           Foreground="Black"/>
             </Border>
         </Popup>
 
@@ -69,27 +71,27 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Grid.Column="0" 
-                   Text="{ns:Loc Reservations}" Background="#ffffff"/>
+                   Text="{ns:Loc Reservations}" Background="#00000000"/>
                 <Border Grid.Row="0" Grid.Column="1" BorderThickness="2,0,0,0">
-                    <TextBlock Text="{Binding TotalReservations}" Background="#ffffff"/>
+                    <TextBlock Text="{Binding TotalReservations}" Background="#00000000"/>
                 </Border>
 
                 <TextBlock Grid.Row="1" Grid.Column="0" 
-                   Text="{ns:Loc CanceledReservations}" Background="#10000000"/>
+                   Text="{ns:Loc CanceledReservations}" Background="#20000000"/>
                 <Border Grid.Row="1" Grid.Column="1" BorderThickness="2,0,0,0">
-                    <TextBlock Text="{Binding CancelledReservations}" Background="#10000000"/>
+                    <TextBlock Text="{Binding CancelledReservations}" Background="#20000000"/>
                 </Border>
 
                 <TextBlock Grid.Row="2" Grid.Column="0" 
-                   Text="{ns:Loc RescheduledReservations}" Background="#ffffff"/>
+                   Text="{ns:Loc RescheduledReservations}" Background="#00000000"/>
                 <Border Grid.Row="2" Grid.Column="1" BorderThickness="2,0,0,0">
-                    <TextBlock Text="{Binding RescheduledReservations}" Background="#ffffff"/>
+                    <TextBlock Text="{Binding RescheduledReservations}" Background="#00000000"/>
                 </Border>
 
                 <TextBlock Grid.Row="3" Grid.Column="0" 
-                   Text="{ns:Loc RenovationSuggestions}" Background="#10000000"/>
+                   Text="{ns:Loc RenovationSuggestions}" Background="#20000000"/>
                 <Border Grid.Row="3" Grid.Column="1" BorderThickness="2,0,0,0">
-                    <TextBlock Text="{Binding RenovationRecommendations}" Background="#10000000"/>
+                    <TextBlock Text="{Binding RenovationRecommendations}" Background="#20000000"/>
                 </Border>
             </Grid>
         </Border>

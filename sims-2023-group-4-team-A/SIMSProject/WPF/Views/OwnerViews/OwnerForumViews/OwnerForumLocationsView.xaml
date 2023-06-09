@@ -40,7 +40,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <Image Grid.Column="0" Source="/Resources/Icons/flag.png" Height="25" 
+                        <Image Grid.Column="0" Source="{DynamicResource FlagIcon}" Height="25" 
                                Stretch="UniformToFill"
                                Style="{StaticResource IconRenderStyle}"
                                VerticalAlignment="Top"

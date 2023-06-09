@@ -60,10 +60,10 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         {
             get
             {
-                if (User.Role == UserRole.Guest1 || User.Role == UserRole.SuperGuest) return WasAtLocation ? "/Resources/Icons/was-at-location.png" : "/Resources/Icons/was-not-at-location.png";
-                if (User.Role == UserRole.Owner) return "/Resources/Icons/is-owner.png";
-                if (User.Role == UserRole.SuperOwner) return "/Resources/Icons/is-superowner.png";
-                return "/Resources/Icons/question.png";
+                if (User.Role == UserRole.Guest1 || User.Role == UserRole.SuperGuest) return WasAtLocation ? "WasAtLocationIcon" : "WasNotAtLocationIcon";
+                if (User.Role == UserRole.Owner) return "IsOwnerIcon";
+                if (User.Role == UserRole.SuperOwner) return "IsSuperOwnerIcon";
+                return "QuestionIcon";
             }
         }
         public bool UserDownvoted { get; set; } = false;
@@ -72,8 +72,8 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         {
             get
             {
-                if (UserDownvoted) return "/Resources/Icons/downvote-fill.png";
-                return "/Resources/Icons/downvote.png";
+                if (UserDownvoted) return "DownvoteFillIcon";
+                return "DownvoteIcon";
             }
         }
     }

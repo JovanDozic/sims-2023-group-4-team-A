@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddAccommodation" xml:space="preserve">
+    <value>Add accommodation</value>
+  </data>
+  <data name="AddImages" xml:space="preserve">
+    <value>Add images</value>
+  </data>
   <data name="AllRatings" xml:space="preserve">
     <value>All ratings</value>
   </data>
@@ -153,6 +159,12 @@
   <data name="CanceledReservations" xml:space="preserve">
     <value>Canceled reservations</value>
   </data>
+  <data name="CancellationThreshold" xml:space="preserve">
+    <value>Cancellation threshold</value>
+  </data>
+  <data name="CancellationThresholdHelp" xml:space="preserve">
+    <value>It indicates the latest deadline when the guest can cancel the reservation.</value>
+  </data>
   <data name="Cleanliness" xml:space="preserve">
     <value>Cleanliness</value>
   </data>
@@ -161,6 +173,9 @@
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
+  </data>
+  <data name="DescriptionWatermark" xml:space="preserve">
+    <value>House with a view from...</value>
   </data>
   <data name="End" xml:space="preserve">
     <value>End</value>
@@ -189,8 +204,23 @@
   <data name="LeavingDot" xml:space="preserve">
     <value>Leaving:</value>
   </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="MaxGuestNumber" xml:space="preserve">
+    <value>Maximum number of guests</value>
+  </data>
+  <data name="MinNumberOfDays" xml:space="preserve">
+    <value>Minimum number of days</value>
+  </data>
   <data name="MostBusy" xml:space="preserve">
     <value>Most busy.</value>
+  </data>
+  <data name="MyAccommodations" xml:space="preserve">
+    <value>My Accommodations</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="NumberOfDays" xml:space="preserve">
     <value>Days</value>
@@ -219,6 +249,9 @@
   <data name="RatingFromGuestDot" xml:space="preserve">
     <value>Owner rating:</value>
   </data>
+  <data name="RegisterAccommodation" xml:space="preserve">
+    <value>Register accommodation</value>
+  </data>
   <data name="RenovationInProgress" xml:space="preserve">
     <value>Renovation in progress</value>
   </data>
@@ -243,17 +276,35 @@
   <data name="ScheduleRenovation" xml:space="preserve">
     <value>Schedule renovation</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SelectDot" xml:space="preserve">
+    <value>Select...</value>
+  </data>
+  <data name="SelectImages" xml:space="preserve">
+    <value>Select images</value>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>Send</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="Statistic" xml:space="preserve">
+    <value>Statistic</value>
+  </data>
+  <data name="StatisticFor" xml:space="preserve">
+    <value>Statistic for</value>
+  </data>
   <data name="Statistics" xml:space="preserve">
     <value>Statistics</value>
   </data>
   <data name="ThisWasRecentlyRenovated" xml:space="preserve">
     <value>This accommodation was recently renovated</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
   </data>
   <data name="UsefulForum" xml:space="preserve">
     <value>Useful forum</value>

@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddAccommodation" xml:space="preserve">
+    <value>Dodaj smeštaj</value>
+  </data>
+  <data name="AddImages" xml:space="preserve">
+    <value>Dodaj slike</value>
+  </data>
   <data name="AllRatings" xml:space="preserve">
     <value>Sve recenzije</value>
   </data>
@@ -153,6 +159,15 @@
   <data name="CanceledReservations" xml:space="preserve">
     <value>Otkazane rezervacije</value>
   </data>
+  <data name="CancellationThreshold" xml:space="preserve">
+    <value>Otkazni rok</value>
+  </data>
+  <data name="CancellationThresholdHelp" xml:space="preserve">
+    <value>Označava najkasniji rok kada gost može da otkaže rezervaciju.</value>
+  </data>
+  <data name="CityDotCountry" xml:space="preserve">
+    <value>Grad, Država</value>
+  </data>
   <data name="Cleanliness" xml:space="preserve">
     <value>Čistoća</value>
   </data>
@@ -161,6 +176,9 @@
   </data>
   <data name="Description" xml:space="preserve">
     <value>Opis</value>
+  </data>
+  <data name="DescriptionWatermark" xml:space="preserve">
+    <value>Smeštaj sa pogledom sa...</value>
   </data>
   <data name="End" xml:space="preserve">
     <value>Kraj</value>
@@ -189,8 +207,26 @@
   <data name="LeavingDot" xml:space="preserve">
     <value>Odlazak:</value>
   </data>
+  <data name="Location" xml:space="preserve">
+    <value>Lokacija</value>
+  </data>
+  <data name="MaxGuestNumber" xml:space="preserve">
+    <value>Maksimalan broj gostiju</value>
+  </data>
+  <data name="MinNumberOfDays" xml:space="preserve">
+    <value>Minimalan broj dana za rezervaciju</value>
+  </data>
   <data name="MostBusy" xml:space="preserve">
     <value>Najveća zauzetost.</value>
+  </data>
+  <data name="MyAccommodation" xml:space="preserve">
+    <value>Moj smeštaj</value>
+  </data>
+  <data name="MyAccommodations" xml:space="preserve">
+    <value>Moji Smeštaji</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Ime</value>
   </data>
   <data name="NumberOfDays" xml:space="preserve">
     <value>Broj dana</value>
@@ -219,6 +255,9 @@
   <data name="RatingFromGuestDot" xml:space="preserve">
     <value>Recenzija od gosta:</value>
   </data>
+  <data name="RegisterAccommodation" xml:space="preserve">
+    <value>Registruj smeštaj</value>
+  </data>
   <data name="RenovationInProgress" xml:space="preserve">
     <value>Renoviranje u toku</value>
   </data>
@@ -243,17 +282,35 @@
   <data name="ScheduleRenovation" xml:space="preserve">
     <value>Zakaži renoviranje</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Pretraga</value>
+  </data>
+  <data name="SelectDot" xml:space="preserve">
+    <value>Izaberite...</value>
+  </data>
+  <data name="SelectImages" xml:space="preserve">
+    <value>Izaberi slike</value>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>Pošalji</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Početak</value>
   </data>
+  <data name="Statistic" xml:space="preserve">
+    <value>Statistika</value>
+  </data>
+  <data name="StatisticFor" xml:space="preserve">
+    <value>Statistika za</value>
+  </data>
   <data name="Statistics" xml:space="preserve">
     <value>Statistika</value>
   </data>
   <data name="ThisWasRecentlyRenovated" xml:space="preserve">
     <value>Ovaj smestaj je nedavno renoviran</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tip</value>
   </data>
   <data name="UsefulForum" xml:space="preserve">
     <value>Koristan forum</value>

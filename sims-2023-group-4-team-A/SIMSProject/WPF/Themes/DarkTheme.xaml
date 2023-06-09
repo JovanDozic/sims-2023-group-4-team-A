@@ -3,7 +3,7 @@
     
     <!-- Colors -->
     <SolidColorBrush x:Key="BackgroundColor" Color="#212121"/>
-    <SolidColorBrush x:Key="TextColor" Color="White"/>
+    <SolidColorBrush x:Key="TextColor" Color="#ffffff"/>
     <SolidColorBrush x:Key="CardBackgroundColor" Color="#323232"/>
 
     <!-- Icon Sources -->

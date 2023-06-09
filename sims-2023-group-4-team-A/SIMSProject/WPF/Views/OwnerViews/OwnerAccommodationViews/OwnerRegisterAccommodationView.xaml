@@ -7,9 +7,10 @@
       xmlns:cstm="clr-namespace:SIMSProject.WPF.CustomControls"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
+      xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
       mc:Ignorable="d" 
       Height="auto" d:DesignWidth="430"
-      Title="Register Accommodation" Background="White">
+      Title="Register Accommodation">
 
     <Page.Resources>
         <converters:AccommodationTypeConverter x:Key="TypeConverter" />
@@ -26,18 +27,21 @@
         <Button x:Name="BtnBack" Grid.Row="0" Click="BtnBack_Click"
                 Style="{StaticResource BackButtonStyle}">
             <StackPanel Orientation="Horizontal">
-                <Image Source="/Resources/Icons/back.png"
+                <Image Source="{DynamicResource BackIcon}"
                        Style="{StaticResource BackButtonIconStyle}"/>
-                <TextBlock Text="Nazad" Style="{StaticResource BackButtonTextStyle}"/>
+                <TextBlock Text="{ns:Loc Back}" Style="{StaticResource BackButtonTextStyle}"
+                           Foreground="{DynamicResource TextColor}"/>
             </StackPanel>
         </Button>
 
-        <Label Content="Registruj smeštaj" Grid.Row="1"
+        <Label Content="{ns:Loc RegisterAccommodation}" Grid.Row="1"
                FontSize="30" FontWeight="SemiBold"
-               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Foreground="{DynamicResource TextColor}"/>
 
         <ScrollViewer Grid.Row="2" 
-                      HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                      HorizontalScrollBarVisibility="Disabled" 
+                      VerticalScrollBarVisibility="Hidden">
 
             <Grid Height="auto" Margin="0,0,0,50">
                 <Grid.RowDefinitions>
@@ -63,37 +67,38 @@
                 </Grid.RowDefinitions>
 
                 <!-- Name -->
-                <Label Grid.Row="0" Content="Ime" Style="{StaticResource MobileTextBoxLabel}" />
+                <Label Grid.Row="0" Content="{ns:Loc Name}" Style="{StaticResource MobileTextBoxLabel}" Foreground="{DynamicResource TextColor}"/>
                 <Border Grid.Row="1" Style="{StaticResource MobileTextBoxInputBorder}">
-                    <xctk:WatermarkTextBox Watermark="Moj smeštaj" 
+                    <xctk:WatermarkTextBox Watermark="{ns:Loc MyAccommodation}" 
                                            Style="{StaticResource MobileWatermarkTextBoxInput}"
                                            Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}" />
                 </Border>
 
                 <!-- Location -->
-                <Label Grid.Row="2" Content="Lokacija" Style="{StaticResource MobileTextBoxLabel}" />
+                <Label Grid.Row="2" Content="{ns:Loc Location}" Style="{StaticResource MobileTextBoxLabel}" Foreground="{DynamicResource TextColor}"/>
                 <Border Grid.Row="3" Style="{StaticResource MobileTextBoxInputBorder}">
-                    <xctk:WatermarkTextBox Watermark="Grad, Država" 
+                    <xctk:WatermarkTextBox Watermark="{ns:Loc CityDotCountry}" 
                                            Style="{StaticResource MobileWatermarkTextBoxInput}"
                                            Text="{Binding FullLocation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
                 </Border>
 
                 <!-- Type -->
-                <Label Grid.Row="4" Content="Tip" Style="{StaticResource MobileTextBoxLabel}" />
+                <Label Grid.Row="4" Content="{ns:Loc Type}" Style="{StaticResource MobileTextBoxLabel}" Foreground="{DynamicResource TextColor}"/>
                 <Border Grid.Row="5" Style="{StaticResource MobileTextBoxInputBorder}">
                     <Grid>
                         <ComboBox x:Name="CbType" Style="{StaticResource MobileComboBoxInput}" 
                               ItemsSource="{Binding AccommodationTypeSource}"
-                              SelectedItem="{Binding Type, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}">
+                              SelectedItem="{Binding Type, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                                  Foreground="{DynamicResource TextColor}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Converter={StaticResource TypeConverter}}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <TextBlock Text="Izaberite..." IsHitTestVisible="False"
+                        <TextBlock Text="{ns:Loc SelectDot}" IsHitTestVisible="False"
                                    FontSize="20" FontFamily="Open Sans" VerticalAlignment="Center"
-                                   Margin="17.5,0,0,0" Foreground="Gray">
+                                   Margin="17.5,0,0,0" Foreground="{DynamicResource CardBackgroundColor}">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="Visibility" Value="Hidden"/>
@@ -109,7 +114,7 @@
                 </Border>
 
                 <!-- MaxNum -->
-                <Label Grid.Row="6" Content="Maksimalan broj gostiju" Style="{StaticResource MobileTextBoxLabel}" />
+                <Label Grid.Row="6" Content="{ns:Loc MaxGuestNumber}" Style="{StaticResource MobileTextBoxLabel}" Foreground="{DynamicResource TextColor}"/>
                 <Border Grid.Row="7" Style="{StaticResource MobileTextBoxInputBorder}">
                     <xctk:WatermarkTextBox Watermark="2" 
                                            Style="{StaticResource MobileWatermarkTextBoxInput}"
@@ -117,7 +122,7 @@
                 </Border>
 
                 <!-- MinNum -->
-                <Label Grid.Row="8" Content="Minimalan broj dana za rezervaciju" Style="{StaticResource MobileTextBoxLabel}" />
+                <Label Grid.Row="8" Content="{ns:Loc MinNumberOfDays}" Style="{StaticResource MobileTextBoxLabel}" Foreground="{DynamicResource TextColor}"/>
                 <Border Grid.Row="9" Style="{StaticResource MobileTextBoxInputBorder}">
                     <xctk:WatermarkTextBox Watermark="1" 
                                            Style="{StaticResource MobileWatermarkTextBoxInput}"
@@ -126,11 +131,11 @@
 
                 <!-- CancelNum -->
                 <StackPanel Grid.Row="10" Orientation="Horizontal">
-                    <Label Content="Otkazni rok" Style="{StaticResource MobileTextBoxLabel}" />
+                    <Label Content="{ns:Loc CancellationThreshold}" Style="{StaticResource MobileTextBoxLabel}" Foreground="{DynamicResource TextColor}"/>
                     <Button x:Name="BtnCancellationHelp" Width="30" Height="17.5" Margin="0,5,0,0"
                             Style="{StaticResource NoHoverButtonStyle}"
                             Click="BtnCancellationHelp_Click">
-                        <Image Source="/Resources/Icons/help.png" Style="{StaticResource IconRenderStyle}"/>
+                        <Image Source="{DynamicResource HelpIcon}" Style="{StaticResource IconRenderStyle}"/>
                     </Button>
                 </StackPanel>
                 <Popup x:Name="PopupCancellationHelp" 
@@ -139,7 +144,7 @@
                        PlacementTarget="{Binding ElementName=BtnCancellationHelp}"
                        VerticalOffset="-115" HorizontalOffset="-30">
                     <Border Style="{StaticResource PopupBorderStyle}">
-                        <TextBlock Text="Označava najkasniji rok kada gost može da otkaže rezervaciju." 
+                        <TextBlock Text="{ns:Loc CancellationThresholdHelp}" 
                                    Style="{StaticResource PopupTextStyle}"/>
                     </Border>
                 </Popup>
@@ -150,15 +155,15 @@
                 </Border>
 
                 <!-- Description -->
-                <Label Grid.Row="12" Content="Opis" Style="{StaticResource MobileTextBoxLabel}" />
+                <Label Grid.Row="12" Content="{ns:Loc Description}" Style="{StaticResource MobileTextBoxLabel}" Foreground="{DynamicResource TextColor}"/>
                 <Border Grid.Row="13" Style="{StaticResource MobileTextBoxInputBorder}">
-                    <xctk:WatermarkTextBox Watermark="Smeštaj sa pogledom na..." 
+                    <xctk:WatermarkTextBox Watermark="{ns:Loc DescriptionWatermark}" 
                                            Style="{StaticResource MobileWatermarkTextBoxInput}"
                                            Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
                 </Border>
 
                 <!-- Images -->
-                <Label Grid.Row="14" Content="Dodaj slike" Style="{StaticResource MobileTextBoxLabel}" />
+                <Label Grid.Row="14" Content="{ns:Loc AddImages}" Style="{StaticResource MobileTextBoxLabel}" Foreground="{DynamicResource TextColor}"/>
                 <Border Grid.Row="15" Style="{StaticResource MobileTextBoxInputBorder}" Height="Auto">
                     <cstm:MobileImageSlider x:Name="SliderImageURLs" 
                                             Height="275" 
@@ -171,9 +176,9 @@
                         Style="{StaticResource MobileActionSingleButtonStyle}"
                         Click="BtnUploadImages_Click">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Resources/Icons/image.png" Height="22.5" Margin="0,0,10,0" 
+                        <Image Source="{DynamicResource ImageIcon}" Height="22.5" Margin="0,0,10,0" 
                                Style="{StaticResource IconRenderStyle}"/>
-                        <TextBlock Text="Izaberi slike" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                        <TextBlock Text="{ns:Loc SelectImages}" VerticalAlignment="Center" Margin="0,0,0,0" Foreground="{DynamicResource TextColor}"/>
                     </StackPanel>
                 </Button>
 
@@ -183,9 +188,9 @@
                         Style="{StaticResource MobileActionSingleButtonStyle}"
                         Command="{Binding RegisterAccommodationCommand}">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Resources/Icons/plus.png" Height="17.5" Margin="0,0,10,0" 
+                        <Image Source="{DynamicResource PlusIcon}" Height="17.5" Margin="0,0,10,0" 
                        Style="{StaticResource IconRenderStyle}"/>
-                        <TextBlock Text="Dodaj smeštaj" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                        <TextBlock Text="{ns:Loc AddAccommodation}" VerticalAlignment="Center" Margin="0,0,0,0" Foreground="{DynamicResource TextColor}"/>
                     </StackPanel>
                 </Button>
             </Grid>

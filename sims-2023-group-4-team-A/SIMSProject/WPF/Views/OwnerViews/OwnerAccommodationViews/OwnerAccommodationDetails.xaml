@@ -10,7 +10,7 @@
       xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
       mc:Ignorable="d" 
       Height="Auto" d:DesignWidth="430"
-      Title="Register Accommodation" Background="White">
+      Title="Register Accommodation">
 
     <Page.Resources>
         <converters:AccommodationTypeConverter x:Key="TypeConverter" />
@@ -45,9 +45,10 @@
                 Click="BtnBack_Click"
                 VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal">
-                <Image Source="/Resources/Icons/back.png"
+                <Image Source="{DynamicResource BackIcon}"
                        Style="{StaticResource BackButtonIconStyle}"/>
-                <TextBlock Text="{ns:Loc Back}" Style="{StaticResource BackButtonTextStyle}"/>
+                <TextBlock Text="{ns:Loc Back}" Style="{StaticResource BackButtonTextStyle}"
+                           Foreground="{DynamicResource TextColor}"/>
             </StackPanel>
         </Button>
 
@@ -78,37 +79,42 @@
 
                     <TextBlock Text="{Binding Name}"
                                FontWeight="SemiBold" FontSize="30" TextWrapping="Wrap"
-                               Margin="0,0,0,5"/>
+                               Margin="0,0,0,5" Foreground="{DynamicResource TextColor}"/>
 
                     <StackPanel Orientation="Horizontal" Margin="0,2.5,0,0">
                         <cstm:StarRating ControlHeight="20" Rating="{Binding Rating.Overall}" 
                                          HorizontalAlignment="Left" Margin="-5,0,0,0"/>
                         <TextBlock Text="•  " Margin="5,0,0,0" FontSize="10"
-                                   VerticalAlignment="Center"/>
+                                   VerticalAlignment="Center"
+                                   Foreground="{DynamicResource TextColor}"/>
                         <TextBlock Text="{Binding Rating.NumberOfRatings}" FontSize="10"
-                                   VerticalAlignment="Center"/>
+                                   VerticalAlignment="Center"
+                                   Foreground="{DynamicResource TextColor}"/>
                         <TextBlock Text="{ns:Loc xRatings}" FontSize="10"
-                                   VerticalAlignment="Center"/>
+                                   VerticalAlignment="Center"
+                                   Foreground="{DynamicResource TextColor}"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,5">
-                        <Image Source="/Resources/Icons/location.png" 
+                        <Image Source="{DynamicResource LocationIcon}" 
                                Style="{StaticResource IconRenderStyle}"
                                Height="20"/>
                         <TextBlock Text="{Binding Location}" Margin="10,0,0,0"
-                                   FontSize="14"/>
+                                   FontSize="14" Foreground="{DynamicResource TextColor}"/>
                     </StackPanel>
 
                     <TextBlock Text="{Binding Description}" 
-                               TextWrapping="Wrap" FontSize="14" Margin="0,5"/>
+                               TextWrapping="Wrap" FontSize="14" Margin="0,5"
+                               Foreground="{DynamicResource TextColor}"/>
 
                     <StackPanel Orientation="Horizontal" Margin="0,5"
                                 Visibility="{Binding IsRecentlyRenovated, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <Image Source="/Resources/Icons/renovation.png" 
+                        <Image Source="{DynamicResource RenovationIcon}" 
                                Style="{StaticResource IconRenderStyle}"
                                Height="20"/>
                         <TextBlock Text="{ns:Loc ThisWasRecentlyRenovated}" Margin="10,0,0,0"
-                                   FontSize="14"/>
+                                   FontSize="14"
+                                   Foreground="{DynamicResource TextColor}"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,5"
@@ -117,7 +123,8 @@
                                Style="{StaticResource IconRenderStyle}"
                                Height="20"/>
                         <TextBlock Text="{ns:Loc RenovationInProgress}" Margin="10,0,0,0"
-                                   FontSize="14"/>
+                                   FontSize="14"
+                                   Foreground="{DynamicResource TextColor}"/>
                     </StackPanel>
                 </StackPanel>
 
@@ -128,7 +135,8 @@
                     <StackPanel Grid.Row="10" Orientation="Horizontal">
                         <TextBlock Text="{ns:Loc Reservations}" 
                                    FontWeight="SemiBold" FontSize="30"
-                                   Margin="0,0,0,5"/>
+                                   Margin="0,0,0,5"
+                                   Foreground="{DynamicResource TextColor}"/>
                         <Button x:Name="BtnReservationHelp" Width="30" Height="20"
                                 Margin="5,-2,0,0"
                                 Style="{StaticResource NoHoverButtonStyle}"
@@ -158,10 +166,12 @@
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                               ScrollViewer.HorizontalScrollBarVisibility="Auto"
                               ScrollViewer.CanContentScroll="False"
-                              ScrollViewer.PanningMode="Both">
+                              ScrollViewer.PanningMode="Both"
+                              Foreground="{DynamicResource TextColor}"
+                              Background="{DynamicResource BackgroundColor}">
                         <ListView.Resources>
                             <Style TargetType="{x:Type ListView}">
-                                <Setter Property="BorderBrush" Value="Black"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource TextColor}"/>
                                 <Setter Property="BorderThickness" Value="2"/>
                                 <Setter Property="Visibility" Value="Visible"/>
                                 <Style.Triggers>
@@ -173,7 +183,8 @@
                             <Style TargetType="{x:Type GridViewColumnHeader}">
                                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
                                 <Setter Property="Height" Value="35"/>
-                                <Setter Property="Background" Value="#10000000"/>
+                                <Setter Property="Background" Value="#20ffffff"/>
+                                <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
                                 <Setter Property="BorderBrush" Value="Transparent" />
                                 <Setter Property="BorderThickness" Value="0"/>
                                 <Setter Property="IsHitTestVisible" Value="False"/>
@@ -205,14 +216,16 @@
                                 HorizontalAlignment="Left"
                                 Style="{StaticResource MobileActionHalfButtonStyle}">
                             <TextBlock Text="{ns:Loc ReschedulingRequests}" 
-                                       VerticalAlignment="Center"/>
+                                       VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextColor}"/>
                         </Button>
                         <Button x:Name="BtnAllReservations" Grid.Column="1"
                                 HorizontalAlignment="Right"
                                 Style="{StaticResource MobileActionHalfButtonStyle}"
                                 Click="BtnAllReservations_Click">
                             <TextBlock Text="{ns:Loc AllReservations}" 
-                                       VerticalAlignment="Center"/>
+                                       VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextColor}"/>
                         </Button>
                     </Grid>
                 </StackPanel>
@@ -224,7 +237,8 @@
 
                     <TextBlock Text="{ns:Loc GradesAndRatings}"
                                FontWeight="SemiBold" FontSize="30" TextWrapping="Wrap"
-                               Margin="0,0,0,5"/>
+                               Margin="0,0,0,5"
+                               Foreground="{DynamicResource TextColor}"/>
 
                     <!-- Rating and count -->
                     <Grid Margin="10,0">
@@ -236,19 +250,23 @@
                                     HorizontalAlignment="Left" Grid.Column="0">
                             <TextBlock Text="{Binding Rating.Overall}"
                                        FontWeight="SemiBold" FontSize="40"
-                                       VerticalAlignment="Bottom"/>
+                                       VerticalAlignment="Bottom"
+                                       Foreground="{DynamicResource TextColor}"/>
                             <TextBlock Text="{ns:Loc OutOf5}"
                                        FontSize="20"
-                                       Margin="10,22.5,0,0"/>
+                                       Margin="10,22.5,0,0"
+                                       Foreground="{DynamicResource TextColor}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,3.5"
                                     HorizontalAlignment="Right" Grid.Column="1">
                             <TextBlock Text="{Binding Rating.NumberOfRatings}"
                                        FontSize="20"
-                                       VerticalAlignment="Bottom"/>
+                                       VerticalAlignment="Bottom"
+                                       Foreground="{DynamicResource TextColor}"/>
                             <TextBlock Text="{ns:Loc xRatings2}"
                                        FontSize="20"
-                                       VerticalAlignment="Bottom"/>
+                                       VerticalAlignment="Bottom"
+                                       Foreground="{DynamicResource TextColor}"/>
                         </StackPanel>
                     </Grid>
 
@@ -267,19 +285,22 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="{ns:Loc Cleanliness}"
-                                   Style="{StaticResource RatingCategoryLabel}"/>
+                                   Style="{StaticResource RatingCategoryLabel}"
+                                   Foreground="{DynamicResource TextColor}"/>
                         <cstm:StarRating Grid.Row="0" Grid.Column="1"
                                          Rating="{Binding Rating.CleanlinessRating}"
                                          Style="{StaticResource RatingCategoryStars}"/>
 
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="{ns:Loc Correctness}"
-                                   Style="{StaticResource RatingCategoryLabel}"/>
+                                   Style="{StaticResource RatingCategoryLabel}"
+                                   Foreground="{DynamicResource TextColor}"/>
                         <cstm:StarRating Grid.Row="1" Grid.Column="1"
                                          Rating="{Binding Rating.OwnerCorrectness}"
                                          Style="{StaticResource RatingCategoryStars}"/>
 
                         <TextBlock Grid.Row="2" Grid.Column="0" Text="{ns:Loc Kindness}"
-                                   Style="{StaticResource RatingCategoryLabel}"/>
+                                   Style="{StaticResource RatingCategoryLabel}"
+                                   Foreground="{DynamicResource TextColor}"/>
                         <cstm:StarRating Grid.Row="2" Grid.Column="1"
                                          Rating="{Binding Rating.Kindness}"
                                          Style="{StaticResource RatingCategoryStars}"/>
@@ -289,7 +310,8 @@
                             HorizontalAlignment="Center" Width="385"
                             Style="{StaticResource MobileActionSingleButtonStyle}">
                         <TextBlock Text="{ns:Loc AllRatings}" 
-                                   VerticalAlignment="Center"/>
+                                   VerticalAlignment="Center"
+                                   Foreground="{DynamicResource TextColor}"/>
                     </Button>
 
                 </StackPanel>
@@ -301,7 +323,8 @@
 
                     <TextBlock Text="{ns:Loc Statistics}"
                                FontWeight="SemiBold" FontSize="30" TextWrapping="Wrap"
-                               Margin="0,0,0,5"/>
+                               Margin="0,0,0,5"
+                               Foreground="{DynamicResource TextColor}"/>
 
                     <cstm:AccommodationStatsGrid 
                         Title="{Binding Year}"
@@ -311,13 +334,15 @@
                         RenovationRecommendations="{Binding RenovationRecommendations}"
                         Margin="0,10,0,20"
                         Width="385"
-                        HorizontalAlignment="Center"/>
+                        HorizontalAlignment="Center"
+                        Foreground="{DynamicResource TextColor}"/>
 
                     <Button x:Name="BtnAllStats"
                             HorizontalAlignment="Center" Width="385"
                             Style="{StaticResource MobileActionSingleButtonStyle}" Click="BtnAllStats_Click">
                         <TextBlock Text="{ns:Loc AllStatistics}" 
-                                   VerticalAlignment="Center"/>
+                                   VerticalAlignment="Center"
+                                   Foreground="{DynamicResource TextColor}"/>
                     </Button>
 
                 </StackPanel>
@@ -330,7 +355,8 @@
                     <StackPanel Grid.Row="10" Orientation="Horizontal">
                         <TextBlock Text="{ns:Loc Renovations}" 
                                    FontWeight="SemiBold" FontSize="30"
-                                   Margin="0,0,0,5"/>
+                                   Margin="0,0,0,5"
+                                   Foreground="{DynamicResource TextColor}"/>
                         <Button x:Name="BtnRenovationHelp" Width="30" Height="20"
                                 Margin="5,-2,0,0"
                                 Style="{StaticResource NoHoverButtonStyle}"
@@ -346,7 +372,8 @@
                            VerticalOffset="-100" HorizontalOffset="-90">
                         <Border Style="{StaticResource PopupBorderStyle}">
                             <TextBlock Text="{ns:Loc OnlyFutureRenovationsAreDisplayed}" 
-                                       Style="{StaticResource PopupTextStyle}"/>
+                                       Style="{StaticResource PopupTextStyle}"
+                                       Foreground="{DynamicResource TextColor}"/>
                         </Border>
                     </Popup>
 
@@ -361,10 +388,11 @@
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                               ScrollViewer.HorizontalScrollBarVisibility="Auto"
                               ScrollViewer.CanContentScroll="False"
-                              ScrollViewer.PanningMode="Both">
+                              ScrollViewer.PanningMode="Both"
+                              Foreground="{DynamicResource TextColor}">
                         <ListView.Resources>
                             <Style TargetType="{x:Type ListView}">
-                                <Setter Property="BorderBrush" Value="Black"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource TextColor}"/>
                                 <Setter Property="BorderThickness" Value="2"/>
                                 <Setter Property="Visibility" Value="Visible"/>
                                 <Style.Triggers>
@@ -405,13 +433,15 @@
                                 HorizontalAlignment="Left"
                                 Style="{StaticResource MobileActionHalfButtonStyle}">
                             <TextBlock Text="{ns:Loc ScheduleRenovation}" 
-                                       VerticalAlignment="Center"/>
+                                       VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextColor}"/>
                         </Button>
                         <Button x:Name="BtnAllRenovations" Grid.Column="1"
                                 HorizontalAlignment="Right"
                                 Style="{StaticResource MobileActionHalfButtonStyle}">
                             <TextBlock Text="{ns:Loc AllRenovations}" 
-                                       VerticalAlignment="Center"/>
+                                       VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextColor}"/>
                         </Button>
                     </Grid>
                 </StackPanel>
