@@ -9,9 +9,9 @@
       d:DesignHeight="750" d:DesignWidth="430"
       Title="My Notifications">
 
-    <Page.Resources>
-        <converters:ResourceKeyToImageSourceConverter x:Key="ResourceKeyToImageSourceConverter" />
-    </Page.Resources>
+        <Page.Resources>
+            <converters:ResourceKeyToImageSourceConverter x:Key="ResourceKeyToImageSourceConverter" />
+        </Page.Resources>
 
     <Grid>
 
@@ -21,9 +21,9 @@
         </Grid.RowDefinitions>
 
         <Label Content="Obaveštenja" Grid.Row="0"
-                   FontSize="30" FontWeight="SemiBold"
-                   HorizontalAlignment="Left" VerticalAlignment="Center"
-                   Foreground="{DynamicResource TextColor}"/>
+               FontSize="30" FontWeight="SemiBold"
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Foreground="{DynamicResource TextColor}"/>
 
         <ListView x:Name="LstNotifications" Grid.Row="1" 
                   ItemsSource="{Binding Notifications, UpdateSourceTrigger=PropertyChanged}"

@@ -5,9 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerNotificationViews"
       mc:Ignorable="d" 
+      xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
       Height="auto" d:DesignWidth="430"
-      Background="{DynamicResource BackroundColor}"
       Title="Notification">
+
+    <Page.Resources>
+        <converters:ResourceKeyToImageSourceConverter x:Key="ResourceKeyToImageSourceConverter" />
+    </Page.Resources>
 
     <Grid Margin="15,0,15,10">
 
@@ -22,7 +26,7 @@
         <Button x:Name="BtnBack" Grid.Row="0" Click="BtnBack_Click"
                 Style="{StaticResource BackButtonStyle}">
             <StackPanel Orientation="Horizontal">
-                <Image Source="/Resources/Icons/back.png"
+                <Image Source="{DynamicResource BackIcon}"
                        Style="{StaticResource BackButtonIconStyle}"/>
                 <TextBlock Text="Nazad" Style="{StaticResource BackButtonTextStyle}"
                            Foreground="{DynamicResource TextColor}"/>
@@ -35,7 +39,8 @@
                    TextWrapping="Wrap"
                    Foreground="{DynamicResource TextColor}"/>
 
-        <Image Source="{Binding Notification.IconSource}" Grid.Row="2"
+        <Image Source="{Binding Notification.IconSource, Converter={StaticResource ResourceKeyToImageSourceConverter}}" 
+               Grid.Row="2"
                Height="80"/>
 
         <TextBlock Text="{Binding Notification.Description}" Grid.Row="3" FontSize="17.5"
@@ -48,7 +53,7 @@
                 Style="{StaticResource MobileActionSingleButtonStyle}"
                 Command="{Binding RegisterAccommodationCommand}" Click="BtnMarkAsRead_Click">
             <StackPanel Orientation="Horizontal">
-                <Image Source="/Resources/Icons/check.png" Height="17.5" Margin="0,0,10,0" 
+                <Image Source="{DynamicResource CheckIcon}" Height="17.5" Margin="0,0,10,0" 
                        Style="{StaticResource IconRenderStyle}"/>
                 <TextBlock Text="Okej, hvala!" VerticalAlignment="Center" Margin="0,0,0,0"
                            Foreground="{DynamicResource TextColor}"/>

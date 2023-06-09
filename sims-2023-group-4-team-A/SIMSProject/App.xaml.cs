@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIMSProject.WPF.Languages;
+using System;
 using System.Windows;
 
 namespace SIMSProject
@@ -6,8 +7,9 @@ namespace SIMSProject
     public partial class App : System.Windows.Application
     {
         public string CurrentTheme { get; set; } = "Light";
+        public string CurrentLanguage { get; set; } = "sr-LATN";
 
-        public void SwitchTheme(string themeName)
+        public void ChangeTheme(string themeName)
         {
             Resources.MergedDictionaries.Clear();
 
@@ -19,6 +21,19 @@ namespace SIMSProject
                 dictionary.Source = new Uri("pack://application:,,,/WPF/Themes/DarkTheme.xaml");
 
             Resources.MergedDictionaries.Add(dictionary);
+        }
+
+        public void ChangeLanguage(string language)
+        {
+            if (language.Equals("en-US"))
+            {
+                TranslationSource.Instance.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+                CurrentLanguage = "en-US";
+                return;
+            }
+
+            TranslationSource.Instance.CurrentCulture = new System.Globalization.CultureInfo("sr-LATN");
+            CurrentLanguage = "sr-LATN";
         }
     }
 }

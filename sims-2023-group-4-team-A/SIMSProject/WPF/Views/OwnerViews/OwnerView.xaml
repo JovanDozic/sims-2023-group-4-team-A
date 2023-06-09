@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews"
+        xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
         mc:Ignorable="d"
         Title="Home" d:DesignHeight="750" d:DesignWidth="430">
 
@@ -48,8 +49,9 @@
                     HorizontalAlignment="Center" VerticalAlignment="Center">
             <Image Source="{DynamicResource BookbnbIcon}" 
                    Height="25" Margin="0,0,10,0"
-                   Style="{StaticResource IconRenderStyle}"/>
-            <TextBlock Text="Bookbnb" FontSize="25" FontWeight="DemiBold" 
+                   Style="{StaticResource IconRenderStyle}"
+                   MouseDown="Image_MouseDown"/>
+            <TextBlock Text="{ns:Loc Bookbnb}" FontSize="25" FontWeight="DemiBold" 
                        Foreground="{DynamicResource TextColor}"
                        MouseDown="TextBlock_MouseDown"/>
         </StackPanel>

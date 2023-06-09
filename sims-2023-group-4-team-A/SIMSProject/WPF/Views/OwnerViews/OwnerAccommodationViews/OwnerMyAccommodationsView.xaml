@@ -37,7 +37,7 @@
                     Style="{StaticResource NoHoverButtonStyle}"
                     Width="30" Height="30"
                     HorizontalAlignment="Center" VerticalAlignment="Center" Click="BtnAddAccommodation_Click">
-                <Image Source="{DynamicResource AddAccommodationIcon}" Style="{StaticResource IconRenderStyle}"
+                <Image Source="{DynamicResource PlusIcon}" Style="{StaticResource IconRenderStyle}"
                        Height="20"/>
             </Button>
         </Grid>

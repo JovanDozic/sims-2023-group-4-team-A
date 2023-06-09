@@ -1,4 +1,5 @@
 ﻿using Dynamitey.DynamicObjects;
+using Microsoft.TeamFoundation.Test.WebApi;
 using Microsoft.VisualStudio.Services.Commerce;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.Views.Guest1.MainView;
@@ -29,8 +30,16 @@ namespace SIMSProject.WPF.Views.OwnerViews
             InitializeComponent();
             DataContext = this;
             _user = user;
-
+            
+            AdaptViewToUser();
             NavBtn_Click(NavBtnHome, null);
+        }
+
+        private void AdaptViewToUser()
+        {
+            if (_user is not Owner owner) return;
+            App.ChangeLanguage(owner.SelectedLanguage);
+            App.ChangeTheme(owner.SelectedTheme);
         }
 
         private void ChangeNavButtonIcon(object sender, string resourceName)
@@ -55,7 +64,7 @@ namespace SIMSProject.WPF.Views.OwnerViews
             else ChangeNavButtonIcon(sender, "AccountMenuIconFill");
         }
 
-        private void NavBtn_Click(object sender, RoutedEventArgs e)
+        private void NavBtn_Click(object sender, RoutedEventArgs? e)
         {
             if (sender is not Button button) return;
 
@@ -103,19 +112,31 @@ namespace SIMSProject.WPF.Views.OwnerViews
 
         private void TextBlock_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            // TODO: Move this logic to corresponding button in My Account view
             if (App.CurrentTheme == "Light")
             {
-                App.SwitchTheme("Dark");
+                App.ChangeTheme("Dark");
                 App.CurrentTheme = "Dark";
             }
             else
             {
-                App.SwitchTheme("Light");
+                App.ChangeTheme("Light");
                 App.CurrentTheme = "Light";
             }
             NavBtn_Click(NavBtnAccount, null);
         }
 
-
+        private void Image_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            // TODO: Move this logic to corresponding button in My Account view
+            if (App.CurrentLanguage.Equals("en-US"))
+            {
+                App.ChangeLanguage("sr-LATN");
+            }
+            else
+            {
+                App.ChangeLanguage("en-US");
+            }
+        }
     }
 }

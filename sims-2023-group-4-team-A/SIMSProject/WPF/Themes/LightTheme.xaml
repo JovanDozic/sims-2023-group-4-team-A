@@ -7,47 +7,52 @@
     <SolidColorBrush x:Key="CardBackgroundColor" Color="#eeeeee"/>
 
     <!-- Icon Sources -->
-    <BitmapImage x:Key="BookbnbIcon" 
-                 UriSource="../../../Resources/Icons/bookbnb.png"/>
-    
-    <BitmapImage x:Key="NotificationsMenuIcon" 
-                 UriSource="../../../Resources/Icons/bell.png"/>
-    <BitmapImage x:Key="AccommodationsMenuIcon" 
-                 UriSource="../../../Resources/Icons/bed.png"/>
-    <BitmapImage x:Key="HomeMenuIcon" 
-                 UriSource="../../../Resources/Icons/home.png"/>
-    <BitmapImage x:Key="ForumsMenuIcon" 
-                 UriSource="../../../Resources/Icons/forum.png"/>
-    <BitmapImage x:Key="AccountMenuIcon" 
-                 UriSource="../../../Resources/Icons/user.png"/>
-    <BitmapImage x:Key="NotificationsMenuIconFill" 
-                 UriSource="../../../Resources/Icons/bell-fill.png"/>
-    <BitmapImage x:Key="AccommodationsMenuIconFill" 
-                 UriSource="../../../Resources/Icons/bed-fill.png"/>
-    <BitmapImage x:Key="HomeMenuIconFill" 
-                 UriSource="../../../Resources/Icons/home-fill.png"/>
-    <BitmapImage x:Key="ForumsMenuIconFill" 
-                 UriSource="../../../Resources/Icons/forum-fill.png"/>
-    <BitmapImage x:Key="AccountMenuIconFill" 
-                 UriSource="../../../Resources/Icons/user-fill.png"/>
-    
-    <BitmapImage x:Key="AddAccommodationIcon"
-                 UriSource="/Resources/Icons/plus.png"/>
+    <BitmapImage x:Key="BookbnbIcon" UriSource="../../../Resources/Icons/bookbnb.png"/>
+    <BitmapImage x:Key="NotificationsMenuIcon" UriSource="../../../Resources/Icons/bell.png"/>
+    <BitmapImage x:Key="AccommodationsMenuIcon" UriSource="../../../Resources/Icons/bed.png"/>
+    <BitmapImage x:Key="HomeMenuIcon" UriSource="../../../Resources/Icons/home.png"/>
+    <BitmapImage x:Key="ForumsMenuIcon" UriSource="../../../Resources/Icons/forum.png"/>
+    <BitmapImage x:Key="AccountMenuIcon" UriSource="../../../Resources/Icons/user.png"/>
+    <BitmapImage x:Key="NotificationsMenuIconFill" UriSource="../../../Resources/Icons/bell-fill.png"/>
+    <BitmapImage x:Key="AccommodationsMenuIconFill" UriSource="../../../Resources/Icons/bed-fill.png"/>
+    <BitmapImage x:Key="HomeMenuIconFill" UriSource="../../../Resources/Icons/home-fill.png"/>
+    <BitmapImage x:Key="ForumsMenuIconFill" UriSource="../../../Resources/Icons/forum-fill.png"/>
+    <BitmapImage x:Key="AccountMenuIconFill" UriSource="../../../Resources/Icons/user-fill.png"/>
+    <BitmapImage x:Key="BackIcon" UriSource="/Resources/Icons/back.png"/>
+    <BitmapImage x:Key="CheckIcon" UriSource="/Resources/Icons/check.png"/>
+    <BitmapImage x:Key="ClockUnfillIcon" UriSource="/Resources/Icons/clock-unfill.png"/>
+    <BitmapImage x:Key="ClockIcon" UriSource="/Resources/Icons/clock.png"/>
+    <BitmapImage x:Key="CommentIcon" UriSource="/Resources/Icons/comment.png"/>
+    <BitmapImage x:Key="CrossedEyeIcon" UriSource="/Resources/Icons/crossed-eye.png"/>
+    <BitmapImage x:Key="DownIcon" UriSource="/Resources/Icons/down.png"/>
+    <BitmapImage x:Key="DownvoteFillIcon" UriSource="/Resources/Icons/downvote-fill.png"/>
+    <BitmapImage x:Key="DownvoteIcon" UriSource="/Resources/Icons/downvote.png"/>
+    <BitmapImage x:Key="EyeIcon" UriSource="/Resources/Icons/eye.png"/>
+    <BitmapImage x:Key="FlagIcon" UriSource="/Resources/Icons/flag.png"/>
+    <BitmapImage x:Key="HelpIcon" UriSource="/Resources/Icons/help.png"/>
+    <BitmapImage x:Key="ImageIcon" UriSource="/Resources/Icons/image.png"/>
+    <BitmapImage x:Key="IsOwnerIcon" UriSource="/Resources/Icons/is-owner.png"/>
+    <BitmapImage x:Key="IsSuperOwnerIcon" UriSource="/Resources/Icons/is-superowner.png"/>
+    <BitmapImage x:Key="LeftIcon" UriSource="/Resources/Icons/left.png"/>
+    <BitmapImage x:Key="LocationIcon" UriSource="/Resources/Icons/location.png"/>
+    <BitmapImage x:Key="LockGrayIcon" UriSource="/Resources/Icons/lock-gray.png"/>
+    <BitmapImage x:Key="NotifLocationCheckIcon" UriSource="/Resources/Icons/notif-location-check.png"/>
+    <BitmapImage x:Key="NotifLocationXIcon" UriSource="/Resources/Icons/notif-location-x.png"/>
+    <BitmapImage x:Key="NotifStarIcon" UriSource="/Resources/Icons/notif-star.png"/>
+    <BitmapImage x:Key="PlusIcon" UriSource="/Resources/Icons/plus.png"/>
+    <BitmapImage x:Key="QuestionIcon" UriSource="/Resources/Icons/question.png"/>
+    <BitmapImage x:Key="RenovationClockIcon" UriSource="/Resources/Icons/renovation-clock.png"/>
+    <BitmapImage x:Key="RenovationIcon" UriSource="/Resources/Icons/renovation.png"/>
+    <BitmapImage x:Key="RightIcon" UriSource="/Resources/Icons/right.png"/>
+    <BitmapImage x:Key="ShareIcon" UriSource="/Resources/Icons/share.png"/>
+    <BitmapImage x:Key="StarFillIcon" UriSource="/Resources/Icons/star-fill.png"/>
+    <BitmapImage x:Key="StarHalfIcon" UriSource="/Resources/Icons/star-half.png"/>
+    <BitmapImage x:Key="StarIcon" UriSource="/Resources/Icons/star.png"/>
+    <BitmapImage x:Key="StarsIcon" UriSource="/Resources/Icons/stars.png"/>
+    <BitmapImage x:Key="TrophyIcon" UriSource="/Resources/Icons/trophy.png"/>
+    <BitmapImage x:Key="WasAtLocationIcon" UriSource="/Resources/Icons/was-at-location.png"/>
+    <BitmapImage x:Key="WasNotAtLocationIcon" UriSource="/Resources/Icons/was-not-at-location.png"/>
+    <BitmapImage x:Key="XIcon" UriSource="/Resources/Icons/x.png"/>
 
-    <BitmapImage x:Key="StarFillIcon" 
-                 UriSource="/Resources/Icons/star-fill.png"/>
-    <BitmapImage x:Key="StarHalfIcon" 
-                 UriSource="/Resources/Icons/star-half.png"/>
-    <BitmapImage x:Key="StarIcon" 
-                 UriSource="/Resources/Icons/star.png"/>
-    
-    
-    
-    
-    
-    
-    <!--
-    <BitmapImage x:Key="" 
-                 UriSource=""/>
-    -->
+
 </ResourceDictionary>
