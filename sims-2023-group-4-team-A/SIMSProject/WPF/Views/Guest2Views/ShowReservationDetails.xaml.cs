@@ -11,17 +11,10 @@ namespace SIMSProject.WPF.Views.Guest2Views
     /// </summary>
     public partial class ShowKeyPoint : Page
     {
-        private User _user;
-        private readonly TourReservationsViewModel _viewmodel;
-        private TourReservation TourReservation;
         public ShowKeyPoint(User user, TourReservation tourReservation)
         {
             InitializeComponent();
-            _user = user;
-            TourReservation = tourReservation;
-            _viewmodel = new(user);
-            _viewmodel.GetDetails(tourReservation);
-            DataContext = _viewmodel;
+            DataContext = new TourReservationDetailsViewModel(user, tourReservation);
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -29,9 +22,5 @@ namespace SIMSProject.WPF.Views.Guest2Views
             NavigationService.GoBack();
         }
 
-        private void BtnGeneratePDF_Click(object sender, RoutedEventArgs e)
-        {
-            _viewmodel.GeneratePDF(TourReservation);
-        }
     }
 }

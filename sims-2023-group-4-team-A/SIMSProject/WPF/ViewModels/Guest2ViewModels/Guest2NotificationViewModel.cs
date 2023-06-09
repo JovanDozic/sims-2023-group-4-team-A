@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
 {
@@ -38,34 +39,47 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 OnPropertyChanged();
             }
         }
-
+        private Visibility _yesButtonVisibility;
+        public Visibility YesButtonVisibility
+        {
+            get => _yesButtonVisibility;
+            set
+            {
+                if(_yesButtonVisibility == value) return;
+                _yesButtonVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+        private Visibility _noButtonVisibility;
+        public Visibility NoButtonVisibility
+        {
+            get => _noButtonVisibility;
+            set
+            {
+                if (_noButtonVisibility == value) return;
+                _noButtonVisibility = value;
+                OnPropertyChanged();
+            }
+        }
         public Guest2NotificationViewModel(User user)
         {
             _user = user;
             _service = Injector.GetService<NotificationService>();
-
-            LoadNotifications();
-        }
-
-        public void LoadNotifications()
-        {
             Notifications = new(_service.GetAllUnreadByUser(_user));
+            SetButtonsState();
         }
 
-        public bool CanBeMarkedAsRead()
+        public void SetButtonsState()
         {
-            if (SelectedNotification == null) return false;
-
-            if (SelectedNotification.ExpirationDate == null) return true;
-            return false;
+            if (SelectedNotification?.Title == "Potvrda prisustva")
+            {
+                YesButtonVisibility = Visibility.Visible;
+                NoButtonVisibility = Visibility.Visible;
+                return;
+            }
+            YesButtonVisibility = Visibility.Hidden;
+            NoButtonVisibility = Visibility.Hidden;
         }
 
-        public void MarkAsRead()
-        {
-            if (SelectedNotification == null || !CanBeMarkedAsRead()) return;
-            _service.MarkAsRead(SelectedNotification);
-
-            LoadNotifications();
-        }
     }
 }

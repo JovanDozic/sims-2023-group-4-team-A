@@ -50,7 +50,7 @@
         <Label Grid.Row="6" Grid.Column="2" FontSize="28" VerticalAlignment="Center" Content="Prosečan broj gostiju: " FontWeight="DemiBold"/>
         <TextBlock Grid.Row="6" Grid.Column="3" Text="{Binding AverageGuestNumber}" FontSize="28" VerticalAlignment="Center" FontWeight="DemiBold"/>
     
-        <lvc:CartesianChart Grid.Row="4" Grid.Column="5" Grid.RowSpan="3" Series="{Binding LanguageCounts}">
+        <lvc:CartesianChart Grid.Row="4" Grid.Column="5" Grid.RowSpan="3" Visibility="{Binding LanguageVisibility, UpdateSourceTrigger=PropertyChanged}" Series="{Binding LanguageCounts}">
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis Title="Jezik" Labels="{Binding TourLanguages}" FontSize="15" Foreground="Black"/>
             </lvc:CartesianChart.AxisX>
@@ -58,7 +58,7 @@
                 <lvc:Axis Title="Broj zahteva" MinValue="0" FontSize="15" Foreground="Black"/>
             </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
-        <lvc:CartesianChart Grid.Row="4" Grid.Column="7" Grid.RowSpan="3" Series="{Binding LocationCounts}">
+        <lvc:CartesianChart Grid.Row="4" Grid.Column="7" Grid.RowSpan="3" Visibility="{Binding LocationVisibility, UpdateSourceTrigger=PropertyChanged}" Series="{Binding LocationCounts}">
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis Title="Lokacija" Labels="{Binding TourLocations}" FontSize="15" Foreground="Black" />
             </lvc:CartesianChart.AxisX>

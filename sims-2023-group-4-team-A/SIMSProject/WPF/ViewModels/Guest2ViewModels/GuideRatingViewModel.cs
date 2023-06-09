@@ -165,8 +165,8 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 OnPropertyChanged(nameof(IsRatingEnabled));
             }
         }
-        public ICommand RateGuideCommand { get; set; }
-        public ICommand AddImageCommand { get; set; }
+        public RelayCommand RateGuideCommand { get; set; }
+        public RelayCommand AddImageCommand { get; set; }
         public GuideRatingViewModel(User user, TourReservation tourReservation, int guideId)
         {
             _user = user;

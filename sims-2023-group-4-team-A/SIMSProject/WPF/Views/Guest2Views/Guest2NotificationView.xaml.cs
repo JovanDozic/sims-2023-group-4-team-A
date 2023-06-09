@@ -11,51 +11,18 @@ namespace SIMSProject.WPF.Views.Guest2Views
     /// </summary>
     public partial class Guest2NotificationView : Page
     {
-        private User _user { get; set; }
         private Guest2NotificationViewModel _viewModel { get; set; }
 
         public Guest2NotificationView(User user)
         {
             InitializeComponent();
-            _user = user;
-            _viewModel = new(_user);
-            DataContext = _viewModel;
-        }
-
-        private void BtnOpenNotification_Click(object sender, RoutedEventArgs e)
-        {
-            var notification = _viewModel.SelectedNotification;
-            if (notification == null) return;
-
-            if (MessageBox.Show(notification.Description, notification.Title, MessageBoxButton.OKCancel) == MessageBoxResult.Cancel)
-                return;
-
-            _viewModel.MarkAsRead();
-            DgrNotifications.Items.Refresh();
+            _viewModel = new(user);
+            this.DataContext = _viewModel;
         }
 
         private void DgrNotifications_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            BtnOpenNotification.IsEnabled = _viewModel.SelectedNotification != null;
-        }
-
-        private void DgrNotifications_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            BtnOpenNotification_Click(sender, e);
-        }
-
-        private void Button_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (_viewModel.SelectedNotification?.Title == "Potvrda prisustva")
-            {
-                Yes.Visibility = Visibility.Visible;
-                No.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                Yes.Visibility = Visibility.Collapsed;
-                No.Visibility = Visibility.Collapsed;
-            }
+            _viewModel.SetButtonsState();
         }
     }
 }

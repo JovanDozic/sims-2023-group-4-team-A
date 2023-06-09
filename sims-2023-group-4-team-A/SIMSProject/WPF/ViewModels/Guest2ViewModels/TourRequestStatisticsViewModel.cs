@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
@@ -115,17 +116,42 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 OnPropertyChanged();
             }
         }
+        private Visibility _languageVisibility;
+        public Visibility LanguageVisibility
+        {
+            get => _languageVisibility;
+            set
+            {
+                if(value == _languageVisibility) return;
+                _languageVisibility = value;
+                OnPropertyChanged();
+            }
+        }
 
-        
+        private Visibility _locationVisibility;
+        public Visibility LocationVisibility
+        {
+            get => _locationVisibility;
+            set
+            {
+                if (value == _locationVisibility) return;
+                _locationVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
         public TourRequestStatisticsViewModel(Guest2 user)
         {
             _user = user;
             _customTourRequestStatisticsService = Injector.GetService<CustomTourRequestStatisticsService>();
+            LanguageVisibility = Visibility.Hidden;
+            LocationVisibility = Visibility.Hidden;
         }
 
         public void LoadByYear(string selectedYear)
         {
-            
+            LanguageVisibility = Visibility.Visible;
+            LocationVisibility = Visibility.Visible;
             int year = selectedYear == "Oduvek" ? -1 : int.TryParse(selectedYear, out year) ? year : 0;
             if (year == -1)
             {

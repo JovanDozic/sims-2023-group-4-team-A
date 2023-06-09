@@ -34,10 +34,10 @@
         <DataGrid BorderBrush="#004e98" BorderThickness="3" x:Name="DgrNotifications" Grid.Row="2" FontSize="28" Grid.RowSpan="3" FontWeight="DemiBold"
                   ItemsSource="{Binding Notifications, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedNotification}"
+                  SelectionChanged="DgrNotifications_SelectionChanged"
                   AutoGenerateColumns="False"
                   Width="600" Margin="0,0,0,0" HorizontalAlignment="Left"
-                  IsReadOnly="True" SelectionChanged="DgrNotifications_SelectionChanged"
-                  MouseDoubleClick="DgrNotifications_MouseDoubleClick">
+                  IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naslov" Binding="{Binding Title}" Width="*"/>
                 <DataGridTextColumn Header="Datum kreiranja" Binding="{Binding CreationDate, Converter={StaticResource DateTimeConverter}}" Width="280" />
@@ -47,19 +47,8 @@
         <TextBlock Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding SelectedNotification.Title}" FontWeight="Bold" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Text="{Binding SelectedNotification.Description}" TextWrapping="Wrap" FontWeight="DemiBold" FontSize="28" HorizontalAlignment="Center" Padding="5"/>
 
-        <Button x:Name="Yes" Grid.Column="1" Grid.Row="4" Height="50" Width="105" HorizontalAlignment="Left" Margin="135,10,0,10" Content="Da" FontWeight="Bold" FontSize="40" IsVisibleChanged="Button_IsVisibleChanged"/>
-        <Button x:Name="No" Grid.Column="2" Grid.Row="4" Height="50" Width="105" HorizontalAlignment="Left" Margin="30,10,0,10" Content="Ne" FontWeight="Bold" FontSize="40" IsVisibleChanged="Button_IsVisibleChanged"/>
-
-        <Button Visibility="Hidden" x:Name="BtnOpenNotification" Grid.Row="5"
-                Width="170" Height="40" Margin="20"
-                IsEnabled="False" Click="BtnOpenNotification_Click">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="../../../Resources/Images/open.png" Width="20" Height="20" Margin="0,0,5,0" />
-                <TextBlock Margin="5,2,0,0" Text="Otvori notifikaciju" />
-            </StackPanel>
-        </Button>
-
-
+        <Button x:Name="Yes" Grid.Column="1" Grid.Row="4" Height="50" Width="105" HorizontalAlignment="Left" Margin="135,10,0,10" Content="Da" FontWeight="Bold" FontSize="40" Visibility="{Binding YesButtonVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        <Button x:Name="No" Grid.Column="2" Grid.Row="4" Height="50" Width="105" HorizontalAlignment="Left" Margin="30,10,0,10" Content="Ne" FontWeight="Bold" FontSize="40"  Visibility="{Binding NoButtonVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
     </Grid>
 </Page>

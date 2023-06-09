@@ -88,10 +88,10 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             }
         }
         public ObservableCollection<string> TourLanguages { get; set; }
-        public ICommand SearchCommand { get; set; }
-        public ICommand ReserveCommand { get; set; }
-        public ICommand TextSearch_GotFocusCommand { get; set; }
-        public ICommand TextSearch_LostFocusCommand { get; set; }
+        public RelayCommand SearchCommand { get; set; }
+        public RelayCommand ReserveCommand { get; set; }
+        public RelayCommand TextSearch_GotFocusCommand { get; set; }
+        public RelayCommand TextSearch_LostFocusCommand { get; set; }
 
         public ToursViewModel(Guest2 user)
         {
