@@ -155,5 +155,13 @@ namespace SIMSProject.Application.Services.AccommodationServices
         {
             return GetAllByOwnerId(user.Id).Any(a => a.Location.Id == location.Id);
         }
+
+        internal AccommodationType GetMostUsedTypeBuUser(User user)
+        {
+            var accommodations = GetAllByOwnerId(user.Id);
+            var types = accommodations.Select(a => a.Type).ToList();
+            var mostUsedType = types.GroupBy(t => t).OrderByDescending(t => t.Count()).First().Key;
+            return mostUsedType;
+        }
     }
 }

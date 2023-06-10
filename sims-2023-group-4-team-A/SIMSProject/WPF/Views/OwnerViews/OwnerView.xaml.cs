@@ -35,7 +35,6 @@ namespace SIMSProject.WPF.Views.OwnerViews
                     MessageBox.Show("User is not an owner");
                     return false;
                 }
-                MessageBox.Show("iz malog " + owner.HasNotifications.ToString());
                 return owner.HasNotifications;
             }
         }

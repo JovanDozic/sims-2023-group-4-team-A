@@ -276,6 +276,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 AccommodationType.House,
                 AccommodationType.Hut
             };
+            Type = _accommodationService.GetMostUsedTypeBuUser(_user);
 
             RegisterAccommodationCommand = new(RegisterAccommodation, CanRegisterAccommodation);
             PrepareLocationCommand = new(PrepareLocation, CanPrepareLocation);
