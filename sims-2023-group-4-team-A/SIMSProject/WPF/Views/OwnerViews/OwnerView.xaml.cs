@@ -32,14 +32,22 @@ namespace SIMSProject.WPF.Views.OwnerViews
             _user = user;
 
             if (navigateToPage == "NavBtnAccount")
-                Loaded += (s, e) =>
+            {
+                RoutedEventHandler loadedEventHandler = null;
+                loadedEventHandler = (s, e) =>
                 {
-                    if (navigateToPage is not null)
-                        NavigateToPage(navigateToPage);
+                    if (navigateToPage is not null) NavigateToPage(navigateToPage);
+                    Loaded -= loadedEventHandler;
                 };
-            
-            else NavigateToPage("NavBtnHome");
+
+                Loaded += loadedEventHandler;
+            }
+            else
+            {
+                NavigateToPage("NavBtnHome");
+            }
         }
+
 
         private void ChangeNavButtonIcon(object sender, string resourceName)
         {
