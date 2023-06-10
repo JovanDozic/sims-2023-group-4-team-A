@@ -237,6 +237,9 @@
   <data name="NumberOfGuestsDot" xml:space="preserve">
     <value>Number of guests:</value>
   </data>
+  <data name="OkayThanks" xml:space="preserve">
+    <value>Okay, thanks!</value>
+  </data>
   <data name="OnlyFutureRenovationsAreDisplayed" xml:space="preserve">
     <value>Only future renovations are displayed.</value>
   </data>

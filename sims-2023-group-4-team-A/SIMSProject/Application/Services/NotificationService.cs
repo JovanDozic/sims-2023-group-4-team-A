@@ -40,5 +40,7 @@ namespace SIMSProject.Application.Services
         {
             return _repo.GetAllUnreadByUser(user).Count > 0;
         }
+
+
     }
 }
