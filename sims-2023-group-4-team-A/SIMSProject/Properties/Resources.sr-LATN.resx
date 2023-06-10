@@ -198,6 +198,9 @@
   <data name="Kindness" xml:space="preserve">
     <value>Ljubaznost</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>Jezik</value>
+  </data>
   <data name="LastNotifications" xml:space="preserve">
     <value>Nedavne Notifikacije</value>
   </data>
@@ -219,6 +222,12 @@
   <data name="MinNumberOfDays" xml:space="preserve">
     <value>Minimalan broj dana za rezervaciju</value>
   </data>
+  <data name="MissingMessage1" xml:space="preserve">
+    <value>Nedostaje vam </value>
+  </data>
+  <data name="MissingMessage2" xml:space="preserve">
+    <value> ocena do statusa Super vlasnik</value>
+  </data>
   <data name="MostBusy" xml:space="preserve">
     <value>Najveća zauzetost.</value>
   </data>
@@ -227,6 +236,9 @@
   </data>
   <data name="MyAccommodations" xml:space="preserve">
     <value>Moji Smeštaji</value>
+  </data>
+  <data name="MyAccount" xml:space="preserve">
+    <value>Moj Nalog</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Ime</value>
@@ -318,6 +330,9 @@
   <data name="Statistics" xml:space="preserve">
     <value>Statistika</value>
   </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Tema</value>
+  </data>
   <data name="ThisWasRecentlyRenovated" xml:space="preserve">
     <value>Ovaj smestaj je nedavno renoviran</value>
   </data>
@@ -327,10 +342,16 @@
   <data name="UsefulForum" xml:space="preserve">
     <value>Koristan forum</value>
   </data>
+  <data name="xAccommodations" xml:space="preserve">
+    <value>Smeštaja - </value>
+  </data>
   <data name="xRatings" xml:space="preserve">
     <value> ocena</value>
   </data>
   <data name="xRatings2" xml:space="preserve">
     <value> recenzije</value>
+  </data>
+  <data name="xRatings3" xml:space="preserve">
+    <value>Ocena</value>
   </data>
 </root>

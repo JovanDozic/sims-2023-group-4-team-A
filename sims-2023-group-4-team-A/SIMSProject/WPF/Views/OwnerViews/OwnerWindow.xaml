@@ -18,6 +18,6 @@
         </Storyboard>
     </Window.Resources>
 
-    <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Navigating="MainFrame_Navigating"/>
+    <Frame x:Name="MainFrame" x:Uid="MainFrame" NavigationUIVisibility="Hidden" Navigating="MainFrame_Navigating"/>
 
 </Window>

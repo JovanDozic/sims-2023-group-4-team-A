@@ -25,13 +25,20 @@ namespace SIMSProject.WPF.Views.OwnerViews
         private User _user = new();
         private App App => (App)System.Windows.Application.Current;
 
-        public OwnerView(User user)
+        public OwnerView(User user, string? navigateToPage = null)
         {
             InitializeComponent();
             DataContext = this;
             _user = user;
+
+            if (navigateToPage == "NavBtnAccount")
+                Loaded += (s, e) =>
+                {
+                    if (navigateToPage is not null)
+                        NavigateToPage(navigateToPage);
+                };
             
-            NavBtn_Click(NavBtnHome, null);
+            else NavigateToPage("NavBtnHome");
         }
 
         private void ChangeNavButtonIcon(object sender, string resourceName)
@@ -43,7 +50,7 @@ namespace SIMSProject.WPF.Views.OwnerViews
         private void UpdateNotificationButtons(object sender)
         {
             if (sender is not Button button) return;
-
+            
             if (button.Name != "NavBtnNotifications") ChangeNavButtonIcon(NavBtnNotifications, "NotificationsMenuIcon");
             else ChangeNavButtonIcon(sender, "NotificationsMenuIconFill");
             if (button.Name != "NavBtnAccommodations") ChangeNavButtonIcon(NavBtnAccommodations, "AccommodationsMenuIcon");
@@ -56,7 +63,7 @@ namespace SIMSProject.WPF.Views.OwnerViews
             else ChangeNavButtonIcon(sender, "AccountMenuIconFill");
         }
 
-        private void NavBtn_Click(object sender, RoutedEventArgs? e)
+        public void NavBtn_Click(object sender, RoutedEventArgs? e)
         {
             if (sender is not Button button) return;
 
@@ -77,7 +84,10 @@ namespace SIMSProject.WPF.Views.OwnerViews
         public object NavigateToPage(string navBtnName)
         {
             if (navBtnName == "NavBtnAccommodations") NavBtn_Click(NavBtnAccommodations, null);
-            if (navBtnName == "NavBtnNotifications") NavBtn_Click(NavBtnNotifications, null);
+            else if (navBtnName == "NavBtnNotifications") NavBtn_Click(NavBtnNotifications, null);
+            else if (navBtnName == "NavBtnAccount") NavBtn_Click(NavBtnAccount, null);
+            else if (navBtnName == "NavBtnHome") NavBtn_Click(NavBtnHome, null);
+            else NavBtn_Click(NavBtnForums, null);
             return this;
         }
 
@@ -109,33 +119,6 @@ namespace SIMSProject.WPF.Views.OwnerViews
             storyboard.Begin(MainFrame);
         }
 
-        private void TextBlock_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            // TODO: Move this logic to corresponding button in My Account view
-            if (App.CurrentTheme == "Light")
-            {
-                App.ChangeTheme("Dark");
-                App.CurrentTheme = "Dark";
-            }
-            else
-            {
-                App.ChangeTheme("Light");
-                App.CurrentTheme = "Light";
-            }
-            NavBtn_Click(NavBtnAccount, null);
-        }
-
-        private void Image_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            // TODO: Move this logic to corresponding button in My Account view
-            if (App.CurrentLanguage.Equals("en-US"))
-            {
-                App.ChangeLanguage("sr-LATN");
-            }
-            else
-            {
-                App.ChangeLanguage("en-US");
-            }
-        }
+        
     }
 }

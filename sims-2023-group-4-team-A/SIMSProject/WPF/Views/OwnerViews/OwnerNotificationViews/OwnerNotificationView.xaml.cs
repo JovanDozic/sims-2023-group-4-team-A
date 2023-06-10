@@ -36,10 +36,5 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerNotificationViews
             NavigationService?.GoBack();
         }
 
-
-
-        
-
-
     }
 }

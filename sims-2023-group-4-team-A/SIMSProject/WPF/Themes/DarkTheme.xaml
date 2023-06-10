@@ -56,4 +56,10 @@
 
     <BitmapImage x:Key="SpinnerGif" UriSource="/Resources/Icons/dark/spinner.gif"/>
 
+    <BitmapImage x:Key="SunIcon" UriSource="/Resources/Icons/dark/sun.png"/>
+    <BitmapImage x:Key="MoonIcon" UriSource="/Resources/Icons/dark/moon.png"/>
+    <BitmapImage x:Key="BadgeIcon" UriSource="/Resources/Icons/dark/badge.png"/>
+    <BitmapImage x:Key="EnglishIcon" UriSource="/Resources/Icons/dark/english.png"/>
+    <BitmapImage x:Key="SerbianIcon" UriSource="/Resources/Icons/dark/serbian.png"/>
+
 </ResourceDictionary>

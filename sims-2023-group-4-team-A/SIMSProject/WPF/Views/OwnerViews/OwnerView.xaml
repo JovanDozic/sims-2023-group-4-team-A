@@ -44,18 +44,14 @@
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
 
-
         <StackPanel Grid.Row="0"  Orientation="Horizontal" 
                     HorizontalAlignment="Center" VerticalAlignment="Center">
             <Image Source="{DynamicResource BookbnbIcon}" 
                    Height="25" Margin="0,0,10,0"
-                   Style="{StaticResource IconRenderStyle}"
-                   MouseDown="Image_MouseDown"/>
+                   Style="{StaticResource IconRenderStyle}"/>
             <TextBlock Text="{ns:Loc Bookbnb}" FontSize="25" FontWeight="DemiBold" 
-                       Foreground="{DynamicResource TextColor}"
-                       MouseDown="TextBlock_MouseDown"/>
+                       Foreground="{DynamicResource TextColor}"/>
         </StackPanel>
-
 
         <Frame x:Name="MainFrame" Grid.Row="1"
                NavigationUIVisibility="Hidden"
@@ -88,7 +84,7 @@
             <Button x:Name="NavBtnHome" Grid.Column="2" Margin="10" Width="60" Height="60"
                     Style="{StaticResource NavBarBtnStyle}"
                     Click="NavBtn_Click">
-                <Image x:Name="NavBtnHomeIcon" Source="{DynamicResource HomeMenuIcon}" 
+                <Image x:Name="NavBtnHomeIcon" Source="{DynamicResource HomeMenuIconFill}" 
                        Style="{StaticResource IconRenderStyle}"/>
             </Button>
 

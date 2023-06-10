@@ -386,7 +386,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             reservedAccommodations.RemoveAll(reserved => reserved.Canceled);
             return reservedAccommodations;
         }
-        private bool CanRegisterAccommodation()
+        public bool CanRegisterAccommodation()
         {
             return IsAccommodationValid;
         }
