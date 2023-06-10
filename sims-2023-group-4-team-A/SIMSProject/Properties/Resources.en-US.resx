@@ -222,6 +222,9 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
   <data name="NumberOfDays" xml:space="preserve">
     <value>Days</value>
   </data>

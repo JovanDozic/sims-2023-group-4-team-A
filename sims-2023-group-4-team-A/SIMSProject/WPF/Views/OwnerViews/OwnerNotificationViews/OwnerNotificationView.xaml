@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerNotificationViews"
       mc:Ignorable="d" 
       xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
+      xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
       Height="auto" d:DesignWidth="430"
       Title="Notification">
 
@@ -28,7 +29,7 @@
             <StackPanel Orientation="Horizontal">
                 <Image Source="{DynamicResource BackIcon}"
                        Style="{StaticResource BackButtonIconStyle}"/>
-                <TextBlock Text="Nazad" Style="{StaticResource BackButtonTextStyle}"
+                <TextBlock Text="{ns:Loc Back}" Style="{StaticResource BackButtonTextStyle}"
                            Foreground="{DynamicResource TextColor}"/>
             </StackPanel>
         </Button>
@@ -55,7 +56,7 @@
             <StackPanel Orientation="Horizontal">
                 <Image Source="{DynamicResource CheckIcon}" Height="17.5" Margin="0,0,10,0" 
                        Style="{StaticResource IconRenderStyle}"/>
-                <TextBlock Text="Okej, hvala!" VerticalAlignment="Center" Margin="0,0,0,0"
+                <TextBlock Text="{ns:Loc OkayThanks}" VerticalAlignment="Center" Margin="0,0,0,0"
                            Foreground="{DynamicResource TextColor}"/>
             </StackPanel>
         </Button>

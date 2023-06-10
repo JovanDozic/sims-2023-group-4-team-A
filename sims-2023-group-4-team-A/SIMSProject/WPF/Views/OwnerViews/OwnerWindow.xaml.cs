@@ -16,7 +16,6 @@ namespace SIMSProject.WPF.Views.OwnerViews
 
         public OwnerWindow(User user)
         {
-            ((App)System.Windows.Application.Current).ChangeTheme("Light");
             InitializeComponent();
             DataContext = this;
             _user = user;
@@ -25,6 +24,14 @@ namespace SIMSProject.WPF.Views.OwnerViews
             SwitchToPage(new OwnerView(user));
 
             StartParallelTasks();
+            AdaptViewToUser();
+        }
+
+        private void AdaptViewToUser()
+        {
+            if (_user is not Owner owner) return;
+            ((App)System.Windows.Application.Current).ChangeTheme(owner.SelectedTheme);
+            ((App)System.Windows.Application.Current).ChangeLanguage(owner.SelectedLanguage);
         }
 
         public void SwitchToPage(Page page)

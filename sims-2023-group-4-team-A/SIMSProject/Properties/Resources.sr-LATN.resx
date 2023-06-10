@@ -228,6 +228,9 @@
   <data name="Name" xml:space="preserve">
     <value>Ime</value>
   </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Obaveštenja</value>
+  </data>
   <data name="NumberOfDays" xml:space="preserve">
     <value>Broj dana</value>
   </data>
@@ -239,6 +242,9 @@
   </data>
   <data name="NumberOfGuestsDot" xml:space="preserve">
     <value>Broj gostiju:</value>
+  </data>
+  <data name="OkayThanks" xml:space="preserve">
+    <value>Okej, hvala!</value>
   </data>
   <data name="OnlyFutureRenovationsAreDisplayed" xml:space="preserve">
     <value>Prikazana su samo predstojeća renoviranja.</value>

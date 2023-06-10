@@ -6,12 +6,13 @@
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
       mc:Ignorable="d" 
       xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
+      xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
       d:DesignHeight="750" d:DesignWidth="430"
       Title="My Notifications">
 
-        <Page.Resources>
-            <converters:ResourceKeyToImageSourceConverter x:Key="ResourceKeyToImageSourceConverter" />
-        </Page.Resources>
+    <Page.Resources>
+        <converters:ResourceKeyToImageSourceConverter x:Key="ResourceKeyToImageSourceConverter" />
+    </Page.Resources>
 
     <Grid>
 
@@ -20,7 +21,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Label Content="Obaveštenja" Grid.Row="0"
+        <Label Content="{ns:Loc Notifications}" Grid.Row="0"
                FontSize="30" FontWeight="SemiBold"
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Foreground="{DynamicResource TextColor}"/>
@@ -51,7 +52,7 @@
                                Style="{StaticResource IconRenderStyle}"
                                VerticalAlignment="Top"
                                Margin="0,4,10,0"/>
-                        
+
                         <TextBlock Grid.Column="1" FontSize="17.5" Text="{Binding Description}"
                                        TextWrapping="Wrap"
                                        Margin="0,0,15,0"/>

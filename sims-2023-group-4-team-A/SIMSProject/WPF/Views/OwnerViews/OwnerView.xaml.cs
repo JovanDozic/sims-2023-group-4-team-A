@@ -31,15 +31,7 @@ namespace SIMSProject.WPF.Views.OwnerViews
             DataContext = this;
             _user = user;
             
-            AdaptViewToUser();
             NavBtn_Click(NavBtnHome, null);
-        }
-
-        private void AdaptViewToUser()
-        {
-            if (_user is not Owner owner) return;
-            App.ChangeLanguage(owner.SelectedLanguage);
-            App.ChangeTheme(owner.SelectedTheme);
         }
 
         private void ChangeNavButtonIcon(object sender, string resourceName)

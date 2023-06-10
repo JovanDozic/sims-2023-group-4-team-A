@@ -21,6 +21,7 @@ namespace SIMSProject
             else if (themeName == "Dark")
                 dictionary.Source = new Uri("pack://application:,,,/WPF/Themes/DarkTheme.xaml");
 
+            CurrentTheme = themeName;
             Resources.MergedDictionaries.Add(dictionary);
         }
 
