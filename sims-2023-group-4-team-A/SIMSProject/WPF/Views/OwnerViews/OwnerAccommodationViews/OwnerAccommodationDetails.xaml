@@ -372,8 +372,7 @@
                            VerticalOffset="-100" HorizontalOffset="-90">
                         <Border Style="{StaticResource PopupBorderStyle}">
                             <TextBlock Text="{ns:Loc OnlyFutureRenovationsAreDisplayed}" 
-                                       Style="{StaticResource PopupTextStyle}"
-                                       Foreground="{DynamicResource TextColor}"/>
+                                       Style="{StaticResource PopupTextStyle}"/>
                         </Border>
                     </Popup>
 
