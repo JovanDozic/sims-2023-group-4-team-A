@@ -1,18 +1,8 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.View.Guest2;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SIMSProject.WPF.ViewModels.Guest2ViewModels;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SIMSProject.WPF.Views.Guest2Views
 {
@@ -21,44 +11,10 @@ namespace SIMSProject.WPF.Views.Guest2Views
     /// </summary>
     public partial class Guest2HomeView : Window
     {
-        public Guest2 User { get; set; } = new();
         public Guest2HomeView(Guest2 user)
         {
             InitializeComponent();
-            User = user;
-            SelectedTab.Content = new ShowAndSearchTours(User);
-        }
-        private void LogOut_Click(object sender, RoutedEventArgs e)
-        {
-            User = new Guest2(0, "<null>", "<null>", DateTime.Now);
-            SignInView window = new();
-            window.Show();
-            Close();
-        }
-
-        private void Homepage_Click(object sender, RoutedEventArgs e)
-        {
-            SelectedTab.Content = new ShowAndSearchTours(User);
-        }
-
-        private void Vouchers_Click(object sender, RoutedEventArgs e)
-        {
-            SelectedTab.Content = new VouchersDisplay(User);
-        }
-
-        private void MyReservations_Click(object sender, RoutedEventArgs e)
-        {
-            SelectedTab.Content = new TourReservations(User);
-        }
-
-        private void Notifications_Click(object sender, RoutedEventArgs e)
-        {
-            SelectedTab.Content = new Guest2NotificationView(User);
-        }
-
-        private void MyRequests_Click(object sender, RoutedEventArgs e)
-        {
-            SelectedTab.Content = new MyTourRequests(User);
+            this.DataContext = new HomepageViewModel(user, this, this.SelectedTab.NavigationService);
         }
     }
 }

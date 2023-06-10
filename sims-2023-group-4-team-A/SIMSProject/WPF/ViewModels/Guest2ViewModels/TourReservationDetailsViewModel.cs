@@ -1,16 +1,8 @@
-﻿using SIMSProject.Application.Services.TourServices;
-using SIMSProject.Application.Services;
-using SIMSProject.Domain.Injectors;
+﻿using SIMSProject.Application.Services;
 using SIMSProject.Domain.Models.TourModels;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.WPF.Views.Guest2Views;
-using System.Windows.Input;
 
 namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
 {

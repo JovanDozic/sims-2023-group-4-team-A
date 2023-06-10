@@ -33,7 +33,7 @@
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
         <Image Grid.Row="1" Source="/Resources/Images/chevron-left-black.png" RenderOptions.BitmapScalingMode="HighQuality" />
-        <Button Click="Back_Click" Grid.Column="1" Grid.Row="1" Content="Nazad" FontSize="28" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Foreground="#004e98" Cursor="Hand"/>
+        <Button Command="{Binding GoBack}" Grid.Column="1" Grid.Row="1" Content="Nazad" FontSize="28" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Foreground="#004e98" Cursor="Hand"/>
         <Label Grid.Row="2" Grid.RowSpan="6" Grid.Column="2" Grid.ColumnSpan="7" Background="#ebebeb"/>
         <Label Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="4" FontSize="35" VerticalAlignment="Center" Content="Statistika zahteva za obične ture" FontWeight="DemiBold"/>
         <Label Grid.Row="3" Grid.Column="2" FontSize="28" VerticalAlignment="Center" Content="Odabrana godina: " FontWeight="DemiBold"/>

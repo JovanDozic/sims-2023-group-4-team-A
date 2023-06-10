@@ -14,6 +14,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
 {
     public class Guest2NotificationViewModel : ViewModelBase
     {
+        #region Polja
         private User _user;
         private readonly NotificationService _service;
         private Notification _selectedNotification = new();
@@ -37,6 +38,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 if (_selectedNotification == value) return;
                 _selectedNotification = value;
                 OnPropertyChanged();
+                SetButtonsState();
             }
         }
         private Visibility _yesButtonVisibility;
@@ -61,6 +63,9 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 OnPropertyChanged();
             }
         }
+        #endregion
+
+        #region Konstruktori
         public Guest2NotificationViewModel(User user)
         {
             _user = user;
@@ -68,7 +73,9 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             Notifications = new(_service.GetAllUnreadByUser(_user));
             SetButtonsState();
         }
+        #endregion
 
+        #region Akcije
         public void SetButtonsState()
         {
             if (SelectedNotification?.Title == "Potvrda prisustva")
@@ -80,6 +87,6 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             YesButtonVisibility = Visibility.Hidden;
             NoButtonVisibility = Visibility.Hidden;
         }
-
+        #endregion
     }
 }

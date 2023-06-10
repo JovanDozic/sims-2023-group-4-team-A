@@ -1,37 +1,50 @@
-﻿using SIMSProject.Application.Services;
-using SIMSProject.Application.Services.TourServices;
+﻿using SIMSProject.Application.Services.TourServices;
+using SIMSProject.Application.Services;
 using SIMSProject.Domain.Injectors;
-using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.WPF.Views.Guest2Views;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using SIMSProject.Domain.Models;
+using SIMSProject.WPF.Views.Guest2Views;
 using System.Windows.Navigation;
 
 namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
 {
-    public class CustomTourRequestViewModel : ViewModelBase
+    public class ComplexTourRequestCreationViewModel : ViewModelBase
     {
         private Guest2 _user;
-        private CustomTourRequest _customTourRequest = new();
-        private CustomTourRequestService _customTourRequestService;
         private ComplexTourRequestService _complexTourRequestService;
+        private CustomTourRequestService _customTourRequestService;
         private LocationService _locationService;
-        public ObservableCollection<Location> AllLocations { get; set; } = new();
-        public List<string> TourLanguages { get; set; }
+        private CustomTourRequest _customTourRequest = new();
         public CustomTourRequest CustomTourRequest
         {
             get => _customTourRequest;
             set
             {
-                if( _customTourRequest == value) return;
+                if (_customTourRequest == value) return;
                 _customTourRequest = value;
                 OnPropertyChanged();
             }
         }
+        private ComplexTourRequest _complexTourRequest = new();
+        public ComplexTourRequest ComplexTourRequest
+        {
+            get => _complexTourRequest;
+            set
+            {
+                if (_complexTourRequest == value) return;
+                _complexTourRequest = value;
+                OnPropertyChanged();
+            }
+        }
+        public ObservableCollection<Location> AllLocations { get; set; } = new();
+        public List<string> TourLanguages { get; set; }
         public Location Location
         {
             get => _customTourRequest.Location;
@@ -47,7 +60,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             get => _customTourRequest.Description;
             set
             {
-                if(_customTourRequest.Description == value) return;
+                if (_customTourRequest.Description == value) return;
                 _customTourRequest.Description = value;
                 OnPropertyChanged();
             }
@@ -82,7 +95,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             get => _customTourRequest.StartDate;
             set
             {
-                if(_customTourRequest.StartDate == value) return;
+                if (_customTourRequest.StartDate == value) return;
                 _customTourRequest.StartDate = value;
                 OnPropertyChanged();
             }
@@ -92,7 +105,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             get => _customTourRequest.EndDate;
             set
             {
-                if (_customTourRequest.EndDate == value)  return;
+                if (_customTourRequest.EndDate == value) return;
                 _customTourRequest.EndDate = value;
                 OnPropertyChanged();
             }
@@ -102,32 +115,30 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             get => _customTourRequest.GuestCount;
             set
             {
-                if(_customTourRequest.GuestCount == value || value < 1 ) return;
+                if (_customTourRequest.GuestCount == value || value < 1) return;
                 _customTourRequest.GuestCount = value;
                 OnPropertyChanged();
             }
         }
-        
         private ObservableCollection<CustomTourRequest> _customTourRequests = new();
         public ObservableCollection<CustomTourRequest> CustomTourRequests
         {
             get => _customTourRequests;
             set
             {
-                if(value == _customTourRequests) return;
+                if (value == _customTourRequests) return;
                 _customTourRequests = value;
                 OnPropertyChanged();
             }
         }
-
-        private ObservableCollection<ComplexTourRequest> _complexTourRequests = new();
-        public ObservableCollection<ComplexTourRequest> ComplexTourRequests
+        private ObservableCollection<CustomTourRequest> _tourRequestParts = new();
+        public ObservableCollection<CustomTourRequest> TourRequestParts
         {
-            get => _complexTourRequests;
+            get => _tourRequestParts;
             set
             {
-                if (value == _complexTourRequests) return;
-                _complexTourRequests = value;
+                if (value == _tourRequestParts) return;
+                _tourRequestParts = value;
                 OnPropertyChanged();
             }
         }
@@ -142,13 +153,9 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 OnPropertyChanged(nameof(SelectedComplexTourRequest));
             }
         }
-        public string DateRange { get; set; } = string.Empty;
         public NavigationService NavService { get; set; }
-        public RelayCommand TourRequestStatisticsCommand { get; set; }
-        public RelayCommand NewTourRequestCommand { get; set; }
-        public RelayCommand ComplexTourRequestDetailsCommand { get; set; }
-        public RelayCommand NewComplexRequestCommand { get; set; }
-        public CustomTourRequestViewModel(Guest2 user, NavigationService navigationService) 
+        public RelayCommand GoBack { get; set; }
+        public ComplexTourRequestCreationViewModel(Guest2 user, NavigationService navigationService, ComplexTourRequest complexTourRequest = null)
         {
             TourLanguages = new()
             {
@@ -157,62 +164,51 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 "Francuski",
                 "Španski"
             };
-            this.NavService = navigationService;
             _user = user;
-            _customTourRequestService = Injector.GetService<CustomTourRequestService>();
+            NavService = navigationService;
             _complexTourRequestService = Injector.GetService<ComplexTourRequestService>();
+            _customTourRequestService = Injector.GetService<CustomTourRequestService>();
             _locationService = Injector.GetService<LocationService>();
             AllLocations = new(_locationService.GetAll());
-            LoadTourRequestsByGuestId(_user.Id);
-            LoadComplexTourRequestsByGuestId(_user.Id);
-            CheckRequestValidity(CustomTourRequests.ToList());
-            CheckComplexRequestsValidity(ComplexTourRequests.ToList(), _user.Id);
-            CheckComplexRequestAcceptance(ComplexTourRequests.ToList(), _user.Id);
+            SelectedComplexTourRequest = complexTourRequest;
 
-            TourRequestStatisticsCommand = new RelayCommand(TourRequestStatisticsCommandExecute, CanExecute_Command);
-            NewTourRequestCommand = new RelayCommand(NewTourRequestCommandExecute, CanExecute_Command);
-            ComplexTourRequestDetailsCommand = new RelayCommand(ComplexTourRequestDetailsCommandExecute, CanExecute_Command);
-            NewComplexRequestCommand = new RelayCommand(NewComplexRequestCommandExecute, CanExecute_Command);
+            GoBack = new RelayCommand(GoBackExecute, CanExecute_Command);
+
+            //LoadTourRequestsByGuestId(_user.Id);
+            //CheckRequestValidity(CustomTourRequests.ToList());
         }
-        private void TourRequestStatisticsCommandExecute()
+        private void GoBackExecute()
         {
-            NavService.Navigate(new TourRequestStatistics(_user, NavService));
-        }
-        private void NewTourRequestCommandExecute()
-        {
-            NavService.Navigate(new CustomTourRequestCreation(_user, NavService));
-        }
-        private void ComplexTourRequestDetailsCommandExecute()
-        {
-            NavService.Navigate(new ComplexTourRequestDetails(_user, SelectedComplexTourRequest, NavService));
-        }
-        private void NewComplexRequestCommandExecute()
-        {
-            NavService.Navigate(new ComplexTourRequestCreation(_user, NavService));
+            NavService.GoBack();
         }
         private bool CanExecute_Command()
         {
             return true;
         }
-        public void LoadTourRequestsByGuestId(int guestId)
+        public void CreatePart()
         {
-            CustomTourRequests = new(_customTourRequestService.GetAllByGuestId(guestId));
+            CustomTourRequest newRequest = new(1, _user.Id, Location.Id, Description, _customTourRequest.TourLanguage, GuestCount, StartDate, EndDate, DateTime.Now, RequestStatus.ONHOLD, _complexTourRequestService.NextId());
+            //_customTourRequestService.Save(newRequest);
+            CustomTourRequests.Add(newRequest);
         }
-        public void LoadComplexTourRequestsByGuestId(int guestId)
+
+        public void CreateRequest()
         {
-            ComplexTourRequests = new(_complexTourRequestService.GetAllByGuestId(guestId));
+            _complexTourRequest.Guest.Id = _user.Id;
+            _complexTourRequest.Name = "Složen zahtev " + _complexTourRequestService.NextId();
+            _complexTourRequest.Status = RequestStatus.ONHOLD;
+            _complexTourRequestService.Save(_complexTourRequest);
+            foreach (var tourRequest in CustomTourRequests)
+            {
+                _customTourRequestService.Save(tourRequest);
+            }
+            CustomTourRequests.Clear();
         }
-        public void CheckRequestValidity(List<CustomTourRequest> customTourRequests)
+
+        public void GetParts()
         {
-            _customTourRequestService.CheckRequestValidity(customTourRequests);
-        }
-        public void CheckComplexRequestsValidity(List<ComplexTourRequest> complexTourRequests, int guestId)
-        {
-            _complexTourRequestService.CheckComplexRequestValidity(complexTourRequests, guestId);
-        }
-        public void CheckComplexRequestAcceptance(List<ComplexTourRequest> complexTourRequests, int guestId)
-        {
-            _complexTourRequestService.CheckComplexRequestAcceptance(complexTourRequests, guestId);
+            TourRequestParts = new ObservableCollection<CustomTourRequest>(_customTourRequestService.GetAllComplexTourParts(SelectedComplexTourRequest.Id));
         }
     }
 }
+

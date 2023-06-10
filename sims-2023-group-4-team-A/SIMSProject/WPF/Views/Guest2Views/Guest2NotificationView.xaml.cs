@@ -11,18 +11,11 @@ namespace SIMSProject.WPF.Views.Guest2Views
     /// </summary>
     public partial class Guest2NotificationView : Page
     {
-        private Guest2NotificationViewModel _viewModel { get; set; }
-
         public Guest2NotificationView(User user)
         {
             InitializeComponent();
-            _viewModel = new(user);
-            this.DataContext = _viewModel;
+            this.DataContext = new Guest2NotificationViewModel(user);
         }
 
-        private void DgrNotifications_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            _viewModel.SetButtonsState();
-        }
     }
 }

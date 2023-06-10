@@ -34,7 +34,6 @@
         <DataGrid BorderBrush="#004e98" BorderThickness="3" x:Name="DgrNotifications" Grid.Row="2" FontSize="28" Grid.RowSpan="3" FontWeight="DemiBold"
                   ItemsSource="{Binding Notifications, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedNotification}"
-                  SelectionChanged="DgrNotifications_SelectionChanged"
                   AutoGenerateColumns="False"
                   Width="600" Margin="0,0,0,0" HorizontalAlignment="Left"
                   IsReadOnly="True">

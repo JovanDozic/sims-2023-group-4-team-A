@@ -9,6 +9,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize">
+    
     <Grid Background="#ebebeb">
         <Grid.RowDefinitions>
             <RowDefinition Height="200"/>
@@ -37,7 +38,7 @@
                 <Grid Grid.Column="2">
                     <Label Foreground="#ebebeb" FontFamily="Calibri" FontSize="70" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontWeight="DemiBold" Margin="-47,0,0,0">TripBook</Label>
                 </Grid>
-                <Button Foreground="#141414" BorderBrush="#ff6700" BorderThickness="3" Click="LogOut_Click" Grid.Column="3" Content="Odjavi se" FontWeight="Bold" FontSize="35" Height="60" Background="#ebebeb" HorizontalContentAlignment="Center" Cursor="Hand" HorizontalAlignment="Left" Margin="10,30,0,30" Width="206" Grid.ColumnSpan="2"/>
+                <Button Foreground="#141414" BorderBrush="#ff6700" BorderThickness="3" Command="{Binding NavigateLogOutCommand}" Grid.Column="3" Content="Odjavi se" FontWeight="Bold" FontSize="35" Height="60" Background="#ebebeb" HorizontalContentAlignment="Center" Cursor="Hand" HorizontalAlignment="Left" Margin="10,30,0,30" Width="206" Grid.ColumnSpan="2"/>
             </Grid>
 
             <Grid Grid.Row="1" Background="#004e98">
@@ -54,11 +55,12 @@
 
                 <Rectangle Name="B2" Grid.Row="1" Grid.Column="2" Fill="{x:Null}"/>
 
-                <Button Foreground="White" Background="Transparent" BorderBrush="Transparent" Click="Homepage_Click" Content="Početna stranica" FontSize="30" Grid.Column="1"  FontWeight="Bold" Height="80" Cursor="Hand"/>
-                <Button Foreground="White"  Click="MyReservations_Click" Content="Moje rezervacije" FontSize="30" Grid.Column="2" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Height="80" Cursor="Hand"/>
-                <Button Foreground="White"  Click="MyRequests_Click" Content="Zahtevi za ture" FontSize="30" Grid.Column="3" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Height="80" Cursor="Hand"/>
-                <Button Foreground="White"  Click="Vouchers_Click" Content="Vaučeri" FontSize="30" Grid.Column="4" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Height="80" Cursor="Hand"/>
-                <Button Foreground="White"  Click="Notifications_Click" Content="Obaveštenja" FontSize="30" Grid.Column="5" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Height="80" Cursor="Hand"/>
+                <Button x:Name="NavHomepage" Tag="0" Foreground="White" BorderBrush="Transparent" Command="{Binding NavigateToShowAndSearchToursPageCommand}" Content="Početna stranica" FontSize="30" Grid.Column="1" FontWeight="Bold" Height="80" Cursor="Hand" Background="{Binding Button1Color}" />
+                <Button x:Name="NavReservations" Tag="1" Foreground="White" BorderBrush="Transparent" Command="{Binding NavigateToMyReservationsPageCommand}" Content="Moje rezervacije" FontSize="30" Grid.Column="2" FontWeight="Bold" Height="80" Cursor="Hand" Background="{Binding Button2Color}"/>
+                <Button x:Name="NavTourRequests" Tag="2" Foreground="White" BorderBrush="Transparent" Command="{Binding NavigateToTourRequestsPageCommand}" Content="Zahtevi za ture" FontSize="30" Grid.Column="3" FontWeight="Bold" Height="80" Cursor="Hand" Background="{Binding Button3Color}" />
+                <Button x:Name="NavVouchers" Tag="3" Foreground="White" BorderBrush="Transparent" Command="{Binding NavigateToMyVouchersPageCommand}" Content="Vaučeri" FontSize="30" Grid.Column="4" FontWeight="Bold" Height="80" Cursor="Hand" Background="{Binding Button4Color}" />
+                <Button x:Name="NavNotifications" Tag="4" Foreground="White" BorderBrush="Transparent" Command="{Binding NavigateToMyNotificationsPageCommand}" Content="Obaveštenja" FontSize="30" Grid.Column="5" FontWeight="Bold" Height="80" Cursor="Hand" Background="{Binding Button5Color}" />
+
             </Grid>
         </Grid>
 
@@ -68,7 +70,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="70"/>
             </Grid.ColumnDefinitions>
-            <Frame Grid.Column="1" x:Name="SelectedTab" NavigationUIVisibility="Hidden"/>
+            <Frame Grid.Column="1" x:Name="SelectedTab" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2"/>
         </Grid>
     </Grid>
 </Window>

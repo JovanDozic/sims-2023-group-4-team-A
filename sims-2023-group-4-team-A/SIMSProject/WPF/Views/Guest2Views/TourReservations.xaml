@@ -20,7 +20,7 @@
         <Label Foreground="Black" Grid.Row="0" Grid.Column="2" Content="Moje rezervacije: " FontSize="40" FontWeight="Bold" HorizontalAlignment="left" VerticalAlignment="Bottom"/>
         <DataGrid x:Name="DgrReservations" Grid.Row="1" Grid.Column="2" FontSize="32" FontWeight="DemiBold" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"
                   ItemsSource="{Binding Path=TourReservations, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path=SelectedTourReservation, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="DataGrid_SelectionChanged">
+                  SelectedItem="{Binding Path=SelectedTourReservation, UpdateSourceTrigger=PropertyChanged}" >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding TourAppointment.Tour.Name}" Header="Naziv" Width="*"/>
                 <DataGridTextColumn Binding="{Binding TourAppointment.Date, Converter={StaticResource DateTimeConverter}}" Header="Termin" Width="260"/>
@@ -43,8 +43,8 @@
             <Label x:Name="LBLAttendance" Grid.ColumnSpan="2" Content="Ne možete oceniti ako niste bili!" FontSize="28" FontWeight="Bold" VerticalContentAlignment="Center" Foreground="Red" Visibility="Hidden"/>
             <Label x:Name="LBLChooseActive" Grid.ColumnSpan="2" Content="Izaberite aktivnu turu!" FontSize="28" FontWeight="Bold" VerticalContentAlignment="Center" Foreground="Red" Visibility="Hidden"/>
             <Label x:Name="LBLSelectTour" Grid.ColumnSpan="2" Content="Morate selektovati turu!" FontSize="28" FontWeight="Bold" VerticalContentAlignment="Center" Foreground="Red" Visibility="Hidden"/>
-            <Button x:Name="BTNRateGuide" IsEnabled="{Binding IsGuideRatingEnabled, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="2" Width="265" Content="Oceni turu" HorizontalAlignment="Center" FontSize="28" FontWeight="DemiBold" Background="#ff6700" Click="RateGuide_Click" Margin="0,10,0,75" Cursor="Hand"/>
-            <Button x:Name="BTNShowKeyPoint" IsEnabled="{Binding IsShowDetailsEnabled, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="3" Width="265" Content="Prikaži detalje" FontWeight="DemiBold" HorizontalAlignment="Left" FontSize="28" BorderBrush="#ff6700" BorderThickness="3" Margin="0,10,0,75" Click="ShowDetails_Click" Cursor="Hand"/>
+            <Button x:Name="BTNRateGuide" IsEnabled="{Binding IsGuideRatingEnabled, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="2" Width="265" Content="Oceni turu" HorizontalAlignment="Center" FontSize="28" FontWeight="Bold" Background="#ff6700" Click="RateGuide_Click" Margin="0,10,0,75" Cursor="Hand"/>
+            <Button x:Name="BTNShowKeyPoint" IsEnabled="{Binding IsShowDetailsEnabled, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="3" Width="265" Content="Prikaži detalje" FontWeight="Bold" HorizontalAlignment="Left" FontSize="28" BorderBrush="#ff6700" BorderThickness="3" Margin="0,10,0,75" Click="ShowDetails_Click" Cursor="Hand"/>
         </Grid>
 
     </Grid>

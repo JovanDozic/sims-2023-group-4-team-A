@@ -32,6 +32,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 if (value == _selectedTourReservation) return;
                 _selectedTourReservation = value;
                 OnPropertyChanged(nameof(SelectedTourReservation));
+                SetButtonsState();
             }
         }
         private TourReservation _tourReservation = new();
@@ -88,6 +89,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             IsShowDetailsEnabled = false;
             IsGuideRatingEnabled = false;
             LoadReservationsByGuestId(_user.Id);
+            
         }
         
         

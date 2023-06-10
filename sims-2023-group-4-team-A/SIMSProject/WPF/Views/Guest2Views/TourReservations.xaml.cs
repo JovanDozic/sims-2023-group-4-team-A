@@ -32,11 +32,5 @@ namespace SIMSProject.WPF.Views.Guest2Views
             NavigationService.Navigate(new ShowKeyPoint(User, _tourReservationsViewModel.SelectedTourReservation));
         }
         
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            _tourReservationsViewModel.SetButtonsState();
-        }
-
-        
     }
 }

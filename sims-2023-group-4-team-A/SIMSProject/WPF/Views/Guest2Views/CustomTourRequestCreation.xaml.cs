@@ -13,21 +13,16 @@ namespace SIMSProject.WPF.Views.Guest2Views
     public partial class CustomTourRequestCreation : Page
     {
         public Guest2 _user = new();
-        private CustomTourRequestViewModel _viewModel;
-        public CustomTourRequestCreation(Guest2 user)
+        private CustomTourRequestCreationViewModel _viewModel;
+        public CustomTourRequestCreation(Guest2 user, NavigationService navigationService)
         {
             InitializeComponent();
             _user = user;
-            _viewModel = new CustomTourRequestViewModel(_user);
+            _viewModel = new CustomTourRequestCreationViewModel(_user, navigationService);
             this.DataContext = _viewModel;
             CbLanguage.SelectedItem = null;
         }
 
-        private void Back_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new MyTourRequests(_user));
-            
-        }
         private void DatePicker_Loaded(object sender, RoutedEventArgs e)
         {
             DatePicker datePicker = sender as DatePicker;
