@@ -1,9 +1,11 @@
-﻿using SIMSProject.Application.Services.TourServices;
+﻿using Microsoft.Win32;
+using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
 using System.Collections.Generic;
 using System.Windows;
+using Microsoft.Win32;
 using System.Windows.Input;
 
 namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
@@ -202,21 +204,18 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             LblURLAddedVisibility = Visibility.Hidden;
 
         }
+       
         public void AddImageExecute()
         {
-            if (ImageURL == null || !ImageURL.StartsWith("https://"))
-            {
-                LblURLFormatVisibility = Visibility.Visible;
-                LblURLAddedVisibility = Visibility.Hidden;
-                LblCommentRequiredVisibility = Visibility.Hidden;
-                ImageURL = string.Empty;
-                return;
-            }
+            OpenFileDialog openFileDialog = new();
+            openFileDialog.DefaultExt = ".png";
+            openFileDialog.Filter = "Image files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg";
+
+            bool? result = openFileDialog.ShowDialog();
+            if (result is not true || result is null) return;
+            if (ImageURLs.Find(x => x.Equals(openFileDialog.FileName)) != null) return;
+            ImageURLs.Add(openFileDialog.FileName);
             LblURLAddedVisibility = Visibility.Visible;
-            LblURLFormatVisibility= Visibility.Hidden;
-            LblCommentRequiredVisibility = Visibility.Hidden;
-            ImageURLs.Add(ImageURL);
-            ImageURL = string.Empty;
         }
   
     }

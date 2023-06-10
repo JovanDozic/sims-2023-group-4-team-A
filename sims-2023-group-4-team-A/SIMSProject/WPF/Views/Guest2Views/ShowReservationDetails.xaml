@@ -65,7 +65,20 @@
         <TextBlock Text="{Binding TourReservation.TourAppointment.TourStatus, Converter={StaticResource TourAppointmentStatusConverter}}" FontWeight="DemiBold" Grid.Row="11" Grid.Column="5" FontSize="20"/>
         <Label Grid.Row="12" Grid.Column="3" Grid.ColumnSpan="2" Content="Trenutna kljucna tacka: " FontSize="20" FontWeight="DemiBold"/>
         <TextBlock Text="{Binding Path=TourReservation.TourAppointment.CurrentKeyPoint, UpdateSourceTrigger=PropertyChanged}" Grid.Row="12" Grid.Column="5" FontSize="20" FontWeight="DemiBold"/>
-        <Button Grid.Row="12" Grid.Column="6" Grid.ColumnSpan="2" Content="Preuzmi PDF izveštaj o rezervaciji" FontSize="20" FontWeight="Bold" Foreground="#ff6700" HorizontalAlignment="Right" BorderBrush="Transparent" Background="Transparent" Command="{Binding GeneratePDFCommand}"/>
+        <Button Command="{Binding GeneratePDFCommand}" Background="Transparent" BorderBrush="Transparent"
+        HorizontalAlignment="Right" FontSize="20" FontWeight="Bold" Foreground="#ff6700"
+        Grid.Row="12" Grid.Column="6" Grid.ColumnSpan="2" Content="Preuzmi PDF izveštaj o rezervaciji">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <TextBlock>
+                <Hyperlink Command="{TemplateBinding Command}">
+                    <TextBlock Text="{TemplateBinding Content}" />
+                </Hyperlink>
+            </TextBlock>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
         <Label x:Name="LblStatus" Visibility="Hidden" Grid.Row="13" Grid.Column="3" Grid.ColumnSpan="2" Content="Moj status: " FontSize="20" FontWeight="DemiBold"/>
 
         <cstm:TourReservationImageSlider x:Name="SliderImageURLs" Grid.Row="1" Grid.Column="7" Grid.RowSpan="7" VerticalAlignment="Bottom"

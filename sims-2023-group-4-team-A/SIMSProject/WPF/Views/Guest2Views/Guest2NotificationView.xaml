@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.Guest2Views"
       xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
       mc:Ignorable="d"
-      d:DesignHeight="520" d:DesignWidth="1140"
+      Height="520" Width="1140"
       Title="Obaveštenja">
     <Page.Resources>
         <converters:TourAppointmentDateTimeConverter x:Key="DateTimeConverter"/>
@@ -14,7 +14,7 @@
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="70"/>
             <RowDefinition Height="70"/>
             <RowDefinition Height="180"/>
@@ -27,11 +27,11 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="1" Content="  Obaveštenja"
-               FontSize="40" VerticalAlignment="Center"
-               HorizontalAlignment="Left" FontWeight="DemiBold" />
+        <Label Grid.Row="1" Content="Obaveštenja"
+               FontSize="40" VerticalAlignment="Top"
+               HorizontalAlignment="Left" FontWeight="Bold" />
 
-        <DataGrid BorderBrush="#004e98" BorderThickness="3" x:Name="DgrNotifications" Grid.Row="2" FontSize="28" Grid.RowSpan="3" FontWeight="DemiBold"
+        <DataGrid BorderBrush="#004e98" BorderThickness="3" x:Name="DgrNotifications" Grid.Row="2" FontSize="28" Grid.RowSpan="3" FontWeight="Bold"
                   ItemsSource="{Binding Notifications, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedNotification}"
                   AutoGenerateColumns="False"
@@ -44,7 +44,7 @@
         </DataGrid>
         <Border Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Grid.RowSpan="3" BorderBrush="#004e98" BorderThickness="3"/>
         <TextBlock Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding SelectedNotification.Title}" FontWeight="Bold" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Text="{Binding SelectedNotification.Description}" TextWrapping="Wrap" FontWeight="DemiBold" FontSize="28" HorizontalAlignment="Center" Padding="5"/>
+        <TextBlock Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Text="{Binding SelectedNotification.Description}" TextWrapping="Wrap" FontWeight="Bold" FontSize="28" HorizontalAlignment="Center" Padding="5"/>
 
         <Button x:Name="Yes" Grid.Column="1" Grid.Row="4" Height="50" Width="105" HorizontalAlignment="Left" Margin="135,10,0,10" Content="Da" FontWeight="Bold" FontSize="40" Visibility="{Binding YesButtonVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
         <Button x:Name="No" Grid.Column="2" Grid.Row="4" Height="50" Width="105" HorizontalAlignment="Left" Margin="30,10,0,10" Content="Ne" FontWeight="Bold" FontSize="40"  Visibility="{Binding NoButtonVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>

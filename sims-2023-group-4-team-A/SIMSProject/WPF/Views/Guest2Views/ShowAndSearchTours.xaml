@@ -42,8 +42,8 @@
         <custom:Guest2NumericBoxInput x:Name="GuestSearch" Value="{Binding Path=GuestSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="2" Grid.Column="3" Cursor="Hand"/>
         <Label Grid.Row="2" Grid.Column="4" Content="Trajanje ture:" Height="50" FontSize="32" FontWeight="DemiBold" VerticalAlignment="Top" Margin="0,25,0,0"/>
         <custom:Guest2NumericBoxInput x:Name="DurationSearch" Value="{Binding Path=DurationSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="2" Grid.Column="5" Cursor="Hand"/>
-        <Button Grid.Row="2" Grid.Column="6" Height="50" Width ="150" FontSize="32" VerticalAlignment="Center" FontWeight="DemiBold" Command="{Binding SearchCommand}" Content="Pretraži" Background="#ff6700" Cursor="Hand"/>
-        <DataGrid Grid.Row="3" Grid.ColumnSpan="7" SelectionMode="Single" IsReadOnly="True" FontSize="25" FontWeight="DemiBold" AutoGenerateColumns="False"
+        <Button Grid.Row="2" Grid.Column="6" Height="50" Width ="150" FontSize="32" VerticalAlignment="Center" FontWeight="Bold" Command="{Binding SearchCommand}" Content="Pretraži" Background="#ff6700" Cursor="Hand"/>
+        <DataGrid Grid.Row="3" Grid.ColumnSpan="7" SelectionMode="Single" IsReadOnly="True" FontSize="28" FontWeight="Bold" AutoGenerateColumns="False"
                   ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" 
                   >
@@ -55,7 +55,7 @@
                 <DataGridTextColumn Binding="{Binding MaxGuestNumber}" Header="Kapacitet gostiju" Width="200" x:Name="maxGuestNumber"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button IsEnabled="True" Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" x:Name="BtnReserve" Height="50" Width ="280" FontSize="32" FontWeight="DemiBold" Command="{Binding ReserveCommand}" Content="Detalji i rezervacija" Background="#ff6700" Cursor="Hand"/>
+        <Button IsEnabled="True" Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" x:Name="BtnReserve" Height="50" Width ="300" FontSize="32" FontWeight="Bold" Click="Reserce_Click" Content="Detalji i rezervacija" Background="#ff6700" Cursor="Hand"/>
         <Label x:Name="LblSelectingTour" Visibility="{Binding LabelVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="4" Grid.ColumnSpan="5" Content=" Morate izabrati neku turu!" Foreground="Red" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="32" FontWeight="DemiBold"/>
     </Grid>
 </Page>

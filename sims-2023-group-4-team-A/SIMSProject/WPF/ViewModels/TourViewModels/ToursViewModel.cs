@@ -102,7 +102,8 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             TourLanguages = new(Tour.GetLanguages());
             LabelVisibility = Visibility.Hidden;
             SearchCommand = new RelayCommand(SearchExecute);
-            ReserveCommand = new RelayCommand(ReserveExecute);
+            //ReserveCommand = new RelayCommand(ReserveExecute);
+
             //TextSearch_GotFocusCommand = new RelayCommand(TextSearch_GotFocus);
             //TextSearch_LostFocusCommand = new RelayCommand(TextSearch_LostFocus);
         }
@@ -118,6 +119,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             if (IsSelected())
             {
                 new TourReservationCreation(_user, SelectedTour).Show();
+                //new ReservationCreation(_user, SelectedTour);
                 LabelVisibility = Visibility.Hidden;
                 return;
             }

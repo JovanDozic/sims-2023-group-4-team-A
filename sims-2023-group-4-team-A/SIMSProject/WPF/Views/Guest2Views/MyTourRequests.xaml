@@ -30,7 +30,7 @@
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Content="Zahtevi za obične ture: " FontSize="35" FontWeight="Bold" HorizontalAlignment="left" VerticalAlignment="Bottom"/>
         <Button Command="{Binding TourRequestStatisticsCommand}" BorderBrush="#ff6700" BorderThickness="3" Background="#ebebeb" Grid.Column="2" Content="Statistika zahteva" Height="50" Width="285" FontSize="30" FontWeight="Bold" HorizontalAlignment="Left" Margin="70,5,0,5" Cursor="Hand"/>
-        <DataGrid x:Name="DgrRequests" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" FontSize="25" FontWeight="DemiBold" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" Margin="0,0,15,0" ItemsSource="{Binding Path=CustomTourRequests, UpdateSourceTrigger=PropertyChanged}"
+        <DataGrid x:Name="DgrRequests" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" FontSize="28" FontWeight="Bold" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" Margin="0,0,15,0" ItemsSource="{Binding Path=CustomTourRequests, UpdateSourceTrigger=PropertyChanged}"
                   >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Location}" Header="Lokacija" Width="*"/>
@@ -43,7 +43,7 @@
         </DataGrid>
         <Button Command="{Binding NewTourRequestCommand}" Grid.Column="2" Grid.Row="2" Content="Nova obična tura"  Height="50" Width="285" FontSize="30" Background="#ff6700" FontWeight="Bold" HorizontalAlignment="Left" Margin="70,5,0,5" Cursor="Hand"/>
         <Label Grid.Row="3" Grid.Column="0" Content="Zahtevi za složene ture: " FontSize="35" FontWeight="Bold" HorizontalAlignment="left" VerticalAlignment="Bottom"/>
-        <DataGrid x:Name="DgrComplexRequests" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" FontSize="25" FontWeight="DemiBold" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=ComplexTourRequests, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedComplexTourRequest, UpdateSourceTrigger=PropertyChanged}" >
+        <DataGrid x:Name="DgrComplexRequests" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" FontSize="28" FontWeight="Bold" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=ComplexTourRequests, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedComplexTourRequest, UpdateSourceTrigger=PropertyChanged}" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv" Binding="{Binding Name}" Width="*"/>
                 <DataGridTextColumn Header="Status zahteva" Binding="{Binding Status, Converter={StaticResource RequestStatusConverter}}" Width="*"/>

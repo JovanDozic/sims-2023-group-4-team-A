@@ -1,12 +1,15 @@
-﻿using SIMSProject.Application.Services;
-using SIMSProject.Domain.Models.TourModels;
-using System;
-using System.Collections.ObjectModel;
+﻿using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
 {
-    public class TourReservationDetailsViewModel : ViewModelBase
+    public class ReservationCreationViewModel : ViewModelBase
     {
         private readonly User _user;
         public ObservableCollection<TourReservation> _tourReservations = new();
@@ -42,7 +45,6 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 OnPropertyChanged(nameof(TourReservation));
             }
         }
-
         public DateTime Date
         {
             get => _selectedTourReservation.TourAppointment.Date;
@@ -55,17 +57,11 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 }
             }
         }
-        public RelayCommand GeneratePDFCommand { get; set; }
-        public TourReservationDetailsViewModel(User user, TourReservation tourReservation)
+        public ReservationCreationViewModel(User user, TourReservation tourReservation)
         {
             _user = user;
             TourReservation = tourReservation;
-            GeneratePDFCommand = new RelayCommand(GeneratePDF);
-        }
-
-        public void GeneratePDF()
-        {
-            PDFService.GenerateTourReservationDetailsPDF(TourReservation);
+            
         }
     }
 }

@@ -12,15 +12,18 @@ namespace SIMSProject.WPF.Views
     /// </summary>
     public partial class RateGuide : Page
     {
+        public GuideRatingViewModel _viewModel { get; set; }
         public RateGuide(User user, TourReservation tourReservation, int guideId)
         {
             InitializeComponent();
-            DataContext = new GuideRatingViewModel(user, tourReservation, guideId); ;
+            _viewModel = new GuideRatingViewModel(user, tourReservation, guideId);
+            DataContext = _viewModel;
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }
+
     }
 }
