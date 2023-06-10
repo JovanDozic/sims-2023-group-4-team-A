@@ -198,6 +198,9 @@
   <data name="Kindness" xml:space="preserve">
     <value>Ljubaznost</value>
   </data>
+  <data name="LastNotifications" xml:space="preserve">
+    <value>Nedavne Notifikacije</value>
+  </data>
   <data name="LeaveAComment" xml:space="preserve">
     <value>Ostavi komentar</value>
   </data>
@@ -299,6 +302,9 @@
   </data>
   <data name="Send" xml:space="preserve">
     <value>Pošalji</value>
+  </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>Prikaži sve</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Početak</value>

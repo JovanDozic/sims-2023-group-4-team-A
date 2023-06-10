@@ -14,7 +14,7 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerNotificationViews
         {
             InitializeComponent();
             _user = user;
-            _viewModel = new(_user);
+            _viewModel = new(_user, false);
             DataContext = _viewModel;
         }
 

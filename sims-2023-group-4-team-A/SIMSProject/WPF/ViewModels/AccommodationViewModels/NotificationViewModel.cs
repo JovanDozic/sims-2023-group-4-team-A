@@ -23,6 +23,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private NotificationService _notificationService;
         private ObservableCollection<Notification> _notifications = new();
         private bool _translationInProgress = false;
+        private bool _leaveOnlyRecentNotifications;
 
         public ObservableCollection<Notification> Notifications
         {
@@ -46,10 +47,10 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             }
         }
 
-        public NotificationViewModel(User user)
+        public NotificationViewModel(User user, bool leaveOnlyRecentNotifications)
         {
             _user = user;
-
+            _leaveOnlyRecentNotifications = leaveOnlyRecentNotifications;
             _notificationService = Injector.GetService<NotificationService>();
 
             CheckLanguageAndLoadNotifications();
@@ -74,7 +75,13 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                     notifications[i].Description = translatedDescriptions[i];
                 }
             }
-            Notifications = new ObservableCollection<Notification>(notifications);
+
+            if (_leaveOnlyRecentNotifications)
+            {
+                Notifications = new ObservableCollection<Notification>();
+                if (notifications.Count > 1) Notifications.Add(notifications[0]);
+            }
+            else Notifications = new ObservableCollection<Notification>(notifications);
             TranslationInProgress = false;
         }
 

@@ -16,18 +16,19 @@ namespace SIMSProject.WPF.Views.OwnerViews
 
         public OwnerWindow(User user)
         {
+            _user = user;
+            AdaptAppThemeAndLanguageToUser();
+
             InitializeComponent();
             DataContext = this;
-            _user = user;
             _suggestionNotificationService = new(_user);
            
             SwitchToPage(new OwnerView(user));
 
             StartParallelTasks();
-            AdaptViewToUser();
         }
 
-        private void AdaptViewToUser()
+        private void AdaptAppThemeAndLanguageToUser()
         {
             if (_user is not Owner owner) return;
             ((App)System.Windows.Application.Current).ChangeTheme(owner.SelectedTheme);

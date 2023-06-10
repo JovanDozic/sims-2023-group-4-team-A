@@ -65,13 +65,20 @@ namespace SIMSProject.WPF.Views.OwnerViews
                 {
                     "NavBtnNotifications" => new OwnerNotificationsView(_user),
                     "NavBtnAccommodations" => new OwnerMyAccommodationsView(_user),
-                    "NavBtnHome" => new OwnerHomeView(),
+                    "NavBtnHome" => new OwnerHomeView(_user),
                     "NavBtnForums" => new OwnerForumLocationsView(_user),
                     _ => new OwnerAccountView(_user),
                 }
             );
 
             UpdateNotificationButtons(sender);
+        }
+
+        public object NavigateToPage(string navBtnName)
+        {
+            if (navBtnName == "NavBtnAccommodations") NavBtn_Click(NavBtnAccommodations, null);
+            if (navBtnName == "NavBtnNotifications") NavBtn_Click(NavBtnNotifications, null);
+            return this;
         }
 
         public static T FindVisualChild<T>(DependencyObject? parent) where T : DependencyObject

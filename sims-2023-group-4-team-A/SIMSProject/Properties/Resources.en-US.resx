@@ -195,6 +195,9 @@
   <data name="Kindness" xml:space="preserve">
     <value>Kindness</value>
   </data>
+  <data name="LastNotifications" xml:space="preserve">
+    <value>Recent Notifications</value>
+  </data>
   <data name="LeaveAComment" xml:space="preserve">
     <value>Leave a comment</value>
   </data>
@@ -293,6 +296,9 @@
   </data>
   <data name="Send" xml:space="preserve">
     <value>Send</value>
+  </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>Show all</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Start</value>

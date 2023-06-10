@@ -432,7 +432,12 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             var SearchResults = Accommodations.ToList();
             SearchResults.RemoveAll(x => !x.ToStringSearchable.ToLower().Contains(text.ToLower()));
             Accommodations = new(SearchResults);
-        } 
+        }
+
+        internal void LoadFirstTwoAccommodationsByOwner()
+        {
+            Accommodations = new(_accommodationService.GetAllByOwnerId(_user.Id).Take(2));
+        }
 
         public string this[string columnName]
         {
