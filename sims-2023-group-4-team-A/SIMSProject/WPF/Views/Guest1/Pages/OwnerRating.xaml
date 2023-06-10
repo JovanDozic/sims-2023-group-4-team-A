@@ -83,8 +83,8 @@
                 </StackPanel>
             </Button>
             <Button x:Name="ButtonRate" Content="Oceni" Grid.Row="10"
-                    IsEnabled="False"
-                    FontSize="30" Width="290" Margin="74,19,75,12" Click="Button_Click_Rate">
+                    IsEnabled="False" Height="55"
+                    FontSize="30" Width="318" Margin="74,19,75,12" Click="Button_Click_Rate">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Template">

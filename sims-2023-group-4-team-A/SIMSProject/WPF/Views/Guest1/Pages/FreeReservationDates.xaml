@@ -30,7 +30,7 @@
         <Label FontWeight="Bold" Content="Smeštaj je slobodan u sledećim terminima:"
                FontSize="30" Grid.Row="1" HorizontalAlignment="Center" Margin="0,0,0,26"/>
 
-        <DataGrid ItemsSource="{Binding DateRanges}" SelectedItem="{Binding SelectedRange}" AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Center" Grid.Row="2" FontSize="25" Margin="0,0,0,29" SelectionChanged="DataGrid_SelectionChanged" Width="612">
+        <DataGrid ItemsSource="{Binding DateRanges}" SelectionMode="Single" SelectedItem="{Binding SelectedRange}" AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Center" Grid.Row="2" FontSize="25" Margin="0,0,0,29" SelectionChanged="DataGrid_SelectionChanged" Width="612">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding StartDate, StringFormat={}{0:dd.MM.yyyy.}}" Width="1*" Header="Datum dolaska" FontSize="25"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding EndDate, StringFormat={}{0:dd.MM.yyyy.}}" Width="1*" Header="Datum odlaska" FontSize="25"></DataGridTextColumn>
@@ -39,7 +39,7 @@
 
         <Button Grid.Row="3" FontSize="25" Content="Rezerviši"
                 IsEnabled="False" x:Name="ReservationButton"
-                Height="51" Width="288" Margin="0,10,0,59" HorizontalAlignment="Center" Click="Button_Click_Confirm">
+                Height="55" Width="318" Margin="0,10,0,55" HorizontalAlignment="Center" Click="Button_Click_Confirm">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Template">

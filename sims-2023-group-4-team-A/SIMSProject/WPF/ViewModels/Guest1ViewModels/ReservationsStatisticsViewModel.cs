@@ -21,8 +21,6 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
         private int _currentYearReservations;
         private List<string> _months;
         private SeriesCollection _reservationsSeries;
-        private SeriesCollection _pieSeries;
-        private List<string> monthNames;
         private ChartValues<int> _prevValue;
         private ChartValues<int> _currValue;
 
@@ -53,20 +51,6 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
                 _reservationsSeries = value;
                 OnPropertyChanged("ReservationsSeries");
             }
-        }
-        public SeriesCollection PieChartSeries
-        {
-            get { return _pieSeries; }
-            set
-            {
-                _pieSeries = value;
-                OnPropertyChanged();
-            }
-        }
-        public List<string> MonthNames
-        {
-            get { return monthNames; }
-            set { monthNames = value; OnPropertyChanged(); }
         }
         public Dictionary<string, int> MonthlyReservations
         {
@@ -105,9 +89,6 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
                 OnPropertyChanged();
             }
         }
-        public Func<ChartPoint, string> PointLabel { get; set; } = chartPoint => string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
-
-
 
         public ReservationsStatisticsViewModel(User user)
         {
@@ -129,8 +110,6 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
 
             Months = SetMonths(_reservationService.CountReservationsByMonth(_user).Keys.ToList());
             SetValues();
-            PointLabel = GetPointLabel;
-
         }
 
         public List<string> SetMonths(List<string> numbersOfMonths)
@@ -147,15 +126,8 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
                     monthNames.Add(monthName);
                 }
             }
-
             return monthNames;
-
         }
-        private string GetPointLabel(ChartPoint chartPoint)
-        {
-            return string.Format(":{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
-        }
-
         public void SetValues()
         {
             PreviousYearValue = new ChartValues<int>();

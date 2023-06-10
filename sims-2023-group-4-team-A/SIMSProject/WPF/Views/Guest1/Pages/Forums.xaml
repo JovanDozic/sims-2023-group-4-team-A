@@ -20,17 +20,17 @@
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <Label Content="Lokacija: " FontSize="28" Margin="29,50,0,0"></Label>
+                    <Label Content="Lokacija: " FontSize="28" Margin="29,25,0,25"></Label>
                     <ComboBox ItemsSource="{Binding AllLocations, UpdateSourceTrigger=PropertyChanged}" 
-                  SelectedItem="{Binding SelectedLocation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="29,100,705,62" SelectionChanged="ComboBox_SelectionChanged"></ComboBox>
-                    <ListView x:Name="AllForums" Grid.Row="1"
+                  SelectedItem="{Binding SelectedLocation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="29,75,638,87" SelectionChanged="ComboBox_SelectionChanged"></ComboBox>
+                    <ListView x:Name="AllForums"
                   ItemsSource="{Binding AllForums, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedForum}"
                   Background="Transparent"
                   BorderBrush="Transparent"
                   BorderThickness="0" d:ItemsSource="{d:SampleData ItemCount=5}"
                   ScrollViewer.CanContentScroll="False"
-                  ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="29,0,32,0" SelectionChanged="AllForums_SelectionChanged">
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="29,148,32,0" SelectionChanged="AllForums_SelectionChanged" Grid.RowSpan="2">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -49,14 +49,14 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBox Text="{Binding Comments[0].Text}" Background="Transparent" FontWeight="Bold" BorderThickness="4" IsReadOnly="True" BorderBrush="White" TextWrapping="Wrap">
                                     </TextBox>
-                                    <StackPanel Grid.Column="1" Orientation="Vertical" Margin="30">
-                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                                    <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0">
+                                        <StackPanel Orientation="Vertical" Margin="0,0,0,20">
                                             <Label Content="Lokacija:"></Label>
                                             <Label Content="{Binding Location}" FontWeight="Bold"></Label>
                                         </StackPanel>
-                                        <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                                        <StackPanel Orientation="Vertical" Margin="0,20,0,0" Height="105">
                                             <Label Content="Datum: "></Label>
-                                            <Label Content="{Binding CreationDate,StringFormat=dd.MM.yyyy.}" FontWeight="Bold"></Label>
+                                            <TextBlock Text="{Binding CreationDate,StringFormat={}{0:dd.MM.yyyy.}}" FontWeight="Bold"></TextBlock>
                                         </StackPanel>
 
                                     </StackPanel>
@@ -105,14 +105,14 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBox Text="{Binding Comments[0].Text, Mode=TwoWay}" Background="Transparent" FontWeight="Bold" BorderThickness="4" IsReadOnly="True" BorderBrush="White" TextWrapping="Wrap">
                                     </TextBox>
-                                    <StackPanel Grid.Column="1" Orientation="Vertical" Margin="30">
-                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                                    <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0">
+                                        <StackPanel Orientation="Vertical" Margin="0,0,0,20">
                                             <Label Content="Lokacija:"></Label>
                                             <Label Content="{Binding Location}" FontWeight="Bold"></Label>
                                         </StackPanel>
-                                        <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                                        <StackPanel Orientation="Vertical" Margin="0,20,0,0" Height="105">
                                             <Label Content="Datum: "></Label>
-                                            <Label Content="{Binding CreationDate,StringFormat=dd.MM.yyyy.}" FontWeight="Bold"></Label>
+                                            <TextBlock Text="{Binding CreationDate,StringFormat=dd.MM.yyyy.}" FontWeight="Bold"></TextBlock>
                                         </StackPanel>
 
                                     </StackPanel>

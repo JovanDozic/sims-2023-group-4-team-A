@@ -36,14 +36,42 @@
             <Button x:Name="CloseButton" Visibility="Hidden" Foreground="White" Click="Button_Close_Forum" Background="#0c669f" Height="50" Content="Zatvori forum" FontSize="25" Grid.Row="2" Margin="775,10,60,0"/>
             <Label Content="Vlasnik foruma: " FontSize="30" Grid.Row="2" Margin="35,0,759,0"></Label>
             <Label Content="{Binding Forum.Comments[0].User.Username}" Grid.Row="2" FontSize="30" FontWeight="Bold" FontStyle="Italic" Margin="261,0,636,0"></Label>
-            <Label Foreground="Gray" Content="{Binding Forum.CreationDate, StringFormat=dd.MM.yyyy.}" Grid.Row="3" FontSize="20" Margin="35,0,900,0"></Label>
-            <Label x:Name="Useful" FontWeight="Bold" Visibility="Hidden" Content="Veoma koristan" Foreground="Gray" FontSize="24" Grid.Row="2" Margin="132,55,670,10" Grid.RowSpan="2"></Label>
+            <TextBlock Foreground="Gray" Text="{Binding Forum.CreationDate, StringFormat=dd.MM.yyyy.}" Grid.Row="3" FontSize="20" Margin="35,3,886,0"></TextBlock>
+            <Label x:Name="Useful" FontWeight="Bold" Visibility="Hidden" Content="Veoma koristan" Foreground="Gray" FontSize="24" Grid.Row="2" Margin="144,55,658,10" Grid.RowSpan="2"></Label>
             <TextBox Text="{Binding Forum.Comments[0].Text}" IsReadOnly="True" BorderThickness="4" FontWeight="Bold" BorderBrush="White" Background="Transparent" TextWrapping="Wrap" FontSize="24" Grid.Row="4" Margin="35,10,216,46"/>
             <Label x:Name="ClosedForumLabel" Visibility="Hidden" Content="Forum je zatvoren" FontSize="28" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Gray"></Label>
             <Label Content="Broj komentara:" FontSize="25" Grid.Row="5" Margin="35,0,783,0"></Label>
             <Label x:Name="CommentsNumber" Content="{Binding Forum.CommentsCount}" FontSize="25" Grid.Row="5" Margin="224,0,0,0"></Label>
-            <TextBox x:Name="CommentBox" Visibility="Visible" Text="{Binding NewComment.Text}" TextWrapping="Wrap" FontSize="24" Grid.Row="6" Margin="35,0,216,10"></TextBox>
-            <Button x:Name="CommentButton" Click="Button_Click_Comment" Visibility="Visible" Background="#0c669f" Foreground="White" Content="Potvrdi" FontSize="25" Height="50" Grid.Row="6" Margin="821,70,60,10"/>
+            <TextBox Loaded="LoadText" LostFocus="TextComment_LostFocus" GotFocus="TextComment_GotFocus"
+                 Foreground="Gray" x:Name="CommentBox" Visibility="Visible" Text="{Binding NewComment.Text}" TextWrapping="Wrap" FontSize="24" Grid.Row="6" Margin="35,0,216,10" TextChanged="CommentBox_TextChanged"></TextBox>
+            <Button IsEnabled="False" x:Name="CommentButton" Click="Button_Click_Comment" Visibility="Visible" Content="Potvrdi" FontSize="25" Height="50" Grid.Row="6" Margin="821,70,60,10">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              RecognizesAccessKey="True"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="Background" Value="Gray"/>
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="True">
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="Background" Value="#0c669f"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
             <Label Content="Komentari:" FontSize="24" Grid.Row="7" Margin="35,0,867,0"></Label>
             <Separator Grid.Row="7" Margin="35,20,867,2"></Separator>
 
@@ -66,7 +94,7 @@
                                     </Image.Style>
                                 </Image>
                             </StackPanel>
-                            <TextBlock Text="{Binding CreationDate, StringFormat=dd.MM.yyyy.}" FontStyle="Italic" FontSize="17" Margin="0,0,0,9" />
+                            <TextBlock Text="{Binding CreationDate, StringFormat=dd.MM.yyyy. HH:mm}" FontStyle="Italic" FontSize="17" Margin="0,0,0,9" />
                             <TextBlock TextWrapping="Wrap" Text="{Binding Text}" FontSize="23" Margin="0,0,0,2" />
                             <Separator />
                         </StackPanel>

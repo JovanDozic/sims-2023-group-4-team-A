@@ -79,7 +79,7 @@
         <custom:ImageSlider x:Name="imageSlider" Margin="-37,152,-37,88" Grid.RowSpan="3" />
         <Button Content="Rezervacija" Background="#0c669f"
                 Foreground="White" FontSize="30" Grid.Row="2" HorizontalAlignment="Center"
-                VerticalAlignment="Center" Width="240" Height="52"
+                VerticalAlignment="Center" Width="318" Height="55"
                 Click="Button_Click_Reservation"/>
 
     </Grid>

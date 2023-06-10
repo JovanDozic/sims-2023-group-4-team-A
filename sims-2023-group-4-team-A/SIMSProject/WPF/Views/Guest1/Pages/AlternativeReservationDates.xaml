@@ -41,7 +41,7 @@
 
         <Button Grid.Row="3" FontSize="25" Content="Rezerviši"
                 IsEnabled="False" x:Name="ReservationButton"
-                Height="51" Width="287" Margin="368,10,369,59" Click="Button_Click_Confirm">
+                Height="55" Width="318" Click="Button_Click_Confirm">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Template">

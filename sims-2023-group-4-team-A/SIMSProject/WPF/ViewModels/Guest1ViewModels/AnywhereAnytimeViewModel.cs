@@ -185,7 +185,6 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
             return _accommodationService.FindReservedOrRenovatingDateRanges(SelectedAccommodation);
         }
 
-
         public void SaveReservation()
         {
             _accommodationReservationService.SaveReservation(new AccommodationReservation(SelectedAccommodation.Id, _user.Id, SelectedRange.StartDate, SelectedRange.EndDate, NumberOfDays, GuestsNumber, false), _user);

@@ -1,5 +1,7 @@
 ﻿using SIMSProject.WPF.Languages;
 using System;
+using System.Globalization;
+using System.Threading;
 using System.Windows;
 
 namespace SIMSProject

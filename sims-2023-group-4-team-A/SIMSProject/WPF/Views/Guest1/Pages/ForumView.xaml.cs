@@ -32,38 +32,16 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             _user = user;
             _viewModel = new(_user, forum);
             DataContext = _viewModel;
-            //CommentVisibility();
-            //CloseButtonVisibility();
-            ItemsVisibility();
+            ItemsUsability();
         }
 
         private void Button_Click_Close(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }
-        /*
-        public void CommentVisibility()
-        {
-            if (_viewModel.IsClosed())
-            {
-                CommentBox.Visibility = Visibility.Hidden;
-                CommentButton.Visibility = Visibility.Hidden;
-                ClosedForumLabel.Visibility = Visibility.Visible;
-            }
-        }
-        
-        public void CloseButtonVisibility()
-        {
-            if (_viewModel.IsUserOwner() && !_viewModel.IsClosed())
-            {
-                CloseButton.Visibility = Visibility.Visible;
-            }
-        }
-        */
         private void Button_Close_Forum(object sender, RoutedEventArgs e)
         {
             _viewModel.CloseForum();
-            _viewModel.CloseForumToast();
             NavigationService.Navigate(new Forums(_user));
         }
       
@@ -74,9 +52,11 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             _viewModel.AddNewComment();
             Comments.Items.Refresh();
             CommentsNumber.Content = _viewModel.Forum.CommentsCount;
+            CommentBox.Text = "Vaš komentar";
+            CommentBox.Foreground = new SolidColorBrush(Colors.Gray);
         }
 
-        public void ItemsVisibility()
+        public void ItemsUsability()
         {
             if (_viewModel.IsUserOwner() && !_viewModel.IsClosed())
             {
@@ -90,6 +70,37 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             }
             if (_viewModel.IsUseful())
                 Useful.Visibility = Visibility.Visible;
+            if (CommentBox.Text == "Vaš komentar" || CommentBox.Text == String.Empty)
+                CommentButton.IsEnabled = false;
+        }
+        private void TextComment_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox? textbox = sender as TextBox;
+            if (textbox is null) return;
+            textbox.Foreground = new SolidColorBrush(Colors.Black);
+            if (textbox.Text == "Vaš komentar") textbox.Text = string.Empty;
+        }
+
+        private void TextComment_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox? textbox = sender as TextBox;
+            if (textbox is null) return;
+            if (textbox.Text == string.Empty)
+            {
+                textbox.Foreground = new SolidColorBrush(Colors.Gray);
+                textbox.Text = "Vaš komentar";
+            }
+        }
+        private void LoadText(object sender, RoutedEventArgs e)
+        {
+            TextBox? textbox = sender as TextBox;
+            if (textbox is null) return;
+            textbox.Text = "Vaš komentar";
+        }
+
+        private void CommentBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CommentButton.IsEnabled = CommentBox.Text != "Vaš komentar" && CommentBox.Text != String.Empty;
         }
     }
 }

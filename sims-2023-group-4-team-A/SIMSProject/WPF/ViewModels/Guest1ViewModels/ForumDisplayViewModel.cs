@@ -47,14 +47,13 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
                 OnPropertyChanged(nameof(Comments));
             }
         }
-
         public ForumDisplayViewModel(User user, Forum forum)
         {
+            _user = user;
+            Forum = forum;
             _forumService = Injector.GetService<ForumService>();
             _commentService = Injector.GetService<CommentService>();
-            Forum = forum;
-            Comments = new(Forum.Comments);
-            _user = user;
+            Comments = new(Forum.Comments);        
             NewComment = new Comment
             {
                 User = _user,
@@ -70,15 +69,12 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
                 User = _user,
                 CreationDate = DateTime.Today
             };
+            _forumService.CheckAndUpdateUsability();
         }
 
         public void CloseForum()
         {
             _forumService.CloseForum(Forum);
-        }
-
-        public void CloseForumToast()
-        {
             ToastNotificationService.ShowSuccess("Forum uspešno zatvoren");
         }
 

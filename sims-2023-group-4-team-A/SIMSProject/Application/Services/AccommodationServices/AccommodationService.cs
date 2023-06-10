@@ -134,7 +134,6 @@ namespace SIMSProject.Application.Services.AccommodationServices
             if (startDate != DateTime.MinValue && endDate != DateTime.MinValue)
                 searchResults.RemoveAll(a => accommodationsToExclude.Contains(a.Id));
             
-
             searchResults.RemoveAll(a => a.MaxGuestNumber < guestNum);
             searchResults.RemoveAll(a => a.MinReservationDays > daysNum);
 
