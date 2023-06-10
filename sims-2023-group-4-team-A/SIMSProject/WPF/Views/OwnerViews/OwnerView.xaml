@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews"
         xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
+      xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
         mc:Ignorable="d"
         Title="Home" d:DesignHeight="750" d:DesignWidth="430">
 
@@ -34,6 +35,8 @@
             <DoubleAnimation Storyboard.TargetProperty="Opacity"
                          From="0.0" To="1.0" Duration="0:0:0.25" />
         </Storyboard>
+
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" Inverted="False" />
 
     </Page.Resources>
 
@@ -70,8 +73,19 @@
             <Button x:Name="NavBtnNotifications" Grid.Column="0" Margin="10" Width="60" Height="60"
                     Style="{StaticResource NavBarBtnStyle}"
                     Click="NavBtn_Click">
-                <Image x:Name="NavBtnNotificationsIcon" 
-                       Source="{DynamicResource NotificationsMenuIcon}" Style="{StaticResource IconRenderStyle}"/>
+                <Grid>
+                    <Image x:Name="NavBtnNotificationsIcon" 
+                           Source="{DynamicResource NotificationsMenuIcon}" 
+                           Style="{StaticResource IconRenderStyle}"/>
+                    <Image x:Name="NavBtnNotificationsIconBadge" 
+                           Source="{DynamicResource DotIcon}" 
+                           Style="{StaticResource IconRenderStyle}"
+                           Visibility="{Binding UserHasUnreadNotifications, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           VerticalAlignment="Top"
+                           HorizontalAlignment="Right"
+                           Height="7.5"
+                           Margin="0,-5,-5,0"/>
+                </Grid>
             </Button>
 
             <Button x:Name="NavBtnAccommodations" Grid.Column="1" Margin="10" Width="60" Height="60"

@@ -61,5 +61,7 @@
     <BitmapImage x:Key="BadgeIcon" UriSource="/Resources/Icons/badge.png"/>
     <BitmapImage x:Key="EnglishIcon" UriSource="/Resources/Icons/english.png"/>
     <BitmapImage x:Key="SerbianIcon" UriSource="/Resources/Icons/serbian.png"/>
+    <BitmapImage x:Key="LogOutIcon" UriSource="/Resources/Icons/exit.png"/>
+    <BitmapImage x:Key="DotIcon" UriSource="../../../Resources/Icons/dot.png"/>
 
 </ResourceDictionary>

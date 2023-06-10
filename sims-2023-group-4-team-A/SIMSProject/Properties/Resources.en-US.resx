@@ -165,6 +165,9 @@
   <data name="CancellationThresholdHelp" xml:space="preserve">
     <value>It indicates the latest deadline when the guest can cancel the reservation.</value>
   </data>
+  <data name="CityDotCountry" xml:space="preserve">
+    <value>City, Country</value>
+  </data>
   <data name="Cleanliness" xml:space="preserve">
     <value>Cleanliness</value>
   </data>
@@ -213,6 +216,9 @@
   <data name="Location" xml:space="preserve">
     <value>Location</value>
   </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Log out</value>
+  </data>
   <data name="MaxGuestNumber" xml:space="preserve">
     <value>Maximum number of guests</value>
   </data>
@@ -227,6 +233,9 @@
   </data>
   <data name="MostBusy" xml:space="preserve">
     <value>Most busy.</value>
+  </data>
+  <data name="MyAccommodation" xml:space="preserve">
+    <value>My Accommodation</value>
   </data>
   <data name="MyAccommodations" xml:space="preserve">
     <value>My Accommodations</value>

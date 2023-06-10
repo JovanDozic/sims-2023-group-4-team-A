@@ -216,6 +216,9 @@
   <data name="Location" xml:space="preserve">
     <value>Lokacija</value>
   </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Izloguj se</value>
+  </data>
   <data name="MaxGuestNumber" xml:space="preserve">
     <value>Maksimalan broj gostiju</value>
   </data>

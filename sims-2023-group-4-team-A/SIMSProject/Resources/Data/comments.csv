@@ -1,5 +1,5 @@
 1|1|Super Gost|True|Ovo je prvi komentar.|5.6.2023. 13:31:00|0
-2|2|Gost |False|Ovo je drugi komentar.|5.6.2023. 13:32:00|1
+2|2|Gost |False|Ovo je drugi komentar.|5.6.2023. 13:32:00|4
 3|1|Super Vlasnik|True|Ovo je treci komentar.|5.6.2023. 13:33:00|0
 4|2|Gost |True|Ovo je cetvrti komentar.|5.6.2023. 13:34:00|0
 5|1|Super Gost|True|Ovo je peti komentar.|5.6.2023. 13:35:00|0
@@ -16,3 +16,5 @@
 18|1|Super Gost|False|Wow, a super owner! That's impressive.|7.6.2023. 11:50:00|1
 19|1|Super Vlasnik|True|dddddd|9.6.2023. 18:12:35|0
 20|1|Super Vlasnik|True|ddd|9.6.2023. 18:16:20|0
+21|1|Super Vlasnik|True||10.6.2023. 22:48:14|0
+22|2|Vlasnik|True|E sad mogu da komentarisem|10.6.2023. 23:13:58|0

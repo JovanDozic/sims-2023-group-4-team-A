@@ -11,6 +11,7 @@ namespace SIMSProject.Domain.Models.UserModels
         public double Rating { get; set; }
         public string SelectedTheme { get; set; } = "Dark";
         public string SelectedLanguage { get; set; } = "sr-LATN";
+        public bool HasNotifications { get; set; } = false;
 
         public Owner()
         {
@@ -37,7 +38,11 @@ namespace SIMSProject.Domain.Models.UserModels
                 Math.Round(Rating, 2).ToString(),
                 Birthday.ToString(CultureInfo.GetCultureInfo("sr-LATN")),
                 SelectedTheme,
-                SelectedLanguage
+                SelectedLanguage,
+                Name,
+                LastName, 
+                Email,
+                HasNotifications.ToString()
             };
             return csvValues;
         }
@@ -52,6 +57,10 @@ namespace SIMSProject.Domain.Models.UserModels
             Birthday = DateTime.Parse(values[5], CultureInfo.GetCultureInfo("sr-LATN"));
             SelectedTheme = values[6];
             SelectedLanguage = values[7];
+            Name = values[8];
+            LastName = values[9];
+            Email = values[10];
+            HasNotifications = bool.Parse(values[11]);
         }
 
         public override string? ToString()

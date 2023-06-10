@@ -1,7 +1,9 @@
-﻿using SIMSProject.Application.Services.AccommodationServices;
+﻿using EMA.ExtendedWPFConverters;
+using SIMSProject.Application.Services.AccommodationServices;
 using SIMSProject.Application.Services.UserServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.Views;
 using SIMSProject.WPF.Views.OwnerViews;
 using SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews;
 using SIMSProject.WPF.Views.OwnerViews.OwnerAccountViews;
@@ -42,10 +44,14 @@ namespace SIMSProject.WPF.ViewModels.OwnerViewModels
         public int TotalAccommodations { get; set; } = 0;
         public int TotalRatings { get; set; } = 0;
         public bool IsSuperOwner { get => _user.Role == Domain.Models.UserRole.SuperOwner; }
+        public string FullName { get => $"{_user.Name} {_user.LastName}"; }
+        public string Username { get => _user.Username; }
+        public string Email { get => _user.Email; }
 
 
         public RelayCommand ChangeThemeCommand { get; }
         public RelayCommand ChangeLanguageCommand { get; }
+        public RelayCommand LogOutCommand { get; }
 
         public OwnerAccountViewModel(User user, OwnerAccountView ownerAccountView)
         {
@@ -58,6 +64,7 @@ namespace SIMSProject.WPF.ViewModels.OwnerViewModels
 
             ChangeThemeCommand = new RelayCommand(ChangeTheme);
             ChangeLanguageCommand = new RelayCommand(ChangeLanguage);
+            LogOutCommand = new RelayCommand(LogOut);
 
             LoadInfo();
         }
@@ -110,6 +117,13 @@ namespace SIMSProject.WPF.ViewModels.OwnerViewModels
             OwnerView ownerView = new(_user, "NavBtnAccount");
             OwnerWindow ownerWindow = Window.GetWindow(_ownerAccountView) as OwnerWindow ?? new(_user);
             ownerWindow?.SwitchToPage(ownerView);
+        }
+
+        private void LogOut()
+        {
+            SignInView singInWindow = new();
+            singInWindow.Show();
+            Window.GetWindow(_ownerAccountView).Close();
         }
     }
 }

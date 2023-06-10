@@ -25,6 +25,21 @@ namespace SIMSProject.WPF.Views.OwnerViews
         private User _user = new();
         private App App => (App)System.Windows.Application.Current;
 
+
+        public bool UserHasUnreadNotifications
+        {
+            get
+            {
+                if (_user is not Owner owner)
+                {
+                    MessageBox.Show("User is not an owner");
+                    return false;
+                }
+                MessageBox.Show("iz malog " + owner.HasNotifications.ToString());
+                return owner.HasNotifications;
+            }
+        }
+
         public OwnerView(User user, string? navigateToPage = null)
         {
             InitializeComponent();
@@ -55,7 +70,7 @@ namespace SIMSProject.WPF.Views.OwnerViews
         private void UpdateNotificationButtons(object sender)
         {
             if (sender is not Button button) return;
-            
+
             if (button.Name != "NavBtnNotifications") ChangeNavButtonIcon(NavBtnNotifications, "NotificationsMenuIcon");
             else ChangeNavButtonIcon(sender, "NotificationsMenuIconFill");
             if (button.Name != "NavBtnAccommodations") ChangeNavButtonIcon(NavBtnAccommodations, "AccommodationsMenuIcon");
@@ -124,6 +139,6 @@ namespace SIMSProject.WPF.Views.OwnerViews
             storyboard.Begin(MainFrame);
         }
 
-        
+
     }
 }

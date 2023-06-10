@@ -44,6 +44,7 @@
     <None Remove="Resources\Icons\dark\downvote-fill.png" />
     <None Remove="Resources\Icons\dark\downvote.png" />
     <None Remove="Resources\Icons\dark\english.png" />
+    <None Remove="Resources\Icons\dark\exit.png" />
     <None Remove="Resources\Icons\dark\eye.png" />
     <None Remove="Resources\Icons\dark\flag.png" />
     <None Remove="Resources\Icons\dark\forum-fill.png" />
@@ -80,10 +81,12 @@
     <None Remove="Resources\Icons\dark\was-at-location.png" />
     <None Remove="Resources\Icons\dark\was-not-at-location.png" />
     <None Remove="Resources\Icons\dark\x.png" />
+    <None Remove="Resources\Icons\dot.png" />
     <None Remove="Resources\Icons\down.png" />
     <None Remove="Resources\Icons\downvote-fill.png" />
     <None Remove="Resources\Icons\downvote.png" />
     <None Remove="Resources\Icons\english.png" />
+    <None Remove="Resources\Icons\exit.png" />
     <None Remove="Resources\Icons\eye.png" />
     <None Remove="Resources\Icons\flag.png" />
     <None Remove="Resources\Icons\forum-fill.png" />
@@ -201,6 +204,7 @@
     <Resource Include="Resources\Icons\dark\downvote-fill.png" />
     <Resource Include="Resources\Icons\dark\downvote.png" />
     <Resource Include="Resources\Icons\dark\english.png" />
+    <Resource Include="Resources\Icons\dark\exit.png" />
     <Resource Include="Resources\Icons\dark\eye.png" />
     <Resource Include="Resources\Icons\dark\flag.png" />
     <Resource Include="Resources\Icons\dark\forum-fill.png" />
@@ -236,6 +240,7 @@
     <Resource Include="Resources\Icons\dark\was-at-location.png" />
     <Resource Include="Resources\Icons\dark\was-not-at-location.png" />
     <Resource Include="Resources\Icons\dark\x.png" />
+    <Resource Include="Resources\Icons\dot.png" />
     <Resource Include="Resources\Icons\down.png" />
     <Resource Include="Resources\Icons\downvote-fill.png" />
     <Resource Include="Resources\Icons\downvote.png" />
@@ -373,6 +378,10 @@
     <Content Include="WPF\Views\Guest1\Icons\user.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\exit.png" />
   </ItemGroup>
 
   <ItemGroup>

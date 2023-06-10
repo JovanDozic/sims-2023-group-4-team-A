@@ -1,4 +1,7 @@
-﻿using SIMSProject.Application.Services.AccommodationServices;
+﻿using SIMSProject.Application.Services;
+using SIMSProject.Application.Services.AccommodationServices;
+using SIMSProject.Application.Services.UserServices;
+using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.UserModels;
 using System;
 using System.Threading.Tasks;
@@ -13,6 +16,8 @@ namespace SIMSProject.WPF.Views.OwnerViews
     {
         private User _user;
         private SuggestionNotificationService _suggestionNotificationService;
+        private NotificationService _notificationService;
+        private UserService _userService;
 
         public OwnerWindow(User user)
         {
@@ -22,6 +27,8 @@ namespace SIMSProject.WPF.Views.OwnerViews
             InitializeComponent();
             DataContext = this;
             _suggestionNotificationService = new(_user);
+            _notificationService = Injector.GetService<NotificationService>();
+            _userService = Injector.GetService<UserService>();
            
             SwitchToPage(new OwnerView(user));
 
@@ -53,6 +60,11 @@ namespace SIMSProject.WPF.Views.OwnerViews
                 try
                 {
                     _suggestionNotificationService.GenerateSuggestionNotifications();
+                    if (_user is Owner owner)
+                    {
+                        owner.HasNotifications = _notificationService.GetAllUnreadByUser(_user).Count > 0;
+                        _userService.UpdateOwner(owner);
+                    }
                 }
                 catch (Exception ex) 
                 {

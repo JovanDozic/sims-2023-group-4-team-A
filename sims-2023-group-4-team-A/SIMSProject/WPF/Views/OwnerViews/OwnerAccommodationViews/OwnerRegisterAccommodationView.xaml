@@ -87,18 +87,19 @@
                 <Border Grid.Row="5" Style="{StaticResource MobileTextBoxInputBorder}">
                     <Grid>
                         <ComboBox x:Name="CbType" Style="{StaticResource MobileComboBoxInput}" 
-                              ItemsSource="{Binding AccommodationTypeSource}"
-                              SelectedItem="{Binding Type, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                                  ItemsSource="{Binding AccommodationTypeSource}"
+                                  SelectedItem="{Binding Type, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"
                                   Foreground="{DynamicResource TextColor}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Converter={StaticResource TypeConverter}}" />
+                                    <TextBlock Text="{Binding Converter={StaticResource TypeConverter}}"
+                                               Foreground="{DynamicResource TextColor}"/>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                         <TextBlock Text="{ns:Loc SelectDot}" IsHitTestVisible="False"
                                    FontSize="20" FontFamily="Open Sans" VerticalAlignment="Center"
-                                   Margin="17.5,0,0,0" Foreground="{DynamicResource CardBackgroundColor}">
+                                   Margin="17.5,0,0,0" Foreground="{DynamicResource TextColor}">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="Visibility" Value="Hidden"/>
