@@ -42,10 +42,7 @@ namespace SIMSProject.WPF.Views.OwnerViews
 
                 Loaded += loadedEventHandler;
             }
-            else
-            {
-                NavigateToPage("NavBtnHome");
-            }
+            else NavigateToPage("NavBtnHome");
         }
 
 

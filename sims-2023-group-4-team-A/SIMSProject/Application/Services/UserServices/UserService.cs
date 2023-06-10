@@ -9,10 +9,12 @@ namespace SIMSProject.Application.Services.UserServices
     public class UserService
     {
         private readonly IUserRepo _repo;
+        private IOwnerRepo _ownerRepo;
 
-        public UserService(IUserRepo repo)
+        public UserService(IUserRepo repo, IOwnerRepo ownerRepo)
         {
             _repo = repo;
+            _ownerRepo = ownerRepo;
         }
 
         public object? GetUser(string username, string password)
@@ -37,6 +39,11 @@ namespace SIMSProject.Application.Services.UserServices
                 ?? _repo.GetAllGuests().FirstOrDefault(x => x.Username == username) as object
                 ?? _repo.GetAllGuests1().FirstOrDefault(x => x.Username == username) as object
                 ?? _repo.GetAllGuides().FirstOrDefault(x => x.Username == username);
+        }
+
+        public void UpdateOwner(Owner owner)
+        {
+            _ownerRepo.Update(owner);
         }
     }
 }
