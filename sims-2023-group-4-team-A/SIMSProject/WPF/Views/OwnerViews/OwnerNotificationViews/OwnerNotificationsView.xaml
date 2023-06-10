@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
       mc:Ignorable="d" 
+      xmlns:gif="http://wpfanimatedgif.codeplex.com"
       xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
       xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
       d:DesignHeight="750" d:DesignWidth="430"
@@ -12,6 +13,8 @@
 
     <Page.Resources>
         <converters:ResourceKeyToImageSourceConverter x:Key="ResourceKeyToImageSourceConverter" />
+        <converters:BooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" Inverted="True" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" Inverted="False" />
     </Page.Resources>
 
     <Grid>
@@ -26,6 +29,32 @@
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Foreground="{DynamicResource TextColor}"/>
 
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <!--<MediaElement x:Name="LoadingAnimation" 
+                      Source="../../../Resources/Icons/spinner.gif" 
+                      LoadedBehavior="Play" 
+                      Visibility="{Binding TranslationInProgress, Converter={StaticResource BooleanToVisibilityConverter}}"
+                      Height="50"
+                          />-->
+
+            <Image gif:ImageBehavior.AnimatedSource="{DynamicResource SpinnerGif}"
+                   Visibility="{Binding TranslationInProgress, Converter={StaticResource BooleanToVisibilityConverter}}"
+                   Height="50"/>
+
+            <Label Content="Loading translations..." 
+               FontSize="20" FontWeight="SemiBold"
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Foreground="{DynamicResource TextColor}"
+               Visibility="{Binding TranslationInProgress, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+            
+
+        </StackPanel>
+        
+        
+
+
         <ListView x:Name="LstNotifications" Grid.Row="1" 
                   ItemsSource="{Binding Notifications, UpdateSourceTrigger=PropertyChanged}"
                   Background="Transparent"
@@ -36,7 +65,8 @@
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
                   SelectionChanged="LstNotifications_SelectionChanged"
-                  SelectedItem="{Binding Notification, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                  SelectedItem="{Binding Notification, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                  Visibility="{Binding TranslationInProgress, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,12.5">

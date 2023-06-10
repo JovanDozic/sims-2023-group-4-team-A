@@ -10,17 +10,41 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 {
     public class NotificationViewModel : ViewModelBase
     {
         private App App => (App)System.Windows.Application.Current;
+        private readonly HttpClient _httpClient = new();
         private User _user;
         private NotificationService _notificationService;
+        private ObservableCollection<Notification> _notifications = new();
+        private bool _translationInProgress = false;
 
-        public ObservableCollection<Notification> Notifications { get; set; } = new();
+        public ObservableCollection<Notification> Notifications
+        {
+            get => _notifications;
+            set
+            {
+                if (value == _notifications) return;
+                _notifications = value;
+                OnPropertyChanged(nameof(Notifications));
+            }
+        }
         public Notification Notification { get; set; } = new();
+        public bool TranslationInProgress
+        {
+            get => _translationInProgress;
+            set
+            {
+                if (value == _translationInProgress) return;
+                _translationInProgress = value;
+                OnPropertyChanged(nameof(TranslationInProgress));
+            }
+        }
 
         public NotificationViewModel(User user)
         {
@@ -34,15 +58,24 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private async void CheckLanguageAndLoadNotifications()
         {
             var notifications = _notificationService.GetAllUnreadByUser(_user);
+
             if (App.CurrentLanguage == "en-US")
             {
-                foreach (Notification notification in notifications)
+                TranslationInProgress = true;
+                var titles = notifications.Select(n => n.Title).ToList();
+                var descriptions = notifications.Select(n => n.Description).ToList();
+
+                var translatedTitles = await TranslateTexts(titles);
+                var translatedDescriptions = await TranslateTexts(descriptions);
+
+                for (int i = 0; i < notifications.Count; i++)
                 {
-                    notification.Title = await TranslateText(notification.Title);
-                    notification.Description = await TranslateText(notification.Description);
+                    notifications[i].Title = translatedTitles[i];
+                    notifications[i].Description = translatedDescriptions[i];
                 }
             }
-            Notifications = new(notifications);
+            Notifications = new ObservableCollection<Notification>(notifications);
+            TranslationInProgress = false;
         }
 
         public void MarkNotificationAsRead()
@@ -51,14 +84,12 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             Notifications.Remove(Notification);
         }
 
-        public async Task<string> TranslateText(string textToTranslate)
+        public async Task<List<string>> TranslateTexts(List<string> textsToTranslate)
         {
             try
             {
-                object[] body = new object[] { new { Text = textToTranslate } };
-                var requestBody = JsonConvert.SerializeObject(body);
+                var requestBody = JsonConvert.SerializeObject(textsToTranslate.Select(t => new { Text = t }));
 
-                using (var client = new HttpClient())
                 using (var request = new HttpRequestMessage())
                 {
                     request.Method = HttpMethod.Post;
@@ -67,26 +98,23 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                     request.Headers.Add("Ocp-Apim-Subscription-Key", "efe69230a4a5406bb47416313e8678de");
                     request.Headers.Add("Ocp-Apim-Subscription-Region", "westeurope");
 
-                    HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false);
+                    HttpResponseMessage response = await _httpClient.SendAsync(request).ConfigureAwait(false);
                     string result = await response.Content.ReadAsStringAsync();
 
-                    string translatedText = ExtractTextFromJson(result);
-                    MessageBox.Show(translatedText);
-                    return translatedText;
+                    return ExtractTextsFromJson(result);
                 }
             }
-            catch (Exception ex)
+            catch (HttpRequestException ex)
             {
-                MessageBox.Show("Translation failed: " + ex.Message);
-                return string.Empty;
+                // Log exception here instead of showing message box
+                return textsToTranslate;
             }
         }
 
-        public static string ExtractTextFromJson(string jsonString)
+        public static List<string> ExtractTextsFromJson(string jsonString)
         {
             var jsonArray = JArray.Parse(jsonString);
-            var text = jsonArray[0]["translations"][0]["text"].Value<string>();
-            return text;
+            return jsonArray.Select(j => j["translations"][0]["text"].Value<string>()).ToList();
         }
     }
 }

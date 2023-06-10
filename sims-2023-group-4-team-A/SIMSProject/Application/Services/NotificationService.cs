@@ -32,8 +32,10 @@ namespace SIMSProject.Application.Services
 
         public void MarkAsRead(Notification notification)
         {
-            notification.IsRead = true;
-            _repo.Update(notification);
+            _repo.Load();
+            var readNotification = _repo.GetById(notification.Id);
+            readNotification.IsRead = true;
+            _repo.Update(readNotification);
         }
 
         public bool AnyUnreadNotifications(User user)

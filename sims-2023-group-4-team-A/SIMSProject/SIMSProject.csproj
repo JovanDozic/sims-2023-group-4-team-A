@@ -64,6 +64,7 @@
     <None Remove="Resources\Icons\dark\renovation.png" />
     <None Remove="Resources\Icons\dark\right.png" />
     <None Remove="Resources\Icons\dark\share.png" />
+    <None Remove="Resources\Icons\dark\spinner.gif" />
     <None Remove="Resources\Icons\dark\star-fill.png" />
     <None Remove="Resources\Icons\dark\star-half.png" />
     <None Remove="Resources\Icons\dark\star.png" />
@@ -100,6 +101,7 @@
     <None Remove="Resources\Icons\renovation.png" />
     <None Remove="Resources\Icons\right.png" />
     <None Remove="Resources\Icons\share.png" />
+    <None Remove="Resources\Icons\spinner.gif" />
     <None Remove="Resources\Icons\star-fill.png" />
     <None Remove="Resources\Icons\star-half.png" />
     <None Remove="Resources\Icons\star.png" />
@@ -208,6 +210,7 @@
     <Resource Include="Resources\Icons\dark\renovation.png" />
     <Resource Include="Resources\Icons\dark\right.png" />
     <Resource Include="Resources\Icons\dark\share.png" />
+    <Resource Include="Resources\Icons\dark\spinner.gif" />
     <Resource Include="Resources\Icons\dark\star-fill.png" />
     <Resource Include="Resources\Icons\dark\star-half.png" />
     <Resource Include="Resources\Icons\dark\star.png" />
@@ -245,6 +248,7 @@
     <Resource Include="Resources\Icons\renovation.png" />
     <Resource Include="Resources\Icons\right.png" />
     <Resource Include="Resources\Icons\share.png" />
+    <Resource Include="Resources\Icons\spinner.gif" />
     <Resource Include="Resources\Icons\star-fill.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -378,6 +382,7 @@
     <PackageReference Include="ToastNotifications" Version="2.5.1" />
     <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
     <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>

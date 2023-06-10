@@ -54,5 +54,6 @@
     <BitmapImage x:Key="WasNotAtLocationIcon" UriSource="/Resources/Icons/was-not-at-location.png"/>
     <BitmapImage x:Key="XIcon" UriSource="/Resources/Icons/x.png"/>
 
+    <BitmapImage x:Key="SpinnerGif" UriSource="/Resources/Icons/spinner.gif"/>
 
 </ResourceDictionary>
