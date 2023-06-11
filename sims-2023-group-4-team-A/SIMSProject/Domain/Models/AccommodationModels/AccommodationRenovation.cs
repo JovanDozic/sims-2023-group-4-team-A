@@ -13,6 +13,27 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public int NumberOfDays { get; set; } = 1;
         public string Description { get; set; } = string.Empty;
         public bool IsCancelled { get; set; } = false;
+        public string FormattedStartDate
+        {
+            get => StartDate.ToString("ddd, d. MMM. yyyy.");
+        }
+        public string FormattedEndDate
+        {
+            get => EndDate.ToString("ddd, d. MMM. yyyy.");
+        }
+        public bool CanCancelRenovation
+        {
+            get => (StartDate - DateTime.Now).TotalDays > 5 && !IsCancelled;
+        }
+        public string CanCancelRenovationIcon
+        {
+            get
+            {
+                if (IsCancelled) return "None";
+                else if (EndDate < DateTime.Now) return "None";
+                return CanCancelRenovation ? "XxIcon" : "XxDisabledIcon";
+            }
+        }
 
         public AccommodationRenovation() { }
 

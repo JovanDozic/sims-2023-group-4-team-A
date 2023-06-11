@@ -285,6 +285,9 @@
   <data name="RegisterAccommodation" xml:space="preserve">
     <value>Register accommodation</value>
   </data>
+  <data name="RenovationCancelled" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
   <data name="RenovationInProgress" xml:space="preserve">
     <value>Renovation in progress</value>
   </data>

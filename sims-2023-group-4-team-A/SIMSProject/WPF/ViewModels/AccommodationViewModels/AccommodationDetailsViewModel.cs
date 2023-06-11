@@ -13,9 +13,11 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private Accommodation _accommodation = new();
         private AccommodationStatistic _statistic = new();
         private ObservableCollection<AccommodationReservation> _reservations = new();
+        private ObservableCollection<AccommodationRenovation> _renovations = new();
         private readonly AccommodationReservationService _reservationService;
         private readonly AccommodationStatisticService _statisticService;
         private readonly OwnerRatingService _ratingService;
+        private readonly AccommodationRenovationService _renovationService;
         
         public Accommodation Accommodation
         {
@@ -50,6 +52,17 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             }
         } 
 
+        public ObservableCollection<AccommodationRenovation> Renovations
+        {
+            get => _renovations;
+            set
+            {
+                if (_renovations == value) return;
+                _renovations = value;
+                OnPropertyChanged();
+            }
+        }
+
         public AccommodationDetailsViewModel(User user, Accommodation accommodation)
         {
             _user = user;
@@ -58,10 +71,12 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _reservationService = Injector.GetService<AccommodationReservationService>();
             _statisticService = Injector.GetService<AccommodationStatisticService>();
             _ratingService = Injector.GetService<OwnerRatingService>();
+            _renovationService = Injector.GetService<AccommodationRenovationService>();
 
             Reservations = new(_reservationService.GetAllFutureByAccommodationId(Accommodation.Id));
             Statistic = _statisticService.GetYearlyStatistic(accommodation, DateTime.Now.Year);
             Accommodation.Rating = _ratingService.CalculateRating(Accommodation);
+            Renovations = new(_renovationService.GetAllFutureByAccommodationId(Accommodation.Id));
         }
 
     }

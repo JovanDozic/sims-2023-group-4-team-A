@@ -32,7 +32,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
 
         public List<AccommodationRenovation> GetAllByAccommodationId(int accommodationId)
         {
-            return GetAll().FindAll(x => x.Accommodation.Id == accommodationId);
+            return GetAll().FindAll(x => x.Accommodation.Id == accommodationId).OrderByDescending(x => x.StartDate).ToList();
         }
 
         public List<AccommodationRenovation> GetAllUncanceledByAccommodationId(int accommodationId)
@@ -87,6 +87,11 @@ namespace SIMSProject.Application.Services.AccommodationServices
         {
             renovation.IsCancelled = true;
             _repo.Update(renovation);
+        }
+
+        public List<AccommodationRenovation> GetAllFutureByAccommodationId(int accommodationId)
+        {
+            return GetAllUncanceledByAccommodationId(accommodationId).FindAll(x => x.EndDate > DateTime.Now);
         }
     }
 }

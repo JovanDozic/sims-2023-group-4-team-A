@@ -183,7 +183,7 @@
                             <Style TargetType="{x:Type GridViewColumnHeader}">
                                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
                                 <Setter Property="Height" Value="35"/>
-                                <Setter Property="Background" Value="#20ffffff"/>
+                                <Setter Property="Background" Value="#10000000"/>
                                 <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
                                 <Setter Property="BorderBrush" Value="Transparent" />
                                 <Setter Property="BorderThickness" Value="0"/>
@@ -339,7 +339,8 @@
 
                     <Button x:Name="BtnAllStats"
                             HorizontalAlignment="Center" Width="385"
-                            Style="{StaticResource MobileActionSingleButtonStyle}" Click="BtnAllStats_Click">
+                            Style="{StaticResource MobileActionSingleButtonStyle}"
+                            Click="BtnAllStats_Click">
                         <TextBlock Text="{ns:Loc AllStatistics}" 
                                    VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextColor}"/>
@@ -379,7 +380,7 @@
 
                     <!-- Future renovations -->
                     <ListView x:Name="DgrRenovations" 
-                              ItemsSource="{Binding}" 
+                              ItemsSource="{Binding Renovations}" 
                               Height="Auto" 
                               FontSize="18"
                               MaxHeight="200"
@@ -388,7 +389,8 @@
                               ScrollViewer.HorizontalScrollBarVisibility="Auto"
                               ScrollViewer.CanContentScroll="False"
                               ScrollViewer.PanningMode="Both"
-                              Foreground="{DynamicResource TextColor}">
+                              Foreground="{DynamicResource TextColor}"
+                              Background="{DynamicResource BackgroundColor}">
                         <ListView.Resources>
                             <Style TargetType="{x:Type ListView}">
                                 <Setter Property="BorderBrush" Value="{DynamicResource TextColor}"/>
@@ -404,6 +406,7 @@
                                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
                                 <Setter Property="Height" Value="35"/>
                                 <Setter Property="Background" Value="#10000000"/>
+                                <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
                                 <Setter Property="BorderBrush" Value="Transparent" />
                                 <Setter Property="BorderThickness" Value="0"/>
                                 <Setter Property="IsHitTestVisible" Value="False"/>
@@ -416,9 +419,12 @@
                         </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="{ns:Loc Start}" DisplayMemberBinding="{Binding StartDate, StringFormat=\{0:dd.MMM.yy\}}" Width="120"/>
-                                <GridViewColumn Header="{ns:Loc End}" DisplayMemberBinding="{Binding EndDate, StringFormat=\{0:dd.MMM.yy\}}" Width="120"/>
-                                <GridViewColumn Header="{ns:Loc Description}" DisplayMemberBinding="{Binding}" Width="150"/>
+                                <GridViewColumn Header="{ns:Loc Start}" 
+                                                DisplayMemberBinding="{Binding StartDate, StringFormat=\{0:dd.MMM.yy\}}" Width="120"/>
+                                <GridViewColumn Header="{ns:Loc End}" 
+                                                DisplayMemberBinding="{Binding EndDate, StringFormat=\{0:dd.MMM.yy\}}" Width="120"/>
+                                <GridViewColumn Header="{ns:Loc Description}" 
+                                                DisplayMemberBinding="{Binding Description}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -437,7 +443,8 @@
                         </Button>
                         <Button x:Name="BtnAllRenovations" Grid.Column="1"
                                 HorizontalAlignment="Right"
-                                Style="{StaticResource MobileActionHalfButtonStyle}">
+                                Style="{StaticResource MobileActionHalfButtonStyle}"
+                                Click="BtnAllRenovations_Click">
                             <TextBlock Text="{ns:Loc AllRenovations}" 
                                        VerticalAlignment="Center"
                                        Foreground="{DynamicResource TextColor}"/>

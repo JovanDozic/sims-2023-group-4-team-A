@@ -66,8 +66,8 @@ namespace SIMSProject.Domain.Models.AccommodationModels
                 return "QuestionIcon";
             }
         }
-        public bool UserDownvoted { get; set; } = false;
 
+        public bool UserDownvoted { get; set; } = false;
         public string UserDownvotedIcon
         {
             get

@@ -51,7 +51,8 @@
                     HorizontalAlignment="Center" VerticalAlignment="Center">
             <Image Source="{DynamicResource BookbnbIcon}" 
                    Height="25" Margin="0,0,10,0"
-                   Style="{StaticResource IconRenderStyle}"/>
+                   Style="{StaticResource IconRenderStyle}"
+                   MouseDown="Image_MouseDown"/>
             <TextBlock Text="{ns:Loc Bookbnb}" FontSize="25" FontWeight="DemiBold" 
                        Foreground="{DynamicResource TextColor}"/>
         </StackPanel>

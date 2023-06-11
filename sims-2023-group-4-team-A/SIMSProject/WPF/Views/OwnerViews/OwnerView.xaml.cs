@@ -138,6 +138,13 @@ namespace SIMSProject.WPF.Views.OwnerViews
             storyboard.Begin(MainFrame);
         }
 
+        private void Image_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            OwnerHomeViewOld ownerHomeViewOld = new(_user);
+            ownerHomeViewOld.Show();
 
+            OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow ?? new(new User());
+            ownerWindow?.Close();
+        }
     }
 }

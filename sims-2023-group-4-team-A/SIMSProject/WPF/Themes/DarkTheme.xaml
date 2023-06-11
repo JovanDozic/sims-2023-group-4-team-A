@@ -63,5 +63,12 @@
     <BitmapImage x:Key="SerbianIcon" UriSource="/Resources/Icons/dark/serbian.png"/>
     <BitmapImage x:Key="LogOutIcon" UriSource="/Resources/Icons/dark/exit.png"/>
     <BitmapImage x:Key="DotIcon" UriSource="../../../Resources/Icons/dot.png"/>
+    
+    <BitmapImage x:Key="XxIcon" UriSource="/Resources/Icons/xx.png"/>
+    <BitmapImage x:Key="XxDisabledIcon" UriSource="/Resources/Icons/dark/xx-disabled.png"/>
+
+    <BitmapImage x:Key="TimeDeleteIcon" UriSource="/Resources/Icons/dark/time-delete.png"/>
+
+    <BitmapImage x:Key="None" UriSource="/Resources/Icons/none.png"/>
 
 </ResourceDictionary>

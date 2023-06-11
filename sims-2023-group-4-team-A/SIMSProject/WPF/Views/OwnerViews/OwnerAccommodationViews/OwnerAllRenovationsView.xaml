@@ -1,0 +1,137 @@
+﻿<Page x:Class="SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews.OwnerAllRenovationsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
+      mc:Ignorable="d" 
+          xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
+          xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
+      d:DesignHeight="1000" d:DesignWidth="430"
+      Title="All Renovations">
+
+    <Page.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" Inverted="True" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" Inverted="False" />
+        <converters:ResourceKeyToImageSourceConverter x:Key="ResourceKeyToImageSourceConverter"/>
+    </Page.Resources>
+
+    <Grid Margin="15,0,15,10">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Button x:Name="BtnBack" Grid.Row="0"
+                Style="{StaticResource BackButtonStyle}"
+                VerticalAlignment="Center"
+                Click="BtnBack_Click"
+                Foreground="{DynamicResource TextColor}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{DynamicResource BackIcon}"
+                       Style="{StaticResource BackButtonIconStyle}"/>
+                <TextBlock Text="{ns:Loc Back}" Style="{StaticResource BackButtonTextStyle}"/>
+                <TextBlock Text=" - " Style="{StaticResource BackButtonTextStyle}"/>
+                <TextBlock Text="{Binding Accommodation.Name}" Style="{StaticResource BackButtonTextStyle}"/>
+            </StackPanel>
+        </Button>
+
+        <Label Content="{ns:Loc Renovations}" Grid.Row="1"
+               FontSize="30" FontWeight="SemiBold"
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Foreground="{DynamicResource TextColor}"/>
+
+
+        <ListView x:Name="LstRenovations" Grid.Row="2" 
+                  ItemsSource="{Binding Renovations, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                  Background="Transparent"
+                  BorderThickness="0"
+                  BorderBrush="Transparent" 
+                  ScrollViewer.CanContentScroll="False"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                  Foreground="{DynamicResource TextColor}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <EventSetter Event="MouseEnter" Handler="LstRenovationsItem_MouseEnter"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,7.5"  Grid.Row="2" Height="Auto">
+                        <Border BorderBrush="Transparent" BorderThickness="0"
+                                Background="{DynamicResource CardBackgroundColor}"
+                                Padding="10"
+                                Width="385">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <!-- StartDate / EndDate -->
+                                <StackPanel Orientation="Vertical" Grid.Row="0"
+                                            Margin="0,5,0,5">
+                                    <Label Content="{ns:Loc Start}" FontSize="15"
+                                           Foreground="{DynamicResource TextColor}"/>
+                                    <TextBlock Text="{Binding FormattedStartDate}"
+                                               FontSize="18" FontWeight="SemiBold"
+                                               Margin="10,0,0,0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" Grid.Row="1"
+                                            Margin="0,5">
+                                    <Label Content="{ns:Loc End}" FontSize="15"
+                                           Foreground="{DynamicResource TextColor}"/>
+                                    <TextBlock Text="{Binding FormattedEndDate}"
+                                               FontSize="18" FontWeight="SemiBold"
+                                               Margin="10,0,0,0"/>
+                                </StackPanel>
+
+                                <!-- Description -->
+                                <StackPanel Orientation="Vertical" Grid.Row="2"
+                                            Margin="0,5">
+                                    <Label Content="{ns:Loc Description}" FontSize="15"
+                                           Foreground="{DynamicResource TextColor}"/>
+                                    <TextBlock Text="{Binding Description}"
+                                               FontSize="20" FontWeight="SemiBold"
+                                               TextWrapping="Wrap"
+                                               Margin="10,0,20,0"/>
+                                </StackPanel>
+
+                                <!-- Cancelled Label -->
+                                <StackPanel Orientation="Horizontal"
+                                            Grid.Row="3"
+                                            Visibility="{Binding IsCancelled, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Margin="10,15,0,10">
+                                    <Image Source="{DynamicResource TimeDeleteIcon}"
+                                           Style="{StaticResource IconRenderStyle}"
+                                           Height="20"/>
+                                    <TextBlock Text="{ns:Loc RenovationCancelled}"
+                                               FontSize="15"
+                                               VerticalAlignment="Center"
+                                               Margin="10,0,0,0"/>
+                                </StackPanel>
+                                
+                                <!-- Cancel Renovation Button -->
+                                <Button x:Name="BtnCancelRenovation" Grid.Row="0"
+                                        IsEnabled="{Binding CanCancelRenovation}"
+                                        Style="{StaticResource NoHoverButtonStyle}"
+                                        HorizontalAlignment="Right"
+                                        Margin="0,-17.5,20,0"
+                                        Click="BtnCancelRenovation_Click">
+                                    <Image Source="{Binding CanCancelRenovationIcon, Converter={StaticResource ResourceKeyToImageSourceConverter}}"
+                                           Style="{StaticResource IconRenderStyle}"
+                                           Height="20"/>
+                                </Button>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

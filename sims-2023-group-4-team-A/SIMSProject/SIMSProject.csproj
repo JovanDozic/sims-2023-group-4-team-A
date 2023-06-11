@@ -1,4 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿
+<Project Sdk="Microsoft.NET.Sdk">
 
 
 
@@ -75,12 +76,14 @@
     <None Remove="Resources\Icons\dark\star.png" />
     <None Remove="Resources\Icons\dark\stars.png" />
     <None Remove="Resources\Icons\dark\sun.png" />
+    <None Remove="Resources\Icons\dark\time-delete.png" />
     <None Remove="Resources\Icons\dark\trophy.png" />
     <None Remove="Resources\Icons\dark\user-fill.png" />
     <None Remove="Resources\Icons\dark\user.png" />
     <None Remove="Resources\Icons\dark\was-at-location.png" />
     <None Remove="Resources\Icons\dark\was-not-at-location.png" />
     <None Remove="Resources\Icons\dark\x.png" />
+    <None Remove="Resources\Icons\dark\xx-disabled.png" />
     <None Remove="Resources\Icons\dot.png" />
     <None Remove="Resources\Icons\down.png" />
     <None Remove="Resources\Icons\downvote-fill.png" />
@@ -102,6 +105,7 @@
     <None Remove="Resources\Icons\lock-gray.png" />
     <None Remove="Resources\Icons\logo.png" />
     <None Remove="Resources\Icons\moon.png" />
+    <None Remove="Resources\Icons\none.png" />
     <None Remove="Resources\Icons\notif-location-check.png" />
     <None Remove="Resources\Icons\notif-location-x.png" />
     <None Remove="Resources\Icons\notif-star.png" />
@@ -118,12 +122,15 @@
     <None Remove="Resources\Icons\star.png" />
     <None Remove="Resources\Icons\stars.png" />
     <None Remove="Resources\Icons\sun.png" />
+    <None Remove="Resources\Icons\time-delete.png" />
     <None Remove="Resources\Icons\trophy.png" />
     <None Remove="Resources\Icons\user-fill.png" />
     <None Remove="Resources\Icons\user.png" />
     <None Remove="Resources\Icons\was-at-location.png" />
     <None Remove="Resources\Icons\was-not-at-location.png" />
     <None Remove="Resources\Icons\x.png" />
+    <None Remove="Resources\Icons\xx-disabled.png" />
+    <None Remove="Resources\Icons\xx.png" />
     <None Remove="Resources\Images\add-renovation.png" />
     <None Remove="Resources\Images\add.png" />
 	  <None Remove="Resources\Images\cancel-renovation.png" />
@@ -234,12 +241,14 @@
     <Resource Include="Resources\Icons\dark\star.png" />
     <Resource Include="Resources\Icons\dark\stars.png" />
     <Resource Include="Resources\Icons\dark\sun.png" />
+    <Resource Include="Resources\Icons\dark\time-delete.png" />
     <Resource Include="Resources\Icons\dark\trophy.png" />
     <Resource Include="Resources\Icons\dark\user-fill.png" />
     <Resource Include="Resources\Icons\dark\user.png" />
     <Resource Include="Resources\Icons\dark\was-at-location.png" />
     <Resource Include="Resources\Icons\dark\was-not-at-location.png" />
     <Resource Include="Resources\Icons\dark\x.png" />
+    <Resource Include="Resources\Icons\dark\xx-disabled.png" />
     <Resource Include="Resources\Icons\dot.png" />
     <Resource Include="Resources\Icons\down.png" />
     <Resource Include="Resources\Icons\downvote-fill.png" />
@@ -258,6 +267,7 @@
     <Resource Include="Resources\Icons\left.png" />
     <Resource Include="Resources\Icons\location.png" />
     <Resource Include="Resources\Icons\lock-gray.png" />
+    <Resource Include="Resources\Icons\none.png" />
     <Resource Include="Resources\Icons\notif-location-check.png" />
     <Resource Include="Resources\Icons\notif-location-x.png" />
     <Resource Include="Resources\Icons\notif-star.png" />
@@ -282,12 +292,15 @@
     </Resource>
     <Resource Include="Resources\Icons\stars.png" />
     <Resource Include="Resources\Icons\sun.png" />
+    <Resource Include="Resources\Icons\time-delete.png" />
     <Resource Include="Resources\Icons\trophy.png" />
     <Resource Include="Resources\Icons\user-fill.png" />
     <Resource Include="Resources\Icons\user.png" />
     <Resource Include="Resources\Icons\was-at-location.png" />
     <Resource Include="Resources\Icons\was-not-at-location.png" />
     <Resource Include="Resources\Icons\x.png" />
+    <Resource Include="Resources\Icons\xx-disabled.png" />
+    <Resource Include="Resources\Icons\xx.png" />
     <Resource Include="Resources\Images\add-renovation.png" />
     <Resource Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

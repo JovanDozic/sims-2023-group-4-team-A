@@ -64,4 +64,10 @@
     <BitmapImage x:Key="LogOutIcon" UriSource="/Resources/Icons/exit.png"/>
     <BitmapImage x:Key="DotIcon" UriSource="../../../Resources/Icons/dot.png"/>
 
+    <BitmapImage x:Key="XxIcon" UriSource="/Resources/Icons/xx.png"/>
+    <BitmapImage x:Key="XxDisabledIcon" UriSource="/Resources/Icons/xx-disabled.png"/>
+
+    <BitmapImage x:Key="TimeDeleteIcon" UriSource="/Resources/Icons/time-delete.png"/>
+    <BitmapImage x:Key="None" UriSource="/Resources/Icons/none.png"/>
+
 </ResourceDictionary>
