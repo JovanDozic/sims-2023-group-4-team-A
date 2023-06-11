@@ -3,11 +3,12 @@ using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Model;
+using System;
 using System.Collections.ObjectModel;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 {
-    internal class OwnerAllReschedulingRequestsViewModel
+    internal class OwnerAllReschedulingRequestsViewModel : ViewModelBase
     {
         private User _user;
         private ReschedulingRequestService _requestService;
@@ -15,6 +16,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         public Accommodation Accommodation { get; set; }
 
         public ObservableCollection<ReschedulingRequest> Requests { get; set; }
+        public ReschedulingRequest Request { get; set; } = new();
 
         public OwnerAllReschedulingRequestsViewModel(User user, Accommodation accommodation)
         {
@@ -23,7 +25,13 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
             _requestService = Injector.GetService<ReschedulingRequestService>();
 
-            Requests = new(_requestService.GetAllByAccommodationId(Accommodation.Id));
+            Requests = new(_requestService.GetAllOnWaitByAccommodationId(Accommodation.Id));
+        }
+
+        internal void ReloadRequests()
+        {
+            Requests = new(_requestService.GetAllOnWaitByAccommodationId(Accommodation.Id));
+            OnPropertyChanged(nameof(Requests));
         }
     }
 }

@@ -58,7 +58,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
 
         public override string? ToString()
         {
-            return $"Forum <{Id}> for {Location} has {Comments.Count} comments. Started by user <{Comments.First().User.Id}>";
+            return $"Forum <{Id}> for {Location} has {Comments.Count} comments. Started by _user <{Comments.First().User.Id}>";
         }
     }
 }

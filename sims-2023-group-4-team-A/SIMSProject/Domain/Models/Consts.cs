@@ -8,7 +8,7 @@
         public const double SuperOwnerMinimumRating = 4.5;
 
         public const string RateGuestNotificationTitle = "Ocenite gosta!";
-        public const string RateGuestNotificationDescription = "Gost @guestUsername je @endDate napustio smeštaj @accommodation. Ostavite ocenu!";
+        public const string RateGuestNotificationDescription = "Gost @guestUsername je @endDate napustio smeštaj @_accommodation. Ostavite ocenu!";
 
         public const string ForumCreatedInOwnersLocationTitle = "Novi forum!";
         public const string ForumCreatedInOwnersLocationDescription = "Korisnik @username je kreirao forum za lokaciju @location!";

@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="AccIsAvailable" xml:space="preserve">
+    <value>Accommodation is available</value>
+  </data>
+  <data name="AccIsNotAvailable" xml:space="preserve">
+    <value>Accommodation is not available</value>
+  </data>
   <data name="Accommodation" xml:space="preserve">
     <value>Accommodation</value>
   </data>
@@ -176,6 +185,9 @@
   </data>
   <data name="Correctness" xml:space="preserve">
     <value>Owner correctness</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>Decline</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
@@ -300,6 +312,9 @@
   <data name="RatingFromGuestDot" xml:space="preserve">
     <value>Owner rating:</value>
   </data>
+  <data name="Reasoning" xml:space="preserve">
+    <value>Reasoning:</value>
+  </data>
   <data name="RegisterAccommodation" xml:space="preserve">
     <value>Register accommodation</value>
   </data>
@@ -317,6 +332,9 @@
   </data>
   <data name="RescheduledReservations" xml:space="preserve">
     <value>Rescheduled reservations</value>
+  </data>
+  <data name="ReschedulingRequest" xml:space="preserve">
+    <value>Rescheduling request</value>
   </data>
   <data name="ReschedulingRequests" xml:space="preserve">
     <value>Rescheduling requests</value>

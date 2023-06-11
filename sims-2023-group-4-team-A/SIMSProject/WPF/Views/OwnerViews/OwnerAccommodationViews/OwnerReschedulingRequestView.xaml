@@ -1,0 +1,242 @@
+﻿<Page x:Class="SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews.OwnerReschedulingRequestView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
+      mc:Ignorable="d" 
+      xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
+      xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      d:DesignHeight="750" d:DesignWidth="430"
+      Title="OwnerReschedulingRequestView">
+
+    <Page.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" Inverted="True" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" Inverted="False" />
+        <converters:ResourceKeyToImageSourceConverter x:Key="ResourceKeyToImageSourceConverter"/>
+    </Page.Resources>
+
+    <Grid Margin="15,0,15,10">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Button x:Name="BtnBack" Grid.Row="0"
+                Style="{StaticResource BackButtonStyle}"
+                VerticalAlignment="Center"
+                Click="BtnBack_Click"
+                Foreground="{DynamicResource TextColor}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{DynamicResource BackIcon}"
+                       Style="{StaticResource BackButtonIconStyle}"/>
+                <TextBlock Text="{ns:Loc Back}" Style="{StaticResource BackButtonTextStyle}"/>
+                <TextBlock Text=" - " Style="{StaticResource BackButtonTextStyle}"/>
+                <TextBlock Text="{Binding Request.Reservation.Accommodation.Name}" Style="{StaticResource BackButtonTextStyle}"/>
+                <TextBlock Text=" - " Style="{StaticResource BackButtonTextStyle}"/>
+                <TextBlock Text="{ns:Loc ReschedulingRequests}" Style="{StaticResource BackButtonTextStyle}"/>
+            </StackPanel>
+        </Button>
+
+        <Label Content="{ns:Loc ReschedulingRequest}" Grid.Row="1"
+               FontSize="30" FontWeight="SemiBold"
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Foreground="{DynamicResource TextColor}"/>
+
+
+        <ScrollViewer Grid.Row="2"
+                      VerticalScrollBarVisibility="Hidden"
+                      HorizontalScrollBarVisibility="Disabled"
+                      Height="{Binding IsInDeclineModeRowheight, UpdateSourceTrigger=PropertyChanged}"
+                      VerticalAlignment="Top">
+
+            <Border BorderThickness="0" BorderBrush="Transparent"
+                            Background="{DynamicResource CardBackgroundColor}"
+                            Margin="0,0,0,15" Width="385">
+
+                <Grid Margin="15">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Guest Name -->
+                    <StackPanel Orientation="Vertical" Grid.Row="0" 
+                            Margin="0,-5,0,5">
+                        <Label Content="{ns:Loc GuestName}" FontSize="15"
+                           Foreground="{DynamicResource TextColor}"/>
+                        <TextBlock Text="{Binding Request.Reservation.Guest.Username}"
+                               FontSize="18" FontWeight="SemiBold"
+                               Margin="10,0,0,0"
+                               Foreground="{DynamicResource TextColor}"/>
+                    </StackPanel>
+
+                    <!-- StartDates -->
+                    <StackPanel Orientation="Vertical" Grid.Row="1" 
+                            Margin="0,5,0,5">
+                        <Label Content="{ns:Loc ArrivalDot}" FontSize="15"
+                           Foreground="{DynamicResource TextColor}"/>
+                        <StackPanel Orientation="Horizontal"
+                                Margin="20,0,0,0">
+                            <Label Content="{ns:Loc OldDate}" FontSize="15"
+                               Foreground="{DynamicResource TextColor}"
+                               Width="100"/>
+                            <TextBlock Text="{Binding Request.Reservation.FormattedStartDate}"
+                                   FontSize="18"
+                                   Margin="20,0,0,0"
+                                   Foreground="{DynamicResource TextColor}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                Margin="20,0,0,0">
+                            <Label Content="{ns:Loc NewDate}" FontSize="15"
+                               FontWeight="SemiBold"
+                               Foreground="{DynamicResource TextColor}"
+                               Width="100"/>
+                            <TextBlock Text="{Binding Request.FormattedNewStartDate}"
+                                   FontSize="18" FontWeight="SemiBold"
+                                   Margin="20,0,0,0"
+                                   Foreground="{DynamicResource TextColor}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- EndDates -->
+                    <StackPanel Orientation="Vertical" Grid.Row="2" 
+                            Margin="0,5">
+                        <Label Content="{ns:Loc LeavingDot}" FontSize="15"
+                           Foreground="{DynamicResource TextColor}"/>
+                        <StackPanel Orientation="Horizontal"
+                                Margin="20,0,0,0">
+                            <Label Content="{ns:Loc OldDate}" FontSize="15"
+                               Foreground="{DynamicResource TextColor}"
+                               Width="100"/>
+                            <TextBlock Text="{Binding Request.Reservation.FormattedEndDate}"
+                                   FontSize="18"
+                                   Margin="20,0,0,0"
+                                   Foreground="{DynamicResource TextColor}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                Margin="20,0,0,0">
+                            <Label Content="{ns:Loc NewDate}" FontSize="15"
+                               FontWeight="SemiBold"
+                               Foreground="{DynamicResource TextColor}"
+                               Width="100"/>
+                            <TextBlock Text="{Binding Request.FormattedNewEndDate}"
+                                   FontSize="18" FontWeight="SemiBold"
+                                   Margin="20,0,0,0"
+                                   Foreground="{DynamicResource TextColor}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Accommodation Status label -->
+                    <StackPanel Orientation="Horizontal"
+                            Grid.Row="3" 
+                            Margin="0,5"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Visibility="{Binding IsAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Image Source="{DynamicResource CheckIcon}"
+                           Height="20"
+                           Style="{StaticResource IconRenderStyle}"/>
+                        <TextBlock Text="{ns:Loc AccIsAvailable}" 
+                               FontSize="15" TextWrapping="Wrap"
+                               Margin="10,0,0,2"
+                               Foreground="{DynamicResource TextColor}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                            Grid.Row="3" 
+                            Margin="0,5"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Visibility="{Binding IsAvailable, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                        <Image Source="{DynamicResource XIcon}"
+                           Height="20"
+                           Style="{StaticResource IconRenderStyle}"/>
+                        <TextBlock Text="{ns:Loc AccIsNotAvailable}" 
+                               FontSize="15" TextWrapping="Wrap"
+                               Margin="10,0,0,2"
+                               Foreground="{DynamicResource TextColor}"/>
+                    </StackPanel>
+
+                    <!-- Handling buttons -->
+                    <Grid Grid.Row="4" Margin="0,5,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="BtnDecline" Grid.Column="0"
+                                HorizontalAlignment="Left"
+                                Style="{StaticResource MobileActionHalfButtonStyle}"
+                                Background="{DynamicResource BackgroundColor}"
+                                Width="170"
+                                Command="{Binding DeclineRequestCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{DynamicResource XIcon}"
+                                       Height="20"
+                                       Style="{StaticResource IconRenderStyle}"/>
+                                <TextBlock Text="{ns:Loc Decline}" 
+                                           VerticalAlignment="Center"
+                                           Margin="10,0,0,0"
+                                           Foreground="{DynamicResource TextColor}"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="BtnAccept" Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                Style="{StaticResource MobileActionHalfButtonStyle}"
+                                Background="{DynamicResource BackgroundColor}"
+                                Width="170"
+                                Command="{Binding AcceptRequestCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{DynamicResource CheckIcon}"
+                                       Height="20"
+                                       Style="{StaticResource IconRenderStyle}"/>
+                                <TextBlock Text="{ns:Loc Accept}" 
+                                           VerticalAlignment="Center"
+                                           Margin="10,0,0,0"
+                                           Foreground="{DynamicResource TextColor}"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+
+                    <!-- Reasoning and send button -->
+                    <StackPanel Orientation="Vertical" Grid.Row="5" 
+                                Margin="0,5,0,0"
+                                Visibility="{Binding IsInDeclineMode, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Label Content="{ns:Loc Reasoning}" 
+                           Style="{StaticResource MobileTextBoxLabel}" 
+                           Foreground="{DynamicResource TextColor}"/>
+                        <Border Style="{StaticResource MobileTextBoxInputBorder}">
+                            <xctk:WatermarkTextBox x:Name="TxtReasoning" 
+                                                   Watermark="{ns:Loc EnterComment}"
+                                                   Grid.Row="1" 
+                                                   Style="{StaticResource MobileWatermarkTextBoxInput}"
+                                                   Background="{DynamicResource BackgroundColor}"
+                                                   Foreground="{DynamicResource TextColor}"
+                                                   Text="{Binding OwnerComment, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                        </Border>
+                        <Button x:Name="BtnSend" Grid.Row="8" 
+                                Margin="0,30,0,0"
+                                Style="{StaticResource MobileActionSingleButtonStyle}"
+                                Background="{DynamicResource BackgroundColor}"
+                                Command="{Binding SendDeclineCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{DynamicResource CheckIcon}" 
+                                       Height="17.5" Margin="0,0,10,0" 
+                                       Style="{StaticResource IconRenderStyle}"/>
+                                <TextBlock Text="{ns:Loc Send}" 
+                                           VerticalAlignment="Center" 
+                                           Margin="0,0,0,0" 
+                                           Foreground="{DynamicResource TextColor}"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </ScrollViewer>
+    </Grid>
+</Page>

@@ -29,9 +29,16 @@ namespace SIMSProject.Application.Services.AccommodationServices
             return _requestRepo.GetAll().FindAll(x => x.Reservation.Accommodation.Id == accommodationId);
         }
 
+        public List<ReschedulingRequest> GetAllOnWaitByAccommodationId(int accommodationId)
+        {
+            return _requestRepo.GetAll().FindAll(x => x.Reservation.Accommodation.Id == accommodationId && x.Status == ReschedulingRequestStatus.Waiting);
+        }
+
         public List<ReschedulingRequest> GetAllByAccommodationId(int accommodationId, ReschedulingRequestStatus status)
         {
-            return _requestRepo.GetAll().FindAll(x => x.Reservation.Accommodation.Id == accommodationId && x.Status == status);
+            return _requestRepo.GetAll().FindAll(x => x.Reservation.Accommodation.Id == accommodationId && 
+                                                      x.Status == status && 
+                                                      x.Reservation.StartDate > DateTime.Now);
         }
 
         public bool IsDateRangeAvailable(AccommodationReservation reservationToBeMoved, DateTime startDate, DateTime endDate)
@@ -50,6 +57,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
             request.Status = ReschedulingRequestStatus.Accepted;
             request.Reservation.StartDate = request.NewStartDate;
             request.Reservation.EndDate = request.NewEndDate;
+            request.OwnerComment = string.Empty;
 
             _requestRepo.Update(request);
             _reservationRepo.Update(request.Reservation);

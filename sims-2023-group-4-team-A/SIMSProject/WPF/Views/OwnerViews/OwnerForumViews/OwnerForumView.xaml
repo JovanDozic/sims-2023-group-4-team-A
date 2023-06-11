@@ -186,7 +186,6 @@
                 </StackPanel>
 
                 <!-- Comment content -->
-
                 <Border Grid.Row="1" Grid.ColumnSpan="2" 
                         Style="{StaticResource MobileTextBoxInputBorder}"
                         x:Name="TxtNewCommentBorder">

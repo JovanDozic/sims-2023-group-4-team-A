@@ -76,7 +76,7 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
 
         private void BtnReschedulingRequests_Click(object sender, RoutedEventArgs e)
         {
-            OwnerAllReschedulingRequests requestsView = new(_user, _viewModel.Accommodation);
+            OwnerAllReschedulingRequestsView requestsView = new(_user, _viewModel.Accommodation);
             OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow ?? new(_user);
             ownerWindow?.SwitchToPage(requestsView);
         }

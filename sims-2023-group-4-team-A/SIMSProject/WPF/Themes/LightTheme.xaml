@@ -5,7 +5,9 @@
     <SolidColorBrush x:Key="BackgroundColor" Color="White"/>
     <SolidColorBrush x:Key="TextColor" Color="#000000"/>
     <SolidColorBrush x:Key="CardBackgroundColor" Color="#eeeeee"/>
-
+    <SolidColorBrush x:Key="SelectedButtonBackgroundColorRed" Color="#44ff0000"/>
+    <SolidColorBrush x:Key="SelectedButtonBackgroundColorGreen" Color="#4400ff00"/>
+    
     <!-- Icon Sources -->
     <BitmapImage x:Key="BookbnbIcon" UriSource="../../../Resources/Icons/bookbnb.png"/>
     <BitmapImage x:Key="NotificationsMenuIcon" UriSource="../../../Resources/Icons/bell.png"/>
