@@ -184,7 +184,8 @@
                 </Button>
 
                 <!-- Register Button -->
-                <Button x:Name="BtnRegister" Grid.Row="17" IsEnabled="{Binding CanRegisterAccommodation}"
+                <Button x:Name="BtnRegister" Grid.Row="17" 
+                        IsEnabled="{Binding CanRegisterAccommodation}"
                         Margin="0,50,0,0"
                         Style="{StaticResource MobileActionSingleButtonStyle}"
                         Command="{Binding RegisterAccommodationCommand}">

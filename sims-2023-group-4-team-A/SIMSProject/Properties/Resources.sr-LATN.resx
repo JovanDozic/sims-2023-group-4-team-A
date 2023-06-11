@@ -183,6 +183,9 @@
   <data name="End" xml:space="preserve">
     <value>Kraj</value>
   </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Unesi komentar...</value>
+  </data>
   <data name="Forums" xml:space="preserve">
     <value>Forumi</value>
   </data>

@@ -183,6 +183,9 @@
   <data name="End" xml:space="preserve">
     <value>End</value>
   </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Enter a comment...</value>
+  </data>
   <data name="Forums" xml:space="preserve">
     <value>Forums</value>
   </data>

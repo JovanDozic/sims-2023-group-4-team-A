@@ -1,4 +1,6 @@
-﻿using SIMSProject.WPF.Languages;
+﻿using SIMSProject.Domain.Models.AccommodationModels;
+using SIMSProject.Domain.Models;
+using SIMSProject.WPF.Languages;
 using System;
 using System.Threading;
 using System.Windows;
@@ -40,5 +42,10 @@ namespace SIMSProject
             Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("sr-LATN");
             CurrentLanguage = "sr-LATN";
         }
+
+
+
+
+        
     }
 }

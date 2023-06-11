@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerForumViews"
       xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
       xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
       d:DesignHeight="1000" d:DesignWidth="430"
       Title="Forum">
@@ -109,7 +110,7 @@
                             <Button x:Name="BtnDownvoteComment" Grid.Row="0" Grid.Column="1"
                                     Visibility="{Binding WasAtLocation, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
                                     Style="{StaticResource NoHoverButtonStyle}"
-                                    Click="BtnDownvoteComment_Click">
+                                    Command="{Binding DataContext.DownvoteCommentCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{Binding Downvotes, UpdateSourceTrigger=PropertyChanged}"
                                                FontSize="17.5"
@@ -128,8 +129,7 @@
         </ListView>
 
         <!-- Add comment Button -->
-        <Button x:Name="BtnAddCommentInputForm" Grid.Row="2" 
-                IsEnabled="{Binding CanUserLeaveComment}"
+        <Button x:Name="BtnAddCommentInputForm" Grid.Row="2"
                 Visibility="{Binding CanUserLeaveComment, Converter={StaticResource BooleanToVisibilityConverter}}"
                 Margin="0,12.5,0,0"
                 Style="{StaticResource MobileActionSingleButtonStyle}"
@@ -169,7 +169,7 @@
                             Grid.ColumnSpan="2"
                             Width="385"
                             Margin="0,0,0,5">
-                    <Image Source="{Binding CommentUserIcon}"
+                    <Image Source="{Binding CommentUserIcon, Converter={StaticResource ResourceKeyToImageSourceConverter}}"
                            Style="{StaticResource IconRenderStyle}"
                            Height="17.5"/>
                     <TextBlock Text="{Binding User.Username}"
@@ -186,11 +186,19 @@
                 </StackPanel>
 
                 <!-- Comment content -->
-                <TextBox x:Name="TxtNewComment" Grid.Row="1" Grid.ColumnSpan="2"
-                         Style="{StaticResource MobileTextBoxInput}"
-                         Text="{Binding Text}"
-                         Background="{DynamicResource BackgroundColor}"
-                          Foreground="{DynamicResource TextColor}"/>
+
+                <Border Grid.Row="1" Grid.ColumnSpan="2" 
+                        Style="{StaticResource MobileTextBoxInputBorder}"
+                        x:Name="TxtNewCommentBorder">
+                    <xctk:WatermarkTextBox x:Name="TxtNewComment" 
+                                           Watermark="{ns:Loc EnterComment}"
+                                           Grid.Row="1" Grid.ColumnSpan="2"
+                                           Style="{StaticResource MobileWatermarkTextBoxInput}"
+                                           Text="{Binding Text, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                           Background="{DynamicResource BackgroundColor}"
+                                           Foreground="{DynamicResource TextColor}"
+                                           TextChanged="TxtNewComment_TextChanged"/>
+                </Border>
 
                 <!-- Action buttons -->
                 <Button x:Name="BtnCancelAddingComment" 
@@ -210,7 +218,8 @@
                 <Button x:Name="BtnAddComment"
                         Grid.Column="1" Grid.Row="3"
                         HorizontalAlignment="Center"
-                        Width="150" Background="{DynamicResource BackgroundColor}"
+                        Width="150" 
+                        Background="{DynamicResource BackgroundColor}"
                         Style="{StaticResource MobileActionHalfButtonStyle}"
                         Click="BtnAddComment_Click">
                     <StackPanel Orientation="Horizontal">
