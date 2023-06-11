@@ -35,6 +35,11 @@ namespace SIMSProject.Application.Services.AccommodationServices
             return GetAll().FindAll(x => x.Accommodation.Id == accommodationId);
         }
 
+        public List<AccommodationRenovation> GetAllUncanceled()
+        {
+            return GetAll().FindAll(x => !x.IsCancelled);
+        }
+
         public List<AccommodationRenovation> GetAllUncanceledByAccommodationId(int accommodationId)
         {
             return GetAllByAccommodationId(accommodationId).FindAll(x => !x.IsCancelled);

@@ -17,7 +17,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private ReschedulingRequestService _service;
         private ReschedulingRequest _selectedRequest = new();
         private AccommodationReservationViewModel _accommodationReservationViewModel;
-
         public ObservableCollection<ReschedulingRequest> Requests { get; set; } = new();
         public object RequestsCombo { get; private set; } = new();
         public string DisplayDate { get; set; } = string.Empty;

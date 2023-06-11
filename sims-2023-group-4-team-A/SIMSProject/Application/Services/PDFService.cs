@@ -305,11 +305,15 @@ namespace SIMSProject.Application.Services
                 dateParagraph.Alignment = Element.ALIGN_RIGHT;
                 document.Add(dateParagraph);
                 dateParagraph.SpacingBefore = 20;
-
-
                 document.Close();
+                if(File.Exists(filePath))
+                {
+                    ProcessStartInfo startinfo = new ProcessStartInfo(filePath);
+                    startinfo.UseShellExecute = true;
+                    Process.Start(startinfo);
+                    
+                }
                 return true;
-                //MessageBox.Show("PDF file generated successfully.");
             }
             catch (Exception ex)
             {

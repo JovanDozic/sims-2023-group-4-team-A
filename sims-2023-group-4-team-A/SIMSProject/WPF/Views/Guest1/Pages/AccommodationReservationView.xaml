@@ -34,7 +34,7 @@
                        FontSize="28" VerticalAlignment="Top" FontStyle="Italic"
                        TextAlignment="Center"
                    FontWeight="Bold" Margin="0,116,0,0" Height="42"/>
-            <Image Source="../Icons/chevron-left-black.png" Height="30" Width="30" Margin="918,11,76,139" />
+            <Image Source="../Icons/chevron-left-black.png" Height="30" Width="30" Margin="918,8,76,142" />
             <Button Content="Nazad" 
                     Background="Transparent"
                     BorderBrush="Transparent"
@@ -67,7 +67,7 @@
         <TextBlock Width="264" Foreground="Red" x:Name="GuestsValidation" Grid.Row="4" Grid.Column="1" FontSize="18"
                    VerticalAlignment="Top" HorizontalAlignment="Left" Margin="46,54,0,0"/>
 
-        <Button Content="Prikaži" Grid.Row="5" Click="Button_Click_Reservation" Margin="354,12,354,0" Width="317" Height="52" FontSize="28" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.RowSpan="2" >
+        <Button Content="Prikaži" Grid.Row="5" Click="Button_Click_Reservation" Margin="354,12,354,0" Width="318" Height="55" FontSize="28" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.RowSpan="2" >
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Template">

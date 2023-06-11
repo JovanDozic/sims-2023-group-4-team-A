@@ -83,7 +83,7 @@
             </Grid.ColumnDefinitions>
 
             <Image Source="../Icons/logo.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-            <Label Grid.Column="1" FontFamily="Arial"  Foreground="White" Content="Smeštarko" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="40"></Label>
+            <Label Grid.Column="1"  Foreground="White" Content="Malzahar" FontFamily="Exocet" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="40"></Label>
             <ToggleButton x:Name="ButtonNotification" Grid.Column="6" BorderThickness="1" BorderBrush="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center"
                           Height="50" Width="50" Background="#0c669f"
                           Click="Button_Click_Notification">
