@@ -4,6 +4,7 @@ using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.Views.Guest2Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -62,6 +63,8 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                     Language.SERBIAN => "Srpski",
                     Language.SPANISH => "Španski",
                     Language.FRENCH => "Francuski",
+                    Language.ITALIAN => "Italijanski",
+                    Language.GERMAN => "Nemački",
                     _ => "Engleski"
 
                 };
@@ -73,6 +76,8 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                     "Srpski" => Language.SERBIAN,
                     "Španski" => Language.SPANISH,
                     "Francuski" => Language.FRENCH,
+                    "Italijanski" => Language.ITALIAN,
+                    "Nemački" => Language.GERMAN,
                     _ => Language.ENGLISH
                 };
                 OnPropertyChanged(nameof(TourLanguage));
@@ -151,15 +156,10 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         #region Konstruktori
         public CustomTourRequestCreationViewModel(Guest2 user, NavigationService navigationService)
         {
-            TourLanguages = new()
-            {
-                "Engleski",
-                "Srpski",
-                "Francuski",
-                "Španski"
-            };
             this.NavService = navigationService;
             _user = user;
+            TourLanguages = new(Tour.GetLanguages());
+
             _customTourRequestService = Injector.GetService<CustomTourRequestService>();
             _complexTourRequestService = Injector.GetService<ComplexTourRequestService>();
             _locationService = Injector.GetService<LocationService>();
@@ -178,7 +178,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         #region Akcije
         private void GoBackExecute()
         {
-            NavService.GoBack();
+            NavService.Navigate(new MyTourRequests(_user, NavService));
         }
         private bool CanExecute_Command()
         {
@@ -191,7 +191,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             _customTourRequest.RequestStatus = RequestStatus.ONHOLD;
             _customTourRequestService.Save(_customTourRequest);
         }
-
+        
         public void LoadTourRequestsByGuestId(int guestId)
         {
             CustomTourRequests = new(_customTourRequestService.GetAllByGuestId(guestId));

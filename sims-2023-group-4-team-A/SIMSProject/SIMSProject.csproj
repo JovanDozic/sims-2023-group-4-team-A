@@ -36,6 +36,7 @@
     <None Remove="Resources\Icons\home.png" />
     <None Remove="Resources\Icons\image.png" />
     <None Remove="Resources\Icons\left.png" />
+    <None Remove="Resources\Icons\lightbulb.png" />
     <None Remove="Resources\Icons\location.png" />
     <None Remove="Resources\Icons\logo.png" />
     <None Remove="Resources\Icons\notif-location-check.png" />
@@ -54,6 +55,7 @@
     <None Remove="Resources\Icons\user.png" />
     <None Remove="Resources\Images\add-renovation.png" />
     <None Remove="Resources\Images\add.png" />
+    <None Remove="Resources\Images\back.png" />
 	  <None Remove="Resources\Images\cancel-renovation.png" />
 	  <None Remove="Resources\Images\calendar.png" />
 	  <None Remove="Resources\Images\calendar1.png" />
@@ -123,6 +125,7 @@
     <Resource Include="Resources\Icons\home.png" />
     <Resource Include="Resources\Icons\image.png" />
     <Resource Include="Resources\Icons\left.png" />
+    <Resource Include="Resources\Icons\lightbulb.png" />
     <Resource Include="Resources\Icons\location.png" />
     <Resource Include="Resources\Icons\notif-location-check.png" />
     <Resource Include="Resources\Icons\notif-location-x.png" />
@@ -150,6 +153,7 @@
     <Resource Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\back.png" />
     <Resource Include="Resources\Images\calendar1.png" />
     <Resource Include="Resources\Images\cancel-renovation.png" />
     <Resource Include="Resources\Images\checkboxlist.png">
@@ -255,6 +259,7 @@
     <PackageReference Include="ToastNotifications" Version="2.5.1" />
     <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
     <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
+    <PackageReference Include="YoutubeExplode" Version="6.2.15" />
   </ItemGroup>
 
   <ItemGroup>

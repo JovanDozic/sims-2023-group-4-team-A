@@ -1,7 +1,10 @@
 ﻿using SIMSProject.Application.Services;
+using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
+using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.ViewModels.TourViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,9 +20,9 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         #region Polja
         private User _user;
         private readonly NotificationService _service;
+        private readonly TourGuestService _tourGuestService;
         private Notification _selectedNotification = new();
         private ObservableCollection<Notification> _notifications = new();
-
         public ObservableCollection<Notification> Notifications
         {
             get => _notifications;
@@ -63,6 +66,30 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 OnPropertyChanged();
             }
         }
+        public RelayCommand ConfirmPresenceCommand { get; set; }
+        public RelayCommand RejectPresenceCommand { get; set; }
+        private bool _isYesEnabled;
+        public bool IsYesEnabled
+        {
+            get => _isYesEnabled;
+            set
+            {
+                if (value == _isYesEnabled) return;
+                _isYesEnabled = value;
+                OnPropertyChanged(nameof(IsYesEnabled));
+            }
+        }
+        private bool _isNoEnabled;
+        public bool IsNoEnabled
+        {
+            get => _isNoEnabled;
+            set
+            {
+                if (value == _isNoEnabled) return;
+                _isNoEnabled = value;
+                OnPropertyChanged(nameof(IsNoEnabled));
+            }
+        }
         #endregion
 
         #region Konstruktori
@@ -70,8 +97,15 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         {
             _user = user;
             _service = Injector.GetService<NotificationService>();
+            _tourGuestService = Injector.GetService<TourGuestService>();
+
             Notifications = new(_service.GetAllUnreadByUser(_user));
             SetButtonsState();
+            IsYesEnabled = true;
+            IsNoEnabled = true;
+
+            ConfirmPresenceCommand = new RelayCommand(ConfirmPresenceCommandExecute, CanExecute_Command);
+            RejectPresenceCommand = new RelayCommand(RejectPresenceCommandExecute, CanExecute_Command);
         }
         #endregion
 
@@ -87,6 +121,38 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             YesButtonVisibility = Visibility.Hidden;
             NoButtonVisibility = Visibility.Hidden;
         }
+        
+        private void ConfirmPresenceCommandExecute()
+        {
+            IsNoEnabled = false;
+            IsYesEnabled = false;
+            foreach (var tourGuest in GetPendingTourGuests(_user))
+            {
+                
+                ConfirmTourGuestAttendance(tourGuest);
+                _service.MarkAsRead(SelectedNotification);
+                
+            }
+        }
+        private void RejectPresenceCommandExecute()
+        {
+            IsNoEnabled = false;
+            IsYesEnabled = false;
+            _service.MarkAsRead(SelectedNotification);
+        }
+        private bool CanExecute_Command()
+        {
+            return true;
+        }
+        public List<TourGuest> GetPendingTourGuests(User user)
+        {
+            return _tourGuestService.GetAllPendingByUser(user);
+        }
+        public void ConfirmTourGuestAttendance(TourGuest tourGuest)
+        {
+            _tourGuestService.MakeGuestPresent(tourGuest);
+        }
+
         #endregion
     }
 }

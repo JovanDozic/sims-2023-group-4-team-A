@@ -166,13 +166,6 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         #region Konstruktori
         public ComplexTourRequestCreationViewModel(Guest2 user, NavigationService navigationService, ComplexTourRequest complexTourRequest = null)
         {
-            //TourLanguages = new()
-            //{
-            //    "Engleski",
-            //    "Srpski",
-            //    "Francuski",
-            //    "Španski"
-            //};
             _user = user;
             NavService = navigationService;
             TourLanguages = new(Tour.GetLanguages());
@@ -193,7 +186,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         #region Akcije
         private void GoBackExecute()
         {
-            NavService.GoBack();
+            NavService.Navigate(new MyTourRequests(_user, NavService));
         }
         private bool CanExecute_Command()
         {

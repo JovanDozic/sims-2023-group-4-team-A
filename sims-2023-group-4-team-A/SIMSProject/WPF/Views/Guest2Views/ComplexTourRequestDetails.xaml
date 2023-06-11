@@ -33,12 +33,12 @@
         <Image Grid.Row="1" Source="/Resources/Images/chevron-left-black.png" RenderOptions.BitmapScalingMode="HighQuality" />
         <Button Command="{Binding GoBack}" Grid.Column="1" Grid.Row="1" Content="Nazad" FontSize="28" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Foreground="#004e98" Cursor="Hand"/>
         <Label Grid.Row="2" Grid.RowSpan="6" Grid.Column="2" Grid.ColumnSpan="7" Background="#ebebeb"/>
-        <Label Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="4" FontSize="35" VerticalAlignment="Center" Content="Zahtev za složenu turu: " FontWeight="DemiBold"/>
-        <TextBlock Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" Text="{Binding SelectedComplexTourRequest.Id}" FontSize="35" VerticalAlignment="Center" FontWeight="DemiBold"/>
-        <Label Grid.Row="3" Grid.Column="2" FontSize="35" VerticalAlignment="Center" Content="Status: " FontWeight="DemiBold"/>
-        <TextBlock Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" Text="{Binding SelectedComplexTourRequest.Status, Converter={StaticResource RequestStatusConverter}}" FontSize="35" VerticalAlignment="Center" FontWeight="DemiBold" Width="213" Margin="115,0,0,0"/>
+        <Label Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" FontSize="35" VerticalAlignment="Center" Content="Zahtev za složenu turu: " FontWeight="Bold"/>
+        <TextBlock Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" Text="{Binding SelectedComplexTourRequest.Id}" FontSize="35" VerticalAlignment="Center" FontWeight="Bold" Margin="30,0,0,0"/>
+        <Label Grid.Row="3" Grid.Column="2" FontSize="35" VerticalAlignment="Center" Content="Status: " FontWeight="Bold"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" Text="{Binding SelectedComplexTourRequest.Status, Converter={StaticResource RequestStatusConverter}}" FontSize="35" VerticalAlignment="Center" FontWeight="Bold" Width="213" Margin="139,0,0,0"/>
 
-        <DataGrid x:Name="DgrRequests" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" FontSize="25" FontWeight="DemiBold" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=TourRequestParts, UpdateSourceTrigger=PropertyChanged}"
+        <DataGrid x:Name="DgrRequests" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" FontSize="28" FontWeight="Bold" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=TourRequestParts, UpdateSourceTrigger=PropertyChanged}" Cursor="Hand"
                   >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Location}" Header="Lokacija" Width="*"/>

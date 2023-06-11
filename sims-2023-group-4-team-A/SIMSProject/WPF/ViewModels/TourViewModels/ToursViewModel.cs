@@ -68,11 +68,30 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         private string _tourLanguage;
         public string TourLanguage
         {
-            get => _tourLanguage;
+            get
+            {
+                return _tour.TourLanguage switch
+                {
+                    Language.SERBIAN => "Srpski",
+                    Language.SPANISH => "Španski",
+                    Language.FRENCH => "Francuski",
+                    Language.ITALIAN => "Italijanski",
+                    Language.GERMAN => "Nemački",
+                    _ => "Engleski"
+
+                };
+            }
             set
             {
-                if (value == _tourLanguage) return;
-                _tourLanguage = value;
+                _tour.TourLanguage = value switch
+                {
+                    "Srpski" => Language.SERBIAN,
+                    "Španski" => Language.SPANISH,
+                    "Francuski" => Language.FRENCH,
+                    "Italijanski" => Language.ITALIAN,
+                    "Nemački" => Language.GERMAN,
+                    _ => Language.ENGLISH
+                };
                 OnPropertyChanged(nameof(TourLanguage));
             }
         }
@@ -119,9 +138,9 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         #region Akcije
         public void SearchExecute()
         {
-            TourLanguage = ConvertLanguage(TourLanguage);
+            string searchLanguage = ConvertLanguage(TourLanguage);
             LabelVisibility = Visibility.Hidden;
-            _tourService.SearchTours(LocationSearch, DurationSearch, GuestSearch, TourLanguage, Tours);
+            _tourService.SearchTours(LocationSearch, DurationSearch, GuestSearch, searchLanguage, Tours);
         }
 
         public void ReserveExecute()
@@ -134,7 +153,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             }
             LabelVisibility = Visibility.Visible;
         }
-
 
         private string ConvertLanguage(string selectedLanguage)
         {

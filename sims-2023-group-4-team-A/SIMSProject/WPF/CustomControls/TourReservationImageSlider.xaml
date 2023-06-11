@@ -23,7 +23,7 @@
     </UserControl.Resources>
     <Grid>
 
-        <Button Grid.Column="0" Style="{StaticResource SliderButtonStyle}" Click="OnPreviousButtonClick"
+        <Button Grid.Column="0" Style="{StaticResource SliderButtonStyle}" Click="OnPreviousButtonClick" Cursor="Hand"
                 HorizontalAlignment="Left" Panel.ZIndex="100">
             <Grid Height="{Binding Path=Height, ElementName=image}" Width="115" Background="Transparent">
                 <Image Source="/Resources/Images/back.png" 
@@ -37,7 +37,7 @@
                Height="{Binding Path=Height, RelativeSource={RelativeSource AncestorType=UserControl}}"
                Width="{Binding Path=Width, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
 
-        <Button Grid.Column="0" Style="{StaticResource SliderButtonStyle}" Click="OnNextButtonClick"
+        <Button Grid.Column="0" Style="{StaticResource SliderButtonStyle}" Click="OnNextButtonClick" Cursor="Hand"
                 HorizontalAlignment="Right" Panel.ZIndex="100">
             <Grid Height="{Binding Path=Height, ElementName=image}" Width="115" Background="Transparent">
                 <Image Source="/Resources/Images/next.png" 

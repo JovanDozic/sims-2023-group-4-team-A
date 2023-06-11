@@ -42,17 +42,17 @@
         <Label Grid.Row="2" Grid.RowSpan="6" Grid.Column="2" Grid.ColumnSpan="5" Background="#ebebeb"/>
         <Label Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="5" Content="Kreiraj zahtev za običnu turu" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="40" FontWeight="Bold"/>
         <Label Grid.Column="2" Grid.Row="3" Content="Lokacija:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
-        <ComboBox x:Name="CbLocation" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="4" Width="440" FontSize="25" VerticalAlignment="Center"
+        <ComboBox x:Name="CbLocation" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="4" Cursor="Hand" Width="440" FontSize="25" VerticalAlignment="Center"
                   HorizontalAlignment="Left"
                   IsTextSearchEnabled="True"
                   ItemsSource="{Binding Path=AllLocations, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path=Location, UpdateSourceTrigger=PropertyChanged}"/>
+                  SelectedItem="{Binding Path=Location, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold"/>
         <Label Grid.Column="2" Grid.Row="4" Content="Opis ture:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
-        <TextBox x:Name="Description" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="4" FontSize="28" Width="440" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        <TextBox x:Name="Description" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="4" FontSize="28" Width="440" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontWeight="Bold"/>
         <Label Grid.Column="2" Grid.Row="5" Content="Jezik:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
-        <ComboBox x:Name="CbLanguage" Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="2" FontSize="25" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center"
+        <ComboBox x:Name="CbLanguage" Cursor="Hand" Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="2" FontSize="25" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center"
                   ItemsSource="{Binding Path=TourLanguages, UpdateSourceTrigger=PropertyChanged}" 
-                  SelectedItem="{Binding Path= TourLanguage}"/>
+                  SelectedItem="{Binding Path= TourLanguage}" FontWeight="Bold"/>
         <Label Grid.Column="2" Grid.Row="6" Content="Vremenski opseg:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
         <Label Grid.Column="3" Grid.Row="6" Content="Od:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
         <DatePicker Validation.ErrorTemplate="{x:Null}" Focusable="False" Loaded="DatePicker_Loaded" x:Name="DateFrom" Grid.Row="6" Grid.Column="4"
@@ -61,20 +61,20 @@
             SelectedDate="{Binding StartDate, Mode=TwoWay}"
             HorizontalAlignment="Left"
             FontSize="22" Cursor="Hand"
-            SelectedDateChanged="DateFrom_SelectedDateChanged"/>
+            SelectedDateChanged="DateFrom_SelectedDateChanged" FontWeight="Bold"/>
         <Label Grid.Column="5" Grid.Row="6" Content="Do:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
         <DatePicker  Validation.ErrorTemplate="{x:Null}" Focusable="False" Loaded="DateTo_Loaded" x:Name="DateTo" Grid.Row="6" Grid.Column="6"
             VerticalAlignment="Center" 
             Width="150"
             SelectedDate="{Binding EndDate, Mode=TwoWay}"
             HorizontalAlignment="Left"
-            FontSize="22" Cursor="Hand" IsEnabled="{Binding ElementName=DateFrom, Path=SelectedDate, Converter={StaticResource DateToBoolConverter}}" SelectedDateChanged="DateTo_SelectedDateChanged"/>
+            FontSize="22" Cursor="Hand" IsEnabled="{Binding ElementName=DateFrom, Path=SelectedDate, Converter={StaticResource DateToBoolConverter}}" SelectedDateChanged="DateTo_SelectedDateChanged" FontWeight="Bold"/>
         <Label Grid.Column="2" Grid.Row="7" Content="Broj gostiju:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
 
-        <custom:Guest2NumericBoxInput Value="{Binding GuestCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="GuestCount" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Cursor="Hand" />
+        <custom:Guest2NumericBoxInput Value="{Binding GuestCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="GuestCount" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Cursor="Hand" FontWeight="Bold"/>
         <Button x:Name="BtnCreation" Click="CreateRequest_Click" Background="#ff6700" Grid.Column="7" Grid.Row="8" Content="Kreiraj zahtev" FontSize="32" FontWeight="Bold" Margin="0,0,15,0" Cursor="Hand"/>
-        <Label x:Name="LblCheck" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="5" Content="Sva polja moraju biti popunjena!" Visibility="Hidden" FontSize="32" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="DemiBold"/>
-        <Label x:Name="LblGuestNumber" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="5" Content="Broj gostiju ne može biti 0!" Visibility="Hidden" FontSize="32" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="DemiBold"/>
-        <Label x:Name="LblRequestCreated" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="5" Content="Zahtev uspešno kreiran!" Visibility="Hidden" FontSize="32" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="DemiBold"/>
+        <Label x:Name="LblCheck" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="5" Content="Sva polja moraju biti popunjena!" Visibility="Hidden" FontSize="32" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+        <Label x:Name="LblGuestNumber" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="5" Content="Broj gostiju ne može biti 0!" Visibility="Hidden" FontSize="32" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+        <Label x:Name="LblRequestCreated" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="5" Content="Zahtev uspešno kreiran!" Visibility="Hidden" FontSize="32" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
     </Grid>
 </Page>

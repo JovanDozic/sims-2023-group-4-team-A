@@ -2,9 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Navigation;
-using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.TourViewModels;
-using SIMSProject.WPF.Views.Guest2Views;
 
 namespace SIMSProject.View.Guest2
 {

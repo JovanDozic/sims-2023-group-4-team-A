@@ -87,6 +87,7 @@ namespace SIMSProject.WPF.Views.Guest2Views
         private readonly LocationService _locationService;
         private readonly TourService _tourService;
         private readonly TourGuestService _tourGuestService;
+        private readonly VoucherService _voucherService;
 
         public ReservationCreation(Domain.Models.UserModels.Guest2 user, Tour selectedTour)
         {
@@ -103,7 +104,9 @@ namespace SIMSProject.WPF.Views.Guest2Views
             _locationService = Injector.GetService<LocationService>();
             _tourService = Injector.GetService<TourService>();
             _tourGuestService = Injector.GetService<TourGuestService>();
+            _voucherService = Injector.GetService<VoucherService>();
 
+            _voucherService.WinVoucher(user.Id);
             AlternativeTours = new ObservableCollection<Tour>(_tourService.GetToursWithSameLocation(Tour));
             List<Location> tourLocations = _locationService.GetAll();
 

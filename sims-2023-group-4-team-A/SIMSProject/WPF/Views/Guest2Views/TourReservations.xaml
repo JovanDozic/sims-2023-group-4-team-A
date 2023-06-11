@@ -18,7 +18,7 @@
             <RowDefinition Height="150"/>
         </Grid.RowDefinitions>
         <Label Foreground="Black" Grid.Row="0" Grid.Column="2" Content="Moje rezervacije: " FontSize="40" FontWeight="Bold" HorizontalAlignment="left" VerticalAlignment="Bottom"/>
-        <DataGrid x:Name="DgrReservations" Grid.Row="1" Grid.Column="2" FontSize="28" FontWeight="Bold" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"
+        <DataGrid x:Name="DgrReservations" Grid.Row="1" Grid.Column="2" FontSize="28" FontWeight="Bold" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" Cursor="Hand"
                   ItemsSource="{Binding Path=TourReservations, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedTourReservation, UpdateSourceTrigger=PropertyChanged}" >
             <DataGrid.Columns>

@@ -1,9 +1,16 @@
-﻿using SIMSProject.Domain.Models.UserModels;
+﻿using Microsoft.TeamFoundation.Common;
+using Microsoft.TeamFoundation.TestManagement.WebApi;
+using SIMSProject.Application.Services;
+using SIMSProject.Domain.Injectors;
+using SIMSProject.Domain.Models;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.View.Guest2;
 using SIMSProject.WPF.Views;
 using SIMSProject.WPF.Views.Guest2Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Navigation;
@@ -14,6 +21,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
     {
         #region Polja
         private Guest2 _user;
+        private readonly NotificationService _service;
         public NavigationService NavService { get; set; }
         public RelayCommand NavigateToShowAndSearchToursPageCommand { get; set; }
         public RelayCommand NavigateToMyReservationsPageCommand { get; set; }
@@ -81,6 +89,9 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             _user = (Guest2)user;
             Guest2HomeView = guest2HomeView;
             NavService = navigationService;
+            _service = Injector.GetService<NotificationService>();
+
+            CheckTourPresenceNotifications();
 
             NavService.Navigate(new ShowAndSearchTours(_user, NavService));
             Button1Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff6700"));
@@ -152,6 +163,15 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             Button4Color = new SolidColorBrush(Colors.Transparent);
             Button5Color = new SolidColorBrush(Colors.Transparent);
         }
+
+        private void CheckTourPresenceNotifications()
+        {
+            if (_service.GetAllUnreadByUser(_user).FindAll(x => x.Title == "Potvrda prisustva").Count() != 0)
+            {
+                Button5Color = new SolidColorBrush(Colors.Red);
+            }
+        }
+
         #endregion
     }
 }

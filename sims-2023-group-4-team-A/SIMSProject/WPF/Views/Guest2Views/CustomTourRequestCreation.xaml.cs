@@ -1,4 +1,5 @@
-﻿using SIMSProject.Domain.Models.UserModels;
+﻿using SIMSProject.Domain.Models;
+using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.Guest2ViewModels;
 using System;
 using System.Windows;
@@ -79,6 +80,5 @@ namespace SIMSProject.WPF.Views.Guest2Views
             _viewModel.CreateRequest();
         }
 
-        
     }
 }

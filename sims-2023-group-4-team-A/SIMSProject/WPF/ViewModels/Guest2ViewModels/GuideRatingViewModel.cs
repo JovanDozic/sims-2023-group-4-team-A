@@ -136,17 +136,6 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 OnPropertyChanged(nameof(LblSuccessfullyRatedVisibility));
             }
         }
-        private Visibility _lblURLFormatVisibility;
-        public Visibility LblURLFormatVisibility
-        {
-            get => _lblURLFormatVisibility;
-            set
-            {
-                if (value == _lblURLFormatVisibility) return;
-                _lblURLFormatVisibility = value;
-                OnPropertyChanged(nameof(LblURLFormatVisibility));
-            }
-        }
         private Visibility _lblURLAddedVisibility;
         public Visibility LblURLAddedVisibility
         {
@@ -185,7 +174,6 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
 
             LblCommentRequiredVisibility = Visibility.Hidden;
             LblSuccessfullyRatedVisibility = Visibility.Hidden;
-            LblURLFormatVisibility = Visibility.Hidden;
             LblURLAddedVisibility = Visibility.Hidden;
             IsRatingEnabled = true;
 
@@ -207,13 +195,11 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 _ratingService.LeaveRating(_rating, _guideId);
                 LblCommentRequiredVisibility = Visibility.Hidden;
                 LblSuccessfullyRatedVisibility = Visibility.Visible;
-                LblURLFormatVisibility = Visibility.Hidden;
                 LblURLAddedVisibility = Visibility.Hidden;
                 IsRatingEnabled = false;
                 return;
             }
             LblCommentRequiredVisibility = Visibility.Visible;
-            LblURLFormatVisibility = Visibility.Hidden;
             LblURLAddedVisibility = Visibility.Hidden;
 
         }

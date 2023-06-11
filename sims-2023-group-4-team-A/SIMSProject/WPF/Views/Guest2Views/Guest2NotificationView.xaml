@@ -36,7 +36,7 @@
                   SelectedItem="{Binding SelectedNotification}"
                   AutoGenerateColumns="False"
                   Width="600" Margin="0,0,0,0" HorizontalAlignment="Left"
-                  IsReadOnly="True">
+                  IsReadOnly="True" Cursor="Hand">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naslov" Binding="{Binding Title}" Width="*"/>
                 <DataGridTextColumn Header="Datum kreiranja" Binding="{Binding CreationDate, Converter={StaticResource DateTimeConverter}}" Width="280" />
@@ -46,8 +46,8 @@
         <TextBlock Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding SelectedNotification.Title}" FontWeight="Bold" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Text="{Binding SelectedNotification.Description}" TextWrapping="Wrap" FontWeight="Bold" FontSize="28" HorizontalAlignment="Center" Padding="5"/>
 
-        <Button x:Name="Yes" Grid.Column="1" Grid.Row="4" Height="50" Width="105" HorizontalAlignment="Left" Margin="135,10,0,10" Content="Da" FontWeight="Bold" FontSize="40" Visibility="{Binding YesButtonVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-        <Button x:Name="No" Grid.Column="2" Grid.Row="4" Height="50" Width="105" HorizontalAlignment="Left" Margin="30,10,0,10" Content="Ne" FontWeight="Bold" FontSize="40"  Visibility="{Binding NoButtonVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        <Button x:Name="Yes" Grid.Column="1" Grid.Row="4" Height="50" Width="105" HorizontalAlignment="Left" Margin="135,10,0,10" Content="Da" FontWeight="Bold" FontSize="40" IsEnabled="{Binding IsYesEnabled}" Visibility="{Binding YesButtonVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Command="{Binding ConfirmPresenceCommand}"/>
+        <Button x:Name="No" Grid.Column="2" Grid.Row="4" Height="50" Width="105" HorizontalAlignment="Left" Margin="30,10,0,10" Content="Ne" FontWeight="Bold" FontSize="40" IsEnabled="{Binding IsNoEnabled}" Visibility="{Binding NoButtonVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Command="{Binding RejectPresenceCommand}"/>
 
     </Grid>
 </Page>
