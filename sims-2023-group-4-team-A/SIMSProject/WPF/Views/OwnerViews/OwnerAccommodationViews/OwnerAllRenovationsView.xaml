@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
       mc:Ignorable="d" 
-          xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
-          xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
+      xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
+      xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
       d:DesignHeight="1000" d:DesignWidth="430"
       Title="All Renovations">
 

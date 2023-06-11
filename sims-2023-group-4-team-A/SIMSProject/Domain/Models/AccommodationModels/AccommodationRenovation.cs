@@ -64,5 +64,10 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             IsCancelled = bool.Parse(values[i++]);
         }
 
+        public override string ToString()
+        {
+            return $"{Accommodation} - {StartDate.ToString("dd.MM.yyyy")} - {EndDate.ToString("dd.MM.yyyy")}";
+        }
+
     }
 }

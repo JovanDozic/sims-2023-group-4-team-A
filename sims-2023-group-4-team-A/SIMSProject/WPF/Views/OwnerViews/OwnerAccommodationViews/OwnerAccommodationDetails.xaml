@@ -436,7 +436,7 @@
                         </Grid.ColumnDefinitions>
                         <Button x:Name="BtnScheduleRenovation" Grid.Column="0"
                                 HorizontalAlignment="Left"
-                                Style="{StaticResource MobileActionHalfButtonStyle}">
+                                Style="{StaticResource MobileActionHalfButtonStyle}" Click="BtnScheduleRenovation_Click">
                             <TextBlock Text="{ns:Loc ScheduleRenovation}" 
                                        VerticalAlignment="Center"
                                        Foreground="{DynamicResource TextColor}"/>

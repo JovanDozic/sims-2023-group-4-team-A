@@ -27,6 +27,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public AccommodationRating Rating { get; set; } = new();
         public bool IsOwnerSuper => Owner.Role == UserRole.SuperOwner;
         public string ToStringSearchable { get => $"{Type} {Name} {Location} {GetType(Type)}"; }
+        public string NameAndLocation { get => $"{Name} ({Location})"; }
 
         public Accommodation()
         {

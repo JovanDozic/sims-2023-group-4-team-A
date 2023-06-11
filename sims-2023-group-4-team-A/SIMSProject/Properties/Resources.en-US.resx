@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accommodation" xml:space="preserve">
+    <value>Accommodation</value>
+  </data>
   <data name="AddAccommodation" xml:space="preserve">
     <value>Add accommodation</value>
   </data>
@@ -177,6 +180,12 @@
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
+  <data name="DescriptionDot" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="DescriptionDotDot" xml:space="preserve">
+    <value>Description...</value>
+  </data>
   <data name="DescriptionWatermark" xml:space="preserve">
     <value>House with a view from...</value>
   </data>
@@ -185,6 +194,9 @@
   </data>
   <data name="EnterComment" xml:space="preserve">
     <value>Enter a comment...</value>
+  </data>
+  <data name="ExpectedNumberOfDays" xml:space="preserve">
+    <value>Expected number of days:</value>
   </data>
   <data name="Forums" xml:space="preserve">
     <value>Forums</value>
@@ -312,8 +324,17 @@
   <data name="ScheduleRenovation" xml:space="preserve">
     <value>Schedule renovation</value>
   </data>
+  <data name="SchedulingRenovation" xml:space="preserve">
+    <value>Schedule a renovation</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
+  </data>
+  <data name="SearchDates" xml:space="preserve">
+    <value>Search dates</value>
+  </data>
+  <data name="SelectDate" xml:space="preserve">
+    <value>Select date:</value>
   </data>
   <data name="SelectDot" xml:space="preserve">
     <value>Select...</value>

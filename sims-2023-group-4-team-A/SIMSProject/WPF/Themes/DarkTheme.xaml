@@ -70,5 +70,8 @@
     <BitmapImage x:Key="TimeDeleteIcon" UriSource="/Resources/Icons/dark/time-delete.png"/>
 
     <BitmapImage x:Key="None" UriSource="/Resources/Icons/none.png"/>
+    <BitmapImage x:Key="SearchIcon" UriSource="/Resources/Icons/dark/search.png"/>
+
+
 
 </ResourceDictionary>

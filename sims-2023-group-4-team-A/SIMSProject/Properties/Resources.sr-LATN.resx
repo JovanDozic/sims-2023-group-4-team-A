@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accommodation" xml:space="preserve">
+    <value>Smeštaj</value>
+  </data>
   <data name="AddAccommodation" xml:space="preserve">
     <value>Dodaj smeštaj</value>
   </data>
@@ -177,14 +180,23 @@
   <data name="Description" xml:space="preserve">
     <value>Opis</value>
   </data>
+  <data name="DescriptionDot" xml:space="preserve">
+    <value>Opis:</value>
+  </data>
+  <data name="DescriptionDotDot" xml:space="preserve">
+    <value>Opis...</value>
+  </data>
   <data name="DescriptionWatermark" xml:space="preserve">
     <value>Smeštaj sa pogledom sa...</value>
   </data>
   <data name="End" xml:space="preserve">
-    <value>Kraj</value>
+    <value>Kraj:</value>
   </data>
   <data name="EnterComment" xml:space="preserve">
     <value>Unesi komentar...</value>
+  </data>
+  <data name="ExpectedNumberOfDays" xml:space="preserve">
+    <value>Predviđeni broj dana:</value>
   </data>
   <data name="Forums" xml:space="preserve">
     <value>Forumi</value>
@@ -312,8 +324,17 @@
   <data name="ScheduleRenovation" xml:space="preserve">
     <value>Zakaži renoviranje</value>
   </data>
+  <data name="SchedulingRenovation" xml:space="preserve">
+    <value>Zakaži renoviranje</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Pretraga</value>
+  </data>
+  <data name="SearchDates" xml:space="preserve">
+    <value>Pretraži termine</value>
+  </data>
+  <data name="SelectDate" xml:space="preserve">
+    <value>Izaberi termin:</value>
   </data>
   <data name="SelectDot" xml:space="preserve">
     <value>Izaberite...</value>
@@ -328,7 +349,7 @@
     <value>Prikaži sve</value>
   </data>
   <data name="Start" xml:space="preserve">
-    <value>Početak</value>
+    <value>Početak:</value>
   </data>
   <data name="Statistic" xml:space="preserve">
     <value>Statistika</value>

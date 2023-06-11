@@ -18,5 +18,10 @@ namespace SIMSProject.Domain.Models
         {
 
         }
+
+        public override string ToString()
+        {
+            return FormattedDateRange;
+        }
     }
 }

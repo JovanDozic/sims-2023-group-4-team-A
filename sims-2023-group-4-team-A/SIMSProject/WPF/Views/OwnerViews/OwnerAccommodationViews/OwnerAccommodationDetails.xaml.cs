@@ -2,6 +2,7 @@
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -56,9 +57,21 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
 
         private void BtnAllRenovations_Click(object sender, RoutedEventArgs e)
         {
-            OwnerAllRenovationsView allRenovationsView = new(_user, _viewModel.Accommodation);
+            OwnerAllRenovationsView allRenovationsView = new(_user, _viewModel.Accommodation, this);
             OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow ?? new(_user);
             ownerWindow?.SwitchToPage(allRenovationsView);
+        }
+
+        private void BtnScheduleRenovation_Click(object sender, RoutedEventArgs e)
+        {
+            OwnerScheduleRenovationView scheduleRenovationView = new(_user, _viewModel.Accommodation, this);
+            OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow ?? new(_user);
+            ownerWindow?.SwitchToPage(scheduleRenovationView);
+        }
+
+        internal void ReloadRenovations()
+        {
+            _viewModel.ReloadRenovations();
         }
     }
 }

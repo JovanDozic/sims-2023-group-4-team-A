@@ -15,13 +15,13 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
 
 
 
-        public OwnerAllRenovationsView(User user, Accommodation accommodation)
+        public OwnerAllRenovationsView(User user, Accommodation accommodation, OwnerAccommodationDetails detailsView)
         {
             InitializeComponent();
             _user = user;
 
 
-            _viewModel = new OwnerAllRenovationsViewModel(_user, accommodation);
+            _viewModel = new OwnerAllRenovationsViewModel(_user, accommodation, detailsView);
         
             DataContext = _viewModel;
 

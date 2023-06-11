@@ -1,0 +1,191 @@
+﻿<Page x:Class="SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews.OwnerScheduleRenovationView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
+      mc:Ignorable="d" 
+      xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
+      xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      d:DesignHeight="750" d:DesignWidth="430"
+      Title="Schedule Renovation">
+
+    <Page.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" Inverted="True" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" Inverted="False" />
+        <converters:ResourceKeyToImageSourceConverter x:Key="ResourceKeyToImageSourceConverter"/>
+    </Page.Resources>
+
+    <Grid Margin="15,0,15,10">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Button x:Name="BtnBack" Grid.Row="0"
+                Style="{StaticResource BackButtonStyle}"
+                VerticalAlignment="Center"
+                Click="BtnBack_Click"
+                Foreground="{DynamicResource TextColor}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{DynamicResource BackIcon}"
+                       Style="{StaticResource BackButtonIconStyle}"/>
+                <TextBlock Text="{ns:Loc Back}" Style="{StaticResource BackButtonTextStyle}"/>
+                <TextBlock Text=" - " Style="{StaticResource BackButtonTextStyle}"/>
+                <TextBlock Text="{Binding Accommodation.Name}" Style="{StaticResource BackButtonTextStyle}"/>
+            </StackPanel>
+        </Button>
+
+        <Label Content="{ns:Loc SchedulingRenovation}" Grid.Row="1"
+               FontSize="30" FontWeight="SemiBold"
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Foreground="{DynamicResource TextColor}"/>
+
+
+        <ScrollViewer Grid.Row="2" 
+                      HorizontalScrollBarVisibility="Disabled" 
+                      VerticalScrollBarVisibility="Hidden">
+
+            <Grid Height="auto" Margin="0,0,0,50">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Accommodation Name -->
+                <Label Grid.Row="0" Content="{ns:Loc Accommodation}" 
+                       Style="{StaticResource MobileTextBoxLabel}" 
+                       Foreground="{DynamicResource TextColor}"/>
+                <Border Grid.Row="1" Style="{StaticResource MobileTextBoxInputBorder}">
+                    <xctk:WatermarkTextBox Style="{StaticResource MobileWatermarkTextBoxInput}"
+                                           Text="{Binding Accommodation.NameAndLocation, Mode=OneTime}" 
+                                           IsReadOnly="True"/>
+                </Border>
+
+                <!-- StartDate -->
+                <Label Grid.Row="2" Content="{ns:Loc Start}" Style="{StaticResource MobileTextBoxLabel}" Foreground="{DynamicResource TextColor}"/>
+                <Border Grid.Row="3" Style="{StaticResource MobileTextBoxInputBorder}">
+                    <DatePicker Style="{StaticResource MobileDatePickerInput}"
+                                Text="{Binding StartDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}"/>
+                </Border>
+
+                <!-- StartDate -->
+                <Label Grid.Row="4" Content="{ns:Loc End}" Style="{StaticResource MobileTextBoxLabel}" Foreground="{DynamicResource TextColor}"/>
+                <Border Grid.Row="5" Style="{StaticResource MobileTextBoxInputBorder}">
+                    <DatePicker Style="{StaticResource MobileDatePickerInput}"
+                                Text="{Binding EndDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}"/>
+                </Border>
+
+                <!-- Expected number of days -->
+                <Label Grid.Row="6" Content="{ns:Loc ExpectedNumberOfDays}" Style="{StaticResource MobileTextBoxLabel}" Foreground="{DynamicResource TextColor}"/>
+                <Border Grid.Row="7" Style="{StaticResource MobileTextBoxInputBorder}">
+                    <xctk:WatermarkTextBox Watermark="3" 
+                                           Style="{StaticResource MobileWatermarkTextBoxInput}"
+                                           Text="{Binding NumberOfDays, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
+                </Border>
+
+                <!-- Search dates -->
+                <Button x:Name="BtnSearchDates" Grid.Row="8" 
+                        Margin="0,30,0,0"
+                        Style="{StaticResource MobileActionSingleButtonStyle}"
+                        Command="{Binding FindDatesCommand}"
+                        IsEnabled="{Binding CanBtnFindDates}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{DynamicResource SearchIcon}" 
+                               Height="17.5" Margin="0,0,10,0" 
+                               Style="{StaticResource IconRenderStyle}"/>
+                        <TextBlock Text="{ns:Loc SearchDates}" 
+                                   VerticalAlignment="Center" 
+                                   Margin="0,0,0,0" 
+                                   Foreground="{DynamicResource TextColor}"/>
+                    </StackPanel>
+                </Button>
+                
+                <!-- Dates and description form -->
+                <Grid Grid.Row="9"
+                      Margin="0,20,0,0"
+                      Visibility="{Binding DatesFound, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Content="{ns:Loc SelectDate}" Style="{StaticResource MobileTextBoxLabel}" Foreground="{DynamicResource TextColor}"/>
+                    <Border Grid.Row="1" Style="{StaticResource MobileTextBoxInputBorder}">
+                        <Grid>
+                            <ComboBox x:Name="CbAvailableDates" 
+                                      Style="{StaticResource MobileComboBoxInput}" 
+                                      ItemsSource="{Binding AvailableDates}"
+                                      SelectedItem="{Binding SelectedDateRange, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                                      SelectedIndex="{Binding SelectedDateRangeIndex, UpdateSourceTrigger=PropertyChanged}"
+                                      Foreground="{DynamicResource TextColor}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}"
+                                                   Foreground="{DynamicResource TextColor}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <TextBlock Text="{ns:Loc SelectDot}" IsHitTestVisible="False"
+                                       FontSize="20" FontFamily="Open Sans" VerticalAlignment="Center"
+                                       Margin="17.5,0,0,0" Foreground="{DynamicResource TextColor}">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=CbAvailableDates, Path=SelectedItem}" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                    </Border>
+
+                    <!-- Description -->
+                    <Label Grid.Row="2" Content="{ns:Loc DescriptionDot}" Style="{StaticResource MobileTextBoxLabel}" Foreground="{DynamicResource TextColor}"/>
+                    <Border Grid.Row="3" Style="{StaticResource MobileTextBoxInputBorder}">
+                        <xctk:WatermarkTextBox Watermark="{ns:Loc DescriptionDotDot}" 
+                                               Style="{StaticResource MobileWatermarkTextBoxInput}"
+                                               Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                    </Border>
+
+                    <!-- Schedule renovation -->
+                    <Button x:Name="BtnScheduleRenovation" Grid.Row="8" 
+                            Margin="0,30,0,0"
+                            Style="{StaticResource MobileActionSingleButtonStyle}"
+                            Command="{Binding ScheduleRenovationCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{DynamicResource CheckIcon}" 
+                               Height="17.5" Margin="0,0,10,0" 
+                               Style="{StaticResource IconRenderStyle}"/>
+                            <TextBlock Text="{ns:Loc ScheduleRenovation}" 
+                                   VerticalAlignment="Center" 
+                                   Margin="0,0,0,0" 
+                                   Foreground="{DynamicResource TextColor}"/>
+                        </StackPanel>
+                    </Button>
+
+                </Grid>
+
+            </Grid>
+        </ScrollViewer>
+
+    </Grid>
+</Page>

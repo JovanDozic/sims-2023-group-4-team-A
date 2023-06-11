@@ -68,6 +68,7 @@
     <None Remove="Resources\Icons\dark\renovation-clock.png" />
     <None Remove="Resources\Icons\dark\renovation.png" />
     <None Remove="Resources\Icons\dark\right.png" />
+    <None Remove="Resources\Icons\dark\search.png" />
     <None Remove="Resources\Icons\dark\serbian.png" />
     <None Remove="Resources\Icons\dark\share.png" />
     <None Remove="Resources\Icons\dark\spinner.gif" />
@@ -114,6 +115,7 @@
     <None Remove="Resources\Icons\renovation-clock.png" />
     <None Remove="Resources\Icons\renovation.png" />
     <None Remove="Resources\Icons\right.png" />
+    <None Remove="Resources\Icons\search.png" />
     <None Remove="Resources\Icons\serbian.png" />
     <None Remove="Resources\Icons\share.png" />
     <None Remove="Resources\Icons\spinner.gif" />
@@ -233,6 +235,7 @@
     <Resource Include="Resources\Icons\dark\renovation-clock.png" />
     <Resource Include="Resources\Icons\dark\renovation.png" />
     <Resource Include="Resources\Icons\dark\right.png" />
+    <Resource Include="Resources\Icons\dark\search.png" />
     <Resource Include="Resources\Icons\dark\serbian.png" />
     <Resource Include="Resources\Icons\dark\share.png" />
     <Resource Include="Resources\Icons\dark\spinner.gif" />
@@ -278,6 +281,7 @@
     <Resource Include="Resources\Icons\renovation-clock.png" />
     <Resource Include="Resources\Icons\renovation.png" />
     <Resource Include="Resources\Icons\right.png" />
+    <Resource Include="Resources\Icons\search.png" />
     <Resource Include="Resources\Icons\serbian.png" />
     <Resource Include="Resources\Icons\share.png" />
     <Resource Include="Resources\Icons\spinner.gif" />
