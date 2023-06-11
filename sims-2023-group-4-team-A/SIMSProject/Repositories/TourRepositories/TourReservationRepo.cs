@@ -70,7 +70,7 @@ namespace SIMSProject.Repositories.TourRepositories
 
         public void Update(TourReservation tourReservation)
         {
-            TourReservation tourReservationToUpdate = GetById(tourReservation.Id) ?? throw new Exception("Updating tour reservation failed!");
+            TourReservation tourReservationToUpdate = GetById(tourReservation.Id) ?? throw new Exception("Updating tour Reservation failed!");
             int index = _tourReservations.IndexOf(tourReservationToUpdate);
             _tourReservations[index] = tourReservation;
             _fileHandler.Save(_tourReservations);

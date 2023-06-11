@@ -20,7 +20,7 @@ using System.Windows.Shapes;
 namespace SIMSProject.WPF.Views.Guest1.Pages
 {
     /// <summary>
-    /// Interaction logic for OwnerRating.xaml
+    /// Interaction logic for Rating.xaml
     /// </summary>
     public partial class OwnerRating : Page
     {

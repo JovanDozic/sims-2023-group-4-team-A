@@ -71,7 +71,7 @@ namespace SIMSProject.Repositories.AccommodationRepositories
 
         public void Update(AccommodationReservation reservation)
         {
-            AccommodationReservation reservationToUpdate = GetById(reservation.Id) ?? throw new Exception("Updating _accommodation reservation failed!");
+            AccommodationReservation reservationToUpdate = GetById(reservation.Id) ?? throw new Exception("Updating Accommodation Reservation failed!");
             int index = _reservations.IndexOf(reservationToUpdate);
             _reservations[index] = reservation;
             _fileHandler.Save(_reservations);

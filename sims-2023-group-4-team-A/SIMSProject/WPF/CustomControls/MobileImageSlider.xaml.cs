@@ -60,6 +60,8 @@ namespace SIMSProject.WPF.CustomControls
             currentImageIndex--;
             if (currentImageIndex < 0)
             {
+                if (ImageSource is null) return;
+                if (ImageSource.Count == 0) return;
                 currentImageIndex = ImageSource.Count - 1;
             }
 

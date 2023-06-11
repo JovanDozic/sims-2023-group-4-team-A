@@ -80,5 +80,12 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
             OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow ?? new(_user);
             ownerWindow?.SwitchToPage(requestsView);
         }
+
+        private void BtnAllRatings_Click(object sender, RoutedEventArgs e)
+        {
+            OwnerAllOwnerRatingsView ratingsView = new(_user, _viewModel.Accommodation);
+            OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow ?? new(_user);
+            ownerWindow?.SwitchToPage(ratingsView);
+        }
     }
 }

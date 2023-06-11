@@ -21,9 +21,9 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public string ReservationDetails { get; set; } = string.Empty;
         public double OwnerRating { get; set; } = 0;
         public double GuestRating { get; set; } = 0;
-        public string OwnerRatingString { get => OwnerRated ? Math.Round(OwnerRating, 2).ToString() : "-"; }
+        public string OwnerRatingString { get => OwnerRated && !DisplayOwnerRatingNotAvailable ? Math.Round(OwnerRating, 2).ToString() : "-"; }
         public string GuestRatingString { get => GuestRated ? Math.Round(GuestRating, 2).ToString() : "-"; }
-        public bool IsInFuture { get => StartDate > DateTime.Now; }
+        public bool IsInFuture { get => StartDate > DateTime.Now || EndDate > DateTime.Now; }
         public string FormattedStartDate
         {
             get => StartDate.ToString("ddd, d. MMM. yyyy.");
@@ -32,6 +32,44 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         {
             get => EndDate.ToString("ddd, d. MMM. yyyy.");
         }
+
+
+        // Nove kontrolne promenjive za HCI
+
+        public bool DisplayInFuture
+        {
+            get
+            {
+                return StartDate > DateTime.Now || EndDate > DateTime.Now;
+            }
+        }
+
+        public bool DisplayOwnerRatingNotAvailable
+        {
+            get
+            {
+                return !IsInFuture && (OwnerRated == true && (GuestRated == false && EndDate.AddDays(Consts.GuestRatingDeadline) >= DateTime.Now));
+            }
+        }
+
+        public bool DisplayRating
+        {
+            get
+            {
+                return !IsInFuture && (OwnerRated == true && (GuestRated == true || EndDate.AddDays(Consts.GuestRatingDeadline) < DateTime.Now));
+            }
+        }
+
+        public bool DisplayCanRateGuest
+        {
+            get
+            {
+                return !IsInFuture && (GuestRated == false && EndDate.AddDays(Consts.GuestRatingDeadline) >= DateTime.Now);
+            }
+        }
+
+
+
 
         public AccommodationReservation()
         {

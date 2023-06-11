@@ -309,7 +309,8 @@
 
                     <Button x:Name="BtnAllRatings"
                             HorizontalAlignment="Center" Width="385"
-                            Style="{StaticResource MobileActionSingleButtonStyle}">
+                            Style="{StaticResource MobileActionSingleButtonStyle}"
+                            Click="BtnAllRatings_Click">
                         <TextBlock Text="{ns:Loc AllRatings}" 
                                    VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextColor}"/>

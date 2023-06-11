@@ -121,7 +121,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _ownerRatingService = Injector.GetService<OwnerRatingService>();
             _notificationService = Injector.GetService<NotificationService>();
 
-            Reservations = LoadUncanceledReservations(); // TODO: a brate ne moze ovo ovde
+            Reservations = LoadUncanceledReservations();
             DateBegin = DateTime.Today.Date;
             DateEnd = DateTime.Today.Date.AddDays(1);
         }

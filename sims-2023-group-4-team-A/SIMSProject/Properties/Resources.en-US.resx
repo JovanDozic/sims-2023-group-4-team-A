@@ -222,6 +222,9 @@
   <data name="GuestName" xml:space="preserve">
     <value>Guest name:</value>
   </data>
+  <data name="GuestRating" xml:space="preserve">
+    <value>Guest rating</value>
+  </data>
   <data name="Kindness" xml:space="preserve">
     <value>Kindness</value>
   </data>
@@ -305,6 +308,9 @@
   </data>
   <data name="OutOf5" xml:space="preserve">
     <value>out of 5</value>
+  </data>
+  <data name="Rate" xml:space="preserve">
+    <value>Rate</value>
   </data>
   <data name="RatingForGuestDot" xml:space="preserve">
     <value>Guest rating:</value>

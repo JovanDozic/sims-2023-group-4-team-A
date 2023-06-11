@@ -222,6 +222,9 @@
   <data name="GuestName" xml:space="preserve">
     <value>Ime gosta:</value>
   </data>
+  <data name="GuestRating" xml:space="preserve">
+    <value>Recenzija gosta</value>
+  </data>
   <data name="Kindness" xml:space="preserve">
     <value>Ljubaznost</value>
   </data>
@@ -305,6 +308,9 @@
   </data>
   <data name="OutOf5" xml:space="preserve">
     <value>od 5</value>
+  </data>
+  <data name="Rate" xml:space="preserve">
+    <value>Oceni</value>
   </data>
   <data name="RatingForGuestDot" xml:space="preserve">
     <value>Recenzija za gosta:</value>

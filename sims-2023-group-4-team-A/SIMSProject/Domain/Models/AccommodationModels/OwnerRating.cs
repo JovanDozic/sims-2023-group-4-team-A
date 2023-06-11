@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Serializer;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -11,7 +12,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         public int CleanlinessRating { get; set; } = 1;
         public int OwnerCorrectness { get; set; } = 1;
         public int Kindness { get; set; } = 1;
-        public double Overall { get => CalculateOverall(); set { } }
+        public double Overall { get => Math.Round(CalculateOverall(), 2); set { } }
         public string Comment { get; set; } = string.Empty;
         public List<string> ImageURLs { get; set; } = new();
         public string ImageURLsCSV { get; set; } = string.Empty;

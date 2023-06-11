@@ -11,16 +11,14 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
     public partial class OwnerAllReservationsView : Page, INavigationService
     {
         private User _user;
-        private AccommodationReservationViewModel _viewModel;
+        private OwnerAllReservationsViewModel _viewModel;
 
         public OwnerAllReservationsView(User user, Accommodation accommodation)
         {
             InitializeComponent();
             _user = user;
-            _viewModel = new(_user, accommodation);
+            _viewModel = new(_user, accommodation, this);
             DataContext = _viewModel;
-
-            _viewModel.LoadReservationsByAccommodation();
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
@@ -35,7 +33,6 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
 
         private void BtnViewOwnerRating_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Videces posle al evo ovo:\n" + _viewModel.SelectedReservation.ToString());
         }
 
         private void BtnReservationInFuture_Click(object sender, RoutedEventArgs e)
@@ -44,6 +41,19 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
             PopupReservationInFuture.HorizontalOffset = mousePosition.X - 20;
             PopupReservationInFuture.VerticalOffset = mousePosition.Y - 10;
             PopupReservationInFuture.IsOpen = true;
+        }
+
+        private void LstReservationsItem_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ListViewItem listViewItem = sender as ListViewItem ?? throw new System.Exception("List item not found.");
+            AccommodationReservation? reservation = listViewItem.DataContext as AccommodationReservation;
+            _viewModel.HoveredReservation = reservation;
+        }
+
+        private void BtnOwnerRatingNotAvailable_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO: Popup like one above
+
         }
     }
 }
