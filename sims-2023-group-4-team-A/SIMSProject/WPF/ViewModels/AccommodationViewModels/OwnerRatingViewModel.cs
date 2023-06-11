@@ -13,17 +13,16 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
     {
         private readonly User _user;
         private OwnerRating _rating = new();
-        private RenovationSuggestion _renovation = new();
         private OwnerRatingService _ratingService;
         private AccommodationReservationService _reservationService;
-        private RenovationSuggestionService _suggestionService;
         private Accommodation _accommodation = new();
+
         private string _selectedImageFile = string.Empty;
+
         private string _ownerNameTB = string.Empty;
 
         public ObservableCollection<AccommodationReservation> Reservations { get; set; } = new();
         public object ReservationsCombo { get; private set; } = new();
-
         public string OwnerNameTextBlock
         {
             get => _ownerNameTB;
@@ -170,7 +169,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _user = user;
             _ratingService = Injector.GetService<OwnerRatingService>();
             _reservationService = Injector.GetService<AccommodationReservationService>();
-            _suggestionService = Injector.GetService<RenovationSuggestionService>();
             Reservation = reservation;
             LoadRating();
         }

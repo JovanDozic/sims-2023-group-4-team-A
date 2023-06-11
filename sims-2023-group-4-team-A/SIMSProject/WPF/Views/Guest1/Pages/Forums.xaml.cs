@@ -1,4 +1,5 @@
 ﻿using SIMSProject.Domain.Models;
+using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
 using System;
@@ -42,7 +43,9 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
         {
             if (MyForums.SelectedItem != null)
             {
+                Forum duplicate = new Forum(_viewModel.SelectedForum);
                 NavigationService.Navigate(new ForumView(_user, _viewModel.SelectedForum));
+                MyForums.SelectedItem = null;
             }
         }
 
@@ -50,7 +53,9 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
         {
             if (AllForums.SelectedItem != null)
             {
-                NavigationService.Navigate(new ForumView(_user, _viewModel.SelectedForum));
+                Forum duplicate = new Forum(_viewModel.SelectedForum);
+                NavigationService.Navigate(new ForumView(_user, duplicate));
+                AllForums.SelectedItem = null;
             }
         }
 

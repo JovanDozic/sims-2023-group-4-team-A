@@ -113,7 +113,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }
         }
-
         public GuestRatingViewModel(User user, AccommodationReservation reservation)
         {
             _user = user;

@@ -19,6 +19,16 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         {
         }
 
+        public Forum(Forum original)
+        {
+            Id = original.Id;
+            Location = original.Location;
+            Comments = original.Comments;
+            CreationDate = original.CreationDate;
+            IsUseful = original.IsUseful;
+            IsClosed = original.IsClosed;
+        }
+
         public static string CommentsToCSV(List<Comment> comments)
         {
             return comments.Count > 0 ? string.Join(",", comments.Select(x => x.Id)) : string.Empty;

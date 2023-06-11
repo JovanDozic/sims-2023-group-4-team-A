@@ -42,7 +42,6 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             }
                                 
         }
-
         private void LocationsSelection(object sender, SelectionChangedEventArgs e)
         {
             if (sender != null)

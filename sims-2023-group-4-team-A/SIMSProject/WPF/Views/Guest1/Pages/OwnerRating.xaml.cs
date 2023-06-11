@@ -26,7 +26,7 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
     {
         private readonly User _user = new();
         private readonly OwnerRatingViewModel _ownerRatingViewModel;
-        private AccommodationReservation _accommodationReservation;
+        private readonly AccommodationReservation _accommodationReservation;
 
         public OwnerRating(User user)
         {
@@ -50,13 +50,12 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
                 ButtonRate.IsEnabled = true;
                 RenovationButton.Visibility = Visibility.Visible;
                 SelectionValidation.Text = " ";
-            }
-            
+            }      
         }
 
         private void Button_Click_Renovation(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new RenovationSuggestion(_ownerRatingViewModel, _user));
+            NavigationService.Navigate(new RenovationSuggestion(_ownerRatingViewModel.Rating, _user));
         }
 
         private void BtnUploadImages_Click(object sender, RoutedEventArgs e)

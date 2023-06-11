@@ -143,7 +143,6 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
                 DateRanges = LoadDateRanges();
             }
         }
-
         public ObservableCollection<DateRange> LoadDateRanges()
         {
             var dates = new ObservableCollection<DateRange>();
@@ -159,7 +158,6 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
             
             return dates;
         }
-
         public void GenerateAvailableDateRanges()
         {
             var dates = new ObservableCollection<DateRange>();
@@ -179,12 +177,10 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
                 NoDatesDateRanges.Remove(overlappingRange);
             }
         }
-
         public List<DateRange> GetAllDateRanges()
         {
             return _accommodationService.FindReservedOrRenovatingDateRanges(SelectedAccommodation);
         }
-
         public void SaveReservation()
         {
             _accommodationReservationService.SaveReservation(new AccommodationReservation(SelectedAccommodation.Id, _user.Id, SelectedRange.StartDate, SelectedRange.EndDate, NumberOfDays, GuestsNumber, false), _user);
