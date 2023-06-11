@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Globalization;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
@@ -15,6 +16,14 @@ namespace SIMSProject.Model
         public string OwnerComment { get; set; } = string.Empty;
         public ReschedulingRequestStatus Status { get; set; } = ReschedulingRequestStatus.None;
         public string RequestDetails { get; set; } = string.Empty;
+        public string FormattedNewStartDate
+        {
+            get => NewStartDate.ToString("ddd, d. MMM. yyyy.");
+        }
+        public string FormattedNewEndDate
+        {
+            get => NewEndDate.ToString("ddd, d. MMM. yyyy.");
+        }
 
         public static ReschedulingRequestStatus GetStatus(string status)
         {

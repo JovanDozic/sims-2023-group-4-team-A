@@ -191,8 +191,8 @@
                         Command="{Binding RegisterAccommodationCommand}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{DynamicResource PlusIcon}" Height="17.5" Margin="0,0,10,0" 
-                       Style="{StaticResource IconRenderStyle}"/>
-                        <TextBlock Text="{ns:Loc AddAccommodation}" VerticalAlignment="Center" Margin="0,0,0,0" Foreground="{DynamicResource TextColor}"/>
+                               Style="{StaticResource IconRenderStyle}"/>
+                        <TextBlock Text="{ns:Loc AddAccommodation}" VerticalAlignment="Center" Margin="0,0,0,0"              Foreground="{DynamicResource TextColor}"/>
                     </StackPanel>
                 </Button>
             </Grid>

@@ -214,7 +214,8 @@
                         </Grid.ColumnDefinitions>
                         <Button x:Name="BtnReschedulingRequests" Grid.Column="0"
                                 HorizontalAlignment="Left"
-                                Style="{StaticResource MobileActionHalfButtonStyle}">
+                                Style="{StaticResource MobileActionHalfButtonStyle}"
+                                Click="BtnReschedulingRequests_Click">
                             <TextBlock Text="{ns:Loc ReschedulingRequests}" 
                                        VerticalAlignment="Center"
                                        Foreground="{DynamicResource TextColor}"/>

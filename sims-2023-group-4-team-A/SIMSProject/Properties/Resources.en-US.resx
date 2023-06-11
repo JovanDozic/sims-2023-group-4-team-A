@@ -261,6 +261,9 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="NewDate" xml:space="preserve">
+    <value>New date:</value>
+  </data>
   <data name="Notifications" xml:space="preserve">
     <value>Notifications</value>
   </data>
@@ -278,6 +281,9 @@
   </data>
   <data name="OkayThanks" xml:space="preserve">
     <value>Okay, thanks!</value>
+  </data>
+  <data name="OldDate" xml:space="preserve">
+    <value>Old date:</value>
   </data>
   <data name="OnlyFutureRenovationsAreDisplayed" xml:space="preserve">
     <value>Only future renovations are displayed.</value>
@@ -320,6 +326,9 @@
   </data>
   <data name="ReservationStillInFuture" xml:space="preserve">
     <value>Reservation is still in future.</value>
+  </data>
+  <data name="ReviewRequest" xml:space="preserve">
+    <value>Review request</value>
   </data>
   <data name="ScheduleRenovation" xml:space="preserve">
     <value>Schedule renovation</value>

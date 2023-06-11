@@ -261,6 +261,9 @@
   <data name="Name" xml:space="preserve">
     <value>Ime</value>
   </data>
+  <data name="NewDate" xml:space="preserve">
+    <value>Novi datum:</value>
+  </data>
   <data name="Notifications" xml:space="preserve">
     <value>Obaveštenja</value>
   </data>
@@ -278,6 +281,9 @@
   </data>
   <data name="OkayThanks" xml:space="preserve">
     <value>Okej, hvala!</value>
+  </data>
+  <data name="OldDate" xml:space="preserve">
+    <value>Stari datum:</value>
   </data>
   <data name="OnlyFutureRenovationsAreDisplayed" xml:space="preserve">
     <value>Prikazana su samo predstojeća renoviranja.</value>
@@ -320,6 +326,9 @@
   </data>
   <data name="ReservationStillInFuture" xml:space="preserve">
     <value>Rezervaicja još uvek nije prošla.</value>
+  </data>
+  <data name="ReviewRequest" xml:space="preserve">
+    <value>Pregledaj zahtev</value>
   </data>
   <data name="ScheduleRenovation" xml:space="preserve">
     <value>Zakaži renoviranje</value>
