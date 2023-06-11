@@ -4,22 +4,17 @@ using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.View.Guest2;
-using SIMSProject.WPF.Views.Guest2Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Markup;
-using System.Windows.Media;
 using System.Windows.Navigation;
 
 namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
 {
     public class CustomTourRequestCreationViewModel : ViewModelBase
     {
+        #region Polja
         private Guest2 _user;
         private CustomTourRequest _customTourRequest = new();
         private CustomTourRequestService _customTourRequestService;
@@ -151,6 +146,9 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         public string DateRange { get; set; } = string.Empty;
         public NavigationService NavService { get; set; }
         public RelayCommand GoBack { get; set; }
+        #endregion
+
+        #region Konstruktori
         public CustomTourRequestCreationViewModel(Guest2 user, NavigationService navigationService)
         {
             TourLanguages = new()
@@ -175,6 +173,9 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             GoBack = new RelayCommand(GoBackExecute, CanExecute_Command);
 
         }
+        #endregion
+
+        #region Akcije
         private void GoBackExecute()
         {
             NavService.GoBack();
@@ -211,5 +212,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         {
             _complexTourRequestService.CheckComplexRequestAcceptance(complexTourRequests, guestId);
         }
+
+        #endregion
     }
 }

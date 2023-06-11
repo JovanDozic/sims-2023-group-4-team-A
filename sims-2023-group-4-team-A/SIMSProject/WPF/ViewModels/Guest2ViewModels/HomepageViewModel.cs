@@ -82,7 +82,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             Guest2HomeView = guest2HomeView;
             NavService = navigationService;
 
-            NavService.Navigate(new ShowAndSearchTours(_user));
+            NavService.Navigate(new ShowAndSearchTours(_user, NavService));
             Button1Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff6700"));
 
             NavigateToShowAndSearchToursPageCommand = new RelayCommand(Execute_NavigateToShowAndSearchToursPageCommand, CanExecute_Command);
@@ -98,14 +98,14 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         
         private void Execute_NavigateToShowAndSearchToursPageCommand()
         {
-            ShowAndSearchTours showAndSearchTours = new ShowAndSearchTours(_user);
+            ShowAndSearchTours showAndSearchTours = new ShowAndSearchTours(_user, NavService);
             NavService.Navigate(showAndSearchTours);
             MakeButtonsTransparent();
             Button1Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff6700"));
         }
         private void Execute_NavigateToMyReservationsPageCommand()
         {
-            TourReservations tourReservations = new TourReservations(_user);
+            TourReservations tourReservations = new TourReservations(_user, NavService);
             NavService.Navigate(tourReservations);
             MakeButtonsTransparent();
             Button2Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff6700"));

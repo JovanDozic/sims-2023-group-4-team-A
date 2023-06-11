@@ -91,6 +91,9 @@ namespace SIMSProject.WPF.Views.Guest2Views
             LblCheck.Visibility = Visibility.Hidden;
             _viewModel.CreatePart();
             if (_viewModel.CustomTourRequests.Count() >= 2) BtnCreation.IsEnabled = true;
+            _viewModel.ClearParameters();
         }
+
+        
     }
 }

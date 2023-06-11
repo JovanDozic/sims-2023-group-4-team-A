@@ -43,7 +43,7 @@
             <ColumnDefinition Width="350"/>
         </Grid.ColumnDefinitions>
         <Image Grid.Row="1" Source="/Resources/Images/chevron-left-black.png" RenderOptions.BitmapScalingMode="HighQuality" />
-        <Button Click="Back_Click" Grid.Column="1" Grid.Row="1" Content="Nazad" FontSize="28" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Foreground="#004e98" Cursor="Hand"/>
+        <Button Command="{Binding GoBackCommand}" Grid.Column="1" Grid.Row="1" Content="Nazad" FontSize="28" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Foreground="#004e98" Cursor="Hand"/>
         <TextBlock Text="{Binding TourReservation.TourAppointment.Tour.Name}" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="4" FontSize="32" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="DemiBold"/>
         <Image Grid.Column="3" Grid.Row="2" Source="/Resources/Images/location.png" Height="20" RenderOptions.BitmapScalingMode="HighQuality" />
         <TextBlock Grid.Column="4" Grid.Row="2" Grid.ColumnSpan="2" FontSize="20" FontWeight="DemiBold" Text="{Binding TourReservation.TourAppointment.Tour.Location}"/>

@@ -3,11 +3,13 @@ using SIMSProject.Domain.Models.TourModels;
 using System;
 using System.Collections.ObjectModel;
 using SIMSProject.Domain.Models.UserModels;
+using System.Windows.Navigation;
 
 namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
 {
     public class TourReservationDetailsViewModel : ViewModelBase
     {
+        #region Polja
         private readonly User _user;
         public ObservableCollection<TourReservation> _tourReservations = new();
         public ObservableCollection<TourReservation> TourReservations
@@ -42,7 +44,6 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 OnPropertyChanged(nameof(TourReservation));
             }
         }
-
         public DateTime Date
         {
             get => _selectedTourReservation.TourAppointment.Date;
@@ -55,17 +56,37 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 }
             }
         }
+        public NavigationService NavService { get; set; }
         public RelayCommand GeneratePDFCommand { get; set; }
-        public TourReservationDetailsViewModel(User user, TourReservation tourReservation)
+        public RelayCommand GoBackCommand { get; set; }
+        #endregion
+
+        #region Konstruktori
+        public TourReservationDetailsViewModel(User user, TourReservation tourReservation, NavigationService navigationService)
         {
             _user = user;
+            NavService = navigationService;
             TourReservation = tourReservation;
             GeneratePDFCommand = new RelayCommand(GeneratePDF);
-        }
 
+            GoBackCommand = new RelayCommand(GoBackExecute, CanExecute_Command);
+        }
+        #endregion
+
+        #region Akcije
         public void GeneratePDF()
         {
             PDFService.GenerateTourReservationDetailsPDF(TourReservation);
         }
+
+        private void GoBackExecute()
+        {
+            NavService.GoBack();
+        }
+        private bool CanExecute_Command()
+        {
+            return true;
+        }
+        #endregion
     }
 }

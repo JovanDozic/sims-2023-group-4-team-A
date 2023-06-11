@@ -4,14 +4,15 @@ using SIMSProject.Domain.Models.TourModels;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using SIMSProject.Domain.Models.UserModels;
-using System.Windows.Input;
 using System.Windows;
-using SIMSProject.View.Guest2;
+using System.Windows.Navigation;
+using SIMSProject.WPF.Views.Guest2Views;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels
 {
     public class ToursViewModel : ViewModelBase
     {
+        #region Polja
         private Guest2 _user;
         private readonly TourService _tourService;
         private readonly TourGuestService _tourGuestService;
@@ -88,25 +89,34 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             }
         }
         public ObservableCollection<string> TourLanguages { get; set; }
+        public NavigationService NavService { get; set; }
         public RelayCommand SearchCommand { get; set; }
         public RelayCommand ReserveCommand { get; set; }
         public RelayCommand TextSearch_GotFocusCommand { get; set; }
         public RelayCommand TextSearch_LostFocusCommand { get; set; }
+        #endregion
 
-        public ToursViewModel(Guest2 user)
+        #region Konstruktori
+        public ToursViewModel(Guest2 user, NavigationService navigationService)
         {
             _user = user;
+            NavService = navigationService;
+
             _tourService = Injector.GetService<TourService>();
             _tourGuestService = Injector.GetService<TourGuestService>();
             Tours = new(_tourService.GetTours());
             TourLanguages = new(Tour.GetLanguages());
             LabelVisibility = Visibility.Hidden;
             SearchCommand = new RelayCommand(SearchExecute);
-            //ReserveCommand = new RelayCommand(ReserveExecute);
+            ReserveCommand = new RelayCommand(ReserveExecute);
 
             //TextSearch_GotFocusCommand = new RelayCommand(TextSearch_GotFocus);
             //TextSearch_LostFocusCommand = new RelayCommand(TextSearch_LostFocus);
         }
+
+        #endregion
+
+        #region Akcije
         public void SearchExecute()
         {
             TourLanguage = ConvertLanguage(TourLanguage);
@@ -118,8 +128,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         {
             if (IsSelected())
             {
-                new TourReservationCreation(_user, SelectedTour).Show();
-                //new ReservationCreation(_user, SelectedTour);
+                NavService.Navigate(new ReservationCreation(_user, SelectedTour));
                 LabelVisibility = Visibility.Hidden;
                 return;
             }
@@ -157,6 +166,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             _tourGuestService.MakeGuestPresent(tourGuest);
 
         }
-        
+        #endregion
     }
 }

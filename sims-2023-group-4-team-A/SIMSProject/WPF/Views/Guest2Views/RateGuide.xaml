@@ -29,7 +29,7 @@
             <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
         <Image Grid.Row="0" Source="/Resources/Images/chevron-left-black.png" RenderOptions.BitmapScalingMode="HighQuality" />
-        <Button Click="Back_Click" Grid.Column="1" Grid.Row="0" Content="Nazad" FontSize="28" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Foreground="#004e98" Cursor="Hand"/>
+        <Button Command="{Binding GoBackCommand}" Grid.Column="1" Grid.Row="0" Content="Nazad" FontSize="28" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Foreground="#004e98" Cursor="Hand"/>
         <Label Grid.Row="0" Grid.Column="2" Content="Ocenjivanje ture: " FontSize="40" FontWeight="Bold" HorizontalAlignment="Right"/>
         <TextBlock Text="{Binding TourReservation.TourAppointment.Tour.Name}" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" FontSize="40" VerticalAlignment="Center" FontWeight="DemiBold"/>
         <Label Grid.Row="1" Grid.Column="2" Content="Vodič: " FontWeight="Bold" FontSize="28" HorizontalAlignment="Right"/>

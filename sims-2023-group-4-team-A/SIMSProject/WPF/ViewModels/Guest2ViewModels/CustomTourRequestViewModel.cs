@@ -15,6 +15,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
 {
     public class CustomTourRequestViewModel : ViewModelBase
     {
+        #region Polja
         private Guest2 _user;
         private CustomTourRequest _customTourRequest = new();
         private CustomTourRequestService _customTourRequestService;
@@ -148,6 +149,9 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         public RelayCommand NewTourRequestCommand { get; set; }
         public RelayCommand ComplexTourRequestDetailsCommand { get; set; }
         public RelayCommand NewComplexRequestCommand { get; set; }
+        #endregion
+
+        #region Konstruktori
         public CustomTourRequestViewModel(Guest2 user, NavigationService navigationService) 
         {
             TourLanguages = new()
@@ -174,6 +178,9 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             ComplexTourRequestDetailsCommand = new RelayCommand(ComplexTourRequestDetailsCommandExecute, CanExecute_Command);
             NewComplexRequestCommand = new RelayCommand(NewComplexRequestCommandExecute, CanExecute_Command);
         }
+        #endregion
+
+        #region Akcije
         private void TourRequestStatisticsCommandExecute()
         {
             NavService.Navigate(new TourRequestStatistics(_user, NavService));
@@ -214,5 +221,6 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         {
             _complexTourRequestService.CheckComplexRequestAcceptance(complexTourRequests, guestId);
         }
+        #endregion
     }
 }

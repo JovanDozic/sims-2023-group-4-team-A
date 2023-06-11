@@ -7,11 +7,13 @@ using System.Collections.Generic;
 using System.Windows;
 using Microsoft.Win32;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
 {
     public class GuideRatingViewModel : ViewModelBase
     {
+        #region Polja
         private readonly User _user;
         private int _guideId;
         private GuideRating _rating = new();
@@ -167,12 +169,18 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 OnPropertyChanged(nameof(IsRatingEnabled));
             }
         }
+        public NavigationService NavService { get; set; }
         public RelayCommand RateGuideCommand { get; set; }
         public RelayCommand AddImageCommand { get; set; }
-        public GuideRatingViewModel(User user, TourReservation tourReservation, int guideId)
+        public RelayCommand GoBackCommand { get; set; }
+        #endregion
+
+        #region Konstruktori
+        public GuideRatingViewModel(User user, TourReservation tourReservation, int guideId, NavigationService navigationService)
         {
             _user = user;
             _guideId = guideId;
+            NavService = navigationService;
             _ratingService = Injector.GetService<GuideRatingService>();
 
             LblCommentRequiredVisibility = Visibility.Hidden;
@@ -181,11 +189,16 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             LblURLAddedVisibility = Visibility.Hidden;
             IsRatingEnabled = true;
 
-            RateGuideCommand = new RelayCommand(RateGuideExecute);
-            AddImageCommand = new RelayCommand(AddImageExecute);
+            RateGuideCommand = new RelayCommand(RateGuideExecute, CanExecute_Command);
+            AddImageCommand = new RelayCommand(AddImageExecute, CanExecute_Command);
+            GoBackCommand = new RelayCommand(GoBackExecute, CanExecute_Command);
+
             TourReservation = tourReservation;
             
         }
+        #endregion
+
+        #region Akcije
         public void RateGuideExecute()
         {
             if (!string.IsNullOrWhiteSpace(Comment))
@@ -217,6 +230,15 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             ImageURLs.Add(openFileDialog.FileName);
             LblURLAddedVisibility = Visibility.Visible;
         }
-  
+
+        private void GoBackExecute()
+        {
+            NavService.GoBack();
+        }
+        private bool CanExecute_Command()
+        {
+            return true;
+        }
+        #endregion
     }
 }

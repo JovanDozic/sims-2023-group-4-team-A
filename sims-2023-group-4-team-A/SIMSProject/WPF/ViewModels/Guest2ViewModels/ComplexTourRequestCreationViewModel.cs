@@ -17,6 +17,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
 {
     public class ComplexTourRequestCreationViewModel : ViewModelBase
     {
+        #region Polja
         private Guest2 _user;
         private ComplexTourRequestService _complexTourRequestService;
         private CustomTourRequestService _customTourRequestService;
@@ -74,6 +75,8 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                     Language.SERBIAN => "Srpski",
                     Language.SPANISH => "Španski",
                     Language.FRENCH => "Francuski",
+                    Language.ITALIAN => "Italijanski",
+                    Language.GERMAN => "Nemački",
                     _ => "Engleski"
 
                 };
@@ -85,6 +88,8 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                     "Srpski" => Language.SERBIAN,
                     "Španski" => Language.SPANISH,
                     "Francuski" => Language.FRENCH,
+                    "Italijanski" => Language.ITALIAN,
+                    "Nemački" => Language.GERMAN,
                     _ => Language.ENGLISH
                 };
                 OnPropertyChanged(nameof(TourLanguage));
@@ -155,17 +160,23 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         }
         public NavigationService NavService { get; set; }
         public RelayCommand GoBack { get; set; }
+
+        #endregion
+
+        #region Konstruktori
         public ComplexTourRequestCreationViewModel(Guest2 user, NavigationService navigationService, ComplexTourRequest complexTourRequest = null)
         {
-            TourLanguages = new()
-            {
-                "Engleski",
-                "Srpski",
-                "Francuski",
-                "Španski"
-            };
+            //TourLanguages = new()
+            //{
+            //    "Engleski",
+            //    "Srpski",
+            //    "Francuski",
+            //    "Španski"
+            //};
             _user = user;
             NavService = navigationService;
+            TourLanguages = new(Tour.GetLanguages());
+
             _complexTourRequestService = Injector.GetService<ComplexTourRequestService>();
             _customTourRequestService = Injector.GetService<CustomTourRequestService>();
             _locationService = Injector.GetService<LocationService>();
@@ -177,6 +188,9 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             //LoadTourRequestsByGuestId(_user.Id);
             //CheckRequestValidity(CustomTourRequests.ToList());
         }
+        #endregion
+
+        #region Akcije
         private void GoBackExecute()
         {
             NavService.GoBack();
@@ -209,6 +223,14 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         {
             TourRequestParts = new ObservableCollection<CustomTourRequest>(_customTourRequestService.GetAllComplexTourParts(SelectedComplexTourRequest.Id));
         }
+        public void ClearParameters()
+        {
+            Location = null;
+            Description = string.Empty;
+            TourLanguage = null;
+            GuestCount = 0;
+        }
+        #endregion
     }
 }
 

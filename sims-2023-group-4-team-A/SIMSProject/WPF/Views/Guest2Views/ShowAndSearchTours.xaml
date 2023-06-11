@@ -55,7 +55,7 @@
                 <DataGridTextColumn Binding="{Binding MaxGuestNumber}" Header="Kapacitet gostiju" Width="200" x:Name="maxGuestNumber"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button IsEnabled="True" Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" x:Name="BtnReserve" Height="50" Width ="300" FontSize="32" FontWeight="Bold" Click="Reserce_Click" Content="Detalji i rezervacija" Background="#ff6700" Cursor="Hand"/>
+        <Button IsEnabled="True" Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" x:Name="BtnReserve" Height="50" Width ="300" FontSize="32" FontWeight="Bold" Command="{Binding ReserveCommand}" Content="Detalji i rezervacija" Background="#ff6700" Cursor="Hand"/>
         <Label x:Name="LblSelectingTour" Visibility="{Binding LabelVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="4" Grid.ColumnSpan="5" Content=" Morate izabrati neku turu!" Foreground="Red" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="32" FontWeight="DemiBold"/>
     </Grid>
 </Page>
