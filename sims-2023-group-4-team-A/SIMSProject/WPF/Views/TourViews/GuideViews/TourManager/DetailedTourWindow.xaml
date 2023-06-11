@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIMSProject.WPF.Views.TourViews.GuideViews"
         xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
+        xmlns:cstm="clr-namespace:SIMSProject.WPF.CustomControls"
         mc:Ignorable="d"
         Title="DetailedTourView" Height="700" Width="1200" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <converters:TourAppointmentStatusConverter x:Key="StatusConverter"/>
-        <converters:TourAppointmentDateTimeConverter x:Key="DateConverter"/>
+        <converters:TourLanguageConverter x:Key="LanguageConverter"/>
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Command="{Binding CancelAppointmentCommand}" Key="O" Modifiers="Ctrl"/>
@@ -23,11 +24,50 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical"
+                    Margin="30,30,30,0">
+            <TextBlock Height="40"
+                       FontSize="32" FontWeight="Bold"
+                       HorizontalAlignment="Left"
+                       Margin="0,10,0,0"
+                       Text="{Binding Path=SelectedTour.Name}"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Height="40"
+                       FontSize="24"
+                       HorizontalAlignment="Left"
+                       Text="{Binding Path=SelectedTour.Location.City}"/>
+                <TextBlock Height="40"
+                       FontSize="24"
+                       Margin="10,0,0,0"
+                       HorizontalAlignment="Left"
+                       Text="{Binding Path=SelectedTour.Location.Country}"/>
+            </StackPanel>
+            <cstm:ImageSlideShow Width="400" Height="210"
+                                 HorizontalAlignment="Left"
+                                 Images="{Binding Path=SelectedTour.Images}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="0"
+                    Margin="30">
+            <TextBlock Height="80" TextWrapping="Wrap" 
+                       FontSize="20" Text="{Binding Path=SelectedTour.Description}"/>
+            <TextBlock Text="Ključne tačke:" FontSize="28"/>
+            <ListBox ItemsSource="{Binding Path=SelectedTour.KeyPoints}" FontSize="24"
+                     Margin="0,10,0,0"
+                     IsHitTestVisible="False"
+                     BorderThickness="0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=Description}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"
+                    Grid.RowSpan="2"
+                    Margin="0,70,0,0">
             <TextBlock 
                    FontSize="28"
                    Width="371" Height="36"
-                   Margin="0,20,0,0"
                    Text="Termini održavanja:"/>
             <ListBox x:Name="LbAppointments"
                      FontSize="28"
@@ -39,18 +79,36 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Path=Date, Converter={StaticResource DateConverter}}"/>
+                            <TextBlock Text="{Binding Path=Date, StringFormat='dd.MM.yyyy'}"/>
                             <TextBlock Text="{Binding Path=TourStatus, Converter={StaticResource StatusConverter}}" Margin="10,0,0,0"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
             <Button x:Name="CancelBtn"
-                    Content="Otkaži turu"
+                    HorizontalContentAlignment="Center"
+                    Content="Otkaži turu&#xa;   Ctrl+O"
                     Margin="0,20,0,0"
-                    Width="165" Height="36"
-                    FontSize="28"
+                    Width="165"
+                    FontSize="24" FontWeight="Bold"
                     Command="{Binding Path=CancelAppointmentCommand}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" Width="371"
+                    Margin="0,110,0,0" 
+                    HorizontalAlignment="Center">
+            <TextBlock Text="Dodatne informacije:" FontSize="28"/>
+            <WrapPanel Margin="0,10,0,0">
+                <TextBlock Text="   Jezik: " FontSize="24"/>
+                <TextBlock Text="{Binding Path=SelectedTour.TourLanguage, Converter={StaticResource LanguageConverter}}" FontSize="24"/>
+            </WrapPanel>
+            <WrapPanel>
+                <TextBlock Text="   Maksimalan broj gostiju: " FontSize="24"/>
+                <TextBlock Text="{Binding Path=SelectedTour.MaxGuestNumber}" FontSize="24"/>
+            </WrapPanel>
+            <WrapPanel >
+                <TextBlock Text="   Trajanje (h): " FontSize="24"/>
+                <TextBlock Text="{Binding Path=SelectedTour.Duration}" FontSize="24"/>
+            </WrapPanel>
         </StackPanel>
     </Grid>
 </Window>

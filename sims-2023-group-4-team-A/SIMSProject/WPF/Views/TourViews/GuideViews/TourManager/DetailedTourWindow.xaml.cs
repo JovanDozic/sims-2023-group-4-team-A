@@ -3,6 +3,7 @@ using SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels;
 using SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SIMSProject.WPF.Views.TourViews.GuideViews
 {
@@ -15,6 +16,7 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
         public DetailedTourWindow()
         {
             InitializeComponent();
+            PreviewKeyDown += (s, e) => { if (e.Key == Key.Escape) this.Close(); };
             this.DataContext = ViewModel;
         }
     }

@@ -46,8 +46,11 @@ namespace SIMSProject.WPF.CustomControls
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            currentIndex = currentIndex == (Images.Count - 1) ? 0 : ++currentIndex;
-            UpdateImage();
+            if(Images.Count > 0)
+            {
+                currentIndex = currentIndex == (Images.Count - 1) ? 0 : ++currentIndex;
+                UpdateImage();
+            }
         }
 
         public void AddImages(List<string> imageUrls)
