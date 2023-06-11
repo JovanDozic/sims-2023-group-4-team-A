@@ -83,7 +83,8 @@
 
                 <!-- StartDate -->
                 <Label Grid.Row="4" Content="{ns:Loc End}" Style="{StaticResource MobileTextBoxLabel}" Foreground="{DynamicResource TextColor}"/>
-                <Border Grid.Row="5" Style="{StaticResource MobileTextBoxInputBorder}">
+                <Border Grid.Row="5" Style="{StaticResource MobileTextBoxInputBorder}"
+                        Background="Transparent">
                     <DatePicker Style="{StaticResource MobileDatePickerInput}"
                                 Text="{Binding EndDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}"/>
                 </Border>
