@@ -87,7 +87,7 @@ namespace SIMSProject.Application.Services.TourServices
                         start = start.AddHours(duration);
                         continue;
                     }
-                    start = overlappedAppointments.FirstOrDefault().AppointmentsEnd;
+                    start = overlappedAppointments.FirstOrDefault().AppointmentsEnd.AddHours(1);
                 }
                 start = new(start.Year, start.Month, start.Day);
             }
