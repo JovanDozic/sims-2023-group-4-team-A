@@ -24,7 +24,7 @@ namespace SIMSProject.WPF.Views.Guest1
     {
         private readonly ReschedulingRequestViewModel _reschedulingRequestViewModel;
         private readonly User _user;
-        private AccommodationReservation _accommodationReservation { get; set; }
+        private AccommodationReservation _accommodationReservation = new();
         public ReservationReqeusts(User user)
         {
             InitializeComponent();

@@ -66,9 +66,6 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
                 NavigationService.Navigate(new MainPage(_user));
             }else
                 NavigationService.Navigate(new MainPage(_user));
-
-
-
         }
     }
  }

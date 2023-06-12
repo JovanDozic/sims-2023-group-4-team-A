@@ -16,13 +16,13 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
     {
         private readonly User _user = new();
         private readonly AccommodationReservationService _reservationService;
-        private Dictionary<string, int> _monthlyReservations;
-        private int _previousYearReservations;
-        private int _currentYearReservations;
-        private List<string> _months;
-        private SeriesCollection _reservationsSeries;
-        private ChartValues<int> _prevValue;
-        private ChartValues<int> _currValue;
+        private Dictionary<string, int> _monthlyReservations = new();
+        private int _previousYearReservations = new();
+        private int _currentYearReservations = new();
+        private List<string> _months = new();
+        private SeriesCollection _reservationsSeries = new();
+        private ChartValues<int> _prevValue = new();
+        private ChartValues<int> _currValue = new();
 
         public ChartValues<int> PreviousYearValue
         {
@@ -42,7 +42,6 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
                 OnPropertyChanged();
             }
         }
-
         public SeriesCollection ReservationsSeries
         {
             get { return _reservationsSeries; }

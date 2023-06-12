@@ -1,11 +1,12 @@
-1|1|Super Gost|True|Ovo je prvi komentar.|5.6.2023. 13:31:00|0
-2|2|Gost |False|Ovo je drugi komentar.|5.6.2023. 13:32:00|1
-3|1|Super Vlasnik|True|Ovo je treci komentar.|5.6.2023. 13:33:00|0
-4|2|Gost |True|Ovo je cetvrti komentar.|5.6.2023. 13:34:00|0
-5|1|Super Gost|True|Ovo je peti komentar.|5.6.2023. 13:35:00|0
-6|2|Vlasnik|True|Ovo je sesti komentar.|5.6.2023. 13:36:00|1
-7|1|Super Vlasnik|True|okej, ovo je prvi test i jako sam uzbudjen!|6.6.2023. 21:47:33|0
-8|1|Super Vlasnik|True|okej, ovo je drugi test i jako sam obradovan sto ovo uopste radi!|6.6.2023. 21:48:24|0
+1|1|Super Gost|True|Da li ima zmija na ovoj lokaciji|5.6.2023. 13:31:00|0
+2|2|Gost |False|Ne ali su zirafe opasne takodje|5.6.2023. 13:32:00|1
+3|1|Super Vlasnik|True|Sta pricate vi..|5.6.2023. 13:33:00|0
+4|2|Gost |True|Kakav je komsiluk na ovoj lokaciji|5.6.2023. 13:34:00|0
+5|1|Super Gost|True|Nije strasno|5.6.2023. 13:35:00|0
+6|2|Vlasnik|True|Mene je jedna baba napala|5.6.2023. 13:36:00|1
+7|1|Super Vlasnik|True|Napala te jer si je provocirala|6.6.2023. 21:47:33|0
+8|1|Super Vlasnik|True|Babe su ovde mirne|6.6.2023. 21:48:24|0
+9|2|Gost |True|Pozdrav, da li je neko raspolozen za druzenje|1.6.2023. 10:30:00|0
 11|2|Gost |True|Hello everyone! I'm new here.|1.6.2023. 10:30:00|0
 12|1|Super Vlasnik|True|Welcome to the forum! Feel free to ask any questions.|2.6.2023. 14:45:00|0
 13|2|Gost |True|Thank you for the warm welcome!|3.6.2023. 16:20:00|0
@@ -14,3 +15,10 @@
 16|2|Vlasnik|True|It's going to be exciting! Keep an eye out.|5.6.2023. 18:10:00|0
 17|1|Super Vlasnik|True|I'm the super owner of this forum.|6.6.2023. 20:05:00|0
 18|1|Super Gost|False|Wow, a super owner! That's impressive.|7.6.2023. 11:50:00|0
+19|1|Super Gost|False|Kakva je klima u ovom periodu?|12.6.2023. 14:29:53|0
+20|1|Super Gost|True|Odlicna lokacija za porodicu.|12.6.2023. 14:30:31|0
+21|2|Gost |True|Nikad vise...|12.6.2023. 14:32:46|0
+22|2|Gost |False|Kisovito ali su i ljudi neprijatni|12.6.2023. 14:33:21|0
+23|1|Super Gost|True|Meni je bilo dobro, ne lupaj|12.6.2023. 14:35:08|0
+24|3|Gost |False|Cesto zna da pada kisa ali nije tako strasno|12.6.2023. 14:36:09|0
+25|2|Gost |False|Nisi ni bio sta pricas?|12.6.2023. 14:37:08|0

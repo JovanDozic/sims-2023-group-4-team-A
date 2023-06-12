@@ -9,7 +9,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
     {
         private RenovationSuggestion _renovation = new();
         private OwnerRating _rating = new();
-        private List<string> _levels;
+        private List<string> _levels = new();
         private RenovationSuggestionService _renovationService;
         private OwnerRatingService _ratingService;
         public RenovationSuggestion Renovation
