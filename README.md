@@ -6,5 +6,4 @@ Grupa 4 / Tim A:
 - `RA 117/2020` Popović Natalija - **vodič**
 - `RA 114/2020` Maksimović Anja - **gost 2**
 
-Potreban NuGet Package:
-  - Microsoft.Extensions.DependencyInjection (.Abstractions)
+[Fajl sa dijagramima](https://drive.google.com/file/d/1MjDmIz8prBhuN1XvFigoq7Lhpy_0wdOz/view?usp=sharing)
