@@ -300,6 +300,9 @@
   <data name="NewDate" xml:space="preserve">
     <value>New date:</value>
   </data>
+  <data name="NoComment" xml:space="preserve">
+    <value>No comment</value>
+  </data>
   <data name="Notifications" xml:space="preserve">
     <value>Notifications</value>
   </data>
@@ -339,8 +342,14 @@
   <data name="RateGuest" xml:space="preserve">
     <value>Rate guest</value>
   </data>
+  <data name="RatingForGuest" xml:space="preserve">
+    <value>Rating for guest</value>
+  </data>
   <data name="RatingForGuestDot" xml:space="preserve">
     <value>Guest rating:</value>
+  </data>
+  <data name="RatingFromGuest" xml:space="preserve">
+    <value>Rating from guest</value>
   </data>
   <data name="RatingFromGuestDot" xml:space="preserve">
     <value>Owner rating:</value>

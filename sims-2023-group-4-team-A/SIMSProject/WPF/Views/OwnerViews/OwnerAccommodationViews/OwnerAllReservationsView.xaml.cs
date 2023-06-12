@@ -32,10 +32,6 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
             NavigationService?.GoBack();
         }
 
-        private void BtnViewOwnerRating_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
         private void BtnReservationInFuture_Click(object sender, RoutedEventArgs e)
         {
             Point mousePosition = Mouse.GetPosition(PopupReservationInFuture);

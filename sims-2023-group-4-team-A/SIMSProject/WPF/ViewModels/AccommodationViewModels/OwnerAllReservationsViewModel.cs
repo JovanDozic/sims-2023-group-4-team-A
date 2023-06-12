@@ -28,6 +28,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
         public RelayCommand RateGuestCommand { get; set; }
         public RelayCommand ViewOwnerRatingCommand { get; set; }
+        public RelayCommand ViewGuestRatingCommand { get; set; }
 
 
 
@@ -42,10 +43,19 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _ownerRatingService = Injector.GetService<OwnerRatingService>();
             _guestRatingService = Injector.GetService<GuestRatingService>();
 
-            RateGuestCommand = new RelayCommand(RateGuest, CanRateGuest);
+            RateGuestCommand = new RelayCommand(RateGuest);
             ViewOwnerRatingCommand = new RelayCommand(ViewOwnerRating);
+            ViewGuestRatingCommand = new RelayCommand(ViewGuestRating);
 
             LoadReservations();
+        }
+
+        private void ViewGuestRating()
+        {
+            if (HoveredReservation is null) return;
+            OwnerGuestRatingView guestRatingView = new(_user, HoveredReservation);
+            OwnerWindow ownerWindow = Window.GetWindow(_reservationsView) as OwnerWindow ?? new(_user);
+            ownerWindow?.SwitchToPage(guestRatingView);
         }
 
         internal void LoadReservations()
@@ -54,10 +64,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             MapRatings();
         }
 
-        private bool CanViewOwnerRating()
-        {
-            return true;
-        }
         private void ViewOwnerRating()
         {
             if (HoveredReservation is null) return;
@@ -66,10 +72,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             ownerWindow?.SwitchToPage(ownerRatingView);
         }
 
-        private bool CanRateGuest()
-        {
-            return true;
-        }
         public void RateGuest()
         {
             if (HoveredReservation is null) return;

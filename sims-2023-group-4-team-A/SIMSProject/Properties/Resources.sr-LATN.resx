@@ -300,6 +300,9 @@
   <data name="NewDate" xml:space="preserve">
     <value>Novi datum:</value>
   </data>
+  <data name="NoComment" xml:space="preserve">
+    <value>Nema komentara</value>
+  </data>
   <data name="Notifications" xml:space="preserve">
     <value>Obaveštenja</value>
   </data>
@@ -339,8 +342,14 @@
   <data name="RateGuest" xml:space="preserve">
     <value>Oceni gosta</value>
   </data>
+  <data name="RatingForGuest" xml:space="preserve">
+    <value>Ocena za gosta</value>
+  </data>
   <data name="RatingForGuestDot" xml:space="preserve">
     <value>Recenzija za gosta:</value>
+  </data>
+  <data name="RatingFromGuest" xml:space="preserve">
+    <value>Ocena od gosta</value>
   </data>
   <data name="RatingFromGuestDot" xml:space="preserve">
     <value>Recenzija od gosta:</value>
