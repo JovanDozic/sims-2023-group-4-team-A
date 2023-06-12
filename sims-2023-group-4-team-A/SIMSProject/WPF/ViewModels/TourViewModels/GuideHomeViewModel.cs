@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using SIMSProject.Application.Services;
 using System.Windows.Navigation;
+using System.Diagnostics;
+using System.Security.Policy;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels
 {
@@ -46,7 +48,12 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         }
         public void GenerateExecuted()
         {
-            PDFService.GenerateCustomRequestsPDF();
+            var filePath = PDFService.GenerateCustomRequestsPDF();
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = filePath,
+                UseShellExecute = true
+            });
         }
         #endregion
         #region Navigation

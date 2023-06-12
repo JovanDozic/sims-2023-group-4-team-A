@@ -35,6 +35,10 @@
             </StackPanel>
         </DataTemplate>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding CreateTourCommand}" Key="P" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding OpenBrowserCommand}" Key="I" Modifiers="Ctrl"/>
+    </Window.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="480"/>
@@ -187,6 +191,7 @@
         <TextBox x:Name="ImageURLs" 
                  Grid.Column="2" 
                  FontSize="22"
+                 ToolTip="Pritisnite Ctrl+I za otvaranje pretraživača"
                  Text="{Binding Path=ImageUrl, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                  Width="270" Height="42"/>
         <ListBox x:Name="LbImages"

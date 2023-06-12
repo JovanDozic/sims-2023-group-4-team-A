@@ -1,5 +1,4 @@
-﻿using Dynamitey.DynamicObjects;
-using SIMSProject.Application.Services;
+﻿using SIMSProject.Application.Services;
 using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Application.Services.UserServices;
 using SIMSProject.Domain.Injectors;
@@ -9,11 +8,11 @@ using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.Messenger;
 using SIMSProject.WPF.Messenger.Messages;
 using System;
+using System.Diagnostics;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
-using Xceed.Wpf.Toolkit.Panels;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
 {
@@ -295,6 +294,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             AddKeyPointCommand = new RelayCommand(AddKeyPointExecute, AddKeyPointCanExecute);
             AddImageCommand = new RelayCommand(AddImageExecute, AddImageCanExecute);
             CreateTourCommand = new RelayCommand(CreateTourExecute, CreateTourCanExecute);
+            OpenBrowserCommand = new RelayCommand(OpenBrowserExecute, OpenBrowserCanExecute);
 
             MessageBus.Subscribe<CreateRequestedMessage>(this, OpenMessage);
             MessageBus.Subscribe<CreateMostWantedMessage>(this, OpenMessage1);
@@ -331,7 +331,22 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             _tourReservation.GuestNumber = message.Request.GuestCount;
             Guest = message.Request.Guest;
         }
-
+        #region OpenBrowserCommand
+        public ICommand OpenBrowserCommand { get; private set; }
+        private bool OpenBrowserCanExecute()
+        {
+            return true;
+        }
+        public void OpenBrowserExecute()
+        {
+            string url = "https://www.google.rs/imghp?hl=sr&ogbl";
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            });
+        }
+        #endregion
         #region AddKeyPointCommand
         public ICommand AddKeyPointCommand { get; private set; }
         public bool AddKeyPointCanExecute()
@@ -383,7 +398,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
             switch(Tour.Reason)
             {
                 case CreatingReason.CUSTOM: _tourReservation.TourAppointment = Appointments.FirstOrDefault() ?? throw new Exception("Error! No appointments found!");
-                                            _tourReservationService.Save(_tourReservation);
+                                            _tourReservationService.Update(_tourReservation);
                                             _request.AssignedGuideId = Guide.Id;
                                             _request.RealizationDate = _tourReservation.TourAppointment.Date;
                                             _customTourRequestService.Save(_request);
