@@ -186,6 +186,12 @@
   <data name="CommentDot" xml:space="preserve">
     <value>Comment:</value>
   </data>
+  <data name="CommentDotDot" xml:space="preserve">
+    <value>Comment...</value>
+  </data>
+  <data name="Communication" xml:space="preserve">
+    <value>Communication</value>
+  </data>
   <data name="Correctness" xml:space="preserve">
     <value>Owner correctness</value>
   </data>
@@ -215,6 +221,9 @@
   </data>
   <data name="FinalRatingDot" xml:space="preserve">
     <value>Total rating:</value>
+  </data>
+  <data name="FollowingTheRules" xml:space="preserve">
+    <value>Following the rules</value>
   </data>
   <data name="Forums" xml:space="preserve">
     <value>Forums</value>
@@ -321,8 +330,14 @@
   <data name="OutOf5" xml:space="preserve">
     <value>out of 5</value>
   </data>
+  <data name="PaymentRegularity" xml:space="preserve">
+    <value>Payment regularity</value>
+  </data>
   <data name="Rate" xml:space="preserve">
     <value>Rate</value>
+  </data>
+  <data name="RateGuest" xml:space="preserve">
+    <value>Rate guest</value>
   </data>
   <data name="RatingForGuestDot" xml:space="preserve">
     <value>Guest rating:</value>
@@ -332,6 +347,9 @@
   </data>
   <data name="Reasoning" xml:space="preserve">
     <value>Reasoning:</value>
+  </data>
+  <data name="Recommendation" xml:space="preserve">
+    <value>Recommentation</value>
   </data>
   <data name="RegisterAccommodation" xml:space="preserve">
     <value>Register accommodation</value>

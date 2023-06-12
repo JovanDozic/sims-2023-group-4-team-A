@@ -67,10 +67,10 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         }
         public void RateGuest()
         {
-            // TODO: Open Rate Guest View
-            //OwnerForumView ownerRatingView = new(_user, new Forum());
-            //OwnerWindow ownerWindow = Window.GetWindow(_reservationsView) as OwnerWindow ?? new(_user);
-            //ownerWindow?.SwitchToPage(ownerRatingView);
+            if (HoveredReservation is null) return;
+            OwnerRateGuestView rateGuestView = new(_user, HoveredReservation);
+            OwnerWindow ownerWindow = Window.GetWindow(_reservationsView) as OwnerWindow ?? new(_user);
+            ownerWindow?.SwitchToPage(rateGuestView);
         }
 
         public void MapRatings()

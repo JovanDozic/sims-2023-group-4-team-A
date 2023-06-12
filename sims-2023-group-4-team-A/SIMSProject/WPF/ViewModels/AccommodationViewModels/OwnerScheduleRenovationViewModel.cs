@@ -23,8 +23,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private OwnerAccommodationDetails _detailsView;
         private AccommodationRenovationService _renovationService;
         private AccommodationRenovation _renovation = new();
-
-
         public ObservableCollection<DateRange> AvailableDates { get; set; } = new();
         public AccommodationRenovation Renovation
         {

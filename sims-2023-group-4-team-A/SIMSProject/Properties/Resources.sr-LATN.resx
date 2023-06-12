@@ -186,6 +186,12 @@
   <data name="CommentDot" xml:space="preserve">
     <value>Komentar:</value>
   </data>
+  <data name="CommentDotDot" xml:space="preserve">
+    <value>Komentar...</value>
+  </data>
+  <data name="Communication" xml:space="preserve">
+    <value>Komunikacija</value>
+  </data>
   <data name="Correctness" xml:space="preserve">
     <value>Korektnost vlasnika</value>
   </data>
@@ -215,6 +221,9 @@
   </data>
   <data name="FinalRatingDot" xml:space="preserve">
     <value>Konačna ocena:</value>
+  </data>
+  <data name="FollowingTheRules" xml:space="preserve">
+    <value>Poštovanje pravila</value>
   </data>
   <data name="Forums" xml:space="preserve">
     <value>Forumi</value>
@@ -321,8 +330,14 @@
   <data name="OutOf5" xml:space="preserve">
     <value>od 5</value>
   </data>
+  <data name="PaymentRegularity" xml:space="preserve">
+    <value>Urednost plaćanja</value>
+  </data>
   <data name="Rate" xml:space="preserve">
     <value>Oceni</value>
+  </data>
+  <data name="RateGuest" xml:space="preserve">
+    <value>Oceni gosta</value>
   </data>
   <data name="RatingForGuestDot" xml:space="preserve">
     <value>Recenzija za gosta:</value>
@@ -332,6 +347,9 @@
   </data>
   <data name="Reasoning" xml:space="preserve">
     <value>Obrazloženje:</value>
+  </data>
+  <data name="Recommendation" xml:space="preserve">
+    <value>Preporuka</value>
   </data>
   <data name="RegisterAccommodation" xml:space="preserve">
     <value>Registruj smeštaj</value>

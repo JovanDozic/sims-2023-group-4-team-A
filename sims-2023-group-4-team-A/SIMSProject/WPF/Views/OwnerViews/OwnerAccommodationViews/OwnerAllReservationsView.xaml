@@ -117,9 +117,6 @@
                                                    FontSize="20" FontWeight="SemiBold"
                                                    Margin="10,0,20,0"/>
 
-
-
-
                                         <Button Style="{StaticResource NoHoverButtonStyle}"
                                                 Click="BtnReservationInFuture_Click"
                                                 Visibility="{Binding DisplayInFuture, Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -128,7 +125,6 @@
                                                    Style="{StaticResource IconRenderStyle}"
                                                    Height="20"/>
                                         </Button>
-                                        
 
                                         <Button Style="{StaticResource NoHoverButtonStyle}"
                                                 Click="BtnOwnerRatingNotAvailable_Click"
