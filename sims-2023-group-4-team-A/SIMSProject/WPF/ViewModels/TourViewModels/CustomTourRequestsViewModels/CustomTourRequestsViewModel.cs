@@ -12,6 +12,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
 {
     public class CustomTourRequestsViewModel: ViewModelBase
     {
+        public AcceptRequestViewModel NextViewModel;
         private readonly CustomTourRequestService _requestService;
 
         private ObservableCollection<CustomTourRequest> _customTourRequests = new();
@@ -113,11 +114,13 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
         public ICommand PickDateCommand { get; private set; }
         public bool PickDateCanExecute()
         {
-            return SelectedRequest.Id > 0;
+            return SelectedRequest != null && SelectedRequest.Id > 0;
         }
         public void PickDateExecute()
         {
+            NextViewModel = new();
             SendMessage();
+            OnRequestOpen();
         }
         public void SendMessage()
         {

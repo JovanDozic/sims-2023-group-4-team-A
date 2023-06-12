@@ -1,8 +1,10 @@
 ﻿using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
+using SIMSProject.View.GuideViews;
 using SIMSProject.WPF.Messenger;
 using SIMSProject.WPF.Messenger.Messages;
+using SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
     {
         private readonly TourAppointmentService _tourAppointmentService;
         private readonly CustomTourRequestService _requestService;
+        public TourCreationViewModel NextViewModel;
         public List<DateTime> BusyDates { get; set; } = new();
         public CustomTourRequest TourRequest { get; set; } = new();
 
@@ -60,7 +63,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
             
             AcceptCommand = new RelayCommand(AcceptCommandExecute, AcceptCommandCanExecute);
         }
-
         private void OpenMessage(ScheduleRequestMessage message)
         {
             TourRequest = message.Request;
@@ -68,7 +70,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
             StartDate = TourRequest.StartDate;
             EndDate = TourRequest.EndDate;
         }
-
         #region AcceptRequestCommand
         public ICommand AcceptCommand {  get; private set; }
         public bool AcceptCommandCanExecute()
@@ -78,7 +79,9 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
         public void AcceptCommandExecute()
         {
             _requestService.ApproveRequest(TourRequest);
+            NextViewModel = new();
             SendMessage();
+            OnRequestOpen();
         }
 
         public void SendMessage()
@@ -87,6 +90,5 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
             MessageBus.Publish(message);
         }
         #endregion
-
     }
 }

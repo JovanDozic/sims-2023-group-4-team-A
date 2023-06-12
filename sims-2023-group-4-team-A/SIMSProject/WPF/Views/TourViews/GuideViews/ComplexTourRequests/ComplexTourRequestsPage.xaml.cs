@@ -26,12 +26,13 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews.ComplexTourRequests
         public ComplexTourRequestsPage()
         {
             InitializeComponent();
+            ViewModel.RequestOpen += (sender, args) => OpenView();
             this.DataContext = ViewModel;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void OpenView()
         {
-            var window = new ComplexTourRequestsAcceptanceWindow();
+            var window = new ComplexTourRequestsAcceptanceWindow(ViewModel.NextViewModel);
             window.Show();
         }
     }

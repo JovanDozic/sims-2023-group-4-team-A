@@ -10,21 +10,24 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews.CustomTourRequests
     /// </summary>
     public partial class AcceptRequestWindow : Window
     {
-        private AcceptRequestViewModel ViewModel = new();
-        public AcceptRequestWindow()
+        private AcceptRequestViewModel ViewModel;
+        public AcceptRequestWindow(AcceptRequestViewModel viewModel)
         {
             InitializeComponent();
-            this.DataContext = ViewModel;
-
+            this.ViewModel = viewModel;
             foreach(var date in ViewModel.BusyDates)
             {
                 dpAppointment.BlackoutDates.Add(new CalendarDateRange(date));
             }
+
+            ViewModel.RequestOpen += (sender, args) => OpenCreationView();
+            this.DataContext = ViewModel;
         }
-        private void btnAccept_Click(object sender, RoutedEventArgs e)
+        private void OpenCreationView()
         {
-            var window = new TourCreation();
+            var window = new TourCreation(ViewModel.NextViewModel);
             window.Show();
+            this.Close();
         }
     }
 }

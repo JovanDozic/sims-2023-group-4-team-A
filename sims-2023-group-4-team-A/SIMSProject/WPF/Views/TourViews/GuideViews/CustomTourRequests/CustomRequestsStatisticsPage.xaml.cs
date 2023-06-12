@@ -26,13 +26,46 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews.CustomTourRequests
         public CustomRequestsStatisticsPage()
         {
             InitializeComponent();
+            ViewModel.RequestOpen += (sender, args) => OpenCreationView();
             this.DataContext = ViewModel;
         }
-
-        private void btnCreateTour1_Click(object sender, RoutedEventArgs e)
+        private void OpenCreationView()
         {
-            var window = new TourCreation();
+            var window = new TourCreation(ViewModel.NextViewModel);
             window.Show();
+        }
+        private void rdbAll_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (rdbLocation.IsChecked == true)
+            {
+                rdbAll.ToolTip = "Pritisnite L za prikaz statistike po lokacijama";
+            }
+            if (rdbLanguage.IsChecked == true)
+            {
+                rdbAll.ToolTip = "Pritisnite J za prikaz statistike po jezicima";
+            }
+
+        }
+        private void rdbYear_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (rdbLocation.IsChecked == true)
+            {
+                rdbAll.ToolTip = "Pritisnite A za prikaz godišnje statistike po lokacijama";
+            }
+            if (rdbLanguage.IsChecked == true)
+            {
+                rdbAll.ToolTip = "Pritisnite B za prikaz godišnje statistike po jezicima";
+            }
+        }
+
+        private void rdbLocation_GotKeyboardFocus(object sender, RoutedEventArgs e)
+        {
+            rdbLocation.ToolTip = "Izaberite lokaciju";
+        }
+
+        private void rdbLanguage_GotKeyboardFocus(object sender, RoutedEventArgs e)
+        {
+            rdbLanguage.ToolTip = "Izaberite jezik";
         }
     }
 }

@@ -7,10 +7,14 @@
       xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
       mc:Ignorable="d" 
             d:DesignHeight="600" d:DesignWidth="965"
-      Title="IndividualStatistics">
+      Title="IndividualStatistics"
+      >
     <Page.Resources>
         <converters:TourLanguageConverter x:Key="LanguageConverter" />
     </Page.Resources>
+    <Page.InputBindings>
+        <KeyBinding Command="{Binding TogglePagesCommand}" Key="NumPad4"/>
+    </Page.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -21,7 +25,7 @@
                     Margin="20,0,0,0">
             <Button x:Name="BtnNext"
                     Height="36" Width="45"
-                    Click="BtnNext_Click">
+                    Command="{Binding Path=TogglePagesCommand}">
             </Button>
 
             <Label 
@@ -31,7 +35,8 @@
                    FontWeight="Bold"
                    />
         </StackPanel>
-        <DataGrid Grid.Row="1"
+        <DataGrid x:Name="dtgrdTours"
+                  Grid.Row="1"
                   FontSize="24"
                   Margin="20,20,20,0"
                   CanUserAddRows="False"

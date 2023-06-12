@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using System.Windows.Input;
+using SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels.ComplexTourRequestsViewModels
 {
@@ -17,6 +18,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ComplexTourRequestsViewModel
     {
         private readonly ComplexTourRequestService _service;
         private readonly CustomTourRequestService _requestService;
+        public TourCreationViewModel NextViewModel;
         private ObservableCollection<DateTime> _freeDates = new();
         private DateTime _startDate;
         public DateTime StartDate
@@ -108,9 +110,10 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ComplexTourRequestsViewModel
         public void AcceptCommandExecute()
         {
             _requestService.ApproveRequest(TourRequest);
+            NextViewModel = new();
             SendMessage();
+            OnRequestOpen();
         }
-
         public void SendMessage()
         {
             var message = new CreateRequestedMessage(this, TourRequest, SelectedDate, Duration);

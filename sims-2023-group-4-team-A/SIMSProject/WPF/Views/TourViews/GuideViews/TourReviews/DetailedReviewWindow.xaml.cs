@@ -21,10 +21,12 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
     /// </summary>
     public partial class DetailedReviewWindow : Window
     {
-        private AppointmentRatingViewModel ViewModel { get; set; } = new();
-        public DetailedReviewWindow()
+        private AppointmentRatingViewModel ViewModel;
+        public DetailedReviewWindow(AppointmentRatingViewModel viewModel)
         {
             InitializeComponent();
+            PreviewKeyDown += (s, e) => { if (e.Key == Key.Escape) this.Close(); };
+            this.ViewModel = viewModel;
             this.DataContext = ViewModel;
         }
     }

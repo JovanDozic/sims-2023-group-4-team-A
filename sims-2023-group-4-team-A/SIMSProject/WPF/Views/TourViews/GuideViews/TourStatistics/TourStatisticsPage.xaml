@@ -11,13 +11,14 @@
     <Page.InputBindings>
         <KeyBinding Command="{Binding GetStatisticsCommand}" Key="A" Modifiers="Shift"/>
         <KeyBinding Command="{Binding GetYearlyStatisticsCommand}" Key="Y" Modifiers="Shift"/>
+        <KeyBinding Command="{Binding TogglePagesCommand}" Key="NumPad6"/>
     </Page.InputBindings>
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal"
                     Margin="20,0,0,150">
             <Button x:Name="BtnNext"
                     Height="36" Width="45"
-                    Click="BtnNext_Click"
+                    Command="{Binding Path=TogglePagesCommand}"
                     >
             </Button>
             <Label 
@@ -26,16 +27,6 @@
                    FontSize="28"
                    FontWeight="Bold"
                    />
-        </StackPanel>
-        <StackPanel Margin="20,0,0,0"
-                    DockPanel.Dock="Bottom" Orientation="Horizontal"
-                    Height="150">
-            <Button x:Name="BtnDetails"
-                    Height="37" Width="225"
-                    Content="Detaljan prikaz"
-                    HorizontalContentAlignment="Left"
-                    FontSize="25"
-                    Click="BtnDetails_Click"/>
         </StackPanel>
         <Grid>
             <Grid.RowDefinitions>

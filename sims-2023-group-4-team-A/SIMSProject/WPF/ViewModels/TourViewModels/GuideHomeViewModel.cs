@@ -18,13 +18,12 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
     {
         private readonly VoucherService _voucherService;
         private readonly GuideService _service;
-        private readonly NavigationService _navigationService;
-
+        public static NavigationService? NavigationService;
         public static Guide Guide { get; set; } = new();
         public string SuperGuideLanguages { get; private set; }
         public GuideHomeViewModel(Guide guide, NavigationService navigationService)
         {
-            _navigationService = navigationService;
+            NavigationService = navigationService;
             _voucherService = Injector.GetService<VoucherService>();
             _service = Injector.GetService<GuideService>();
             Guide = guide;
@@ -60,7 +59,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         
         public void NavigateTodaysExecute()
         {
-            _navigationService.Navigate(
+            NavigationService.Navigate(
                 new Uri("/WPF/Views/TourViews/GuideViews/TourManager/TodaysToursPage.xaml", UriKind.Relative));
         }
         #endregion
@@ -69,7 +68,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
 
         public void NavigateAllExecute()
         {
-            _navigationService.Navigate(
+            NavigationService.Navigate(
                 new Uri("/WPF/Views/TourViews/GuideViews/TourManager/AllToursPage.xaml", UriKind.Relative));
         }
         #endregion
@@ -78,7 +77,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
 
         public void NavigateCustomRequestsExecute()
         {
-            _navigationService.Navigate(
+            NavigationService.Navigate(
                 new Uri("/WPF/Views/TourViews/GuideViews/CustomTourRequests/CustomRequestsPage.xaml", UriKind.Relative));
         }
         #endregion
@@ -87,7 +86,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
 
         public void NavigateComplexRequestsExecute()
         {
-            _navigationService.Navigate(
+            NavigationService.Navigate(
                 new Uri("/WPF/Views/TourViews/GuideViews/ComplexTourRequests/ComplexTourRequestsPage.xaml", UriKind.Relative));
         }
         #endregion
@@ -96,7 +95,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
 
         public void NavigateStatisticsExecute()
         {
-            _navigationService.Navigate(
+            NavigationService.Navigate(
                 new Uri("/WPF/Views/TourViews/GuideViews/TourStatistics/TourStatisticsPage.xaml", UriKind.Relative));
         }
         #endregion
@@ -105,7 +104,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
 
         public void NavigateRequestsStatisticsExecute()
         {
-            _navigationService.Navigate(
+            NavigationService.Navigate(
                 new Uri("/WPF/Views/TourViews/GuideViews/CustomTourRequests/CustomRequestsStatisticsPage.xaml", UriKind.Relative));
         }
         #endregion
@@ -114,7 +113,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
 
         public void NavigateReviewsExecute()
         {
-            _navigationService.Navigate(
+            NavigationService.Navigate(
                 new Uri("/WPF/Views/TourViews/GuideViews/TourReviews/TourReviewsPage.xaml", UriKind.Relative));
         }
         #endregion

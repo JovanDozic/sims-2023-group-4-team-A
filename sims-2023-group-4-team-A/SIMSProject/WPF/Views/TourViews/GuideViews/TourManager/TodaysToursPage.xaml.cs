@@ -28,11 +28,12 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
         {
             InitializeComponent();
             ViewModel = new("TodaysTours");
+            ViewModel.RequestOpen += (sender, args) => OpenPickView();
             this.DataContext = ViewModel;
         }
-        private void CheckAppointmentsBTN_Click(object sender, RoutedEventArgs e)
+        private void OpenPickView()
         {
-            var window = new AppointmentPickerWindow();
+            var window = new AppointmentPickerWindow(ViewModel.NextViewModel1);
             window.Show();
         }
     }

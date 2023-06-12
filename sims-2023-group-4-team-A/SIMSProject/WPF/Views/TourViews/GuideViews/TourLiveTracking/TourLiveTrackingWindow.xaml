@@ -34,9 +34,6 @@
                     Grid.Row="0" Grid.Column="0"
                     Orientation="Vertical"
                     HorizontalAlignment="Left">
-            <Button x:Name="GoBackBTN"
-                    Width="44" Height="36"
-                    HorizontalAlignment="Left"/>
             <TextBlock
                     HorizontalAlignment="Left"
                     Height="40" Width="400"
@@ -53,12 +50,11 @@
                            FontSize="24"/>
             </StackPanel>
             <ListBox
-                Margin="0,25,0,0"
                 HorizontalAlignment="Left"
                 ItemsSource="{Binding Path=Appointment.Tour.KeyPoints}"
                 FontSize="24"
                 Width="400" Height="250"/>
-            <StackPanel Margin="0,126,0,0"
+            <StackPanel Margin="0,190,0,0"
                 Orientation="Horizontal" Height="80" Width="527">
                 <Button x:Name="NextBTN"
                         Width="150"

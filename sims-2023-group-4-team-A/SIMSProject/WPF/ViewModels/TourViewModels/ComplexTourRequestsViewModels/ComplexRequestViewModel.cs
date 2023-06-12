@@ -17,6 +17,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ComplexTourRequestsViewModel
     {
         private readonly ComplexTourRequestService _complexService;
 
+        public AcceptComplexPartViewModel NextViewModel;
         private ObservableCollection<ComplexTourRequest> _complexTourRequests = new();
         public ObservableCollection<ComplexTourRequest> ComplexTourRequests
         {
@@ -66,7 +67,9 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ComplexTourRequestsViewModel
         }
         public void GetPotentialAppointmentsExecute()
         {
+            NextViewModel = new();
             SendMessage();
+            OnRequestOpen();
         }
 
         private void SendMessage()

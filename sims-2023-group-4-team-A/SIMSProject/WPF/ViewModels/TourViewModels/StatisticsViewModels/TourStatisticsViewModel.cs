@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System;
 using SIMSProject.Domain.Injectors;
+using System.Windows.Xps.Serialization;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels.StatisticsViewModels
 {
@@ -83,7 +84,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.StatisticsViewModels
                 }
             }
         }
-
         private bool _rbYearIsChecked;
         public bool RbYearIsChecked
         {
@@ -111,7 +111,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.StatisticsViewModels
                 }
             }
         }
-
         private string _desiredYear = String.Empty;
         public string DesiredYear
         {
@@ -123,13 +122,23 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.StatisticsViewModels
                 OnPropertyChanged(nameof(DesiredYear));
             }
         }
-
+        private static bool togglePage;
         public void GetFinishedTours()
         {
             Tours.Clear();
             Tours = new(_tourAppointmentService.GetToursWithFinishedAppointments());
         }
-
+        public TourStatisticsViewModel()
+        {
+            _tourStatisticsService = Injector.GetService<TourStatisticsService>();
+            _tourService = Injector.GetService<TourService>();
+            _tourAppointmentService = Injector.GetService<TourAppointmentService>();
+            AgeGroupDictionary = _tourStatisticsService.MapToursGuestAgeGroups();
+            VoucherDictionary = _tourStatisticsService.MapToursVoucherUsage();
+            GetStatisticsCommand = new RelayCommand(ExecuteGetStatistics, CanExecuteGetStatistics);
+            GetYearlyStatisticsCommand = new RelayCommand(ExecuteYearlyStatistics, CanExecuteYearlyStatistics);
+            TogglePagesCommand = new RelayCommand(TogglePagesExecute, TogglePagesCanExecute);
+        }
         #region GetStatisticsCommand
         public ICommand GetStatisticsCommand { get; set; }
 
@@ -143,7 +152,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.StatisticsViewModels
             TourStatistics = _tourStatisticsService.GetMostVisitedTour(null);
         }
         #endregion
-
         #region GetYearlyStatisticsCommand
         public ICommand GetYearlyStatisticsCommand { get; set; }
 
@@ -157,18 +165,19 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.StatisticsViewModels
             TourStatistics = _tourStatisticsService.GetMostVisitedTour(int.Parse(DesiredYear));
         }
         #endregion
-
-        public TourStatisticsViewModel()
+        #region TogglePagesCommand
+        public ICommand TogglePagesCommand { get; private set; }
+        private bool TogglePagesCanExecute()
         {
-            _tourStatisticsService = Injector.GetService<TourStatisticsService>();
-            _tourService = Injector.GetService<TourService>();
-            _tourAppointmentService = Injector.GetService<TourAppointmentService>();
-
-            AgeGroupDictionary = _tourStatisticsService.MapToursGuestAgeGroups();
-            VoucherDictionary = _tourStatisticsService.MapToursVoucherUsage();
-
-            GetStatisticsCommand = new RelayCommand(ExecuteGetStatistics, CanExecuteGetStatistics);
-            GetYearlyStatisticsCommand = new RelayCommand(ExecuteYearlyStatistics, CanExecuteYearlyStatistics);
+            return true;
         }
+        public void TogglePagesExecute()
+        {
+            var uri = togglePage ? new Uri("WPF/Views/TourViews/GuideViews/TourStatistics/TourStatisticsPage.xaml", UriKind.Relative) :
+                new Uri("WPF/Views/TourViews/GuideViews/TourStatistics/IndividualStatisticsPage.xaml", UriKind.Relative);
+            togglePage = !togglePage;
+            GuideHomeViewModel.NavigationService.Navigate(uri);
+        }
+        #endregion
     }
 }

@@ -26,13 +26,11 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
         public IndividualStatisticsPage()
         {
             InitializeComponent();
+            Loaded += (sender, e) => MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
+
             ViewModel = new TourStatisticsViewModel();
             ViewModel.GetFinishedTours();
             this.DataContext = ViewModel;
-        }
-        private void BtnNext_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new TourStatisticsPage());
         }
     }
 }

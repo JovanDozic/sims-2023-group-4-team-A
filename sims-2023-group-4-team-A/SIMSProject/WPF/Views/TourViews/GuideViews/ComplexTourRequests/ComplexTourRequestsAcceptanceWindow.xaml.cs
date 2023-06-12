@@ -21,17 +21,17 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews.ComplexTourRequests
     /// </summary>
     public partial class ComplexTourRequestsAcceptanceWindow : Window
     {
-        private AcceptComplexPartViewModel ViewModel = new();
-        public ComplexTourRequestsAcceptanceWindow()
+        private AcceptComplexPartViewModel ViewModel;
+        public ComplexTourRequestsAcceptanceWindow(AcceptComplexPartViewModel viewModel)
         {
             InitializeComponent();
+            this.ViewModel = viewModel;
+            ViewModel.RequestOpen += (sender, args) => OpenCreationView();
             this.DataContext = ViewModel;
-
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void OpenCreationView()
         {
-            var window = new TourCreation();
+            var window = new TourCreation(ViewModel.NextViewModel);
             window.Show();
             this.Close();
         }

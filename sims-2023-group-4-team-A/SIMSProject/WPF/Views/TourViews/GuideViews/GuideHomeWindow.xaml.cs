@@ -1,5 +1,6 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.TourViewModels;
+using SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels;
 using SIMSProject.WPF.Views;
 using SIMSProject.WPF.Views.TourViews.GuideViews;
 using System.Windows;
@@ -21,7 +22,8 @@ namespace SIMSProject.View.GuideViews
         }
         private void CreateTour_Click(object sender, RoutedEventArgs e)
         {
-            TourCreation window = new();
+            TourCreationViewModel viewModel = new();
+            TourCreation window = new(viewModel);
             window.Show();
         }
         private void Sign_outBTN_Click(object sender, RoutedEventArgs e)

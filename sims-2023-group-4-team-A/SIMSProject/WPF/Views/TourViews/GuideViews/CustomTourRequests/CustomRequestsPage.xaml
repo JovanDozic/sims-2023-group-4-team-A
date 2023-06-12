@@ -14,6 +14,7 @@
     </Page.Resources>
     <Page.InputBindings>
         <KeyBinding Command="{Binding FilterCommand}" Key="S" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding PickDateCommand}" Key="P" Modifiers="Ctrl"/>
     </Page.InputBindings>
     <Grid Width="800">
         <Grid.RowDefinitions>
@@ -63,7 +64,7 @@
                         Focusable="True"
                         ToolTip="Ctrl+S za filtriranje"
                         Command="{Binding FilterCommand}">
-                    <Image Source="Resources/search1.png"/>
+                    <Image Source="/Data/Resources/search1.png"/>
                 </Button>
             </WrapPanel>
         </GroupBox>
@@ -85,11 +86,10 @@
         <Button x:Name="btnAccept"
                 Grid.Row="2"
                 HorizontalAlignment="Left"
-                Height="37" Width="220"
-                Content="Prihvati zahtev"
+                Height="37" Width="280"
+                Content="Prihvati zahtev Ctrl+P"
                 FontStyle="Normal" FontSize="24" FontWeight="Bold"
-                Command="{Binding Path=PickDateCommand}"
-                Click="btnAccept_Click"/>
+                Command="{Binding Path=PickDateCommand}"/>
         <Button x:Name="btnDemo"
                 Grid.Row="2"
                 HorizontalAlignment="Right"

@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:SIMSProject.WPF.Views.TourViews.GuideViews"
         xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
        Title="AppointmentSelection" Height="400" Width="500">
     <Window.Resources>
         <converters:TourAppointmentStatusConverter x:Key="StatusConverter"/>
@@ -29,7 +30,6 @@
         <ListBox x:Name="LbAppointments" 
                  Grid.Row="1"
                  ToolTip="Ctrl+S za praćenje uživo"
-                 GotFocus="LbAppointments_GotFocus"
                  Width="350"
                  Height="173"
                  FontSize="24"
@@ -46,13 +46,12 @@
         </ListBox>
         <Button x:Name="StartTrackingBTN"
                 Grid.Row="2"
-                Height="37"
                 Width="290"
+                Height="75"
                 FontSize="28"
                 FontWeight="Bold"
                 HorizontalContentAlignment="Center"
-                Content="Započni/Nastavi turu"
-                Command="{Binding LiveTrackCommand}"
-                Click="StartTrackingBTN_Click"/>
+                Content="Započni/Nastavi turu&#xa;            Ctrl+S"
+                Command="{Binding LiveTrackCommand}"/>
     </Grid>
 </Window>

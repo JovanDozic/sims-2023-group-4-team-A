@@ -11,6 +11,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
     public class AppointmentPickerViewModel : ViewModelBase
     {
         private readonly TourAppointmentService _tourAppointmentService;
+        public TourLiveTrackViewModel NextViewModel;
         private Tour _tour { get; set; } = new();
         private TourAppointment _active { get => _tourAppointmentService.GetActive(); }
         
@@ -39,7 +40,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
                 }
             }
         }
-
         public AppointmentPickerViewModel()
         {
             _tourAppointmentService = Injector.GetService<TourAppointmentService>();
@@ -47,13 +47,11 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
 
             LiveTrackCommand = new RelayCommand(LiveTrackExecute, LiveTrackCanExecute);
         }
-
         private void OpenMessage(TourInfoMessage message)
         {
             _tour = message.Tour;
             Appointments = new(_tourAppointmentService.GetTodays(_tour));
         }
-
         #region LiveTrackCommand
         public ICommand LiveTrackCommand {get; private set;}
 
@@ -68,7 +66,9 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
             {
                 SelectedAppointment = _tourAppointmentService.Activate(SelectedAppointment, _tour);
             }
-            SendMessage(SelectedAppointment);   
+            NextViewModel = new();
+            SendMessage(SelectedAppointment);
+            OnRequestOpen();
         }
 
         public void SendMessage(TourAppointment selectedAppointment)

@@ -2,6 +2,7 @@
 using SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels;
 using System;
 using System.Windows;
+using System.Windows.Input;
 
 namespace SIMSProject.View.GuideViews
 {
@@ -11,10 +12,12 @@ namespace SIMSProject.View.GuideViews
     ///   
     public partial class TourCreation : Window
     {
-        private TourCreationViewModel ViewModel { get; set; } = new();
-        public TourCreation()
+        private TourCreationViewModel ViewModel;
+        public TourCreation(TourCreationViewModel viewModel)
         {
             InitializeComponent();
+            PreviewKeyDown += (s, e) => { if (e.Key == Key.Escape) this.Close(); };
+            this.ViewModel = viewModel;
             this.DataContext = ViewModel;
         }
     }

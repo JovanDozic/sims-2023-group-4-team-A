@@ -11,8 +11,8 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ReviewsViewModels
 {
     public class TourRatingsViewModel : ViewModelBase
     {
+        public AppointmentRatingViewModel NextViewModel;
         private readonly TourService _tourService;
-
         private ObservableCollection<TourRatingDTO> _ratings = new();
         public ObservableCollection<TourRatingDTO> Ratings
         {
@@ -92,7 +92,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ReviewsViewModels
                 OnPropertyChanged(nameof(AppointmentRating));
             }
         }
-
         private string _searchText = "Pretraži po nazivu ture";
         public string SearchText
         {
@@ -104,7 +103,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ReviewsViewModels
                 OnPropertyChanged(nameof(SearchText));
             }
         }
-
         public TourRatingsViewModel()
         {
             _tourService = Injector.GetService<TourService>();
@@ -148,7 +146,9 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ReviewsViewModels
         }
         public void DetailsExecute()
         {
+            NextViewModel = new();
             SendMessage();
+            OnRequestOpen();
         }
         public void SendMessage()
         {

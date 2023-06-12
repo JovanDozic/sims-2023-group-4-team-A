@@ -59,11 +59,6 @@
                       SelectedItem="{Binding Path=SelectedDate, UpdateSourceTrigger=PropertyChanged}"
                       Margin="82.5,0,0,0"
                       HorizontalAlignment="Left"/>
-                <Button x:Name="btnOpenDetails"
-                        Margin="20,0,0,0"
-                        Command="{Binding Path=DetailsCommand}"
-                        Click="btnOpenDetails_Click"
-                        Width="230" Height="42"/>
             </StackPanel>
             <DataGrid x:Name="dgrGrades"
                       Height="149" Width="800" 

@@ -26,6 +26,13 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
         {
             InitializeComponent();
             this.DataContext = ViewModel;
+            ViewModel.RequestOpen += (sender, args) => OpenDetailedView();
+        }
+
+        private void OpenDetailedView()
+        {
+            var window = new DetailedReviewWindow(ViewModel.NextViewModel);
+            window.Show();
         }
         private void tbSearch_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -34,11 +41,6 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
         private void tbSearch_GotFocus(object sender, RoutedEventArgs e)
         {
             tbSearch.Text = string.Empty;
-        }
-        private void btnOpenDetails_Click(object sender, RoutedEventArgs e)
-        {
-            var window = new DetailedReviewWindow();
-            window.Show();
         }
     }
 }

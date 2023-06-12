@@ -2,6 +2,7 @@
 using SIMSProject.WPF.ViewModels.TourViewModels.StatisticsViewModels;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SIMSProject.WPF.Views.TourViews.GuideViews
 {
@@ -14,16 +15,9 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
         public TourStatisticsPage()
         {
             InitializeComponent();
+            Loaded += (sender, e) => MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
             ViewModel = new TourStatisticsViewModel();
             this.DataContext = ViewModel;
-        }
-        private void BtnNext_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new IndividualStatisticsPage());
-        }
-
-        private void BtnDetails_Click(object sender, RoutedEventArgs e)
-        {
         }
     }
 }

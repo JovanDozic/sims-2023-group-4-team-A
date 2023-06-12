@@ -13,6 +13,9 @@
         <converter:TourLanguageConverter x:Key="TourLanguageConverter"/>
         <converter:CustomTourRequestStatusToBoolConverter x:Key="CTRSConverter"/>
     </Page.Resources>
+    <Page.InputBindings>
+        <KeyBinding Command="{Binding Path=GetPotentialAppointmentsCommand}" Key="M" Modifiers="Ctrl"/>
+    </Page.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -74,10 +77,9 @@
         <Button Grid.Row="1"
                 VerticalAlignment="Bottom" HorizontalAlignment="Left"
                 Margin="20,0,0,20"
-                Height="36" Width="320"
+                Height="36"
                 FontSize="28"
-                Content="Izlistaj moguće termine"
-                Command="{Binding Path=GetPotentialAppointmentsCommand}"
-                Click="Button_Click"/>
+                Content="Izlistaj moguće termine Ctrl+M"
+                Command="{Binding Path=GetPotentialAppointmentsCommand}"/>
     </Grid>
 </Page>

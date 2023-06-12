@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:SIMSProject.WPF.Views.TourViews.GuideViews.CustomTourRequests"
         mc:Ignorable="d"
         Title="AcceptRequestWindow" Height="400" Width="500" WindowStartupLocation="CenterScreen">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding Path=AcceptCommand}" Key="K" Modifiers="Ctrl"/>
+    </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -34,8 +37,7 @@
                 FontSize="28"
                 FontWeight="Bold"
                 HorizontalContentAlignment="Center"
-                Content="Kreiraj turu"
-                Command="{Binding AcceptCommand}"
-                Click="btnAccept_Click"/>
+                Content="Kreiraj turu Ctrl+K"
+                Command="{Binding AcceptCommand}"/>
     </Grid>
 </Window>

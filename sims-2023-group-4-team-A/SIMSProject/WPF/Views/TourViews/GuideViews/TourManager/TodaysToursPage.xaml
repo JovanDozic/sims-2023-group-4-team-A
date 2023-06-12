@@ -9,7 +9,7 @@
       d:DesignHeight="600" d:DesignWidth="965"
       Title="TodaysTours">
     <Page.InputBindings>
-        <KeyBinding Command="{Binding TourInfoCommand}" Key="M" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding TodaysAppointmentsCommand}" Key="M" Modifiers="Ctrl"/>
     </Page.InputBindings>
     <Page.Resources>
         <converters:TourLanguageConverter x:Key="LanguageConverter"/>
@@ -47,8 +47,8 @@
                 </Style>
             </Grid.Resources>
             <Button x:Name="CheckAppointmentsBTN" 
-                    Command="{Binding Path=TourInfoCommand}"
-                    Click="CheckAppointmentsBTN_Click"
+                    Command="{Binding Path=TodaysAppointmentsCommand}"
+                    FontWeight="Bold"
                     Content="Pregledaj termine Ctrl+M" 
                     Margin="32.5,0,0,0"/>
         </Grid>

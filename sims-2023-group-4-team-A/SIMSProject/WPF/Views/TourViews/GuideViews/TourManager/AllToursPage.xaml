@@ -49,6 +49,7 @@
             <Button x:Name="DetailsBTN" 
                     Command="{Binding Path=TourInfoCommand}"
                     Content="Detaljan prikaz Ctrl+D" 
+                    FontWeight="Bold"
                     Margin="32.5,0,0,0"/>
         </Grid>
     </Grid>

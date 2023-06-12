@@ -12,22 +12,21 @@ using System.Collections.Generic;
 using System.Windows;
 using SIMSProject.WPF.Messenger.Messages;
 using SIMSProject.WPF.Messenger;
+using SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
 {
     public class CustomTourRequestsStatisticsViewModel : ViewModelBase
     {
         private readonly CustomTourRequestService _requestService;
-
+        public TourCreationViewModel NextViewModel;
         public ObservableCollection<Location> RequestsLocations { get; set; }
         public ObservableCollection<Language> RequestsLanguages { get; set; }
-
         private readonly List<string> Months = new()
         {
             "Januar", "Februar", "Mart", "April", "Maj", "Jun",
             "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"
         };
-
         private string _titleX = string.Empty;
         public string TitleX
         {
@@ -52,7 +51,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
                 OnPropertyChanged(nameof(Labels));
             }
         }
-
         private SeriesCollection _series = new();
         public SeriesCollection Series
         {
@@ -77,7 +75,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
                 }
             }
         }
-
         private Language _language;
         public Language SelectedLanguage
         {
@@ -249,7 +246,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
                 OnPropertyChanged(nameof(MostWantedLocation));
             }
         }
-
         private ObservableCollection<Language> _mostWantedLanguages = new();
         public ObservableCollection<Language> MostWantedLanguages
         {
@@ -296,7 +292,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
 
         public bool CountLocationsCanExecute()
         {
-            return RbLocationsIsChecked && RbAnnualyIsChecked;
+            return RbLocationsIsChecked && RbAnnualyIsChecked && SelectedLocation != null;
         }
         public void CountLocationsExecute()
         {
@@ -339,7 +335,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
         public ICommand CountLocationsMonthlyCommand { get; private set; }
         public bool CountLocationsMonthlyCanExecute()
         {
-            return RbLocationsIsChecked && RbYearIsChecked && int.TryParse(DesiredYear, out _);
+            return RbLocationsIsChecked && RbYearIsChecked && int.TryParse(DesiredYear, out _) && SelectedLocation!= null;
         }
         public void CountLocationsMonthlyExecute()
         {
@@ -381,11 +377,13 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.CustomTourRequestsViewModels
         public ICommand CreateMostWantedCommand { get; private set; }
         public bool CreateMostWantedCanExecute()
         {
-            return MostWantedLocation.Id > 0 || MostWantedLanguage > 0;
+            return (MostWantedLocation != null && MostWantedLocation.Id > 0) || MostWantedLanguage > 0;
         }
         public void CreateMostWantedExecute()
         {
+            NextViewModel = new();
             SendMessage();
+            OnRequestOpen();
         }
         public void SendMessage()
         {

@@ -23,11 +23,5 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
             var window = new DetailedTourWindow(ViewModel.NextViewModel);
             window.Show();
         }
-
-        //private void DetailsBTN_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var window = new DetailedTourWindow(ViewModel.NextViewModel);
-        //    window.Show();
-        //}
     }
 }

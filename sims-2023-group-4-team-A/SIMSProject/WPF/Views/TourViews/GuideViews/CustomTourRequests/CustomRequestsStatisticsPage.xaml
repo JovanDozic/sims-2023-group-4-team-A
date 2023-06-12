@@ -6,7 +6,6 @@
       xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       xmlns:lvcvm="clr-namespace:LiveCharts;assembly=LiveCharts"
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.TourViews.GuideViews.CustomTourRequests"
-      xmlns:models="clr-namespace:SIMSProject.Domain.Models.TourModels"
       xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="965"
@@ -16,6 +15,8 @@
         <KeyBinding Command="{Binding CountLanguagesCommand}" Key="J"/>
         <KeyBinding Command="{Binding CountLocationsMonthlyCommand}" Key="A"/>
         <KeyBinding Command="{Binding CountLanguagesMonthlyCommand}" Key="B"/>
+        <KeyBinding Command="{Binding ToggleVisibilityCommand}" Key="T"/>
+        <KeyBinding Command="{Binding CreateMostWantedCommand}" Key="K" Modifiers="Ctrl"/>
     </Page.InputBindings>
     <Page.Resources>
         <converters:TourLanguageConverter x:Key="LanguageConverter"/>
@@ -33,7 +34,8 @@
                     Height="150">
             <Button x:Name="btnCreate"
                     Height="40" Width="335"
-                    Content="Kreiraj najtraženiju turu"
+                    FontWeight="Bold"
+                    Content="Kreiraj najtraženiju turu T"
                     HorizontalContentAlignment="Left"
                     Command="{Binding Path=ToggleVisibilityCommand}"
                     FontSize="25"/>
@@ -58,6 +60,7 @@
                            Margin="0,20,0,0">
                     <RadioButton x:Name="rdbLocation"
                                  Height="38"
+                                 GotKeyboardFocus="rdbLocation_GotKeyboardFocus"
                                  IsChecked="{Binding Path=RbLocationsIsChecked,Mode=TwoWay}"
                                  VerticalContentAlignment="Top"/>
                     <ComboBox Width="181" Height="38"
@@ -68,6 +71,7 @@
                               Margin="20,0,0,20"/>
                     <RadioButton x:Name="rdbLanguage"
                                  Height="38"
+                                 GotKeyboardFocus="rdbLanguage_GotKeyboardFocus"
                                  IsChecked="{Binding Path=RbLanguagesIsChecked,Mode=TwoWay}"
                                  VerticalContentAlignment="Center"/>
                     <ComboBox Width="181" Height="38"
@@ -87,11 +91,13 @@
                        Content="Prikaži zahteve na nivou:"/>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <RadioButton x:Name="rdbAll" Content="Godina" 
-                             FontSize="21" 
+                             FontSize="21"
+                             GotKeyboardFocus="rdbAll_GotKeyboardFocus"
                              IsChecked="{Binding Path=RbAnnualyIsChecked,Mode=TwoWay}"
                              VerticalContentAlignment="Center"/>
                     <RadioButton x:Name="rdbYear" 
                              Margin="20,0,0,0"
+                             GotKeyboardFocus="rdbYear_GotKeyboardFocus"
                              IsChecked="{Binding Path=RbYearIsChecked, Mode=TwoWay}"
                              VerticalContentAlignment="Center"/>
                     <TextBox x:Name="tbYear" 
@@ -125,23 +131,17 @@
             <Border     Grid.Row="0"
                         Grid.RowSpan="2" Grid.ColumnSpan="2"
                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                        BorderBrush="Silver" CornerRadius="10"
                         BorderThickness="1"
-                        BorderBrush="Aqua"
+                        Background="White"
                         Height="300" Width="450"
                         Visibility="{Binding Path=SpVisibilityLanguages,Mode=TwoWay}">
                 <StackPanel x:Name="spLanguages"
                         Grid.Row="0"
                         Grid.RowSpan="2" Grid.ColumnSpan="2"
                         HorizontalAlignment="Center" VerticalAlignment="Center"
-                        Height="300" Width="450"
-                        Background="White"
+                        Height="280" Width="440"
                         Visibility="{Binding Path=SpVisibilityLanguages, Mode=TwoWay}">
-                    <Button x:Name="btnBack"
-                        Content="Odustani"
-                        FontSize="22"
-                        Margin="20,10,20,10" Width="120" HorizontalAlignment="Right"
-                        Command="{Binding Path=ToggleVisibilityCommand}"
-                        />
                     <TextBlock x:Name="tbDescription"
                            Height="30" 
                            FontSize="22"
@@ -149,16 +149,15 @@
                            Margin="20,0,20,10"/>
                     <ListBox x:Name="lbMostWanted"
                          Margin="20,0,20,0"
-                         Height="150"
+                         Height="140"
                          FontSize="22"
                          ItemsSource="{Binding Path=MostWantedLanguages, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                          SelectedItem="{Binding Path=MostWantedLanguage, UpdateSourceTrigger=PropertyChanged}">
                     </ListBox>
                     <Button x:Name="btnCreateTour"
-                        Content="Kreiraj turu"
-                        Margin="20" Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                        Content="Kreiraj turu Ctrl+K"
+                        Margin="10" Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom"
                         Command="{Binding Path=CreateMostWantedCommand}"
-                        Click="btnCreateTour1_Click"
                         FontSize="22"/>
                 </StackPanel>
             </Border>
@@ -166,20 +165,12 @@
             <Border     Grid.Row="0"
                         Grid.RowSpan="2" Grid.ColumnSpan="2"
                         HorizontalAlignment="Center" VerticalAlignment="Center"
-                        BorderThickness="1"
-                        BorderBrush="Aqua"
+                        BorderThickness="1" BorderBrush="Silver" CornerRadius="10" Background="White"
                         Height="300" Width="450"
                         Visibility="{Binding Path=SpVisibilityLocations, Mode=TwoWay}">
                 <StackPanel x:Name="spLocations"
-                       
-                        Background="White"
+                        Height="280" Width="440"
                         Visibility="{Binding Path=SpVisibilityLocations, Mode=TwoWay}">
-                    <Button x:Name="btnBack1"
-                        Content="Odustani"
-                        FontSize="22"
-                        Margin="20,10,20,10" Width="120" HorizontalAlignment="Right"
-                        Command="{Binding Path=ToggleVisibilityCommand}"
-                        />
                     <TextBlock x:Name="tbDescription1"
                            Height="30" 
                            FontSize="22"
@@ -188,20 +179,18 @@
                     <ListBox x:Name="lbMostWanted1"
                          Margin="20,0,20,0"
                          FontSize="22"
-                         Height="150"
+                         Height="140"
                          ItemsSource="{Binding Path=MostWantedLocations, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                          SelectedItem="{Binding Path=MostWantedLocation, UpdateSourceTrigger=PropertyChanged}">
                     </ListBox>
                     <Button x:Name="btnCreateTour1"
-                        Content="Kreiraj turu"
-                        Margin="20" Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                        Content="Kreiraj turu Ctrl+K"
+                        FontWeight="Bold"
+                        Margin="10" Width="220" HorizontalAlignment="Center" VerticalAlignment="Bottom"
                         Command="{Binding Path=CreateMostWantedCommand}"
-                        Click="btnCreateTour1_Click"
                         FontSize="22"/>
                 </StackPanel>
-
             </Border>
-            
         </Grid>
     </DockPanel>
 </Page>

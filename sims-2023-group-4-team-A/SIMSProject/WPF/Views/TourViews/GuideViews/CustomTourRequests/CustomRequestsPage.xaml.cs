@@ -26,12 +26,12 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews.CustomTourRequests
         {
             InitializeComponent();
             this.DataContext = ViewModel;
+            this.ViewModel.RequestOpen += (sender, args) => OpenPickView();
         }
-
-        private void btnAccept_Click(object sender, RoutedEventArgs e)
+        private void OpenPickView()
         {
-            var window = new AcceptRequestWindow();
-            window.Show();
+            var window = new AcceptRequestWindow(ViewModel.NextViewModel);
+            window.ShowDialog();
         }
     }
 }

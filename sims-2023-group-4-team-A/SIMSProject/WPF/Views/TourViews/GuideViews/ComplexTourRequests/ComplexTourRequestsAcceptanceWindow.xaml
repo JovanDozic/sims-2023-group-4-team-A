@@ -12,6 +12,9 @@
     <Window.Resources>
         <converter:TourAppointmentDateTimeConverter x:Key="DateConverter"/>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding Path=AcceptCommand}" Key="A" Modifiers="Ctrl"/> 
+    </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -41,12 +44,11 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Button Content="Prihvati deo ture"
+            <Button Content="Prihvati deo ture Ctrl+A"
                     FontSize="24"
-                    Height="36" Width="220"
+                    Height="36" Width="280"
                     Margin="0,20,0,0"
-                    Command="{Binding Path=AcceptCommand}"
-                    Click="Button_Click"/>
+                    Command="{Binding Path=AcceptCommand}"/>
         </StackPanel>
     </Grid>
 </Window>
