@@ -25,7 +25,6 @@ namespace SIMSProject.WPF.Views.OwnerViews
         private User _user = new();
         private App App => (App)System.Windows.Application.Current;
 
-
         public bool UserHasUnreadNotifications
         {
             get
@@ -136,15 +135,6 @@ namespace SIMSProject.WPF.Views.OwnerViews
         {
             Storyboard storyboard = (Storyboard)FindResource("FadeAnimation");
             storyboard.Begin(MainFrame);
-        }
-
-        private void Image_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            OwnerHomeViewOld ownerHomeViewOld = new(_user);
-            ownerHomeViewOld.Show();
-
-            OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow ?? new(new User());
-            ownerWindow?.Close();
         }
     }
 }

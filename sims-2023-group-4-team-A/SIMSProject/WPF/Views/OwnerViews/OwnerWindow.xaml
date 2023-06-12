@@ -7,9 +7,8 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Title="Owner Window" Height="750" Width="430"
-        WindowStartupLocation="Manual"
-        Left="1050"
-        Top="40"
+        WindowStartupLocation="CenterScreen"
+        
         Background="{DynamicResource BackgroundColor}">
     <Window.Resources>
         <Storyboard x:Key="FadeAnimation">

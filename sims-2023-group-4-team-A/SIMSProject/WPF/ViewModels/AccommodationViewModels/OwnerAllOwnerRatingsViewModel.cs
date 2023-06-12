@@ -18,7 +18,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         private OwnerRatingService _ratingService;
 
         public Accommodation Accommodation { get; set; }
-        public ObservableCollection<OwnerRating> Ratings { get; set; }
+        public ObservableCollection<OwnerRating> Ratings { get; set; } = new();
         public OwnerRating Rating { get; set; } = new();
 
         public OwnerAllOwnerRatingsViewModel(User user, Accommodation accommodation, OwnerAllOwnerRatingsView allView)
@@ -29,10 +29,14 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
             _ratingService = Injector.GetService<OwnerRatingService>();
 
+            LoadRatings();
+        }
+
+        internal void LoadRatings()
+        {
             Ratings = new(_ratingService.GetAllByAccommodationId(Accommodation.Id)
                                              .OrderByDescending(x => x.Reservation.EndDate)
                                              .OrderBy(x => x.Reservation.OwnerRated));
         }
-
     }
 }

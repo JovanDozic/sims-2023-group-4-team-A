@@ -50,7 +50,6 @@
         <ScrollViewer Grid.Row="2"
                       VerticalScrollBarVisibility="Hidden"
                       HorizontalScrollBarVisibility="Disabled"
-                      Height="{Binding IsInDeclineModeRowheight, UpdateSourceTrigger=PropertyChanged}"
                       VerticalAlignment="Top">
 
             <Border BorderThickness="0" BorderBrush="Transparent"

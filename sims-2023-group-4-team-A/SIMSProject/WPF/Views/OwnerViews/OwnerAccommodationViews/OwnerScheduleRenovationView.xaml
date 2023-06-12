@@ -79,6 +79,7 @@
                 <Border Grid.Row="3" Style="{StaticResource MobileTextBoxInputBorder}">
                     <DatePicker Style="{StaticResource MobileDatePickerInput}"
                                 Text="{Binding StartDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}"
+                                Foreground="Black"
                                 Language="sr-LATN"/>
                 </Border>
 
@@ -88,6 +89,7 @@
                         Background="Transparent">
                     <DatePicker Style="{StaticResource MobileDatePickerInput}"
                                 Text="{Binding EndDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}"
+                                Foreground="Black"
                                 Language="sr-LATN"/>
                 </Border>
 

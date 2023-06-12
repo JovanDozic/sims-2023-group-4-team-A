@@ -5,6 +5,7 @@ using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,7 +19,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
     {
         private User _user;
         private App _app = (App)System.Windows.Application.Current;
-        private INavigationService? _navigationService;
+        private OwnerRegisterAccommodationView? _registerView;
 
         private Accommodation _accommodation = new();
         private AccommodationService _accommodationService;
@@ -260,16 +261,16 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         public RelayCommand PrepareLocationCommand { get; }
         public RelayCommand UploadImageToAccommodationCommand { get; }
 
-        public AccommodationViewModel(User user, INavigationService? navigationService = null)
+        public AccommodationViewModel(User user, OwnerRegisterAccommodationView? ownerRegisterAccommodationView = null)
         {
             _user = user;
-            _navigationService = navigationService;
             _accommodationService = Injector.GetService<AccommodationService>();
             _locationService = Injector.GetService<LocationService>();
             _accommodationReservationService = Injector.GetService<AccommodationReservationService>();
             _renovationService = Injector.GetService<AccommodationRenovationService>();
             _accommodationReservationViewModel = new(_user);
             Accommodations = LoadAllAccommodations();
+            _registerView = ownerRegisterAccommodationView;
 
             AccommodationTypeSource = new ObservableCollection<AccommodationType>
             {
@@ -319,7 +320,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _accommodation.Owner = _user as Owner ?? throw new Exception("Error! Owner is not initialized.");
             _accommodationService.RegisterAccommodation(_accommodation);
 
-            _navigationService?.GoBack();
+            _registerView?.GoBackAndReload();
         }
         public string GetDateMessage()
         {

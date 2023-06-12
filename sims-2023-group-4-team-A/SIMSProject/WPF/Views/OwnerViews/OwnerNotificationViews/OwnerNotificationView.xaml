@@ -42,6 +42,7 @@
 
         <Image Source="{Binding Notification.IconSource, Converter={StaticResource ResourceKeyToImageSourceConverter}}" 
                Grid.Row="2"
+               Style="{StaticResource IconRenderStyle}"
                Height="80"/>
 
         <TextBlock Text="{Binding Notification.Description}" Grid.Row="3" FontSize="17.5"

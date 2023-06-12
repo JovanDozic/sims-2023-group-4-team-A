@@ -12,7 +12,6 @@ namespace SIMSProject.WPF.Views.OwnerViews
         public NotificationViewModel NotificationViewModel { get; set; }
         public AccommodationViewModel AccommodationViewModel { get; set; }
 
-
         public OwnerHomeView(User user)
         {
             InitializeComponent();

@@ -14,7 +14,8 @@ namespace SIMSProject.Domain.Models
         public DateTime CreationDate { get; set; } = DateTime.MinValue;
         public DateTime? ExpirationDate { get; set; } = null;
         public bool IsRead { get; set; } = false;
-        public string IconSource { get; set; } = "/Resources/Icons/bell.png";
+        public string IconSource { get; set; } = "BellIcon";
+        public bool IsSuggestion { get => Title.Contains("Predlog") || Title.Contains("Suggestion"); }
 
         public Notification() 
         { 

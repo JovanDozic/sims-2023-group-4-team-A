@@ -81,7 +81,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 Notifications = new ObservableCollection<Notification>();
                 if (notifications.Count > 1) Notifications.Add(notifications[0]);
             }
-            else Notifications = new ObservableCollection<Notification>(notifications);
+            else Notifications = new ObservableCollection<Notification>(notifications.OrderByDescending(x => x.CreationDate).OrderBy(x => x.IsSuggestion));
             TranslationInProgress = false;
         }
 

@@ -1,6 +1,7 @@
 ﻿using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -26,19 +27,30 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
             if (LstRatings.SelectedItem is null) return;
             if (_viewModel.Rating.Reservation.DisplayOwnerRatingNotAvailable)
             {
-
-                // TODO: Open RateGuestView for this 
-
+                OwnerRateGuestView rateGuestView = new(_user, _viewModel.Rating.Reservation, null, this);
+                OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow ?? new(_user);
+                ownerWindow.MainFrame.Navigate(rateGuestView);
                 return;
             }
-            OwnerOwnerRatingView ownerRatingView = new(_user, _viewModel.Rating.Reservation);
-            OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow ?? new(_user);
-            ownerWindow.MainFrame.Navigate(ownerRatingView);
+            else
+            {
+                OwnerOwnerRatingView ownerRatingView = new(_user, _viewModel.Rating.Reservation);
+                OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow ?? new(_user);
+                ownerWindow.MainFrame.Navigate(ownerRatingView);
+            }
         }
 
         private void BtnBack_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             NavigationService?.GoBack();
         }
+
+        internal void ReloadRatings()
+        {
+            _viewModel.LoadRatings();
+            LstRatings.Items.Refresh();
+            LstRatings.SelectedIndex = -1;
+        }
+
     }
 }

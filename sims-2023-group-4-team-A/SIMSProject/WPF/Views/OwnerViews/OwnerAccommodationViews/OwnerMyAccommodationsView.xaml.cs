@@ -1,6 +1,7 @@
 ﻿using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -26,7 +27,7 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
 
         private void BtnAddAccommodation_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            OwnerRegisterAccommodationView addAccommodationView = new(_user);
+            OwnerRegisterAccommodationView addAccommodationView = new(_user, this);
             OwnerWindow ownerWindow = Window.GetWindow(this) as OwnerWindow ?? new(_user);
             ownerWindow?.SwitchToPage(addAccommodationView);
 
@@ -56,5 +57,12 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
 
             LstAccommodations.SelectedItem = null;
         }
+
+        internal void ReloadAccommodations()
+        {
+            _viewModel.LoadAccommodationsByOwner();
+            LstAccommodations.Items.Refresh();
+        }
+
     }
 }
