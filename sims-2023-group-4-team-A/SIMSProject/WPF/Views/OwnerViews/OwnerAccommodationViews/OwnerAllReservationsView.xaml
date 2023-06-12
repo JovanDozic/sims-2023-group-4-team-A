@@ -5,9 +5,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
       xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
+      xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
       mc:Ignorable="d" 
       d:DesignHeight="1000" d:DesignWidth="430"
-      Title="All Reservatinos" Background="White">
+      Title="All Reservatinos">
 
     <Page.Resources>
         <converters:BooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" Inverted="True" />
@@ -25,34 +26,42 @@
         <Button x:Name="BtnBack" Grid.Row="0"
                 Style="{StaticResource BackButtonStyle}"
                 VerticalAlignment="Center"
-                Click="BtnBack_Click">
+                Click="BtnBack_Click"
+                Foreground="{DynamicResource TextColor}">
             <StackPanel Orientation="Horizontal">
-                <Image Source="/Resources/Icons/back.png"
+                <Image Source="{DynamicResource BackIcon}"
                        Style="{StaticResource BackButtonIconStyle}"/>
-                <TextBlock Text="Nazad" Style="{StaticResource BackButtonTextStyle}"/>
+                <TextBlock Text="{ns:Loc Back}" Style="{StaticResource BackButtonTextStyle}"/>
                 <TextBlock Text=" - " Style="{StaticResource BackButtonTextStyle}"/>
                 <TextBlock Text="{Binding Accommodation.Name}" Style="{StaticResource BackButtonTextStyle}"/>
             </StackPanel>
         </Button>
 
-        <Label Content="Rezervacije" Grid.Row="1"
+        <Label Content="{ns:Loc Reservations}" Grid.Row="1"
                FontSize="30" FontWeight="SemiBold"
-               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Foreground="{DynamicResource TextColor}"/>
 
         <ListView x:Name="LstReservations" Grid.Row="2" 
                   ItemsSource="{Binding Reservations, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                  SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                  SelectedItem="{Binding HoveredReservation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                   Background="Transparent"
                   BorderThickness="0"
                   BorderBrush="Transparent" 
                   ScrollViewer.CanContentScroll="False"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                  ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                  Foreground="{DynamicResource TextColor}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <EventSetter Event="MouseEnter" Handler="LstReservationsItem_MouseEnter"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,7.5"  Grid.Row="2" Height="280">
                         <Border BorderBrush="Transparent" BorderThickness="0"
-                                Background="#eeeeee"
+                                Background="{DynamicResource CardBackgroundColor}"
                                 Padding="10"
                                 Width="385">
                             <Grid>
@@ -67,9 +76,16 @@
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
 
+                                <!--<Label Content="{Binding Id}"
+                                       Grid.Row="0" Grid.Column="1"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Top"
+                                       Foreground="{DynamicResource TextColor}"/>-->
+
                                 <!-- Guest name -->
                                 <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-                                    <Label Content="Ime gosta:" FontSize="15"/>
+                                    <Label Content="{ns:Loc GuestName}" FontSize="15"
+                                           Foreground="{DynamicResource TextColor}"/>
                                     <TextBlock Text="{Binding Guest.Username}"
                                                FontSize="20" FontWeight="SemiBold"
                                                Margin="10,0,0,0"/>
@@ -77,13 +93,15 @@
 
                                 <!-- StartDate / EndDate -->
                                 <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0">
-                                    <Label Content="Dolazak:" FontSize="15"/>
+                                    <Label Content="{ns:Loc ArrivalDot}" FontSize="15"
+                                           Foreground="{DynamicResource TextColor}"/>
                                     <TextBlock Text="{Binding FormattedStartDate}"
                                                FontSize="18" FontWeight="SemiBold"
                                                Margin="10,0,0,0"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0">
-                                    <Label Content="Odlazak:" FontSize="15"/>
+                                    <Label Content="{ns:Loc LeavingDot}" FontSize="15"
+                                           Foreground="{DynamicResource TextColor}"/>
                                     <TextBlock Text="{Binding FormattedEndDate}"
                                                FontSize="18" FontWeight="SemiBold"
                                                Margin="10,0,0,0"/>
@@ -91,32 +109,48 @@
 
                                 <!-- OwnerRating -->
                                 <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="0">
-                                    <Label Content="Recenzija od gosta:" FontSize="15"/>
+                                    <Label Content="{ns:Loc RatingFromGuestDot}" FontSize="15"
+                                           Foreground="{DynamicResource TextColor}"/>
                                     <StackPanel Orientation="Horizontal">
+                                        
                                         <TextBlock Text="{Binding OwnerRatingString}"
                                                    FontSize="20" FontWeight="SemiBold"
                                                    Margin="10,0,20,0"/>
+
                                         <Button Style="{StaticResource NoHoverButtonStyle}"
                                                 Click="BtnReservationInFuture_Click"
-                                                IsEnabled="{Binding IsInFuture}">
-                                            <Image Source="/Resources/Icons/clock-unfill.png" Style="{StaticResource IconRenderStyle}"
-                                               Height="20"
-                                               Visibility="{Binding IsInFuture, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                                Visibility="{Binding DisplayInFuture, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                IsEnabled="{Binding DisplayInFuture}">
+                                            <Image Source="{DynamicResource ClockUnfillIcon}" 
+                                                   Style="{StaticResource IconRenderStyle}"
+                                                   Height="20"/>
                                         </Button>
+
                                         <Button Style="{StaticResource NoHoverButtonStyle}"
-                                                Click="BtnViewOwnerRating_Click"
-                                                IsEnabled="{Binding OwnerRated}">
-                                            <Image Source="/Resources/Icons/eye.png" Style="{StaticResource IconRenderStyle}"
-                                                   Height="20" 
-                                                   Visibility="{Binding OwnerRated, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                                Click="BtnOwnerRatingNotAvailable_Click"
+                                                Visibility="{Binding DisplayOwnerRatingNotAvailable, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                IsEnabled="{Binding DisplayOwnerRatingNotAvailable}">
+                                            <Image Source="{DynamicResource CrossedEyeIcon}" 
+                                                   Style="{StaticResource IconRenderStyle}"
+                                                   Height="20"/>
                                         </Button>
+
+                                        <Button Style="{StaticResource NoHoverButtonStyle}"
+                                                Visibility="{Binding DisplayRating, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                IsEnabled="{Binding DisplayRating}"
+                                                Command="{Binding DataContext.ViewOwnerRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
+                                            <Image Source="{DynamicResource EyeIcon}" 
+                                                   Style="{StaticResource IconRenderStyle}"
+                                                   Height="20"/>
+                                        </Button>
+                                        
                                     </StackPanel>
                                 </StackPanel>
-                                
 
                                 <!-- Number of days -->
                                 <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
-                                    <Label Content="Broj noćenja:" FontSize="15"/>
+                                    <Label Content="{ns:Loc NumberOfDaysDot}" FontSize="15"
+                                           Foreground="{DynamicResource TextColor}"/>
                                     <TextBlock Text="{Binding NumberOfDays}"
                                                FontSize="20" FontWeight="SemiBold"
                                                Margin="10,0,0,0"/>  
@@ -124,7 +158,8 @@
 
                                 <!-- Number of guests -->
                                 <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1">
-                                    <Label Content="Broj gostiju:" FontSize="15"/>
+                                    <Label Content="{ns:Loc NumberOfGuestsDot}" FontSize="15"
+                                           Foreground="{DynamicResource TextColor}"/>
                                     <TextBlock Text="{Binding GuestNumber}"
                                                FontSize="20" FontWeight="SemiBold"
                                                Margin="10,0,0,0"/>  
@@ -132,24 +167,47 @@
 
                                 <!-- GuestRating -->
                                 <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1">
-                                    <Label Content="Recenzija za gosta:" FontSize="15"/>
+                                    <Label Content="{ns:Loc RatingForGuestDot}" FontSize="15"
+                                           Foreground="{DynamicResource TextColor}"/>
                                     <StackPanel Orientation="Horizontal">
+                                        
                                         <TextBlock Text="{Binding GuestRatingString}"
                                                    FontSize="20" FontWeight="SemiBold"
                                                    Margin="10,0,20,0"/>
+
                                         <Button Style="{StaticResource NoHoverButtonStyle}"
                                                 Click="BtnReservationInFuture_Click"
-                                                IsEnabled="{Binding IsInFuture}">
-                                            <Image Source="/Resources/Icons/clock-unfill.png" Style="{StaticResource IconRenderStyle}"
-                                                   Height="20"
-                                                   Visibility="{Binding IsInFuture, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                                Visibility="{Binding DisplayInFuture, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                IsEnabled="{Binding DisplayInFuture}">
+                                            <Image Source="{DynamicResource ClockUnfillIcon}" 
+                                                   Style="{StaticResource IconRenderStyle}"
+                                                   Height="20"/>
                                         </Button>
+
                                         <Button Style="{StaticResource NoHoverButtonStyle}"
-                                                Click="BtnViewOwnerRating_Click"
-                                                IsEnabled="{Binding GuestRated}">
-                                            <Image Source="/Resources/Icons/eye.png" Style="{StaticResource IconRenderStyle}"
-                                               Height="20"
-                                               Visibility="{Binding GuestRated, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                                Visibility="{Binding DisplayCanRateGuest, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                IsEnabled="{Binding DisplayCanRateGuest}"
+                                                Command="{Binding DataContext.RateGuestCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{ns:Loc Rate}" FontSize="15"
+                                                           TextDecorations="Underline"
+                                                           FontWeight="SemiBold"
+                                                           Margin="-10,2,10,0"
+                                                           Foreground="{DynamicResource TextColor}"/>
+                                                <Image Source="{DynamicResource NotifStarIcon}" 
+                                                       Style="{StaticResource IconRenderStyle}"
+                                                       Height="20"
+                                                       Margin="0,0,0,-2"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <Button Style="{StaticResource NoHoverButtonStyle}"
+                                                Visibility="{Binding GuestRated, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                IsEnabled="{Binding GuestRated}"
+                                                Command="{Binding DataContext.ViewGuestRatingCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}">
+                                            <Image Source="{DynamicResource EyeIcon}" 
+                                                   Style="{StaticResource IconRenderStyle}"
+                                                   Height="20"/>
                                         </Button>
                                     </StackPanel>
                                 </StackPanel>
@@ -166,7 +224,7 @@
                PlacementTarget="{Binding ElementName=BtnOwnerNotRated}"
                VerticalOffset="-15" HorizontalOffset="-20">
             <Border Style="{StaticResource PopupBorderStyle}">
-                <TextBlock Text="Rezervaicja još uvek nije prošla." 
+                <TextBlock Text="{ns:Loc ReservationStillInFuture}" 
                            Style="{StaticResource PopupTextStyle}"/>
             </Border>
         </Popup>

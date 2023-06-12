@@ -25,22 +25,39 @@ namespace SIMSProject.WPF.Views.OwnerViews
         private User _user = new();
         private App App => (App)System.Windows.Application.Current;
 
-        public OwnerView(User user)
+        public bool UserHasUnreadNotifications
+        {
+            get
+            {
+                if (_user is not Owner owner)
+                {
+                    MessageBox.Show("User is not an owner");
+                    return false;
+                }
+                return owner.HasNotifications;
+            }
+        }
+
+        public OwnerView(User user, string? navigateToPage = null)
         {
             InitializeComponent();
             DataContext = this;
             _user = user;
-            
-            AdaptViewToUser();
-            NavBtn_Click(NavBtnHome, null);
+
+            if (navigateToPage == "NavBtnAccount")
+            {
+                RoutedEventHandler loadedEventHandler = null;
+                loadedEventHandler = (s, e) =>
+                {
+                    if (navigateToPage is not null) NavigateToPage(navigateToPage);
+                    Loaded -= loadedEventHandler;
+                };
+
+                Loaded += loadedEventHandler;
+            }
+            else NavigateToPage("NavBtnHome");
         }
 
-        private void AdaptViewToUser()
-        {
-            if (_user is not Owner owner) return;
-            App.ChangeLanguage(owner.SelectedLanguage);
-            App.ChangeTheme(owner.SelectedTheme);
-        }
 
         private void ChangeNavButtonIcon(object sender, string resourceName)
         {
@@ -64,7 +81,7 @@ namespace SIMSProject.WPF.Views.OwnerViews
             else ChangeNavButtonIcon(sender, "AccountMenuIconFill");
         }
 
-        private void NavBtn_Click(object sender, RoutedEventArgs? e)
+        public void NavBtn_Click(object sender, RoutedEventArgs? e)
         {
             if (sender is not Button button) return;
 
@@ -73,13 +90,23 @@ namespace SIMSProject.WPF.Views.OwnerViews
                 {
                     "NavBtnNotifications" => new OwnerNotificationsView(_user),
                     "NavBtnAccommodations" => new OwnerMyAccommodationsView(_user),
-                    "NavBtnHome" => new OwnerHomeView(),
+                    "NavBtnHome" => new OwnerHomeView(_user),
                     "NavBtnForums" => new OwnerForumLocationsView(_user),
                     _ => new OwnerAccountView(_user),
                 }
             );
 
             UpdateNotificationButtons(sender);
+        }
+
+        public object NavigateToPage(string navBtnName)
+        {
+            if (navBtnName == "NavBtnAccommodations") NavBtn_Click(NavBtnAccommodations, null);
+            else if (navBtnName == "NavBtnNotifications") NavBtn_Click(NavBtnNotifications, null);
+            else if (navBtnName == "NavBtnAccount") NavBtn_Click(NavBtnAccount, null);
+            else if (navBtnName == "NavBtnHome") NavBtn_Click(NavBtnHome, null);
+            else NavBtn_Click(NavBtnForums, null);
+            return this;
         }
 
         public static T FindVisualChild<T>(DependencyObject? parent) where T : DependencyObject
@@ -108,35 +135,6 @@ namespace SIMSProject.WPF.Views.OwnerViews
         {
             Storyboard storyboard = (Storyboard)FindResource("FadeAnimation");
             storyboard.Begin(MainFrame);
-        }
-
-        private void TextBlock_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            // TODO: Move this logic to corresponding button in My Account view
-            if (App.CurrentTheme == "Light")
-            {
-                App.ChangeTheme("Dark");
-                App.CurrentTheme = "Dark";
-            }
-            else
-            {
-                App.ChangeTheme("Light");
-                App.CurrentTheme = "Light";
-            }
-            NavBtn_Click(NavBtnAccount, null);
-        }
-
-        private void Image_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            // TODO: Move this logic to corresponding button in My Account view
-            if (App.CurrentLanguage.Equals("en-US"))
-            {
-                App.ChangeLanguage("sr-LATN");
-            }
-            else
-            {
-                App.ChangeLanguage("en-US");
-            }
         }
     }
 }

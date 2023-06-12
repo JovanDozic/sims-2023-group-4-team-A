@@ -10,6 +10,7 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerForumViews
     public partial class OwnerForumView : Page
     {
         private User _user;
+        private App _app = (App)System.Windows.Application.Current;
         private OwnerForumViewModel _viewModel;
 
         public OwnerForumView(User user, Forum forum)
@@ -27,23 +28,33 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerForumViews
             NavigationService?.GoBack();
         }
 
-        private void BtnDownvoteComment_Click(object sender, RoutedEventArgs e)
-        {
-            _viewModel.DownvoteComment();
-        }
 
         private void BtnAddCommentInputForm_Click(object sender, RoutedEventArgs e)
         {
             CommentInputForm.Visibility = Visibility.Visible;
             BtnAddCommentInputForm.Visibility = Visibility.Collapsed;
             InputCommentRow.Height = new GridLength(200);
-            TxtNewComment.Focus();
+            //TxtNewComment.Focus();
         }
 
         private void BtnAddComment_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.AddNewComment();
+            if (!_viewModel.AddNewComment())
+            {
+                TxtNewCommentBorder.BorderBrush = System.Windows.Media.Brushes.Red;
+                return;
+            }
             BtnCancelAddingComment_Click(sender, e);
+
+            //if (_app.CurrentLanguage == "en-US")
+            //{
+            //    MessageBox.Show("Comment sent.", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Komentar poslat.", "Potvrda", MessageBoxButton.OK, MessageBoxImage.Information);
+            //}
+
             LstComments.Items.Refresh();
         }
 
@@ -64,6 +75,18 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerForumViews
         private void LstCommentsItem_MouseLeave(object sender, MouseEventArgs e)
         {
             _viewModel.HoveredComment = null;
+        }
+
+        private void TxtNewComment_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_viewModel.IsNewCommentValid)
+            {
+                TxtNewCommentBorder.BorderBrush = System.Windows.Media.Brushes.Black;
+            }
+            else
+            {
+                TxtNewCommentBorder.BorderBrush = System.Windows.Media.Brushes.Red;
+            }
         }
     }
 }

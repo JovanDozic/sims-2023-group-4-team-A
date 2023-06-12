@@ -5,41 +5,221 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
       mc:Ignorable="d" 
+      xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
+      xmlns:cstm="clr-namespace:SIMSProject.WPF.CustomControls"
+      xmlns:gif="http://wpfanimatedgif.codeplex.com"
       d:DesignHeight="750" d:DesignWidth="430"
-      Title="My Account"
-      Background="{DynamicResource BackgroundColor}">
+      xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
+      Title="My Account">
+
+    <Page.Resources>
+        <converters:ResourceKeyToImageSourceConverter x:Key="ResourceKeyToImageSourceConverter" />
+        <converters:BooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" Inverted="True" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" Inverted="False" />
+    </Page.Resources>
 
     <Grid>
 
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
-            <Label FontSize="30" Margin="10"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Content="Sunce ti kakav nalog!"
-                   Foreground="#ffcb00"/>
-
-            <Label FontSize="30" Margin="10"
-                   FontWeight="Bold" Foreground="{DynamicResource TextColor}"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Content="{Binding User.Username}"/>
-
-            <Button x:Name="BtnLogOut" Margin="10"
-                    Content="Log out"
-                    Style="{StaticResource MobileActionSingleButtonStyle}"
-                    Click="BtnLogOut_Click"/>
-
-            <Button x:Name="BtnOpenOldMenu" Margin="10"
-                    Content="Open Old Menu"
-                    Style="{StaticResource MobileActionSingleButtonStyle}"
-                    Click="BtnOpenOldMenu_Click"/>
-
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="180"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="90"/>
+        </Grid.RowDefinitions>
 
 
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0.15*"/>
+            </Grid.ColumnDefinitions>
 
+            <Label Content="{ns:Loc MyAccount}" Grid.Column="0"
+                   FontSize="30" FontWeight="SemiBold"
+                   HorizontalAlignment="Left" VerticalAlignment="Center"
+                   Foreground="{DynamicResource TextColor}"/>
+
+            <Button Grid.Column="1"
+                    Style="{StaticResource NoHoverButtonStyle}"
+                    Width="30" Height="30"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Command="{Binding LogOutCommand}">
+                <Image Source="{DynamicResource LogOutIcon}" 
+                       Style="{StaticResource IconRenderStyle}"
+                       Height="20"/>
+            </Button>
+        </Grid>
+
+        <!-- Account Name, Username, Email and Image -->
+        <Border Grid.Row="1" Margin="0,10,0,0" Grid.ColumnSpan="2"
+                BorderBrush="Transparent" BorderThickness="0"
+                Background="{DynamicResource CardBackgroundColor}">
+            <Grid Margin="10,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.7*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Border Style="{StaticResource MobileTextBoxInputBorder}"
+                        BorderThickness="0"
+                        Height="150">
+                    <Image Grid.Column="0" 
+                           Height="100"
+                           Source="{DynamicResource BadgeIcon}"
+                           Style="{StaticResource IconRenderStyle}"/>
+                </Border>
+
+                <StackPanel Orientation="Vertical" Grid.Column="1"
+                            Margin="17.5,-3,0,0"
+                            VerticalAlignment="Center">
+                    <TextBlock Text="{Binding FullName}"
+                               FontSize="22.5"
+                               FontWeight="SemiBold"
+                               FontFamily="OpenSans"
+                               Margin="0,7.5"
+                               Foreground="{DynamicResource TextColor}"/>
+                    <TextBlock Text="{Binding Username}"
+                               FontSize="15"
+                               Margin="0,7.5,0,10"
+                               FontFamily="Consolas"
+                               Foreground="{DynamicResource TextColor}"/>
+                    <TextBlock Text="{Binding Email}"
+                               FontSize="15"
+                               Margin="0,7.5"
+                               FontFamily="Opensans"
+                               Foreground="{DynamicResource TextColor}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Account Status -->
+        <Border Grid.Row="2" Margin="0,10,0,0" Grid.ColumnSpan="2"
+                BorderBrush="Transparent" BorderThickness="0"
+                Background="{DynamicResource CardBackgroundColor}">
+            <StackPanel Margin="10,0,0,0" Orientation="Vertical">
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0,15,0,5">
+                    <Image Source="{Binding RoleIcon, Converter={StaticResource ResourceKeyToImageSourceConverter}}"
+                           Height="20"
+                           Style="{StaticResource IconRenderStyle}"
+                           Margin="0,-5,0,0"/>
+                    <TextBlock Text="{Binding RoleText}"
+                               FontSize="20"
+                               FontWeight="SemiBold"
+                               FontFamily="OpenSans"
+                               Margin="10,0,0,0"
+                               Foreground="{DynamicResource TextColor}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0,5">
+
+                    <TextBlock Text="{Binding Rating}"
+                               FontSize="40"
+                               FontWeight="SemiBold"
+                               FontFamily="OpenSans"
+                               Foreground="{DynamicResource TextColor}"/>
+                    <TextBlock Text="{ns:Loc OutOf5}"
+                               FontSize="15"
+                               FontFamily="OpenSans"
+                               Margin="10,0,0,8"
+                               VerticalAlignment="Bottom"
+                               Foreground="{DynamicResource TextColor}"/>
+                </StackPanel>
+
+                <cstm:StarRating Rating="4.6"
+                                 ControlHeight="20"
+                                 Margin="0,-7.5,0,5"/>
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0,5,0,15">
+                    <TextBlock Text="{Binding TotalAccommodations}"
+                               FontSize="17.5"
+                               FontFamily="OpenSans"
+                               Foreground="{DynamicResource TextColor}"/>
+                    <TextBlock Text="{ns:Loc xAccommodations}" Margin="6,0,0,0"
+                               FontSize="17.5"
+                               FontFamily="OpenSans"
+                               Foreground="{DynamicResource TextColor}"/>
+                    <TextBlock Text="{Binding TotalRatings}"
+                               FontSize="17.5"
+                               FontFamily="OpenSans"
+                               Foreground="{DynamicResource TextColor}"/>
+                    <TextBlock Text="{ns:Loc xRatings3}" Margin="6,0,0,0"
+                               FontSize="17.5"
+                               FontFamily="OpenSans"
+                               Foreground="{DynamicResource TextColor}"/>
+                </StackPanel>
+
+            </StackPanel>
+        </Border>
+
+        <!-- Language toggle -->
+        <Button Grid.Row="3" Margin="0,10,5,0" Grid.Column="0"
+                BorderBrush="Transparent" BorderThickness="0"
+                Background="{DynamicResource CardBackgroundColor}"
+                Style="{StaticResource NoHoverButtonStyle}"
+                Command="{Binding ChangeLanguageCommand}">
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Center"
+                        Margin="-10,0,0,0"
+                        VerticalAlignment="Center">
+                
+                <TextBlock Text="{ns:Loc Language}"
+                           Grid.Column="0"
+                           FontSize="20"
+                           Margin="10,0,0,0"
+                           FontWeight="SemiBold"
+                           FontFamily="OpenSans"
+                           VerticalAlignment="Center" HorizontalAlignment="Center"
+                           Foreground="{DynamicResource TextColor}"/>
+                
+                <Image Source="{Binding CurrentLanguageIcon, Converter={StaticResource ResourceKeyToImageSourceConverter}}"
+                       Height="30"
+                       Margin="20,0,0,0"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Style="{StaticResource IconRenderStyle}"/>
+                
+            </StackPanel>
+        </Button>
+
+        <!-- Theme toggle -->
+        <Button Grid.Row="3" Margin="5,10,0,0" Grid.Column="1"
+                BorderBrush="Transparent" BorderThickness="0"
+                Background="{DynamicResource CardBackgroundColor}"
+                Style="{StaticResource NoHoverButtonStyle}"
+                Command="{Binding ChangeThemeCommand}">
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Center"
+                        Margin="-10,0,0,0"
+                        VerticalAlignment="Center">
+
+                <TextBlock Text="{ns:Loc Theme}"
+                           Grid.Column="0"
+                           FontSize="20"
+                           Margin="10,0,0,0"
+                           FontWeight="SemiBold"
+                           FontFamily="OpenSans"
+                           VerticalAlignment="Center" HorizontalAlignment="Center"
+                           Foreground="{DynamicResource TextColor}"/>
+
+                <Image Source="{Binding CurrentThemeIcon, Converter={StaticResource ResourceKeyToImageSourceConverter}}"
+                       Height="30"
+                       Margin="20,0,0,0"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Style="{StaticResource IconRenderStyle}"/>
+
+            </StackPanel>
+        </Button>
 
     </Grid>
 </Page>

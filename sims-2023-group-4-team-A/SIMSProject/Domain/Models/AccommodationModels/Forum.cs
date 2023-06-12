@@ -1,6 +1,7 @@
 ﻿using SIMSProject.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace SIMSProject.Domain.Models.AccommodationModels
@@ -47,7 +48,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
                 Id.ToString(),
                 Location.Id.ToString(),
                 CommentsToCSV(Comments),
-                CreationDate.ToString(),
+                CreationDate.ToString(CultureInfo.GetCultureInfo("sr-LATN")),
                 IsUseful.ToString(),
                 IsClosed.ToString()
             };
@@ -60,14 +61,14 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             Id = int.Parse(values[i++]);
             Location.Id = int.Parse(values[i++]);
             Comments = CommentsFromCSV(values[i++]);
-            CreationDate = DateTime.Parse(values[i++]);
+            CreationDate = DateTime.Parse(values[i++], CultureInfo.GetCultureInfo("sr-LATN"));
             IsUseful = bool.Parse(values[i++]);
             IsClosed = bool.Parse(values[i++]);
         }
 
         public override string? ToString()
         {
-            return $"Forum <{Id}> for {Location} has {Comments.Count} comments. Started by user <{Comments.First().User.Id}>";
+            return $"Forum <{Id}> for {Location} has {Comments.Count} comments. Started by _user <{Comments.First().User.Id}>";
         }
     }
 }

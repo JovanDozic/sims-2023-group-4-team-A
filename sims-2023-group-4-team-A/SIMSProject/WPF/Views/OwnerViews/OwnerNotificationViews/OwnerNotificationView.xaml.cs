@@ -1,6 +1,16 @@
 ﻿using SIMSProject.WPF.ViewModels.AccommodationViewModels;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System;
+using Azure;
+using Azure.AI.Translation.Document;
+using System.IO;
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace SIMSProject.WPF.Views.OwnerViews.OwnerNotificationViews
 {
@@ -25,5 +35,6 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerNotificationViews
             _viewModel.MarkNotificationAsRead();
             NavigationService?.GoBack();
         }
+
     }
 }

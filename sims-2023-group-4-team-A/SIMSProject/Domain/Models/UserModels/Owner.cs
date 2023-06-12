@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Serializer;
 
@@ -10,12 +11,13 @@ namespace SIMSProject.Domain.Models.UserModels
         public double Rating { get; set; }
         public string SelectedTheme { get; set; } = "Dark";
         public string SelectedLanguage { get; set; } = "sr-LATN";
+        public bool HasNotifications { get; set; } = false;
 
         public Owner()
         {
         }
 
-        public Owner(int id, string username, string password,DateTime birthday ,double rating = 0)
+        public Owner(int id, string username, string password, DateTime birthday, double rating = 0)
         {
             Id = id;
             Username = username;
@@ -34,9 +36,13 @@ namespace SIMSProject.Domain.Models.UserModels
                 Password,
                 GetRole(Role),
                 Math.Round(Rating, 2).ToString(),
-                Birthday.ToString(),
+                Birthday.ToString(CultureInfo.GetCultureInfo("sr-LATN")),
                 SelectedTheme,
-                SelectedLanguage
+                SelectedLanguage,
+                Name,
+                LastName, 
+                Email,
+                HasNotifications.ToString()
             };
             return csvValues;
         }
@@ -48,9 +54,13 @@ namespace SIMSProject.Domain.Models.UserModels
             Password = values[2];
             Role = GetRole(values[3]);
             Rating = double.Parse(values[4]);
-            Birthday = DateTime.Parse(values[5]);
+            Birthday = DateTime.Parse(values[5], CultureInfo.GetCultureInfo("sr-LATN"));
             SelectedTheme = values[6];
             SelectedLanguage = values[7];
+            Name = values[8];
+            LastName = values[9];
+            Email = values[10];
+            HasNotifications = bool.Parse(values[11]);
         }
 
         public override string? ToString()

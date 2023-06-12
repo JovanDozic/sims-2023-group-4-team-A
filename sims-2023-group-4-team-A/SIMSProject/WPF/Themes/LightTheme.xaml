@@ -3,9 +3,11 @@
     
     <!-- Colors -->
     <SolidColorBrush x:Key="BackgroundColor" Color="White"/>
-    <SolidColorBrush x:Key="TextColor" Color="Black"/>
+    <SolidColorBrush x:Key="TextColor" Color="#000000"/>
     <SolidColorBrush x:Key="CardBackgroundColor" Color="#eeeeee"/>
-
+    <SolidColorBrush x:Key="SelectedButtonBackgroundColorRed" Color="#44ff0000"/>
+    <SolidColorBrush x:Key="SelectedButtonBackgroundColorGreen" Color="#4400ff00"/>
+    
     <!-- Icon Sources -->
     <BitmapImage x:Key="BookbnbIcon" UriSource="../../../Resources/Icons/bookbnb.png"/>
     <BitmapImage x:Key="NotificationsMenuIcon" UriSource="../../../Resources/Icons/bell.png"/>
@@ -54,5 +56,21 @@
     <BitmapImage x:Key="WasNotAtLocationIcon" UriSource="/Resources/Icons/was-not-at-location.png"/>
     <BitmapImage x:Key="XIcon" UriSource="/Resources/Icons/x.png"/>
 
+    <BitmapImage x:Key="SpinnerGif" UriSource="/Resources/Icons/spinner.gif"/>
+
+    <BitmapImage x:Key="SunIcon" UriSource="/Resources/Icons/sun.png"/>
+    <BitmapImage x:Key="MoonIcon" UriSource="/Resources/Icons/moon.png"/>
+    <BitmapImage x:Key="BadgeIcon" UriSource="/Resources/Icons/badge.png"/>
+    <BitmapImage x:Key="EnglishIcon" UriSource="/Resources/Icons/english.png"/>
+    <BitmapImage x:Key="SerbianIcon" UriSource="/Resources/Icons/serbian.png"/>
+    <BitmapImage x:Key="LogOutIcon" UriSource="/Resources/Icons/exit.png"/>
+    <BitmapImage x:Key="DotIcon" UriSource="../../../Resources/Icons/dot.png"/>
+
+    <BitmapImage x:Key="XxIcon" UriSource="/Resources/Icons/xx.png"/>
+    <BitmapImage x:Key="XxDisabledIcon" UriSource="/Resources/Icons/xx-disabled.png"/>
+
+    <BitmapImage x:Key="TimeDeleteIcon" UriSource="/Resources/Icons/time-delete.png"/>
+    <BitmapImage x:Key="None" UriSource="/Resources/Icons/none.png"/>
+    <BitmapImage x:Key="SearchIcon" UriSource="/Resources/Icons/search.png"/>
 
 </ResourceDictionary>

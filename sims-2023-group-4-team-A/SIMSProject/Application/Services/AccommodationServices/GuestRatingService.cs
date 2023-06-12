@@ -23,11 +23,12 @@ namespace SIMSProject.Application.Services.AccommodationServices
             _reservationRepo = reservationRepo;
         }
 
-        public void LeaveRating(GuestRating rating)
+        public GuestRating LeaveRating(GuestRating rating)
         {
-            _ratingRepo.Save(rating);
+            rating = _ratingRepo.Save(rating);
             _reservationRepo.Update(rating.Reservation);
             UpdateGuestsTotalRating(rating.Reservation.Guest);
+            return rating;
         }
 
         public void UpdateGuestsTotalRating(Guest1 guest)
@@ -53,6 +54,11 @@ namespace SIMSProject.Application.Services.AccommodationServices
             {
                 if (reservation.GuestRated) reservation.GuestRating = GetByReservationId(reservation.Id).Overall;
             }
+        }
+
+        internal void Reload()
+        {
+            _ratingRepo.Load();
         }
     }
 }

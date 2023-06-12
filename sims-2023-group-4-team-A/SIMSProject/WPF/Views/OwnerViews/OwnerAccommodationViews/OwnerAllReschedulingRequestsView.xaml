@@ -1,0 +1,150 @@
+﻿<Page x:Class="SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews.OwnerAllReschedulingRequestsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
+      mc:Ignorable="d" 
+      xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
+      xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      d:DesignHeight="750" d:DesignWidth="430"
+      Title="OwnerAllReschedulingRequests">
+    
+    <Page.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" Inverted="True" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" Inverted="False" />
+        <converters:ResourceKeyToImageSourceConverter x:Key="ResourceKeyToImageSourceConverter"/>
+    </Page.Resources>
+
+    <Grid Margin="15,0,15,10">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Button x:Name="BtnBack" Grid.Row="0"
+                Style="{StaticResource BackButtonStyle}"
+                VerticalAlignment="Center"
+                Click="BtnBack_Click"
+                Foreground="{DynamicResource TextColor}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{DynamicResource BackIcon}"
+                       Style="{StaticResource BackButtonIconStyle}"/>
+                <TextBlock Text="{ns:Loc Back}" Style="{StaticResource BackButtonTextStyle}"/>
+                <TextBlock Text=" - " Style="{StaticResource BackButtonTextStyle}"/>
+                <TextBlock Text="{Binding Accommodation.Name}" Style="{StaticResource BackButtonTextStyle}"/>
+            </StackPanel>
+        </Button>
+
+        <Label Content="{ns:Loc ReschedulingRequests}" Grid.Row="1"
+               FontSize="30" FontWeight="SemiBold"
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Foreground="{DynamicResource TextColor}"/>
+
+        <ListView x:Name="LstRequests" Grid.Row="2" 
+                  ItemsSource="{Binding Requests, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                  SelectedItem="{Binding Request, UpdateSourceTrigger=PropertyChanged}"
+                  Background="Transparent"
+                  BorderThickness="0"
+                  BorderBrush="Transparent" 
+                  ScrollViewer.CanContentScroll="False"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                  Foreground="{DynamicResource TextColor}"
+                  SelectionChanged="LstRequests_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="0" BorderBrush="Transparent" 
+                            Background="{DynamicResource CardBackgroundColor}"
+                            Margin="0,0,0,15" Width="385">
+                        <Grid Margin="15">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="0.13*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Guest Name -->
+                            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.ColumnSpan="2"
+                                        Margin="0,-5,0,5">
+                                <Label Content="{ns:Loc GuestName}" FontSize="15"
+                                           Foreground="{DynamicResource TextColor}"/>
+                                <TextBlock Text="{Binding Reservation.Guest.Username}"
+                                               FontSize="18" FontWeight="SemiBold"
+                                               Margin="10,0,0,0"/>
+                            </StackPanel>
+
+                            <!-- StartDates -->
+                            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.ColumnSpan="2"
+                                            Margin="0,5,0,5">
+                                <Label Content="{ns:Loc ArrivalDot}" FontSize="15"
+                                           Foreground="{DynamicResource TextColor}"/>
+                                <StackPanel Orientation="Horizontal"
+                                                Margin="20,0,0,0">
+                                    <Label Content="{ns:Loc OldDate}" FontSize="15"
+                                               Foreground="{DynamicResource TextColor}"
+                                               Width="100"/>
+                                    <TextBlock Text="{Binding Reservation.FormattedStartDate}"
+                                               FontSize="18"
+                                               Margin="20,0,0,0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"
+                                                Margin="20,0,0,0">
+                                    <Label Content="{ns:Loc NewDate}" FontSize="15"
+                                               FontWeight="SemiBold"
+                                               Foreground="{DynamicResource TextColor}"
+                                               Width="100"/>
+                                    <TextBlock Text="{Binding FormattedNewStartDate}"
+                                               FontSize="18" FontWeight="SemiBold"
+                                               Margin="20,0,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <!-- EndDates -->
+                            <StackPanel Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="2"
+                                            Margin="0,5,0,0">
+                                <Label Content="{ns:Loc LeavingDot}" FontSize="15"
+                                           Foreground="{DynamicResource TextColor}"/>
+                                <StackPanel Orientation="Horizontal"
+                                                Margin="20,0,0,0">
+                                    <Label Content="{ns:Loc OldDate}" FontSize="15"
+                                               Foreground="{DynamicResource TextColor}"
+                                               Width="100"/>
+                                    <TextBlock Text="{Binding Reservation.FormattedEndDate}"
+                                               FontSize="18"
+                                               Margin="20,0,0,0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"
+                                                Margin="20,0,0,0">
+                                    <Label Content="{ns:Loc NewDate}" FontSize="15"
+                                               FontWeight="SemiBold"
+                                               Foreground="{DynamicResource TextColor}"
+                                               Width="100"/>
+                                    <TextBlock Text="{Binding FormattedNewEndDate}"
+                                               FontSize="18" FontWeight="SemiBold"
+                                               Margin="20,0,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <!-- Arrow icon -->
+                            <Image Grid.Column="1" Grid.RowSpan="4" 
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Height="35"
+                                   Source="{DynamicResource RightIcon}"
+                                   Style="{StaticResource IconRenderStyle}"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

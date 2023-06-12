@@ -141,7 +141,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             return StartDate <= EndDate;
         }
 
-        // Used only for OLD home view structure, TODO: remove after implementing HCI UI
         internal void CancelRenovation(AccommodationRenovation renovation)
         {
             _renovationService.CancelRenovation(renovation);

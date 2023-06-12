@@ -1,6 +1,7 @@
-﻿using SIMSProject.WPF.Languages;
+﻿using SIMSProject.Domain.Models.AccommodationModels;
+using SIMSProject.Domain.Models;
+using SIMSProject.WPF.Languages;
 using System;
-using System.Globalization;
 using System.Threading;
 using System.Windows;
 
@@ -22,6 +23,7 @@ namespace SIMSProject
             else if (themeName == "Dark")
                 dictionary.Source = new Uri("pack://application:,,,/WPF/Themes/DarkTheme.xaml");
 
+            CurrentTheme = themeName;
             Resources.MergedDictionaries.Add(dictionary);
         }
 
@@ -31,11 +33,19 @@ namespace SIMSProject
             {
                 TranslationSource.Instance.CurrentCulture = new System.Globalization.CultureInfo("en-US");
                 CurrentLanguage = "en-US";
+                Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
                 return;
             }
-
             TranslationSource.Instance.CurrentCulture = new System.Globalization.CultureInfo("sr-LATN");
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("sr-LATN");
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("sr-LATN");
             CurrentLanguage = "sr-LATN";
         }
+
+
+
+
+        
     }
 }

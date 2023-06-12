@@ -1,6 +1,7 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Serializer;
 using System;
+using System.Globalization;
 
 namespace SIMSProject.Domain.Models.AccommodationModels
 {
@@ -37,7 +38,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
                 User.GetRole(User.Role),
                 (User.Role == UserRole.Owner || User.Role == UserRole.SuperOwner) ? "True" : WasAtLocation.ToString(),
                 Text,
-                CreationDate.ToString(),
+                CreationDate.ToString(CultureInfo.GetCultureInfo("sr-LATN")),
                 Downvotes.ToString()
             };
             return csvValues;
@@ -51,7 +52,7 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             User.Role = User.GetRole(values[i++]);
             WasAtLocation = bool.Parse(values[i++]);
             Text = values[i++];
-            CreationDate = DateTime.Parse(values[i++]);
+            CreationDate = DateTime.Parse(values[i++], CultureInfo.GetCultureInfo("sr-LATN"));
             Downvotes = int.Parse(values[i++]);
         }
 
@@ -59,20 +60,20 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         {
             get
             {
-                if (User.Role == UserRole.Guest1 || User.Role == UserRole.SuperGuest) return WasAtLocation ? "/Resources/Icons/was-at-location.png" : "/Resources/Icons/was-not-at-location.png";
-                if (User.Role == UserRole.Owner) return "/Resources/Icons/is-owner.png";
-                if (User.Role == UserRole.SuperOwner) return "/Resources/Icons/is-superowner.png";
-                return "/Resources/Icons/question.png";
+                if (User.Role == UserRole.Guest1 || User.Role == UserRole.SuperGuest) return WasAtLocation ? "WasAtLocationIcon" : "WasNotAtLocationIcon";
+                if (User.Role == UserRole.Owner) return "IsOwnerIcon";
+                if (User.Role == UserRole.SuperOwner) return "IsSuperOwnerIcon";
+                return "QuestionIcon";
             }
         }
-        public bool UserDownvoted { get; set; } = false;
 
+        public bool UserDownvoted { get; set; } = false;
         public string UserDownvotedIcon
         {
             get
             {
-                if (UserDownvoted) return "/Resources/Icons/downvote-fill.png";
-                return "/Resources/Icons/downvote.png";
+                if (UserDownvoted) return "DownvoteFillIcon";
+                return "DownvoteIcon";
             }
         }
     }

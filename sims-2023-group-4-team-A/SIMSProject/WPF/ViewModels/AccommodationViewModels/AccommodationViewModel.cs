@@ -5,6 +5,7 @@ using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,7 +18,8 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
     public class AccommodationViewModel : ViewModelBase, IDataErrorInfo
     {
         private User _user;
-        private INavigationService? _navigationService;
+        private App _app = (App)System.Windows.Application.Current;
+        private OwnerRegisterAccommodationView? _registerView;
 
         private Accommodation _accommodation = new();
         private AccommodationService _accommodationService;
@@ -259,16 +261,16 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         public RelayCommand PrepareLocationCommand { get; }
         public RelayCommand UploadImageToAccommodationCommand { get; }
 
-        public AccommodationViewModel(User user, INavigationService? navigationService = null)
+        public AccommodationViewModel(User user, OwnerRegisterAccommodationView? ownerRegisterAccommodationView = null)
         {
             _user = user;
-            _navigationService = navigationService;
             _accommodationService = Injector.GetService<AccommodationService>();
             _locationService = Injector.GetService<LocationService>();
             _accommodationReservationService = Injector.GetService<AccommodationReservationService>();
             _renovationService = Injector.GetService<AccommodationRenovationService>();
             _accommodationReservationViewModel = new(_user);
             Accommodations = LoadAllAccommodations();
+            _registerView = ownerRegisterAccommodationView;
 
             AccommodationTypeSource = new ObservableCollection<AccommodationType>
             {
@@ -276,6 +278,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 AccommodationType.House,
                 AccommodationType.Hut
             };
+            Type = _accommodationService.GetMostUsedTypeBuUser(_user);
 
             RegisterAccommodationCommand = new(RegisterAccommodation, CanRegisterAccommodation);
             PrepareLocationCommand = new(PrepareLocation, CanPrepareLocation);
@@ -309,15 +312,19 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         }
         public void RegisterAccommodation()
         {
-            var result = MessageBox.Show("Da li ste sigurni da želite da registrujete smeštaj?", "Potvrdite registraciju", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result;
+            if (_app.CurrentLanguage == "en-US") 
+                result = MessageBox.Show("Are you sure you want to register accommodation?", "Confirm registration", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            else result = MessageBox.Show("Da li ste sigurni da želite da registrujete smeštaj?", "Potvrdite registraciju", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
             if (result != MessageBoxResult.Yes) return;
 
             _accommodation.Location = _locationService.GetLocation(_accommodation.Location);
             if (_accommodation.Location == null) return;
-            _accommodation.Owner = _user as Owner ?? throw new Exception("Greška prilikom registrovanja: Vlasnik nije inicijalizovan.");
+            _accommodation.Owner = _user as Owner ?? throw new Exception("Error! Owner is not initialized.");
             _accommodationService.RegisterAccommodation(_accommodation);
 
-            _navigationService?.GoBack();
+            _registerView?.GoBackAndReload();
         }
         public string GetDateMessage()
         {
@@ -390,7 +397,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             reservedAccommodations.RemoveAll(reserved => reserved.Canceled);
             return reservedAccommodations;
         }
-        private bool CanRegisterAccommodation()
+        public bool CanRegisterAccommodation()
         {
             return IsAccommodationValid;
         }
@@ -436,7 +443,12 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             var SearchResults = Accommodations.ToList();
             SearchResults.RemoveAll(x => !x.ToStringSearchable.ToLower().Contains(text.ToLower()));
             Accommodations = new(SearchResults);
-        } 
+        }
+
+        internal void LoadFirstTwoAccommodationsByOwner()
+        {
+            Accommodations = new(_accommodationService.GetAllByOwnerId(_user.Id).Take(2));
+        }
 
         public string this[string columnName]
         {
@@ -449,6 +461,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                     case nameof(Name):
                         if (string.IsNullOrEmpty(Name)) error = requiredMessage;
                         else if (Name.Length < 3) error = "Ime mora biti duže od 3 karaktera";
+                        else if (Name.Contains("|")) error = "Unos ne sme da sadrzi '|'";
                         break;
                     case nameof(FullLocation):
                         if (string.IsNullOrEmpty(FullLocation)) error = requiredMessage;
@@ -476,6 +489,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                     case nameof(Description):
                         if (string.IsNullOrEmpty(Description)) error = requiredMessage;
                         else if (Description.Length < 20) error = "Opis mora biti duži od 20 karaktera";
+                        else if (Description.Contains("|")) error = "Unos ne sme da sadrzi '|'";
                         break;
                     case nameof(ImageURLs):
                         if (ImageURLs.Count <= 0) error = requiredMessage;

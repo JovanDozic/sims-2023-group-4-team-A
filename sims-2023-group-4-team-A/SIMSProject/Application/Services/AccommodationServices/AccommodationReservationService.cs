@@ -158,8 +158,9 @@ namespace SIMSProject.Application.Services.AccommodationServices
                 Consts.RateGuestNotificationDescription
                       .Replace("@guestUsername", reservation.Guest.Username)
                       .Replace("@endDate", reservation.EndDate.ToString("dd.MM.yyyy"))
-                      .Replace("@accommodation", reservation.Accommodation.Name),
-                reservation.EndDate.AddDays(Consts.GuestRatingDeadline)
+                      .Replace("@Accommodation", reservation.Accommodation.Name),
+                reservation.EndDate.AddDays(Consts.GuestRatingDeadline),
+                "StarsIcon"
             );
         }
         public List<DateRange> GetSchedule(Accommodation accommodation)

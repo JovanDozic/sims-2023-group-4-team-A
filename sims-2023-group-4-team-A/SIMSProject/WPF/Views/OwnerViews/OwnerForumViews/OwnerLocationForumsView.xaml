@@ -5,12 +5,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerForumViews"
       mc:Ignorable="d" 
+      xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
+      xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
       d:DesignHeight="750" d:DesignWidth="430"
       Title="Location Forums"
       MouseEnter="Page_MouseEnter">
 
     <Page.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:ResourceKeyToImageSourceConverter x:Key="ResourceKeyToImageSourceConverter" />
     </Page.Resources>
 
     <Grid Margin="15,0,15,10">
@@ -24,9 +27,9 @@
         <Button x:Name="BtnBack" Grid.Row="0" Click="BtnBack_Click"
                 Style="{StaticResource BackButtonStyle}">
             <StackPanel Orientation="Horizontal">
-                <Image Source="/Resources/Icons/back.png"
+                <Image Source="{DynamicResource BackIcon}"
                        Style="{StaticResource BackButtonIconStyle}"/>
-                <TextBlock Text="Nazad - Forumi" Style="{StaticResource BackButtonTextStyle}"
+                <TextBlock Text="{ns:Loc BackForums}" Style="{StaticResource BackButtonTextStyle}"
                            Foreground="{DynamicResource TextColor}"/>
             </StackPanel>
         </Button>
@@ -53,7 +56,7 @@
                     <Border BorderThickness="0" BorderBrush="Transparent" 
                             Background="{DynamicResource CardBackgroundColor}"
                             Margin="0,0,0,15">
-                        <Grid Margin="15,15">
+                        <Grid Margin="15">
 
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
@@ -73,7 +76,7 @@
                                         Grid.ColumnSpan="2"
                                         Width="385"
                                         Margin="0,0,0,5">
-                                <Image Source="{Binding Comments[0].CommentUserIcon}"
+                                <Image Source="{Binding Comments[0].CommentUserIcon, Converter={StaticResource ResourceKeyToImageSourceConverter}}"
                                        Style="{StaticResource IconRenderStyle}"
                                        Height="17.5"/>
                                 <TextBlock Text="{Binding Comments[0].User.Username}"
@@ -107,7 +110,7 @@
                                         Grid.ColumnSpan="2"
                                         Width="385"
                                         Margin="0,7.5,0,0">
-                                <Image Source="/Resources/Icons/forum.png"
+                                <Image Source="{DynamicResource ForumsMenuIcon}"
                                        Style="{StaticResource IconRenderStyle}"
                                        Height="17.5"/>
                                 <TextBlock Text="{Binding CommentsCount, UpdateSourceTrigger=PropertyChanged}"
@@ -119,10 +122,10 @@
                                 <StackPanel Orientation="Horizontal"
                                             Visibility="{Binding IsUseful, Converter={StaticResource BooleanToVisibilityConverter}}"
                                             Margin="30,0,0,0">
-                                    <Image Source="/Resources/Icons/stars.png"
+                                    <Image Source="{DynamicResource StarsIcon}"
                                            Style="{StaticResource IconRenderStyle}"
                                            Height="17.5"/>
-                                    <TextBlock Text="Koristan forum"
+                                    <TextBlock Text="{ns:Loc UsefulForum}"
                                                FontSize="15"
                                                VerticalAlignment="Center"
                                                Margin="10,0,0,1"/>
@@ -131,7 +134,7 @@
 
                             <!-- IsClosed icon -->
                             <Image Grid.Column="1" Grid.Row="0"
-                                   Source="/Resources/Icons/lock-gray.png"
+                                   Source="{DynamicResource LockGrayIcon}"
                                    Style="{StaticResource IconRenderStyle}"
                                    Height="25"
                                    Visibility="{Binding IsClosed, Converter={StaticResource BooleanToVisibilityConverter}}"/>
@@ -140,7 +143,7 @@
                             <Image Grid.Column="1" Grid.RowSpan="4" 
                                    VerticalAlignment="Center"
                                    Height="60"
-                                   Source="/Resources/Icons/right.png"
+                                   Source="{DynamicResource RightIcon}"
                                    Style="{StaticResource IconRenderStyle}"/>
 
                         </Grid>

@@ -1,51 +1,127 @@
-﻿using SIMSProject.Application.Services.AccommodationServices;
+﻿using EMA.ExtendedWPFConverters;
+using SIMSProject.Application.Services.AccommodationServices;
+using SIMSProject.Application.Services.UserServices;
 using SIMSProject.Domain.Injectors;
-using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.WPF.Views;
+using SIMSProject.WPF.Views.OwnerViews;
+using SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews;
+using SIMSProject.WPF.Views.OwnerViews.OwnerAccountViews;
+using System;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace SIMSProject.WPF.ViewModels.OwnerViewModels
 {
     public class OwnerAccountViewModel : ViewModelBase
     {
-        private readonly User _user;
-        private readonly OwnerRatingService _ratingService;
-        private readonly AccommodationService _accommodationService;
-        private int _totalAccommodations = 0;
-        private int _totalRatings = 0;
+        private App App = (App)System.Windows.Application.Current;
+        private User _user;
+        private OwnerAccountView _ownerAccountView;
+        private AccommodationService _accommodationService;
+        private OwnerRatingService _ratingService;
+        private UserService _userService;
 
-        public string DisplayRole => User.GetRole(_user.Role);
-        public string DisplayRating => (_user is Owner owner) ? owner.Rating.ToString("N2") : "<null>";
-        public string DisplayTotalInfo => $"{_totalAccommodations} Smeštaja - {_totalRatings} Ocena";
-        public string DisplayRemaining
+        public string CurrentThemeIcon { get => App.CurrentTheme == "Light" ? "SunIcon" : "MoonIcon"; }
+        public string CurrentLanguageIcon { get => App.CurrentLanguage == "en-US" ? "EnglishIcon" : "SerbianIcon"; }
+        public string RoleIcon { get => _user.Role == Domain.Models.UserRole.Owner ? "IsOwnerIcon" : "IsSuperOwnerIcon"; }
+        public string RoleText
         {
             get
             {
-                if (_user.Role == UserRole.Owner && _totalRatings < Consts.SuperOwnerMinimumRatingCount)
-                    return $"Nedostaje vam još {Consts.SuperOwnerMinimumRatingCount - _totalRatings} ocena do statusa Super Vlasnik!";
-                else if (_user.Role == UserRole.Owner)
-                    return "Potrebna vam je ocena veća od 4.5 za status Super Vlasnik";
-                return string.Empty;
+                if (_user.Role == Domain.Models.UserRole.Owner)
+                {
+                    return App.CurrentLanguage == "en-US" ? "Owner" : "Vlasnik";
+                }
+                else
+                {
+                    return App.CurrentLanguage == "en-US" ? "Super Owner" : "Super Vlasnik";
+                }
             }
         }
+        public string Rating { get => Math.Round((decimal)((_user as Owner)?.Rating ?? 0), 2).ToString(); }
+        public int TotalAccommodations { get; set; } = 0;
+        public int TotalRatings { get; set; } = 0;
+        public bool IsSuperOwner { get => _user.Role == Domain.Models.UserRole.SuperOwner; }
+        public string FullName { get => $"{_user.Name} {_user.LastName}"; }
+        public string Username { get => _user.Username; }
+        public string Email { get => _user.Email; }
 
-        public OwnerAccountViewModel(User user)
+        public RelayCommand ChangeThemeCommand { get; }
+        public RelayCommand ChangeLanguageCommand { get; }
+        public RelayCommand LogOutCommand { get; }
+
+        public OwnerAccountViewModel(User user, OwnerAccountView ownerAccountView)
         {
             _user = user;
             _ratingService = Injector.GetService<OwnerRatingService>();
             _accommodationService = Injector.GetService<AccommodationService>();
+            _userService = Injector.GetService<UserService>();
+
+            _ownerAccountView = ownerAccountView;
+
+            ChangeThemeCommand = new RelayCommand(ChangeTheme);
+            ChangeLanguageCommand = new RelayCommand(ChangeLanguage);
+            LogOutCommand = new RelayCommand(LogOut);
 
             LoadInfo();
         }
 
         public void LoadInfo()
         {
-            _totalAccommodations = _accommodationService.CountAllByOwnerId(_user.Id);
-            _totalRatings = _ratingService.CountAllByOwnerId(_user.Id);
+            TotalAccommodations = _accommodationService.CountAllByOwnerId(_user.Id);
+            TotalRatings = _ratingService.CountAllByOwnerId(_user.Id);
+            OnPropertyChanged(nameof(TotalAccommodations));
+            OnPropertyChanged(nameof(TotalRatings));
         }
 
-        public bool IsSuperOwner()
+        private void ChangeLanguage()
         {
-            return _ratingService.IsSuperOwner(_user);
+            if (App.CurrentLanguage.Equals("en-US"))
+            {
+                App.ChangeLanguage("sr-LATN");
+            }
+            else
+            {
+                App.ChangeLanguage("en-US");
+            }
+            OnPropertyChanged(nameof(CurrentLanguageIcon));
+            if (_user is Owner owner)
+            {
+                owner.SelectedLanguage = App.CurrentLanguage;
+                _userService.UpdateOwner(owner);
+            }
+        }
+
+        private void ChangeTheme()
+        {
+            if (App.CurrentTheme == "Light")
+            {
+                App.ChangeTheme("Dark");
+                App.CurrentTheme = "Dark";
+            }
+            else
+            {
+                App.ChangeTheme("Light");
+                App.CurrentTheme = "Light";
+            }
+
+            if (_user is Owner owner)
+            {
+                owner.SelectedTheme = App.CurrentTheme;
+                _userService.UpdateOwner(owner);
+            }
+
+            OwnerView ownerView = new(_user, "NavBtnAccount");
+            OwnerWindow ownerWindow = Window.GetWindow(_ownerAccountView) as OwnerWindow ?? new(_user);
+            ownerWindow?.SwitchToPage(ownerView);
+        }
+
+        private void LogOut()
+        {
+            SignInView singInWindow = new();
+            singInWindow.Show();
+            Window.GetWindow(_ownerAccountView).Close();
         }
     }
 }

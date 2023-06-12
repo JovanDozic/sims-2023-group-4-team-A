@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+using System;
+using System.Globalization;
 using SIMSProject.Domain.Models;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Serializer;
@@ -14,6 +16,14 @@ namespace SIMSProject.Model
         public string OwnerComment { get; set; } = string.Empty;
         public ReschedulingRequestStatus Status { get; set; } = ReschedulingRequestStatus.None;
         public string RequestDetails { get; set; } = string.Empty;
+        public string FormattedNewStartDate
+        {
+            get => NewStartDate.ToString("ddd, d. MMM. yyyy.");
+        }
+        public string FormattedNewEndDate
+        {
+            get => NewEndDate.ToString("ddd, d. MMM. yyyy.");
+        }
 
         public static ReschedulingRequestStatus GetStatus(string status)
         {
@@ -43,8 +53,8 @@ namespace SIMSProject.Model
             {
                 Id.ToString(),
                 Reservation.Id.ToString(),
-                NewStartDate.ToString(),
-                NewEndDate.ToString(),
+                NewStartDate.ToString(CultureInfo.GetCultureInfo("sr-LATN")),
+                NewEndDate.ToString(CultureInfo.GetCultureInfo("sr-LATN")),
                 OwnerComment,
                 GetStatus(Status)
             };
@@ -56,8 +66,8 @@ namespace SIMSProject.Model
             var i = 0;
             Id = int.Parse(values[i++]);
             Reservation.Id = int.Parse(values[i++]);
-            NewStartDate = DateTime.Parse(values[i++]);
-            NewEndDate = DateTime.Parse(values[i++]);
+            NewStartDate = DateTime.Parse(values[i++], CultureInfo.GetCultureInfo("sr-LATN"));
+            NewEndDate = DateTime.Parse(values[i++], CultureInfo.GetCultureInfo("sr-LATN"));
             OwnerComment = values[i++];
             Status = GetStatus(values[i++]);
         }

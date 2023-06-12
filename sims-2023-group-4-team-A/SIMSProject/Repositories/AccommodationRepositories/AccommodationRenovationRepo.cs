@@ -88,7 +88,7 @@ namespace SIMSProject.Repositories.AccommodationRepositories
 
         public void Update(AccommodationRenovation renovation)
         {
-            AccommodationRenovation renovationToUpdate = GetById(renovation.Id) ?? throw new Exception("Updating accommodation renovation failed!");
+            AccommodationRenovation renovationToUpdate = GetById(renovation.Id) ?? throw new Exception("Updating Accommodation renovation failed!");
             int index = _renovations.IndexOf(renovationToUpdate);
             _renovations[index] = renovation;
             _fileHandler.Save(_renovations);

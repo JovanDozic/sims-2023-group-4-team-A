@@ -13,7 +13,26 @@ namespace SIMSProject.WPF.Converters
             if (value is AccommodationType type)
             {
                 var returnValue = Accommodation.GetType(type);
-                return returnValue == string.Empty ? "Izaberite..." : returnValue;
+
+                var app = (App)System.Windows.Application.Current;
+                if (app.CurrentLanguage == "en-US")
+                {
+                    return type switch
+                    {
+                        AccommodationType.Apartment => "Apartment",
+                        AccommodationType.House => "House",
+                        AccommodationType.Hut => "Hut",
+                        _ => "Select..."
+                    };
+                }
+
+                return type switch
+                {
+                    AccommodationType.Apartment => "Apartman",
+                    AccommodationType.House => "Kuća",
+                    AccommodationType.Hut => "Koliba",
+                    _ => "Izaberite..."
+                };
             }
             return "<null>";
         }

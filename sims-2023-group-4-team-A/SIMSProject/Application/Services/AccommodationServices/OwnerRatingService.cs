@@ -3,6 +3,7 @@ using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.Domain.RepositoryInterfaces.AccommodationRepositoryInterfaces;
 using SIMSProject.Domain.RepositoryInterfaces.UserRepositoryInterfaces;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -106,5 +107,9 @@ namespace SIMSProject.Application.Services.AccommodationServices
             }
         }
 
+        internal void Reload()
+        {
+            _ratingRepo.Load();
+        }
     }
 }

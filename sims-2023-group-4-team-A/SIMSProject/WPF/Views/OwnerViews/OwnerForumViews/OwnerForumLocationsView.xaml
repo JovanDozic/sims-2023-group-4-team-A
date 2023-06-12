@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews"
       mc:Ignorable="d" 
+      xmlns:ns="clr-namespace:SIMSProject.WPF.Languages"
       d:DesignHeight="750" d:DesignWidth="430"
       Title="My Forums">
 
@@ -15,7 +16,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Label Content="Forumi" Grid.Row="0"
+        <Label Content="{ns:Loc Forums}" Grid.Row="0"
                FontSize="30" FontWeight="SemiBold"
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Foreground="{DynamicResource TextColor}"/>
@@ -39,7 +40,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <Image Grid.Column="0" Source="/Resources/Icons/flag.png" Height="25" 
+                        <Image Grid.Column="0" Source="{DynamicResource FlagIcon}" Height="25" 
                                Stretch="UniformToFill"
                                Style="{StaticResource IconRenderStyle}"
                                VerticalAlignment="Top"

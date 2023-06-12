@@ -69,7 +69,16 @@ namespace SIMSProject.Application.Services
                 document.Add(table);
                 document.Close();
 
-                MessageBox.Show("PDF file generated successfully.");
+                //MessageBox.Show("PDF file generated successfully.");
+
+                if (File.Exists(filePath))
+                {
+                    ProcessStartInfo startInfo = new(filePath);
+                    startInfo.UseShellExecute = true;
+                    Process.Start(startInfo);
+                }
+
+
             }
             catch (Exception ex)
             {

@@ -9,6 +9,9 @@ namespace SIMSProject.Domain.Models.UserModels
         public string Password { get; set; } = string.Empty;
         public UserRole Role { get; set; }
         public DateTime Birthday { get; set; }
+        public string Name { get; set; } = "UNESI";
+        public string LastName { get; set; } = "UNESI";
+        public string Email { get; set; } = "UNESI";
 
         public User()
         {

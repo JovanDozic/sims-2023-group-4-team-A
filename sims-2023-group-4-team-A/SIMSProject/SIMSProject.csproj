@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <None Remove="Resources\Icons\back.png" />
+    <None Remove="Resources\Icons\badge.png" />
     <None Remove="Resources\Icons\bed-fill.png" />
     <None Remove="Resources\Icons\bed.png" />
     <None Remove="Resources\Icons\bell-fill.png" />
@@ -29,6 +30,7 @@
     <None Remove="Resources\Icons\comment.png" />
     <None Remove="Resources\Icons\crossed-eye.png" />
     <None Remove="Resources\Icons\dark\back.png" />
+    <None Remove="Resources\Icons\dark\badge.png" />
     <None Remove="Resources\Icons\dark\bed-fill.png" />
     <None Remove="Resources\Icons\dark\bed.png" />
     <None Remove="Resources\Icons\dark\bell-fill.png" />
@@ -42,6 +44,8 @@
     <None Remove="Resources\Icons\dark\down.png" />
     <None Remove="Resources\Icons\dark\downvote-fill.png" />
     <None Remove="Resources\Icons\dark\downvote.png" />
+    <None Remove="Resources\Icons\dark\english.png" />
+    <None Remove="Resources\Icons\dark\exit.png" />
     <None Remove="Resources\Icons\dark\eye.png" />
     <None Remove="Resources\Icons\dark\flag.png" />
     <None Remove="Resources\Icons\dark\forum-fill.png" />
@@ -55,6 +59,7 @@
     <None Remove="Resources\Icons\dark\left.png" />
     <None Remove="Resources\Icons\dark\location.png" />
     <None Remove="Resources\Icons\dark\lock-gray.png" />
+    <None Remove="Resources\Icons\dark\moon.png" />
     <None Remove="Resources\Icons\dark\notif-location-check.png" />
     <None Remove="Resources\Icons\dark\notif-location-x.png" />
     <None Remove="Resources\Icons\dark\notif-star.png" />
@@ -63,20 +68,29 @@
     <None Remove="Resources\Icons\dark\renovation-clock.png" />
     <None Remove="Resources\Icons\dark\renovation.png" />
     <None Remove="Resources\Icons\dark\right.png" />
+    <None Remove="Resources\Icons\dark\search.png" />
+    <None Remove="Resources\Icons\dark\serbian.png" />
     <None Remove="Resources\Icons\dark\share.png" />
+    <None Remove="Resources\Icons\dark\spinner.gif" />
     <None Remove="Resources\Icons\dark\star-fill.png" />
     <None Remove="Resources\Icons\dark\star-half.png" />
     <None Remove="Resources\Icons\dark\star.png" />
     <None Remove="Resources\Icons\dark\stars.png" />
+    <None Remove="Resources\Icons\dark\sun.png" />
+    <None Remove="Resources\Icons\dark\time-delete.png" />
     <None Remove="Resources\Icons\dark\trophy.png" />
     <None Remove="Resources\Icons\dark\user-fill.png" />
     <None Remove="Resources\Icons\dark\user.png" />
     <None Remove="Resources\Icons\dark\was-at-location.png" />
     <None Remove="Resources\Icons\dark\was-not-at-location.png" />
     <None Remove="Resources\Icons\dark\x.png" />
+    <None Remove="Resources\Icons\dark\xx-disabled.png" />
+    <None Remove="Resources\Icons\dot.png" />
     <None Remove="Resources\Icons\down.png" />
     <None Remove="Resources\Icons\downvote-fill.png" />
     <None Remove="Resources\Icons\downvote.png" />
+    <None Remove="Resources\Icons\english.png" />
+    <None Remove="Resources\Icons\exit.png" />
     <None Remove="Resources\Icons\eye.png" />
     <None Remove="Resources\Icons\flag.png" />
     <None Remove="Resources\Icons\forum-fill.png" />
@@ -92,6 +106,8 @@
     <None Remove="Resources\Icons\location.png" />
     <None Remove="Resources\Icons\lock-gray.png" />
     <None Remove="Resources\Icons\logo.png" />
+    <None Remove="Resources\Icons\moon.png" />
+    <None Remove="Resources\Icons\none.png" />
     <None Remove="Resources\Icons\notif-location-check.png" />
     <None Remove="Resources\Icons\notif-location-x.png" />
     <None Remove="Resources\Icons\notif-star.png" />
@@ -100,17 +116,24 @@
     <None Remove="Resources\Icons\renovation-clock.png" />
     <None Remove="Resources\Icons\renovation.png" />
     <None Remove="Resources\Icons\right.png" />
+    <None Remove="Resources\Icons\search.png" />
+    <None Remove="Resources\Icons\serbian.png" />
     <None Remove="Resources\Icons\share.png" />
+    <None Remove="Resources\Icons\spinner.gif" />
     <None Remove="Resources\Icons\star-fill.png" />
     <None Remove="Resources\Icons\star-half.png" />
     <None Remove="Resources\Icons\star.png" />
     <None Remove="Resources\Icons\stars.png" />
+    <None Remove="Resources\Icons\sun.png" />
+    <None Remove="Resources\Icons\time-delete.png" />
     <None Remove="Resources\Icons\trophy.png" />
     <None Remove="Resources\Icons\user-fill.png" />
     <None Remove="Resources\Icons\user.png" />
     <None Remove="Resources\Icons\was-at-location.png" />
     <None Remove="Resources\Icons\was-not-at-location.png" />
     <None Remove="Resources\Icons\x.png" />
+    <None Remove="Resources\Icons\xx-disabled.png" />
+    <None Remove="Resources\Icons\xx.png" />
     <None Remove="Resources\Images\add-renovation.png" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\back.png" />
@@ -167,6 +190,7 @@
 
   <ItemGroup>
     <Resource Include="Resources\Icons\back.png" />
+    <Resource Include="Resources\Icons\badge.png" />
     <Resource Include="Resources\Icons\bed-fill.png" />
     <Resource Include="Resources\Icons\bed.png" />
     <Resource Include="Resources\Icons\bell-fill.png" />
@@ -177,6 +201,7 @@
     <Resource Include="Resources\Icons\comment.png" />
     <Resource Include="Resources\Icons\crossed-eye.png" />
     <Resource Include="Resources\Icons\dark\back.png" />
+    <Resource Include="Resources\Icons\dark\badge.png" />
     <Resource Include="Resources\Icons\dark\bed-fill.png" />
     <Resource Include="Resources\Icons\dark\bed.png" />
     <Resource Include="Resources\Icons\dark\bell-fill.png" />
@@ -190,6 +215,8 @@
     <Resource Include="Resources\Icons\dark\down.png" />
     <Resource Include="Resources\Icons\dark\downvote-fill.png" />
     <Resource Include="Resources\Icons\dark\downvote.png" />
+    <Resource Include="Resources\Icons\dark\english.png" />
+    <Resource Include="Resources\Icons\dark\exit.png" />
     <Resource Include="Resources\Icons\dark\eye.png" />
     <Resource Include="Resources\Icons\dark\flag.png" />
     <Resource Include="Resources\Icons\dark\forum-fill.png" />
@@ -203,6 +230,7 @@
     <Resource Include="Resources\Icons\dark\left.png" />
     <Resource Include="Resources\Icons\dark\location.png" />
     <Resource Include="Resources\Icons\dark\lock-gray.png" />
+    <Resource Include="Resources\Icons\dark\moon.png" />
     <Resource Include="Resources\Icons\dark\notif-location-check.png" />
     <Resource Include="Resources\Icons\dark\notif-location-x.png" />
     <Resource Include="Resources\Icons\dark\notif-star.png" />
@@ -210,20 +238,28 @@
     <Resource Include="Resources\Icons\dark\renovation-clock.png" />
     <Resource Include="Resources\Icons\dark\renovation.png" />
     <Resource Include="Resources\Icons\dark\right.png" />
+    <Resource Include="Resources\Icons\dark\search.png" />
+    <Resource Include="Resources\Icons\dark\serbian.png" />
     <Resource Include="Resources\Icons\dark\share.png" />
+    <Resource Include="Resources\Icons\dark\spinner.gif" />
     <Resource Include="Resources\Icons\dark\star-fill.png" />
     <Resource Include="Resources\Icons\dark\star-half.png" />
     <Resource Include="Resources\Icons\dark\star.png" />
     <Resource Include="Resources\Icons\dark\stars.png" />
+    <Resource Include="Resources\Icons\dark\sun.png" />
+    <Resource Include="Resources\Icons\dark\time-delete.png" />
     <Resource Include="Resources\Icons\dark\trophy.png" />
     <Resource Include="Resources\Icons\dark\user-fill.png" />
     <Resource Include="Resources\Icons\dark\user.png" />
     <Resource Include="Resources\Icons\dark\was-at-location.png" />
     <Resource Include="Resources\Icons\dark\was-not-at-location.png" />
     <Resource Include="Resources\Icons\dark\x.png" />
+    <Resource Include="Resources\Icons\dark\xx-disabled.png" />
+    <Resource Include="Resources\Icons\dot.png" />
     <Resource Include="Resources\Icons\down.png" />
     <Resource Include="Resources\Icons\downvote-fill.png" />
     <Resource Include="Resources\Icons\downvote.png" />
+    <Resource Include="Resources\Icons\english.png" />
     <Resource Include="Resources\Icons\eye.png" />
     <Resource Include="Resources\Icons\flag.png" />
     <Resource Include="Resources\Icons\forum-fill.png" />
@@ -238,6 +274,7 @@
     <Resource Include="Resources\Icons\lightbulb.png" />
     <Resource Include="Resources\Icons\location.png" />
     <Resource Include="Resources\Icons\lock-gray.png" />
+    <Resource Include="Resources\Icons\none.png" />
     <Resource Include="Resources\Icons\notif-location-check.png" />
     <Resource Include="Resources\Icons\notif-location-x.png" />
     <Resource Include="Resources\Icons\notif-star.png" />
@@ -248,7 +285,10 @@
     <Resource Include="Resources\Icons\renovation-clock.png" />
     <Resource Include="Resources\Icons\renovation.png" />
     <Resource Include="Resources\Icons\right.png" />
+    <Resource Include="Resources\Icons\search.png" />
+    <Resource Include="Resources\Icons\serbian.png" />
     <Resource Include="Resources\Icons\share.png" />
+    <Resource Include="Resources\Icons\spinner.gif" />
     <Resource Include="Resources\Icons\star-fill.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -259,12 +299,16 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\stars.png" />
+    <Resource Include="Resources\Icons\sun.png" />
+    <Resource Include="Resources\Icons\time-delete.png" />
     <Resource Include="Resources\Icons\trophy.png" />
     <Resource Include="Resources\Icons\user-fill.png" />
     <Resource Include="Resources\Icons\user.png" />
     <Resource Include="Resources\Icons\was-at-location.png" />
     <Resource Include="Resources\Icons\was-not-at-location.png" />
     <Resource Include="Resources\Icons\x.png" />
+    <Resource Include="Resources\Icons\xx-disabled.png" />
+    <Resource Include="Resources\Icons\xx.png" />
     <Resource Include="Resources\Images\add-renovation.png" />
     <Resource Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -362,6 +406,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Icons\exit.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\moon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Icons\dark\question.png" />
   </ItemGroup>
 
@@ -370,19 +422,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.AI.TextAnalytics" Version="5.2.0" />
+    <PackageReference Include="Azure.AI.Translation.Document" Version="1.0.0" />
     <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="iTextSharp" Version="5.5.13.3" />
+    <PackageReference Include="Microsoft.Azure.CognitiveServices.Language.LUIS.Runtime" Version="3.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageReference Include="MaterialDesignInXamlToolkitAddOns" Version="0.0.6" />
     <PackageReference Include="Microsoft.TeamFoundationServer.ExtendedClient" Version="16.205.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
     <PackageReference Include="ToastNotifications" Version="2.5.1" />
     <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
     <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
     <PackageReference Include="YoutubeExplode" Version="6.2.15" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>

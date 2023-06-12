@@ -20,8 +20,8 @@ namespace SIMSProject.Domain.Models.AccommodationModels
         }
 
         private double CalculateOverall()
-        { 
-            return (CleanlinessRating + ComplianceWithRules + PaymentAndBilling + CommunicationRating + Recommendation) / (double)5; 
+        {
+            return (CleanlinessRating + ComplianceWithRules + PaymentAndBilling + CommunicationRating + Recommendation) / (double)5;
         }
 
         public string[] ToCSV()
@@ -52,6 +52,11 @@ namespace SIMSProject.Domain.Models.AccommodationModels
             Recommendation = int.Parse(values[6]);
             Overall = double.Parse(values[7]);
             Comment = values[8];
+        }
+
+        public override string ToString()
+        {
+            return $"Id: {Id}\nResId: {Reservation.Id}\ncln:{CleanlinessRating},ruls:{ComplianceWithRules},pay:{PaymentAndBilling},cmctn:{CommunicationRating},rcmnd:{Recommendation},/nOverall: {Overall}\nComment: {Comment}";
         }
     }
 }
