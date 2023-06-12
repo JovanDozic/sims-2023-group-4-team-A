@@ -64,7 +64,8 @@
                         Focusable="True"
                         ToolTip="Ctrl+S za filtriranje"
                         Command="{Binding FilterCommand}">
-                    <Image Source="/Data/Resources/search1.png"/>
+                    <Image Source="/Resources/Icons/search.png"
+                           Style="{StaticResource IconRenderStyle}"/>
                 </Button>
             </WrapPanel>
         </GroupBox>

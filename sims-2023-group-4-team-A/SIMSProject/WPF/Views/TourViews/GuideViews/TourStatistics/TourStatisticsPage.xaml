@@ -18,8 +18,10 @@
                     Margin="20,0,0,150">
             <Button x:Name="BtnNext"
                     Height="36" Width="45"
-                    Command="{Binding Path=TogglePagesCommand}"
-                    >
+                    Command="{Binding Path=TogglePagesCommand}">
+                <Image
+                    Source="/Resources/Icons/Right.png"
+                    Style="{StaticResource IconRenderStyle}"/>
             </Button>
             <Label 
                    Margin="325,0,0,0"

@@ -79,6 +79,7 @@
                 Margin="20,0,0,20"
                 Height="36"
                 FontSize="28"
+                FontWeight="Bold"
                 Content="Izlistaj moguće termine Ctrl+M"
                 Command="{Binding Path=GetPotentialAppointmentsCommand}"/>
     </Grid>

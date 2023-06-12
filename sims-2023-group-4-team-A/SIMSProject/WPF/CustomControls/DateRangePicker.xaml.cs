@@ -44,6 +44,7 @@ namespace SIMSProject.WPF.CustomControls
         private void btnShowCalendar_Click(object sender, RoutedEventArgs e)
         {
             ppCalendar.IsOpen = true;
+            clndr.Focus();
         }
 
         private void clndr_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)

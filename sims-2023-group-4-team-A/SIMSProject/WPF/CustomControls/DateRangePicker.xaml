@@ -22,7 +22,8 @@
                     <Popup x:Name="ppCalendar" PlacementTarget="{Binding ElementName=btnShowCalendar}" IsOpen="False">
                         <Calendar x:Name="clndr" SelectionMode="SingleRange" SelectedDatesChanged="clndr_SelectedDatesChanged"/>
                     </Popup>
-                    <Image Source="/WPF/CustomControls/calendar1.png"/>
+                    <Image Source="/Resources/Icons/calendar1.png"
+                           Style="{StaticResource IconRenderStyle}"/>
                 </StackPanel>
             </Button>
             

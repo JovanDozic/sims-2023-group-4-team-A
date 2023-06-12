@@ -83,7 +83,6 @@
     <None Remove="Resources\Images\tripbooklogo.png" />
     <None Remove="Resources\Images\tripbooklogoPDF.png" />
     <None Remove="Resources\Images\view.png" />
-    <None Remove="WPF\CustomControls\calendar1.png" />
     <None Remove="WPF\Views\Guest1\burger.png" />
     <None Remove="WPF\Views\Guest1\chevron-left.png" />
     <None Remove="WPF\Views\Guest1\close.png" />
@@ -150,7 +149,7 @@
     <Resource Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Images\calendar1.png" />
+    <Resource Include="Resources\Icons\calendar1.png" />
     <Resource Include="Resources\Images\cancel-renovation.png" />
     <Resource Include="Resources\Images\checkboxlist.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
@@ -173,12 +172,11 @@
     <Resource Include="Resources\Images\NotificationAlertNoColor.png" />
     <Resource Include="Resources\Images\open.png" />
     <Resource Include="Resources\Images\rating.png" />
-    <Resource Include="Resources\Images\search1.png" />
+    <Resource Include="Resources\Icons\search.png" />
     <Resource Include="Resources\Images\search2.png" />
     <Resource Include="Resources\Images\stars.png" />
     <Resource Include="Resources\Images\statusInformation.png" />
     <Resource Include="Resources\Images\tripbooklogo.png" />
-    <Resource Include="WPF\CustomControls\calendar1.png" />
     <Content Include="Resources\Icons\logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

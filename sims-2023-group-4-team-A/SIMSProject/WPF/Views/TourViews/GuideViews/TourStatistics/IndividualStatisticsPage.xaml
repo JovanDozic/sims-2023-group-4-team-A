@@ -26,6 +26,9 @@
             <Button x:Name="BtnNext"
                     Height="36" Width="45"
                     Command="{Binding Path=TogglePagesCommand}">
+                <Image
+                    Source="/Resources/Icons/Left.png"
+                    Style="{StaticResource IconRenderStyle}"/>
             </Button>
 
             <Label 
