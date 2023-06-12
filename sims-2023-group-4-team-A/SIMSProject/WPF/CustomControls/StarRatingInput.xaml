@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="SIMSProject.WPF.CustomControls.StarRatingInput"
+             x:Name="StarRatingControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:SIMSProject.WPF.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="50">
+
+    <UserControl.Resources>
+        <converters:MultiplyConverter x:Key="MarginSizeConverter" Factor="0.13" />
+        <converters:MultiplyConverter x:Key="WidthSizeConverter" Factor="5.8" />
+    </UserControl.Resources>
+
+
+    <ItemsControl x:Name="StarsItemsControl" ItemsSource="{Binding Stars, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                  Width="{Binding ElementName=StarRatingControl, Path=ControlHeight, Converter={StaticResource WidthSizeConverter}}">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <UniformGrid Rows="1" Columns="5" Margin="{Binding ElementName=StarRatingControl, Path=ControlHeight, Converter={StaticResource MarginSizeConverter}}" />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+
+                <Image Source="{Binding}" Height="{Binding ElementName=StarRatingControl, Path=ControlHeight}"
+                       Margin="{Binding ElementName=StarRatingControl, Path=ControlHeight, Converter={StaticResource MarginSizeConverter}}"
+                       Stretch="Uniform"
+                       MouseLeftButtonUp="Image_MouseLeftButtonUp">
+
+                    <Image.Style>
+                        <Style TargetType="{x:Type Image}">
+                            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
+                            <Setter Property="Source" Value="{Binding}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding}" Value="star-full.png">
+                                    <Setter Property="Source" Value="{DynamicResource StarFillIcon}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding}" Value="star-half.png">
+                                    <Setter Property="Source" Value="{DynamicResource StarHalfIcon}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding}" Value="star.png">
+                                    <Setter Property="Source" Value="{DynamicResource StarIcon}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
+
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+
+</UserControl>

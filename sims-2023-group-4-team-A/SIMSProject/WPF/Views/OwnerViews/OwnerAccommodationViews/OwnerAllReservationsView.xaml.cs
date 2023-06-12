@@ -2,6 +2,7 @@
 using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -53,7 +54,12 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
         private void BtnOwnerRatingNotAvailable_Click(object sender, RoutedEventArgs e)
         {
             // TODO: Popup like one above
+        }
 
+        internal void ReloadReservations()
+        {
+            _viewModel.LoadReservations();
+            LstReservations.Items.Refresh();
         }
     }
 }

@@ -45,6 +45,11 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             RateGuestCommand = new RelayCommand(RateGuest, CanRateGuest);
             ViewOwnerRatingCommand = new RelayCommand(ViewOwnerRating);
 
+            LoadReservations();
+        }
+
+        internal void LoadReservations()
+        {
             Reservations = new(_reservationService.GetAllByAccommodationId(Accommodation.Id).OrderByDescending(x => x.StartDate));
             MapRatings();
         }
@@ -68,19 +73,24 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         public void RateGuest()
         {
             if (HoveredReservation is null) return;
-            OwnerRateGuestView rateGuestView = new(_user, HoveredReservation);
+            OwnerRateGuestView rateGuestView = new(_user, HoveredReservation, _reservationsView);
             OwnerWindow ownerWindow = Window.GetWindow(_reservationsView) as OwnerWindow ?? new(_user);
             ownerWindow?.SwitchToPage(rateGuestView);
         }
 
         public void MapRatings()
         {
+            _ownerRatingService.Reload();
+            _guestRatingService.Reload();
             foreach(var reservation in Reservations)
             {
                 if (reservation.OwnerRated) reservation.OwnerRating = _ownerRatingService.GetByReservationId(reservation.Id).Overall;
                 if (reservation.GuestRated) reservation.GuestRating = _guestRatingService.GetByReservationId(reservation.Id).Overall;
             }
+            OnPropertyChanged(nameof(Reservations));
+            OnPropertyChanged(nameof(HoveredReservation));
         }
 
+        
     }
 }

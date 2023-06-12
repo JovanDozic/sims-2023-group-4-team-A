@@ -206,7 +206,7 @@
                                                 Click="BtnViewOwnerRating_Click"
                                                 Visibility="{Binding GuestRated, Converter={StaticResource BooleanToVisibilityConverter}}"
                                                 IsEnabled="{Binding GuestRated}">
-                                            <Image Source="{DynamicResource ClockUnfillIcon}" 
+                                            <Image Source="{DynamicResource EyeIcon}" 
                                                    Style="{StaticResource IconRenderStyle}"
                                                    Height="20"/>
                                         </Button>

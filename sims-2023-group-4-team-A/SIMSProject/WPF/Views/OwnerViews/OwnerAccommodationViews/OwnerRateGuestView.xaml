@@ -28,6 +28,12 @@
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="Margin" Value="0,4"/>
         </Style>
+        <Style x:Key="RatingCategoryStarsInput" TargetType="{x:Type cstm:StarRatingInput}">
+            <Setter Property="ControlHeight" Value="30"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="0,4"/>
+        </Style>
     </Page.Resources>
 
     <Grid Margin="15,0,15,10">
@@ -169,37 +175,37 @@
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="{ns:Loc Cleanliness}"
                                    Style="{StaticResource RatingCategoryLabel}"
                                    Foreground="{DynamicResource TextColor}"/>
-                    <cstm:StarRating Grid.Row="0" Grid.Column="1"
-                                         Rating="{Binding Rating.CleanlinessRating}"
-                                         Style="{StaticResource RatingCategoryStars}"/>
+                    <cstm:StarRatingInput Grid.Row="0" Grid.Column="1"
+                                          SelectedRating="{Binding CleanlinessRating, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                          Style="{StaticResource RatingCategoryStarsInput}"/>
 
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="{ns:Loc FollowingTheRules}"
                                    Style="{StaticResource RatingCategoryLabel}"
                                    Foreground="{DynamicResource TextColor}"/>
-                    <cstm:StarRating Grid.Row="1" Grid.Column="1"
-                                         Rating="{Binding Rating.ComplianceWithRules}"
-                                         Style="{StaticResource RatingCategoryStars}"/>
+                    <cstm:StarRatingInput Grid.Row="1" Grid.Column="1"
+                                          SelectedRating="{Binding ComplianceWithRules, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                          Style="{StaticResource RatingCategoryStarsInput}"/>
 
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="{ns:Loc PaymentRegularity}"
                                    Style="{StaticResource RatingCategoryLabel}"
                                    Foreground="{DynamicResource TextColor}"/>
-                    <cstm:StarRating Grid.Row="2" Grid.Column="1"
-                                         Rating="{Binding Rating.PaymentAndBilling}"
-                                         Style="{StaticResource RatingCategoryStars}"/>
+                    <cstm:StarRatingInput Grid.Row="2" Grid.Column="1"
+                                         SelectedRating="{Binding PaymentAndBilling, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                         Style="{StaticResource RatingCategoryStarsInput}"/>
 
                     <TextBlock Grid.Row="3" Grid.Column="0" Text="{ns:Loc Communication}"
                                    Style="{StaticResource RatingCategoryLabel}"
                                    Foreground="{DynamicResource TextColor}"/>
-                    <cstm:StarRating Grid.Row="3" Grid.Column="1"
-                                         Rating="{Binding Rating.CommunicationRating}"
-                                         Style="{StaticResource RatingCategoryStars}"/>
+                    <cstm:StarRatingInput Grid.Row="3" Grid.Column="1"
+                                         SelectedRating="{Binding CommunicationRating, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                         Style="{StaticResource RatingCategoryStarsInput}"/>
 
                     <TextBlock Grid.Row="4" Grid.Column="0" Text="{ns:Loc Recommendation}"
                                    Style="{StaticResource RatingCategoryLabel}"
                                    Foreground="{DynamicResource TextColor}"/>
-                    <cstm:StarRating Grid.Row="4" Grid.Column="1"
-                                         Rating="{Binding Rating.Recommendation}"
-                                         Style="{StaticResource RatingCategoryStars}"/>
+                    <cstm:StarRatingInput Grid.Row="4" Grid.Column="1"
+                                         SelectedRating="{Binding Recommendation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                         Style="{StaticResource RatingCategoryStarsInput}"/>
                     
                     <TextBlock Grid.Row="5" Grid.Column="0" Text="{ns:Loc FinalRatingDot}"
                                VerticalAlignment="Bottom"
@@ -207,7 +213,7 @@
                                    Foreground="{DynamicResource TextColor}"/>
                     <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1"
                                 Margin="0,5,0,0">
-                        <TextBlock Text="{Binding Rating.Overall}" FontSize="30"
+                        <TextBlock Text="{Binding Overall, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="30"
                                    Margin="20,0,0,0"
                                    Style="{StaticResource RatingCategoryLabel}"
                                    Foreground="{DynamicResource TextColor}"/>
@@ -231,7 +237,6 @@
                         <xctk:WatermarkTextBox Watermark="{ns:Loc CommentDotDot}" 
                                                Style="{StaticResource MobileWatermarkTextBoxInput}"
                                                Text="{Binding Rating.Comment}"
-                                               IsReadOnly="True"
                                                TextWrapping="Wrap"
                                                Height="Auto"/>
                     </Border>
@@ -240,7 +245,8 @@
                 <!-- Buttons -->
                 <Button x:Name="BtnRateGuest" Grid.Row="2"
                         Margin="0,20,0,0"
-                        Style="{StaticResource MobileActionSingleButtonStyle}">
+                        Style="{StaticResource MobileActionSingleButtonStyle}"
+                        Command="{Binding RateGuestCommand}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{DynamicResource PlusIcon}" Height="17.5" Margin="0,0,10,0" 
                                Style="{StaticResource IconRenderStyle}"/>
