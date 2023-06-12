@@ -15,7 +15,6 @@
             <Setter Property="FontSize" Value="22"/>
             <Setter Property="Width" Value="296"/>
             <Setter Property="Height" Value="40"/>
-            <Setter Property="Foreground" Value="Blue"/>
         </Style>
         <converters:TourAppointmentDateTimeConverter x:Key="DateConverter"/>
         <converters:TourLanguageConverter x:Key="LanguageConverter"/>
@@ -51,14 +50,8 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button  Grid.Column="0" Grid.Row="0" 
-                 Content="N" 
-                 FontSize="28" FontWeight="Bold" 
-                 Width="54" Height="33" 
-                 HorizontalAlignment="Left" Margin="10,0,0,50"/>
         <TextBlock Grid.Column="0" Grid.Row="0" 
                    Width="386" Height="36" 
-                   Foreground="Blue"
                    HorizontalAlignment="Left" FontSize="32" 
                    FontWeight="Bold" Text="Kreirajte novu turu" Margin="10,30,0,0"/>
         <Label Grid.Column="0" Grid.Row="1" 
@@ -187,7 +180,6 @@
                              Value="{Binding Path=Duration, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.ColumnSpan="2"></cstm:NumericTextBox>
         <Button x:Name="BTNUploadFiles"
                 Grid.Column="2" Grid.Row="1" 
-                Foreground="Blue"
                 Width="150" Height="33" 
                 FontSize="22" FontWeight="Bold" 
                 Content="Dodaj sliku"
@@ -206,7 +198,6 @@
         <Button x:Name="Confirm"
                 Grid.Column="2" Grid.Row="6" 
                 FontSize="22" FontWeight="Bold" 
-                Foreground="Blue"
                 Content="Potvrdi Ctrl+P" 
                 Width="220" Height="42"
                 Command="{Binding Path=CreateTourCommand}"/>

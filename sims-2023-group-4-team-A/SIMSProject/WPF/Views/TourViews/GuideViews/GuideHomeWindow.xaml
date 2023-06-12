@@ -7,6 +7,16 @@
         mc:Ignorable="d"
        Title="VodiGaNaTuru" Height="700" Width="1200" 
         WindowStartupLocation="CenterScreen">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding Path=GeneratePDFCommand}" Key="P" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding Path=NavigateAllCommand}" Key="A" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding Path=NavigateTodaysCommand}" Key="T" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding Path=NavigateCustomRequestsCommand}" Key="R" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding Path=NavigateComplexRequestsCommand}" Key="Q" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding Path=NavigateStatisticsCommand}" Key="S" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding Path=NavigateRequestsStatisticsCommand}" Key="E" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding Path=NavigateReviewsCommand}" Key="G" Modifiers="Ctrl"/>
+    </Window.InputBindings>
     <DockPanel>
         <ToolBar DockPanel.Dock="Top"
                  Height="55"
@@ -29,13 +39,13 @@
                     <Setter Property="Width" Value="235"/>
                 </Style>
             </StackPanel.Resources>
-            <Button x:Name="AllBTN" Content="Sve ture Ctrl+A" Click="AllBTN_Click"/>
-            <Button x:Name="TodaysBTN" Content="Današnje ture &#xa;Ctrl+T" Click="TodaysBTN_Click"/>
-            <Button x:Name="RequestBTN" Content="Zahtevi za ture &#xa;Ctrl+R" Click="RequestBTN_Click"/>
-            <Button x:Name="MultiPartRequestBTN" Content="Zahtevi za&#xa;složene ture&#xa;Ctrl+Q" Click="MultiPartRequestBTN_Click"/>
-            <Button x:Name="StatisticsBTN" Content="Statistika o&#xa;turama Ctrl+S" Click="StatisticsBTN_Click"/>
-            <Button x:Name="RequestStatBTN" Content="Statistika o&#xa;zahtevima za ture&#xa;Ctrl+S+R" Click="RequestStatBTN_Click"/>
-            <Button x:Name="ReviewBTN" Content="Recenzije Ctrl+G" Click="ReviewBTN_Click"/>
+            <Button x:Name="AllBTN" Content="Sve ture Ctrl+A"/>
+            <Button x:Name="TodaysBTN" Content="Današnje ture &#xa;Ctrl+T"/>
+            <Button x:Name="RequestBTN" Content="Zahtevi za ture &#xa;Ctrl+R"/>
+            <Button x:Name="MultiPartRequestBTN" Content="Zahtevi za&#xa;složene ture&#xa;Ctrl+Q"/>
+            <Button x:Name="StatisticsBTN" Content="Statistika o&#xa;turama Ctrl+S"/>
+            <Button x:Name="RequestStatBTN" Content="Statistika o&#xa;zahtevima za ture&#xa;Ctrl+E"/>
+            <Button x:Name="ReviewBTN" Content="Recenzije Ctrl+G"/>
         </StackPanel>
         <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden">
         </Frame>

@@ -1,4 +1,5 @@
 ﻿using SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -13,12 +14,20 @@ namespace SIMSProject.WPF.Views.TourViews.GuideViews
         public AllToursPage()
         {
             InitializeComponent();
+            ViewModel.RequestOpen += (sender, args) => OpenDetails();
             this.DataContext = ViewModel;
         }
-        private void DetailsBTN_Click(object sender, RoutedEventArgs e)
+
+        private void OpenDetails()
         {
-            var window = new DetailedTourWindow();
+            var window = new DetailedTourWindow(ViewModel.NextViewModel);
             window.Show();
         }
+
+        //private void DetailsBTN_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var window = new DetailedTourWindow(ViewModel.NextViewModel);
+        //    window.Show();
+        //}
     }
 }

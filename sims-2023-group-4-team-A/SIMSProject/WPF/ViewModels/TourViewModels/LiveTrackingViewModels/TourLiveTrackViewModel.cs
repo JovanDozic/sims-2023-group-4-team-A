@@ -108,7 +108,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.LiveTrackingViewModels
         public ICommand EndCommand { get; set; }
 
         public event EventHandler RequestClose;
-
         private void OnRequestClose()
         {
             RequestClose?.Invoke(this, EventArgs.Empty);

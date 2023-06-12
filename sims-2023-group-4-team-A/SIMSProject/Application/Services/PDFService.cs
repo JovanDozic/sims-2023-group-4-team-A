@@ -8,6 +8,8 @@ using System.Windows;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Microsoft.Win32;
+using SIMSProject.Application.Services.TourServices;
+using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.TourModels;
 
@@ -76,6 +78,84 @@ namespace SIMSProject.Application.Services
                 MessageBox.Show("Error generating PDF file: " + ex.Message);
             }
         }
+
+        public static string GenerateCustomRequestsPDF()
+        {
+            try{
+                string filePath = OpenFilePicker();
+
+                Document document = new();
+                PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
+                writer.SetPdfVersion(PdfWriter.PDF_VERSION_1_7);
+                writer.SetFullCompression();
+
+                document.Open();
+
+                var requestService = Injector.GetService<CustomTourRequestService>();
+                Paragraph paragraph = new("Statistika po jezicima:")
+                {
+                    SpacingAfter = 15f
+                };
+                document.Add(paragraph);
+                foreach (var language in requestService.GetRequestsLanguages())
+                {
+                    paragraph = new($"{Tour.GetLanguage(language)}");
+                    document.Add(paragraph);
+
+                    paragraph = new("Prihvaceni zahtevi:")
+                    {
+                        SpacingAfter = 10f
+                    };
+                    document.Add(paragraph);
+
+                    List unorderedList = new List(List.UNORDERED);
+                    var count = requestService.CountRequests(language);
+                    int i = 0;
+                    foreach(var year in requestService.GetRequestsYears())
+                    {
+                        unorderedList.Add(new ListItem($"{year}: {count[i]}\n"));
+                        ++i;
+                    }
+                    document.Add(unorderedList);
+                }
+                
+                paragraph = new("Statistika po lokacijama:")
+                {
+                    SpacingAfter = 15f
+                };
+                document.Add(paragraph);
+
+                foreach (var location in requestService.GetRequestsLocations())
+                {
+                    paragraph = new($"{location.City}, {location.Country}");
+                    document.Add(paragraph);
+
+                    paragraph = new("Prihvaceni zahtevi:")
+                    {
+                        SpacingAfter = 10f
+                    };
+                    document.Add(paragraph);
+
+                    List unorderedList = new List(List.UNORDERED);
+                    var count = requestService.CountRequests(location);
+                    int i = 0;
+                    foreach (var year in requestService.GetRequestsYears())
+                    {
+                        unorderedList.Add(new ListItem($"{year}: {count[i]}\n"));
+                        ++i;
+                    }
+                    document.Add(unorderedList);
+                }
+                document.Close();
+                MessageBox.Show("PDF file generated successfully.");
+                return filePath;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error generating PDF file: " + ex.Message);
+                return "";
+            }
+        } 
 
         public static void GenerateTourReservationDetailsPDF(TourReservation tourReservation)
         {

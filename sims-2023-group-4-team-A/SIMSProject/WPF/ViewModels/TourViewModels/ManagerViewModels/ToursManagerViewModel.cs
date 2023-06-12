@@ -3,6 +3,8 @@ using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.TourModels;
 using SIMSProject.WPF.Messenger;
 using SIMSProject.WPF.Messenger.Messages;
+using SIMSProject.WPF.Views.TourViews.GuideViews;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -12,6 +14,7 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
     {
         private readonly TourService _tourService;
         private readonly TourAppointmentService _tourAppointmentService;
+        public DetailedTourViewModel NextViewModel;
 
         private ObservableCollection<Tour> _tours = new();
         public ObservableCollection<Tour> Tours
@@ -59,7 +62,9 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
         }
         public void TourInfoExecute()
         {
+            NextViewModel = new();
             SendMessage();
+            OnRequestOpen();
         }
         #endregion
         public void SendMessage()
