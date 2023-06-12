@@ -89,7 +89,7 @@
                 x:Name="MoveButton"
                 Click="Button_Click_Reschedule"
                 IsEnabled="False"
-                Height="55" Width="317">
+                Height="55" Width="318">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Template">

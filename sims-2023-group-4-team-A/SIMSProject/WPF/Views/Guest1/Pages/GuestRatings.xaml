@@ -57,8 +57,8 @@
                 Background="Transparent"
                 BorderThickness="0" Visibility="Hidden"
                 Click="Button_Click_Details"
-                Height="51" Grid.Row="3" Grid.ColumnSpan="2" Margin="434,100,470,49"/>
-        <Image x:Name="RightArrow" Visibility="Hidden" Grid.Row="3" Source="../Icons/chevron-right-black.png" Margin="29,104,438,48" Grid.Column="1"/>
+                Grid.Row="3" Grid.ColumnSpan="2" Margin="432,106,467,50"/>
+        <Image x:Name="RightArrow" Visibility="Hidden"  Grid.Row="3" Source="../Icons/chevron-right-black.png" Margin="29,104,438,48" Grid.Column="1"/>
 
     </Grid>
 </Page>

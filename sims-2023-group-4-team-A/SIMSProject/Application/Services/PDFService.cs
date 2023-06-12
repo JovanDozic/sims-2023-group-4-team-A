@@ -243,6 +243,12 @@ namespace SIMSProject.Application.Services
 
                 //document.Add(table);
                 document.Close();
+                if (File.Exists(filePath))
+                {
+                    ProcessStartInfo startInfo = new ProcessStartInfo(filePath);
+                    startInfo.UseShellExecute = true;
+                    Process.Start(startInfo);
+                }
                 //MessageBox.Show("PDF file generated successfully.");
             }
             catch (Exception ex)
@@ -379,11 +385,15 @@ namespace SIMSProject.Application.Services
                 dateParagraph.Alignment = Element.ALIGN_RIGHT;
                 document.Add(dateParagraph);
                 dateParagraph.SpacingBefore = 20;
-
-
                 document.Close();
+                if(File.Exists(filePath))
+                {
+                    ProcessStartInfo startinfo = new ProcessStartInfo(filePath);
+                    startinfo.UseShellExecute = true;
+                    Process.Start(startinfo);
+                    
+                }
                 return true;
-                //MessageBox.Show("PDF file generated successfully.");
             }
             catch (Exception ex)
             {

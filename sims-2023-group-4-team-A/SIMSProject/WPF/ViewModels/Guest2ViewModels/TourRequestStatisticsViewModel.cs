@@ -4,15 +4,17 @@ using SIMSProject.Application.Services.TourServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.UserModels;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
 {
     public class TourRequestStatisticsViewModel : ViewModelBase
     {
+        #region Polja
         private Guest2 _user;
         private CustomTourRequestStatisticsService _customTourRequestStatisticsService;
         private string _selectedYear;
@@ -115,17 +117,50 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 OnPropertyChanged();
             }
         }
-
-        
-        public TourRequestStatisticsViewModel(Guest2 user)
+        private Visibility _languageVisibility;
+        public Visibility LanguageVisibility
         {
-            _user = user;
-            _customTourRequestStatisticsService = Injector.GetService<CustomTourRequestStatisticsService>();
+            get => _languageVisibility;
+            set
+            {
+                if(value == _languageVisibility) return;
+                _languageVisibility = value;
+                OnPropertyChanged();
+            }
         }
 
+        private Visibility _locationVisibility;
+        public Visibility LocationVisibility
+        {
+            get => _locationVisibility;
+            set
+            {
+                if (value == _locationVisibility) return;
+                _locationVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+        public NavigationService NavService { get; set; }
+        public RelayCommand GoBack { get; set; }
+        #endregion
+
+        #region Konstruktori
+        public TourRequestStatisticsViewModel(Guest2 user, NavigationService navigationService)
+        {
+            _user = user;
+            NavService = navigationService;
+            _customTourRequestStatisticsService = Injector.GetService<CustomTourRequestStatisticsService>();
+            GoBack = new RelayCommand(GoBackExecute, CanExecute_Command);
+            LanguageVisibility = Visibility.Hidden;
+            LocationVisibility = Visibility.Hidden;
+        }
+        #endregion
+
+        #region Akcije
         public void LoadByYear(string selectedYear)
         {
-            
+            LanguageVisibility = Visibility.Visible;
+            LocationVisibility = Visibility.Visible;
             int year = selectedYear == "Oduvek" ? -1 : int.TryParse(selectedYear, out year) ? year : 0;
             if (year == -1)
             {
@@ -162,6 +197,14 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 };
 
         }
-
+        private void GoBackExecute()
+        {
+            NavService.GoBack();
+        }
+        private bool CanExecute_Command()
+        {
+            return true;
+        }
+        #endregion
     }
 }

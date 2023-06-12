@@ -18,8 +18,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Label HorizontalAlignment="Left" FontSize="40" FontWeight="Bold" Grid.Row="1">Moji vaučeri</Label>
-        <DataGrid FontWeight="DemiBold" FontSize="32" Grid.Row="2" VerticalAlignment="Top" Height="350" IsReadOnly="True" AutoGenerateColumns="False"
-                  ItemsSource="{Binding Path=Vouchers, UpdateSourceTrigger=PropertyChanged}">
+        <DataGrid FontWeight="Bold" FontSize="28" Grid.Row="2" VerticalAlignment="Top" Height="350" IsReadOnly="True" AutoGenerateColumns="False"
+                  ItemsSource="{Binding Path=Vouchers, UpdateSourceTrigger=PropertyChanged}" Cursor="Hand">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id}" Header="Naziv" Width="120"/>
                 <DataGridTextColumn Binding="{Binding Path = Reason, Converter={StaticResource ObtainingReasonConverter}}" Header="Razlog dobijanja" Width="*"/>

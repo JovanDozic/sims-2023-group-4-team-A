@@ -39,7 +39,7 @@
 
                 <TextBlock FontSize="30" Text="{Binding SelectedAccommodation.Name}" FontWeight="Bold"
                            VerticalAlignment="Top" Margin="0,55,0,10"></TextBlock>
-                <Image Grid.Column="1" Source="../Icons/chevron-left-black.png" Height="30" Width="30" Margin="23,61,77,18" Grid.ColumnSpan="2" />
+                <Image Grid.Column="1" Source="../Icons/chevron-left-black.png" Width="30" Margin="25,62,75,22" Grid.ColumnSpan="2" />
                 <Button Content="Nazad" 
                     Background="Transparent"
                     BorderBrush="Transparent"
@@ -79,7 +79,7 @@
         <custom:ImageSlider x:Name="imageSlider" Margin="-37,152,-37,88" Grid.RowSpan="3" />
         <Button Content="Rezervacija" Background="#0c669f"
                 Foreground="White" FontSize="30" Grid.Row="2" HorizontalAlignment="Center"
-                VerticalAlignment="Center" Width="240" Height="52"
+                VerticalAlignment="Center" Width="318" Height="55"
                 Click="Button_Click_Reservation"/>
 
     </Grid>

@@ -43,30 +43,43 @@
             <ColumnDefinition Width="350"/>
         </Grid.ColumnDefinitions>
         <Image Grid.Row="1" Source="/Resources/Images/chevron-left-black.png" RenderOptions.BitmapScalingMode="HighQuality" />
-        <Button Click="Back_Click" Grid.Column="1" Grid.Row="1" Content="Nazad" FontSize="28" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Foreground="#004e98" Cursor="Hand"/>
-        <TextBlock Text="{Binding TourReservation.TourAppointment.Tour.Name}" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="4" FontSize="32" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="DemiBold"/>
-        <Image Grid.Column="3" Grid.Row="2" Source="/Resources/Images/location.png" Height="20" RenderOptions.BitmapScalingMode="HighQuality" />
-        <TextBlock Grid.Column="4" Grid.Row="2" Grid.ColumnSpan="2" FontSize="20" FontWeight="DemiBold" Text="{Binding TourReservation.TourAppointment.Tour.Location}"/>
-        <TextBlock Grid.Column="3" Grid.ColumnSpan="4" Grid.Row="3" FontSize="20" FontWeight="DemiBold" Text="{Binding TourReservation.TourAppointment.Tour.Description}" TextWrapping="Wrap"/>
-        <Label Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="4" FontSize="20" FontWeight="DemiBold" Content="Ključne tačke: "/>
-        <TextBlock Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="4" FontSize="20" FontWeight="DemiBold" Text="{Binding TourReservation.TourAppointment.Tour.KeyPoints, Converter={StaticResource KeyPointsListToStringConverter}}" TextWrapping="Wrap"/>
-        <Label Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="5" FontSize="20" FontWeight="DemiBold" VerticalAlignment="Top" Content="Trajanje ture: "/>
-        <TextBlock Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="5" FontSize="20" FontWeight="DemiBold" Text="{Binding TourReservation.TourAppointment.Tour.Duration}"/>
-        <Label Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="6" FontSize="20" FontWeight="DemiBold" VerticalAlignment="Center" Content="Jezik: "/>
-        <TextBlock Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="6" FontSize="20" FontWeight="DemiBold" Text="{Binding TourReservation.TourAppointment.Tour.TourLanguage, Converter={StaticResource TourLanguageConverter}}"/>
-        <Label Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="7" FontSize="20" FontWeight="DemiBold" VerticalAlignment="Center" Content="Kapacitet ture: "/>
-        <TextBlock Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="7" FontSize="20" FontWeight="DemiBold" Text="{Binding TourReservation.TourAppointment.Tour.MaxGuestNumber}"/>
+        <Button Command="{Binding GoBackCommand}" Grid.Column="1" Grid.Row="1" Content="Nazad" FontSize="28" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Foreground="#004e98" Cursor="Hand"/>
+        <TextBlock Text="{Binding TourReservation.TourAppointment.Tour.Name}" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="4" FontSize="32" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold"/>
+        <Image Grid.Column="3" Grid.Row="2" Source="/Resources/Images/location.png" Height="20" RenderOptions.BitmapScalingMode="HighQuality" Margin="0,1,0,13" />
+        <TextBlock Grid.Column="4" Grid.Row="2" Grid.ColumnSpan="2" FontSize="20" FontWeight="Bold" Text="{Binding TourReservation.TourAppointment.Tour.Location}"/>
+        <TextBlock Grid.Column="3" Grid.ColumnSpan="5" Grid.Row="3" FontSize="20" FontWeight="Bold" Text="{Binding TourReservation.TourAppointment.Tour.Description}" TextWrapping="Wrap" Margin="2,0,348,0"/>
+        <Label Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="3" FontSize="20" FontWeight="Bold" Content="Ključne tačke: " Margin="26,46,4,4" Grid.RowSpan="2"/>
+        <TextBlock Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="4" FontSize="20" FontWeight="Bold" Text="{Binding TourReservation.TourAppointment.Tour.KeyPoints, Converter={StaticResource KeyPointsListToStringConverter}}" TextWrapping="Wrap" Margin="0,2,0,32" Grid.RowSpan="2"/>
+        <Label Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="4" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Content="Trajanje ture: " Margin="26,46,4,0" Grid.RowSpan="2"/>
+        <TextBlock Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="5" FontSize="20" FontWeight="Bold" Text="{Binding TourReservation.TourAppointment.Tour.Duration}" Margin="0,2,0,32" Grid.RowSpan="2"/>
+        <Label Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="5" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Content="Jezik: " Margin="26,30,4,0" Grid.RowSpan="2"/>
+        <TextBlock Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="6" FontSize="20" FontWeight="Bold" Text="{Binding TourReservation.TourAppointment.Tour.TourLanguage, Converter={StaticResource TourLanguageConverter}}" Margin="0,2,0,32" Grid.RowSpan="2"/>
+        <Label Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="6" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Content="Kapacitet ture: " Margin="26,30,4,0" Grid.RowSpan="2"/>
+        <TextBlock Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="7" FontSize="20" FontWeight="Bold" Text="{Binding TourReservation.TourAppointment.Tour.MaxGuestNumber}" Margin="0,2,0,8" Grid.RowSpan="2"/>
         <Separator Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="5"/>
-        <Label Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="9" FontSize="20" FontWeight="DemiBold" Content="Broj gostiju: "/>
-        <TextBlock Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="9" FontSize="20" FontWeight="DemiBold" VerticalAlignment="Bottom" Text="{Binding TourReservation.GuestNumber}"/>
-        <Label Grid.Row="10" Grid.Column="3" Grid.ColumnSpan="2" Content="Termin: " FontSize="20" FontWeight="DemiBold"/>
-        <TextBlock Text="{Binding TourReservation.TourAppointment.Date, Converter={StaticResource DateTimeConverter}}" Grid.Row="10" Grid.Column="5" FontSize="20" FontWeight="DemiBold"/>
-        <Label Grid.Row="11" Grid.Column="3" Grid.ColumnSpan="2" Content="Status ture: " FontSize="20" FontWeight="DemiBold"/>
-        <TextBlock Text="{Binding TourReservation.TourAppointment.TourStatus, Converter={StaticResource TourAppointmentStatusConverter}}" FontWeight="DemiBold" Grid.Row="11" Grid.Column="5" FontSize="20"/>
-        <Label Grid.Row="12" Grid.Column="3" Grid.ColumnSpan="2" Content="Trenutna kljucna tacka: " FontSize="20" FontWeight="DemiBold"/>
-        <TextBlock Text="{Binding Path=TourReservation.TourAppointment.CurrentKeyPoint, UpdateSourceTrigger=PropertyChanged}" Grid.Row="12" Grid.Column="5" FontSize="20" FontWeight="DemiBold"/>
-        <Button Grid.Row="12" Grid.Column="6" Grid.ColumnSpan="2" Content="Preuzmi PDF izveštaj o rezervaciji" FontSize="20" FontWeight="Bold" Foreground="#ff6700" HorizontalAlignment="Right" BorderBrush="Transparent" Background="Transparent" Click="BtnGeneratePDF_Click"/>
-        <Label x:Name="LblStatus" Visibility="Hidden" Grid.Row="13" Grid.Column="3" Grid.ColumnSpan="2" Content="Moj status: " FontSize="20" FontWeight="DemiBold"/>
+        <Label Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="9" FontSize="20" FontWeight="Bold" Content="Broj gostiju: " Margin="26,0,4,0"/>
+        <TextBlock Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="9" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" Text="{Binding TourReservation.GuestNumber}"/>
+        <Label Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="3" Content="Termin: " FontSize="20" FontWeight="Bold" Margin="26,30,4,4" Grid.RowSpan="2"/>
+        <TextBlock Text="{Binding TourReservation.TourAppointment.Date, Converter={StaticResource DateTimeConverter}}" Grid.Row="10" Grid.Column="5" FontSize="20" FontWeight="Bold" Margin="0,2,0,32" Grid.RowSpan="2"/>
+        <Label Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="3" Content="Status ture: " FontSize="20" FontWeight="Bold" Margin="26,30,4,4" Grid.RowSpan="2"/>
+        <TextBlock Text="{Binding TourReservation.TourAppointment.TourStatus, Converter={StaticResource TourAppointmentStatusConverter}}" FontWeight="Bold" Grid.Row="11" Grid.Column="5" FontSize="20" Margin="0,2,0,32" Grid.RowSpan="2"/>
+        <Label Grid.Row="12" Grid.Column="2" Grid.ColumnSpan="3" Content="Trenutna kljucna tacka: " FontSize="20" FontWeight="Bold" Margin="26,0,4,0"/>
+        <TextBlock Text="{Binding Path=TourReservation.TourAppointment.CurrentKeyPoint, UpdateSourceTrigger=PropertyChanged}" Grid.Row="12" Grid.Column="5" FontSize="20" FontWeight="Bold" Margin="0,2,0,32" Grid.RowSpan="2"/>
+        <Button Command="{Binding GeneratePDFCommand}" Background="Transparent" BorderBrush="Transparent"
+        HorizontalAlignment="Right" FontSize="20" FontWeight="Bold" Foreground="#ff6700"
+        Grid.Row="12" Grid.Column="7" Cursor="Hand" Content="Preuzmi PDF izveštaj o rezervaciji" Margin="0,4,0,30" Grid.RowSpan="2">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <TextBlock>
+                <Hyperlink Command="{TemplateBinding Command}">
+                    <TextBlock Text="{TemplateBinding Content}" />
+                </Hyperlink>
+            </TextBlock>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Label x:Name="LblStatus" Visibility="Hidden" Grid.Row="13" Grid.Column="3" Grid.ColumnSpan="2" Content="Moj status: " FontSize="20" FontWeight="Bold"/>
 
         <cstm:TourReservationImageSlider x:Name="SliderImageURLs" Grid.Row="1" Grid.Column="7" Grid.RowSpan="7" VerticalAlignment="Bottom"
                                         ImageSource="{Binding TourReservation.TourAppointment.Tour.Images, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>

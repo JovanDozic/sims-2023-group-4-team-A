@@ -24,6 +24,7 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
         private DateTime _newDateEnd;
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public ObservableCollection<DateRange> DateRanges { get; set; } = new();
+        public ObservableCollection<DateRange> NoDatesDateRanges { get; set; } = new();
         public DateRange SelectedRange { get; set; } = new();
         public Accommodation SelectedAccommodation
         {
@@ -130,6 +131,10 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
         {
             _accommodationService.SearchForFreeAccommodations(Accommodations, DateBegin, DateEnd, NumberOfDays, GuestsNumber);
         }
+        public bool IsAccommodationFound()
+        {
+            return Accommodations.Count != 0;
+        }
 
         private void OnReservationDataChanged()
         {
@@ -138,7 +143,6 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
                 DateRanges = LoadDateRanges();
             }
         }
-
         public ObservableCollection<DateRange> LoadDateRanges()
         {
             var dates = new ObservableCollection<DateRange>();
@@ -154,7 +158,29 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
             
             return dates;
         }
+        public void GenerateAvailableDateRanges()
+        {
+            var dates = new ObservableCollection<DateRange>();
+            var today = DateTime.Today;
+            var nextYear = today.AddYears(1);
 
+            for (DateTime date = today; date <= nextYear.AddDays(-NumberOfDays); date = date.AddDays(1))
+            {
+                DateTime endDateRange = date.AddDays(NumberOfDays);
+                DateRange dateRange = new DateRange(date, endDateRange);
+                NoDatesDateRanges.Add(dateRange);
+            }
+            var reservedOrRenovatingRanges = GetAllDateRanges();
+            var overlappingRanges = NoDatesDateRanges.Where(dateRange => reservedOrRenovatingRanges.Any(overlapRange => dateRange.StartDate <= overlapRange.EndDate && dateRange.EndDate >= overlapRange.StartDate)).ToList();
+            foreach (var overlappingRange in overlappingRanges)
+            {
+                NoDatesDateRanges.Remove(overlappingRange);
+            }
+        }
+        public List<DateRange> GetAllDateRanges()
+        {
+            return _accommodationService.FindReservedOrRenovatingDateRanges(SelectedAccommodation);
+        }
         public void SaveReservation()
         {
             _accommodationReservationService.SaveReservation(new AccommodationReservation(SelectedAccommodation.Id, _user.Id, SelectedRange.StartDate, SelectedRange.EndDate, NumberOfDays, GuestsNumber, false), _user);
@@ -199,42 +225,6 @@ namespace SIMSProject.WPF.ViewModels.Guest1ViewModels
         public bool AreDatesSelected()
         {
             return DateBegin != DateTime.MinValue && DateEnd != DateTime.MinValue;
-        }
-        public bool AreNewDatesSelected()
-        {
-            return NewDateBegin != DateTime.MinValue && NewDateEnd != DateTime.MinValue;
-        }
-        public void LoadFirstDatePicker(object sender)
-        {
-            if (sender is DatePicker datePicker)
-            {
-                datePicker.DisplayDateStart = DateTime.Today.AddDays(1);
-            }
-        }
-        public void LoadSecondDatePicker(object sender)
-        {
-            if (sender is DatePicker datePicker)
-            {
-                datePicker.DisplayDateStart = DateTime.Today.AddDays(NumberOfDays + 1);
-            }
-        }
-        public DateTime? GetUpdatedEndDate(DateTime? selectedStartDate)
-        {
-            if (selectedStartDate.HasValue && selectedStartDate.Value != DateTime.MinValue)
-            {
-                return selectedStartDate.Value.AddDays(NumberOfDays);
-            }
-
-            return null;
-        }
-        public DateTime? GetUpdatedStartDate(DateTime? selectedEndDate)
-        {
-            if (selectedEndDate.HasValue && selectedEndDate.Value != DateTime.MinValue)
-            {
-                return selectedEndDate.Value.AddDays(-NumberOfDays);
-            }
-
-            return null;
         }
     }
 }

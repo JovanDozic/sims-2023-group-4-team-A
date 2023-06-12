@@ -1,4 +1,5 @@
-﻿using SIMSProject.Application.Services.AccommodationServices;
+﻿using Microsoft.Win32;
+using SIMSProject.Application.Services.AccommodationServices;
 using SIMSProject.Domain.Injectors;
 using SIMSProject.Domain.Models.AccommodationModels;
 using SIMSProject.Domain.Models.UserModels;
@@ -12,17 +13,16 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
     {
         private readonly User _user;
         private OwnerRating _rating = new();
-        private RenovationSuggestion _renovation = new();
         private OwnerRatingService _ratingService;
         private AccommodationReservationService _reservationService;
-        private RenovationSuggestionService _suggestionService;
         private Accommodation _accommodation = new();
+
         private string _selectedImageFile = string.Empty;
+
         private string _ownerNameTB = string.Empty;
 
         public ObservableCollection<AccommodationReservation> Reservations { get; set; } = new();
         public object ReservationsCombo { get; private set; } = new();
-
         public string OwnerNameTextBlock
         {
             get => _ownerNameTB;
@@ -169,7 +169,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _user = user;
             _ratingService = Injector.GetService<OwnerRatingService>();
             _reservationService = Injector.GetService<AccommodationReservationService>();
-            _suggestionService = Injector.GetService<RenovationSuggestionService>();
             Reservation = reservation;
             LoadRating();
         }
@@ -200,19 +199,9 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                     !reservation.OwnerRated);        
         }
 
-        public string GetOwnerUsername()
-        {
-            return SelectedReservation.Accommodation.Owner.Username;
-        }
-
         public bool IsSelected()
         {
             return SelectedReservation != null;
-        }
-
-        public void UploadImage(string imageUrl)
-        {
-            ImageURLs.Add(imageUrl);
         }
 
         public void RateOwnerAndAccommodation()
@@ -235,6 +224,18 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             if (Reservation == null) return;
             Rating = _ratingService.GetByReservationId(Reservation.Id);
-        }    
+        }
+
+        public void UploadImageToAccommodation()
+        {
+            OpenFileDialog openFileDialog = new();
+            openFileDialog.DefaultExt = ".png";
+            openFileDialog.Filter = "Image files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg";
+
+            bool? result = openFileDialog.ShowDialog();
+            if (result is not true || result is null) return;
+            if (ImageURLs.Find(x => x.Equals(openFileDialog.FileName)) != null) return;
+            ImageURLs.Add(openFileDialog.FileName);
+        }
     }
 }

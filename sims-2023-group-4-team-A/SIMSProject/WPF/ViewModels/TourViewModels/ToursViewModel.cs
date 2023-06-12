@@ -4,13 +4,15 @@ using SIMSProject.Domain.Models.TourModels;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using SIMSProject.Domain.Models.UserModels;
-using SIMSProject.Application.Services;
-using SIMSProject.Domain.Models;
+using System.Windows;
+using System.Windows.Navigation;
+using SIMSProject.WPF.Views.Guest2Views;
 
 namespace SIMSProject.WPF.ViewModels.TourViewModels
 {
-    public class ToursViewModel: ViewModelBase
+    public class ToursViewModel : ViewModelBase
     {
+        #region Polja
         private Guest2 _user;
         private readonly TourService _tourService;
         private readonly TourGuestService _tourGuestService;
@@ -18,11 +20,11 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
 
         private Tour _tour = new();
         public Tour SelectedTour
-        {   
+        {
             get => _tour;
             set
             {
-                if(value != _tour)
+                if (value != _tour)
                 {
                     _tour = value;
                     OnPropertyChanged(nameof(SelectedTour));
@@ -51,16 +53,31 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
                 OnPropertyChanged(nameof(DurationSearch));
             }
         }
+        private string _locationSearch = "Gde putujete?";
+        public string LocationSearch
+        {
+            get => _locationSearch;
+            set
+            {
+                if (value == _locationSearch) return;
+                _locationSearch = value;
+                OnPropertyChanged(nameof(LocationSearch));
+            }
+        }
+        
+        private string _tourLanguage;
         public string TourLanguage
         {
             get
             {
                 return _tour.TourLanguage switch
                 {
-                    Language.ENGLISH => "Engleski",
                     Language.SERBIAN => "Srpski",
                     Language.SPANISH => "Španski",
-                    _ => "Francuski"
+                    Language.FRENCH => "Francuski",
+                    Language.ITALIAN => "Italijanski",
+                    Language.GERMAN => "Nemački",
+                    _ => "Engleski"
 
                 };
             }
@@ -68,19 +85,91 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             {
                 _tour.TourLanguage = value switch
                 {
-                    "Engleski" => Language.ENGLISH,
                     "Srpski" => Language.SERBIAN,
                     "Španski" => Language.SPANISH,
-                    _ => Language.FRENCH
+                    "Francuski" => Language.FRENCH,
+                    "Italijanski" => Language.ITALIAN,
+                    "Nemački" => Language.GERMAN,
+                    _ => Language.ENGLISH
                 };
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(TourLanguage));
             }
         }
-        public void Search(string locationAndLanguage, string language)
+
+        private Visibility _labelVisibility;
+        public Visibility LabelVisibility
         {
-           _tourService.SearchTours(locationAndLanguage, DurationSearch, GuestSearch, language, Tours);
+            get => _labelVisibility;
+            set
+            {
+                if(value == _labelVisibility) return;
+                _labelVisibility = value;
+                OnPropertyChanged(nameof(LabelVisibility));
+            }
+        }
+        public ObservableCollection<string> TourLanguages { get; set; }
+        public NavigationService NavService { get; set; }
+        public RelayCommand SearchCommand { get; set; }
+        public RelayCommand ReserveCommand { get; set; }
+        public RelayCommand TextSearch_GotFocusCommand { get; set; }
+        public RelayCommand TextSearch_LostFocusCommand { get; set; }
+        #endregion
+
+        #region Konstruktori
+        public ToursViewModel(Guest2 user, NavigationService navigationService)
+        {
+            _user = user;
+            NavService = navigationService;
+
+            _tourService = Injector.GetService<TourService>();
+            _tourGuestService = Injector.GetService<TourGuestService>();
+            Tours = new(_tourService.GetTours());
+            TourLanguages = new(Tour.GetLanguages());
+            LabelVisibility = Visibility.Hidden;
+            SearchCommand = new RelayCommand(SearchExecute);
+            ReserveCommand = new RelayCommand(ReserveExecute);
+
+            //TextSearch_GotFocusCommand = new RelayCommand(TextSearch_GotFocus);
+            //TextSearch_LostFocusCommand = new RelayCommand(TextSearch_LostFocus);
         }
 
+        #endregion
+
+        #region Akcije
+        public void SearchExecute()
+        {
+            string searchLanguage = ConvertLanguage(TourLanguage);
+            LabelVisibility = Visibility.Hidden;
+            _tourService.SearchTours(LocationSearch, DurationSearch, GuestSearch, searchLanguage, Tours);
+        }
+
+        public void ReserveExecute()
+        {
+            if (IsSelected())
+            {
+                NavService.Navigate(new ReservationCreation(_user, SelectedTour));
+                LabelVisibility = Visibility.Hidden;
+                return;
+            }
+            LabelVisibility = Visibility.Visible;
+        }
+
+        private string ConvertLanguage(string selectedLanguage)
+        {
+            switch (selectedLanguage)
+            {
+                case "Srpski":
+                    return "SERBIAN";
+                case "Engleski":
+                    return "ENGLISH";
+                case "Španski":
+                    return "SPANISH";
+                case "Francuski":
+                    return "FRENCH";
+                default:
+                    return "";
+            }
+        }
         public bool IsSelected()
         {
             if(SelectedTour.Id == 0) return false;
@@ -95,12 +184,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             _tourGuestService.MakeGuestPresent(tourGuest);
 
         }
-        public ToursViewModel(Guest2 user)
-        {
-            _user = user;
-            _tourService = Injector.GetService<TourService>();
-            _tourGuestService = Injector.GetService<TourGuestService>();
-            Tours = new(_tourService.GetTours());
-        }
+        #endregion
     }
 }

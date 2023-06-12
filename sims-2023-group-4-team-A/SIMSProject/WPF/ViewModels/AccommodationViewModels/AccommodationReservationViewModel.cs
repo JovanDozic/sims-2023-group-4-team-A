@@ -121,7 +121,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             _ownerRatingService = Injector.GetService<OwnerRatingService>();
             _notificationService = Injector.GetService<NotificationService>();
 
-            Reservations = LoadUncanceledReservations(); // TODO: a brate ne moze ovo ovde
+            Reservations = LoadUncanceledReservations();
             DateBegin = DateTime.Today.Date;
             DateEnd = DateTime.Today.Date.AddDays(1);
         }
@@ -151,7 +151,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 }
             }
         }
-
         public void SetReservationDetails(AccommodationReservation reservation)
         {
             reservation.ReservationDetails = string.Format("{0} ({1} - {2})", reservation.Accommodation.Name, reservation.StartDate.ToShortDateString(), reservation.EndDate.ToShortDateString());

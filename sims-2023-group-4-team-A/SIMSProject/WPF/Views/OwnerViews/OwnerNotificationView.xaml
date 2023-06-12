@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      mc:Ignorable="d" Background="#ffffff"
+      mc:Ignorable="d" Background="{DynamicResource BackgroundColor}"
       d:DesignHeight="400" d:DesignWidth="600"
       Title="Obaveštenja">
     <Grid>
@@ -17,14 +17,18 @@
 
         <Label Grid.Row="0" Content="Obaveštenja"
                FontSize="20" VerticalAlignment="Center"
-               HorizontalAlignment="Center" FontWeight="SemiBold" />
+               HorizontalAlignment="Center" FontWeight="SemiBold"
+               Foreground="{DynamicResource TextColor}"/>
 
         <DataGrid x:Name="DgrNotifications" Grid.Row="1"
                   ItemsSource="{Binding Notifications, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedNotification}"
                   AutoGenerateColumns="False"
-                  Height="250" Margin="20,0,20,0"
-                  IsReadOnly="True" SelectionChanged="DgrNotifications_SelectionChanged">
+                  Height="250" 
+                  Margin="20,0,20,0"
+                  IsReadOnly="True" 
+                  SelectionChanged="DgrNotifications_SelectionChanged"
+                  Foreground="{DynamicResource TextColor}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="30" />
                 <DataGridTextColumn Header="Naslov" Binding="{Binding Title}" />

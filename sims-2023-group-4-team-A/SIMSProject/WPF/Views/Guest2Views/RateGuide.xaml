@@ -7,6 +7,7 @@
         xmlns:custom="clr-namespace:SIMSProject.WPF.CustomControls"
         mc:Ignorable="d"
         Title="RateGuide" Height="520" Width="1140">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
@@ -28,44 +29,40 @@
             <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
         <Image Grid.Row="0" Source="/Resources/Images/chevron-left-black.png" RenderOptions.BitmapScalingMode="HighQuality" />
-        <Button Click="Back_Click" Grid.Column="1" Grid.Row="0" Content="Nazad" FontSize="28" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Foreground="#004e98" Cursor="Hand"/>
+        <Button Command="{Binding GoBackCommand}" Grid.Column="1" Grid.Row="0" Content="Nazad" FontSize="28" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Foreground="#004e98" Cursor="Hand"/>
         <Label Grid.Row="0" Grid.Column="2" Content="Ocenjivanje ture: " FontSize="40" FontWeight="Bold" HorizontalAlignment="Right"/>
-        <TextBlock Text="{Binding TourReservation.TourAppointment.Tour.Name}" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" FontSize="40" VerticalAlignment="Center" FontWeight="DemiBold"/>
+        <TextBlock Text="{Binding TourReservation.TourAppointment.Tour.Name}" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" FontSize="40" VerticalAlignment="Center" FontWeight="Bold"/>
         <Label Grid.Row="1" Grid.Column="2" Content="Vodič: " FontWeight="Bold" FontSize="28" HorizontalAlignment="Right"/>
-        <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding TourReservation.TourAppointment.Guide.Username}" FontSize="30" VerticalAlignment="Center" FontWeight="DemiBold"/>
-        <Label Grid.Row="2" Grid.Column="2" Content="Znanje vodiča (1-5): " FontSize="28" HorizontalAlignment="Right" FontWeight="DemiBold"/>
-        <custom:Guest2NumericBoxInput Value="{Binding Path=GuideKnowledge, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="2" Grid.Column="3" Width="100" HorizontalAlignment="Left" FontSize="28" FontWeight="DemiBold"/>
-        <Label Grid.Row="3" Grid.Column="2" Content="Jezik vodiča (1-5): " FontSize="28" HorizontalAlignment="Right" FontWeight="DemiBold"/>
-        <custom:Guest2NumericBoxInput Value="{Binding Path=LanguageProficiency, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="3" Grid.Column="3" Width="100" HorizontalAlignment="Left" FontSize="28" FontWeight="DemiBold"/>
-        <Label Grid.Row="4" Grid.Column="2" Content="Zanimljivost ture (1-5): " FontSize="28" HorizontalAlignment="Right" FontWeight="DemiBold"/>
-        <custom:Guest2NumericBoxInput Value="{Binding Path=TourEntertainmentRating, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="4" Grid.Column="3" Width="100" HorizontalAlignment="Left" FontSize="28" FontWeight="DemiBold"/>
-        <Label Grid.Row="5" Grid.Column="2" Content="Kvalitet usluge (1-5): " FontSize="28" HorizontalAlignment="Right" FontWeight="DemiBold"/>
-        <custom:Guest2NumericBoxInput Value="{Binding Path=OrganizationQualityRating, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="5" Grid.Column="3" Width="100" HorizontalAlignment="Left" FontSize="28" FontWeight="DemiBold"/>
-        <Label Grid.Row="6" Grid.Column="2" Content="Dodatni komentar: " FontSize="28" HorizontalAlignment="Right" FontWeight="DemiBold"/>
-        <TextBox x:Name="TbComment" FontSize="28" TextWrapping="Wrap" Text="{Binding Path=Comment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="6" Grid.Column="3" Width="270" Height="80" HorizontalAlignment="Left"/>
-        <Label Grid.Row="7" Grid.Column="2" Content="Dodaj slike: " FontSize="28" HorizontalAlignment="Right" FontWeight="DemiBold"/>
+        <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding TourReservation.TourAppointment.Guide.Username}" FontSize="30" VerticalAlignment="Center" FontWeight="Bold"/>
+        <Label Grid.Row="2" Grid.Column="2" Content="Znanje vodiča (1-5): " FontSize="28" HorizontalAlignment="Right" FontWeight="Bold"/>
+        <custom:Guest2NumericBoxInput Value="{Binding Path=GuideKnowledge, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="2" Grid.Column="3" Width="100" HorizontalAlignment="Left" FontSize="28" FontWeight="Bold" Cursor="Hand" />
+        <Label Grid.Row="3" Grid.Column="2" Content="Jezik vodiča (1-5): " FontSize="28" HorizontalAlignment="Right" FontWeight="Bold"/>
+        <custom:Guest2NumericBoxInput Value="{Binding Path=LanguageProficiency, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="3" Grid.Column="3" Width="100" HorizontalAlignment="Left" FontSize="28" FontWeight="Bold" Cursor="Hand" />
+        <Label Grid.Row="4" Grid.Column="2" Content="Zanimljivost ture (1-5): " FontSize="28" HorizontalAlignment="Right" FontWeight="Bold"/>
+        <custom:Guest2NumericBoxInput Value="{Binding Path=TourEntertainmentRating, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="4" Grid.Column="3" Width="100" HorizontalAlignment="Left" FontSize="28" FontWeight="Bold" Cursor="Hand" />
+        <Label Grid.Row="5" Grid.Column="2" Content="Kvalitet usluge (1-5): " FontSize="28" HorizontalAlignment="Right" FontWeight="Bold"/>
+        <custom:Guest2NumericBoxInput Value="{Binding Path=OrganizationQualityRating, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="5" Grid.Column="3" Width="100" HorizontalAlignment="Left" FontSize="28" FontWeight="Bold" Cursor="Hand" />
+        <Label Grid.Row="6" Grid.Column="2" Content="Dodatni komentar: " FontSize="28" HorizontalAlignment="Right" FontWeight="Bold"/>
+        <TextBox x:Name="TbComment" FontSize="28" TextWrapping="Wrap" Text="{Binding Path=Comment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="6" Grid.Column="3" Width="270" Height="80" HorizontalAlignment="Left" FontWeight="Bold"/>
+        <Label Grid.Row="7" Grid.Column="2" Content="Dodaj slike: " FontSize="28" HorizontalAlignment="Right" FontWeight="Bold"/>
 
-        <Grid Grid.Row="7" Grid.Column="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="220"/>
-                <ColumnDefinition Width="50"/>
-            </Grid.ColumnDefinitions>
-            <TextBox x:Name="TbImageURL" Grid.Column="0" Height="35" Width="220" FontSize="28" HorizontalAlignment="Left" FontWeight="DemiBold"/>
-            <Button x:Name="BtnAddImage" Grid.Column="1" Background="#ff6700" FontWeight="Bold" Content="+" FontSize="28" Height="40" Width="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="BtnAddImage_Click" Cursor="Hand" >
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="50"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
-        </Grid>
+        
 
-        <Label x:Name="LblCommentIsRequired" Visibility="Hidden" Grid.Row="8" Grid.RowSpan="2" Grid.Column="3" Foreground="Red" FontWeight="DemiBold" Content="Komentar je obavezan!" FontSize="28" Margin="0,25,0,0"/>
-        <Label x:Name="LblSuccessfullyRated" Visibility="Hidden" Grid.Row="8" Grid.RowSpan="2" Grid.Column="3" Foreground="Green" FontWeight="DemiBold" Content="Ocena uspešno ostavljena!" FontSize="28" Margin="0,25,0,0"/>
-        <Label x:Name="LblURLFormat" Visibility="Hidden" Grid.Row="8" Grid.RowSpan="2" Grid.Column="3" Foreground="Red" FontWeight="DemiBold" Content="URL počinje sa je https://" FontSize="28" Margin="0,25,0,0"/>
-        <Label x:Name="LblURLAdded" Visibility="Hidden" Grid.Row="8" Grid.RowSpan="2" Grid.Column="3" Foreground="Green" FontWeight="DemiBold" Content="Slika dodata!" FontSize="28" Margin="0,25,0,0"/>
+        <Button x:Name="BtnUploadImages" Grid.Row="7" Grid.Column="3" HorizontalAlignment="Left" Width="270" Background="#ff6700" Height="40" VerticalAlignment="Center" Cursor="Hand" FontWeight="Bold"
+                        Style="{StaticResource MobileActionSingleButtonStyle}"
+                        Command="{Binding AddImageCommand}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Resources/Icons/image.png" Height="22.5" Margin="0,0,10,0" 
+                               Style="{StaticResource IconRenderStyle}"/>
+                <TextBlock Text="Izaberi slike" FontSize="28" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,0,0"/>
+            </StackPanel>
+        </Button>
 
-        <Button x:Name="BtnRate" Content="Oceni" Grid.Column="4" Grid.RowSpan="2" Grid.Row="8" Width="250" VerticalAlignment="Top" Height="80" FontSize="32" FontWeight="Bold" Click="BTNRate_Click" Background="#ff6700" Cursor="Hand"/>
+        <Label x:Name="LblCommentIsRequired" Visibility="{Binding LblCommentRequiredVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="8" Grid.RowSpan="2" Grid.Column="3" Foreground="Red" FontWeight="Bold" Content="Komentar je obavezan!" FontSize="28" Margin="0,25,0,0"/>
+        <Label x:Name="LblSuccessfullyRated" Visibility="{Binding LblSuccessfullyRatedVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="8" Grid.RowSpan="2" Grid.Column="3" Foreground="Green" FontWeight="Bold" Content="Ocena uspešno ostavljena!" FontSize="28" Margin="0,25,0,0"/>
+        <Label x:Name="LblURLAdded" Visibility="{Binding LblURLAddedVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="8" Grid.RowSpan="2" Grid.Column="3" Foreground="Green" FontWeight="Bold" Content="Slika dodata!" FontSize="28" Margin="0,25,0,0"/>
+
+        <Button x:Name="BtnRate" Content="Oceni" Grid.Column="4" Grid.RowSpan="2" Grid.Row="8" Width="250" VerticalAlignment="Top" Height="80" FontSize="32" FontWeight="Bold" Command="{Binding RateGuideCommand}" Background="#ff6700" Cursor="Hand" IsEnabled="{Binding IsRatingEnabled, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
     </Grid>
 </Page>

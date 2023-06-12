@@ -31,6 +31,7 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             _user = user;
             _anywhereAnytimeViewModel = vm;
             DataContext = _anywhereAnytimeViewModel;
+            _anywhereAnytimeViewModel.GenerateAvailableDateRanges();
             AddImages();
             ItemsVisibility();
         }
@@ -46,21 +47,8 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if(_anywhereAnytimeViewModel.AreDatesSelected())
-            {
-                _anywhereAnytimeViewModel.SaveReservation();
-                NavigationService.Navigate(new MainPage(_user));
-            }else
-            {
-                if (_anywhereAnytimeViewModel.AreNewDatesSelected())
-                {
-                    _anywhereAnytimeViewModel.SaveReservationWithNewDates();
-                    NavigationService.Navigate(new MainPage(_user));
-                }
-                else
-                    MessageBox.Show("afdfsdfaffa");
-
-            }
+            _anywhereAnytimeViewModel.SaveReservation();
+            NavigationService.Navigate(new MainPage(_user));
         }
 
         public void ItemsVisibility()
@@ -74,39 +62,21 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             else
             {
                 ReservationButtonNew.Visibility = Visibility.Visible;
-                ChooseDates.Visibility = Visibility.Visible;
-                FirstDate.Visibility = Visibility.Visible;
-                SecondDate.Visibility = Visibility.Visible;
+                NewDatesCombo.Visibility = Visibility.Visible;
+
             }
-        }
-        private void StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            SecondDate.SelectedDate = _anywhereAnytimeViewModel.GetUpdatedEndDate(FirstDate.SelectedDate);
-            DatePicker datepicker = sender as DatePicker;
-
-        }
-
-        private void EndDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            FirstDate.SelectedDate = _anywhereAnytimeViewModel.GetUpdatedStartDate(SecondDate.SelectedDate);
-            if (_anywhereAnytimeViewModel.AreNewDatesSelected())
-                ReservationButtonNew.IsEnabled = true;
-        }
-
-        private void DatePicker1_Loaded(object sender, RoutedEventArgs e)
-        {
-            _anywhereAnytimeViewModel.LoadFirstDatePicker(sender);
-        }
-
-        private void DatePicker2_Loaded(object sender, RoutedEventArgs e)
-        {
-            _anywhereAnytimeViewModel.LoadSecondDatePicker(sender);
         }
 
         private void FreeDates_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (DatesCombo.SelectedItem != null)
                 ReservationButton.IsEnabled = true;
+        }
+
+        private void NewFreeDates_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (NewDatesCombo.SelectedItem != null)
+                ReservationButtonNew.IsEnabled = true;
         }
     }
 }

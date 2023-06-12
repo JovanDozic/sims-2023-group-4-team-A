@@ -81,6 +81,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
         public AccommodationRating CalculateRating(Accommodation accommodation)
         {
             var ratings = _ratingRepo.GetAllByAccommodationId(accommodation.Id);
+            if (ratings.Count == 0) return new();
             try
             {
                 return new()

@@ -1,6 +1,6 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
+using SIMSProject.Domain.Models;
 using SIMSProject.WPF.ViewModels.AccommodationViewModels;
-using SIMSProject.WPF.Views.Guest1.MainView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SIMSProject.Domain.Models.AccommodationModels;
+using SIMSProject.WPF.Views.Guest1.MainView;
 
 namespace SIMSProject.WPF.Views.Guest1.Pages
 {
@@ -26,12 +28,11 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
         private readonly User _user = new();
         private OwnerRatingViewModel _rating;
         private RenovationSuggestionViewModel _suggestion;
-        public RenovationSuggestion(OwnerRatingViewModel rating, User user)
+        public RenovationSuggestion(SIMSProject.Domain.Models.AccommodationModels.OwnerRating rating, User user)
         {
             InitializeComponent();
-            _rating = rating;
             _user = user;
-            _suggestion = new();
+            _suggestion = new(rating);
             DataContext = _suggestion;
         }
 
@@ -73,7 +74,7 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
             if (Comment.Text == "Napišite šta Vam se nije svidelo u vezi smeštaja")
                 Comment.Text = string.Empty;
             _suggestion.SendRequest();
-            _rating.RateWithRenovation(_suggestion.Renovation);
+            _suggestion.RateWithRenovation(_suggestion.Renovation);
             NavigationService.Navigate(new MainPage(_user));
         }
 

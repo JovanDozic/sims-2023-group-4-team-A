@@ -1,19 +1,10 @@
 ﻿using SIMSProject.Domain.Models.UserModels;
 using SIMSProject.WPF.ViewModels.Guest2ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SIMSProject.WPF.Views.Guest2Views
 {
@@ -23,20 +14,16 @@ namespace SIMSProject.WPF.Views.Guest2Views
     public partial class ComplexTourRequestCreation : Page
     {
         public Guest2 _user = new();
-        private ComplexTourRequestViewModel _viewModel;
-        public ComplexTourRequestCreation(Guest2 user)
+        private ComplexTourRequestCreationViewModel _viewModel;
+        public ComplexTourRequestCreation(Guest2 user, NavigationService navigationService)
         {
             InitializeComponent();
             _user = user;
-            _viewModel = new ComplexTourRequestViewModel(_user);
+            _viewModel = new ComplexTourRequestCreationViewModel(_user, navigationService);
             this.DataContext = _viewModel;
             CbLanguage.SelectedItem = null;
         }
-        private void Back_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new MyTourRequests(_user));
 
-        }
         private void DatePicker_Loaded(object sender, RoutedEventArgs e)
         {
             DatePicker datePicker = sender as DatePicker;
@@ -104,6 +91,9 @@ namespace SIMSProject.WPF.Views.Guest2Views
             LblCheck.Visibility = Visibility.Hidden;
             _viewModel.CreatePart();
             if (_viewModel.CustomTourRequests.Count() >= 2) BtnCreation.IsEnabled = true;
+            _viewModel.ClearParameters();
         }
+
+        
     }
 }

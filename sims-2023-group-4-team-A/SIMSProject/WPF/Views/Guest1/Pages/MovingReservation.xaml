@@ -39,7 +39,7 @@
 
             <Label FontWeight="Bold" Content="Pomeranje rezervacija" FontSize="40"
                    HorizontalAlignment="Left" Margin="243,17,0,3"></Label>
-            <Image Grid.Column="2" Source="../Icons/chevron-left-black.png" Margin="51,14,44,69"/>
+            <Image Grid.Column="2" Source="../Icons/chevron-left-black.png" Margin="51,12,44,72"/>
             <Button Content="Nazad" 
                     Background="Transparent"
                     BorderBrush="Transparent"
@@ -87,12 +87,12 @@
                     HorizontalAlignment="Left"
                     FontSize="34" Height="52" Margin="77,83,0,0" Grid.RowSpan="2" Grid.Column="1"/>
 
-        <Button FontSize="30" Content="Pošalji zahtev" Grid.Row="6" Grid.ColumnSpan="2" Height="53"
-                Width="300" VerticalAlignment="Bottom" 
-                HorizontalAlignment="Center"
+        <Button FontSize="30" Content="Pošalji zahtev" Grid.Row="6" Grid.ColumnSpan="2" Height="55"
+                Width="318" VerticalAlignment="Center" 
+                HorizontalAlignment="Left"
                 Background="#0c669f"
                 Foreground="White"
-                Margin="298,0,299,10" Click="Button_Click_SendRequest"></Button>
+                Margin="323,0,0,0" Click="Button_Click_SendRequest"></Button>
         <DatePicker Loaded="DatePicker1_Loaded" x:Name="DateFrom" Grid.Row="4" Grid.Column="0"
             VerticalAlignment="Top"
             Width="230"

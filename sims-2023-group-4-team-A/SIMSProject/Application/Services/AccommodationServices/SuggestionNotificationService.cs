@@ -46,7 +46,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
                         _user,
                         "Predlog za otvaranje smeštaja",
                         $"Predlog: postoji dobra prilika za otvaranje novog smeštaja na lokaciji {location.City} ({location.Country})!");
-
+                    notification.IconSource = "NotifLocationCheckIcon";
                     _notificationService.CreateNotification(notification);
                 }
             }
@@ -70,7 +70,7 @@ namespace SIMSProject.Application.Services.AccommodationServices
                         _user,
                         "Predlog za zatvaranje smeštaja",
                         $"Predlog: lokacija {location.City} ({location.Country}) je najnepopularnija na kojoj imate smeštaj. Razmislite o zatvaranju smeštaja na toj lokaciji.");
-
+                    notification.IconSource = "NotifLocationXIcon";
                     _notificationService.CreateNotification(notification);
                 }
             }

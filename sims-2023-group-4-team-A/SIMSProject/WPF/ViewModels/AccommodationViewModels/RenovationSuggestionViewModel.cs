@@ -8,8 +8,10 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
     public class RenovationSuggestionViewModel: ViewModelBase
     {
         private RenovationSuggestion _renovation = new();
+        private OwnerRating _rating = new();
         private List<string> _levels;
         private RenovationSuggestionService _renovationService;
+        private OwnerRatingService _ratingService;
         public RenovationSuggestion Renovation
         {
             get => _renovation;
@@ -17,6 +19,16 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             {
                 if (_renovation == value) return;
                 _renovation = value;
+                OnPropertyChanged();
+            }
+        }
+        public AccommodationReservation SelectedReservation
+        {
+            get => _rating.Reservation;
+            set
+            {
+                if (value == _rating.Reservation) return;
+                _rating.Reservation = value;
                 OnPropertyChanged();
             }
         }
@@ -49,10 +61,21 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 OnPropertyChanged();
             }       
          }
-
-        public RenovationSuggestionViewModel()
+        public OwnerRating Rating
         {
-            
+            get => _rating;
+            set
+            {
+                if (_rating == value) return;
+                _rating = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public RenovationSuggestionViewModel(OwnerRating rating)
+        {
+            Rating = rating;
+            _ratingService = Injector.GetService<OwnerRatingService>();
             _renovationService = Injector.GetService<RenovationSuggestionService>();
             Levels = new List<string>
             {
@@ -67,6 +90,13 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         public void SendRequest()
         {
             _renovationService.SendRequest(_renovation);
+        }
+        public void RateWithRenovation(RenovationSuggestion renovation)
+        {
+            SelectedReservation.OwnerRated = true;
+            _rating.RenovationSuggestion = renovation;
+            _ratingService.LeaveRating(_rating);
+            ToastNotificationService.ShowSuccess("Ocena i preporuka uspešno poslati");
         }
     }
 }

@@ -14,6 +14,7 @@ namespace SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces
         public List<CustomTourRequest> GetAll();
         public List<CustomTourRequest> GetOnHold();
         public List<CustomTourRequest> GetAllByGuestId(int guestId);
+        public List<CustomTourRequest> GetAllComplexTourPartsByGuestId(int guestId);
         public List<CustomTourRequest> GetAllAcceptedByGuestId(int guestId);
         public List<CustomTourRequest> GetAllSimilarRequests(Tour tour);
         public List<CustomTourRequest> GetAllComplexTourParts(int complexTourId);
@@ -28,5 +29,6 @@ namespace SIMSProject.Domain.RepositoryInterfaces.TourRepositoryInterfaces
         public List<int> CountRequestsMonthly(Language language, int desiredYear);
         public List<Location> GetMostWantedLocations();
         public List<Language> GetMostWantedLanguages();
+        public void Update(CustomTourRequest customTourRequest);
     }
 }

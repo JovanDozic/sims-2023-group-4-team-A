@@ -401,7 +401,8 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels.ManagerViewModels
                                             _tourReservationService.Update(_tourReservation);
                                             _request.AssignedGuideId = Guide.Id;
                                             _request.RealizationDate = _tourReservation.TourAppointment.Date;
-                                            _customTourRequestService.Save(_request);
+                                            _request.RequestStatus = RequestStatus.ACCEPTED;
+                                            _customTourRequestService.Update(_request);
                                             SendAcceptedTourNotification();break;
                 case CreatingReason.STATISTICS: SendNewTourNotification();break;
             }

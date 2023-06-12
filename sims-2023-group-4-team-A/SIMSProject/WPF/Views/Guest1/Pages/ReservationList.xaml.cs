@@ -48,8 +48,7 @@ namespace SIMSProject.WPF.Views.Guest1.Pages
 
         private void Button_Click_Reschedule(object sender, RoutedEventArgs e)
         {
-            var movingReservationsPage = new MovingReservation(_accommodationReservationViewModel.SelectedReservation, _user);
-            NavigationService.Navigate(movingReservationsPage);
+            NavigationService.Navigate(new MovingReservation(_accommodationReservationViewModel.SelectedReservation, _user));
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)

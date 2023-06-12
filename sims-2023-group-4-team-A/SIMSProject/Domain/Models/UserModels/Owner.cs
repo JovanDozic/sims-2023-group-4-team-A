@@ -8,6 +8,8 @@ namespace SIMSProject.Domain.Models.UserModels
     public class Owner : User, ISerializable
     {
         public double Rating { get; set; }
+        public string SelectedTheme { get; set; } = "Dark";
+        public string SelectedLanguage { get; set; } = "sr-LATN";
 
         public Owner()
         {
@@ -32,7 +34,9 @@ namespace SIMSProject.Domain.Models.UserModels
                 Password,
                 GetRole(Role),
                 Math.Round(Rating, 2).ToString(),
-                Birthday.ToString()
+                Birthday.ToString(),
+                SelectedTheme,
+                SelectedLanguage
             };
             return csvValues;
         }
@@ -45,6 +49,8 @@ namespace SIMSProject.Domain.Models.UserModels
             Role = GetRole(values[3]);
             Rating = double.Parse(values[4]);
             Birthday = DateTime.Parse(values[5]);
+            SelectedTheme = values[6];
+            SelectedLanguage = values[7];
         }
 
         public override string? ToString()

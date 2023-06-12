@@ -46,7 +46,7 @@
                
                VerticalAlignment="Top" Margin="42,146,87,0"></Label>
 
-        <Button x:Name="RequestButton" Grid.Row="3" Width="295" Height="51" Content="Pošalji" FontSize="28" Margin="364,0,364,49"
+        <Button x:Name="RequestButton" Grid.Row="3" Width="318" Height="55" Content="Pošalji" FontSize="28" Margin="374,0,332,45"
                 IsEnabled="False" Click="RequestButton_Click">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">

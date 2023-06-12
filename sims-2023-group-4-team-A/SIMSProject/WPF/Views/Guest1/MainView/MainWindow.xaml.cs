@@ -98,9 +98,10 @@ namespace SIMSProject.WPF.Views.Guest1.MainView
                         MainWind.Navigate(new AnywhereAnytimeView(_user));
                         ListViewMenu.SelectedItem = null;
                         break;
-                    //case "ItemForums":
-                      //  MainWind.Navigate(new ForumsPage());
-                       // break;
+                    case "ItemForums":
+                        MainWind.Navigate(new Forums(_user));
+                        ListViewMenu.SelectedItem = null;
+                        break;
                     case "ItemStatistics":
                         MainWind.Navigate(new ReservationsStatistics(_user));
                         ListViewMenu.SelectedItem = null;

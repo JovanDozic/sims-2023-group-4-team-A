@@ -37,8 +37,8 @@
         <Separator Margin="0,3,0,310" Grid.Row="1"></Separator>
 
         <Label Content="Mesec" FontSize="14" FontWeight="Bold" Margin="486,319,486,325" Grid.RowSpan="2"/>
-        <Label HorizontalContentAlignment="Center" FontSize="16" FontWeight="Bold" Content="Broj rezervacija na mesečnom nivou" Margin="122,3,160,304"></Label>
-        <Label Content="Broj rezervacija ove i prethodne godine" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="16" Margin="0,24,38,283" Grid.Row="1"></Label>
+        <Label HorizontalContentAlignment="Center" FontSize="18" FontWeight="Bold" Content="Broj rezervacija na mesečnom nivou" Margin="122,3,160,304"></Label>
+        <Label Content="Broj rezervacija ove i prethodne godine" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="18" Margin="0,24,38,283" Grid.Row="1"></Label>
         <lvc:PieChart Grid.Row="1" Margin="260,56,178,10">
             <lvc:PieChart.Series>
                 <lvc:PieSeries Title="Prethodna godina" DataLabels="True" Values="{Binding PreviousYearValue}"  />
