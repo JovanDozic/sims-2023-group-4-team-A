@@ -78,7 +78,8 @@
                 <Label Grid.Row="2" Content="{ns:Loc Start}" Style="{StaticResource MobileTextBoxLabel}" Foreground="{DynamicResource TextColor}"/>
                 <Border Grid.Row="3" Style="{StaticResource MobileTextBoxInputBorder}">
                     <DatePicker Style="{StaticResource MobileDatePickerInput}"
-                                Text="{Binding StartDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}"/>
+                                Text="{Binding StartDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}"
+                                Language="sr-LATN"/>
                 </Border>
 
                 <!-- StartDate -->
@@ -86,7 +87,8 @@
                 <Border Grid.Row="5" Style="{StaticResource MobileTextBoxInputBorder}"
                         Background="Transparent">
                     <DatePicker Style="{StaticResource MobileDatePickerInput}"
-                                Text="{Binding EndDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}"/>
+                                Text="{Binding EndDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}"
+                                Language="sr-LATN"/>
                 </Border>
 
                 <!-- Expected number of days -->
