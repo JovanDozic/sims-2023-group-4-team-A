@@ -18,6 +18,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
     internal class OwnerScheduleRenovationViewModel : ViewModelBase, IDataErrorInfo
     {
         private User _user;
+        private App _app = (App)System.Windows.Application.Current;
         private OwnerScheduleRenovationView _view;
         private OwnerAccommodationDetails _detailsView;
         private AccommodationRenovationService _renovationService;
@@ -137,7 +138,13 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             OnPropertyChanged(nameof(AvailableDates));
             if (AvailableDates.Count == 0)
             {
-                MessageBox.Show("Nema slobodnih termina za zadate uslove.", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
+                if (_app.CurrentLanguage == "en-US")
+                    MessageBox.Show("There are no free appointments for the given conditions.", "Error!",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                else 
+                    MessageBox.Show("Nema slobodnih termina za zadate uslove.", "Greška!", MessageBoxButton.OK, MessageBoxImage.Error);
+
                 DatesFound = false;
             }
             else DatesFound = true;
@@ -146,6 +153,15 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
         private void ScheduleRenovation()
         {
+            if (_app.CurrentLanguage == "en-US")
+            {
+                if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes) return;
+            }
+            else
+            {
+                if (MessageBox.Show("Da li ste sigurni?", "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes) return;
+            }
+
             try
             {
                 _renovationService.SaveRenovation(_renovation);
@@ -155,8 +171,11 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                 MessageBox.Show(ex.ToString());
                 return;
             }
-            MessageBox.Show($"Renoviranje u {Accommodation.Name} uspešno zakazano.", "Uspešno zakazivanje!", MessageBoxButton.OK, MessageBoxImage.Information);
-
+            
+            if (_app.CurrentLanguage == "en-US")
+                MessageBox.Show($"Renovation in {Accommodation.Name} successfully scheduled.", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+            else 
+                MessageBox.Show($"Renoviranje u {Accommodation.Name} uspešno zakazano.", "Uspeh!", MessageBoxButton.OK, MessageBoxImage.Information);
             _view.NavigationService?.GoBack();
             _detailsView.ReloadRenovations();
         }
@@ -171,7 +190,6 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
         {
             get
             {
-                MessageBox.Show("can: " + CanScheduleRenovation().ToString());
                 return CanScheduleRenovation();
             }
         }

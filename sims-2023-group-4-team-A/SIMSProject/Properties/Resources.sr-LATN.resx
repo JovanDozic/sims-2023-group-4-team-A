@@ -183,6 +183,9 @@
   <data name="Cleanliness" xml:space="preserve">
     <value>Čistoća</value>
   </data>
+  <data name="CommentDot" xml:space="preserve">
+    <value>Komentar:</value>
+  </data>
   <data name="Correctness" xml:space="preserve">
     <value>Korektnost vlasnika</value>
   </data>
@@ -210,6 +213,9 @@
   <data name="ExpectedNumberOfDays" xml:space="preserve">
     <value>Predviđeni broj dana:</value>
   </data>
+  <data name="FinalRatingDot" xml:space="preserve">
+    <value>Konačna ocena:</value>
+  </data>
   <data name="Forums" xml:space="preserve">
     <value>Forumi</value>
   </data>
@@ -224,6 +230,12 @@
   </data>
   <data name="GuestRating" xml:space="preserve">
     <value>Recenzija gosta</value>
+  </data>
+  <data name="GuestRatings" xml:space="preserve">
+    <value>Recenzije gostiju</value>
+  </data>
+  <data name="ImagesDot" xml:space="preserve">
+    <value>Slike:</value>
   </data>
   <data name="Kindness" xml:space="preserve">
     <value>Ljubaznost</value>

@@ -22,7 +22,6 @@ namespace SIMSProject.WPF.ViewModels.OwnerViewModels
         private OwnerRatingService _ratingService;
         private UserService _userService;
 
-
         public string CurrentThemeIcon { get => App.CurrentTheme == "Light" ? "SunIcon" : "MoonIcon"; }
         public string CurrentLanguageIcon { get => App.CurrentLanguage == "en-US" ? "EnglishIcon" : "SerbianIcon"; }
         public string RoleIcon { get => _user.Role == Domain.Models.UserRole.Owner ? "IsOwnerIcon" : "IsSuperOwnerIcon"; }
@@ -40,14 +39,13 @@ namespace SIMSProject.WPF.ViewModels.OwnerViewModels
                 }
             }
         }
-        public string Rating { get => (_user as Owner)?.Rating.ToString(); }
+        public string Rating { get => Math.Round((decimal)((_user as Owner)?.Rating ?? 0), 2).ToString(); }
         public int TotalAccommodations { get; set; } = 0;
         public int TotalRatings { get; set; } = 0;
         public bool IsSuperOwner { get => _user.Role == Domain.Models.UserRole.SuperOwner; }
         public string FullName { get => $"{_user.Name} {_user.LastName}"; }
         public string Username { get => _user.Username; }
         public string Email { get => _user.Email; }
-
 
         public RelayCommand ChangeThemeCommand { get; }
         public RelayCommand ChangeLanguageCommand { get; }

@@ -17,6 +17,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
     public class AccommodationViewModel : ViewModelBase, IDataErrorInfo
     {
         private User _user;
+        private App _app = (App)System.Windows.Application.Current;
         private INavigationService? _navigationService;
 
         private Accommodation _accommodation = new();
@@ -306,12 +307,16 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
         public void RegisterAccommodation()
         {
-            var result = MessageBox.Show("Da li ste sigurni da želite da registrujete smeštaj?", "Potvrdite registraciju", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result;
+            if (_app.CurrentLanguage == "en-US") 
+                result = MessageBox.Show("Are you sure you want to register accommodation?", "Confirm registration", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            else result = MessageBox.Show("Da li ste sigurni da želite da registrujete smeštaj?", "Potvrdite registraciju", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
             if (result != MessageBoxResult.Yes) return;
 
             _accommodation.Location = _locationService.GetLocation(_accommodation.Location);
             if (_accommodation.Location == null) return;
-            _accommodation.Owner = _user as Owner ?? throw new Exception("Greška prilikom registrovanja: Vlasnik nije inicijalizovan.");
+            _accommodation.Owner = _user as Owner ?? throw new Exception("Error! Owner is not initialized.");
             _accommodationService.RegisterAccommodation(_accommodation);
 
             _navigationService?.GoBack();
@@ -451,6 +456,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                     case nameof(Name):
                         if (string.IsNullOrEmpty(Name)) error = requiredMessage;
                         else if (Name.Length < 3) error = "Ime mora biti duže od 3 karaktera";
+                        else if (Name.Contains("|")) error = "Unos ne sme da sadrzi '|'";
                         break;
                     case nameof(FullLocation):
                         if (string.IsNullOrEmpty(FullLocation)) error = requiredMessage;
@@ -478,6 +484,7 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
                     case nameof(Description):
                         if (string.IsNullOrEmpty(Description)) error = requiredMessage;
                         else if (Description.Length < 20) error = "Opis mora biti duži od 20 karaktera";
+                        else if (Description.Contains("|")) error = "Unos ne sme da sadrzi '|'";
                         break;
                     case nameof(ImageURLs):
                         if (ImageURLs.Count <= 0) error = requiredMessage;

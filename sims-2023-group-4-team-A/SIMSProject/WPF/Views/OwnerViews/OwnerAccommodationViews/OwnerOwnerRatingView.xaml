@@ -186,7 +186,7 @@
                                          Rating="{Binding Rating.Kindness}"
                                          Style="{StaticResource RatingCategoryStars}"/>
 
-                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Konacna ocena:"
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{ns:Loc FinalRatingDot}"
                                VerticalAlignment="Bottom"
                                    Style="{StaticResource RatingCategoryLabel}"
                                    Foreground="{DynamicResource TextColor}"/>
@@ -205,7 +205,7 @@
 
                     <!-- Comment -->
                     <Label Grid.Row="4" Grid.ColumnSpan="2" 
-                           Content="Komentar:" 
+                           Content="{ns:Loc CommentDot}" 
                            Margin="-5,20,0,0"
                            Style="{StaticResource MobileTextBoxLabel}" 
                            Foreground="{DynamicResource TextColor}"/>
@@ -223,7 +223,7 @@
 
                     <!-- Images -->
                     <Label Grid.Row="6" Grid.ColumnSpan="2" 
-                           Content="Slike:" 
+                           Content="{ns:Loc ImagesDot}" 
                            Margin="-5,20,0,0"
                            Style="{StaticResource MobileTextBoxLabel}" 
                            Foreground="{DynamicResource TextColor}"/>

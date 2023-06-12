@@ -10,6 +10,7 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerForumViews
     public partial class OwnerForumView : Page
     {
         private User _user;
+        private App _app = (App)System.Windows.Application.Current;
         private OwnerForumViewModel _viewModel;
 
         public OwnerForumView(User user, Forum forum)
@@ -44,6 +45,16 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerForumViews
                 return;
             }
             BtnCancelAddingComment_Click(sender, e);
+
+            //if (_app.CurrentLanguage == "en-US")
+            //{
+            //    MessageBox.Show("Comment sent.", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Komentar poslat.", "Potvrda", MessageBoxButton.OK, MessageBoxImage.Information);
+            //}
+
             LstComments.Items.Refresh();
         }
 

@@ -11,9 +11,10 @@ using System.Windows;
 
 namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 {
-    internal class OwnerReschedulingRequestViewModel: ViewModelBase, IDataErrorInfo
+    internal class OwnerReschedulingRequestViewModel : ViewModelBase, IDataErrorInfo
     {
         private User _user;
+        private App _app = (App)System.Windows.Application.Current;
         private ReschedulingRequestService _requestService;
         private OwnerReschedulingRequestView _view;
 
@@ -70,8 +71,14 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
 
         private void SendDecline()
         {
-            if (MessageBox.Show("Are you sure you want to decline this request?", "Confirmation", 
-                MessageBoxButton.YesNo, 
+            if (_app.CurrentLanguage == "en-US")
+            {
+                if (MessageBox.Show("Are you sure you want to decline this request?", "Confirmation",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question) != MessageBoxResult.Yes) return;
+            }
+            else if (MessageBox.Show("Da li ste sigurni da želite da odbijete ovaj zahtev?", "Potvrda",
+                MessageBoxButton.YesNo,
                 MessageBoxImage.Question) != MessageBoxResult.Yes) return;
 
             _requestService.RejectRequest(Request);
@@ -92,12 +99,28 @@ namespace SIMSProject.WPF.ViewModels.AccommodationViewModels
             OnPropertyChanged(nameof(IsInDeclineMode));
             OnPropertyChanged(nameof(IsInDeclineModeRowHeight));
 
-            if (MessageBox.Show("Are you sure you want to accept this request?", "Confirmation", 
-                MessageBoxButton.YesNo, 
+            if (_app.CurrentLanguage == "en-US")
+            {
+                if (MessageBox.Show("Are you sure you want to accept this request?", "Are you sure?",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question) != MessageBoxResult.Yes) return;
+            }
+            else if (MessageBox.Show("Da li ste sigurni da želite da prihvatite ovaj zahtev?", "Da li ste sigurni?",
+                MessageBoxButton.YesNo,
                 MessageBoxImage.Question) != MessageBoxResult.Yes) return;
 
             _requestService.AcceptRequest(Request);
             _view.GoBackAndReload();
+
+            if (_app.CurrentLanguage == "en-US")
+            {
+                if (MessageBox.Show("Request declined.", "Confirmation",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information) != MessageBoxResult.Yes) return;
+            }
+            else if (MessageBox.Show("Zahtev odbijen.", "Potvrda",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information) != MessageBoxResult.Yes) return;
         }
 
         public string this[string columnName]

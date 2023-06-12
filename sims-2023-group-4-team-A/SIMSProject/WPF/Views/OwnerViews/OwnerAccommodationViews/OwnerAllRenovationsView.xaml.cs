@@ -11,18 +11,16 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
     public partial class OwnerAllRenovationsView : Page
     {
         private User _user;
+        private App _app = (App)System.Windows.Application.Current;
         private OwnerAllRenovationsViewModel _viewModel;
-
-
 
         public OwnerAllRenovationsView(User user, Accommodation accommodation, OwnerAccommodationDetails detailsView)
         {
             InitializeComponent();
             _user = user;
 
-
             _viewModel = new OwnerAllRenovationsViewModel(_user, accommodation, detailsView);
-        
+
             DataContext = _viewModel;
 
         }
@@ -34,11 +32,17 @@ namespace SIMSProject.WPF.Views.OwnerViews.OwnerAccommodationViews
 
         private void BtnCancelRenovation_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Da li ste sigurni da želite da otkažete renoviranje?",
-                                "Otkazivanje renoviranja",
+            if (_app.CurrentLanguage == "en-US")
+            {
+                if (MessageBox.Show("Are you sure you want to cancel the renovation?",
+                                "Confirmation",
                                 MessageBoxButton.YesNo,
-                                MessageBoxImage.Question) == MessageBoxResult.No)
-                return;
+                                MessageBoxImage.Question) == MessageBoxResult.No) return;
+            }
+            else if (MessageBox.Show("Da li ste sigurni da želite da otkažete renoviranje?",
+                                "Potvrda",
+                                MessageBoxButton.YesNo,
+                                MessageBoxImage.Question) == MessageBoxResult.No) return;
 
             _viewModel.CancelRenovation();
             LstRenovations.Items.Refresh();

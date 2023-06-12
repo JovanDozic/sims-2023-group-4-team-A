@@ -183,6 +183,9 @@
   <data name="Cleanliness" xml:space="preserve">
     <value>Cleanliness</value>
   </data>
+  <data name="CommentDot" xml:space="preserve">
+    <value>Comment:</value>
+  </data>
   <data name="Correctness" xml:space="preserve">
     <value>Owner correctness</value>
   </data>
@@ -210,6 +213,9 @@
   <data name="ExpectedNumberOfDays" xml:space="preserve">
     <value>Expected number of days:</value>
   </data>
+  <data name="FinalRatingDot" xml:space="preserve">
+    <value>Total rating:</value>
+  </data>
   <data name="Forums" xml:space="preserve">
     <value>Forums</value>
   </data>
@@ -224,6 +230,12 @@
   </data>
   <data name="GuestRating" xml:space="preserve">
     <value>Guest rating</value>
+  </data>
+  <data name="GuestRatings" xml:space="preserve">
+    <value>Guest ratings</value>
+  </data>
+  <data name="ImagesDot" xml:space="preserve">
+    <value>Images:</value>
   </data>
   <data name="Kindness" xml:space="preserve">
     <value>Kindness</value>
