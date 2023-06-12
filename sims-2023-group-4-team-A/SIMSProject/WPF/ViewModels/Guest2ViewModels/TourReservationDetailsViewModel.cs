@@ -4,6 +4,8 @@ using System;
 using System.Collections.ObjectModel;
 using SIMSProject.Domain.Models.UserModels;
 using System.Windows.Navigation;
+using SIMSProject.Application.Services.TourServices;
+using SIMSProject.Domain.Injectors;
 
 namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
 {
@@ -11,6 +13,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
     {
         #region Polja
         private readonly User _user;
+        private readonly TourGuestService _tourGuestService;
         public ObservableCollection<TourReservation> _tourReservations = new();
         public ObservableCollection<TourReservation> TourReservations
         {
@@ -56,6 +59,17 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
                 }
             }
         }
+        private string _myStatus;
+        public string MyStatus
+        {
+            get => _myStatus;
+            set
+            {
+                if (value == _myStatus) return;
+                _myStatus = value;
+                OnPropertyChanged(nameof(MyStatus));
+            }
+        }
         public NavigationService NavService { get; set; }
         public RelayCommand GeneratePDFCommand { get; set; }
         public RelayCommand GoBackCommand { get; set; }
@@ -67,8 +81,9 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             _user = user;
             NavService = navigationService;
             TourReservation = tourReservation;
+            _tourGuestService = Injector.GetService<TourGuestService>();
+            MyStatus = MyStatusText();
             GeneratePDFCommand = new RelayCommand(GeneratePDF);
-
             GoBackCommand = new RelayCommand(GoBackExecute, CanExecute_Command);
         }
         #endregion
@@ -86,6 +101,17 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
         private bool CanExecute_Command()
         {
             return true;
+        }
+        public string MyStatusText()
+        {
+            if (TourReservation == null) return "";
+            var tourGuest = _tourGuestService.GetTourGuest(TourReservation.TourAppointment, _user.Id);
+            if (tourGuest == null) return "";
+            if (tourGuest.GuestStatus == GuestAttendance.PRESENT && tourGuest.GuestStatus == GuestAttendance.PRESENT)
+            {
+                return "Moj status :     Prisutan";
+            }
+            return "Moj status :     Odsutan";
         }
         #endregion
     }

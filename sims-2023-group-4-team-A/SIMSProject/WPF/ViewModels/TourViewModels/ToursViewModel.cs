@@ -77,7 +77,8 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
                     Language.FRENCH => "Francuski",
                     Language.ITALIAN => "Italijanski",
                     Language.GERMAN => "Nemački",
-                    _ => "Engleski"
+                    Language.ENGLISH => "Engleski",
+                    _ => "Jezik"
 
                 };
             }
@@ -111,8 +112,6 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
         public NavigationService NavService { get; set; }
         public RelayCommand SearchCommand { get; set; }
         public RelayCommand ReserveCommand { get; set; }
-        public RelayCommand TextSearch_GotFocusCommand { get; set; }
-        public RelayCommand TextSearch_LostFocusCommand { get; set; }
         #endregion
 
         #region Konstruktori
@@ -124,13 +123,11 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
             _tourService = Injector.GetService<TourService>();
             _tourGuestService = Injector.GetService<TourGuestService>();
             Tours = new(_tourService.GetTours());
-            TourLanguages = new(Tour.GetLanguages());
+            TourLanguages = new ObservableCollection<string>(Tour.GetLanguages());
+            TourLanguages.Insert(0, "Jezik");
             LabelVisibility = Visibility.Hidden;
             SearchCommand = new RelayCommand(SearchExecute);
             ReserveCommand = new RelayCommand(ReserveExecute);
-
-            //TextSearch_GotFocusCommand = new RelayCommand(TextSearch_GotFocus);
-            //TextSearch_LostFocusCommand = new RelayCommand(TextSearch_LostFocus);
         }
 
         #endregion
@@ -166,6 +163,10 @@ namespace SIMSProject.WPF.ViewModels.TourViewModels
                     return "SPANISH";
                 case "Francuski":
                     return "FRENCH";
+                case "Italijanski":
+                    return "ITALIAN";
+                case "Nemački":
+                    return "GERMAN";
                 default:
                     return "";
             }

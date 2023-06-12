@@ -73,8 +73,8 @@
 
         <custom:Guest2NumericBoxInput Value="{Binding GuestCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="GuestCount" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Cursor="Hand" FontWeight="Bold"/>
         <Button x:Name="BtnCreation" Click="CreateRequest_Click" Background="#ff6700" Grid.Column="7" Grid.Row="8" Content="Kreiraj zahtev" FontSize="32" FontWeight="Bold" Margin="0,0,15,0" Cursor="Hand"/>
-        <Label x:Name="LblCheck" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="5" Content="Sva polja moraju biti popunjena!" Visibility="Hidden" FontSize="32" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-        <Label x:Name="LblGuestNumber" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="5" Content="Broj gostiju ne može biti 0!" Visibility="Hidden" FontSize="32" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-        <Label x:Name="LblRequestCreated" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="5" Content="Zahtev uspešno kreiran!" Visibility="Hidden" FontSize="32" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+        <Label x:Name="LblCheck" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="4" Content="Sva polja moraju biti popunjena!" Visibility="Hidden" FontSize="32" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="0,21,0,0" Width="576"/>
+        <Label x:Name="LblGuestNumber" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="5" Content="Broj gostiju ne može biti 0!" Visibility="Hidden" FontSize="32" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="740" Margin="0,21,0,0"/>
+        <Label x:Name="LblRequestCreated" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="4" Content="Zahtev uspešno kreiran!" Visibility="Hidden" FontSize="32" Foreground="Green" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Height="80" Width="531" Margin="0,20,0,0" Grid.RowSpan="2"/>
     </Grid>
 </Page>
