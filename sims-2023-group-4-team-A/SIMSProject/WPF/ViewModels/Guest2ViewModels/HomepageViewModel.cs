@@ -113,6 +113,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             NavService.Navigate(showAndSearchTours);
             MakeButtonsTransparent();
             Button1Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff6700"));
+            CheckTourPresenceNotifications();
         }
         private void Execute_NavigateToMyReservationsPageCommand()
         {
@@ -120,6 +121,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             NavService.Navigate(tourReservations);
             MakeButtonsTransparent();
             Button2Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff6700"));
+            CheckTourPresenceNotifications();
         }
         private void Execute_NavigateToTourRequestsPageCommand()
         {
@@ -127,6 +129,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             NavService.Navigate(myTourRequests);
             MakeButtonsTransparent();
             Button3Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff6700"));
+            CheckTourPresenceNotifications();
         }
         private void Execute_NavigateToMyVouchersPageCommand()
         {
@@ -134,6 +137,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             NavService.Navigate(vouchersDisplay);
             MakeButtonsTransparent();
             Button4Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff6700"));
+            CheckTourPresenceNotifications();
 
         }
         private void Execute_NavigateToMyNotificationsPageCommand()
@@ -141,6 +145,7 @@ namespace SIMSProject.WPF.ViewModels.Guest2ViewModels
             Guest2NotificationView guest2NotificationView = new Guest2NotificationView(_user);
             NavService.Navigate(guest2NotificationView);
             MakeButtonsTransparent();
+            CheckTourPresenceNotifications();
             Button5Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff6700"));
         }
         public void Execute_NavigateLogOutCommand()

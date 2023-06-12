@@ -44,11 +44,11 @@
             <ComboBoxItem Content="2021"/>
         </ComboBox>
         <Label Grid.Row="4" Grid.Column="2" FontSize="28" VerticalAlignment="Center" Content="Prihvaćeni: " FontWeight="Bold"/>
-        <TextBlock Grid.Row="4" Grid.Column="3" Text="{Binding AcceptedPercentage}" FontSize="28" VerticalAlignment="Center" FontWeight="Bold"/>
+        <TextBlock Grid.Row="4" Grid.Column="3" Text="{Binding AcceptedPercentage}" FontSize="28" VerticalAlignment="Center" FontWeight="Bold" Grid.ColumnSpan="2" Margin="9,0,21,0"/>
         <Label Grid.Row="5" Grid.Column="2" FontSize="28" VerticalAlignment="Center" Content="Neprihvaćeni: " FontWeight="Bold"/>
-        <TextBlock Grid.Row="5" Grid.Column="3" Text="{Binding UnacceptedPercentage}" FontSize="28" VerticalAlignment="Center" FontWeight="Bold"/>
-        <Label Grid.Row="6" Grid.Column="2" FontSize="28" VerticalAlignment="Center" Content="Prosečan broj gostiju: " FontWeight="Bold"/>
-        <TextBlock Grid.Row="6" Grid.Column="3" Text="{Binding AverageGuestNumber}" FontSize="28" VerticalAlignment="Center" FontWeight="Bold"/>
+        <TextBlock Grid.Row="5" Grid.Column="3" Text="{Binding UnacceptedPercentage}" FontSize="28" VerticalAlignment="Center" FontWeight="Bold" Grid.ColumnSpan="2" Margin="9,0,21,0"/>
+        <Label Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" FontSize="28" VerticalAlignment="Center" Content="Prosečan broj gostiju: " FontWeight="Bold"/>
+        <TextBlock Grid.Row="6" Grid.Column="3" Text="{Binding AverageGuestNumber}" FontSize="28" VerticalAlignment="Center" FontWeight="Bold" Grid.ColumnSpan="2" Margin="9,0,21,0"/>
     
         <lvc:CartesianChart Grid.Row="4" Grid.Column="5" Grid.RowSpan="3" Visibility="{Binding LanguageVisibility, UpdateSourceTrigger=PropertyChanged}" Series="{Binding LanguageCounts}">
             <lvc:CartesianChart.AxisX>

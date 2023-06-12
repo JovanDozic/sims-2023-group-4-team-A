@@ -99,8 +99,8 @@
                        FontSize="24" FontWeight="Bold"
                        VerticalAlignment="Bottom"/>
         </StackPanel>
-        <Label Visibility="Hidden" x:Name="LblNotEnoughSpots" Content="{Binding NotEnoughSpots}" Grid.Row="12" Grid.Column="3" Grid.ColumnSpan="4" FontWeight="Bold" FontSize="25" Foreground="Red" Margin="0,22,0,12" Grid.RowSpan="2"/>
-        <Label Visibility="Hidden" x:Name="LblPickAppointment" Content="Morate izabrati neki termin!" Grid.Row="12" Grid.Column="3" Grid.ColumnSpan="4" FontWeight="Bold" FontSize="25" Foreground="Red" Margin="0,22,0,12" Grid.RowSpan="2"/>
-        <Label Visibility="Hidden" x:Name="LblReservationCreated" Content="Rezervacija uspešna!" Grid.Row="12" Grid.Column="3" Grid.ColumnSpan="4" FontWeight="Bold" FontSize="25" Foreground="Green" Margin="0,22,0,12" Grid.RowSpan="2"/>
+        <Label Visibility="Hidden" x:Name="LblNotEnoughSpots" Content="{Binding NotEnoughSpots}" Grid.Row="12" Grid.Column="3" Grid.ColumnSpan="4" FontWeight="Bold" FontSize="25" Foreground="Red" Margin="0,22,0,12" Grid.RowSpan="3"/>
+        <Label Visibility="Hidden" x:Name="LblPickAppointment" Content="Morate izabrati neki termin!" Grid.Row="12" Grid.Column="3" Grid.ColumnSpan="4" FontWeight="Bold" FontSize="25" Foreground="Red" Margin="0,22,0,12" Grid.RowSpan="3"/>
+        <Label Visibility="Hidden" x:Name="LblReservationCreated" Content="Rezervacija uspešna!" Grid.Row="12" Grid.Column="3" Grid.ColumnSpan="4" FontWeight="Bold" FontSize="25" Foreground="Green" Margin="0,22,0,12" Grid.RowSpan="3"/>
     </Grid>
 </Page>

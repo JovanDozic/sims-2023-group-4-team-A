@@ -220,6 +220,7 @@ namespace SIMSProject.WPF.Views.Guest2Views
                 NotEnoughSpots = "Na turi ima " + selectedAppointment.AvailableSpots + " mesta, izmenite zahtev!";
                 LblNotEnoughSpots.Visibility = Visibility.Visible;
                 LblPickAppointment.Visibility = Visibility.Hidden;
+                LblReservationCreated.Visibility = Visibility.Hidden;
                 return false;
             }
             return true;
